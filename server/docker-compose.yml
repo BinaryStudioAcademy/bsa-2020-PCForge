@@ -28,6 +28,8 @@ services:
     networks:
       - postgres
     restart: always
+    depends_on:
+      - postgres
 
 networks:
   postgres:
