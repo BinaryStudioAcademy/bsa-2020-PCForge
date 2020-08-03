@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "mikestead.dotenv",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "waderyan.gitblame",
+    "christian-kohler.npm-intellisense",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "syler.sass-indented"
+  ]
+}
