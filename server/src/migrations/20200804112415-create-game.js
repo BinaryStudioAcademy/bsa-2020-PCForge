@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Games', {
+    await queryInterface.createTable('games', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -35,7 +35,7 @@ module.exports = {
       recommendedCpuId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Cpus',
+          model: 'cpus',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -44,7 +44,7 @@ module.exports = {
       recommendedGpuId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Gpus',
+          model: 'gpus',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -53,7 +53,7 @@ module.exports = {
       minimalCpuId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Cpus',
+          model: 'cpus',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -62,7 +62,7 @@ module.exports = {
       minimalGpuId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Gpus',
+          model: 'gpus',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -79,6 +79,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Games');
+    await queryInterface.dropTable('games');
   },
 };

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Motherboards', {
+    await queryInterface.createTable('motherboards', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -15,7 +15,7 @@ module.exports = {
       socketId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Sockets',
+          model: 'sockets',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -24,7 +24,7 @@ module.exports = {
       ramTypeId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'RamTypes',
+          model: 'ramTypes',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -41,6 +41,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Motherboards');
+    await queryInterface.dropTable('motherboards');
   },
 };

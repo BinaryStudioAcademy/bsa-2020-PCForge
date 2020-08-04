@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Setups', {
+    await queryInterface.createTable('setups', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -23,7 +23,7 @@ module.exports = {
       authorId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Users',
+          model: 'users',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -32,7 +32,7 @@ module.exports = {
       cpuId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Cpus',
+          model: 'cpus',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -41,7 +41,7 @@ module.exports = {
       gpuId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Gpus',
+          model: 'gpus',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -50,7 +50,7 @@ module.exports = {
       motherboardId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Motherboards',
+          model: 'motherboards',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -59,7 +59,7 @@ module.exports = {
       ramId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Rams',
+          model: 'rams',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -68,7 +68,7 @@ module.exports = {
       powerSupplyId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'PowerSupplies',
+          model: 'powerSupplies',
           key: 'id',
         },
         onUpdate: 'CASCADE',
@@ -85,6 +85,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Setups');
+    await queryInterface.dropTable('setups');
   },
 };
