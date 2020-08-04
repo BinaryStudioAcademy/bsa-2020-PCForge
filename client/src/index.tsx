@@ -8,7 +8,7 @@ import App from 'containers/App';
 import history from './browserHistory';
 import * as serviceWorker from './serviceWorker';
 import 'styles/index.sass';
-import { theme } from './assets/jss/theme';
+import { theme } from 'assets/jss/theme';
 
 ReactDOM.render(
   <Provider store={store}>
