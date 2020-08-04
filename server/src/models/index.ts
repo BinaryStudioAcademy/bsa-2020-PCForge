@@ -37,18 +37,16 @@ CommentModel.belongsTo(GameModel, { foreignKey: 'commentableId', constraints: fa
 
 CpuModel.belongsTo(SocketModel);
 CpuModel.hasMany(SetupModel);
-CpuModel.hasMany(GameModel);
 
 GameModel.hasMany(RateModel, { foreignKey: 'ratebleId', constraints: false });
 GameModel.hasMany(CommentModel, { foreignKey: 'commentableId', constraints: false });
-GameModel.belongsTo(CpuModel, { as: 'minimalCpuId' });
-GameModel.belongsTo(CpuModel, { as: 'recommendedCpuId' });
-GameModel.belongsTo(GpuModel, { as: 'minimalGpuId' });
-GameModel.belongsTo(GpuModel, { as: 'recommendedGpuId' });
+GameModel.belongsTo(CpuModel, { as: 'minimalCpu' });
+GameModel.belongsTo(CpuModel, { as: 'recommendedCpu' });
+GameModel.belongsTo(GpuModel, { as: 'minimalGpu' });
+GameModel.belongsTo(GpuModel, { as: 'recommendedGpu' });
 GameModel.hasMany(UserGameModel);
 
 GpuModel.hasMany(SetupModel);
-GpuModel.hasMany(GameModel);
 
 MotherboardModel.belongsTo(SocketModel);
 MotherboardModel.belongsTo(RamTypeModel);
