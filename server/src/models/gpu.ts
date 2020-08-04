@@ -3,11 +3,13 @@ import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 export interface GpuAttributes {
   id: number;
   name: string;
-  year: number;
-  image: string;
-  description: string;
-  recommendedRamSize: number;
-  minimalRamSize: number;
+  interface: string;
+  memorySize: number;
+  coreClocks: number;
+  directx: string;
+  opengl: string;
+  tdp: number;
+  performance: number;
   createdAt: Date;
   updatedAt: Date;
 }

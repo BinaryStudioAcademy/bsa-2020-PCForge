@@ -31,16 +31,16 @@ const UserModel = UserFactory(orm);
 const UserGameModel = UserGameFactory(orm);
 
 CommentModel.belongsTo(UserModel);
-CommentModel.belongsTo(SetupModel, { foreignKey: 'commentable_id', constraints: false });
-CommentModel.belongsTo(NewsModel, { foreignKey: 'commentable_id', constraints: false });
-CommentModel.belongsTo(GameModel, { foreignKey: 'commentable_id', constraints: false });
+CommentModel.belongsTo(SetupModel, { foreignKey: 'commentableId', constraints: false });
+CommentModel.belongsTo(NewsModel, { foreignKey: 'commentableId', constraints: false });
+CommentModel.belongsTo(GameModel, { foreignKey: 'commentableId', constraints: false });
 
 CpuModel.belongsTo(SocketModel);
 CpuModel.hasMany(SetupModel);
 CpuModel.hasMany(GameModel);
 
-GameModel.hasMany(RateModel, { foreignKey: 'rateble_id', constraints: false });
-GameModel.hasMany(CommentModel, { foreignKey: 'commentable_id', constraints: false });
+GameModel.hasMany(RateModel, { foreignKey: 'ratebleId', constraints: false });
+GameModel.hasMany(CommentModel, { foreignKey: 'commentableId', constraints: false });
 GameModel.belongsTo(CpuModel, { as: 'minimalCpuId' });
 GameModel.belongsTo(CpuModel, { as: 'recommendedCpuId' });
 GameModel.belongsTo(GpuModel, { as: 'minimalGpuId' });
@@ -53,8 +53,8 @@ GpuModel.hasMany(GameModel);
 MotherboardModel.belongsTo(SocketModel);
 MotherboardModel.belongsTo(RamTypeModel);
 
-NewsModel.hasMany(RateModel, { foreignKey: 'rateble_id', constraints: false });
-NewsModel.hasMany(CommentModel, { foreignKey: 'commentable_id', constraints: false });
+NewsModel.hasMany(RateModel, { foreignKey: 'ratebleId', constraints: false });
+NewsModel.hasMany(CommentModel, { foreignKey: 'commentableId', constraints: false });
 
 PowerSupplyModel.hasMany(SetupModel);
 
@@ -65,9 +65,9 @@ RamTypeModel.hasMany(RamModel);
 RamTypeModel.hasMany(MotherboardModel);
 
 RateModel.belongsTo(UserModel);
-RateModel.belongsTo(SetupModel, { foreignKey: 'rateble_id', constraints: false });
-RateModel.belongsTo(NewsModel, { foreignKey: 'rateble_id', constraints: false });
-RateModel.belongsTo(GameModel, { foreignKey: 'rateble_id', constraints: false });
+RateModel.belongsTo(SetupModel, { foreignKey: 'ratebleId', constraints: false });
+RateModel.belongsTo(NewsModel, { foreignKey: 'ratebleId', constraints: false });
+RateModel.belongsTo(GameModel, { foreignKey: 'ratebleId', constraints: false });
 
 SetupModel.belongsTo(UserModel);
 SetupModel.belongsTo(CpuModel);
@@ -75,8 +75,8 @@ SetupModel.belongsTo(GpuModel);
 SetupModel.belongsTo(RamModel);
 SetupModel.belongsTo(MotherboardModel);
 SetupModel.belongsTo(PowerSupplyModel);
-SetupModel.hasMany(CommentModel, { foreignKey: 'commentable_id', constraints: false });
-SetupModel.hasMany(RateModel, { foreignKey: 'rateble_id', constraints: false });
+SetupModel.hasMany(CommentModel, { foreignKey: 'commentableId', constraints: false });
+SetupModel.hasMany(RateModel, { foreignKey: 'ratebleId', constraints: false });
 
 SocketModel.hasMany(MotherboardModel);
 SocketModel.hasMany(CpuModel);
