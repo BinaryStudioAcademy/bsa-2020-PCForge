@@ -21,6 +21,7 @@
     "pg-hstore": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.22.3",
+    "sequelize-cli": "^6.2.0",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
