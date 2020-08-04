@@ -1,41 +1,50 @@
 import React from 'react';
 import MButton, {ButtonProps} from '@material-ui/core/Button';
-import { getIcon } from 'helpers/icon.helper';
+import { getIcon } from 'common/helpers/icon.helper';
 import styles from './styles.module.scss';
 
+export enum ButtonType {
+    primary = 'primary',
+    secondary = 'secondary',
+    warning = 'warning',
+    error = 'error',
+}
 
 interface IButtonProps {
-    primary?: boolean;
-    secondary?: boolean;
-    warning?: boolean;
-    error?: boolean;
+    buttonType?: ButtonType,
     icon?: string;
     children?: any;
 }
 
 
-const Button:React.FC<ButtonProps & IButtonProps> = ({primary, secondary, warning, error, icon, children, ...rest}) => {
-    const classes = [styles.btn]
-    if(primary) {
-        classes.push(styles['btn-primary'])
-    } else if(secondary) {
-        classes.push(styles['btn-secondary'])
-    } else if(warning) {
-        classes.push(styles['btn-warning'])
-        icon = 'Warning'
-    } else if(error) {
-        classes.push(styles['btn-error'])
-        icon = 'Error'
+const Button:React.FC<ButtonProps & IButtonProps> = (props) => {
+    const classes = [styles.btn];
+    let icon = props.icon;
+    switch(props.buttonType) {
+        case ButtonType.primary:
+            classes.push(styles.btnPrimary);
+            break;
+        case ButtonType.secondary:
+            classes.push(styles.btnSecondary);
+            break;
+        case ButtonType.warning:
+            classes.push(styles.btnWarning)
+            icon = 'Warning';
+            break;
+        case ButtonType.error:
+            classes.push(styles.btnError);
+            icon = 'Error';
+            break;
     }
     
     return (
         <MButton
-            {...rest}
             variant="outlined"
             startIcon={icon ? getIcon(icon) : null}
             className={classes.join(' ')}
+            {...props}
         >
-            {children}
+            {props.children}
         </MButton>
     )
 };

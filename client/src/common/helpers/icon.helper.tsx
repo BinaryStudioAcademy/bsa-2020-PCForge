@@ -6,6 +6,6 @@ interface IIcons {
 }
 
 export function getIcon(name:string):ReactElement {
-    const IconTag = (Icons as unknown as IIcons)[name];
+    const IconTag = (Icons as IIcons)[name];
     return <IconTag />
 }

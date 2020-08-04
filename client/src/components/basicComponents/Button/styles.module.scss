@@ -6,35 +6,36 @@ $btn-error:rgb(240, 68, 25);
 
 .btn {
     border-radius: 20px !important;
-    height: 40px;
-    color:#fff;
-
+    height: 35px;
+    color: white;
+    
+  
     & > span {
         color:white;
     }
 
-    &.btn-primary {
+    &.btnPrimary {
         background-color: $btn-primary;
         &:hover {
             background-color: darken($btn-primary, 10%)
         }
     }
     
-    &.btn-secondary {
+    &.btnSecondary {
         background-color: $btn-secondary;
         &:hover {
             background-color: darken($btn-secondary, 10%)
         }
     }
 
-    &.btn-warning {
+    &.btnWarning {
         background-color: $btn-warning;
         &:hover {
             background-color: darken($btn-warning, 10%)
         }
     }
 
-    &.btn-error{
+    &.btnError{
         background-color: $btn-error;
         &:hover {
             background-color: darken($btn-error, 10%)

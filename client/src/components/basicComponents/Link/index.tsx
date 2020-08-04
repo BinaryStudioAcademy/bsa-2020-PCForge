@@ -1,6 +1,7 @@
 import React from 'react';
 import MLink, { LinkProps } from '@material-ui/core/Link';
-import { getIcon } from 'helpers/icon.helper';
+import { getIcon } from 'common/helpers/icon.helper';
+import styles from './styles.module.scss';
 
 
 interface ILinkProps {
@@ -10,10 +11,12 @@ interface ILinkProps {
 }
 
 
-const Link:React.FC<LinkProps & ILinkProps> = ({defaultProp, icon, children, ...rest}) => {
+const Link:React.FC<LinkProps & ILinkProps> = (props) => {
+    const {defaultProp, icon, children} = props;
     return (
         <MLink
-            {...rest}
+            className={styles.link}
+            {...props}
         >
             {icon && getIcon(icon)}
             {children}

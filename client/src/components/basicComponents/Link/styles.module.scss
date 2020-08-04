@@ -1,0 +1,17 @@
+$link-default-color: rgb(223, 217, 217);
+$link-default-hover-color: rgb(246, 243, 243);
+
+.link {
+    color:$link-default-color !important;
+   
+    & svg {
+        position: relative;
+        top:5px;
+        margin-right: 5px;
+    }
+    &:hover {
+        text-decoration: none !important;
+        cursor: pointer;
+        color: $link-default-hover-color !important;
+    }
+}
