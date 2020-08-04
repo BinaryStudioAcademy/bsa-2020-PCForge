@@ -2,9 +2,7 @@ import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 
 export interface SocketAttributes {
   id: number;
-  title: string;
-  description: string;
-  image: string;
+  name: string;
   createdAt: Date;
   updatedAt: Date;
 }
