@@ -7,6 +7,11 @@ $bg-color-input:  #575858;
    & > div {
     background-color: $bg-color-input;
     border-radius: 20px;
+
+    &::before, &::after {
+        border:none !important;
+    }
+   
    }
     & > div path {
         color: $bg-color-text;
