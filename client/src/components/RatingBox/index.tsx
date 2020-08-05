@@ -1,5 +1,5 @@
 import React from "react";
-import { withStyles, makeStyles, createStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import RatingIcon from './RatingIcon/index';
@@ -18,14 +18,6 @@ const StyledRating = withStyles({
   }
 })(Rating);
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    fieldset: {
-      display: 'inline-block',
-    }
-  })
-);
-
 enum labels {
   'Useless' = 0.5,
   'Better that just useless' = 1,
@@ -42,14 +34,13 @@ enum labels {
 export function RatingBox(ratingValue: number, disabled: boolean) {
   const [value, setValue] = React.useState<number>(ratingValue);
   const [hover, setHover] = React.useState<number>(-1);
-  const classes = useStyles();
 
   const tooltipValue = disabled
                         ? value
                         : labels[hover !== -1 ? hover : 0.5];
   return (
       <Tooltip title={tooltipValue} placement="right-start" arrow>
-      <Box mb={1} borderColor="transparent" className={classes.fieldset}>
+      <Box mb={1} borderColor="transparent" display="inline-block">
           <StyledRating
             name="customized-color"
             value={value}
