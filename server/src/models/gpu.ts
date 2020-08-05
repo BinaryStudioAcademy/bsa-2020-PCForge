@@ -3,11 +3,11 @@ import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 export interface GpuAttributes {
   id: number;
   name: string;
-  interface: string | null;
-  memorySize: number | null;
-  coreClocks: number | null;
-  directx: string | null;
-  tdp: number | null;
+  interface: string;
+  memorySize: number;
+  coreClocks: number;
+  directx: string;
+  tdp: number;
   performance: number;
   createdAt: Date;
   updatedAt: Date;
@@ -31,18 +31,23 @@ export function GpuFactory(sequelize: Sequelize): GpuStatic {
       type: DataTypes.STRING(50),
     },
     interface: {
+      allowNull: false,
       type: DataTypes.STRING(50),
     },
     memorySize: {
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     coreClocks: {
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     directx: {
+      allowNull: false,
       type: DataTypes.STRING(50),
     },
     tdp: {
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     performance: {

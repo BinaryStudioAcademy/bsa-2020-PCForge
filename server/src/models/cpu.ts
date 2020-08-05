@@ -4,10 +4,10 @@ export interface CpuAttributes {
   id: number;
   name: string;
   performance: number;
-  clockspeed: number | null;
-  tdp: number | null;
-  cores: number | null;
-  class: string | null;
+  clockspeed: number;
+  tdp: number;
+  cores: number;
+  class: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -34,15 +34,19 @@ export function CpuFactory(sequelize: Sequelize): CpuStatic {
       type: DataTypes.INTEGER,
     },
     clockspeed: {
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     tdp: {
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     cores: {
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     class: {
+      allowNull: false,
       type: DataTypes.STRING(50),
     },
     createdAt: {
