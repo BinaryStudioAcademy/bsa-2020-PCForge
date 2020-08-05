@@ -1,5 +1,5 @@
 import Sequelize from 'sequelize';
-import { config } from '../../../config/db.config';
+import * as config from '../../../config/db.config';
 import fp from 'fastify-plugin';
 
 import { CommentStatic } from '../models/comment';
@@ -40,7 +40,7 @@ export interface Db {
 }
 
 export default fp(async (fastify, opts, next) => {
-  const { database, username, password, params } = config;
+  const { database, username, password, ...params } = config;
   const sequelize = new Sequelize(database, username, password, params);
 
   try {
