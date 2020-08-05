@@ -1,14 +1,12 @@
 import fastify from 'fastify';
 import db from './data/db/connection';
+import router from './api/routes/index';
 
 const port = parseInt(process.env.APP_PORT, 10) || 5001;
 const server = fastify();
 
-// after server was created
 server.register(db);
-server.get('/ping', async (request, reply) => {
-  return 'pong\n';
-});
+server.register(router);
 
 server.listen(port, (err, address) => {
   if (err) {
