@@ -22,12 +22,20 @@ $text-color2: #cbcfd4;
     background: $background;
     width: 100%;
     padding: 2rem 1rem 3rem;
+    border-radius: 7px;
+    box-shadow: 40px 40px 20px 30px rgba(0, 0, 0, 0.1);
+}
+
+.select-item {
+    display: flex;
+    flex-direction: column;
 }
 
 .section-header {
     font-size: 24px;
     line-height: 28px;
     color: $text-color;
+    margin: 10px 0;
 }
 
 .select-item-header {

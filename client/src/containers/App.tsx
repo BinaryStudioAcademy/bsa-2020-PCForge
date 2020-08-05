@@ -7,6 +7,7 @@ export default class App extends Component {
   render() {
     return (
       <Switch>
+        <GameMatcherPage></GameMatcherPage>
         <Route exact path={Routes.DEFAULT} component={() => <div />} />
       </Switch>
     );
