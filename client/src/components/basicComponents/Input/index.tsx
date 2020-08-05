@@ -13,6 +13,7 @@ export enum InputType {
 interface IInputProps {
   inputType?: InputType,
   icon?: string;
+  value?: any;
 }
 
 const Input: React.FC<TextFieldProps & IInputProps> = (props) => {

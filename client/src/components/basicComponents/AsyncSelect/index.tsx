@@ -19,7 +19,7 @@ const Select: React.FC<ISelectProps & SelectProps> = (props) => {
 
   props.fetchCallback().then((data) => {
     const optionsArray = data.map((opt) => <option value={opt.value}>{opt.title}</option>);
-    optionsArray.unshift(<><option value="">{props.placeholder ? props.placeholder : ''}</option></>);
+    optionsArray.unshift(<><option value="">{props.placeholder || ''}</option></>);
     setOptions(optionsArray);
   });
 
