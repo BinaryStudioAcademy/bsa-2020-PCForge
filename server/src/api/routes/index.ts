@@ -1,21 +1,9 @@
 import { FastifyInstance } from 'fastify';
+import { router as ramTypeRouter } from './ramType.router';
+import { router as pingRouter } from './ping.router';
 
-interface IBody {
-  name: string;
-}
-
-export default function router(fastify: FastifyInstance, opts, next): void {
-  fastify.get('/ping', {}, async (request, reply) => {
-    reply.send('pong');
-  });
-  fastify.get('/ramTypes', {}, async (request, reply) => {
-    const ramTypes = await fastify.db.models.RamType.findAll();
-    reply.send(ramTypes);
-  });
-  fastify.post<{ Body: IBody }>('/ramTypes', {}, async (request, reply) => {
-    const { name } = request.body;
-    const ramType = await fastify.db.models.RamType.create({ name });
-    reply.send(ramType);
-  });
+export default (fastify: FastifyInstance, opts, next): void => {
+  fastify.register(pingRouter, { prefix: '/api/ping' });
+  fastify.register(ramTypeRouter, { prefix: '/api/ramType' });
   next();
-}
+};
