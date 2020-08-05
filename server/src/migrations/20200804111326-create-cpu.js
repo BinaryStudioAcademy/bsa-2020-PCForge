@@ -17,19 +17,15 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       clockspeed: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       tdp: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       cores: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       class: {
-        allowNull: false,
         type: Sequelize.STRING(50),
       },
       socketId: {

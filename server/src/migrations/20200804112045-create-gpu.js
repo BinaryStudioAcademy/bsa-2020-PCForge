@@ -13,23 +13,18 @@ module.exports = {
         type: Sequelize.STRING(50),
       },
       interface: {
-        allowNull: false,
         type: Sequelize.STRING(50),
       },
       memorySize: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       coreClocks: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       directx: {
-        allowNull: false,
         type: Sequelize.STRING(50),
       },
       tdp: {
-        allowNull: false,
         type: Sequelize.INTEGER,
       },
       performance: {

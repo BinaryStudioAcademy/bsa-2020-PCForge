@@ -21,7 +21,6 @@
     "pg-hstore": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.22.3",
-    "sequelize-cli": "^6.2.0",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
@@ -37,7 +36,8 @@
     "lint-staged": "^10.2.11",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
-    "ts-node-dev": "^1.0.0-pre.56"
+    "ts-node-dev": "^1.0.0-pre.56",
+    "sequelize-cli": "^6.2.0"
   },
   "husky": {
     "hooks": {
