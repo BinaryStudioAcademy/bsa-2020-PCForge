@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import express from 'express';
 import sequelize from './db/connection';
 
@@ -6,7 +7,7 @@ const port = process.env.APP_PORT || 5001;
 
 sequelize
   .authenticate()
-  .then(() => {
+  .then(async () => {
     console.log('Connection has been established successfully.');
   })
   .catch((err) => {
