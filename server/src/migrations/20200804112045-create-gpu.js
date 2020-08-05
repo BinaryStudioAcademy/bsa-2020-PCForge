@@ -28,10 +28,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(50),
       },
-      opengl: {
-        allowNull: false,
-        type: Sequelize.STRING(50),
-      },
       tdp: {
         allowNull: false,
         type: Sequelize.INTEGER,

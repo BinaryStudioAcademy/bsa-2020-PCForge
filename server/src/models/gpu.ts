@@ -47,10 +47,6 @@ export function GpuFactory(sequelize: Sequelize): GpuStatic {
       allowNull: false,
       type: DataTypes.STRING(50),
     },
-    opengl: {
-      allowNull: false,
-      type: DataTypes.STRING(50),
-    },
     tdp: {
       allowNull: false,
       type: DataTypes.INTEGER,
