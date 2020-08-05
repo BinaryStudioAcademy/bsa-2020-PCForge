@@ -6,4 +6,4 @@ export type PostRamTypeRequest = FastifyRequest<{
 
 export type GetRamTypeRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { myId: number | null };
