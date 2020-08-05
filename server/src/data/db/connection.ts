@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
-import * as config from '../../../config/db.config';
+import { config } from '../../../config/db.config';
+import fp from 'fastify-plugin';
 
 import { CommentStatic } from '../models/comment';
 import { CpuStatic } from '../models/cpu';
