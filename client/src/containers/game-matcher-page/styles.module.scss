@@ -1,0 +1,40 @@
+$page-background: #30363D;
+$background: #3C444D;
+$text-color: #fff;
+$text-color2: #cbcfd4;
+
+.game-matcher {
+    background: $page-background;
+}
+
+.page-header {
+    color: $text-color;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 56px;
+    margin: 0;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: $background;
+    width: 100%;
+    padding: 2rem 1rem 3rem;
+}
+
+.section-header {
+    font-size: 24px;
+    line-height: 28px;
+    color: $text-color;
+}
+
+.select-item-header {
+    color: $text-color2;
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    line-height: 22px;
+    text-transform: uppercase;
+}
+
