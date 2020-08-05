@@ -1,0 +1,28 @@
+.formControl {
+  min-width: 200px !important;
+  width: 100% !important;
+  border: none;
+
+  & div {
+      background-color: white;
+  }
+
+  legend {
+    display: none;
+  }
+
+  fieldset {
+      border: none;
+  }
+
+  & div select {
+    padding: 10px;
+  }
+
+}
+
+.inputLabel {
+    position: relative;
+    bottom:8px;
+    color: white;
+}
