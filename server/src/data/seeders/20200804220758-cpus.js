@@ -1,22 +1,25 @@
 'use strict';
 
-const cpus = require("../seed-data/cpus");
-
+const cpus = require('../seed-data/cpus');
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const newCpus = []
+    const newCpus = [];
     try {
       for (const cpu of cpus) {
-        console.log("cpu", cpu)
-        const socketId = await queryInterface.rawSelect(`sockets`, {
-          where: {
-            name: cpu.socket,
+        console.log('cpu', cpu);
+        const socketId = await queryInterface.rawSelect(
+          `sockets`,
+          {
+            where: {
+              name: cpu.socket,
+            },
           },
-        }, ['id']);
-        console.log("socket", socket)
+          ['id']
+        );
+        console.log('socket', socketId);
 
-        if (socket) {
+        if (socketId) {
           newCpus.push({
             name: cpu.name,
             performance: cpu.performance,
@@ -26,14 +29,13 @@ module.exports = {
             tdp: cpu.tdp,
             socketId,
             createdAt: new Date(Date.now()),
-            updatedAt: new Date(Date.now())
-          })
+            updatedAt: new Date(Date.now()),
+          });
         }
       }
 
       await queryInterface.bulkInsert('cpus', newCpus, {});
-    }
-    catch (err) {
+    } catch (err) {
       console.log(`Seeding error: ${err}`);
     }
   },
@@ -44,5 +46,5 @@ module.exports = {
     } catch (err) {
       console.log(`Seeding error: ${err}`);
     }
-  }
+  },
 };
