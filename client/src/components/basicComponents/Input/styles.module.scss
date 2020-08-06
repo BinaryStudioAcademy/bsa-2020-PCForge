@@ -13,6 +13,10 @@ $bg-color-input:  #575858;
     }
    
    }
+    & svg {
+        margin-left: 15px;
+    }
+
     & > div path {
         color: $bg-color-text;
     }
