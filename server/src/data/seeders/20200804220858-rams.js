@@ -1,21 +1,24 @@
 'use strict';
 
-const rams = require("../seed-data/rams");
-console.log("rams", rams)
-
+const rams = require('../seed-data/rams');
+console.log('rams', rams);
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    const ramsToSeed = []
+    const ramsToSeed = [];
     try {
       for (const ram of rams) {
-        const ramTypeId = await queryInterface.rawSelect(`ramTypes`, {
-          where: {
-            name: ram.type,
+        const ramTypeId = await queryInterface.rawSelect(
+          `ramTypes`,
+          {
+            where: {
+              name: ram.type,
+            },
           },
-        }, ['id']);
+          ['id']
+        );
 
-        if (type) {
+        if (ramTypeId) {
           ramsToSeed.push({
             name: ram.name,
             memorySize: ram.memorySize,
@@ -23,14 +26,13 @@ module.exports = {
             power: ram.power,
             typeId: ramTypeId,
             createdAt: new Date(Date.now()),
-            updatedAt: new Date(Date.now())
-          })
+            updatedAt: new Date(Date.now()),
+          });
         }
       }
 
       await queryInterface.bulkInsert('rams', ramsToSeed, {});
-    }
-    catch (err) {
+    } catch (err) {
       console.log(`Seeding error: ${err}`);
     }
   },
@@ -41,5 +43,5 @@ module.exports = {
     } catch (err) {
       console.log(`Seeding error: ${err}`);
     }
-  }
+  },
 };
