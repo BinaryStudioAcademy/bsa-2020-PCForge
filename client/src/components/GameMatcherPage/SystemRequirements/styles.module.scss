@@ -1,0 +1,89 @@
+@import '../../../styles/variables.sass';
+
+.mainHeader {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 56px;
+  /* identical to box height, or 156% */
+
+
+  color: #FFFFFF;
+}
+
+.performanceResultWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.requirements {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.requirement {
+  margin-right: 6rem;
+}
+
+.requirementHeader {
+  font-family: Lato;
+  margin: 10px 0 0 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  color: $colorTextWhite;
+}
+
+.requirementDetail {
+  margin: 5px 0 0 0;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #cbcfd4;
+}
+
+.summary {
+  height: 100;
+  overflow: auto;
+  box-sizing: border-box;
+  border-radius: 6px;
+  padding: 1rem 2rem 2rem 2rem;
+  border: 1px solid $colorBlue;
+}
+
+.summarySection {
+  margin-top: 1rem;
+}
+
+.summaryHeader {
+  font-family: Lato;
+  margin: 0;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  color: $colorTextWhite;
+}
+
+.summaryItemHeader {
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 22px;
+  color: $colorTextWhite;
+  font-weight: bold;
+}
+
+.summaryItemHeader::after {
+  content: ': '
+}
+
+.summaryItemBody {
+  font-family: Lato;
+  font-size: 16px;
+  line-height: 22px;
+  color: #CBCFD4;
+}

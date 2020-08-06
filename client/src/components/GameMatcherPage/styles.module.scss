@@ -1,0 +1,40 @@
+@import '../../styles/variables.sass';
+
+.mainHeader {
+  font-family: Lato;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 56px;
+  color: $colorTextWhite;
+}
+
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  min-width: 20px;
+  max-width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  box-sizing: border-box;
+  border-radius: 100%;
+
+  background: $colorWhite;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: $colorBlack;
+    border-radius: 100%;
+  }
+}
+
+.activeCircle {
+  background: $colorRed;
+  &::before {
+    width: 0;
+    height: 0;
+  }
+}
