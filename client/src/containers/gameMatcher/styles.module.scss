@@ -1,48 +1,55 @@
-$page-background: #30363D;
-$background: #3C444D;
-$text-color: #fff;
-$text-color2: #cbcfd4;
+@import '../../styles/variables.sass';
 
-.game-matcher {
-    background: $page-background;
+.gameMatcher {
+    background: $colorBlack;
 }
 
-.page-header {
-    color: $text-color;
+.pageHeader {
+    color: $colorTextWhite;
     font-weight: bold;
     font-size: 36px;
     line-height: 56px;
     margin: 0;
 }
 
-.main-container {
+.mainContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: $background;
+    background: $colorDarkGray;
     width: 100%;
     padding: 2rem 1rem 3rem;
     border-radius: 7px;
     box-shadow: 40px 40px 20px 30px rgba(0, 0, 0, 0.1);
 }
 
-.select-item {
-    display: flex;
-    flex-direction: column;
+.configs {
+  width: 50%;
 }
 
-.section-header {
+.selectItem {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.sectionHeader {
     font-size: 24px;
     line-height: 28px;
-    color: $text-color;
+    color: $colorTextWhite;
     margin: 10px 0;
 }
 
-.select-item-header {
-    color: $text-color2;
+.selectItemHeader {
+    color: $colorTextGray;
     margin: 10px 0 0 0;
     font-size: 14px;
     line-height: 22px;
     text-transform: uppercase;
+}
+
+.pageButton {
+  width: 400px;
 }
 
