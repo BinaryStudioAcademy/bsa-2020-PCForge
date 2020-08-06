@@ -6,7 +6,7 @@ const port = parseInt(process.env.APP_PORT, 10) || 5001;
 const server = fastify();
 
 server.register(db);
-server.register(routes);
+server.register(routes, { prefix: '/api' });
 
 server.listen(port, (err, address) => {
   if (err) {
