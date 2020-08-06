@@ -7,6 +7,12 @@ export interface PowerSupplyAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface PowerSupplyDataAttributes {
+  name: string;
+  power: number;
+}
+
 export interface PowerSupplyModel extends Model<PowerSupplyAttributes>, PowerSupplyAttributes {}
 export class PowerSupply extends Model<PowerSupplyModel, PowerSupplyAttributes> {}
 

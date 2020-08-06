@@ -2,8 +2,6 @@ import { RamDataAttributes, RamModel, RamStatic } from '../models/ram';
 import { RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, RichModel } from './base.repository';
 
-// , private ramTypeModel: RamTypeStatic
-
 export class RamRepository extends BaseRepository<RamModel> {
   constructor(private model: RamStatic, private ramTypeModel: RamTypeStatic) {
     super(<RichModel>model);
