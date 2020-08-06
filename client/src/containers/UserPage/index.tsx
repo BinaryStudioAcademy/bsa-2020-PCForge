@@ -1,8 +1,77 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import Input from 'components/BasicComponents/Input';
-import Button, { ButtonType } from 'components/BasicComponents/Button'
+import Button, { ButtonType } from 'components/BasicComponents/Button';
+
 export default function UserPage() {
+  const gamesArray = [
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
+      title: 'title',
+      releaseDate: '20.02.20',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
+      title: 'Half-life ALYX',
+      releaseDate: '06.06.16',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
+      title: 'title',
+      releaseDate: '20.02.20',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
+      title: 'Half-life ALYX',
+      releaseDate: '06.06.16',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
+      title: 'title',
+      releaseDate: '20.02.20',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
+      title: 'Half-life ALYX',
+      releaseDate: '06.06.16',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
+      title: 'Half-life ALYX',
+      releaseDate: '06.06.16',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
+      title: 'title',
+      releaseDate: '20.02.20',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
+      title: 'Half-life ALYX',
+      releaseDate: '06.06.16',
+    },
+  ];
+  const setupArray = [
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
+  ];
+
   return (
     <div className={styles.everything}>
       <div className={styles.header}>
@@ -18,41 +87,20 @@ export default function UserPage() {
             <img src="https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg" alt="" />
           </div>
           <div className={styles.userData}>
-              <Input disabled icon="Face" value="Takeshi Kovach"/>
-              <Input disabled icon="Email" value="Takeshi@gmail.com"/>
+            <Input disabled icon="Face" value="Takeshi Kovach" />
+            <Input disabled icon="Email" value="Takeshi@gmail.com" />
           </div>
           <Button buttonType={ButtonType.primary}>Edit</Button>
         </div>
-        <div className={styles.userPreferences}>
-          <p className={styles.favouritesTitle}>Favourites</p>
-          <div className={styles.favouriteGamesWrapper}>
-          <GameCard
-            image={"https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736"}
-            title={'Arizona Sunshine'}
-          />
-          <GameCard
-            image={"https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571"}
-            title={'Half-Life Alyx'}
-          />
-          
-          <GameCard
-            image={"https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736"}
-            title={'Arizona Sunshine'}
-          />
-          <GameCard
-            image={"https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571"}
-            title={'Half-Life Alyx'}
-          />
-          <GameCard
-            image={"https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736"}
-            title={'Arizona Sunshine'}
-          />
-          <GameCard
-            image={"https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571"}
-            title={'Half-Life Alyx'}
-          />
+
+        <div className={styles.preferencesSection}>
+          <div className={styles.buttonsContainer}>
+            <Button buttonType={ButtonType.primary}>Games</Button>
+            <Button buttonType={ButtonType.secondary}>Setups</Button>
           </div>
-        
+          <UserPreferences className={styles.userPreferences} setups={setupArray}>
+            <div>hello</div>
+          </UserPreferences>
         </div>
       </div>
       <div className={styles.fakeFooter}>Fake Footer</div>
@@ -60,13 +108,13 @@ export default function UserPage() {
   );
 }
 
-interface GameInfoProps {
+interface GameCardProps {
   image: string;
   title: string;
   releaseDate?: string;
 }
 
-const GameCard: React.FC<GameInfoProps> = ({ image, title, releaseDate }) => {
+const GameCard: React.FC<GameCardProps> = ({ image, title, releaseDate }) => {
   return (
     <div className={styles.gameCard}>
       <div className={styles.gameTitle}>{title}</div>
@@ -74,8 +122,70 @@ const GameCard: React.FC<GameInfoProps> = ({ image, title, releaseDate }) => {
         <img src={image} alt="" />
       </div>
       <div>{releaseDate}</div>
-      <p>Maybe some extra info?</p>
     </div>
   );
 };
-// "https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571"
+
+interface SetupCardProps {
+  image: string;
+  title: string;
+  description?: string;
+  className?: string;
+}
+
+const SetupCard: React.FC<SetupCardProps> = ({ image, title, description, className }) => {
+  let setupStyle = styles.setupCard + (`${className}` || '');
+  return (
+    <div className={setupStyle}>
+      <div className={styles.setupTitle}>{title}</div>
+      <div className={styles.setupImage}>
+        <img src={image} alt="" />
+      </div>
+      <div>{description}</div>
+    </div>
+  );
+};
+
+interface UserPreferencesProps {
+  games?: GameCardProps[];
+  setups?: SetupCardProps[];
+  className?: string;
+}
+
+const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
+  const { games, setups, className } = props;
+  return (
+    <>
+      {games ? (
+        <div className={className}>
+          {games.map((game) => (
+            <GameCard image={game.image} title={game.title} releaseDate={game.releaseDate} />
+          ))}
+        </div>
+      ) : (
+        ' '
+      )}
+
+      {setups ? (
+        <div className={className}>
+          {setups.map((setup) => (
+            <SetupCard image={setup.image} title={setup.title} description={setup.description} />
+          ))}
+        </div>
+      ) : (
+        ''
+      )}
+    </>
+  );
+};
+
+// <GameCard
+// image={'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736'}
+// title={'Arizona Sunshine'}
+// releaseDate={'20.02.20'}
+// />
+// <GameCard
+// image={'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571'}
+// title={'Half-Life Alyx'}
+// releaseDate={'20.02.20'}
+// />
