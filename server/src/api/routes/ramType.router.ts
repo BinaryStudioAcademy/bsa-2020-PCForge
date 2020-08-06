@@ -1,6 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { PostRamTypeRequest, GetRamTypeRequest } from './ramType.schema';
-import { testMiddleware } from '../middlewares/test.middleware';
+import { PostRamTypeRequest, GetRamTypeRequest, PutRamTypeRequest, DeleteRamTypeRequest } from './ramType.schema';
 
 export function router(fastify: FastifyInstance, opts, next): void {
   const { RamTypeService } = fastify.services;
@@ -10,19 +9,9 @@ export function router(fastify: FastifyInstance, opts, next): void {
     reply.send(ramTypes);
   });
 
-  /**
-   * Add array of middlewares to preHandler.
-   * We can also write out custom preHandler here. In this case we get access to fastify instance.
-   */
-  fastify.get('/:id', { preHandler: [testMiddleware] }, async (request: GetRamTypeRequest, reply) => {
+  fastify.get('/:id', {}, async (request: GetRamTypeRequest, reply) => {
     const { id } = request.params;
     const ramType = await RamTypeService.getRamTypeById(id);
-    /**
-     * Here we get custom request field.
-     * Note: we add myId type to GetRamRequest for convenience.
-     * However it would work without it (with ts warnings).
-     */
-    console.log(`Request myId: ${request.myId}`);
     reply.send(ramType);
   });
 
@@ -31,5 +20,19 @@ export function router(fastify: FastifyInstance, opts, next): void {
     const ramType = await RamTypeService.createRamType({ name });
     reply.send(ramType);
   });
+
+  fastify.put('/:id', {}, async (request: PutRamTypeRequest, reply) => {
+    const { id } = request.params;
+    const { name } = request.body;
+    const newRamType = await RamTypeService.updateRamById({ id, data: { name } });
+    reply.send(newRamType);
+  });
+
+  fastify.delete('/:id', {}, async (request: DeleteRamTypeRequest, reply) => {
+    const { id } = request.params;
+    await RamTypeService.deleteRamTypeById({ id });
+    reply.send({});
+  });
+
   next();
 }

@@ -6,6 +6,11 @@ export interface RamTypeAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface RamTypeDataAttributes {
+  name: string;
+}
+
 export interface RamTypeModel extends Model<RamTypeAttributes>, RamTypeAttributes {}
 export class RamType extends Model<RamTypeModel, RamTypeAttributes> {}
 

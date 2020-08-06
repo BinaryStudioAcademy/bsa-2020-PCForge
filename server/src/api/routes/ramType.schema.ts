@@ -1,9 +1,18 @@
 import { FastifyRequest } from 'fastify';
 
+export type GetRamTypeRequest = FastifyRequest<{
+  Params: { id: string };
+}>;
+
 export type PostRamTypeRequest = FastifyRequest<{
   Body: { name: string };
 }>;
 
-export type GetRamTypeRequest = FastifyRequest<{
+export type PutRamTypeRequest = FastifyRequest<{
   Params: { id: string };
-}> & { myId: number | null };
+  Body: { name: string };
+}>;
+
+export type DeleteRamTypeRequest = FastifyRequest<{
+  Params: { id: string };
+}>;

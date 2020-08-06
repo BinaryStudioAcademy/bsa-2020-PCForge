@@ -1,10 +1,13 @@
-import { RamTypeModel, RamTypeStatic } from '../models/ramtype';
+import { RamTypeDataAttributes, RamTypeModel, RamTypeStatic } from '../models/ramtype';
+import { BaseRepository, RichModel } from './base.repository';
 
-export class RamTypeRepository {
-  constructor(private model: RamTypeStatic) {}
+export class RamTypeRepository extends BaseRepository<RamTypeModel> {
+  constructor(private model: RamTypeStatic) {
+    super(<RichModel>model);
+  }
 
   async getRamTypeById(id: string): Promise<RamTypeModel> {
-    const ramType = await this.model.findByPk(id);
+    const ramType = await this.getById(id);
     return ramType;
   }
 
@@ -17,5 +20,14 @@ export class RamTypeRepository {
     const { name } = inputRamType;
     const ramType = await this.model.create({ name });
     return ramType;
+  }
+
+  async updateRamTypeById(id: string, inputRamType: RamTypeDataAttributes): Promise<RamTypeModel> {
+    const ramType = await this.updateById(id, inputRamType);
+    return ramType;
+  }
+
+  async deleteRamTypeById(id: string): Promise<void> {
+    await this.deleteById(id);
   }
 }
