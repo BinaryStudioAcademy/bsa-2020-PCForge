@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="16b693cf-660d-4210-97c4-55b25d7972bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/pcforge.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-Black.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-BlackItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-Bold.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-BoldItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-Italic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-Light.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-LightItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-Regular.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-Thin.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/fonts/Lato/Lato-ThinItalic.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/assets/jss/fonts.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/common/helpers/icon.helper.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/AsyncSelect/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/AsyncSelect/styles.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Button/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Button/styles.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Input/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Input/styles.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Link/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Link/styles.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Modal/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/RadioButton/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/RadioButton/styles.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Select/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/BasicComponents/Select/styles.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Breadcrumbs/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/Breadcrumbs/styles.module.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/RatingBox/RatingIcon/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/components/RatingBox/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/fonts.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/styles/fonts.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/theme.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/@types/augmentation.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/api/middlewares/test.middleware.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/api/routes/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/api/routes/ping.router.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/api/routes/ramType.router.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/api/routes/ramType.schema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/api/services/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/api/services/ramType.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/db/connection.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200803231358-create-test.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804095147-create-news.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804102429-create-user.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804105603-create-ram-type.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804105739-create-ram.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804110846-create-power-supply.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804111326-create-cpu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804111725-create-motherboard.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804112045-create-gpu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804112415-create-game.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804113139-create-user-game.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804113302-create-setup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804113732-create-comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804123647-create-rate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/comment.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/cpu.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/game.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/gpu.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/motherboard.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/news.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/powersupply.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/ram.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/ramtype.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/rate.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/setup.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/socket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/user.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/models/usergame.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/repositories/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/repositories/ramType.repository.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seed-data/cpus.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seed-data/gpus.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seed-data/motherboards.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seed-data/power_supplies.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seed-data/ram_types.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seed-data/rams.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seed-data/sockets.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seeders/20200804143645-sockets.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seeders/20200804180208-ram_types.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seeders/20200804220750-gpus.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seeders/20200804220758-cpus.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seeders/20200804220858-rams.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seeders/20200804220919-power_supplies.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/data/seeders/20200804220948-motherboards.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/assets/jss/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/assets/jss/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/containers/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/containers/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/.sequelizerc" beforeDir="false" afterPath="$PROJECT_DIR$/server/.sequelizerc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/db/connection.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/migrations/20200803231358-create-test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/data/migrations/20200804111059-create-socket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/models/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/server/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fitd0EOa8gUFOGoVNvGmudpXjE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.other" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/client/node_modules/typescript/lib" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="16b693cf-660d-4210-97c4-55b25d7972bd" name="Default Changelist" comment="" />
+      <created>1596712824205</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596712824205</updated>
+      <workItem from="1596712826986" duration="401000" />
+      <workItem from="1596713235857" duration="288000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="144" y="79" key="MergeDialog" timestamp="1596713285227">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="144" y="79" key="MergeDialog/0.0.1440.900/-270.-1057.1920.1057@0.0.1440.900" timestamp="1596712901269" />
+    <state x="144" y="79" key="MergeDialog/0.0.1440.900/-270.-1080.1920.1080@0.0.1440.900" timestamp="1596713285227" />
+    <state x="275" y="166" key="MultipleFileMergeDialog" timestamp="1596713285294">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="275" y="166" key="MultipleFileMergeDialog/0.0.1440.900/-270.-1057.1920.1057@0.0.1440.900" timestamp="1596712901322" />
+    <state x="275" y="166" key="MultipleFileMergeDialog/0.0.1440.900/-270.-1080.1920.1080@0.0.1440.900" timestamp="1596713285294" />
+  </component>
+</project>

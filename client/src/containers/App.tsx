@@ -6,7 +6,7 @@ export default class App extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path={Routes.DEFAULT} component={() => <div />} />
+        <Route exact path={Routes.DEFAULT} component={() => <div></div>} />
       </Switch>
     );
   }
