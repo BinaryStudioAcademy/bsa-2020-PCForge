@@ -21,7 +21,7 @@ module.exports = {
       coreClocks: {
         type: Sequelize.INTEGER,
       },
-      directx: {
+      opengl: {
         type: Sequelize.STRING(50),
       },
       tdp: {
