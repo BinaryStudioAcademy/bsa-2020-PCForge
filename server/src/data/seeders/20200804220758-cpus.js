@@ -7,7 +7,6 @@ module.exports = {
     const newCpus = [];
     try {
       for (const cpu of cpus) {
-        console.log('cpu', cpu);
         const socketId = await queryInterface.rawSelect(
           `sockets`,
           {
@@ -17,7 +16,6 @@ module.exports = {
           },
           ['id']
         );
-        console.log('socket', socketId);
 
         if (socketId) {
           newCpus.push({

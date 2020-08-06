@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       opengl: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.DOUBLE,
       },
       tdp: {
         type: Sequelize.INTEGER,

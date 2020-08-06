@@ -6,7 +6,7 @@ export interface GpuAttributes {
   interface: string;
   memorySize: number;
   coreClocks: number;
-  opengl: string;
+  opengl: number;
   tdp: number;
   performance: number;
   createdAt: Date;
@@ -44,7 +44,7 @@ export function GpuFactory(sequelize: Sequelize): GpuStatic {
     },
     opengl: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.DOUBLE,
     },
     tdp: {
       allowNull: false,
