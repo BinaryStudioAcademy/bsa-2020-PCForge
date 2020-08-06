@@ -46,13 +46,15 @@ export function RatingBox(ratingValue: number, disabled: boolean) {
           precision={disabled ? 0.1 : 0.5}
           icon={<RatingIcon />}
           size="small"
-          onChange={(event: React.ChangeEvent<unknown>, newValue: number | null) => {
+          // eslint-disable-next-line
+          onChange={(event: React.ChangeEvent<{}>, newValue: number | null) => {
             if (newValue) {
               setValue(newValue);
-              //add function that change reating value
+              //add function that change rating value
             }
           }}
-          onChangeActive={(event: React.ChangeEvent<unknown>, newHover) => {
+          // eslint-disable-next-line
+          onChangeActive={(event: React.ChangeEvent<{}>, newHover) => {
             setHover(newHover);
           }}
         />
