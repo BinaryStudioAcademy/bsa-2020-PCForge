@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="16b693cf-660d-4210-97c4-55b25d7972bd" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fitd0EOa8gUFOGoVNvGmudpXjE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.other" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/client/node_modules/typescript/lib" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="16b693cf-660d-4210-97c4-55b25d7972bd" name="Default Changelist" comment="" />
+      <created>1596712824205</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596712824205</updated>
+      <workItem from="1596712826986" duration="401000" />
+      <workItem from="1596713235857" duration="1096000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="144" y="79" key="MergeDialog" timestamp="1596713285227">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="144" y="79" key="MergeDialog/0.0.1440.900/-270.-1057.1920.1057@0.0.1440.900" timestamp="1596712901269" />
+    <state x="144" y="79" key="MergeDialog/0.0.1440.900/-270.-1080.1920.1080@0.0.1440.900" timestamp="1596713285227" />
+    <state x="275" y="166" key="MultipleFileMergeDialog" timestamp="1596713285294">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="275" y="166" key="MultipleFileMergeDialog/0.0.1440.900/-270.-1057.1920.1057@0.0.1440.900" timestamp="1596712901322" />
+    <state x="275" y="166" key="MultipleFileMergeDialog/0.0.1440.900/-270.-1080.1920.1080@0.0.1440.900" timestamp="1596713285294" />
+    <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1596713999433">
+      <screen x="0" y="23" width="1440" height="820" />
+    </state>
+    <state x="100" y="100" width="1240" height="700" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.23.1440.820/-270.-1057.1920.1057@0.23.1440.820" timestamp="1596713999433" />
+  </component>
+</project>
