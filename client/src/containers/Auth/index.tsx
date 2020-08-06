@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Container, Grid} from '@material-ui/core';
 import {RootState} from 'redux/rootReducer';
-import 'styles/index.sass';
+import 'styles/index.scss';
 import styles from 'containers/Auth/styles.module.scss';
 import * as AuthActions from 'containers/Auth/actions';
 import LoginForm from 'components/Auth/LoginForm';
