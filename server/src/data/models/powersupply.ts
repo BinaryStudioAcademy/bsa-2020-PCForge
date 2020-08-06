@@ -15,7 +15,7 @@ export type PowerSupplyStatic = typeof Model & {
 };
 
 export function PowerSupplyFactory(sequelize: Sequelize): PowerSupplyStatic {
-  return <PowerSupplyStatic>sequelize.define('powerSupplies', {
+  return <PowerSupplyStatic>sequelize.define('powerSupply', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

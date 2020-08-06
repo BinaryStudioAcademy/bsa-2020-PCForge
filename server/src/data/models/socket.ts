@@ -14,7 +14,7 @@ export type SocketStatic = typeof Model & {
 };
 
 export function SocketFactory(sequelize: Sequelize): SocketStatic {
-  return <SocketStatic>sequelize.define('sockets', {
+  return <SocketStatic>sequelize.define('socket', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

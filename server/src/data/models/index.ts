@@ -55,10 +55,10 @@ export const initializeModels = (orm) => {
 
   PowerSupplyModel.hasMany(SetupModel);
 
-  RamModel.belongsTo(RamTypeModel);
+  RamModel.belongsTo(RamTypeModel, { foreignKey: 'typeId' });
   RamModel.hasMany(SetupModel);
 
-  RamTypeModel.hasMany(RamModel);
+  RamTypeModel.hasMany(RamModel, { foreignKey: 'typeId' });
   RamTypeModel.hasMany(MotherboardModel);
 
   RateModel.belongsTo(UserModel);

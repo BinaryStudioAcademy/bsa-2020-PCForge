@@ -19,7 +19,7 @@ export type RamTypeStatic = typeof Model & {
 };
 
 export function RamTypeFactory(sequelize: Sequelize): RamTypeStatic {
-  return <RamTypeStatic>sequelize.define('ramTypes', {
+  return <RamTypeStatic>sequelize.define('ramType', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

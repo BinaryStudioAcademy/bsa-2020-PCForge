@@ -14,7 +14,7 @@ export type MotherboardStatic = typeof Model & {
 };
 
 export function MotherboardFactory(sequelize: Sequelize): MotherboardStatic {
-  return <MotherboardStatic>sequelize.define('motherboards', {
+  return <MotherboardStatic>sequelize.define('motherboard', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

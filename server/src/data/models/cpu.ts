@@ -19,7 +19,7 @@ export type CpuStatic = typeof Model & {
 };
 
 export function CpuFactory(sequelize: Sequelize): CpuStatic {
-  return <CpuStatic>sequelize.define('cpus', {
+  return <CpuStatic>sequelize.define('cpu', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

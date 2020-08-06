@@ -20,7 +20,7 @@ export type GpuStatic = typeof Model & {
 };
 
 export function GpuFactory(sequelize: Sequelize): GpuStatic {
-  return <GpuStatic>sequelize.define('gpus', {
+  return <GpuStatic>sequelize.define('gpu', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

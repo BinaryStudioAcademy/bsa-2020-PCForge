@@ -26,6 +26,7 @@ module.exports = {
       },
       typeId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'ramTypes',
           key: 'id',

@@ -16,9 +16,8 @@ export class RamTypeRepository extends BaseRepository<RamTypeModel> {
     return ramTypes;
   }
 
-  async createRamType(inputRamType: { name: string }): Promise<RamTypeModel> {
-    const { name } = inputRamType;
-    const ramType = await this.model.create({ name });
+  async createRamType(inputRamType: RamTypeDataAttributes): Promise<RamTypeModel> {
+    const ramType = await this.model.create(inputRamType);
     return ramType;
   }
 
