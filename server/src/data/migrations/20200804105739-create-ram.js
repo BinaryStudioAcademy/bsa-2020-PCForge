@@ -22,7 +22,7 @@ module.exports = {
       },
       power: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.DOUBLE,
       },
       typeId: {
         type: Sequelize.INTEGER,
