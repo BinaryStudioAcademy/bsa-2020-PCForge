@@ -4,7 +4,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 
 interface IRadioOptions {
   value: string | number;
@@ -19,24 +19,31 @@ interface IRadioProps {
 }
 
 const RadioButton: React.FC<IRadioProps & RadioProps> = (props) => {
-  const radioArray = props.radioInfo.map((radio) => (
-    <FormControlLabel value={radio.value.toString()} control={<Radio />} label={radio.title} />
+  const { formName, formTitle, value, onChange, radioInfo } = props;
+  const radioArray = radioInfo.map((radio) => (
+    <FormControlLabel value={radio.value.toString()} key={radio.value} control={<Radio />} label={radio.title} />
   ));
 
-  const [value, setValue] = useState(props.value?.toString());
+  const [selectedValue, setSelectedValue] = useState(value?.toString());
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
-    if (props.onChange) {
-      props.onChange(event);
+    setSelectedValue(event.target.value);
+    if (onChange) {
+      onChange(event);
     }
   };
 
-  useEffect(() => setValue(props.value?.toString()), [props.value]);
+  useEffect(() => setSelectedValue(value?.toString()), [value]);
 
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend">{props.formTitle}</FormLabel>
-      <RadioGroup className={styles.radio} aria-label={props.formTitle} name={props.formName} value={value} onChange={handleChange}>
+      <FormLabel component="legend">{formTitle}</FormLabel>
+      <RadioGroup
+        className={styles.radio}
+        aria-label={formTitle}
+        name={formName}
+        value={selectedValue}
+        onChange={handleChange}
+      >
         {radioArray}
       </RadioGroup>
     </FormControl>
