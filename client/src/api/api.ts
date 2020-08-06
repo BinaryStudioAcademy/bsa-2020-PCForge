@@ -1,13 +1,25 @@
 class Api {
-  constructor() {}
+  test: string;
 
-  async get() {}
+  constructor() {
+    this.test = 'TestString';
+  }
 
-  async post() {}
+  async get() {
+    return this.test;
+  }
 
-  async put() {}
+  async post() {
+    return this.test;
+  }
 
-  async delete() {}
+  async put() {
+    return this.test;
+  }
+
+  async delete() {
+    return this.test;
+  }
 }
 
 export default new Api();
