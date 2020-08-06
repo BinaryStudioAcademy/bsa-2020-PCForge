@@ -1,27 +1,17 @@
-/* eslint-disable prettier/prettier */
-import express from 'express';
-import sequelize from './db/connection';
+import fastify from 'fastify';
+import db from './data/db/connection';
+import routes from './api/routes/index';
 
-const app = express();
-const port = process.env.APP_PORT || 5001;
+const port = parseInt(process.env.APP_PORT, 10) || 5001;
+const server = fastify();
 
-sequelize
-  .authenticate()
-  .then(async () => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  });
+server.register(db);
+server.register(routes, { prefix: '/api' });
 
-app.get('/', (req, res) => {
-  res.send('/placeholder');
-});
-
-app.listen(port, (err) => {
+server.listen(port, (err, address) => {
   if (err) {
-    return console.error(err);
+    console.error(err);
+    process.exit(1);
   }
-
-  return console.log(`server is listening on ${port}`);
+  console.log(`Server listening at ${address}`);
 });
