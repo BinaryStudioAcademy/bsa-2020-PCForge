@@ -1,4 +1,5 @@
 import * as http from 'http';
+import { Services } from '../api/services';
 
 import { Db } from '../data/db/connection';
 declare module 'fastify' {
@@ -8,5 +9,6 @@ declare module 'fastify' {
     HttpResponse = http.ServerResponse
   > {
     db: Db;
+    services: Services;
   }
 }

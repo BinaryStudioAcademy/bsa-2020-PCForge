@@ -17,6 +17,8 @@ import { SocketStatic } from '../models/socket';
 import { UserStatic } from '../models/user';
 import { UserGameStatic } from '../models/usergame';
 import { initializeModels } from '../models/index';
+import { initializeRepositories, Repositories } from '../repositories';
+import { initializeServices, Services } from '../../api/services';
 
 export interface Models {
   Comment: CommentStatic;
@@ -48,8 +50,11 @@ export default fp(async (fastify, opts, next) => {
     console.log('Connection has been established successfully.');
 
     const models: Models = initializeModels(sequelize);
+    const repositories: Repositories = initializeRepositories(models);
+    const services: Services = initializeServices(repositories);
 
     fastify.decorate('db', { models });
+    fastify.decorate('services', services);
   } catch (err) {
     console.error('Unable to connect to the database:', err);
   } finally {
