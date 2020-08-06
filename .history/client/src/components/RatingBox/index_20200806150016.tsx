@@ -48,13 +48,15 @@ export function RatingBox(ratingValue: number, disabled: boolean) {
           size="small"
           // eslint-disable-next-line
           onChange={(event: React.ChangeEvent<{}>, newValue: number | null) => {
+
             if (newValue) {
               setValue(newValue);
-              //add function that change rating value
+              //add function that change reating value
             }
           }}
           // eslint-disable-next-line
           onChangeActive={(event: React.ChangeEvent<{}>, newHover) => {
+
             setHover(newHover);
           }}
         />
