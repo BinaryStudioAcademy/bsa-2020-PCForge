@@ -25,7 +25,16 @@ type Colors = {
   };
 };
 
-const options: ThemeOptions & Colors = {
+type Typography = {
+  typography: {
+    fontFamily: string
+  }
+};
+
+const options: ThemeOptions & Colors & Typography = {
+  palette: {
+    type: 'dark',
+  },
   colors: {
     gradient: 'linear-gradient(90deg, #F27A54 0%, #A154F2 100%)',
     grayDark: '#7F8489',
@@ -35,6 +44,9 @@ const options: ThemeOptions & Colors = {
     black: '#3C444D',
     blue: '#4972FF',
     red: '#EB3D55',
+  },
+  typography: {
+    fontFamily: 'LatoRegular, Arial, sans-serif'
   },
   overrides: {
     MuiCssBaseline: {
