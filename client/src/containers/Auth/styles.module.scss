@@ -7,15 +7,6 @@
     align-items: center;
     min-height: 100%;
   }
-
-  .MuiAlert-outlinedError {
-    margin-bottom: 30px;
-  }
-}
-
-body {
-  min-height: 100vh;
-  height: 100vh;
 }
 
 .bgContainer {
@@ -77,6 +68,10 @@ body {
       margin-bottom: 36px;
       cursor: default;
       text-align: center;
+    }
+
+    .errorAlert {
+      margin-bottom: 30px;
     }
 
     .emailInput {

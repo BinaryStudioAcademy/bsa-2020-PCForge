@@ -1,77 +1,77 @@
-export const CHANGE_EMAIL = 'CHANGE_EMAIL';
-export const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const REGISTER_REQUEST = 'REGISTER_REQUEST';
-export const VALIDATION_ERROR = 'VALIDATION_ERROR';
-export const KEEP_SIGN_IN = 'KEEP_SIGN_IN';
-export const LOADING_STATUS = 'LOADING_STATUS';
-export const SWITCH_AUTH_PAGE = 'SWITCH_AUTH_PAGE';
+export const AUTH_CHANGE_EMAIL = 'AUTH_CHANGE_EMAIL';
+export const AUTH_CHANGE_PASSWORD = 'AUTH_CHANGE_PASSWORD';
+export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
+export const AUTH_REGISTER_REQUEST = 'AUTH_REGISTER_REQUEST';
+export const AUTH_VALIDATION_ERROR = 'AUTH_VALIDATION_ERROR';
+export const AUTH_KEEP_SIGN_IN = 'AUTH_KEEP_SIGN_IN';
+export const AUTH_LOADING_STATUS = 'AUTH_LOADING_STATUS';
+export const AUTH_SWITCH_AUTH_PAGE = 'AUTH_SWITCH_AUTH_PAGE';
 
 interface changeEmailAction {
-  type: typeof CHANGE_EMAIL,
+  type: typeof AUTH_CHANGE_EMAIL;
   payload: {
-    value: string,
-  },
+    value: string;
+  };
 }
 
 interface changePasswordAction {
-  type: typeof CHANGE_PASSWORD,
+  type: typeof AUTH_CHANGE_PASSWORD;
   payload: {
-    value: string,
-  },
+    value: string;
+  };
 }
 
 interface loginRequestAction {
-  type: typeof LOGIN_REQUEST,
+  type: typeof AUTH_LOGIN_REQUEST;
   payload: {
-    email: string,
-    password: string,
-    keepSignedIn: boolean,
-  },
+    email: string;
+    password: string;
+    keepSignedIn: boolean;
+  };
 }
 
 interface registerRequestAction {
-  type: typeof REGISTER_REQUEST,
+  type: typeof AUTH_REGISTER_REQUEST;
   payload: {
-    email: string,
-    password: string,
-  },
+    email: string;
+    password: string;
+  };
 }
 
 interface validationErrorAction {
-  type: typeof VALIDATION_ERROR,
+  type: typeof AUTH_VALIDATION_ERROR;
   payload: {
-    errorMessage: string,
-  },
+    errorMessage: string;
+  };
 }
 
 interface keepSignedInAction {
-  type: typeof KEEP_SIGN_IN,
+  type: typeof AUTH_KEEP_SIGN_IN;
   payload: {
-    keepSignedIn: boolean,
-  },
+    keepSignedIn: boolean;
+  };
 }
 
 interface changeLoadingStatusAction {
-  type: typeof LOADING_STATUS,
+  type: typeof AUTH_LOADING_STATUS;
   payload: {
-    isLoading: boolean,
-  },
+    isLoading: boolean;
+  };
 }
 
 interface switchAuthPage {
-  type: typeof SWITCH_AUTH_PAGE,
+  type: typeof AUTH_SWITCH_AUTH_PAGE;
   payload: {
-    isRegistration: boolean,
-  },
+    isRegistration: boolean;
+  };
 }
 
 export type AuthActionTypes =
-  changeEmailAction |
-  changePasswordAction |
-  loginRequestAction |
-  registerRequestAction |
-  validationErrorAction |
-  keepSignedInAction |
-  changeLoadingStatusAction |
-  switchAuthPage;
+  | changeEmailAction
+  | changePasswordAction
+  | loginRequestAction
+  | registerRequestAction
+  | validationErrorAction
+  | keepSignedInAction
+  | changeLoadingStatusAction
+  | switchAuthPage;

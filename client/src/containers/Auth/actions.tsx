@@ -1,31 +1,31 @@
 import {
   AuthActionTypes,
-  CHANGE_EMAIL,
-  CHANGE_PASSWORD,
-  KEEP_SIGN_IN,
-  LOADING_STATUS,
-  LOGIN_REQUEST,
-  REGISTER_REQUEST,
-  SWITCH_AUTH_PAGE,
-  VALIDATION_ERROR
+  AUTH_CHANGE_EMAIL,
+  AUTH_CHANGE_PASSWORD,
+  AUTH_KEEP_SIGN_IN,
+  AUTH_LOADING_STATUS,
+  AUTH_LOGIN_REQUEST,
+  AUTH_REGISTER_REQUEST,
+  AUTH_SWITCH_AUTH_PAGE,
+  AUTH_VALIDATION_ERROR,
 } from 'containers/Auth/actionTypes';
 
 export const changeEmail = (value: string): AuthActionTypes => ({
-  type: CHANGE_EMAIL,
+  type: AUTH_CHANGE_EMAIL,
   payload: {
     value,
   },
 });
 
 export const changePassword = (value: string): AuthActionTypes => ({
-  type: CHANGE_PASSWORD,
+  type: AUTH_CHANGE_PASSWORD,
   payload: {
     value,
   },
 });
 
 export const loginRequest = (email: string, password: string, keepSignedIn: boolean): AuthActionTypes => ({
-  type: LOGIN_REQUEST,
+  type: AUTH_LOGIN_REQUEST,
   payload: {
     email,
     password,
@@ -34,7 +34,7 @@ export const loginRequest = (email: string, password: string, keepSignedIn: bool
 });
 
 export const registerRequest = (email: string, password: string): AuthActionTypes => ({
-  type: REGISTER_REQUEST,
+  type: AUTH_REGISTER_REQUEST,
   payload: {
     email,
     password,
@@ -42,28 +42,28 @@ export const registerRequest = (email: string, password: string): AuthActionType
 });
 
 export const validationError = (errorMessage: string): AuthActionTypes => ({
-  type: VALIDATION_ERROR,
+  type: AUTH_VALIDATION_ERROR,
   payload: {
     errorMessage,
   },
 });
 
 export const keepSignedIn = (keepSignedIn: boolean): AuthActionTypes => ({
-  type: KEEP_SIGN_IN,
+  type: AUTH_KEEP_SIGN_IN,
   payload: {
     keepSignedIn,
   },
 });
 
 export const changeLoadingStatus = (isLoading: boolean): AuthActionTypes => ({
-  type: LOADING_STATUS,
+  type: AUTH_LOADING_STATUS,
   payload: {
     isLoading,
   },
 });
 
 export const switchAuthPage = (isRegistration: boolean): AuthActionTypes => ({
-  type: SWITCH_AUTH_PAGE,
+  type: AUTH_SWITCH_AUTH_PAGE,
   payload: {
     isRegistration,
   },

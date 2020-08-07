@@ -27,8 +27,8 @@ type Colors = {
 
 type Typography = {
   typography: {
-    fontFamily: string
-  }
+    fontFamily: string;
+  };
 };
 
 const options: ThemeOptions & Colors & Typography = {
@@ -46,7 +46,7 @@ const options: ThemeOptions & Colors & Typography = {
     red: '#EB3D55',
   },
   typography: {
-    fontFamily: 'LatoRegular, Arial, sans-serif'
+    fontFamily: 'LatoRegular, Arial, sans-serif',
   },
   overrides: {
     MuiCssBaseline: {

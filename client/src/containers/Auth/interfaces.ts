@@ -1,7 +1,7 @@
-import {AuthActionTypes} from "containers/Auth/actionTypes";
+import { AuthActionTypes } from 'containers/Auth/actionTypes';
 
 export interface IAuthProps {
-  authState: IAuthState
+  authState: IAuthState;
   changeEmail: (value: string) => AuthActionTypes;
   changePassword: (value: string) => AuthActionTypes;
   loginRequest: (email: string, password: string, keepSignedIn: boolean) => AuthActionTypes;
