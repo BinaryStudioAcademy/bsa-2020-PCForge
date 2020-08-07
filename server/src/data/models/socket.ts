@@ -6,11 +6,16 @@ export interface SocketAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface SocketDataAttributes {
+  name: string;
+}
+
 export interface SocketModel extends Model<SocketAttributes>, SocketAttributes {}
 export class Socket extends Model<SocketModel, SocketAttributes> {}
 
 export type SocketStatic = typeof Model & {
-  new (values?: Record<string, unknown>, options?: BuildOptions): SocketStatic;
+  new (values?: Record<string, unknown>, options?: BuildOptions): SocketModel;
 };
 
 export function SocketFactory(sequelize: Sequelize): SocketStatic {
