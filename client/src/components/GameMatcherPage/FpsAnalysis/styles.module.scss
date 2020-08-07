@@ -5,7 +5,7 @@
 }
 
 .fpsAnalysis {
-
+  display: flex;
 }
 
 .displayResolutions {
@@ -20,7 +20,7 @@
   padding-bottom: 4rem;
 }
 
-.resulutionItem {
+.resolutionItem {
   margin-bottom: 1rem;
   margin-right: 4rem;
   display: flex;
@@ -29,7 +29,7 @@
   justify-content: center;
 }
 
-.resulutionItemText {
+.resolutionItemText {
   font-size: 14px;
   line-height: 22px;
   color: $colorTextWhite;
@@ -42,7 +42,6 @@
   align-items: flex-end;
   flex-grow: 1;
   position: relative;
-  z-index: 1;
 }
 
 .progressColumn {
@@ -51,6 +50,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
+  position: relative;
+  z-index: 1;
 }
 
 .progress {
@@ -72,7 +73,7 @@
 
 .fpsGraph {
   top: 0;
-  left: 24%;
+  left: 0;
   right: 0;
   height: 100%;
   position: absolute;
@@ -94,8 +95,4 @@
   color: $colorTextGray;
   position: relative;
   margin-left: -5px;
-}
-
-.example {
-  height: 20%;
 }

@@ -5,7 +5,7 @@ import Button, { ButtonType } from 'components/basicComponents/Button';
 import Select from 'components/basicComponents/Select';
 
 // const mockDataCallback = async () => ([{value: 'example', title: 'example'}]);
-const mockData = [{value: 'example', title: 'example'}]
+const mockData = [{ value: 'example', title: 'example' }];
 
 const GameMatcherPage = (): JSX.Element => {
   return (
@@ -19,7 +19,9 @@ const GameMatcherPage = (): JSX.Element => {
               {/* <label htmlFor="game-select" className={styles['selectItemHeader']}>
                 Game's name
               </label> */}
-              <Select inputLabel="Game's name" inputOptions={mockData} placeholder="Select a game"> </Select>
+              <Select inputLabel="Game's name" inputOptions={mockData} placeholder="Select a game">
+                {' '}
+              </Select>
             </div>
           </section>
           <section>

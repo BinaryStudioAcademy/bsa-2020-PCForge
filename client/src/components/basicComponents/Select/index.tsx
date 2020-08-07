@@ -16,7 +16,11 @@ interface ISelectProps {
 
 const Select: React.FC<ISelectProps & SelectProps> = (props) => {
   const optionsArray = props.inputOptions.map((opt) => <option value={opt.value}>{opt.title}</option>);
-  optionsArray.unshift(<><option value="">{props.placeholder ? props.placeholder : ''}</option></>);
+  optionsArray.unshift(
+    <>
+      <option value="">{props.placeholder ? props.placeholder : ''}</option>
+    </>
+  );
 
   return (
     <>

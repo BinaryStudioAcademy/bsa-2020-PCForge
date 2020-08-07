@@ -1,0 +1,86 @@
+@import '../../../styles/variables.sass';
+
+.topGamesRoot {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  width: $asideWidth;
+  padding: 1rem 2rem;
+  background: $colorBackgroundGray;
+  box-shadow: 0px 30px 40px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.topGamesHeader {
+  margin: 0;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  color: #FFFFFF;
+}
+
+.topGamesContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.gameContainer {
+  margin-top: -1px;
+  padding: 10px 10px 10px 10px;
+  display: flex;
+  border-bottom: 1px solid $colorTextGray;
+  align-items: center;
+}
+
+.gameContainer:hover {
+  background: $colorBlue;
+  cursor: pointer;
+}
+
+.gameContainer:hover {
+  border-bottom-color: transparent;
+}
+
+.gameImage {
+  width: 60px;
+  height: 60px;
+}
+
+.gameDetails {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.gameCategory {
+  color: $colorTextOrange;
+  font-weight: bold;
+  font-size: 10px;
+  line-height: 12px;
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+}
+
+.gameName {
+  font-family: Lato;
+  font-size: 14px;
+  line-height: 22px;
+  color: $colorTextWhite;
+}
+
+.gameDate {
+  font-family: Zilla Slab;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 22px;
+  color: #CBCFD4;
+}
+
+.gameContainer:hover .gameCategory,
+.gameContainer:hover .gameName,
+.gameContainer:hover .gameDate
+{
+  color: $colorTextWhite;
+}

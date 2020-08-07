@@ -29,17 +29,17 @@ const GameMatcherPerformanceReport = () => {
         <div className={styles.performanceGraphItem}>
           <span className={styles.performanceIndicatorHeader}>CPU</span>
           <div className={styles.performanceGraphCentralLine}></div>
-          <div className={styles.performanceIndicator}></div>
+          <div className={styles.performanceIndicator} style={{width: '40%'}}></div>
         </div>
         <div className={styles.performanceGraphItem}>
           <span className={styles.performanceIndicatorHeader}>GPU</span>
           <div className={styles.performanceGraphCentralLine}></div>
-          <div className={styles.performanceIndicator}></div>
+          <div className={styles.performanceIndicator} style={{width: '21%'}}></div>
         </div>
         <div className={styles.performanceGraphItem}>
           <span className={styles.performanceIndicatorHeader}>RAM</span>
           <div className={styles.performanceGraphCentralLine}></div>
-          <div className={styles.performanceIndicator}></div>
+          <div className={styles.performanceIndicator} style={{width: '80%'}}></div>
         </div>
       </div>
       <div className={styles.indicatorValues}>

@@ -4,7 +4,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 
 interface IRadioOptions {
   value: string | number;
@@ -36,7 +36,13 @@ const RadioButton: React.FC<IRadioProps & RadioProps> = (props) => {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{props.formTitle}</FormLabel>
-      <RadioGroup className={styles.radio} aria-label={props.formTitle} name={props.formName} value={value} onChange={handleChange}>
+      <RadioGroup
+        className={styles.radio}
+        aria-label={props.formTitle}
+        name={props.formName}
+        value={value}
+        onChange={handleChange}
+      >
         {radioArray}
       </RadioGroup>
     </FormControl>

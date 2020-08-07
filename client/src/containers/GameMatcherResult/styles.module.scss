@@ -1,0 +1,15 @@
+@import '../../styles/variables.sass';
+
+.gameMatcherRoot {
+  background: $colorBlack;
+  display: flex;
+  padding: 2rem;
+}
+
+.gameMatcherContentWrapper {
+  display: flex;
+}
+
+.asideItems {
+  margin-left: 6rem;
+}

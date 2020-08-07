@@ -1,15 +1,7 @@
 @import '../../../styles/variables.sass';
 
-.mainHeader {
-  font-family: Lato;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 36px;
-  line-height: 56px;
-  /* identical to box height, or 156% */
-
-
-  color: #FFFFFF;
+.pageHeader {
+  margin: 0;
 }
 
 .performanceResultWrapper {
@@ -18,12 +10,14 @@
 }
 
 .requirements {
-  flex-grow: 1;
+  flex-grow: 6;
   display: flex;
   justify-content: space-between;
 }
 
 .requirement {
+  height: 60%;
+  margin-top: 3rem;
   margin-right: 6rem;
 }
 
@@ -48,7 +42,8 @@
 }
 
 .summary {
-  height: 100;
+  width: 30%;
+  height: 100%;
   overflow: auto;
   box-sizing: border-box;
   border-radius: 6px;
