@@ -5,12 +5,14 @@ import routes from './api/routes/index';
 import path from 'path';
 import jwtAuth from './api/plugins/auth';
 import googleAuth from './api/plugins/googleAuth';
+import fastifyCookie from 'fastify-cookie';
 
 const port = parseInt(process.env.APP_PORT, 10) || 5001;
 const server = fastify();
 
+server.register(fastifyCookie, { secret: process.env.COOKIE_SECRET });
 server.register(jwtAuth);
-// server.register(googleAuth);
+server.register(googleAuth);
 server.register(db);
 server.register(fastifyStatic, {
   root: path.join(__dirname, '..', '..', 'client', 'build'),

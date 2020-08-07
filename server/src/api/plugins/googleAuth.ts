@@ -4,7 +4,7 @@ import oauthPlugin from 'fastify-oauth2';
 export default fp((fastify, opts, next) => {
   fastify.register(oauthPlugin, {
     name: 'googleOAuth2',
-    scope: ['profile'],
+    scope: ['profile email'],
     credentials: {
       client: {
         id: process.env.GOOGLE_OAUTH_CLIENT_ID,
@@ -12,12 +12,9 @@ export default fp((fastify, opts, next) => {
       },
       auth: oauthPlugin.GOOGLE_CONFIGURATION,
     },
-    startRedirectPath: '/login/google',
-    callbackUri: 'http://localhost:3000/login/google/callback',
+    startRedirectPath: '/api/auth/google',
+    callbackUri: 'http://localhost:5001/api/auth/google/callback',
   });
 
-  fastify.get('/auth/google/callback', {}, async function (req, res) {
-    const token = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(req);
-    res.redirect('http://localhost:3002/?token=' + token.access_token);
-  });
+  next();
 });
