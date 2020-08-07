@@ -1,4 +1,5 @@
 import { FastifyInstance } from 'fastify';
+import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import {
   PostPowerSupplyRequest,
   GetPowerSupplyRequest,
@@ -6,7 +7,7 @@ import {
   DeletePowerSupplyRequest,
 } from './powerSupply.schema';
 
-export function router(fastify: FastifyInstance, opts, next): void {
+export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { PowerSupplyService } = fastify.services;
 
   fastify.get('/', {}, async (request, reply) => {

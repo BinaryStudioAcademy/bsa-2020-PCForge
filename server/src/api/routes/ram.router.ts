@@ -1,7 +1,8 @@
 import { FastifyInstance } from 'fastify';
+import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import { PostRamRequest, GetRamRequest, PutRamRequest, DeleteRamRequest } from './ram.schema';
 
-export function router(fastify: FastifyInstance, opts, next): void {
+export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { RamService } = fastify.services;
 
   fastify.get('/', {}, async (request, reply) => {
