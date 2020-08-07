@@ -1,6 +1,11 @@
 import { FastifyRequest } from 'fastify';
 
-export type GetMotherboardRequest = FastifyRequest<{
+export type GetAllMotherboardsRequest = FastifyRequest<{
+  Params: { id: string };
+  Querystring: { socketId: string };
+}>;
+
+export type GetOneMotherboardRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
