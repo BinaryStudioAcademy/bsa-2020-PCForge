@@ -35,7 +35,8 @@ export class RamRepository extends BaseRepository<RamModel> {
   }
 
   async createRam(inputRam: RamDataAttributes): Promise<RamModel> {
-    const ram = await this.model.create(inputRam);
+    const { id } = await this.model.create(inputRam);
+    const ram = this.getRamById(id.toString());
     return ram;
   }
 

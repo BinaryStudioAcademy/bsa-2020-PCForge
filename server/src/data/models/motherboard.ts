@@ -6,6 +6,13 @@ export interface MotherboardAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface MotherboardDataAttributes {
+  name: string;
+  socketId: number;
+  ramTypeId: number;
+}
+
 export interface MotherboardModel extends Model<MotherboardAttributes>, MotherboardAttributes {}
 export class Motherboard extends Model<MotherboardModel, MotherboardAttributes> {}
 

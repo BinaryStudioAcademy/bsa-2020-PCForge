@@ -10,12 +10,11 @@ export class SocketService {
   }
 
   async getAllSockets(): Promise<SocketModel[]> {
-    const powerSupplies = await this.repository.getAllSockets();
-    return powerSupplies;
+    const sockets = await this.repository.getAllSockets();
+    return sockets;
   }
 
   async createSocket(inputSocket: SocketDataAttributes): Promise<SocketModel> {
-    console.log('AAA');
     const socket = await this.repository.createSocket(inputSocket);
     return socket;
   }

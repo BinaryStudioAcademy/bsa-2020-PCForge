@@ -1,4 +1,5 @@
 import { Repositories } from '../../data/repositories';
+import { MotherboardService } from './motherboard.service';
 import { PowerSupplyService } from './powerSupply.service';
 import { RamService } from './ram.service';
 import { RamTypeService } from './ramType.service';
@@ -9,6 +10,7 @@ export interface Services {
   RamService: RamService;
   PowerSupplyService: PowerSupplyService;
   SocketService: SocketService;
+  MotherboardService: MotherboardService;
 }
 
 export const initializeServices = (repositories: Repositories): Services => {
@@ -16,11 +18,13 @@ export const initializeServices = (repositories: Repositories): Services => {
   const ramService = new RamService(repositories.RamRepository);
   const powerSupplyService = new PowerSupplyService(repositories.PowerSupplyRepository);
   const socketService = new SocketService(repositories.SocketRepository);
+  const motherboardService = new MotherboardService(repositories.MotherboardRepository);
   const services: Services = {
     RamTypeService: ramTypeService,
     RamService: ramService,
     PowerSupplyService: powerSupplyService,
     SocketService: socketService,
+    MotherboardService: motherboardService,
   };
   return services;
 };
