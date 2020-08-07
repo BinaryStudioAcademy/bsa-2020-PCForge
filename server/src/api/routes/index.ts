@@ -5,6 +5,7 @@ import { router as powerSupplyRouter } from './powerSupply.router';
 import { router as socketRouter } from './socket.router';
 import { router as motherboardRouter } from './motherboard.router';
 import { router as gpuRouter } from './gpu.router';
+import { router as cpuRouter } from './cpu.router';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
@@ -14,5 +15,6 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(socketRouter, { prefix: '/sockets' });
   fastify.register(motherboardRouter, { prefix: '/motherboards' });
   fastify.register(gpuRouter, { prefix: '/gpus' });
+  fastify.register(cpuRouter, { prefix: '/cpus' });
   next();
 };

@@ -11,6 +11,16 @@ export interface CpuAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface CpuDataAttributes {
+  name: string;
+  performance: number;
+  clockspeed: number;
+  tdp: number;
+  cores: number;
+  class: string;
+}
+
 export interface CpuModel extends Model<CpuAttributes>, CpuAttributes {}
 export class Cpu extends Model<CpuModel, CpuAttributes> {}
 
