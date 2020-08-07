@@ -16,6 +16,7 @@
 }
 
 .requirementText {
+  font-family: LatoBlack;
   font-size: 14px;
   line-height: 22px;
   color: $colorTextGray;
@@ -71,8 +72,9 @@ $space-width: 30px;
 }
 
 .performanceIndicatorHeader {
-  text-align: right;
-  margin-left: -$space-width;
+  position: absolute;
+  left: -$space-width - 5;
+  text-align: center;
   font-family: Montserrat;
   font-size: 10px;
   line-height: 12px;
@@ -98,10 +100,12 @@ $space-width: 30px;
 }
 
 .usedComponents {
+  font-family: LatoBlack;
   margin-top: 2rem;
 }
 
 .usedComponentHeader {
+  font-family: LatoBlack;
   text-align: left;
   padding-right: 1rem;
   padding-bottom: .5rem;
@@ -112,6 +116,7 @@ $space-width: 30px;
 }
 
 .usedComponentsBody {
+  font-family: LatoBlack;
   font-size: 16px;
   padding-right: 1rem;
   padding-bottom: .5rem;

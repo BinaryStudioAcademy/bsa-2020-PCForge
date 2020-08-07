@@ -35,8 +35,10 @@
   color: $colorTextWhite;
 }
 
+$spaceBeforeFirstColumnStart: 6rem;
+
 .fpsTest {
-  margin-left: 6rem;
+  margin-left: $spaceBeforeFirstColumnStart;
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
@@ -83,6 +85,7 @@
   border-top: 1px solid $colorRed;
   width: 100%;
   position: absolute;
+  left: -$spaceBeforeFirstColumnStart / 3;
   bottom: 40%;
   padding-top: 5px;
 }

@@ -8,7 +8,6 @@ const GameMatcherSystemRequirements = () => {
     <section>
       <div className={styles.performanceResultWrapper}>
         <div className={styles.requirements}>
-
           <div className={styles.requirement}>
             <CircularProgress progressValue={3.2} />
             <h3 className={styles.requirementHeader}>Processor</h3>

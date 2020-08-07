@@ -1,26 +1,32 @@
 @import '../../styles//variables.scss';
 
 .gameMatcher {
-    background: $colorBlack;
+  background: $colorBlack;
+  padding: 3rem;
 }
 
 .pageHeader {
-    color: $colorTextWhite;
-    font-weight: bold;
-    font-size: 36px;
-    line-height: 56px;
-    margin: 0;
+  color: $colorTextWhite;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 56px;
+  margin: 0;
+}
+
+.contentWrapper {
+  display: flex;
 }
 
 .mainContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: $colorDarkGray;
-    width: 100%;
-    padding: 2rem 1rem 3rem;
-    border-radius: 7px;
-    box-shadow: 40px 40px 20px 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $colorDarkGray;
+  width: 100%;
+  border-radius: 7px;
+  box-shadow: 40px 40px 20px 30px rgba(0, 0, 0, 0.1);
+  padding: 3rem 0 4rem;
+  margin-right: 3rem;
 }
 
 .configs {
@@ -28,28 +34,35 @@
 }
 
 .selectItem {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 12px;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+  width: 100%;
 }
 
 .sectionHeader {
-    font-size: 24px;
-    line-height: 28px;
-    color: $colorTextWhite;
-    margin: 10px 0;
+  font-size: 24px;
+  line-height: 28px;
+  color: $colorTextWhite;
+  margin: 10px 0;
 }
 
 .selectItemHeader {
-    color: $colorTextGray;
-    margin: 10px 0 0 0;
-    font-size: 14px;
-    line-height: 22px;
-    text-transform: uppercase;
+  color: $colorTextGray;
+  margin: 10px 0 0 0;
+  font-size: 10px;
+  line-height: 18px;
+  text-transform: uppercase;
 }
 
 .pageButton {
-  width: 400px;
+  width: 50%;
 }
 
+.buttonLabel {
+  font-size: 10px;
+  line-height: 12px;
+  text-transform: uppercase;
+
+  color: $colorTextWhite;
+}

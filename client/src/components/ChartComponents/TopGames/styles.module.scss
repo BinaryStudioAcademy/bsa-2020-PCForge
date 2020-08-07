@@ -12,7 +12,7 @@
 }
 
 .topGamesHeader {
-  margin: 0;
+  margin: 0 0 12px 0;
   font-weight: 600;
   font-size: 24px;
   line-height: 28px;
@@ -30,6 +30,10 @@
   display: flex;
   border-bottom: 1px solid $colorTextGray;
   align-items: center;
+}
+
+.gameContainer:last-of-type {
+  border-bottom-color: transparent;
 }
 
 .gameContainer:hover {
@@ -63,7 +67,7 @@
 }
 
 .gameName {
-  font-family: Lato;
+  font-family: LatoBlack;
   font-size: 14px;
   line-height: 22px;
   color: $colorTextWhite;
