@@ -10,7 +10,7 @@ type PropsType = {
   onClick: (href: string) => void;
 };
 
-const Breadcrumbs = ({ links, onClick }: PropsType) => {
+const Breadcrumbs = ({ links, onClick }: PropsType): JSX.Element => {
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
     onClick((event.target as HTMLAnchorElement).href);
