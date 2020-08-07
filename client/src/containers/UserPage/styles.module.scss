@@ -194,7 +194,6 @@ body {
   background-color: $colorBlack;
   color: $colorTextGray;
   margin: 10px;
-  box-shadow: $card-shadow;
   border-radius: 5px;
   position:relative;
 
@@ -216,7 +215,7 @@ body {
   &:hover > .gameDescription{
     display: block;
     border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.8);
+    background: rgba($color: #222121, $alpha: 0.9);
     position:absolute;
     left:0;
     top:0;
@@ -225,7 +224,7 @@ body {
     padding-top: 15px;
     font-size: 18px;
     text-overflow: ellipsis;
-    color: $text-highlight-color;
+    color: white;
   }
    .gameDescription {
     display: none;
@@ -238,30 +237,15 @@ body {
   justify-content: space-evenly;
   margin-top: 15px;
 
-  
   @media (max-width: 768px) {
     overflow: auto;
   }
   
-
   &>div:hover {
     cursor: pointer;
     box-shadow: 0 0 1rem -.25rem $linkColor;
   }
 }
-
-.fakeFooter {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 30px;
-  width: 100%;
-  background-color: rgb(46, 14, 19);
-  text-align: center;
-  color: rgb(180, 138, 138);
-  margin: 0;
-}
-
 
 // ---------------------------------- setup
 .setupCard {
@@ -297,7 +281,6 @@ body {
    
   }
 }
-
 .setupDescription {
   color: $colorTextGray;
   font-size: 16px;
@@ -310,7 +293,7 @@ body {
 // Tab component
 
 .tabsBar {
-  background-color: black !important;
+  background-color: rgb(19, 18, 18) !important;
   & > div > div > div > div > span {
     color: #EB3D55;
   }
@@ -322,6 +305,4 @@ body {
       max-width: none;
     }
   }
-
-
 }

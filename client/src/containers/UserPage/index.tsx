@@ -105,7 +105,6 @@ export default function UserPage() {
           {selectedTab === 1 && <UserPreferences className={styles.userPreferences} setups={setupsArray} />}
         </div>
       </div>
-      <div className={styles.fakeFooter}>Fake Footer</div>
     </div>
   );
 }
