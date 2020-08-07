@@ -39,7 +39,6 @@
     "ts-node-dev": "^1.0.0-pre.56",
     "sequelize-cli": "^6.2.0"
   },
-
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "prettier --write",
