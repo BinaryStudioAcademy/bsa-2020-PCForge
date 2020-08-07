@@ -20,9 +20,11 @@ export class CpuRepository extends BaseRepository<CpuModel> {
     return cpu;
   }
 
-  async getAllCpus(): Promise<CpuModel[]> {
+  async getAllCpus(filter: { socketId: string }): Promise<CpuModel[]> {
+    const { socketId } = filter;
     const cpus = await this.model.findAll({
       group: ['cpu.id', 'socket.id'],
+      where: { socketId },
       include: [
         {
           model: this.socketModel,

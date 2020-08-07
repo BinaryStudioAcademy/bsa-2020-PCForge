@@ -9,8 +9,8 @@ export class CpuService {
     return cpu;
   }
 
-  async getAllCpus(): Promise<CpuModel[]> {
-    const cpus = await this.repository.getAllCpus();
+  async getAllCpus(filter: { socketId: string }): Promise<CpuModel[]> {
+    const cpus = await this.repository.getAllCpus(filter);
     return cpus;
   }
 
