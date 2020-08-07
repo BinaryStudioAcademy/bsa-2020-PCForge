@@ -134,7 +134,7 @@ interface SetupCardProps {
 }
 
 const SetupCard: React.FC<SetupCardProps> = ({ image, title, description, className }) => {
-  let setupStyle = styles.setupCard + (`${className}` || '');
+  let setupStyle = styles.setupCard + (` ${className}` || '');
   return (
     <div className={setupStyle}>
       <div className={styles.setupTitle}>{title}</div>
@@ -179,13 +179,3 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   );
 };
 
-// <GameCard
-// image={'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736'}
-// title={'Arizona Sunshine'}
-// releaseDate={'20.02.20'}
-// />
-// <GameCard
-// image={'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571'}
-// title={'Half-Life Alyx'}
-// releaseDate={'20.02.20'}
-// />

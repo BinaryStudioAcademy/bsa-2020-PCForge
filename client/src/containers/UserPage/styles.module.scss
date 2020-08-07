@@ -44,7 +44,6 @@ body {
 .userPageContainer {
   width: 90%;
   height: 80vh;
-  background-color: $componentBgColor;
   display: flex;
   margin: 50px auto;
   margin-bottom: 30px;
@@ -54,6 +53,7 @@ body {
 .preferencesSection {
   width: 100%;
   height: 700px;
+  background-color: $colorDarkGray;
   
 }
 
@@ -78,7 +78,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: $userPageUserInfo;
+  background-color: $colorDarkGray;
   padding: 10px;
 
   button {
@@ -153,9 +153,9 @@ body {
   flex-wrap: wrap;
   height: 690px;
   justify-content: space-evenly;
-  margin-right: 25px;
   margin-top: 15px;
   overflow: auto;
+  background-color: $colorDarkGray;
 
   .gamesTitle {
     text-align: center;
@@ -180,4 +180,19 @@ body {
   text-align: center;
   color: rgb(180, 138, 138);
   margin: 0;
+}
+
+
+// ---------------------------------- setup
+.setupCard {
+  height:300px;
+  width:200px;
+  background-color: rgb(109, 95, 95);
+}
+
+.setupImage {
+  & img {
+    width:200px;
+   
+  }
 }
