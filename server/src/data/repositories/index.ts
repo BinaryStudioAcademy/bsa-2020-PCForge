@@ -1,5 +1,6 @@
 import { Models } from '../../data/db/connection';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
+import { GpuRepository } from './gpu.repository';
 import { MotherboardRepository } from './Motherboard.repository';
 import { PowerSupplyRepository } from './powerSupply.repository';
 import { RamRepository } from './ram.repository';
@@ -11,6 +12,7 @@ export interface Repositories {
   PowerSupplyRepository: PowerSupplyRepository;
   SocketRepository: SocketRepository;
   MotherboardRepository: MotherboardRepository;
+  GpuRepository: GpuRepository;
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
@@ -19,12 +21,14 @@ export const initializeRepositories = (models: Models): Repositories => {
   const powerSupplyRepository = new PowerSupplyRepository(models.PowerSupply);
   const socketRepository = new SocketRepository(models.Socket);
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
+  const gpuRepository = new GpuRepository(models.Gpu);
   const repositories: Repositories = {
     RamTypeRepository: ramTypeRepository,
     RamRepository: ramRepository,
     PowerSupplyRepository: powerSupplyRepository,
     SocketRepository: socketRepository,
     MotherboardRepository: motherboardRepository,
+    GpuRepository: gpuRepository,
   };
   return repositories;
 };

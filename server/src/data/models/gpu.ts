@@ -12,6 +12,17 @@ export interface GpuAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface GpuDataAttributes {
+  name: string;
+  interface: string;
+  memorySize: number;
+  coreClocks: number;
+  opengl: string;
+  tdp: number;
+  performance: number;
+}
+
 export interface GpuModel extends Model<GpuAttributes>, GpuAttributes {}
 export class Gpu extends Model<GpuModel, GpuAttributes> {}
 
