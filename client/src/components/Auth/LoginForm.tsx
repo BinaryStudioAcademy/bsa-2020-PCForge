@@ -58,6 +58,7 @@ const LoginForm = ({
             onChange={handleChangeCheckbox}
             checked={keepSignedIn}
             labelClassName={styles.keepSignedBox}
+            className={styles.keepSigned}
             label="Keep me signed in"
             checkboxType={CheckboxType.primary}
           />

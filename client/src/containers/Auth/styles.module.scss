@@ -174,10 +174,8 @@
           margin-bottom: 15px;
           margin-right: 0;
 
-          :global {
-            .PrivateSwitchBase-root-3 {
-              padding: 0 9px 0 0;
-            }
+          .keepSigned {
+            padding: 0 9px 0 0;
           }
         }
 
