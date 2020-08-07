@@ -1,16 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import Input from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import Select from 'components/BasicComponents/Select';
-import AsyncSelect from 'components/BasicComponents/AsyncSelect'
+import { Tabs, Tab, AppBar } from '@material-ui/core';
+
+enum contentType {
+  games,
+  setups,
+}
 
 export default function UserPage() {
   const gamesArray = [
     {
       image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'title',
+      title: 'Arizona Sunshine',
       releaseDate: '20.02.20',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
+      title: 'Half-life ALYX',
+      releaseDate: '06.06.16',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
+    },
+    {
+      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
+      title: 'Arizona Sunshine',
+      releaseDate: '20.02.20',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
     },
     {
       image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
@@ -19,33 +37,10 @@ export default function UserPage() {
     },
     {
       image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'title',
+      title: 'Arizona Sunshine',
       releaseDate: '20.02.20',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'title',
-      releaseDate: '20.02.20',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'title',
-      releaseDate: '20.02.20',
+      description:
+        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
     },
     {
       image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
@@ -53,7 +48,7 @@ export default function UserPage() {
       releaseDate: '06.06.16',
     },
   ];
-  const setupArray = [
+  const setupsArray = [
     {
       image:
         'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
@@ -73,6 +68,10 @@ export default function UserPage() {
       description: 'Here is my super cool setting for all the bloody cool games',
     },
   ];
+  const [selectedTab, setSelectedTab] = useState(0);
+  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setSelectedTab(newValue);
+  };
 
   return (
     <div className={styles.everything}>
@@ -91,20 +90,19 @@ export default function UserPage() {
           <div className={styles.userData}>
             <Input disabled icon="Face" value="Takeshi Kovach" />
             <Input disabled icon="Email" value="Takeshi@gmail.com" />
+            <Button buttonType={ButtonType.primary}>Edit</Button>
           </div>
-          <Button buttonType={ButtonType.primary}>Edit</Button>
         </div>
 
         <div className={styles.preferencesSection}>
-          <div className={styles.buttonsContainer}>
-            <Button buttonType={ButtonType.primary}>Games</Button>
-            <Button buttonType={ButtonType.secondary}>Setups</Button>
-          </div>
-        
-          <UserPreferences className={styles.userPreferences} setups={setupArray}>
-            <div>hello</div>
-            
-          </UserPreferences>
+          <AppBar position="static" className={styles.tabsBar}>
+            <Tabs value={selectedTab} onChange={handleChange}>
+              <Tab label="Games" />
+              <Tab label="Setups" />
+            </Tabs>
+          </AppBar>
+          {selectedTab === 0 && <UserPreferences className={styles.userPreferences} games={gamesArray} />}
+          {selectedTab === 1 && <UserPreferences className={styles.userPreferences} setups={setupsArray} />}
         </div>
       </div>
       <div className={styles.fakeFooter}>Fake Footer</div>
@@ -116,9 +114,10 @@ interface GameCardProps {
   image: string;
   title: string;
   releaseDate?: string;
+  description?: string;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ image, title, releaseDate }) => {
+const GameCard: React.FC<GameCardProps> = ({ image, title, releaseDate, description }) => {
   return (
     <div className={styles.gameCard}>
       <div className={styles.gameTitle}>{title}</div>
@@ -126,6 +125,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, title, releaseDate }) => {
         <img src={image} alt="" />
       </div>
       <div>{releaseDate}</div>
+      <div className={styles.gameDescription}>{description}</div>
     </div>
   );
 };
@@ -145,7 +145,10 @@ const SetupCard: React.FC<SetupCardProps> = ({ image, title, description, classN
       <div className={styles.setupImage}>
         <img src={image} alt="" />
       </div>
-      <div>{description}</div>
+      <div className={styles.setupDescription}>{description}</div>
+      <Button icon="Build" buttonType={ButtonType.secondary}>
+        Go to Setup
+      </Button>
     </div>
   );
 };
@@ -163,7 +166,12 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
       {games ? (
         <div className={className}>
           {games.map((game) => (
-            <GameCard image={game.image} title={game.title} releaseDate={game.releaseDate} />
+            <GameCard
+              image={game.image}
+              title={game.title}
+              releaseDate={game.releaseDate}
+              description={game.description}
+            />
           ))}
         </div>
       ) : (
@@ -183,3 +191,15 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   );
 };
 
+// <Button onClick={handleGamesClick} buttonType={contentToShow == contentType.games ? ButtonType.primary : ButtonType.secondary}>
+// Games
+// </Button>
+// <Button onClick={handleSetupsClick} buttonType={contentToShow == contentType.setups? ButtonType.primary: ButtonType.secondary}>Setups</Button>
+
+// const [contentToShow, setContentToShow] = useState(contentType.games);
+// const handleGamesClick = () => {
+//   setContentToShow(contentType.games);
+// }
+// const handleSetupsClick = () => {
+//   setContentToShow(contentType.setups);
+// }
