@@ -7,7 +7,7 @@ type PropsType = {
   type: 'CPU' | 'GPU' | 'RAM';
 };
 
-const Tachometer = ({ value, maxValue = 10, type }: PropsType) => {
+const Tachometer = ({ value, maxValue = 10, type }: PropsType): JSX.Element => {
   const speed = 200 - (value / maxValue) * 140; // magic svg
   const text = Number.isInteger(value) ? value : value.toFixed(1);
 
