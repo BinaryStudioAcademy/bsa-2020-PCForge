@@ -13,7 +13,7 @@ export type UserGameStatic = typeof Model & {
 };
 
 export function UserGameFactory(sequelize: Sequelize): UserGameStatic {
-  return <UserGameStatic>sequelize.define('userGames', {
+  return <UserGameStatic>sequelize.define('userGame', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

@@ -7,6 +7,12 @@ export interface PowerSupplyAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface PowerSupplyDataAttributes {
+  name: string;
+  power: number;
+}
+
 export interface PowerSupplyModel extends Model<PowerSupplyAttributes>, PowerSupplyAttributes {}
 export class PowerSupply extends Model<PowerSupplyModel, PowerSupplyAttributes> {}
 
@@ -15,7 +21,7 @@ export type PowerSupplyStatic = typeof Model & {
 };
 
 export function PowerSupplyFactory(sequelize: Sequelize): PowerSupplyStatic {
-  return <PowerSupplyStatic>sequelize.define('powerSupplies', {
+  return <PowerSupplyStatic>sequelize.define('powerSupply', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

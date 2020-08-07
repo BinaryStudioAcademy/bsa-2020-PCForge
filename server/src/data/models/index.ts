@@ -1,3 +1,4 @@
+import { Sequelize } from 'sequelize/types';
 import { CommentFactory } from './comment';
 import { CpuFactory } from './cpu';
 import { GameFactory } from './game';
@@ -13,7 +14,8 @@ import { SocketFactory } from './socket';
 import { UserFactory } from './user';
 import { UserGameFactory } from './usergame';
 
-export const initializeModels = (orm) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const initializeModels = (orm: Sequelize) => {
   const CommentModel = CommentFactory(orm);
   const CpuModel = CpuFactory(orm);
   const GameModel = GameFactory(orm);
@@ -55,10 +57,10 @@ export const initializeModels = (orm) => {
 
   PowerSupplyModel.hasMany(SetupModel);
 
-  RamModel.belongsTo(RamTypeModel);
+  RamModel.belongsTo(RamTypeModel, { foreignKey: 'typeId' });
   RamModel.hasMany(SetupModel);
 
-  RamTypeModel.hasMany(RamModel);
+  RamTypeModel.hasMany(RamModel, { foreignKey: 'typeId' });
   RamTypeModel.hasMany(MotherboardModel);
 
   RateModel.belongsTo(UserModel);
@@ -75,8 +77,11 @@ export const initializeModels = (orm) => {
   SetupModel.hasMany(CommentModel, { foreignKey: 'commentableId', constraints: false });
   SetupModel.hasMany(RateModel, { foreignKey: 'ratebleId', constraints: false });
 
+  CpuModel.belongsTo(SocketModel, { foreignKey: 'socketId' });
+  CpuModel.hasMany(SetupModel);
+
+  SocketModel.hasMany(CpuModel, { foreignKey: 'socketId' });
   SocketModel.hasMany(MotherboardModel);
-  SocketModel.hasMany(CpuModel);
 
   UserModel.hasMany(RateModel);
   UserModel.hasMany(CommentModel);
