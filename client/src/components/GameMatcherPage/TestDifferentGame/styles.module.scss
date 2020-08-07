@@ -1,4 +1,4 @@
-@import '../../../styles//variables.sass';
+@import '../../../styles//variables.scss';
 
 .mainContainer {
   display: flex;
@@ -12,4 +12,8 @@
   font-size: 24px;
   line-height: 28px;
   color: #FFFFFF;
+}
+
+.select {
+  margin-bottom: 1rem;
 }

@@ -1,0 +1,11 @@
+@import './variables';
+@import './fonts';
+
+html {
+  background-color: $bgColor;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}

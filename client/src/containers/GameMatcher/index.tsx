@@ -1,8 +1,8 @@
 import React from 'react';
 
 import styles from './styles.module.scss';
-import Button, { ButtonType } from 'components/basicComponents/Button';
-import Select from 'components/basicComponents/Select';
+import Button, { ButtonType } from 'components/BasicComponents/Button';
+import Select from 'components/BasicComponents/Select';
 
 // const mockDataCallback = async () => ([{value: 'example', title: 'example'}]);
 const mockData = [{ value: 'example', title: 'example' }];
