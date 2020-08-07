@@ -1,51 +1,52 @@
-$input-warning:rgb(214, 142, 59);
-$input-error:rgb(235, 83, 45);
-$bg-color-text:   rgb(199, 195, 195);
-$bg-color-input:  #575858;
+$input-warning: rgb(214, 142, 59);
+$input-error: rgb(235, 83, 45);
+$bg-color-text: rgb(199, 195, 195);
+$bg-color-input: #575858;
 
-.input { 
-   & > div {
+.input {
+  & > div {
     background-color: $bg-color-input;
     border-radius: 20px;
 
     &::before, &::after {
-        border:none !important;
+      border: none !important;
     }
-   
-   }
+
+  }
+
+  & > div path {
+    color: $bg-color-text;
+  }
+
+
+  & > div > fieldset {
+    border-radius: 40px;
+    border-color: rgba(0, 0, 0, 0.23) !important;
+  }
+
+  & > div > input {
+    padding: 8px 10px;
+    color: $bg-color-text;
+  }
+
+  &.inputWarning {
     & > div path {
-        color: $bg-color-text;
+      color: $input-warning;
     }
 
+    & > div > input {
+      color: $input-warning;
+    }
+  }
 
-     & > div > fieldset {
-         border-radius: 40px;
-         border-color : rgba(0, 0, 0, 0.23) !important;
-     }
-
-     & > div > input {
-         padding: 8px 10px;
-         color: $bg-color-text;
-     }
-    
-    &.inputWarning {
-        & > div path {
-            color: $input-warning;
-        }
-
-        & > div > input {
-            color: $input-warning;
-        } 
+  &.inputError {
+    & > div path {
+      color: $input-error;
     }
 
-    &.inputError{
-        & > div path {
-            color: $input-error;
-        }
-
-       & > div > input {
-        color: $input-error;
-       } 
-        
+    & > div > input {
+      color: $input-error;
     }
+
+  }
 }

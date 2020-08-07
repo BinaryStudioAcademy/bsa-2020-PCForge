@@ -18,10 +18,15 @@
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["prettier"],
+  "plugins": [
+    "prettier"
+  ],
   "rules": {
     "prettier/prettier": "error",
-    "object-curly-spacing": ["warn", "always"],
+    "object-curly-spacing": [
+      "warn",
+      "always"
+    ],
     "no-unused-vars": [
       "warn",
       {
