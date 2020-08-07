@@ -1,3 +1,4 @@
+import { Sequelize } from 'sequelize/types';
 import { CommentFactory } from './comment';
 import { CpuFactory } from './cpu';
 import { GameFactory } from './game';
@@ -13,7 +14,8 @@ import { SocketFactory } from './socket';
 import { UserFactory } from './user';
 import { UserGameFactory } from './usergame';
 
-export const initializeModels = (orm) => {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const initializeModels = (orm: Sequelize) => {
   const CommentModel = CommentFactory(orm);
   const CpuModel = CpuFactory(orm);
   const GameModel = GameFactory(orm);

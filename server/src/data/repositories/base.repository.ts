@@ -24,7 +24,7 @@ export abstract class BaseRepository<M extends Model> {
       returning: true,
     });
 
-    const [number, models] = result;
+    const [, models] = result;
 
     return models[0] as M;
   }

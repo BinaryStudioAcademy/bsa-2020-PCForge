@@ -2,3 +2,4 @@
 export type FastifyOptions = {};
 
 export type FastifyNext = () => void;
+export type FastifyDone = () => void;
