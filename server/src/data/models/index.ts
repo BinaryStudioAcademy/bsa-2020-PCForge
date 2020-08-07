@@ -75,8 +75,11 @@ export const initializeModels = (orm) => {
   SetupModel.hasMany(CommentModel, { foreignKey: 'commentableId', constraints: false });
   SetupModel.hasMany(RateModel, { foreignKey: 'ratebleId', constraints: false });
 
+  CpuModel.belongsTo(SocketModel, { foreignKey: 'socketId' });
+  CpuModel.hasMany(SetupModel);
+
+  SocketModel.hasMany(CpuModel, { foreignKey: 'socketId' });
   SocketModel.hasMany(MotherboardModel);
-  SocketModel.hasMany(CpuModel);
 
   UserModel.hasMany(RateModel);
   UserModel.hasMany(CommentModel);
