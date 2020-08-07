@@ -2,6 +2,8 @@ import React from 'react';
 import styles from './styles.module.scss';
 import Input from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import Select from 'components/BasicComponents/Select';
+import AsyncSelect from 'components/BasicComponents/AsyncSelect'
 
 export default function UserPage() {
   const gamesArray = [
@@ -98,8 +100,12 @@ export default function UserPage() {
             <Button buttonType={ButtonType.primary}>Games</Button>
             <Button buttonType={ButtonType.secondary}>Setups</Button>
           </div>
+          <Select inputLabel='cats' inputOptions={[{value:1, title: 'pet'}]}></Select>
+          <Select inputLabel='cats' inputOptions={[{value:1, title: 'pet'}]}></Select>
+          
           <UserPreferences className={styles.userPreferences} setups={setupArray}>
             <div>hello</div>
+            
           </UserPreferences>
         </div>
       </div>
