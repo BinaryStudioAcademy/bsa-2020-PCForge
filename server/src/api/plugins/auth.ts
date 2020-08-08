@@ -5,11 +5,12 @@ export default fp((fastify, opts, next) => {
   fastify.register(fastifyJWT, {
     secret: process.env.JWT_SECRET,
   });
+
   fastify.decorate('authenticate', async (req, res) => {
     try {
       await req.jwtVerify();
     } catch (err) {
-      res.code(401).send(err);
+      res.send(err);
     }
   });
 
