@@ -15,7 +15,7 @@ export type RateStatic = typeof Model & {
 };
 
 export function RateFactory(sequelize: Sequelize): RateStatic {
-  return <RateStatic>sequelize.define('rates', {
+  return <RateStatic>sequelize.define('rate', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

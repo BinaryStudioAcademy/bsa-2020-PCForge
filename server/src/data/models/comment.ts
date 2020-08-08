@@ -15,7 +15,7 @@ export type CommentStatic = typeof Model & {
 };
 
 export function CommentFactory(sequelize: Sequelize): CommentStatic {
-  return <CommentStatic>sequelize.define('comments', {
+  return <CommentStatic>sequelize.define('comment', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
