@@ -1,12 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 
 import style from './styles.module.scss';
 import Button from 'components/BasicComponents/Button';
 import { Routes } from 'common/enums';
 
-const NotFound = () => {
-  const history = useHistory();
+const NotFound = ({ history }: RouteComponentProps) => {
   const goHome = () => history.push(Routes.LOGIN);
 
   return (
