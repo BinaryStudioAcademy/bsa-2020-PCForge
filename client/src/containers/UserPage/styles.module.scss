@@ -3,7 +3,7 @@
 
 $bg-body: #0d0d0e;
 $bg-container: #2d2d2e;
-$card-shadow: 0px 0px 3px 2px rgba(0, 0, 0, 0.3);
+$card-shadow: 0px 0px 3px 7px rgba(0, 0, 0, 0.1);
 $text-highlight-color: rgb(65, 166, 224);
 
 html {
@@ -18,6 +18,10 @@ body {
   background-color: $bgColor;
   width: 100%;
   box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    overflow-y: auto;
+  }
 }
 
 .everything {
@@ -25,23 +29,9 @@ body {
   flex-direction: column;
 }
 
-.header {
-  height: 60px;
-  background-color: rgb(32, 30, 30);
-  display: flex;
-  color: white;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 30px;
-
-  & p:first-child {
-    margin-right: 300px;
-    font-size: 24px;
-  }
-}
 
 .userPageContainer {
-  width: 90%;
+  width: 90vw;
   height: 80vh;
   display: flex;
   margin: 50px auto;
@@ -51,6 +41,8 @@ body {
     width:90%;
     flex-direction: column;
     align-items: center;  
+    margin-top: 20px;
+    height: auto;
   }
 }
 
@@ -59,96 +51,90 @@ body {
   width: 100%;
   height: 100%;
   background-color: $colorDarkGray;
-  overflow: auto;
+  overflow: hidden;
+  border-radius: 10px;
 
   @media (max-width: 768px) {
     width:100%; 
-    margin-top: 8px;
-  }
-}
-
-.buttonsContainer {
-  margin-top: 50px;
-  margin-bottom: 30px;
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: space-evenly;
-
-  @media (max-width: 768px) {
-   position: absolute;
-   top:320px;
-   width:90%;
-  }
-  @media (max-width: 600px) {
-   position: absolute;
-   top:420px;
-   width:90%;
+    margin-top: 0px;
+    overflow: none;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
   }
 
-  button {
-    width: 150px;
+  .addGameButton {
+    margin:15px 30px 15px;
+  }
+
+  .setupLink {
+    margin:15px 30px 15px;
+    display: inline-block;
+    font-size: 22px;
   }
 }
 
 .userInfo {
   display: flex;
-  width: 300px;
-  margin-right: 25px;
+  width: 370px;
+  margin-right: 30px;
   flex-direction: column;
   align-items: center;
   text-align: center;
   background-color: $colorDarkGray;
   padding: 10px;
+  border-radius: 10px;
 
   @media (max-width: 768px) {
     width:100%; 
     margin:0 10px;
-    height:600px;
+    height:auto;
     align-items: flex-start;
-    box-sizing: border-box;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
   }
-  @media (min-width: 600px)and (max-width: 768px) {
+  
+  @media (min-width: 550px)and (max-width: 768px) {
     width:100%; 
-    margin:0 10px;
-    height:700px;
+    // margin:10px;
+    padding:20px;
+    height:auto;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
+   
   }
 
-  @media (max-width: 600px) {
-    min-height:420px;
+  @media (max-width: 549px) {
+    min-height:350px;
+    align-items: center;
+    position: relative;
   }
 
-  button {
-    margin-top: auto;
-    margin-bottom: 20px;
-    width: 100%;
-
-    @media (max-width: 768px) {
-      width:260px; 
-      margin-top: 8px;
-    }
-  }
 
   .userImage {
-    margin: 20px;
-    margin-bottom: 0;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    width:90%;
 
-    @media (max-width: 600px) { 
-    margin: 10px auto;
+    @media (min-width: 550px)and (max-width: 768px) {
+      margin: 10px auto;
+      width:150px;
+      align-self: flex-start;
+
     }
-
-  
-
+    @media (max-width: 549px) { 
+      width:30%;
+      align-self: center;
+    }
+    
     img {
-      width: 200px;
+      width:100%;
       border-radius: 20px;
       object-fit: contain;
       box-shadow: 0px 0px 8px 7px rgba(0, 0, 0, 0.3);
 
-      @media (max-width: 600px) {
-      width:150px;
+      @media (max-width: 549px) {
       border-radius: 50%;
       }
     }
@@ -156,94 +142,132 @@ body {
 
   .userData {
     color: $text-highlight-color;
-    margin-top: 0;
+    display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    height:100%;
+    width:90%;
+    position: relative;
 
-    &>div:first-child {
-      margin-top: 20px;
+    & > div {
+      margin-bottom: 15px;
     }
 
-    &>div {
-      margin: 10px;
+    & button {
+     position: absolute;
+     bottom:0;
+     margin-top: auto;
+     margin-bottom: 20px;
+     width: 100%;
+
+     @media (max-width: 768px) {
+      position: static;
+      margin-top: 20px;
+      }
     }
     
-    &>div:last-child {
-      margin-top: auto;
-    }
-
     & p {
       font-size: 24px;
     }
 
     @media (max-width: 768px) {
-      & > div:first-child {
-        margin-top:10px;
-      } 
+      width:50%;
+      margin:10px;
+    }
+    @media (max-width: 549px) {
+      width:70%;
+      margin:10px;
     }
   }
 }
 
 
 .gameCard {
-  height: 225px;
-  width: 300px;
+  height: 180px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background-color: $colorBlack;
+  justify-content: space-between;
+  background-color:rgb(19, 18, 18);
   color: $colorTextGray;
-  margin: 10px;
+  margin: 15px;
   border-radius: 5px;
   position:relative;
 
   img {
     object-fit: contain;
     width: 100%;
+    border-radius: 5px;
   }
 
   p {
     margin: 0;
   }
 
-  .gameTitle {
-    font-size: 22px;
-    margin-bottom: 15px;
-    color: $text-highlight-color;
-  }
-
   &:hover > .gameDescription{
     display: block;
-    border-radius: 5px;
+    border-radius:5px;
     background: rgba($color: #222121, $alpha: 0.9);
     position:absolute;
     left:0;
     top:0;
     bottom:0;
-    text-align: center;
-    padding-top: 15px;
-    font-size: 18px;
+    right:0;
+    // text-align: center;
+    padding: 15px;
+    font-size: 16px;
     text-overflow: ellipsis;
-    color: white;
+    color: rgb(228, 225, 225);
   }
+
    .gameDescription {
     display: none;
+  }
+
+  // .addGameButton {
+  //   margin:15px;
+  // }
+
+  .gameFooter {
+    display: flex;
+    font-size: 16px;
+    color: $colorTextGray;
+    justify-content: space-around;
+    align-items: center;
+    width:100%;
+    
+
+    .gameTitle {
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
   }
 }
 
 .userPreferences {
   display: flex;
+  width:100%;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-top: 15px;
+  max-height:calc(100% - 100px);
+  justify-content: flex-start;
+  overflow: auto;
+  padding:15px;
+  border-top: 1px solid rgb(102, 102, 102);
 
   @media (max-width: 768px) {
     overflow: auto;
   }
+
+  @media (max-width: 739px) {
+    justify-content: center;
+  }
   
-  &>div:hover {
+  & > div:hover {
     cursor: pointer;
-    box-shadow: 0 0 1rem -.25rem $linkColor;
+    box-shadow: 1px 1px 4px 5px rgba($color: $linkColor, $alpha: 0.2);
+    // box-shadow: rgba($color: $linkColor, $alpha: 0.3);
+    // box-shadow: 0 14px 28px rgba(0,0,0, 0.3);
   }
 }
 
@@ -253,7 +277,7 @@ body {
   width:250px;
   display: flex;
   flex-direction: column;
-  margin:10px;
+  margin:15px;
   margin-bottom: 15px;
   border-radius: 5px;
   background-color: $colorBlack;
@@ -268,7 +292,7 @@ body {
 }
 
 .setupTitle {
-  color: $text-highlight-color;
+  color: $colorTextGray;
   font-size:26px;
   text-align: center;
   margin-top: 15px;

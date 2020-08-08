@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import Input from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { Tabs, Tab, AppBar } from '@material-ui/core';
-
+import Link from 'components/BasicComponents/Link';
 enum contentType {
   games,
   setups,
@@ -67,6 +67,42 @@ export default function UserPage() {
       title: 'My Title',
       description: 'Here is my super cool setting for all the bloody cool games',
     },
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
+    {
+      image:
+        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
+      title: 'My Title',
+      description: 'Here is my super cool setting for all the bloody cool games',
+    },
   ];
   const [selectedTab, setSelectedTab] = useState(0);
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
@@ -75,13 +111,6 @@ export default function UserPage() {
 
   return (
     <div className={styles.everything}>
-      <div className={styles.header}>
-        <p>Fake Menu</p>
-        <p>something</p>
-        <p>something</p>
-        <p>something</p>
-        <p>something</p>
-      </div>
       <div className={styles.userPageContainer}>
         <div className={styles.userInfo}>
           <div className={styles.userImage}>
@@ -101,8 +130,8 @@ export default function UserPage() {
               <Tab label="Setups" />
             </Tabs>
           </AppBar>
-          {selectedTab === 0 && <UserPreferences className={styles.userPreferences} games={gamesArray} />}
-          {selectedTab === 1 && <UserPreferences className={styles.userPreferences} setups={setupsArray} />}
+            {selectedTab === 0 && <UserPreferences className={styles.userPreferences} games={gamesArray} />}
+            {selectedTab === 1 && <UserPreferences className={styles.userPreferences} setups={setupsArray} />}
         </div>
       </div>
     </div>
@@ -119,12 +148,14 @@ interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({ image, title, releaseDate, description }) => {
   return (
     <div className={styles.gameCard}>
-      <div className={styles.gameTitle}>{title}</div>
       <div className={styles.gameImage}>
         <img src={image} alt="" />
       </div>
-      <div>{releaseDate}</div>
-      <div className={styles.gameDescription}>{description}</div>
+      <div className={styles.gameFooter}>
+        <div className={styles.gameTitle}>{title}</div>
+        <div>{releaseDate}</div>
+      </div>
+      {description && <div className={styles.gameDescription}>{description}</div>}
     </div>
   );
 };
@@ -163,6 +194,8 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   return (
     <>
       {games ? (
+  <>
+        <Button className={styles.addGameButton} buttonType={ButtonType.primary} icon='Add'>Add Game</Button>
         <div className={className}>
           {games.map((game) => (
             <GameCard
@@ -173,20 +206,25 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
             />
           ))}
         </div>
+        </>
+       
       ) : (
         ' '
       )}
 
       {setups ? (
+        <>
+        <Link className={styles.setupLink} icon='Build'>Builder</Link>
         <div className={className}>
           {setups.map((setup) => (
             <SetupCard image={setup.image} title={setup.title} description={setup.description} />
           ))}
         </div>
+        </>
       ) : (
         ''
       )}
-    </>
+   </>
   );
 };
 
