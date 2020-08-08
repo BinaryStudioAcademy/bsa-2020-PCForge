@@ -9,6 +9,15 @@ export interface RamAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface RamDataAttributes {
+  name: string;
+  memorySize: number;
+  frequency: number;
+  typeId: number;
+  power: number;
+}
+
 export interface RamModel extends Model<RamAttributes>, RamAttributes {}
 export class Ram extends Model<RamModel, RamAttributes> {}
 
@@ -17,7 +26,7 @@ export type RamStatic = typeof Model & {
 };
 
 export function RamFactory(sequelize: Sequelize): RamStatic {
-  return <RamStatic>sequelize.define('rams', {
+  return <RamStatic>sequelize.define('ram', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

@@ -4,6 +4,7 @@
   background-color: #3c444c;
   border-radius: 20px !important;
   padding: 6px;
+
   input::placeholder {
     font-family: Inter;
     font-style: normal;
@@ -18,6 +19,7 @@
 .icon {
   transform: scaleX(-1);
 }
+
 .iconFill {
   fill: #cbcfd4 !important;
   height: 20px !important;

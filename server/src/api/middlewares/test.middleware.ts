@@ -1,10 +1,11 @@
-import { FastifyRequest } from 'fastify';
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyDone } from '../routes/fastifyTypes';
 
 type CustomRequest = FastifyRequest<{
   Params: { id: string };
 }> & { myId: number | null };
 
-export const testMiddleware = (request: CustomRequest, reply, done): void => {
+export const testMiddleware = (request: CustomRequest, reply: FastifyReply, done: FastifyDone): void => {
   const { id } = request.params;
 
   console.log(`request params id: ${id}`);

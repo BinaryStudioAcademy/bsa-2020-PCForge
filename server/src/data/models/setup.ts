@@ -16,7 +16,7 @@ export type SetupStatic = typeof Model & {
 };
 
 export function SetupFactory(sequelize: Sequelize): SetupStatic {
-  return <SetupStatic>sequelize.define('setups', {
+  return <SetupStatic>sequelize.define('setup', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

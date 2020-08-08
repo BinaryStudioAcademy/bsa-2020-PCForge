@@ -1,0 +1,20 @@
+$checkbox-primary: #3ba1db;
+$checkbox-secondary: #ca0000;
+$checkbox-default: #575858;
+
+span.checkbox {
+  color: $checkbox-primary;
+
+
+  &.checkboxPrimary {
+    color: $checkbox-primary;
+  }
+
+  &.checkboxSecondary {
+    color: $checkbox-secondary;
+  }
+
+  &.checkboxDefault {
+    color: $checkbox-default;
+  }
+}
