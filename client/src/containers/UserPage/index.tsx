@@ -4,10 +4,15 @@ import Input from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { Tabs, Tab, AppBar } from '@material-ui/core';
 import Link from 'components/BasicComponents/Link';
+
 enum contentType {
   games,
   setups,
 }
+
+const generateKey = (pre:String) => {
+  return `${pre}_${new Date().getTime()}`;
+};
 
 export default function UserPage() {
   const gamesArray = [
@@ -104,9 +109,25 @@ export default function UserPage() {
       description: 'Here is my super cool setting for all the bloody cool games',
     },
   ];
+
+  const [editableInput, setEditableInput] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const [name, setName] = useState('Takeshi');
+  const [email, setEmail] = useState('Takeshi@gmail');
+
+  const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
     setSelectedTab(newValue);
+  };
+
+  const handleClick = (event: React.MouseEvent) => {
+    setEditableInput(!editableInput);
+  };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
   };
 
   return (
@@ -117,9 +138,23 @@ export default function UserPage() {
             <img src="https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg" alt="" />
           </div>
           <div className={styles.userData}>
-            <Input disabled icon="Face" value="Takeshi Kovach" />
-            <Input disabled icon="Email" value="Takeshi@gmail.com" />
-            <Button buttonType={ButtonType.primary}>Edit</Button>
+            <Input
+              disabled={editableInput ? false : true}
+              className={editableInput ? styles.autoFocused : ''}
+              icon="Face"
+              value={name}
+              onChange={handleNameChange}
+            />
+            <Input
+              disabled={editableInput ? false : true}
+              className={editableInput ? styles.autoFocused : ''}
+              icon="Email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+            <Button onClick={handleClick} buttonType={ButtonType.primary}>
+              {editableInput ? 'Save' : 'Edit'}
+            </Button>
           </div>
         </div>
 
@@ -130,8 +165,8 @@ export default function UserPage() {
               <Tab label="Setups" />
             </Tabs>
           </AppBar>
-            {selectedTab === 0 && <UserPreferences className={styles.userPreferences} games={gamesArray} />}
-            {selectedTab === 1 && <UserPreferences className={styles.userPreferences} setups={setupsArray} />}
+          {selectedTab === 0 && <UserPreferences className={styles.userPreferences} games={gamesArray} />}
+          {selectedTab === 1 && <UserPreferences className={styles.userPreferences} setups={setupsArray} />}
         </div>
       </div>
     </div>
@@ -168,7 +203,7 @@ interface SetupCardProps {
 }
 
 const SetupCard: React.FC<SetupCardProps> = ({ image, title, description, className }) => {
-  let setupStyle = styles.setupCard + (` ${className}` || '');
+  const setupStyle = styles.setupCard + (` ${className}` || '');
   return (
     <div className={setupStyle}>
       <div className={styles.setupTitle}>{title}</div>
@@ -194,49 +229,50 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   return (
     <>
       {games ? (
-  <>
-        <Button className={styles.addGameButton} buttonType={ButtonType.primary} icon='Add'>Add Game</Button>
-        <div className={className}>
-          {games.map((game) => (
-            <GameCard
-              image={game.image}
-              title={game.title}
-              releaseDate={game.releaseDate}
-              description={game.description}
-            />
-          ))}
+        <>
+        <div className={styles.buttonPlacement}>
+
+          <Button className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add">
+            Add Game
+          </Button>
         </div>
+          <div className={className}>
+            {games.map((game) => (
+              <GameCard
+                key={generateKey(game.title)}
+                image={game.image}
+                title={game.title}
+                releaseDate={game.releaseDate}
+                description={game.description}
+              />
+            ))}
+          </div>
         </>
-       
       ) : (
         ' '
       )}
 
       {setups ? (
         <>
-        <Link className={styles.setupLink} icon='Build'>Builder</Link>
-        <div className={className}>
-          {setups.map((setup) => (
-            <SetupCard image={setup.image} title={setup.title} description={setup.description} />
-          ))}
-        </div>
+        <div className={styles.buttonPlacement}>
+          <Link className={styles.setupLink} icon="Build">
+            Builder
+          </Link>
+          </div>
+          <div className={className}>
+            {setups.map((setup) => (
+              <SetupCard
+                key={generateKey(setup.title)}
+                image={setup.image}
+                title={setup.title}
+                description={setup.description}
+              />
+            ))}
+          </div>
         </>
       ) : (
         ''
       )}
-   </>
+    </>
   );
 };
-
-// <Button onClick={handleGamesClick} buttonType={contentToShow == contentType.games ? ButtonType.primary : ButtonType.secondary}>
-// Games
-// </Button>
-// <Button onClick={handleSetupsClick} buttonType={contentToShow == contentType.setups? ButtonType.primary: ButtonType.secondary}>Setups</Button>
-
-// const [contentToShow, setContentToShow] = useState(contentType.games);
-// const handleGamesClick = () => {
-//   setContentToShow(contentType.games);
-// }
-// const handleSetupsClick = () => {
-//   setContentToShow(contentType.setups);
-// }
