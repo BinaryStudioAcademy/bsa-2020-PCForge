@@ -1,0 +1,162 @@
+$holeShadow: #c0c0c0;
+$black: #333333;
+$skin: #f5b078;
+$wood: #bc6043;
+$font: 'LatoBlack', sans-serif;
+
+.holeWrapper {
+  overflow: hidden;
+  position: absolute;
+  height: 180px;
+  width: 160px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  .hole {
+    left: 0;
+    bottom: 0;
+    transform: translate(-50%, 0);
+    position: absolute;
+    width: 160px;
+    height: 40px;
+    border-radius: 200%;
+    background: $black;
+    box-shadow: inset 0 10px 0 $holeShadow;
+    animation: showHole 0.5s both;
+    .arm {
+      position: absolute;
+      bottom: 0px;
+      width: 30px;
+      height: 45px;
+      transform: translate(-40%, 0);
+      left: 50%;
+      background: $skin;
+      animation: showArm 0.5s both;
+      animation-delay: 0.5s;
+      clip-path: polygon(0 0, 75% 0, 100% 100%, 3% 100%);
+    }
+    .hand {
+      position: absolute;
+      top: -30px;
+      left: 60px;
+      animation: showArm 0.5s both;
+      animation-delay: 0.5s;
+      &:after {
+        content: '';
+        display: block;
+        background: $skin;
+        position: absolute;
+        width: 36px;
+        height: 40px;
+        top: 0;
+        border-radius: 50px 25px / 52% 84%;
+        z-index: 0;
+      }
+      .fingerUp {
+        z-index: 2;
+        position: absolute;
+        top: -20px;
+        right: -8px;
+        width: 12px;
+        display: block;
+        border-radius: 20px;
+        background: $skin;
+        height: 36px;
+        clip-path: polygon(21% 0, 57% 0, 84% 51%, 100% 100%, 24% 100%, 21% 50%);
+      }
+      .finger {
+        z-index: 2;
+        position: relative;
+        width: 25px;
+        display: block;
+        border-radius: 20px;
+        background: $skin;
+        height: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        &:nth-child(3) {
+          width: 23px;
+        }
+        &:nth-child(4) {
+          width: 23px;
+          height: 9px;
+        }
+        &:nth-child(5) {
+          height: 8px;
+          width: 23px;
+        }
+      }
+    }
+    .wood {
+      height: 155px;
+      width: 14px;
+      position: absolute;
+      z-index: 1;
+      bottom: 25px;
+      left: 70px;
+      background: $wood;
+      border-radius: 10px;
+      animation: showArm 0.5s both;
+      animation-delay: 0.5s;
+      &:before {
+        font-family: $font;
+        content: 'Page not found!';
+        font-weight: bold;
+        display: block;
+        background: #fff;
+        color: #000;
+        width: 153px;
+        position: absolute;
+        height: 60px;
+        left: -70px;
+        text-align: center;
+        line-height: 60px;
+        font-size: 18px;
+      }
+    }
+  }
+}
+@keyframes showHole {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes showArm {
+  0% {
+    transform: translate(-40%, 200px);
+  }
+  100% {
+    transform: translatey(-40%, 0);
+  }
+}
+.dev {
+  font-family: $font;
+  position: fixed;
+  font-size: 14px;
+  top: 10px;
+  left: 10px;
+  padding: 1em;
+  color: $black;
+  background-color: white;
+  border-radius: 25px;
+  a {
+    text-decoration: none;
+    font-weight: bold;
+    color: $black;
+    transition: ease all 0.3s;
+    &:hover {
+      color: #ef5350;
+      text-decoration: underline;
+    }
+  }
+  span {
+    color: #ef5350;
+  }
+}
+
+.buttonWrapper {
+  position: absolute;
+  top: 70%;
+}
