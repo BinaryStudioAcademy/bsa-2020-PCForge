@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
@@ -31,7 +31,7 @@ enum labels {
   'Better that just excellent' = 5,
 }
 
-export function RatingBox(ratingValue: number, disabled: boolean): ReactElement {
+export function RatingBox(ratingValue: number, disabled: boolean) {
   const [value, setValue] = React.useState<number>(ratingValue);
   const [hover, setHover] = React.useState<number>(-1);
 

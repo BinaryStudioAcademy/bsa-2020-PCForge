@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function RatingIcon(props: SvgIconProps): ReactElement {
+export default function RatingIcon(props: SvgIconProps) {
   const classes = useStyles();
 
   return (

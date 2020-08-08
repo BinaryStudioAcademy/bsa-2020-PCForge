@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import Crumbs from '@material-ui/core/Breadcrumbs';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
@@ -10,7 +10,7 @@ type PropsType = {
   onClick: (href: string) => void;
 };
 
-const Breadcrumbs = ({ links, onClick }: PropsType): ReactElement => {
+const Breadcrumbs = ({ links, onClick }: PropsType) => {
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
     onClick((event.target as HTMLAnchorElement).href);

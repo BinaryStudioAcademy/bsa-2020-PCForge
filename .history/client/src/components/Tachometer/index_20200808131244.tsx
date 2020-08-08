@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import styles from './styles.module.scss';
 
 type PropsType = {
@@ -7,7 +7,7 @@ type PropsType = {
   type: 'CPU' | 'GPU' | 'RAM';
 };
 
-const Tachometer = ({ value, maxValue = 10, type }: PropsType): ReactElement => {
+const Tachometer = ({ value, maxValue = 10, type }: PropsType) => {
   const speed = 200 - (value / maxValue) * 140; // magic svg
   const text = Number.isInteger(value) ? value : value.toFixed(1);
 
