@@ -67,11 +67,6 @@ module.exports = {
             createdAt: new Date(Date.now()),
             updatedAt: new Date(Date.now()),
           }))
-        } else {
-          console.error(recommendedCpuId,
-          recommendedGpuId,
-          minimalCpuId,
-          minimalGpuId)
         }
       }
       await queryInterface.bulkInsert('games', gamesToSeed, {});
