@@ -7,7 +7,6 @@ export function router(fastify: FastifyInstance, opts, next): void {
   const { UserService } = fastify.services;
 
   fastify.post('/auth/login', {}, async (request, reply) => {
-    console.log(request.session);
     try {
       const { login, password } = request.body;
       if (login && password) {
@@ -15,7 +14,6 @@ export function router(fastify: FastifyInstance, opts, next): void {
         const isPasswordValidForUser = await bcrypt.compare(password, User.password);
         if (isPasswordValidForUser) {
           const token = fastify.jwt.sign({}, { expiresIn: 86400 });
-          console.log('functionrouter -> token', token);
           reply.send(token);
         } else {
           reply.status(401).send({
@@ -27,7 +25,6 @@ export function router(fastify: FastifyInstance, opts, next): void {
         throw error;
       }
     } catch (error) {
-      console.log(error);
       reply.status(400).send({
         error: true,
         msg: 'Mandatory fields are missing',

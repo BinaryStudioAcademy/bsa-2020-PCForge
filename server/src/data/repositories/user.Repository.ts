@@ -10,7 +10,6 @@ export class UserRepository {
         [Op.or]: [{ name: login }, { email: login }],
       },
     });
-    // console.log('UserRepository -> constructor -> user', user);
     return user;
   }
 }
