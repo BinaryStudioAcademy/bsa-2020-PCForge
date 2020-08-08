@@ -2,7 +2,7 @@ import { Models } from '../../data/db/connection';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
 import { CpuRepository } from './cpu.repository';
 import { GpuRepository } from './gpu.repository';
-import { MotherboardRepository } from './Motherboard.repository';
+import { MotherboardRepository } from './motherboard.repository';
 import { PowerSupplyRepository } from './powerSupply.repository';
 import { RamRepository } from './ram.repository';
 import { SocketRepository } from './socket.repository';
