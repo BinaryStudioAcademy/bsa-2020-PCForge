@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
 
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function RatingIcon(props: SvgIconProps) {
+export default function RatingIcon(props: SvgIconProps): ReactElement {
   const classes = useStyles();
 
   return (
