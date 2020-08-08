@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "scripts": {
-      "start": "cd ./client && npm run build && cd ../server && npm run dev"
+      "start": "cd ./client && npm install && npm run build && cd ../server && npm install && npm run dev"
     },
     "author": "",
     "license": "MIT",
