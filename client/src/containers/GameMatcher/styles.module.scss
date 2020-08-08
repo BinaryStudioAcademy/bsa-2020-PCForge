@@ -1,6 +1,8 @@
 @import '../../styles//variables.scss';
 
 .gameMatcher {
+  flex-grow: 1;
+  margin: 0 8rem;
   background: $colorBlack;
   padding: 3rem;
 }
@@ -22,7 +24,7 @@
   flex-direction: column;
   align-items: center;
   background: $colorDarkGray;
-  width: 100%;
+  flex-grow: 1;
   border-radius: 7px;
   box-shadow: 40px 40px 20px 30px rgba(0, 0, 0, 0.1);
   padding: 3rem 0 4rem;
