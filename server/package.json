@@ -39,7 +39,11 @@
     "ts-node-dev": "^1.0.0-pre.56",
     "sequelize-cli": "^6.2.0"
   },
-
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
     "*.{js,ts,tsx}": [
       "prettier --write",

@@ -6,6 +6,13 @@ export interface MotherboardAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface MotherboardDataAttributes {
+  name: string;
+  socketId: number;
+  ramTypeId: number;
+}
+
 export interface MotherboardModel extends Model<MotherboardAttributes>, MotherboardAttributes {}
 export class Motherboard extends Model<MotherboardModel, MotherboardAttributes> {}
 
@@ -14,7 +21,7 @@ export type MotherboardStatic = typeof Model & {
 };
 
 export function MotherboardFactory(sequelize: Sequelize): MotherboardStatic {
-  return <MotherboardStatic>sequelize.define('motherboards', {
+  return <MotherboardStatic>sequelize.define('motherboard', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
