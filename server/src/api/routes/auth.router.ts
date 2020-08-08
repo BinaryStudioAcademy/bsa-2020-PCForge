@@ -1,12 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { error } from 'console';
 import { bcrypt } from 'bcrypt';
+import { PostAuthRequest } from './auth.schema';
 const bcrypt = require('bcrypt');
 
 export function router(fastify: FastifyInstance, opts, next): void {
   const { UserService } = fastify.services;
 
-  fastify.post('/auth/login', {}, async (request, reply) => {
+  fastify.post('/auth/login', {}, async (request: PostAuthRequest, reply) => {
     try {
       const { login, password } = request.body;
       if (login && password) {

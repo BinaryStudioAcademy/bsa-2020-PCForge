@@ -1,6 +1,6 @@
 import { Models } from '../../data/db/connection';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
-import { UserRepository } from './user.Repository';
+import { UserRepository } from './user.repository';
 export interface Repositories {
   RamType: RamTypeRepository;
   Users: UserRepository;
