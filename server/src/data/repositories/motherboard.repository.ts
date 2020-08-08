@@ -30,9 +30,11 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel> {
     return motherboard;
   }
 
-  async getAllMotherboards(): Promise<MotherboardModel[]> {
+  async getAllMotherboards(filter: { socketId: string }): Promise<MotherboardModel[]> {
+    const { socketId } = filter;
     const motherboards = await this.model.findAll({
       group: ['motherboard.id', 'socket.id', 'ramType.id'],
+      where: { socketId },
       include: [
         {
           model: this.ramTypeModel,

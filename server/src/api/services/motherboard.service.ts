@@ -9,8 +9,8 @@ export class MotherboardService {
     return motherboard;
   }
 
-  async getAllMotherboards(): Promise<MotherboardModel[]> {
-    const motherboards = await this.repository.getAllMotherboards();
+  async getAllMotherboards(filter: { socketId: string }): Promise<MotherboardModel[]> {
+    const motherboards = await this.repository.getAllMotherboards(filter);
     return motherboards;
   }
 

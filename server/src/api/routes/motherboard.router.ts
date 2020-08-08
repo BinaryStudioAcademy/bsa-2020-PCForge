@@ -2,20 +2,21 @@ import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import {
   PostMotherboardRequest,
-  GetMotherboardRequest,
   PutMotherboardRequest,
   DeleteMotherboardRequest,
+  GetAllMotherboardsRequest,
+  GetOneMotherboardRequest,
 } from './Motherboard.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { MotherboardService } = fastify.services;
 
-  fastify.get('/', {}, async (request, reply) => {
-    const motherboards = await MotherboardService.getAllMotherboards();
+  fastify.get('/', {}, async (request: GetAllMotherboardsRequest, reply) => {
+    const motherboards = await MotherboardService.getAllMotherboards(request.query);
     reply.send(motherboards);
   });
 
-  fastify.get('/:id', {}, async (request: GetMotherboardRequest, reply) => {
+  fastify.get('/:id', {}, async (request: GetOneMotherboardRequest, reply) => {
     const { id } = request.params;
     const motherboard = await MotherboardService.getMotherboardById(id);
     reply.send(motherboard);
