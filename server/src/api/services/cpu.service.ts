@@ -1,6 +1,12 @@
 import { CpuDataAttributes, CpuModel } from '../../data/models/cpu';
 import { CpuRepository } from '../../data/repositories/cpu.repository';
 
+interface ICpuFilter {
+  socketId: string;
+  from: number;
+  count: number;
+}
+
 export class CpuService {
   constructor(private repository: CpuRepository) {}
 
@@ -9,7 +15,7 @@ export class CpuService {
     return cpu;
   }
 
-  async getAllCpus(filter: { socketId: string }): Promise<CpuModel[]> {
+  async getAllCpus(filter: ICpuFilter): Promise<CpuModel[]> {
     const cpus = await this.repository.getAllCpus(filter);
     return cpus;
   }

@@ -10,7 +10,7 @@ const server = fastify();
 server.register(db);
 server.register(fastifyStatic, {
   root: path.join(__dirname, '..', '..', 'client', 'build'),
-  prefix: '/'
+  prefix: '/',
 });
 
 server.register(routes, { prefix: '/api' });
