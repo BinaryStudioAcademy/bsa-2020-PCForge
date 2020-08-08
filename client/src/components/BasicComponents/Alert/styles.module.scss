@@ -1,0 +1,51 @@
+$alert-success-border: #288c2c;
+$alert-success-color: #7dce6f;
+
+$alert-info-border: #3ba1db;
+$alert-info-color: #9acff9;
+
+$alert-error-border: #ca0000;
+$alert-error-color: #ff5a5a;
+
+$alert-warning-border: #daa508;
+$alert-warning-color: #ffd767;
+
+div.alert {
+  &.alertSuccess {
+    color: $alert-success-color;
+    border-color: $alert-success-border;
+  }
+
+  &.alertInfo {
+    color: $alert-info-color;
+    border-color: $alert-info-border;
+  }
+
+  &.alertWarning {
+    color: $alert-warning-color;
+    border-color: $alert-warning-border;
+  }
+
+  &.alertError {
+    color: $alert-error-color;
+    border-color:$alert-error-border;
+  }
+}
+
+.icon {
+  &.iconSuccess {
+    color: $alert-success-color;
+  }
+
+  &.iconInfo {
+    color: $alert-info-color;
+  }
+
+  &.iconWarning {
+    color: $alert-warning-color;
+  }
+
+  &.iconError {
+    border-color: $alert-error-color;
+  }
+}

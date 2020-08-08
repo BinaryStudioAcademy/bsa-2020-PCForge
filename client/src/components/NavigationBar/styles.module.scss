@@ -1,0 +1,48 @@
+@import '../../styles/variables.sass';
+
+.navigationBar {
+
+  .listIcons {
+    padding: 10px 20px;
+    height: 100%;
+    width: fit-content;
+    background-color: $colorBlack;
+    display: flex;
+    flex-direction: column;
+
+    .logo {
+      margin: 10px 0 30px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid $colorBlue;
+      border-radius: 12px;
+    }
+
+
+    .listItem {
+      margin: 15px 0;
+      width: 40px;
+      height: 40px;
+      border: 1px solid $colorBlack;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+
+      &:hover{
+        border: 1px solid $colorRed;
+      }
+
+      &:last-of-type {
+        margin-top: auto;
+      }
+    }
+
+    .selectedButon {
+      background-color: $colorRed;
+    }
+  }
+}
+
+
+
