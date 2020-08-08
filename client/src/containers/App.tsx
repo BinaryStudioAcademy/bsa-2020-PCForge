@@ -13,7 +13,7 @@ export default class App extends Component {
           path={Routes.DEFAULT}
           component={() => (
             <div>
-              <Title />
+              <Title title="Builder" subtitle={'Create your personal rig with ease'} />
             </div>
           )}
         />
