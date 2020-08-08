@@ -8,15 +8,7 @@ export default class App extends Component {
   render(): JSX.Element {
     return (
       <Switch>
-        <Route
-          exact
-          path={Routes.DEFAULT}
-          component={() => (
-            <div>
-              <Title title="Builder" subtitle={'Create your personal rig with ease'} />
-            </div>
-          )}
-        />
+        <Route exact path={Routes.DEFAULT} component={() => <div />} />
         <Route exact path={Routes.LOGIN} component={Login} />
       </Switch>
     );
