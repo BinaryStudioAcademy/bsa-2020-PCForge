@@ -1,7 +1,9 @@
-.breadcrumbs .breadcrumbsItem {
+.root .li,
+.root .li p {
   font-size: 0.9rem;
 }
 
-.breadcrumbsOpacity {
+.root .li p,
+.root .separator {
   opacity: 0.5;
 }

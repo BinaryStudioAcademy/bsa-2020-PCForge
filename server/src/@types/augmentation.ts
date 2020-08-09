@@ -1,5 +1,6 @@
 import * as http from 'http';
 import { Services } from '../api/services';
+import { OAuth2Namespace } from 'fastify-oauth2';
 
 import { Db } from '../data/db/connection';
 declare module 'fastify' {
@@ -10,5 +11,6 @@ declare module 'fastify' {
   > {
     db: Db;
     services: Services;
+    googleOAuth2: OAuth2Namespace;
   }
 }
