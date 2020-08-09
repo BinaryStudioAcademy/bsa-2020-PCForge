@@ -5,14 +5,15 @@ type PropsType = {
   value: number;
   maxValue?: number;
   type: 'CPU' | 'GPU' | 'RAM';
+  className?: string;
 };
 
-const Tachometer = ({ value, maxValue = 10, type }: PropsType) => {
+const Tachometer = ({ value, maxValue = 10, type, className = '' }: PropsType): JSX.Element => {
   const speed = 200 - (value / maxValue) * 140; // magic svg
   const text = Number.isInteger(value) ? value : value.toFixed(1);
 
   return (
-    <div className={styles.tachometer}>
+    <div className={`${styles.tachometer} ${className}`}>
       <svg className={styles.tachometerSvg} viewBox="0 0 110 110">
         <circle className={styles.tachometerBar} cx="55" cy="55" r="44" />
         <circle className={styles.tachometerBorder} cx="55" cy="55" r="38" />
