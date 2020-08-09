@@ -11,8 +11,8 @@ export default class App extends Component {
       <Switch>
         <Route exact path={Routes.MATCHER} component={GameMatcherPage} />
         <Route exact path={Routes.CHART} component={Chart} />
-        <Route exact path={Routes.DEFAULT} component={() => <div />} />
         <Route exact path={Routes.LOGIN} component={Login} />
+        <Route exact path={Routes.DEFAULT} component={() => <div></div>} />
       </Switch>
     );
   }
