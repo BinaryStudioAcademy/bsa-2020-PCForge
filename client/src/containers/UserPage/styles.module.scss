@@ -1,11 +1,5 @@
 @import 'styles/index';
 
-
-$bg-body: #0d0d0e;
-$bg-container: #2d2d2e;
-$card-shadow: 0px 0px 3px 7px rgba(0, 0, 0, 0.1);
-$text-highlight-color: rgb(65, 166, 224);
-
 html {
   width: 100%;
   height: 100%;
@@ -24,12 +18,6 @@ body {
   }
 }
 
-.everything {
-  display: flex;
-  flex-direction: column;
-}
-
-
 .userPageContainer {
   width: 90vw;
   height: 80vh;
@@ -46,7 +34,6 @@ body {
   }
 }
 
-
 .preferencesSection {
   width: 100%;
   height: 100%;
@@ -61,23 +48,6 @@ body {
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
   }
-
-  .addGameButton {
-    margin:20px 30px 20px;
-  }
-
-  .setupLink {
-    margin:20px 30px 20px;
-    display: inline-block;
-    font-size: 22px;
-  }
-}
-
-.buttonPlacement {
- @media(max-width: 768px){
-   display: flex;
-   justify-content: center;
- }
 }
 
 .userInfo {
@@ -117,18 +87,17 @@ body {
     position: relative;
   }
 
-
   .userImage {
     margin-top: 20px;
     margin-bottom: 15px;
     width:90%;
 
-    @media (min-width: 550px)and (max-width: 768px) {
+    @media (min-width: 550px) and (max-width: 768px) {
       margin: 10px auto;
-      width:150px;
+      width:155px;
       align-self: flex-start;
-
     }
+
     @media (max-width: 549px) { 
       width:30%;
       align-self: center;
@@ -146,9 +115,7 @@ body {
     }
   }
 
- 
   .userData {
-    color: $text-highlight-color;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -192,131 +159,7 @@ body {
   background-color: rgb(51, 50, 50) !important;
 }
 
-.gameCard {
-  height: 180px;
-  width: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  background-color:rgb(19, 18, 18);
-  color: $colorTextGray;
-  margin: 15px;
-  border-radius: 5px;
-  position:relative;
-
-  img {
-    object-fit: contain;
-    width: 100%;
-    border-radius: 5px;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  &:hover > .gameDescription{
-    display: block;
-    border-radius:5px;
-    background: rgba($color: #222121, $alpha: 0.9);
-    position:absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    right:0;
-    // text-align: center;
-    padding: 15px;
-    font-size: 16px;
-    text-overflow: ellipsis;
-    color: rgb(228, 225, 225);
-  }
-
-   .gameDescription {
-    display: none;
-  }
-
-  .gameFooter {
-    display: flex;
-    font-size: 16px;
-    color: $colorTextGray;
-    justify-content: space-around;
-    align-items: center;
-    width:100%;
-    
-
-    .gameTitle {
-      font-size: 22px;
-      margin-bottom: 5px;
-    }
-  }
-}
-
-.userPreferences {
-  display: flex;
-  width:100%;
-  flex-wrap: wrap;
-  max-height:calc(100% - 100px);
-  justify-content: flex-start;
-  overflow: auto;
-  padding:15px;
-  border-top: 1px solid rgb(102, 102, 102);
-
-  @media (max-width: 768px) {
-    overflow: auto;
-    justify-content: center;
-  }
-
-  & > div:hover {
-    cursor: pointer;
-    box-shadow: 1px 1px 4px 5px rgba($color: $linkColor, $alpha: 0.2);
-  }
-}
-
-// ---------------------------------- setup
-.setupCard {
-  height:400px;
-  width:250px;
-  display: flex;
-  flex-direction: column;
-  margin:15px;
-  margin-bottom: 15px;
-  border-radius: 5px;
-  background-color: $colorBlack;
-
-  & button {
-    margin:auto 15px 20px 15px;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-}
-
-.setupTitle {
-  color: $colorTextGray;
-  font-size:26px;
-  text-align: center;
-  margin-top: 15px;
-}
-
-.setupImage {
-  margin: 10px auto;
-  & img {
-    width:200px;
-   
-  }
-}
-.setupDescription {
-  color: $colorTextGray;
-  font-size: 16px;
-  margin: 0 10px;
-  text-align: center;
-}
-
-
-
 // Tab component
-
 .tabsBar {
   background-color: rgb(19, 18, 18) !important;
   & > div > div > div > div > span {
