@@ -3,8 +3,11 @@ import fastifyStatic from 'fastify-static';
 import db from './data/db/connection';
 import routes from './api/routes/index';
 import path from 'path';
+import dotenv = require('dotenv');
 
-const port = parseInt(process.env.APP_PORT, 10) || 5001;
+dotenv.config({path: '../../.env'});
+
+const port = parseInt(process.env.PORT, 10) || 5001;
 const server = fastify();
 
 server.register(db);
