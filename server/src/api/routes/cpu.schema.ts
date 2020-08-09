@@ -2,7 +2,11 @@ import { FastifyRequest } from 'fastify';
 
 export type GetAllCpusRequest = FastifyRequest<{
   Params: { id: string };
-  Querystring: { socketId: string };
+  Querystring: {
+    socketId: string;
+    from: number;
+    count: number;
+  };
 }>;
 
 export type GetOneCpuRequest = FastifyRequest<{

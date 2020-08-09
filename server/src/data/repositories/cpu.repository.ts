@@ -2,6 +2,12 @@ import { CpuDataAttributes, CpuModel, CpuStatic } from '../models/cpu';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, RichModel } from './base.repository';
 
+interface ICpuFilter {
+  socketId: string;
+  from: number;
+  count: number;
+}
+
 export class CpuRepository extends BaseRepository<CpuModel> {
   constructor(private model: CpuStatic, private socketModel: SocketStatic) {
     super(<RichModel>model);
@@ -20,8 +26,8 @@ export class CpuRepository extends BaseRepository<CpuModel> {
     return cpu;
   }
 
-  async getAllCpus(filter: { socketId: string }): Promise<CpuModel[]> {
-    const { socketId } = filter;
+  async getAllCpus(filter: ICpuFilter): Promise<CpuModel[]> {
+    const { socketId, from: offset, count: limit } = filter;
     const cpus = await this.model.findAll({
       group: ['cpu.id', 'socket.id'],
       where: { socketId },
@@ -31,6 +37,9 @@ export class CpuRepository extends BaseRepository<CpuModel> {
           attributes: ['id', 'name'],
         },
       ],
+      order: [['id', 'ASC']],
+      offset: offset,
+      limit: limit,
     });
     return cpus;
   }
