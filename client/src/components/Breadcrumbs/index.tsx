@@ -8,9 +8,10 @@ import styles from './styles.module.scss';
 type PropsType = {
   links: { name: string; href: string }[];
   onClick: (href: string) => void;
+  className?: string;
 };
 
-const Breadcrumbs = ({ links, onClick }: PropsType) => {
+const Breadcrumbs = ({ links, onClick, className = '' }: PropsType): JSX.Element => {
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     event.preventDefault();
     onClick((event.target as HTMLAnchorElement).href);
@@ -19,22 +20,19 @@ const Breadcrumbs = ({ links, onClick }: PropsType) => {
   const linkElements = links.slice(0, -1).map((link) => {
     if (!link) return null;
     return (
-      <Link key={link?.name} className={styles.breadcrumbsItem} color="inherit" href={link?.href} onClick={handleClick}>
+      <Link key={link?.name} color="inherit" href={link?.href} onClick={handleClick}>
         {link?.name}
       </Link>
     );
   });
 
-  const activeElement = links.length ? (
-    <Typography className={styles.breadcrumbsOpacity} color="textPrimary">
-      {links[links.length - 1]?.name}
-    </Typography>
-  ) : null;
+  const activeElement = links.length ? <Typography>{links[links.length - 1]?.name}</Typography> : null;
 
   return (
     <Crumbs
-      className={styles.breadcrumbs}
-      separator={<NavigateNextIcon className={styles.breadcrumbsOpacity} fontSize="small" />}
+      className={className}
+      classes={styles}
+      separator={<NavigateNextIcon fontSize="small" />}
       aria-label="breadcrumb"
     >
       {linkElements}

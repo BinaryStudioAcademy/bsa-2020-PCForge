@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { FormControl, OutlinedInput, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
 import styles from './index.module.sass';
 
 type Props = { value: string; onChange: (event: React.ChangeEvent<HTMLInputElement>) => void };
-const Search = ({ value, onChange }: Props) => (
+const Search = ({ value, onChange }: Props): ReactElement => (
   <FormControl variant="outlined">
     <OutlinedInput
       classes={{
