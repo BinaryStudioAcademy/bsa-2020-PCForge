@@ -1,0 +1,116 @@
+@import '../../../styles//variables.scss';
+
+.fpsHeader {
+  margin-bottom: 0;
+}
+
+.fpsAnalysis {
+  display: flex;
+}
+
+.displayResolutions {
+  display: flex;
+  position: relative;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.resolutionItem {
+  margin-bottom: 1rem;
+  margin-right: 4rem;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.resolutionItemText {
+  font-size: 14px;
+  line-height: 22px;
+  color: $colorTextWhite;
+}
+
+$spaceBeforeFirstColumnStart: 6rem;
+
+.fpsTest {
+  margin-left: $spaceBeforeFirstColumnStart;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  flex-grow: 1;
+  position: relative;
+}
+
+.progressColumn {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  z-index: 1;
+}
+
+.progress {
+  width: 2rem;
+  height: 100%;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+  background: $colorBlue;
+}
+
+.progressCaption {
+  font-size: 10px;
+  line-height: 12px;
+  text-transform: uppercase;
+
+  color: $colorTextGray;
+}
+
+.fpsGraph {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  position: absolute;
+}
+
+.gameLine {
+  border-top: 1px solid $colorRed;
+  width: calc(100% + 2rem);
+  position: absolute;
+  left: -$spaceBeforeFirstColumnStart / 3;
+  bottom: 40%;
+  padding-top: 5px;
+}
+
+.gameLineText {
+  font-size: 10px;
+  line-height: 12px;
+  text-transform: uppercase;
+  padding-top: 5px;
+  color: $colorTextGray;
+  position: relative;
+  margin-left: -5px;
+}
+
+@media (max-width: 768px) {
+  .fpsAnalysis {
+    height: 460px;
+    flex-direction: column;
+  }
+
+  .fpsTest {
+    margin-left: 2rem;
+  }
+
+  .column {
+    margin-right: 2rem;
+  }
+}
