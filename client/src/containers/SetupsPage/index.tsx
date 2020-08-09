@@ -4,6 +4,7 @@ import SetupCard from 'components/SetupCard';
 import classes from './styles.module.scss';
 import { connect } from 'react-redux';
 import TopFiveList from 'components/TopFiveList';
+import RatingBox from 'components/RatingBox';
 interface Setup {
   title: string;
   description: string;
@@ -27,7 +28,53 @@ const cards = [
     cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
     gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
     ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    id: '1',
+    id: '0000',
+    rating: 4,
+    comments: 5,
+  },
+  {
+    title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    image: 'https://cdn.arstechnica.net/wp-content/uploads/2017/09/DSC09572.jpg',
+    cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    id: '0001',
+    rating: 4,
+    comments: 3,
+  },
+  {
+    title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    image: 'https://i.gifer.com/BnqM.gif',
+    cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    id: '0002',
+    rating: 4,
+    comments: 4,
+  },
+  {
+    title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    image: 'https://nerdtechy.com/wp-content/uploads/2019/01/rgb-led-kit.jpg',
+    cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    id: '0003',
+    rating: 4,
+    comments: 3,
+  },
+  {
+    title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    image: 'https://cdn.wccftech.com/wp-content/uploads/2018/10/DSC_0572-Custom.jpg',
+    cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
+    id: '0004',
+    rating: 4,
+    comments: 3,
   },
   {
     title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
@@ -36,52 +83,20 @@ const cards = [
     cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
     gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
     ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    id: '1',
+    id: '0005',
+    rating: 4,
+    comments: 3,
   },
   {
     title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
     description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    image: 'https://ae01.alicdn.com/kf/HTB1O3NJipooBKNjSZPhq6A2CXXa2.jpg',
+    image: 'https://cdn.wccftech.com/wp-content/uploads/2018/10/DSC_0572-Custom.jpg',
     cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
     gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
     ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    id: '1',
-  },
-  {
-    title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    image: 'https://ae01.alicdn.com/kf/HTB1O3NJipooBKNjSZPhq6A2CXXa2.jpg',
-    cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    id: '1',
-  },
-  {
-    title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    image: 'https://ae01.alicdn.com/kf/HTB1O3NJipooBKNjSZPhq6A2CXXa2.jpg',
-    cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    id: '1',
-  },
-  {
-    title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    image: 'https://ae01.alicdn.com/kf/HTB1O3NJipooBKNjSZPhq6A2CXXa2.jpg',
-    cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    id: '1',
-  },
-  {
-    title: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    description: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    image: 'https://ae01.alicdn.com/kf/HTB1O3NJipooBKNjSZPhq6A2CXXa2.jpg',
-    cpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    gpu: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    ram: 'Lorem ipsum dos ertcse nodi types francp dikej slnjcclvjdf',
-    id: '1',
+    id: '0006',
+    rating: 4,
+    comments: 1,
   },
 ];
 
@@ -97,6 +112,8 @@ const SetupPage: React.FC<I_Props> = ({ setups, userId }) => {
           processor={setup.cpu}
           gpu={setup.gpu}
           ram={setup.ram}
+          comments={setup.comments}
+          rating={setup.rating}
         />
       );
     });
