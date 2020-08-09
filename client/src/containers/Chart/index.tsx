@@ -8,7 +8,7 @@ import TopGames from 'components/ChartComponents/TopGames';
 import TestDifferentGame from 'components/ChartComponents/TestDifferentGame';
 import TestDifferentSystem from 'components/ChartComponents/TestDifferentSystem';
 
-const GameMatcherResult = () => {
+const GameMatcherResult = (): JSX.Element => {
   return (
     <div className={styles.gameMatcherRoot}>
       <div className={styles.content} role="main">

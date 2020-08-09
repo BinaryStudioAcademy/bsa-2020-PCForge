@@ -3,7 +3,7 @@ import Select from 'components/BasicComponents/Select';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import styles from './styles.module.scss';
 
-const TestDifferentSystem = () => {
+const TestDifferentSystem = (): JSX.Element => {
   return (
     <aside className={styles.mainContainer}>
       <h3 className={styles.mainHeader}>Test Different System</h3>

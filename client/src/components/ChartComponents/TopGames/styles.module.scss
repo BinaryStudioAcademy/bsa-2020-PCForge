@@ -4,15 +4,14 @@
   display: flex;
   flex-direction: column;
   height: max-content;
-  width: $asideWidth;
-  padding: 1rem 2rem;
+  padding: 1rem 0;
   background: $colorBackgroundGray;
   box-shadow: 0px 30px 40px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
 }
 
 .topGamesHeader {
-  margin: 0 0 12px 0;
+  margin: 0 2rem 12px 2rem;
   font-weight: 600;
   font-size: 24px;
   line-height: 28px;
@@ -26,7 +25,7 @@
 
 .gameContainer {
   margin-top: -1px;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 2rem 10px 2rem;
   display: flex;
   border-bottom: 1px solid $colorTextGray;
   align-items: center;
@@ -67,7 +66,6 @@
 }
 
 .gameName {
-  font-family: LatoBlack;
   font-size: 14px;
   line-height: 22px;
   color: $colorTextWhite;

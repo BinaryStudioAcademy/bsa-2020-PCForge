@@ -83,7 +83,7 @@ $spaceBeforeFirstColumnStart: 6rem;
 
 .gameLine {
   border-top: 1px solid $colorRed;
-  width: 100%;
+  width: calc(100% + 2rem);
   position: absolute;
   left: -$spaceBeforeFirstColumnStart / 3;
   bottom: 40%;
@@ -98,4 +98,19 @@ $spaceBeforeFirstColumnStart: 6rem;
   color: $colorTextGray;
   position: relative;
   margin-left: -5px;
+}
+
+@media (max-width: 768px) {
+  .fpsAnalysis {
+    height: 460px;
+    flex-direction: column;
+  }
+
+  .fpsTest {
+    margin-left: 2rem;
+  }
+
+  .column {
+    margin-right: 2rem;
+  }
 }

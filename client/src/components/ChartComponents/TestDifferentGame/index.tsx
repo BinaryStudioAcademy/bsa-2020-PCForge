@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import Select from 'components/BasicComponents/Select';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 
-const TestDifferentGame = () => {
+const TestDifferentGame = (): JSX.Element => {
   return (
     <aside className={styles.mainContainer}>
       <h3 className={styles.mainHeader}>Test different game</h3>

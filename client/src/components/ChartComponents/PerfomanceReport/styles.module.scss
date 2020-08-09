@@ -2,21 +2,23 @@
 
 .requirementVariants {
   display: flex;
+  flex-wrap: wrap;
   margin-bottom: 3rem;
+  margin-top: -1rem;
 }
 
 .requirementVariant {
-  margin-right: 4rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-right: 4rem;
   font-size: 14px;
   line-height: 22px;
+  margin-top: 1rem;
 }
 
 .requirementText {
-  font-family: LatoBlack;
   font-size: 14px;
   line-height: 22px;
   color: $colorTextGray;
@@ -97,15 +99,14 @@ $space-width: 30px;
   text-align: center;
   text-transform: uppercase;
   color: #747D88;
+  margin-right: 4px;
 }
 
 .usedComponents {
-  font-family: LatoBlack;
   margin-top: 2rem;
 }
 
 .usedComponentHeader {
-  font-family: LatoBlack;
   text-align: left;
   padding-right: 1rem;
   padding-bottom: .5rem;
@@ -116,7 +117,6 @@ $space-width: 30px;
 }
 
 .usedComponentsBody {
-  font-family: LatoBlack;
   font-size: 16px;
   padding-right: 1rem;
   padding-bottom: .5rem;

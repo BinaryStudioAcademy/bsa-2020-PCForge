@@ -35,7 +35,7 @@ const GameMatcherFpsAnalysis = () => {
     { name: 'Ultra', value: 21 },
   ];
 
-  const ResolutionItem = (resolution: Resolution) => {
+  const ResolutionItem = (resolution: Resolution): JSX.Element => {
     const isActive: boolean = resolution.id === selectedResolution;
     return (
       <div className={styles.resolutionItem} key={resolution.id} onClick={() => setSelectedResolution(resolution.id)}>

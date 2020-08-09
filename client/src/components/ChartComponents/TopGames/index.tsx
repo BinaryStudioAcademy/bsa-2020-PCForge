@@ -13,12 +13,12 @@ interface Props {
   games: Game[];
 }
 
-const TopGames: React.FC<Props> = (props) => {
+const TopGames: React.FC<Props> = (props): JSX.Element => {
   const games: Game[] = getGames();
 
   const gameView = (game: Game) => (
     <div className={styles.gameContainer} key={game.id}>
-      <img className={styles.gameImage} src={game.image} alt={Image.name}></img>
+      <img className={styles.gameImage} src={game.image} alt={game.name}></img>
       <div className={styles.gameDetails}>
         <span className={styles.gameCategory}>{game.category}</span>
 

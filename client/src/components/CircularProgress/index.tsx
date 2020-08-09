@@ -6,7 +6,7 @@ interface Props {
   progressValue: number;
 }
 
-const CircularProgress: React.FC<Props> = (props) => {
+const CircularProgress: React.FC<Props> = (props): JSX.Element => {
   const { progressValue } = props;
   const percentValue = progressValue * 10;
   return (

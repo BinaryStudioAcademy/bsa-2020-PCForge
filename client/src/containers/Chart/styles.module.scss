@@ -13,3 +13,15 @@
 .asideItems {
   margin-left: 6rem;
 }
+
+
+@media (max-width: 1200px) {
+  .gameMatcherContentWrapper {
+    flex-direction: column;
+  }
+
+  .asideItems {
+    margin-top: 2rem;
+    margin-left: 0;
+  }
+}
