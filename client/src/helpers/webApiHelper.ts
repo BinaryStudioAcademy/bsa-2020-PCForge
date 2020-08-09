@@ -3,8 +3,8 @@ import * as queryString from 'query-string';
 type TypeArgs = {
   endpoint: string;
   type: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  query?: { [item: string]: string };
-  request?: { [item: string]: string };
+  query?: any;
+  request?: any;
   attachment?: string | Blob;
   skipAuthorization?: boolean;
   ct?: AbortSignal;
