@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import sharedStyles from '../styles.module.scss';
 import CircularProgress from 'components/CircularProgress';
+import { Container } from '@material-ui/core';
 
-const GameMatcherSystemRequirements = () => {
+const GameMatcherSystemRequirements = (): JSX.Element => {
   return (
-    <section>
+    <Container component="section">
       <div className={styles.performanceResultWrapper}>
         <div className={styles.requirements}>
           <div className={styles.requirement}>
@@ -44,7 +44,7 @@ const GameMatcherSystemRequirements = () => {
           </section>
         </div>
       </div>
-    </section>
+    </Container>
   );
 };
 

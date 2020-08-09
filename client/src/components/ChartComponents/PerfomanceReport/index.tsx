@@ -12,7 +12,7 @@ interface PerformanceIndicatorItem {
   value: number;
 }
 
-const GameMatcherPerformanceReport = () => {
+const GameMatcherPerformanceReport = (): JSX.Element => {
   const [selectedRequirement, setSelectedRequirement] = useState<number>(1);
   const values = [];
   for (let i = 0; i <= 55000; i += 5000) {
