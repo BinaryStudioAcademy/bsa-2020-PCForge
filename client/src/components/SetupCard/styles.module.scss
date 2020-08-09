@@ -1,0 +1,47 @@
+@import '../../styles/variables.scss';
+$border_radius_card: 10px;
+
+.setupCard {
+  background-color: $colorDarkGray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-radius: $border_radius_card;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  &Image {
+    width: 100%;
+    border-radius: $border_radius_card;
+    height: 250px;
+    object-fit: cover;
+  }
+  &Button {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.characteristicList {
+  font-size: 16px;
+  width: 80%;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.characteristicItem {
+  list-style-type: none;
+  display: flex;
+  margin-top: 10px;
+  // justify-content: space-between;
+}
+
+.characteristicHeader {
+  width: 25%;
+  min-width: 90px;
+  font-weight: bold;
+  text-align: right;
+}
+.characteristicValue {
+  margin-left: 10px;
+}
