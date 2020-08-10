@@ -5,7 +5,6 @@ export type GetOneRamRequest = FastifyRequest<{
 }>;
 
 export type GetAllRamsRequest = FastifyRequest<{
-  Params: { id: string };
   Querystring: {
     typeId: string;
     from: number;
