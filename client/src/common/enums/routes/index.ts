@@ -3,7 +3,7 @@ enum Routes {
   LOGIN = '/login',
   CHART = '/chart',
   MATCHER = '/matcher',
-  USER = '/user/:id'
+  USER = '/user/:id',
 }
 
 export { Routes };

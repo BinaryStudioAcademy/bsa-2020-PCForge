@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Routes } from 'common/enums';
-import UserPage from 'containers/UserPage'
+import UserPage from 'containers/UserPage';
 import Chart from 'containers/Chart';
 import GameMatcherPage from './GameMatcher';
 import Login from 'containers/Auth';
