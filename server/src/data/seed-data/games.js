@@ -2,686 +2,743 @@ const games = [
   {
     name: 'Hardspace: Shipbreaker',
     year: 2020,
-    description: 'Across your career, you’ll have the privilege of paying your debt to us by purchasing salvaging rights to increasingly large and valuable ships. Cut them open and extract as much value as possible! You are equipped with the latest in LYNX tech. Carve entry points, salvage valuable materials and components with your cutting tool or slice scrap metal at any angle into a million pieces as you ponder a lonely existence… the possibilities are endless! Be cautious – dying is extremely unprofitable. We strongly advise upgrading your tools, helmet and suit to take on more lucrative contracts - all you need to worry about is how you’ll pay for it! JOIN THE COMMUNITY\nHardspace: Shipbreaker is a game in early access. Don’t hesitate to join our official server and share your feedback with the development team so that we can improve Hardspace: Shipbreaker together.',
+    description:
+      'Across your career, you’ll have the privilege of paying your debt to us by purchasing salvaging rights to increasingly large and valuable ships. Cut them open and extract as much value as possible! You are equipped with the latest in LYNX tech. Carve entry points, salvage valuable materials and components with your cutting tool or slice scrap metal at any angle into a million pieces as you ponder a lonely existence… the possibilities are endless! Be cautious – dying is extremely unprofitable. We strongly advise upgrading your tools, helmet and suit to take on more lucrative contracts - all you need to worry about is how you’ll pay for it! JOIN THE COMMUNITY\nHardspace: Shipbreaker is a game in early access. Don’t hesitate to join our official server and share your feedback with the development team so that we can improve Hardspace: Shipbreaker together.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1161580/header.jpg',
     minimal_gpu: 'Radeon R9 380',
     recommended_gpu: 'Radeon RX Vega 56',
     minimal_cpu: 'AMD Ryzen 3 1300X',
     recommended_cpu: 'AMD Ryzen 5 2600',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Shadowverse CCG',
     year: 2016,
-    description: 'Four million battles every day. One Shadowverse. Japan\'s #1 strategic card game. Made by card gamers for card gamers. "One of my favorite games this year" - IGN Shadowverse is Japan\'s #1 strategic card game! - There are millions of Shadowverse battles every day, and a multitude of ways to play - Easy to get into, thanks to a singleplayer story mode, free card packs for new players, and bonuses every day - Battles are finely balanced, with less RNG than other card games, and balance adjustments take place every month - New card expansions are released every three months, unleashing new deck-building strategies and battle tactics - We’ve got a great community of 22 million players and counting, with tournaments and esports broadcasts every week and support for streamers - Featuring beautiful art and animations and fully voiced cards and story - A multitude of ways to play: With eight different leader classes, Shadowverse gives you unparalleled freedom to create your own deck strategies. Will you play as Urias and unleash your Vengeance when your health is depleted? Or will you select Isabelle, whose spells power up the cards in your hand? Will you go all in with an aggro deck, or try to contain the board with a control deck? Or will you try to sneak in some sublimely ingenious combos? It’s entirely up to you. - Easy to get into: Learn the basics by playing through our extensive singleplayer story mode before taking on other players in our multiplayer modes. Be sure to pick up your free card packs after you’ve finished playing through the tutorial – just go to your Crate from the main menu to pick them up. And bonuses and daily missions help you unlock new card packs every day so it won’t be long before you have a deck that is capable of competing with the very best. - Finely balanced: There’s less RNG in Shadowverse than other card games, making it supremely balanced: you’ll need to trust your judgement not your luck if you are to come out on top. And we make balance adjustments every month to make sure that no one card or deck type becomes too dominant. - New card expansions released regularly: New card expansions are added every three months to make sure the meta never gets stale. And every single expansion unleashes new deck-building strategies and battle tactics, and even new leader classes and game modes. We’re in this for the long haul and we hope you will be too. - Beautiful art: All of the cards in Shadowverse feature fantastic art by some of Japan’s finest artists, and every single card is available as an animated version. Every card is also fully-voiced, in English and Japanese, as is the singleplayer storyline. - A great community: And last but not least, we have some amazing fans. We’ve got memes, we’ve got streams, and we have much, much more to offer than the average card game. Community tournaments and e-sports broadcasts take place every week, and there are a ton of deck-building resources online in case you get stuck. Millions of card gamers can’t be wrong – why don’t you join them?',
+    description:
+      'Four million battles every day. One Shadowverse. Japan\'s #1 strategic card game. Made by card gamers for card gamers. "One of my favorite games this year" - IGN Shadowverse is Japan\'s #1 strategic card game! - There are millions of Shadowverse battles every day, and a multitude of ways to play - Easy to get into, thanks to a singleplayer story mode, free card packs for new players, and bonuses every day - Battles are finely balanced, with less RNG than other card games, and balance adjustments take place every month - New card expansions are released every three months, unleashing new deck-building strategies and battle tactics - We’ve got a great community of 22 million players and counting, with tournaments and esports broadcasts every week and support for streamers - Featuring beautiful art and animations and fully voiced cards and story - A multitude of ways to play: With eight different leader classes, Shadowverse gives you unparalleled freedom to create your own deck strategies. Will you play as Urias and unleash your Vengeance when your health is depleted? Or will you select Isabelle, whose spells power up the cards in your hand? Will you go all in with an aggro deck, or try to contain the board with a control deck? Or will you try to sneak in some sublimely ingenious combos? It’s entirely up to you. - Easy to get into: Learn the basics by playing through our extensive singleplayer story mode before taking on other players in our multiplayer modes. Be sure to pick up your free card packs after you’ve finished playing through the tutorial – just go to your Crate from the main menu to pick them up. And bonuses and daily missions help you unlock new card packs every day so it won’t be long before you have a deck that is capable of competing with the very best. - Finely balanced: There’s less RNG in Shadowverse than other card games, making it supremely balanced: you’ll need to trust your judgement not your luck if you are to come out on top. And we make balance adjustments every month to make sure that no one card or deck type becomes too dominant. - New card expansions released regularly: New card expansions are added every three months to make sure the meta never gets stale. And every single expansion unleashes new deck-building strategies and battle tactics, and even new leader classes and game modes. We’re in this for the long haul and we hope you will be too. - Beautiful art: All of the cards in Shadowverse feature fantastic art by some of Japan’s finest artists, and every single card is available as an animated version. Every card is also fully-voiced, in English and Japanese, as is the singleplayer storyline. - A great community: And last but not least, we have some amazing fans. We’ve got memes, we’ve got streams, and we have much, much more to offer than the average card game. Community tournaments and e-sports broadcasts take place every week, and there are a ton of deck-building resources online in case you get stuck. Millions of card gamers can’t be wrong – why don’t you join them?',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/453480/header.jpg',
     recommended_gpu: 'GeForce GT 640',
     minimal_gpu: 'GeForce GT 640',
     recommended_cpu: 'AMD A8-7650K',
     minimal_cpu: 'AMD A8-7650K',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'iRacing',
     year: 2015,
-    description: 'We are the world’s premier computer based motorsports racing simulation/game. An membership provides entry into the newest form of competitive motorsport: internet racing. Internet racing is a fun, easy, and inexpensive way for race fans, simracers and gamers alike to enjoy the thrill of the racetrack from the comfort of their home. iRacing is available for Windows and Linux based computers as well as Mac’s. We are the ultimate place to go racing online. From , to , to sports cars and Grand Prix racing, iRacing has it all. All you need is a computer, a gaming wheel or game pad that simply plugs into the USB port of your computer and an Internet connection. iRacing centrally organizes all of the racing for you with over 150 cars and tracks, 40 official series , or you can choose to host your own race or race in one of over 800 private leagues. iRacing is a thrilling online experience that offers: * The best online racing simulation and service in the world with brilliant features and functionality * Head-to-head racing competition in an easy to use centralized place- racing against real people * Dynamic track surfaces that change over the course of a race just like in real-world racing * Open practice, qualifying, testing, ghost racing, time trialing competition * - share driving, spotting and pit crew responsibilities with your teammates and race in events up to 24 hours long * * Constant free automatic updates and improvements to the service * Officially licensed cars that are engineered from the ground up in cooperation with real-world race teams and using real-world physics * Officially-licensed, laser-scanned exact replicas of the world’s greatest race tracks * Officially-sanctioned racing organized by iRacing * An online community of racing enthusiasts over 90,000 strong * Host your own private sessions, run your own tournaments * : create your own custom racing series with your friends or join one of the 800+ existing leagues iRacing is partnered with some of the most influential motorsports brands in the world including: -NASCAR Monster Energy Cup Ford Fusion\n-NASCAR Chevrolet SS Cup Car\n-NASCAR Chevrolet Impala SS COT 2013\n-NASCAR Chevrolet Impala SS Xfinity 2011\n-XFINITY Chevrolet Camaro 2018\n-XFINITY Ford Mustang 2018\n-XFINITY Toyota Camry 2018\n-NASCAR Monster Energy Cup Ford Mustang\n-NASCAR Monster Energy Cup Chevrolet Camaro ZL1\n-NASCAR Monster Energy Cup Toyota Camry\n-NASCAR Xfinity Chevrolet Camaro\n-NASCAR Xfinity Toyota Supra\n-NASCAR Xfinity Ford Mustang\n-NASCAR Gander Outdoors Chevrolet Silverado\n-NASCAR Gander Outdoors Toyota Tundra\n-NASCAR Whelen & SK Modified\n-Chevrolet Impala K&N Pro Car\n-NASCAR Late Model Stock\n-Super Late Model -Ford V8 Super Car circa 2012\n-Mazda MX-5 Cup/Roadster circa 2015\n-Kia Optima\n-Ford Falcon FG V8\n-Holden V8 Super Car\n-Supercars Ford Mustang GT\n-Supercars Holden ZB Commodore\n-Audi RS3 LMS\n-BMW M8 GTE\n-Porsche 911 RSR\n-Ferrari 488 GTE\n-Ford GT GTE\n-Mercedes-AMG GT3\n-Ferrari 488 GT3\n-Audi R8 LMS GT3\n-McLaren MP4-12C GT3\n-BMW Z4 GT3\n-Porsche 911 GT3 Cup\n-Aston Martin DBR9 GT1\n-Chevrolet Corvette C6.R\n-Audi 90 GTO\n-Ruf Rt 12 R\n-Ford Mustang FR500S\n-Volkswagen Jetta TDi -Indycar Dallara circa 2011\n-McLaren Honda MP4-30\n-Williams Toyota FW31\n-IndyCar Dallara IR18\n-Formula Renault 3.5\n-F3 Dallara\n-Formula Renault 2.0\n-Pro Mazda\n-Skip Barber Formula 2000\n-Lotus 49\n-Lotus 79\n-C&R Racing Silver Crown Car\n-Sprint Car -Riley Mk XX Daytona Prototype\n-Porsche 919 LMP1\n-Audi R18 LMP1\n-Chevrolet Corvette C7 Daytona Prototype\n-Honda Performance Development ARX 01c\n-Nissan GTP ZX-T -World of Outlaws 410/360/305 Sprint Car\n-World of Outlaws Super Late/Late/Limited Late Model\n-USAC 410/360 Sprint Car\n-Dirt Midget\n-UMP Modified\n-NASCAR Gander Outdoors Dirt Chevrolet Silverado\n-NASCAR Gander Outdoors Dirt Toyota Tundra -Subaru WRX STI\n-Ford Fiesta RS\n-Lucas Oil Off Road Pro 2 & Pro 4 Truck More information on all of our cars is available here: Cars marked "Included" are included with your iRacing membership, all others are available as in-game purchases. -Circuit de Barcelona-Catalunya\n-Fairbury Speedway\n-Silverstone Circuit\n-Wild Horse Pass Motorsports Park\n-Wild West Motorsports Park\n-Circuit des 24 Heures du Mans\n-Daytona International Speedway\n-The Nurburgring - Nordschleife\n-Indianapolis Motor Speedway\n-Autodromo Enzo e Dino Ferrari\n-Chili Bowl\n-Mount Panorama Circuit\n-Kokomo Speedway\n-Snetterton Circuit\n-Eldora Speedway\n-Belle Isle\n-Myrtle Beach Speedway\n-Pocono Raceway\n-Williams Grove Speedway\n-The Bullring at LVMS\n-Volusia Speedway Park\n-Knoxville Raceway\n-Circuit of the Americas\n-Bristol Motor Speedway\n-Southern Motorsports Park\n-Circuit de Spa-Francorchamps\n-Talladega Superspeedway\n-Watkins Glen International\n-Road America\n-Gateway Motorsports Park\n-Autodromo Nazionale Monza\n-The Nurburgring - GP Strecke\n-Autodromo Jose Carlos Pace\n-Limaland Motorsports Park\n-Michigan International Speedway\n-Circuit Gilles Villeneuve\n-Brands Hatch\n-The Dirt Track at Charlotte\n-Kansas Speedway\n-Mid-Ohio Sports Car Course\n-Phillip Island Circuit\n-Suzuka Circuit\n-Circuit Park Zandvoort\n-Canadian Tire Motorsport Park\n-Dover International Speedway\n-Sebring International Raceway\n-Twin Ring Motegi\n-Lucas Oil Raceway at Indy\n-Darlington Raceway\n-Iowa Speedway\n-Auto Club Speedway\n-Kentucky Speedway\n-Oran Park\n-New Smyrna Speedway\n-Donington Park Circuit\n-ISM Raceway\n-Texas Motor Speedway\n-Oulton Park Circuit\n-Rockingham Speedway\n-Atlanta Motor Speedway\n-Milwaukee Mile\n-Richmond Raceway\n-Las Vegas Motor Speedway\n-Martinsville Speedway\n-New Hampshire Motor Speedway\n-Chicagoland Speedway\n-Stafford Motor Speedway\n-Homestead Miami Speedway\n-Irwindale Speedway\n-Sonoma Raceway\n-Michelin Raceway Road Atlanta\n-Virginia International Raceway\n-Barber Motorsports Park\n-Langley Speedway\n-Circuit Zolder\n-Five Flags Speedway\n-Silverstone Circuit 2011\n-Pocono Raceway circa 2011\n-Michigan International Speedway circa 2014\n-Long Beach\n-New Jersey Motorsports Park More information on all of our tracks is available here: Tracks marked "Included" are included with your iRacing membership, all others are available as in-game purchases.',
+    description:
+      'We are the world’s premier computer based motorsports racing simulation/game. An membership provides entry into the newest form of competitive motorsport: internet racing. Internet racing is a fun, easy, and inexpensive way for race fans, simracers and gamers alike to enjoy the thrill of the racetrack from the comfort of their home. iRacing is available for Windows and Linux based computers as well as Mac’s. We are the ultimate place to go racing online. From , to , to sports cars and Grand Prix racing, iRacing has it all. All you need is a computer, a gaming wheel or game pad that simply plugs into the USB port of your computer and an Internet connection. iRacing centrally organizes all of the racing for you with over 150 cars and tracks, 40 official series , or you can choose to host your own race or race in one of over 800 private leagues. iRacing is a thrilling online experience that offers: * The best online racing simulation and service in the world with brilliant features and functionality * Head-to-head racing competition in an easy to use centralized place- racing against real people * Dynamic track surfaces that change over the course of a race just like in real-world racing * Open practice, qualifying, testing, ghost racing, time trialing competition * - share driving, spotting and pit crew responsibilities with your teammates and race in events up to 24 hours long * * Constant free automatic updates and improvements to the service * Officially licensed cars that are engineered from the ground up in cooperation with real-world race teams and using real-world physics * Officially-licensed, laser-scanned exact replicas of the world’s greatest race tracks * Officially-sanctioned racing organized by iRacing * An online community of racing enthusiasts over 90,000 strong * Host your own private sessions, run your own tournaments * : create your own custom racing series with your friends or join one of the 800+ existing leagues iRacing is partnered with some of the most influential motorsports brands in the world including: -NASCAR Monster Energy Cup Ford Fusion\n-NASCAR Chevrolet SS Cup Car\n-NASCAR Chevrolet Impala SS COT 2013\n-NASCAR Chevrolet Impala SS Xfinity 2011\n-XFINITY Chevrolet Camaro 2018\n-XFINITY Ford Mustang 2018\n-XFINITY Toyota Camry 2018\n-NASCAR Monster Energy Cup Ford Mustang\n-NASCAR Monster Energy Cup Chevrolet Camaro ZL1\n-NASCAR Monster Energy Cup Toyota Camry\n-NASCAR Xfinity Chevrolet Camaro\n-NASCAR Xfinity Toyota Supra\n-NASCAR Xfinity Ford Mustang\n-NASCAR Gander Outdoors Chevrolet Silverado\n-NASCAR Gander Outdoors Toyota Tundra\n-NASCAR Whelen & SK Modified\n-Chevrolet Impala K&N Pro Car\n-NASCAR Late Model Stock\n-Super Late Model -Ford V8 Super Car circa 2012\n-Mazda MX-5 Cup/Roadster circa 2015\n-Kia Optima\n-Ford Falcon FG V8\n-Holden V8 Super Car\n-Supercars Ford Mustang GT\n-Supercars Holden ZB Commodore\n-Audi RS3 LMS\n-BMW M8 GTE\n-Porsche 911 RSR\n-Ferrari 488 GTE\n-Ford GT GTE\n-Mercedes-AMG GT3\n-Ferrari 488 GT3\n-Audi R8 LMS GT3\n-McLaren MP4-12C GT3\n-BMW Z4 GT3\n-Porsche 911 GT3 Cup\n-Aston Martin DBR9 GT1\n-Chevrolet Corvette C6.R\n-Audi 90 GTO\n-Ruf Rt 12 R\n-Ford Mustang FR500S\n-Volkswagen Jetta TDi -Indycar Dallara circa 2011\n-McLaren Honda MP4-30\n-Williams Toyota FW31\n-IndyCar Dallara IR18\n-Formula Renault 3.5\n-F3 Dallara\n-Formula Renault 2.0\n-Pro Mazda\n-Skip Barber Formula 2000\n-Lotus 49\n-Lotus 79\n-C&R Racing Silver Crown Car\n-Sprint Car -Riley Mk XX Daytona Prototype\n-Porsche 919 LMP1\n-Audi R18 LMP1\n-Chevrolet Corvette C7 Daytona Prototype\n-Honda Performance Development ARX 01c\n-Nissan GTP ZX-T -World of Outlaws 410/360/305 Sprint Car\n-World of Outlaws Super Late/Late/Limited Late Model\n-USAC 410/360 Sprint Car\n-Dirt Midget\n-UMP Modified\n-NASCAR Gander Outdoors Dirt Chevrolet Silverado\n-NASCAR Gander Outdoors Dirt Toyota Tundra -Subaru WRX STI\n-Ford Fiesta RS\n-Lucas Oil Off Road Pro 2 & Pro 4 Truck More information on all of our cars is available here: Cars marked "Included" are included with your iRacing membership, all others are available as in-game purchases. -Circuit de Barcelona-Catalunya\n-Fairbury Speedway\n-Silverstone Circuit\n-Wild Horse Pass Motorsports Park\n-Wild West Motorsports Park\n-Circuit des 24 Heures du Mans\n-Daytona International Speedway\n-The Nurburgring - Nordschleife\n-Indianapolis Motor Speedway\n-Autodromo Enzo e Dino Ferrari\n-Chili Bowl\n-Mount Panorama Circuit\n-Kokomo Speedway\n-Snetterton Circuit\n-Eldora Speedway\n-Belle Isle\n-Myrtle Beach Speedway\n-Pocono Raceway\n-Williams Grove Speedway\n-The Bullring at LVMS\n-Volusia Speedway Park\n-Knoxville Raceway\n-Circuit of the Americas\n-Bristol Motor Speedway\n-Southern Motorsports Park\n-Circuit de Spa-Francorchamps\n-Talladega Superspeedway\n-Watkins Glen International\n-Road America\n-Gateway Motorsports Park\n-Autodromo Nazionale Monza\n-The Nurburgring - GP Strecke\n-Autodromo Jose Carlos Pace\n-Limaland Motorsports Park\n-Michigan International Speedway\n-Circuit Gilles Villeneuve\n-Brands Hatch\n-The Dirt Track at Charlotte\n-Kansas Speedway\n-Mid-Ohio Sports Car Course\n-Phillip Island Circuit\n-Suzuka Circuit\n-Circuit Park Zandvoort\n-Canadian Tire Motorsport Park\n-Dover International Speedway\n-Sebring International Raceway\n-Twin Ring Motegi\n-Lucas Oil Raceway at Indy\n-Darlington Raceway\n-Iowa Speedway\n-Auto Club Speedway\n-Kentucky Speedway\n-Oran Park\n-New Smyrna Speedway\n-Donington Park Circuit\n-ISM Raceway\n-Texas Motor Speedway\n-Oulton Park Circuit\n-Rockingham Speedway\n-Atlanta Motor Speedway\n-Milwaukee Mile\n-Richmond Raceway\n-Las Vegas Motor Speedway\n-Martinsville Speedway\n-New Hampshire Motor Speedway\n-Chicagoland Speedway\n-Stafford Motor Speedway\n-Homestead Miami Speedway\n-Irwindale Speedway\n-Sonoma Raceway\n-Michelin Raceway Road Atlanta\n-Virginia International Raceway\n-Barber Motorsports Park\n-Langley Speedway\n-Circuit Zolder\n-Five Flags Speedway\n-Silverstone Circuit 2011\n-Pocono Raceway circa 2011\n-Michigan International Speedway circa 2014\n-Long Beach\n-New Jersey Motorsports Park More information on all of our tracks is available here: Tracks marked "Included" are included with your iRacing membership, all others are available as in-game purchases.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/266410/header.jpg',
     minimal_gpu: 'Radeon HD 7850',
     recommended_gpu: 'Radeon VII',
     recommended_cpu: 'AMD Ryzen 9 3950X',
     minimal_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'DRAGON BALL Z: KAKAROT',
     year: 2020,
-    description: '• Experience the story of DRAGON BALL Z from epic events to light-hearted side quests, including never-before-seen story moments that answer some burning questions of DRAGON BALL lore for the first time! • Play through iconic DRAGON BALL Z battles on a scale unlike any other. Fight across vast battlefields with destructible environments and experience epic boss battles against the most iconic foes (Raditz, Frieza, Cell etc…). Increase your power level through RPG mechanics and rise to the challenge! • Don’t just fight as Z Fighters. Live like them! Fish, fly, eat, train, and battle your way through the DRAGON BALL Z sagas, making friends and building relationships with a massive cast of DRAGON BALL characters. Relive the story of Goku and other Z Fighters in DRAGON BALL Z: KAKAROT! Beyond the epic battles, experience life in the DRAGON BALL Z world as you fight, fish, eat, and train with Goku, Gohan, Vegeta and others. Explore the new areas and adventures as you advance through the story and form powerful bonds with other heroes from the DRAGON BALL Z universe.',
+    description:
+      '• Experience the story of DRAGON BALL Z from epic events to light-hearted side quests, including never-before-seen story moments that answer some burning questions of DRAGON BALL lore for the first time! • Play through iconic DRAGON BALL Z battles on a scale unlike any other. Fight across vast battlefields with destructible environments and experience epic boss battles against the most iconic foes (Raditz, Frieza, Cell etc…). Increase your power level through RPG mechanics and rise to the challenge! • Don’t just fight as Z Fighters. Live like them! Fish, fly, eat, train, and battle your way through the DRAGON BALL Z sagas, making friends and building relationships with a massive cast of DRAGON BALL characters. Relive the story of Goku and other Z Fighters in DRAGON BALL Z: KAKAROT! Beyond the epic battles, experience life in the DRAGON BALL Z world as you fight, fish, eat, and train with Goku, Gohan, Vegeta and others. Explore the new areas and adventures as you advance through the story and form powerful bonds with other heroes from the DRAGON BALL Z universe.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/851850/header.jpg',
     minimal_gpu: 'GeForce GTX 750 Ti',
     recommended_gpu: 'Radeon R9 280X',
     minimal_cpu: 'AMD Phenom II X6 1100T',
     recommended_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Hearts of Iron IV',
     year: 2016,
-    description: 'Your ability to lead your nation is your supreme weapon, the strategy game Hearts of Iron IV lets you take command of any nation in World War II; the most engaging conflict in world history. From the heart of the battlefield to the command center, you will guide your nation to glory and wage war, negotiate or invade. You hold the power to tip the very balance of WWII. It is time to show your ability as the greatest military leader in the world. Will you relive or change history? Will you change the fate of the world by achieving victory at all costs? War is not only won on land, sea and in the air. It’s also achieved in the hearts and minds of men and women.\nLet the greatest commanders of WW2 fight your war with the tools of the time; tanks, planes, ships, guns and newly discovered weapons of mass destruction.\nChoose from the greatest powers striving for victory, or the small nations trying to weather the storm. Turn the world into your battlefield: Experience the full WWII timespan in a topographical map complete with seasons, weather and terrain. Snow, mud, storms can be both your strong ally and a ruthless enemy.\nExperience the advanced politics and diplomacy systems, form factions, engage in trade for resources and appoint ministers to your party.\nBattle in both competitive and cooperative multiplayer for up to 32 players. Featuring cross-platform multiplayer.\nExperience the flexible technology system, where all major powers get their own unique identity. Develop detailed historic tanks and planes through research and army experience. A Free DLC adds a unique focus tree for Poland, new 3d models for tanks and planes, 2d assets, and extra leader portraits for the ultimate in historical accuracy.\nForum avatar for the Paradox forum.',
+    description:
+      'Your ability to lead your nation is your supreme weapon, the strategy game Hearts of Iron IV lets you take command of any nation in World War II; the most engaging conflict in world history. From the heart of the battlefield to the command center, you will guide your nation to glory and wage war, negotiate or invade. You hold the power to tip the very balance of WWII. It is time to show your ability as the greatest military leader in the world. Will you relive or change history? Will you change the fate of the world by achieving victory at all costs? War is not only won on land, sea and in the air. It’s also achieved in the hearts and minds of men and women.\nLet the greatest commanders of WW2 fight your war with the tools of the time; tanks, planes, ships, guns and newly discovered weapons of mass destruction.\nChoose from the greatest powers striving for victory, or the small nations trying to weather the storm. Turn the world into your battlefield: Experience the full WWII timespan in a topographical map complete with seasons, weather and terrain. Snow, mud, storms can be both your strong ally and a ruthless enemy.\nExperience the advanced politics and diplomacy systems, form factions, engage in trade for resources and appoint ministers to your party.\nBattle in both competitive and cooperative multiplayer for up to 32 players. Featuring cross-platform multiplayer.\nExperience the flexible technology system, where all major powers get their own unique identity. Develop detailed historic tanks and planes through research and army experience. A Free DLC adds a unique focus tree for Poland, new 3d models for tanks and planes, 2d assets, and extra leader portraits for the ultimate in historical accuracy.\nForum avatar for the Paradox forum.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/394360/header.jpg',
     minimal_gpu: 'Radeon HD 5850',
     recommended_gpu: 'Radeon HD 6950',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Microsoft Flight Simulator',
     year: 2020,
-    description: 'From light planes to wide-body jets, fly highly detailed and accurate aircraft in the next generation of Microsoft Flight Simulator. Test your piloting skills against the challenges of night flying, real-time atmospheric simulation and live weather in a dynamic and living world. Create your flight plan to anywhere on the planet. Microsoft Flight Simulator includes 20 highly detailed planes with unique flight models and 30 hand-crafted airports. • Vivid and Detailed Landscapes – Immerse yourself in the vast and beautiful world that is our planet with over 37 thousand airports, 1.5 billion buildings, 2 trillion trees, mountains, roads, rivers and more.\n• Living World – Earth is vibrant and ever-changing and so is the world of Microsoft Flight Simulator which includes live traffic, real-time weather and animals. • Aircraft – Hone your pilot skills in a variety of aircraft from light planes to commercial jets with comprehensive flight models. Every aircraft includes highly detailed and accurate cockpits with realistic instrumentation. • New Checklist System - From pro to beginner, scale your level from full manual to full assist with interactive and highlighted instrument guidance and checklist. • Live Weather – The new weather engine enables users to switch on the live weather mode to experience real-time weather including accurate wind speed and direction, temperature, humidity, rain and more.\n• New Day & Night Engine - experience flight at any time of day or year allowing for night VFR, visual flight rules, navigation.\n• Aerodynamic Modeling - a state-of-the-art physics engine with over 1000 control surfaces per plane allows for a truly realistic experience. The includes everything from Microsoft Flight Simulator plus 5 additional highly accurate planes with unique flight models and 5 additional handcrafted international airports. • Diamond Aircraft DA40-TDI\n• Diamond Aircraft DV20\n• Textron Aviation Beechcraft Baron G58\n• Textron Aviation Cessna 152 Aerobat\n• Textron Aviation Cessna 172 Skyhawk • Amsterdam Airport Schiphol (Netherlands)\n• Cairo International Airport (Egypt)\n• Cape Town International Airport (South Africa)\n• O’Hare International Airport (USA)\n• Adolfo Suárez Madrid–Barajas Airport (Spain) The includes everything from the Microsoft Flight Simulator Deluxe edition plus 5 additional highly accurate planes with unique flight models and 5 additional handcrafted international airports. • Boeing 787-10 Dreamliner\n• Cirrus Aircraft SR22\n• Pipistrel Virus SW 121\n• Textron Aviation Cessna Citation Longitude\n• Zlin Aviation Shock Ultra • Denver International Airport (USA)\n• Dubai International Airport (United Arab Emirates)\n• Frankfurt Airport (Germany)\n• Heathrow Airport (United Kingdom)\n• San Francisco International Airport (USA)',
+    description:
+      'From light planes to wide-body jets, fly highly detailed and accurate aircraft in the next generation of Microsoft Flight Simulator. Test your piloting skills against the challenges of night flying, real-time atmospheric simulation and live weather in a dynamic and living world. Create your flight plan to anywhere on the planet. Microsoft Flight Simulator includes 20 highly detailed planes with unique flight models and 30 hand-crafted airports. • Vivid and Detailed Landscapes – Immerse yourself in the vast and beautiful world that is our planet with over 37 thousand airports, 1.5 billion buildings, 2 trillion trees, mountains, roads, rivers and more.\n• Living World – Earth is vibrant and ever-changing and so is the world of Microsoft Flight Simulator which includes live traffic, real-time weather and animals. • Aircraft – Hone your pilot skills in a variety of aircraft from light planes to commercial jets with comprehensive flight models. Every aircraft includes highly detailed and accurate cockpits with realistic instrumentation. • New Checklist System - From pro to beginner, scale your level from full manual to full assist with interactive and highlighted instrument guidance and checklist. • Live Weather – The new weather engine enables users to switch on the live weather mode to experience real-time weather including accurate wind speed and direction, temperature, humidity, rain and more.\n• New Day & Night Engine - experience flight at any time of day or year allowing for night VFR, visual flight rules, navigation.\n• Aerodynamic Modeling - a state-of-the-art physics engine with over 1000 control surfaces per plane allows for a truly realistic experience. The includes everything from Microsoft Flight Simulator plus 5 additional highly accurate planes with unique flight models and 5 additional handcrafted international airports. • Diamond Aircraft DA40-TDI\n• Diamond Aircraft DV20\n• Textron Aviation Beechcraft Baron G58\n• Textron Aviation Cessna 152 Aerobat\n• Textron Aviation Cessna 172 Skyhawk • Amsterdam Airport Schiphol (Netherlands)\n• Cairo International Airport (Egypt)\n• Cape Town International Airport (South Africa)\n• O’Hare International Airport (USA)\n• Adolfo Suárez Madrid–Barajas Airport (Spain) The includes everything from the Microsoft Flight Simulator Deluxe edition plus 5 additional highly accurate planes with unique flight models and 5 additional handcrafted international airports. • Boeing 787-10 Dreamliner\n• Cirrus Aircraft SR22\n• Pipistrel Virus SW 121\n• Textron Aviation Cessna Citation Longitude\n• Zlin Aviation Shock Ultra • Denver International Airport (USA)\n• Dubai International Airport (United Arab Emirates)\n• Frankfurt Airport (Germany)\n• Heathrow Airport (United Kingdom)\n• San Francisco International Airport (USA)',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1250410/header.jpg',
     minimal_gpu: 'Radeon RX 570',
     recommended_gpu: 'Radeon RX 590',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     minimal_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'ONE PIECE: PIRATE WARRIORS 4',
     year: 2020,
-    description: 'The PIRATE WARRIORS series has successfully combined the popular anime ONE PIECE with the thrilling action of the WARRIORS series to create a worldwide phenomenon selling more than four million copies! Based on the concept of "fighting hordes of enemies while adventuring with trusted allies," experience awesome ONE PIECE action lifted straight from the anime! ONE PIECE: PIRATE WARRIORS 4 is the latest evolution of PIRATE WARRIORS action! Based on the concept of "experiencing a real ONE PIECE battlefield," buildings will come crashing down during the action and attacks will throw up smoke and dust, placing you in the thick of the ONE PIECE world! Injecting fresh elements that couldn\'t be achieved in previous entries has now realized an even more thrilling brand of PIRATE WARRIORS action!',
+    description:
+      'The PIRATE WARRIORS series has successfully combined the popular anime ONE PIECE with the thrilling action of the WARRIORS series to create a worldwide phenomenon selling more than four million copies! Based on the concept of "fighting hordes of enemies while adventuring with trusted allies," experience awesome ONE PIECE action lifted straight from the anime! ONE PIECE: PIRATE WARRIORS 4 is the latest evolution of PIRATE WARRIORS action! Based on the concept of "experiencing a real ONE PIECE battlefield," buildings will come crashing down during the action and attacks will throw up smoke and dust, placing you in the thick of the ONE PIECE world! Injecting fresh elements that couldn\'t be achieved in previous entries has now realized an even more thrilling brand of PIRATE WARRIORS action!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1089090/header.jpg',
     minimal_gpu: 'Radeon HD 7870',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Ryzen 3 1300X',
     recommended_cpu: 'AMD Ryzen 5 1400',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'The Walking Dead: Saints & Sinners',
     year: 2020,
-    description: 'Saints & Sinners is a game unlike any other in The Walking Dead universe. Every challenge you face and decision you make is driven by YOU. Fight the undead, scavenge through the flooded ruins of New Orleans, and face gut-wrenching choices for you and the other survivors. Live The Walking Dead\'s dark drama in your own skin.​\nA new way to live survival horror. With the living, dead, disease and famine as constant threats, you have countless ways to tackle these dangers. New Orleans is at war. The living are not just fighting the dead, but also inflicting pain and brutality upon each other. As bodies pile up between warring factions, whispers spread of a long-lost mystery in the city that could turn the tide of the war. Will you be able to survive while caught in the middle of this conflict? Can you unravel the mystery that is behind it all? The fate of the city and its survivors rests in your hands.​\nCrafting, exploration, freedom of choice and visceral combat make this a deep, 15+ hour game built for VR.',
+    description:
+      "Saints & Sinners is a game unlike any other in The Walking Dead universe. Every challenge you face and decision you make is driven by YOU. Fight the undead, scavenge through the flooded ruins of New Orleans, and face gut-wrenching choices for you and the other survivors. Live The Walking Dead's dark drama in your own skin.​\nA new way to live survival horror. With the living, dead, disease and famine as constant threats, you have countless ways to tackle these dangers. New Orleans is at war. The living are not just fighting the dead, but also inflicting pain and brutality upon each other. As bodies pile up between warring factions, whispers spread of a long-lost mystery in the city that could turn the tide of the war. Will you be able to survive while caught in the middle of this conflict? Can you unravel the mystery that is behind it all? The fate of the city and its survivors rests in your hands.​\nCrafting, exploration, freedom of choice and visceral combat make this a deep, 15+ hour game built for VR.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/916840/header.jpg',
     minimal_gpu: 'Radeon RX 480',
     recommended_gpu: 'Radeon VE',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1800X',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'House Flipper',
     year: 2018,
-    description: 'House Flipper is a unique chance to become a one-man renovation crew. Buy, repair and remodel devastated houses. Give them a second life and sell them at a profit! What you’ve got at your disposal is a set of tools and parts. Use them to hammer, drill, nail and screw things together, and do whatever is necessary to fit, fix or clean up stuff. Experiment with interior designs and decorating styles you like. Decorate and furnish interiors with hundreds of unique items that you’re free to choose from. Express yourself! Do you love interior design and want to fill up empty rooms using your favorite style? You can buy an empty apartment and furnish it. Do you prefer things only engineers would understand? You can focus on repair and installations. Are you an expert on the "small move, big change" approach? You can buy a decent house and make it perfect by adding some style and fixing stuff. The ultimate goal of the house flipping business is profit. Are you a risk taker? Do you like to invest? Estimate profit and find the best risk/reward ratio for you. The house flipping business is very challenging. Improve and hone your skills. Get better tools. Deploy new mechanisms and earn cash so you can to increase investment and speed up progress. Have fun!',
+    description:
+      'House Flipper is a unique chance to become a one-man renovation crew. Buy, repair and remodel devastated houses. Give them a second life and sell them at a profit! What you’ve got at your disposal is a set of tools and parts. Use them to hammer, drill, nail and screw things together, and do whatever is necessary to fit, fix or clean up stuff. Experiment with interior designs and decorating styles you like. Decorate and furnish interiors with hundreds of unique items that you’re free to choose from. Express yourself! Do you love interior design and want to fill up empty rooms using your favorite style? You can buy an empty apartment and furnish it. Do you prefer things only engineers would understand? You can focus on repair and installations. Are you an expert on the "small move, big change" approach? You can buy a decent house and make it perfect by adding some style and fixing stuff. The ultimate goal of the house flipping business is profit. Are you a risk taker? Do you like to invest? Estimate profit and find the best risk/reward ratio for you. The house flipping business is very challenging. Improve and hone your skills. Get better tools. Deploy new mechanisms and earn cash so you can to increase investment and speed up progress. Have fun!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/613100/header.jpg',
     minimal_gpu: 'GeForce GTX 560',
     recommended_gpu: 'Radeon RX 580',
     minimal_cpu: 'AMD Phenom II X4 955',
     recommended_cpu: 'AMD Ryzen 5 1600',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Human: Fall Flat',
     year: 2016,
-    description: 'This Worldwide Workshop competition winning level is packed with metal mechanisms to master either solo or with up to seven friends. Throw switches and create machine parts from shiny steel ingots and choose your own path through the factory. Traversing moving conveyor belts, enormous cogs and shooting flames carries an element of risk, but no small amount of fun! Each dream level provides a new environment to navigate, from mansions, castles and Aztec adventures to snowy mountains, eerie nightscapes and industrial locations. Multiple routes through each level, and perfectly pitched puzzles ensure exploration and ingenuity are rewarded. Of course, your Human\'s wobbly movements don\'t make things easy, and whether you\'re jumping, climbing, carrying or swinging, things can easily go very wrong - with very funny results. Should your Human fall from a rope, misjudge a platform or even get pushed off a cliff by a friend, never fear: they will simply fall back into the dream, ready to try again and again. Human: Fall Flat can be played solo or with up to 8 players online for even more laughter. What\'s more, regular free level releases mean there\'s no end to the fun in sight!',
+    description:
+      "This Worldwide Workshop competition winning level is packed with metal mechanisms to master either solo or with up to seven friends. Throw switches and create machine parts from shiny steel ingots and choose your own path through the factory. Traversing moving conveyor belts, enormous cogs and shooting flames carries an element of risk, but no small amount of fun! Each dream level provides a new environment to navigate, from mansions, castles and Aztec adventures to snowy mountains, eerie nightscapes and industrial locations. Multiple routes through each level, and perfectly pitched puzzles ensure exploration and ingenuity are rewarded. Of course, your Human's wobbly movements don't make things easy, and whether you're jumping, climbing, carrying or swinging, things can easily go very wrong - with very funny results. Should your Human fall from a rope, misjudge a platform or even get pushed off a cliff by a friend, never fear: they will simply fall back into the dream, ready to try again and again. Human: Fall Flat can be played solo or with up to 8 players online for even more laughter. What's more, regular free level releases mean there's no end to the fun in sight!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/477160/header_alt_assets_8.jpg',
     minimal_gpu: 'Radeon HD 5770',
     recommended_gpu: 'Radeon HD 7770',
     minimal_cpu: 'AMD Athlon 64 X2 Dual Core 6000+',
     recommended_cpu: 'AMD A10-5800K APU',
     recommended_ram_size: 2,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'Steel Division 2',
     year: 2019,
-    description: 'Steel Division 2 pushes the limits of the WW2 RTS experience. Set on the Eastern Front in 1944, this sequel of the critically acclaimed Real-Time Tactical game puts you in charge of your entire army during Operation Bagration, the Soviet offensive against Nazi armies in Bielorussia. Play as a General in the 1:1-scale turn-based Dynamic Strategic Campaigns, as a Colonel in the epic Real-Time Tactical Battles, as an Weapon Expert in the brand-new Deck Building System. With more than 600 units, 25 maps, and multiple game modes, Steel Division 2 lets you play as you want and offers hundreds of hours of gameplay in solo, multiplayer and coop. Relive history in the huge single player Dynamic Strategic Campaigns: lead thousands of men on up-to 150x100 km maps, plan your battalion\' movements, manage supply and execute your strategy in week-long campaigns in this historically accurate turn-based game mode. Every battalion is the same as it was during the Operation Bagration. Pick your side and relive this massive offensive or rewrite the course of events. Decide which battalion will take part into battle, fight every one of them in real-time tactical combat, or use autoresolve for a pure Strategic experience. More than just another game mode, the Dynamic Strategic Campaigns are an entire new game within the game. Field over 600 extremely detailed units, including the iconic T-34 tank, the Katyusha multiple rocket launcher and the IL-2 ground-attack aircraft! Select your division, pick the units you will send to battle, and build the perfect battlegroups in the brand new deck system, allowing more tactical freedom than ever. Fight in the 25 new available battlefields, analyze the terrain and use your tactical skills to give the right order at the right time and dominate your enemy!',
+    description:
+      "Steel Division 2 pushes the limits of the WW2 RTS experience. Set on the Eastern Front in 1944, this sequel of the critically acclaimed Real-Time Tactical game puts you in charge of your entire army during Operation Bagration, the Soviet offensive against Nazi armies in Bielorussia. Play as a General in the 1:1-scale turn-based Dynamic Strategic Campaigns, as a Colonel in the epic Real-Time Tactical Battles, as an Weapon Expert in the brand-new Deck Building System. With more than 600 units, 25 maps, and multiple game modes, Steel Division 2 lets you play as you want and offers hundreds of hours of gameplay in solo, multiplayer and coop. Relive history in the huge single player Dynamic Strategic Campaigns: lead thousands of men on up-to 150x100 km maps, plan your battalion' movements, manage supply and execute your strategy in week-long campaigns in this historically accurate turn-based game mode. Every battalion is the same as it was during the Operation Bagration. Pick your side and relive this massive offensive or rewrite the course of events. Decide which battalion will take part into battle, fight every one of them in real-time tactical combat, or use autoresolve for a pure Strategic experience. More than just another game mode, the Dynamic Strategic Campaigns are an entire new game within the game. Field over 600 extremely detailed units, including the iconic T-34 tank, the Katyusha multiple rocket launcher and the IL-2 ground-attack aircraft! Select your division, pick the units you will send to battle, and build the perfect battlegroups in the brand new deck system, allowing more tactical freedom than ever. Fight in the 25 new available battlefields, analyze the terrain and use your tactical skills to give the right order at the right time and dominate your enemy!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/919640/header.jpg',
     minimal_gpu: 'GeForce GT 1030',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Athlon 200GE',
     recommended_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Assassin’s Creed® IV Black Flag™',
     year: 2013,
-    description: 'The year is 1715. Pirates rule the Caribbean and have established their own lawless Republic where corruption, greediness and cruelty are commonplace. Among these outlaws is a brash young captain named Edward Kenway. His fight for glory has earned him the respect of legends like Blackbeard, but also drawn him into the ancient war between Assassins and Templars, a war that may destroy everything the pirates have built. Welcome to the Golden Age of Piracy.',
+    description:
+      'The year is 1715. Pirates rule the Caribbean and have established their own lawless Republic where corruption, greediness and cruelty are commonplace. Among these outlaws is a brash young captain named Edward Kenway. His fight for glory has earned him the respect of legends like Blackbeard, but also drawn him into the ancient war between Assassins and Templars, a war that may destroy everything the pirates have built. Welcome to the Golden Age of Piracy.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/242050/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Expansion - Hearts of Iron IV: La Résistance',
     year: 2020,
-    description: 'Uncover Enemy Secrets in Hearts of Iron IV: La Résistance The enemy has installed a puppet government in an allied nation. Brave individuals promise to fight against their occupiers and oppressors. Use your agile espionage skills to support the work of La Résistance. La Résistance adds secret agents, espionage missions and new options for resistance movements to Hearts of Iron IV, the popular grand strategy wargame from Paradox Development Studio. Send agents into dangerous territory to decipher enemy secrets or prepare the ground for your invasion by propping up collaborators who will be happy for any taste of power.',
+    description:
+      'Uncover Enemy Secrets in Hearts of Iron IV: La Résistance The enemy has installed a puppet government in an allied nation. Brave individuals promise to fight against their occupiers and oppressors. Use your agile espionage skills to support the work of La Résistance. La Résistance adds secret agents, espionage missions and new options for resistance movements to Hearts of Iron IV, the popular grand strategy wargame from Paradox Development Studio. Send agents into dangerous territory to decipher enemy secrets or prepare the ground for your invasion by propping up collaborators who will be happy for any taste of power.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1158100/header.jpg',
     minimal_gpu: 'Radeon HD 5850',
     recommended_gpu: 'Radeon HD 6950',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Blasphemous',
     year: 2019,
-    description: 'A foul curse has fallen upon the land of Cvstodia and all its inhabitants - it is simply known as The Miracle. Play as The Penitent One - a sole survivor of the massacre of the ‘Silent Sorrow’. Trapped in an endless cycle of death and rebirth, it’s down to you to free the world from this terrible fate and reach the origin of your anguish. Explore this nightmarish world of twisted religion and discover its many secrets hidden deep inside. Use devastating combos and brutal executions to smite the hordes of grotesque monsters and titanic bosses, all ready to rip you limb from limb. Locate and equip relics, rosary beads and prayers that call on the powers of the heavens to aid you in your quest to break your eternal damnation. Overcome fearsome enemies and deadly traps as you venture through a variety of different landscapes, and search for redemption in the dark gothic world of Cvstodia. Release the power of Mea Culpa, a sword born from guilt itself, to slaughter your foes. Acquire devastating new combos and special moves as you purge all in your path. Unleash your wrath and relish in the gory dismemberment of your adversaries - all in beautifully rendered, pixel-perfect execution animations. Discover and equip Relics, Rosary Beads, Prayers and Sword Hearts to give you the new abilities and stat boosts you need to survive. Experiment with different combinations to suit your playstyle. Hordes of gigantic, twisted creatures stand between you and your goal. Learn how they move, survive their devastating attacks and emerge victorious. The world is full of tormented souls. Some offer you aid, some may ask for something in return. Uncover the stories and fates of these tortured characters to gain rewards and a deeper understanding of the dark world you inhabit.',
+    description:
+      'A foul curse has fallen upon the land of Cvstodia and all its inhabitants - it is simply known as The Miracle. Play as The Penitent One - a sole survivor of the massacre of the ‘Silent Sorrow’. Trapped in an endless cycle of death and rebirth, it’s down to you to free the world from this terrible fate and reach the origin of your anguish. Explore this nightmarish world of twisted religion and discover its many secrets hidden deep inside. Use devastating combos and brutal executions to smite the hordes of grotesque monsters and titanic bosses, all ready to rip you limb from limb. Locate and equip relics, rosary beads and prayers that call on the powers of the heavens to aid you in your quest to break your eternal damnation. Overcome fearsome enemies and deadly traps as you venture through a variety of different landscapes, and search for redemption in the dark gothic world of Cvstodia. Release the power of Mea Culpa, a sword born from guilt itself, to slaughter your foes. Acquire devastating new combos and special moves as you purge all in your path. Unleash your wrath and relish in the gory dismemberment of your adversaries - all in beautifully rendered, pixel-perfect execution animations. Discover and equip Relics, Rosary Beads, Prayers and Sword Hearts to give you the new abilities and stat boosts you need to survive. Experiment with different combinations to suit your playstyle. Hordes of gigantic, twisted creatures stand between you and your goal. Learn how they move, survive their devastating attacks and emerge victorious. The world is full of tormented souls. Some offer you aid, some may ask for something in return. Uncover the stories and fates of these tortured characters to gain rewards and a deeper understanding of the dark world you inhabit.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/774361/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 5770',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 945',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Expansion - Hearts of Iron IV: Waking the Tiger',
     year: 2018,
-    description: 'Years before Europe went to war, Japan’s imperial ambitions targeted the divided Chinese Republic. Crippled by political paralysis and centuries of fitful development, China is still not a pushover. With vast reserves of manpower and resources, not to mention a giant landmass, the Republic of China and its temporary ally, the Communists under Mao, can withstand another aggressor. There have been, after all, very many. is the newest expansion for Paradox Development Studio’s celebrated World War II strategy wargame, Hearts of Iron IV. This expansion adds new gameplay options for all players, and has a special focus on the Asian front of the deadliest war in human history.',
+    description:
+      'Years before Europe went to war, Japan’s imperial ambitions targeted the divided Chinese Republic. Crippled by political paralysis and centuries of fitful development, China is still not a pushover. With vast reserves of manpower and resources, not to mention a giant landmass, the Republic of China and its temporary ally, the Communists under Mao, can withstand another aggressor. There have been, after all, very many. is the newest expansion for Paradox Development Studio’s celebrated World War II strategy wargame, Hearts of Iron IV. This expansion adds new gameplay options for all players, and has a special focus on the Asian front of the deadliest war in human history.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/702350/header.jpg',
     minimal_gpu: 'Radeon HD 5850',
     recommended_gpu: 'Radeon HD 6950',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Call of Duty®: Modern Warfare® 2',
     year: 2009,
-    description: 'The most-anticipated game of the year and the sequel to the best-selling first-person action game of all time, Modern Warfare 2 continues the gripping and heart-racing action as players face off against a new threat dedicated to bringing the world to the brink of collapse. Call of Duty®: Modern Warfare 2 features for the first time in video games, the musical soundtrack of legendary Academy Award®, Golden Globe® Award, Grammy® Award and Tony winning composer Hans Zimmer. The title picks up immediately following the historic events of Call of Duty® 4: Modern Warfare®, the blockbuster title that earned worldwide critical acclaim, including: An entirely new gameplay mode which supports 2-player co-operative play online that is unique from the single player story campaign. Setting a new bar for online multiplayer, Modern Warfare 2 multiplayer delivers new capabilities, customization, gamestates and modes, including: Create-a-Class Evolved',
+    description:
+      'The most-anticipated game of the year and the sequel to the best-selling first-person action game of all time, Modern Warfare 2 continues the gripping and heart-racing action as players face off against a new threat dedicated to bringing the world to the brink of collapse. Call of Duty®: Modern Warfare 2 features for the first time in video games, the musical soundtrack of legendary Academy Award®, Golden Globe® Award, Grammy® Award and Tony winning composer Hans Zimmer. The title picks up immediately following the historic events of Call of Duty® 4: Modern Warfare®, the blockbuster title that earned worldwide critical acclaim, including: An entirely new gameplay mode which supports 2-player co-operative play online that is unique from the single player story campaign. Setting a new bar for online multiplayer, Modern Warfare 2 multiplayer delivers new capabilities, customization, gamestates and modes, including: Create-a-Class Evolved',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/10180/header.jpg',
     recommended_gpu: 'GeForce 6600',
     minimal_gpu: 'GeForce 6600',
     recommended_cpu: 'AMD Athlon 64 3200+',
     minimal_cpu: 'AMD Athlon 64 3200+',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'Pillars of Eternity',
     year: 2015,
-    description: 'Prepare to be enchanted by a world where the choices you make and the paths you choose shape your destiny. Obsidian Entertainment, the developer of Fallout: New Vegas™ and South Park: The Stick of Truth™, together with Paradox Interactive is proud to present Pillars of Eternity. Recapture the deep sense of exploration, the joy of a pulsating adventure, and the thrill of leading your own band of companions across a new fantasy realm and into the depths of monster-infested dungeons in search of lost treasures and ancient mysteries. So gather your party, venture forth, and embrace adventure as you delve into a realm of wonder, nostalgia, and the excitement of classic RPGs with Obsidian’s Pillars of Eternity!',
+    description:
+      'Prepare to be enchanted by a world where the choices you make and the paths you choose shape your destiny. Obsidian Entertainment, the developer of Fallout: New Vegas™ and South Park: The Stick of Truth™, together with Paradox Interactive is proud to present Pillars of Eternity. Recapture the deep sense of exploration, the joy of a pulsating adventure, and the thrill of leading your own band of companions across a new fantasy realm and into the depths of monster-infested dungeons in search of lost treasures and ancient mysteries. So gather your party, venture forth, and embrace adventure as you delve into a realm of wonder, nostalgia, and the excitement of classic RPGs with Obsidian’s Pillars of Eternity!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/291650/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'GeForce GTX 570',
     minimal_cpu: 'AMD Phenom II X3 B73',
     recommended_cpu: 'AMD Phenom II X6 1100T',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Crash Bandicoot™ N. Sane Trilogy',
     year: 2018,
-    description: 'Your favorite marsupial, Crash Bandicoot™, is back! He’s enhanced, entranced and ready-to-dance with the N. Sane Trilogy game collection. Now you can experience Crash Bandicoot like never before. Spin, jump, wump and repeat as you take on the epic challenges and adventures through the three games that started it all, Crash Bandicoot™, Crash Bandicoot™ 2: Cortex Strikes Back and Crash Bandicoot™ 3: Warped. Relive all your favorite Crash moments in their fully-remastered graphical glory and get ready to put some UMPH in your WUMP! Experience the notorious Stormy Ascent level from the original Crash Bandicoot game. Previously unfinished and unreleased, this level will challenge even the most hardcore of Crash fans! Do you have what it takes to tackle the fast retracting steps, vial throwing lab assistants, flying birds, moving platforms and iron spikes? Play the first-ever NEW level built for the original trilogy’s gameplay in almost 20 years. Drawing inspiration from the cut “Waterfall Level” from the first Crash Bandicoot game, Future Tense features several puzzles from the original level set in the futuristic setting from Crash Bandicoot 3: Warped. Discover a whole new level of difficulty for Crash Bandicoot N. Sane Trilogy as you dodge rockets, destroy robots and leaps lasers while ascending a massive futuristic skyscraper.',
+    description:
+      'Your favorite marsupial, Crash Bandicoot™, is back! He’s enhanced, entranced and ready-to-dance with the N. Sane Trilogy game collection. Now you can experience Crash Bandicoot like never before. Spin, jump, wump and repeat as you take on the epic challenges and adventures through the three games that started it all, Crash Bandicoot™, Crash Bandicoot™ 2: Cortex Strikes Back and Crash Bandicoot™ 3: Warped. Relive all your favorite Crash moments in their fully-remastered graphical glory and get ready to put some UMPH in your WUMP! Experience the notorious Stormy Ascent level from the original Crash Bandicoot game. Previously unfinished and unreleased, this level will challenge even the most hardcore of Crash fans! Do you have what it takes to tackle the fast retracting steps, vial throwing lab assistants, flying birds, moving platforms and iron spikes? Play the first-ever NEW level built for the original trilogy’s gameplay in almost 20 years. Drawing inspiration from the cut “Waterfall Level” from the first Crash Bandicoot game, Future Tense features several puzzles from the original level set in the futuristic setting from Crash Bandicoot 3: Warped. Discover a whole new level of difficulty for Crash Bandicoot N. Sane Trilogy as you dodge rockets, destroy robots and leaps lasers while ascending a massive futuristic skyscraper.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/731490/header.jpg',
     recommended_gpu: 'Radeon HD 7850',
     minimal_gpu: 'Radeon HD 7850',
     recommended_cpu: 'AMD Phenom II X4 965',
     minimal_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'House Flipper - HGTV DLC',
     year: 2020,
-    description: 'Ever want to step inside the TV and demo, design and renovate homes on HGTV? Now’s your chance! The new downloadable content for House Flipper lets you live out your wildest HGTV imagination just like your favorite shows. Ten brand new projects in a new location let you experience the HGTV magic (without spending a fortune tearing up your own home). These clients are demanding: They’re looking for the best design you can give them, while keeping the budget low and the house up to code. Make sure they are satisfied before you hand over the keys to their brand new home. After you’ve completed your renovations, you’ll get the chance to see how you transformed the homes – just like the before-and-after shots on TV! Check out how big of an impact your design choices made on the newly completed spaces.\nGrab your hammer and get ready to explore some true fixer-uppers ready for your design eye.',
+    description:
+      'Ever want to step inside the TV and demo, design and renovate homes on HGTV? Now’s your chance! The new downloadable content for House Flipper lets you live out your wildest HGTV imagination just like your favorite shows. Ten brand new projects in a new location let you experience the HGTV magic (without spending a fortune tearing up your own home). These clients are demanding: They’re looking for the best design you can give them, while keeping the budget low and the house up to code. Make sure they are satisfied before you hand over the keys to their brand new home. After you’ve completed your renovations, you’ll get the chance to see how you transformed the homes – just like the before-and-after shots on TV! Check out how big of an impact your design choices made on the newly completed spaces.\nGrab your hammer and get ready to explore some true fixer-uppers ready for your design eye.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1126050/header.jpg',
     minimal_gpu: 'GeForce GTX 560',
     recommended_gpu: 'Radeon RX 580',
     minimal_cpu: 'AMD Phenom II X4 955',
     recommended_cpu: 'AMD Ryzen 5 1600',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Train Sim World® 2020',
     year: 2018,
-    description: 'Train Sim World is an immersive first-person simulator perfect for everyone, with complete in-cab interactivity, accurate detail on locos, real-world routes and hours of gameplay. Take to the rails with the brand-new Train Sim World 2020 Edition and find everything you need to master new skills, from general to advanced operation of locomotives as you operate smooth passenger and freight services, scenarios and much more. Train Sim World puts you in the engineer’s seat of breathtakingly authentic machines. Balance your brake pressure, control your speed, manage refuelling, switching, yard work and more. The ‘Journeys’ feature will guide you through over 24 real hours of scenarios, tutorials and service timetables for each route – plus a new progress tracker will highlight hundreds of railway jobs available for you to complete as you master the routes. Powered by SimuGraph®, Train Sim World locomotives accurately recreate not only the appearance of their real-world counterparts, but also under-the-hood physics, cabs, control desks, sounds and even the feel of the trains. All of this is set on a collection of real-world routes from around the world. Fight your way up Germany’s Spessartrampe incline, navigate the sprawling underground station at New York Penn or simply gape at the cavernous wonder of Manchester’s Victoria Station – and on every route you’ll find true-to-life regional signalling systems and a brand-new set of challenges. Step into any Train Sim World cab and you’ll be greeted with the same sight as any engineer – banks of controls ready for your command, giving you power over every aspect of your locomotive’s operation. In Train Sim World 2020 we’re taking you one step further with updates to the sim experience such as the new Action Point scoring system that rewards you for accuracy and debriefing screen will help you track your performance.',
+    description:
+      'Train Sim World is an immersive first-person simulator perfect for everyone, with complete in-cab interactivity, accurate detail on locos, real-world routes and hours of gameplay. Take to the rails with the brand-new Train Sim World 2020 Edition and find everything you need to master new skills, from general to advanced operation of locomotives as you operate smooth passenger and freight services, scenarios and much more. Train Sim World puts you in the engineer’s seat of breathtakingly authentic machines. Balance your brake pressure, control your speed, manage refuelling, switching, yard work and more. The ‘Journeys’ feature will guide you through over 24 real hours of scenarios, tutorials and service timetables for each route – plus a new progress tracker will highlight hundreds of railway jobs available for you to complete as you master the routes. Powered by SimuGraph®, Train Sim World locomotives accurately recreate not only the appearance of their real-world counterparts, but also under-the-hood physics, cabs, control desks, sounds and even the feel of the trains. All of this is set on a collection of real-world routes from around the world. Fight your way up Germany’s Spessartrampe incline, navigate the sprawling underground station at New York Penn or simply gape at the cavernous wonder of Manchester’s Victoria Station – and on every route you’ll find true-to-life regional signalling systems and a brand-new set of challenges. Step into any Train Sim World cab and you’ll be greeted with the same sight as any engineer – banks of controls ready for your command, giving you power over every aspect of your locomotive’s operation. In Train Sim World 2020 we’re taking you one step further with updates to the sim experience such as the new Action Point scoring system that rewards you for accuracy and debriefing screen will help you track your performance.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/530070/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Eco',
     year: 2018,
-    description: 'a fully simulated ecosystem bustling with thousands of growing plants and animals living their lives. Build, harvest, and take resources from an environment where your every action affects the world around you. An imminent meteor strike threatens global destruction. Can you save the world without destroying it in the process? Construct buildings and towns, tend to your farm, hunt wildlife, build infrastructure and transportation, craft clothing, build power plants, and research new technologies. Specialize in a craft and trade your goods to other players. Develop your civilization and sculpt your planet. As your civilization grows, you’ll need to analyze data from the simulation; evaluating the impact you have on your world. Use this data as evidence in proposed laws, restricting harmful activities without disrupting the advancement of technology. Balance your individual needs with the needs of community, all while maintaining the state of the ecosystem. The future of your world is in your hands. Every organism in Eco exists as part of a detailed simulation; a disruption in one species can have cascading effects across the planet. Chop down all the trees, and habitats for creatures will be destroyed. Pollute the rivers with mining waste, and your farms will become poisoned and die. The ecosystem supplies the resources you and your community will need to stop the meteor. Manage your pollution, mining waste, hunting, and resource collection to balance your effect on this system. Eco is built on a rich ecological simulation. All the data generated from the interaction of plants, animals, climate, and players can be searched and analyzed using in-game graphs and heat-maps. Use the collected information as scientific evidence support to proposed laws. The ability to successfully debate using scientific evidence is your greatest weapon against the destruction of your world. Establish and maintain your own set of laws and government, which are enforced automatically by the game. Draft a proposal to limit clear-cutting in a protected forest, incentivize green energy solutions over fossil fuels by providing tax subsidies and penalties. Participate in elections for world leadership, allowing you to set tax rates and allocate community money. Use a programmable law system to make dynamic and flexible rules for the community, passing them by vote. Construct a wide variety of governments; from tightly-regulated dictator-states, to tax-and-spend subsidy programs, or even lawless communities relying on trust. Your skills increase based on your food and shelter. By consuming a highly nutritious variety of food and building an elaborate home you will rapidly increase your skill points. Skill points can be spent on skills like farming, hunting, trade, engineering, research, and more. Contribute to the greater good while increasing your own personal success. In the player-run economy, you achieve the most when you specialize and trade both goods and services. Create stores to buy and sell goods you need asynchronously with other players. Setup contracts within the game’s quest-like labor market, soliciting other players to perform specialized work for you in exchange for payment. Build complex crafting machines and charge a fee for players to use them. A thriving economy in Eco can be both a powerful tool for progress, or a dangerous threat to the environment. To grease the wheels of commerce, you can create your own currencies, backed by fiat or by resources. Manage the value of your currency relative to others by setting exchange rates at asynchronous currency exchanges. Sell items at stores and collect credit from other players. Eco is designed for rich asynchronous play, allowing many players of many disciplines to contribute to one another’s goals at separate or simultaneous times. All of the world’s resources originate from its environment, which is affected by your actions. While a meteor looms over head — set to strike the planet in thirty days — a more subtle threat grows from player-interaction with the environment. Without careful attention, ecological destruction can destroy civilization before the meteor even strikes. To ultimately succeed, you and your community will need to use the tools of government and economy to find a balance between progress and protection.',
+    description:
+      'a fully simulated ecosystem bustling with thousands of growing plants and animals living their lives. Build, harvest, and take resources from an environment where your every action affects the world around you. An imminent meteor strike threatens global destruction. Can you save the world without destroying it in the process? Construct buildings and towns, tend to your farm, hunt wildlife, build infrastructure and transportation, craft clothing, build power plants, and research new technologies. Specialize in a craft and trade your goods to other players. Develop your civilization and sculpt your planet. As your civilization grows, you’ll need to analyze data from the simulation; evaluating the impact you have on your world. Use this data as evidence in proposed laws, restricting harmful activities without disrupting the advancement of technology. Balance your individual needs with the needs of community, all while maintaining the state of the ecosystem. The future of your world is in your hands. Every organism in Eco exists as part of a detailed simulation; a disruption in one species can have cascading effects across the planet. Chop down all the trees, and habitats for creatures will be destroyed. Pollute the rivers with mining waste, and your farms will become poisoned and die. The ecosystem supplies the resources you and your community will need to stop the meteor. Manage your pollution, mining waste, hunting, and resource collection to balance your effect on this system. Eco is built on a rich ecological simulation. All the data generated from the interaction of plants, animals, climate, and players can be searched and analyzed using in-game graphs and heat-maps. Use the collected information as scientific evidence support to proposed laws. The ability to successfully debate using scientific evidence is your greatest weapon against the destruction of your world. Establish and maintain your own set of laws and government, which are enforced automatically by the game. Draft a proposal to limit clear-cutting in a protected forest, incentivize green energy solutions over fossil fuels by providing tax subsidies and penalties. Participate in elections for world leadership, allowing you to set tax rates and allocate community money. Use a programmable law system to make dynamic and flexible rules for the community, passing them by vote. Construct a wide variety of governments; from tightly-regulated dictator-states, to tax-and-spend subsidy programs, or even lawless communities relying on trust. Your skills increase based on your food and shelter. By consuming a highly nutritious variety of food and building an elaborate home you will rapidly increase your skill points. Skill points can be spent on skills like farming, hunting, trade, engineering, research, and more. Contribute to the greater good while increasing your own personal success. In the player-run economy, you achieve the most when you specialize and trade both goods and services. Create stores to buy and sell goods you need asynchronously with other players. Setup contracts within the game’s quest-like labor market, soliciting other players to perform specialized work for you in exchange for payment. Build complex crafting machines and charge a fee for players to use them. A thriving economy in Eco can be both a powerful tool for progress, or a dangerous threat to the environment. To grease the wheels of commerce, you can create your own currencies, backed by fiat or by resources. Manage the value of your currency relative to others by setting exchange rates at asynchronous currency exchanges. Sell items at stores and collect credit from other players. Eco is designed for rich asynchronous play, allowing many players of many disciplines to contribute to one another’s goals at separate or simultaneous times. All of the world’s resources originate from its environment, which is affected by your actions. While a meteor looms over head — set to strike the planet in thirty days — a more subtle threat grows from player-interaction with the environment. Without careful attention, ecological destruction can destroy civilization before the meteor even strikes. To ultimately succeed, you and your community will need to use the tools of government and economy to find a balance between progress and protection.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/382310/header.jpg',
     recommended_gpu: 'Radeon RX 5700 XT',
     minimal_gpu: 'GeForce GT 640',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 3700X',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Expansion - Hearts of Iron IV: Man the Guns',
     year: 2019,
-    description: 'From the convoy attacks in the Battle of the Atlantic to the fierce carrier battles on the Pacific front, the Second World War saw naval innovation in both tactics and technology. The war at sea takes center stage in , a new expansion to Paradox Development Studio’s popular strategy wargame. Design your own ships and refit older models. Alter your convoy routes to avoid hungry wolf packs. Embrace or circumvent naval treaties and deal with the diplomatic consequences. also introduces new alternate history paths for the major democracies of the war and gives the freedom loving nations of the world more freedom to act before the war forces their hand.',
+    description:
+      'From the convoy attacks in the Battle of the Atlantic to the fierce carrier battles on the Pacific front, the Second World War saw naval innovation in both tactics and technology. The war at sea takes center stage in , a new expansion to Paradox Development Studio’s popular strategy wargame. Design your own ships and refit older models. Alter your convoy routes to avoid hungry wolf packs. Embrace or circumvent naval treaties and deal with the diplomatic consequences. also introduces new alternate history paths for the major democracies of the war and gives the freedom loving nations of the world more freedom to act before the war forces their hand.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/815460/header.jpg',
     minimal_gpu: 'Radeon HD 5850',
     recommended_gpu: 'Radeon HD 6950',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Shadow Warrior 2',
     year: 2016,
-    description: 'Shadow Warrior 2 is the stunning evolution of Flying Wild Hog’s offbeat first-person shooter following the further misadventures of former corporate shogun Lo Wang. Now surviving as a reclusive mercenary on the edge of a corrupted world, the formidable warrior must again wield a devastating combination of guns, blades, magic and wit to strike down the demonic legions overwhelming the world. Battle alongside allies online in four-player co-op or go it alone in spectacular procedurally-generated landscapes to complete daring missions and collect powerful new weapons, armor, and arcane relics of legend.\nFive years have passed since Lo Wang shattered the alliance between his deceitful former boss and the ancient gods of the shadow realm. Despite noble intentions, Lo Wang’s efforts to annihilate the darkness corrupted the world, creating a strange and savage new order where humans and demons live side by side. The once feared warrior now lives in the shifting wildlands outside the reach of his enemies and the neon glow of Zilla’s cybernetic metropolis, scratching out a meager existence as a hired sword for the local Yakuza clans. When a simple mission goes wrong, Lo Wang is drawn into a volatile conflict between a brilliant young scientist, his nemesis Orochi Zilla, and the demonic forces that have become unsettled in our world. The sharp-tongued hero must once again wield lethal blades, staggering firepower, and archaic magic to purge the world of evil. Lo Wang delivers his own brand full throttle brutality with an expanded array of over 70 lethal blades and explosive firearms to overcome the demonic opposition. Become a whirlwind of steel and blood with razor sharp katana, short swords, crescent blades, and hand claws or unleash a hellish symphony of ornate firearms to decimate your enemies. Battle through the expansive campaign alone or team up as a four-player typhoon of destruction online in campaign co-op mode. Tackle challenging primary missions or thrilling side quests while maintaining your own ninja style with customizable armor, items, and valuable loot from your triumphs. The breach between the human and demon realms created an interdimensional hernia resulting in constant shifts to the world of Shadow Warrior 2. Procedurally generated landscapes and paths bring new twists and turns to once familiar terrain and routine missions. Choose your weapon based on the situation at hand and then dismantle everything that stands in your path with an advanced gore system. Use precision blade strikes to separate limbs and heads or switch to heavy ordinance and blow a hole right through colossal beasts. Upgrade weapons in your arsenal with up to three stones at once to improve performance or augment them with devastating elemental effects. Collect karma, amulets, and armor to enhance Lo Wang’s power and shift his death-dealing artistry into overdrive. The Shadow Warrior series started back in the 90s with Shadow Warrior Classic that was remastered and released on Steam by Devolver Digital and 3D Realms as Shadow Warrior Classic Redux. Then in 2013, Flying Wild Hog and Devolver Digital released the bold reimagining of the legend of Lo Wang with the modern classic Shadow Warrior.',
+    description:
+      'Shadow Warrior 2 is the stunning evolution of Flying Wild Hog’s offbeat first-person shooter following the further misadventures of former corporate shogun Lo Wang. Now surviving as a reclusive mercenary on the edge of a corrupted world, the formidable warrior must again wield a devastating combination of guns, blades, magic and wit to strike down the demonic legions overwhelming the world. Battle alongside allies online in four-player co-op or go it alone in spectacular procedurally-generated landscapes to complete daring missions and collect powerful new weapons, armor, and arcane relics of legend.\nFive years have passed since Lo Wang shattered the alliance between his deceitful former boss and the ancient gods of the shadow realm. Despite noble intentions, Lo Wang’s efforts to annihilate the darkness corrupted the world, creating a strange and savage new order where humans and demons live side by side. The once feared warrior now lives in the shifting wildlands outside the reach of his enemies and the neon glow of Zilla’s cybernetic metropolis, scratching out a meager existence as a hired sword for the local Yakuza clans. When a simple mission goes wrong, Lo Wang is drawn into a volatile conflict between a brilliant young scientist, his nemesis Orochi Zilla, and the demonic forces that have become unsettled in our world. The sharp-tongued hero must once again wield lethal blades, staggering firepower, and archaic magic to purge the world of evil. Lo Wang delivers his own brand full throttle brutality with an expanded array of over 70 lethal blades and explosive firearms to overcome the demonic opposition. Become a whirlwind of steel and blood with razor sharp katana, short swords, crescent blades, and hand claws or unleash a hellish symphony of ornate firearms to decimate your enemies. Battle through the expansive campaign alone or team up as a four-player typhoon of destruction online in campaign co-op mode. Tackle challenging primary missions or thrilling side quests while maintaining your own ninja style with customizable armor, items, and valuable loot from your triumphs. The breach between the human and demon realms created an interdimensional hernia resulting in constant shifts to the world of Shadow Warrior 2. Procedurally generated landscapes and paths bring new twists and turns to once familiar terrain and routine missions. Choose your weapon based on the situation at hand and then dismantle everything that stands in your path with an advanced gore system. Use precision blade strikes to separate limbs and heads or switch to heavy ordinance and blow a hole right through colossal beasts. Upgrade weapons in your arsenal with up to three stones at once to improve performance or augment them with devastating elemental effects. Collect karma, amulets, and armor to enhance Lo Wang’s power and shift his death-dealing artistry into overdrive. The Shadow Warrior series started back in the 90s with Shadow Warrior Classic that was remastered and released on Steam by Devolver Digital and 3D Realms as Shadow Warrior Classic Redux. Then in 2013, Flying Wild Hog and Devolver Digital released the bold reimagining of the legend of Lo Wang with the modern classic Shadow Warrior.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/324800/header.jpg',
     recommended_gpu: 'GeForce GTX 970',
     minimal_gpu: 'Radeon HD 6850',
     minimal_cpu: 'AMD A10-5800K APU',
     recommended_cpu: 'AMD A10-7850K APU',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'The Room VR: A Dark Matter',
     year: 2020,
-    description: 'Fireproof Games continue their award winning game series, , with . The British Institute of Archaeology, London, 1908: The disappearance of an esteemed Egyptologist prompts a Police investigation into the unknown. Explore cryptic locations, examine fantastic gadgets and uncover an otherworldly discovery which blurs the line between reality and illusion. Designed from the ground up for the unique capabilities of virtual reality, players can inhabit the spine-tingling world of The Room and interact with its strange contraptions in this compelling new chapter. Fireproof Games are a small independent team working in Guildford in the UK. We self-published our first game The Room on iPad in September 2012 and were stunned with both the critical success and our new-found fan-base, not to mention multiple international awards. The Room games have since changed our lives and we hope you enjoy our Virtual Reality take on the series.',
+    description:
+      'Fireproof Games continue their award winning game series, , with . The British Institute of Archaeology, London, 1908: The disappearance of an esteemed Egyptologist prompts a Police investigation into the unknown. Explore cryptic locations, examine fantastic gadgets and uncover an otherworldly discovery which blurs the line between reality and illusion. Designed from the ground up for the unique capabilities of virtual reality, players can inhabit the spine-tingling world of The Room and interact with its strange contraptions in this compelling new chapter. Fireproof Games are a small independent team working in Guildford in the UK. We self-published our first game The Room on iPad in September 2012 and were stunned with both the critical success and our new-found fan-base, not to mention multiple international awards. The Room games have since changed our lives and we hope you enjoy our Virtual Reality take on the series.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1104380/header.jpg',
     minimal_gpu: 'Radeon RX 470',
     recommended_gpu: 'Radeon RX 480',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     minimal_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'GRIS',
     year: 2018,
-    description: 'Gris is a hopeful young girl lost in her own world, dealing with a painful experience in her life. Her journey through sorrow is manifested in her dress, which grants new abilities to better navigate her faded reality. As the story unfolds, Gris will grow emotionally and see her world in a different way, revealing new paths to explore using her new abilities. GRIS is a serene and evocative experience, free of danger, frustration or death. Players will explore a meticulously designed world brought to life with delicate art, detailed animation, and an elegant original score. Through the game light puzzles, platforming sequences, and optional skill-based challenges will reveal themselves as more of Gris’s world becomes accessible. GRIS is an experience with almost no text, only simple control reminders illustrated through universal icons. The game can be enjoyed by anyone regardless of their spoken language.',
+    description:
+      'Gris is a hopeful young girl lost in her own world, dealing with a painful experience in her life. Her journey through sorrow is manifested in her dress, which grants new abilities to better navigate her faded reality. As the story unfolds, Gris will grow emotionally and see her world in a different way, revealing new paths to explore using her new abilities. GRIS is a serene and evocative experience, free of danger, frustration or death. Players will explore a meticulously designed world brought to life with delicate art, detailed animation, and an elegant original score. Through the game light puzzles, platforming sequences, and optional skill-based challenges will reveal themselves as more of Gris’s world becomes accessible. GRIS is an experience with almost no text, only simple control reminders illustrated through universal icons. The game can be enjoyed by anyone regardless of their spoken language.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/683320/header.jpg',
     recommended_gpu: 'GeForce GT 430',
     minimal_gpu: 'GeForce GT 430',
     recommended_cpu: 'AMD Athlon 64 X2 Dual Core 5000+',
     minimal_cpu: 'AMD Athlon 64 X2 Dual Core 5000+',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Expansion - Hearts of Iron IV: Death or Dishonor',
     year: 2017,
-    description: 'Death or Dishonor is a new Country Pack for Hearts of Iron IV, and expands upon players’ ability to experience history’s greatest conflict from any point of view. This new pack focuses on the countries caught between the Soviet Union and Nazi Germany during World War II -- faced with the tough choices of starting a conflict with a global superpower, or compromising their ideals to strike a deal for their own survival. Including new National Focus Trees for Hungary, Romania, Czechoslovakia, and Yugoslavia, Death or Dishonor adds new unique events, nation-specific art and music, and much more, giving players all-new ways to experience -- and change -- the course of history.',
+    description:
+      'Death or Dishonor is a new Country Pack for Hearts of Iron IV, and expands upon players’ ability to experience history’s greatest conflict from any point of view. This new pack focuses on the countries caught between the Soviet Union and Nazi Germany during World War II -- faced with the tough choices of starting a conflict with a global superpower, or compromising their ideals to strike a deal for their own survival. Including new National Focus Trees for Hungary, Romania, Czechoslovakia, and Yugoslavia, Death or Dishonor adds new unique events, nation-specific art and music, and much more, giving players all-new ways to experience -- and change -- the course of history.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/584140/header.jpg',
     minimal_gpu: 'Radeon HD 5850',
     recommended_gpu: 'Radeon HD 6950',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tales of Berseria™',
     year: 2017,
-    description: 'A tale of emotion versus reason… In Tales of Berseria, players embark on a journey of self-discovery as they assume the role of Velvet, a young woman whose once kind demeanor has been replaced and overcome with a festering anger and hatred after a traumatic experience three years prior to the events within Tales of Berseria. Velvet will join a crew of pirates as they sail across the sea and visit the many islands that make up the sacred kingdom of Midgand in an all-new adventure developed by the celebrated team behind the Tales of series. Veteran Tales of character designer Mutsumi Inomata has personally designed Velvet and famous Japanese animation studio, ufotable, returns to animate the game’s breathtaking cutscenes; delivering truly epic and emotional storytelling in their unique style.',
+    description:
+      'A tale of emotion versus reason… In Tales of Berseria, players embark on a journey of self-discovery as they assume the role of Velvet, a young woman whose once kind demeanor has been replaced and overcome with a festering anger and hatred after a traumatic experience three years prior to the events within Tales of Berseria. Velvet will join a crew of pirates as they sail across the sea and visit the many islands that make up the sacred kingdom of Midgand in an all-new adventure developed by the celebrated team behind the Tales of series. Veteran Tales of character designer Mutsumi Inomata has personally designed Velvet and famous Japanese animation studio, ufotable, returns to animate the game’s breathtaking cutscenes; delivering truly epic and emotional storytelling in their unique style.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/429660/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 7870',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'TerraTech',
     year: 2018,
-    description: 'TerraTech is an open-world, sandbox adventure game, where you design and build your own creations through a mix of crafting, combat and discovery. Design cars, tanks and planes from a huge library of blocks. Scavenge, craft and buy new parts in order to survive and become the ultimate planetary prospector. Start your career as an Intergalactic prospector in search of profit and glory in Campaign, build to your heart\'s content in Creative mode or pit your Techs against the clock in the Gauntlet Challenge. Team up with other intrepid prospectors in Co-op Campaign, build and create together in Co-op Creative, go head-to-head for glory in the Deathmatch Arena or battle for supremacy in Sumo. Using the building blocks, guns, wheels, and wings from several Mining Corporations, you can build varied Techs to suit every purpose. Be it powerful armoured combat vehicles, unstoppable resource gathering machines, sprawling resource processing bases or a hybrid of all three - creativity is your key to exo-planetary success. The worlds in TerraTech are procedurally generated and infinite, so there are always new lands to discover and more resources to find. Treacherous mountain ranges, luscious grasslands and huge deserts are among the biomes you will encounter. More will be added as development progresses. The intergalactic mining industry is a profitable one, but you are not the only miner in search for new worlds to exploit. Defending yourself from rival miners will take time, resources and skill, with success leading to new territory and new lands. All equipable blocks and items can be damaged or destroyed, so ensuring you are sufficiently armed and ready for battle is a key element of both survival and prosperity in TerraTech. Get out there and show them who’s boss! By gathering and processing natural resources, players are able to construct storage, refining and construction bases in order to craft new blocks in the game. Like the look of that Venture Hail Fire Rifle that just tore your vehicle apart? Go prospecting for the needed resources, and craft a couple for yourself in the shiny new Venture fabricator which you just aquired, by beating their time trial challenge in the nearby mountains. All exo-planetary prospectors buy parts from the established Mining Corporations, where each have their own specific brand of mining technology. Get the job done with GSO, strip-mine to the max with the heavy-duty GeoCorp, zoom around with high-performance recon specialists Venture, function with military efficiency utilising the stealth focused Hawkeye or gain technological superiority with Enviro-giants Better Future. New Corporations we’re aiming to add to the game include deranged experimental scientists Reticule Research, and the hive-mind AI swarms of LEGION. Completing missions and discovering blocks for each Corp will improve your standing with them, and gain access to the more sought-after components in their arsenal.',
+    description:
+      "TerraTech is an open-world, sandbox adventure game, where you design and build your own creations through a mix of crafting, combat and discovery. Design cars, tanks and planes from a huge library of blocks. Scavenge, craft and buy new parts in order to survive and become the ultimate planetary prospector. Start your career as an Intergalactic prospector in search of profit and glory in Campaign, build to your heart's content in Creative mode or pit your Techs against the clock in the Gauntlet Challenge. Team up with other intrepid prospectors in Co-op Campaign, build and create together in Co-op Creative, go head-to-head for glory in the Deathmatch Arena or battle for supremacy in Sumo. Using the building blocks, guns, wheels, and wings from several Mining Corporations, you can build varied Techs to suit every purpose. Be it powerful armoured combat vehicles, unstoppable resource gathering machines, sprawling resource processing bases or a hybrid of all three - creativity is your key to exo-planetary success. The worlds in TerraTech are procedurally generated and infinite, so there are always new lands to discover and more resources to find. Treacherous mountain ranges, luscious grasslands and huge deserts are among the biomes you will encounter. More will be added as development progresses. The intergalactic mining industry is a profitable one, but you are not the only miner in search for new worlds to exploit. Defending yourself from rival miners will take time, resources and skill, with success leading to new territory and new lands. All equipable blocks and items can be damaged or destroyed, so ensuring you are sufficiently armed and ready for battle is a key element of both survival and prosperity in TerraTech. Get out there and show them who’s boss! By gathering and processing natural resources, players are able to construct storage, refining and construction bases in order to craft new blocks in the game. Like the look of that Venture Hail Fire Rifle that just tore your vehicle apart? Go prospecting for the needed resources, and craft a couple for yourself in the shiny new Venture fabricator which you just aquired, by beating their time trial challenge in the nearby mountains. All exo-planetary prospectors buy parts from the established Mining Corporations, where each have their own specific brand of mining technology. Get the job done with GSO, strip-mine to the max with the heavy-duty GeoCorp, zoom around with high-performance recon specialists Venture, function with military efficiency utilising the stealth focused Hawkeye or gain technological superiority with Enviro-giants Better Future. New Corporations we’re aiming to add to the game include deranged experimental scientists Reticule Research, and the hive-mind AI swarms of LEGION. Completing missions and discovering blocks for each Corp will improve your standing with them, and gain access to the more sought-after components in their arsenal.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/285920/header.jpg',
     recommended_gpu: 'Radeon HD 5670',
     minimal_gpu: 'Intel HD 4000',
     minimal_cpu: 'Intel Core2 Duo T7600 @ 2.33GHz',
     recommended_cpu: 'AMD Phenom II X4 945',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tank Mechanic Simulator',
     year: 2020,
-    description: 'Tank Mechanic Simulator is a game about World War II tanks, their crews and their contribution in military history. As a tank museum owner your task is to recover destroyed or abandoned tanks and renovate them. Use your offroad vehicle to locate forgotten tanks. With final area found, determine the exact position of the tank by using special equipment like metal detector. Set up excavation area and extract the tank! Transport freshly extracted tanks to your warehouse. Then start working on renovation process. Detach rusted elements and replace them with new parts. Buy them or fix them by yourself! Tank Mechanic Simulator contains physical terrain deformation system, player will have to mind where he wants to travel and excavate. Perform the entire renovation program starting from: You can excavate even when the night comes! The game extraction missions have full night and day cycle implemented.',
+    description:
+      'Tank Mechanic Simulator is a game about World War II tanks, their crews and their contribution in military history. As a tank museum owner your task is to recover destroyed or abandoned tanks and renovate them. Use your offroad vehicle to locate forgotten tanks. With final area found, determine the exact position of the tank by using special equipment like metal detector. Set up excavation area and extract the tank! Transport freshly extracted tanks to your warehouse. Then start working on renovation process. Detach rusted elements and replace them with new parts. Buy them or fix them by yourself! Tank Mechanic Simulator contains physical terrain deformation system, player will have to mind where he wants to travel and excavate. Perform the entire renovation program starting from: You can excavate even when the night comes! The game extraction missions have full night and day cycle implemented.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/407130/header.jpg',
     minimal_gpu: 'Radeon HD 6970',
     recommended_gpu: 'Radeon R9 Fury',
     minimal_cpu: 'AMD Phenom II X4 955',
     recommended_cpu: 'AMD Ryzen 5 1600',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Expansion - Hearts of Iron IV: Together for Victory',
     year: 2016,
-    description: 'Empire made them tighter. Can war tear them apart? Join the Dominions as they step up to the challenge of defending the motherland for King and Country in Together for Victory, the first major expansion for Hearts of Iron IV, the critically acclaimed strategy wargame from Paradox Development Studio. This expansion puts the focus on British Commonwealth nations, deepening the experience of playing these outposts of the English language. For Canada, Australia, New Zealand, The Raj (India) and South Africa For each of the Dominions, with options to stay loyal to Great Britain, or forge a new, more independent destiny Giving subject states degrees of independence from a foreign master Allow you to ask your allies to send you desperately needed equipment Allowing more control over grand encirclements and punching through enemy lines Will allow Commonwealth nations to quickly catch up with British assistance Learn by past victories or defeats. Giving you history over recent battles. and statistics on equipment losses, you can see exactly how your troops are performing.',
+    description:
+      'Empire made them tighter. Can war tear them apart? Join the Dominions as they step up to the challenge of defending the motherland for King and Country in Together for Victory, the first major expansion for Hearts of Iron IV, the critically acclaimed strategy wargame from Paradox Development Studio. This expansion puts the focus on British Commonwealth nations, deepening the experience of playing these outposts of the English language. For Canada, Australia, New Zealand, The Raj (India) and South Africa For each of the Dominions, with options to stay loyal to Great Britain, or forge a new, more independent destiny Giving subject states degrees of independence from a foreign master Allow you to ask your allies to send you desperately needed equipment Allowing more control over grand encirclements and punching through enemy lines Will allow Commonwealth nations to quickly catch up with British assistance Learn by past victories or defeats. Giving you history over recent battles. and statistics on equipment losses, you can see exactly how your troops are performing.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/530760/header.jpg',
     minimal_gpu: 'Radeon HD 5850',
     recommended_gpu: 'Radeon HD 6950',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'MARVEL Puzzle Quest',
     year: 2013,
-    description: 'Marvel Comics Super Heroes come to life in this Official Marvel role playing game with a unique Match 3 battle mechanic! S.H.I.E.L.D. mishandles a powerful new resource called Iso-8, allowing the Super Villain Norman Osborn to take control of the agency and replace it with H.A.M.M.E.R., unleashing his own power hungry agenda in The Dark Reign. Super Heroes and Villains must unite in this match 3 RPG game to defeat Norman Osborn\'s rise to power and restore balance to the Marvel Universe! Create your own epic dream team using the strongest Super Heroes and the nastiest Super Villains! Play characters like Spider-Man, Captain Marvel, Iron Man, and the Hulk as you battle your way to victory. Thor, Doctor Strange, Deadpool, and more await! Assemble your team and get ready for the fight! ★ Join a community of 15 million players worldwide!\n★ Collect and upgrade over 200 of your favorite MARVEL Super Heroes and Super Villains to perfect your strategy and find the winning combination to dominate your foes!\n★ Battle to build up your powers, unlock new abilities, and find new Supports to craft the perfect team of Marvel Super Heroes and take down your enemies! ★ Form alliances with your friends and use your collective power to fight other players in events and epic battles.\n★ Challenge your team of Super Heroes in exciting Player vs. Player Tournaments\n★ Snag the top rank in Tournaments, Alliances, and Season Play for new character rewards and other prizes!\n★ New events, features and tournaments direct from the Marvel Universe\n★ Exclusively written by Marvel’s Frank Tieri (Iron Man, Wolverine, Weapon X) and Alex Irvine (Iron Man: The Rapture, Daredevil Noir) Harness the power of Iso-8 to upgrade your Super Hero dream team and collect comics to unlock Marvel characters and new superpowers. Match tiles to annihilate your opponents, harnessing Hulk’s superpower strength or Professor X’s mind control to manipulate the game board! Match 3 gems in a row to power up, damage and bring even the most powerful Marvel Comics characters to their knees. Will you be able to rank among the top champions? Recruit your favorite Super Hero characters from X-Men, Avengers, S.H.I.E.L.D., Guardians of the Galaxy and more to create the ultimate Marvel dream team! Whether you play Spider-Man alongside his arch-nemesis Venom, or play Captain Marvel alongside her Ms. Marvel successor, Kamala Khan, YOU assemble your very own epic team of Marvel Comics Super Heroes! With over 200 Marvel characters available, MARVEL Puzzle Quest’s ever-growing list of Super Hero comics and movie characters is updated regularly including Black Panther, Ant-Man, Daredevil, Hela, Thanos, and more! ■ Like us on Facebook: ■ Subscribe on YouTube: ■ Follow us on Twitter: ■ Follow us on Instagram: App is available in English, French, Italian, German, Spanish, Japanese, and Korean.',
+    description:
+      "Marvel Comics Super Heroes come to life in this Official Marvel role playing game with a unique Match 3 battle mechanic! S.H.I.E.L.D. mishandles a powerful new resource called Iso-8, allowing the Super Villain Norman Osborn to take control of the agency and replace it with H.A.M.M.E.R., unleashing his own power hungry agenda in The Dark Reign. Super Heroes and Villains must unite in this match 3 RPG game to defeat Norman Osborn's rise to power and restore balance to the Marvel Universe! Create your own epic dream team using the strongest Super Heroes and the nastiest Super Villains! Play characters like Spider-Man, Captain Marvel, Iron Man, and the Hulk as you battle your way to victory. Thor, Doctor Strange, Deadpool, and more await! Assemble your team and get ready for the fight! ★ Join a community of 15 million players worldwide!\n★ Collect and upgrade over 200 of your favorite MARVEL Super Heroes and Super Villains to perfect your strategy and find the winning combination to dominate your foes!\n★ Battle to build up your powers, unlock new abilities, and find new Supports to craft the perfect team of Marvel Super Heroes and take down your enemies! ★ Form alliances with your friends and use your collective power to fight other players in events and epic battles.\n★ Challenge your team of Super Heroes in exciting Player vs. Player Tournaments\n★ Snag the top rank in Tournaments, Alliances, and Season Play for new character rewards and other prizes!\n★ New events, features and tournaments direct from the Marvel Universe\n★ Exclusively written by Marvel’s Frank Tieri (Iron Man, Wolverine, Weapon X) and Alex Irvine (Iron Man: The Rapture, Daredevil Noir) Harness the power of Iso-8 to upgrade your Super Hero dream team and collect comics to unlock Marvel characters and new superpowers. Match tiles to annihilate your opponents, harnessing Hulk’s superpower strength or Professor X’s mind control to manipulate the game board! Match 3 gems in a row to power up, damage and bring even the most powerful Marvel Comics characters to their knees. Will you be able to rank among the top champions? Recruit your favorite Super Hero characters from X-Men, Avengers, S.H.I.E.L.D., Guardians of the Galaxy and more to create the ultimate Marvel dream team! Whether you play Spider-Man alongside his arch-nemesis Venom, or play Captain Marvel alongside her Ms. Marvel successor, Kamala Khan, YOU assemble your very own epic team of Marvel Comics Super Heroes! With over 200 Marvel characters available, MARVEL Puzzle Quest’s ever-growing list of Super Hero comics and movie characters is updated regularly including Black Panther, Ant-Man, Daredevil, Hela, Thanos, and more! ■ Like us on Facebook: ■ Subscribe on YouTube: ■ Follow us on Twitter: ■ Follow us on Instagram: App is available in English, French, Italian, German, Spanish, Japanese, and Korean.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/234330/header.jpg',
     recommended_gpu: 'GeForce 8600 GT',
     minimal_gpu: 'GeForce 8600 GT',
     recommended_cpu: 'Intel Pentium 4 3.00GHz',
     minimal_cpu: 'Intel Pentium 4 3.00GHz',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'Disintegration',
     year: 2020,
-    description: 'From V1 Interactive, the new 30-person independent development studio founded by Marcus Lehto, the co-creator of Halo, comes , a sci-fi first-person shooter combining FPS and real time strategy elements. Set in the near future on Earth, the only hope for human survival is through Integration, a process developed to preserve human brains in robotic armatures. You play as Romer Shoal, a former Gravcycle pilot in command of a small resistance force still grasping onto the fading memories of their human selves. With the domineering Rayonne forces set on eliminating the final remnants of human society, it’s up to Romer and his crew of Outlaws to fight back and reboot humanity. Pilot a variety of weaponized Gravcycles and command your crew on the ground by leveraging a variety of unique unit abilities and mastery of your own personal arsenal to dominate the battle. In addition to the thrilling single-player campaign, Disintegration features frenetic PvP multiplayer where pilots and their crews compete in three exciting game modes across a variety of maps. Pilot a heavily armed Gravcycle featuring a variety of firepower, maneuverability, and abilities. Also command your crew on the ground, directing them to attack targets, pick up items, and use their unique abilities to turn the tide in battle. From Marcus Lehto, the co-creator of Halo and creative director of Halo: Reach, comes an all-new sci-fi saga. Play as Romer Shoal and confront the Rayonne, a rising global army set on eliminating what remains of humanity. Battle across a variety of maps in three intense, team-based 5v5 multiplayer modes. Choose your favorite Gravcycle and lead your crew alongside your teammates, competing against opposing pilots to win objective-based matches. Each multiplayer crew has their own individual look and personality, along with different skillsets and playstyles. Master your favorite crew and customize your experience with a variety of skins, banners, badges, and emotes.',
+    description:
+      'From V1 Interactive, the new 30-person independent development studio founded by Marcus Lehto, the co-creator of Halo, comes , a sci-fi first-person shooter combining FPS and real time strategy elements. Set in the near future on Earth, the only hope for human survival is through Integration, a process developed to preserve human brains in robotic armatures. You play as Romer Shoal, a former Gravcycle pilot in command of a small resistance force still grasping onto the fading memories of their human selves. With the domineering Rayonne forces set on eliminating the final remnants of human society, it’s up to Romer and his crew of Outlaws to fight back and reboot humanity. Pilot a variety of weaponized Gravcycles and command your crew on the ground by leveraging a variety of unique unit abilities and mastery of your own personal arsenal to dominate the battle. In addition to the thrilling single-player campaign, Disintegration features frenetic PvP multiplayer where pilots and their crews compete in three exciting game modes across a variety of maps. Pilot a heavily armed Gravcycle featuring a variety of firepower, maneuverability, and abilities. Also command your crew on the ground, directing them to attack targets, pick up items, and use their unique abilities to turn the tide in battle. From Marcus Lehto, the co-creator of Halo and creative director of Halo: Reach, comes an all-new sci-fi saga. Play as Romer Shoal and confront the Rayonne, a rising global army set on eliminating what remains of humanity. Battle across a variety of maps in three intense, team-based 5v5 multiplayer modes. Choose your favorite Gravcycle and lead your crew alongside your teammates, competing against opposing pilots to win objective-based matches. Each multiplayer crew has their own individual look and personality, along with different skillsets and playstyles. Master your favorite crew and customize your experience with a variety of skins, banners, badges, and emotes.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/536280/header.jpg',
     minimal_gpu: 'Radeon HD 7850',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Ryzen 5 1400',
     recommended_cpu: 'AMD Ryzen 7 3800X',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'MARVEL Puzzle Quest',
     year: 2013,
-    description: 'Marvel Comics Super Heroes come to life in this Official Marvel role playing game with a unique Match 3 battle mechanic! S.H.I.E.L.D. mishandles a powerful new resource called Iso-8, allowing the Super Villain Norman Osborn to take control of the agency and replace it with H.A.M.M.E.R., unleashing his own power hungry agenda in The Dark Reign. Super Heroes and Villains must unite in this match 3 RPG game to defeat Norman Osborn\'s rise to power and restore balance to the Marvel Universe! Create your own epic dream team using the strongest Super Heroes and the nastiest Super Villains! Play characters like Spider-Man, Captain Marvel, Iron Man, and the Hulk as you battle your way to victory. Thor, Doctor Strange, Deadpool, and more await! Assemble your team and get ready for the fight! ★ Join a community of 15 million players worldwide!\n★ Collect and upgrade over 200 of your favorite MARVEL Super Heroes and Super Villains to perfect your strategy and find the winning combination to dominate your foes!\n★ Battle to build up your powers, unlock new abilities, and find new Supports to craft the perfect team of Marvel Super Heroes and take down your enemies! ★ Form alliances with your friends and use your collective power to fight other players in events and epic battles.\n★ Challenge your team of Super Heroes in exciting Player vs. Player Tournaments\n★ Snag the top rank in Tournaments, Alliances, and Season Play for new character rewards and other prizes!\n★ New events, features and tournaments direct from the Marvel Universe\n★ Exclusively written by Marvel’s Frank Tieri (Iron Man, Wolverine, Weapon X) and Alex Irvine (Iron Man: The Rapture, Daredevil Noir) Harness the power of Iso-8 to upgrade your Super Hero dream team and collect comics to unlock Marvel characters and new superpowers. Match tiles to annihilate your opponents, harnessing Hulk’s superpower strength or Professor X’s mind control to manipulate the game board! Match 3 gems in a row to power up, damage and bring even the most powerful Marvel Comics characters to their knees. Will you be able to rank among the top champions? Recruit your favorite Super Hero characters from X-Men, Avengers, S.H.I.E.L.D., Guardians of the Galaxy and more to create the ultimate Marvel dream team! Whether you play Spider-Man alongside his arch-nemesis Venom, or play Captain Marvel alongside her Ms. Marvel successor, Kamala Khan, YOU assemble your very own epic team of Marvel Comics Super Heroes! With over 200 Marvel characters available, MARVEL Puzzle Quest’s ever-growing list of Super Hero comics and movie characters is updated regularly including Black Panther, Ant-Man, Daredevil, Hela, Thanos, and more! ■ Like us on Facebook: ■ Subscribe on YouTube: ■ Follow us on Twitter: ■ Follow us on Instagram: App is available in English, French, Italian, German, Spanish, Japanese, and Korean.',
+    description:
+      "Marvel Comics Super Heroes come to life in this Official Marvel role playing game with a unique Match 3 battle mechanic! S.H.I.E.L.D. mishandles a powerful new resource called Iso-8, allowing the Super Villain Norman Osborn to take control of the agency and replace it with H.A.M.M.E.R., unleashing his own power hungry agenda in The Dark Reign. Super Heroes and Villains must unite in this match 3 RPG game to defeat Norman Osborn's rise to power and restore balance to the Marvel Universe! Create your own epic dream team using the strongest Super Heroes and the nastiest Super Villains! Play characters like Spider-Man, Captain Marvel, Iron Man, and the Hulk as you battle your way to victory. Thor, Doctor Strange, Deadpool, and more await! Assemble your team and get ready for the fight! ★ Join a community of 15 million players worldwide!\n★ Collect and upgrade over 200 of your favorite MARVEL Super Heroes and Super Villains to perfect your strategy and find the winning combination to dominate your foes!\n★ Battle to build up your powers, unlock new abilities, and find new Supports to craft the perfect team of Marvel Super Heroes and take down your enemies! ★ Form alliances with your friends and use your collective power to fight other players in events and epic battles.\n★ Challenge your team of Super Heroes in exciting Player vs. Player Tournaments\n★ Snag the top rank in Tournaments, Alliances, and Season Play for new character rewards and other prizes!\n★ New events, features and tournaments direct from the Marvel Universe\n★ Exclusively written by Marvel’s Frank Tieri (Iron Man, Wolverine, Weapon X) and Alex Irvine (Iron Man: The Rapture, Daredevil Noir) Harness the power of Iso-8 to upgrade your Super Hero dream team and collect comics to unlock Marvel characters and new superpowers. Match tiles to annihilate your opponents, harnessing Hulk’s superpower strength or Professor X’s mind control to manipulate the game board! Match 3 gems in a row to power up, damage and bring even the most powerful Marvel Comics characters to their knees. Will you be able to rank among the top champions? Recruit your favorite Super Hero characters from X-Men, Avengers, S.H.I.E.L.D., Guardians of the Galaxy and more to create the ultimate Marvel dream team! Whether you play Spider-Man alongside his arch-nemesis Venom, or play Captain Marvel alongside her Ms. Marvel successor, Kamala Khan, YOU assemble your very own epic team of Marvel Comics Super Heroes! With over 200 Marvel characters available, MARVEL Puzzle Quest’s ever-growing list of Super Hero comics and movie characters is updated regularly including Black Panther, Ant-Man, Daredevil, Hela, Thanos, and more! ■ Like us on Facebook: ■ Subscribe on YouTube: ■ Follow us on Twitter: ■ Follow us on Instagram: App is available in English, French, Italian, German, Spanish, Japanese, and Korean.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/234330/header.jpg',
     recommended_gpu: 'GeForce 8600 GT',
     minimal_gpu: 'GeForce 8600 GT',
     recommended_cpu: 'Intel Pentium 4 3.00GHz',
     minimal_cpu: 'Intel Pentium 4 3.00GHz',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'The Black Masses',
     year: 2020,
-    description: 'The Black Masses is an open world first-person fantasy co-op RPG. The Black Masses features our next generation of crowd rendering technology rebuilt from Ultimate Epic Battle Simulator. Explore a 16 square kilometer island populated by hundreds of thousands of possessed inhabitants. Escape the hordes by traversing buildings and obstacles with our parkour system, or face them head on with powerful abilities and immersive first person combat. When calamity strikes you find yourself stranded on an island corrupted by a strange black substance. Its unsuspecting inhabitants, once a strong flourishing society, have been possessed and turned into mindless creatures, bent on the destruction of life. Finding the favor of a mysterious stranger, attempt to cleanse the land from its demoniac possession, if such a task remains possible. Armed with what little hope you have, find your way through this land, and try to overcome the terror of The Black Masses.',
+    description:
+      'The Black Masses is an open world first-person fantasy co-op RPG. The Black Masses features our next generation of crowd rendering technology rebuilt from Ultimate Epic Battle Simulator. Explore a 16 square kilometer island populated by hundreds of thousands of possessed inhabitants. Escape the hordes by traversing buildings and obstacles with our parkour system, or face them head on with powerful abilities and immersive first person combat. When calamity strikes you find yourself stranded on an island corrupted by a strange black substance. Its unsuspecting inhabitants, once a strong flourishing society, have been possessed and turned into mindless creatures, bent on the destruction of life. Finding the favor of a mysterious stranger, attempt to cleanse the land from its demoniac possession, if such a task remains possible. Armed with what little hope you have, find your way through this land, and try to overcome the terror of The Black Masses.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/992910/header.jpg',
     minimal_gpu: 'Radeon R7 370',
     recommended_gpu: 'Radeon R9 390X',
     recommended_cpu: 'AMD Ryzen 5 1400',
     minimal_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 12,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Mutant Year Zero: Road to Eden',
     year: 2018,
-    description: 'From a team including former designers of HITMAN and PAYDAY comes Mutant Year Zero: Road to Eden, a tactical game that combines the turn-based combat of XCOM with real-time stealth and exploration of a post-human world reclaimed by nature… and Mutants. Of course the world ends. It was just a question of time. Extreme climate change, global economic crisis, a lethal pandemic, and increasing tension between old and new superpowers. For the first time since 1945 nuclear weapons were used in armed conflict. Mushroom clouds rose from east to west before the dust settled. Now it’s over and the Earth is still. Nature has invaded ruined cities. Wind sweeps through empty streets, turned into graveyards. The humans are all gone. Scavenging through the remains of civilization are the Mutants, deformed humanoids and animals alike, searching for salvation or just something to eat. To survive, you and your companions must venture out to explore the Zone. Maybe one day you will find the Eden of legends, the ancients’ haven in the middle of hell. That’s where truth awaits, the stories say. Maybe you will find your answers there. Then again, maybe it’s all bullshit. Mutant Year Zero: Road to Eden is the ultimate fix for your tactical strategy addiction. Dive into a deep, turn-based, tactical combat system inspired by the XCOM games. Journey through a post-human world of abandoned cities, crumbling highways, and overgrown countryside. Check back at the Ark, a neon-bathed oasis of ill repute and questionable characters, to restock your supplies and plan out your next adventure. A duck with an attitude problem and a boar with anger issues; these aren’t your typical heroes. Get to know Dux, Bormin, Selma, and many other characters each with their own unique personality and deranged perspective on the world and their situation. Sneak through shadows to avoid conflict or to catch enemies unaware. Real-time stealth allows you full control of approach: sneak into an enemy camp, position the team of Mutants to your advantage, and gain the element of surprise. Unlock new mutations and abilities for your Mutants, such as Selma’s grasping vines, Bormin’s Charge, and Dux‘ uncanny ability to sneak into a camp full of enemies unnoticed, despite being a 4-foot tall walking, talking duck with a crossbow. Use the environment to your advantage. Stay out of floodlights, hide from line of sight, or just blast down fully destructible walls and buildings and wreak utter havoc. From makeshift slingshots to high-powered rifles and top hats to police vests, make sure you equip your Mutants for the dangers ahead. Nothing says post-human quite like a mutated boar in spiked metal armor charging at you with a blunderbuss in his hands.',
+    description:
+      'From a team including former designers of HITMAN and PAYDAY comes Mutant Year Zero: Road to Eden, a tactical game that combines the turn-based combat of XCOM with real-time stealth and exploration of a post-human world reclaimed by nature… and Mutants. Of course the world ends. It was just a question of time. Extreme climate change, global economic crisis, a lethal pandemic, and increasing tension between old and new superpowers. For the first time since 1945 nuclear weapons were used in armed conflict. Mushroom clouds rose from east to west before the dust settled. Now it’s over and the Earth is still. Nature has invaded ruined cities. Wind sweeps through empty streets, turned into graveyards. The humans are all gone. Scavenging through the remains of civilization are the Mutants, deformed humanoids and animals alike, searching for salvation or just something to eat. To survive, you and your companions must venture out to explore the Zone. Maybe one day you will find the Eden of legends, the ancients’ haven in the middle of hell. That’s where truth awaits, the stories say. Maybe you will find your answers there. Then again, maybe it’s all bullshit. Mutant Year Zero: Road to Eden is the ultimate fix for your tactical strategy addiction. Dive into a deep, turn-based, tactical combat system inspired by the XCOM games. Journey through a post-human world of abandoned cities, crumbling highways, and overgrown countryside. Check back at the Ark, a neon-bathed oasis of ill repute and questionable characters, to restock your supplies and plan out your next adventure. A duck with an attitude problem and a boar with anger issues; these aren’t your typical heroes. Get to know Dux, Bormin, Selma, and many other characters each with their own unique personality and deranged perspective on the world and their situation. Sneak through shadows to avoid conflict or to catch enemies unaware. Real-time stealth allows you full control of approach: sneak into an enemy camp, position the team of Mutants to your advantage, and gain the element of surprise. Unlock new mutations and abilities for your Mutants, such as Selma’s grasping vines, Bormin’s Charge, and Dux‘ uncanny ability to sneak into a camp full of enemies unnoticed, despite being a 4-foot tall walking, talking duck with a crossbow. Use the environment to your advantage. Stay out of floodlights, hide from line of sight, or just blast down fully destructible walls and buildings and wreak utter havoc. From makeshift slingshots to high-powered rifles and top hats to police vests, make sure you equip your Mutants for the dangers ahead. Nothing says post-human quite like a mutated boar in spiked metal armor charging at you with a blunderbuss in his hands.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/760060/header.jpg',
     minimal_gpu: 'Radeon HD 7870',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Phenom II X4 965',
     recommended_cpu: 'AMD Ryzen 5 1600X',
     recommended_ram_size: 8,
-    minimal_ram_size: 6
+    minimal_ram_size: 6,
   },
   {
     name: 'Command & Conquer: Red Alert 3 - Uprising',
     year: 2009,
-    description: 'Red Alert 3: Uprising features four new mini-campaigns, giving players a deeper dive into the storyline\'s of the Soviets, the Allies, the Empire of the Rising Sun and a unique campaign centered on the origins of everyone’s favorite psionic Japanese schoolgirl commando, Yuriko Omega. Set in the aftermath of Red Alert 3, the Soviet Union is still reeling from its crushing defeat. The Empire of the Rising Sun is desperately trying to regain both honor and identity, and the seemingly victorious Allies find themselves in the midst of corruption and deceit within their own ranks. How will the defeated Soviets react to the occupation and the presence of FutureTech, the mysterious company contracted by the Allies to develop new technologies in the Soviets’ homeland? How will the humiliated Empire of the Rising Sun rise up and defend itself against the former Soviet commanders who have invaded their territory in a post-war land grab? How will the Allied occupational forces quash the uprising of the former Imperial commanders? And who is the mysterious Japanese commando Yuriko Omega?',
+    description:
+      "Red Alert 3: Uprising features four new mini-campaigns, giving players a deeper dive into the storyline's of the Soviets, the Allies, the Empire of the Rising Sun and a unique campaign centered on the origins of everyone’s favorite psionic Japanese schoolgirl commando, Yuriko Omega. Set in the aftermath of Red Alert 3, the Soviet Union is still reeling from its crushing defeat. The Empire of the Rising Sun is desperately trying to regain both honor and identity, and the seemingly victorious Allies find themselves in the midst of corruption and deceit within their own ranks. How will the defeated Soviets react to the occupation and the presence of FutureTech, the mysterious company contracted by the Allies to develop new technologies in the Soviets’ homeland? How will the humiliated Empire of the Rising Sun rise up and defend itself against the former Soviet commanders who have invaded their territory in a post-war land grab? How will the Allied occupational forces quash the uprising of the former Imperial commanders? And who is the mysterious Japanese commando Yuriko Omega?",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/24800/header.jpg',
     recommended_gpu: 'GeForce 6800',
     minimal_gpu: 'GeForce 6800',
     recommended_cpu: 'AMD Athlon XP 2800+',
     minimal_cpu: 'AMD Athlon XP 2800+',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'Moss',
     year: 2018,
-    description: 'Moss™ is a single-player action-adventure puzzle game and new IP from Polyarc tailor-made for the VR platform. It combines classic components of a great game—such as compelling characters, gripping combat, and captivating world exploration—with the exciting opportunities of virtual reality. In Moss, players meet Quill, a young mouse with dreams of greatness beyond the confines of her settlement. While exploring the woods, she finds a mysterious Glass Relic and an ancient magic is awakened. With her uncle now in grave danger, Quill must embark on an epic journey—and she needs you there by her side. Together, you\'ll travel to forgotten realms, solve challenging puzzles, and battle menacing enemies. Alone, no one can conquer what you\'re up against. But united, you just may defeat even the darkest of villains. Your every action has meaning. Moss takes full advantage of today’s virtual reality technology, letting you move objects, battle enemies, and manipulate the field of play as the key ally to our hero, Quill. Travel to a lively world that hums with wonder and legend. Explore caves, forests, and foreboding ruins that are filled with ancient artifacts, mysterious creatures, and sprawling views. Your abilities are complementary to Quill’s in an alliance for the ages. Combine classic, action-adventure controls with a world that responds to your touch. Solve puzzles, combat evil, and achieve victory together. From its opening pages, Moss will draw you into a first-of-its-kind fully immersive world of myth and magic. Enjoy a rich tale of intriguing characters, illustrious artifacts, and legends old and new.\nJason Graves brings to life the melodic and playful adventure in Moss from the hero Quill’s perspective. Graves accomplishes this by employing small and intimate-sounding instruments composed, arranged, and produced in a pastoral soundscape with enchanting Waltz-esque flair. The soundtrack consists of 11 in-game tracks with more than 57 minutes of music, including the bonus track “Home To Me,” featuring YouTube sensation Malukah.',
+    description:
+      "Moss™ is a single-player action-adventure puzzle game and new IP from Polyarc tailor-made for the VR platform. It combines classic components of a great game—such as compelling characters, gripping combat, and captivating world exploration—with the exciting opportunities of virtual reality. In Moss, players meet Quill, a young mouse with dreams of greatness beyond the confines of her settlement. While exploring the woods, she finds a mysterious Glass Relic and an ancient magic is awakened. With her uncle now in grave danger, Quill must embark on an epic journey—and she needs you there by her side. Together, you'll travel to forgotten realms, solve challenging puzzles, and battle menacing enemies. Alone, no one can conquer what you're up against. But united, you just may defeat even the darkest of villains. Your every action has meaning. Moss takes full advantage of today’s virtual reality technology, letting you move objects, battle enemies, and manipulate the field of play as the key ally to our hero, Quill. Travel to a lively world that hums with wonder and legend. Explore caves, forests, and foreboding ruins that are filled with ancient artifacts, mysterious creatures, and sprawling views. Your abilities are complementary to Quill’s in an alliance for the ages. Combine classic, action-adventure controls with a world that responds to your touch. Solve puzzles, combat evil, and achieve victory together. From its opening pages, Moss will draw you into a first-of-its-kind fully immersive world of myth and magic. Enjoy a rich tale of intriguing characters, illustrious artifacts, and legends old and new.\nJason Graves brings to life the melodic and playful adventure in Moss from the hero Quill’s perspective. Graves accomplishes this by employing small and intimate-sounding instruments composed, arranged, and produced in a pastoral soundscape with enchanting Waltz-esque flair. The soundtrack consists of 11 in-game tracks with more than 57 minutes of music, including the bonus track “Home To Me,” featuring YouTube sensation Malukah.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/846470/header_alt_assets_5.jpg',
     recommended_gpu: 'GeForce GTX 1070',
     minimal_gpu: 'GeForce GTX 970',
     minimal_cpu: 'AMD Ryzen 5 1400',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Command & Conquer: Red Alert 3 - Uprising',
     year: 2009,
-    description: 'Red Alert 3: Uprising features four new mini-campaigns, giving players a deeper dive into the storyline\'s of the Soviets, the Allies, the Empire of the Rising Sun and a unique campaign centered on the origins of everyone’s favorite psionic Japanese schoolgirl commando, Yuriko Omega. Set in the aftermath of Red Alert 3, the Soviet Union is still reeling from its crushing defeat. The Empire of the Rising Sun is desperately trying to regain both honor and identity, and the seemingly victorious Allies find themselves in the midst of corruption and deceit within their own ranks. How will the defeated Soviets react to the occupation and the presence of FutureTech, the mysterious company contracted by the Allies to develop new technologies in the Soviets’ homeland? How will the humiliated Empire of the Rising Sun rise up and defend itself against the former Soviet commanders who have invaded their territory in a post-war land grab? How will the Allied occupational forces quash the uprising of the former Imperial commanders? And who is the mysterious Japanese commando Yuriko Omega?',
+    description:
+      "Red Alert 3: Uprising features four new mini-campaigns, giving players a deeper dive into the storyline's of the Soviets, the Allies, the Empire of the Rising Sun and a unique campaign centered on the origins of everyone’s favorite psionic Japanese schoolgirl commando, Yuriko Omega. Set in the aftermath of Red Alert 3, the Soviet Union is still reeling from its crushing defeat. The Empire of the Rising Sun is desperately trying to regain both honor and identity, and the seemingly victorious Allies find themselves in the midst of corruption and deceit within their own ranks. How will the defeated Soviets react to the occupation and the presence of FutureTech, the mysterious company contracted by the Allies to develop new technologies in the Soviets’ homeland? How will the humiliated Empire of the Rising Sun rise up and defend itself against the former Soviet commanders who have invaded their territory in a post-war land grab? How will the Allied occupational forces quash the uprising of the former Imperial commanders? And who is the mysterious Japanese commando Yuriko Omega?",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/24800/header.jpg',
     recommended_gpu: 'GeForce 6800',
     minimal_gpu: 'GeForce 6800',
     recommended_cpu: 'AMD Athlon XP 2800+',
     minimal_cpu: 'AMD Athlon XP 2800+',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'DRAGON BALL Z: KAKAROT Season Pass',
     year: 2020,
-    description: 'Deepen your DRAGON BALL Z: KAKAROT experience by grabbing the Season Pass which includes 2 original episodes and one new story! Season Pass Bonus: ・ Steaming-Hot Grilled Fish cooking item',
+    description:
+      'Deepen your DRAGON BALL Z: KAKAROT experience by grabbing the Season Pass which includes 2 original episodes and one new story! Season Pass Bonus: ・ Steaming-Hot Grilled Fish cooking item',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1144646/header.jpg',
     minimal_gpu: 'GeForce GTX 750 Ti',
     recommended_gpu: 'Radeon R9 280X',
     minimal_cpu: 'AMD Phenom II X6 1100T',
     recommended_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Strange Brigade',
     year: 2018,
-    description: 'Egypt, 1930\'s. Erased from ancient history and buried in a nameless tomb for 4,000 years, Seteki the Witch Queen has risen once again. Only one troop of daring heroes can stand against the fearsome power of Seteki and her army of mummified monstrosities: The Strange Brigade! Explore remarkable ruins, solve perilous puzzles and uncover tantalising treasure while blasting your way through an array of undead enemies in thrilling third-person action that’s certain to bring out your inner adventurer! Hunt the foul Seteki through a rip-roaring campaign filled with dangerous dig sites, prodigious pyramids and crumbling caves packed with bountiful foes to send back to the afterlife. Explore alone or team up in 2-4 player online co-op! Travel the ancient world as one of four dashing agents trained to tackle the supernatural. Unleash devastating magical powers and unload powerful prototype weapons such as the fire-spitting Krakatoa, the ice cold Chill Burster, and the brain-busting Blunderbuss! Seteki is not the only mythological menace to have awoken … she’s brought an army of loyal beasts with her! Face her many nefarious ne’er-do-wells, including moaning mummies, fire-breathing assassins, armour-plated minotaurs, giant scorpions and much, much worse! Keep an eye on your environment to find creative ways to boff your enemies! Decapitate the undead with spinning blades, fry them to a crisp with fire traps, crush them with a well-placed boulder and more. You wouldn’t set them on your team mates … would you? Keep those peepers peeled for suspicious clues, secret entrances and ancient contraptions that need re-awakening! Who knows what alluring treasures and buried riches await you on the other side… Challenge yourself in two extra modes for 1-4 players. Try the fast-paced Score Attack where speed meets style, or take on wave after wave of deadly foes in the action-packed Horde mode!',
+    description:
+      "Egypt, 1930's. Erased from ancient history and buried in a nameless tomb for 4,000 years, Seteki the Witch Queen has risen once again. Only one troop of daring heroes can stand against the fearsome power of Seteki and her army of mummified monstrosities: The Strange Brigade! Explore remarkable ruins, solve perilous puzzles and uncover tantalising treasure while blasting your way through an array of undead enemies in thrilling third-person action that’s certain to bring out your inner adventurer! Hunt the foul Seteki through a rip-roaring campaign filled with dangerous dig sites, prodigious pyramids and crumbling caves packed with bountiful foes to send back to the afterlife. Explore alone or team up in 2-4 player online co-op! Travel the ancient world as one of four dashing agents trained to tackle the supernatural. Unleash devastating magical powers and unload powerful prototype weapons such as the fire-spitting Krakatoa, the ice cold Chill Burster, and the brain-busting Blunderbuss! Seteki is not the only mythological menace to have awoken … she’s brought an army of loyal beasts with her! Face her many nefarious ne’er-do-wells, including moaning mummies, fire-breathing assassins, armour-plated minotaurs, giant scorpions and much, much worse! Keep an eye on your environment to find creative ways to boff your enemies! Decapitate the undead with spinning blades, fry them to a crisp with fire traps, crush them with a well-placed boulder and more. You wouldn’t set them on your team mates … would you? Keep those peepers peeled for suspicious clues, secret entrances and ancient contraptions that need re-awakening! Who knows what alluring treasures and buried riches await you on the other side… Challenge yourself in two extra modes for 1-4 players. Try the fast-paced Score Attack where speed meets style, or take on wave after wave of deadly foes in the action-packed Horde mode!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/312670/header.jpg',
     recommended_gpu: 'GeForce GTX 1070',
     minimal_gpu: 'Radeon HD 7870',
     minimal_cpu: 'AMD Ryzen 3 2200G',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Cricket 19',
     year: 2019,
-    description: 'Earn World Glory At The Pinnacle Of Cricket! Lead your team to international glory with Cricket 19. The truly global cricket simulation from Big Ant Studios, the leading name in authentic, realistic cricket action, Cricket 19 allows you to take control of your team, from club through national level, and lead them to T20, ODI, or Test Match glory. Create your own club, stadia, sponsor logos and uniforms via Big Ant’s acclaimed Cricket Academy to recreate your local matches and dramas! Build a rookie player’s career from their junior years at club cricket. Perform well and before you know it, you’ll be leading your nation on to the field. Key features include: Deep player, stadia, logo and scenario creator. Full support for all formats of cricket - T20, ODI and Test Match. Real world AI and tactics. Dozens of teams to choose between.',
+    description:
+      'Earn World Glory At The Pinnacle Of Cricket! Lead your team to international glory with Cricket 19. The truly global cricket simulation from Big Ant Studios, the leading name in authentic, realistic cricket action, Cricket 19 allows you to take control of your team, from club through national level, and lead them to T20, ODI, or Test Match glory. Create your own club, stadia, sponsor logos and uniforms via Big Ant’s acclaimed Cricket Academy to recreate your local matches and dramas! Build a rookie player’s career from their junior years at club cricket. Perform well and before you know it, you’ll be leading your nation on to the field. Key features include: Deep player, stadia, logo and scenario creator. Full support for all formats of cricket - T20, ODI and Test Match. Real world AI and tactics. Dozens of teams to choose between.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1028630/header.jpg',
     recommended_gpu: 'Radeon R9 390X',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X4 555',
     recommended_cpu: 'AMD Phenom II X4 970',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Hellsplit: Arena',
     year: 2019,
-    description: 'A VR horror-slasher in the dark fantasy world of the late Middle Ages filled with the undead. It is gruesome and realistic, with stabbing, cutting and blunt blows, grabs, kicks, and movement tactics — the outcome of each fight depends only on your skill and endurance.',
+    description:
+      'A VR horror-slasher in the dark fantasy world of the late Middle Ages filled with the undead. It is gruesome and realistic, with stabbing, cutting and blunt blows, grabs, kicks, and movement tactics — the outcome of each fight depends only on your skill and endurance.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1039880/header.jpg',
     recommended_gpu: 'GeForce GTX 1070',
     minimal_gpu: 'GeForce GTX 970',
     minimal_cpu: 'AMD Ryzen 5 1400',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Miscreated',
     year: 2018,
-    description: 'Miscreated is an online multiplayer hardcore survival game set in a post-apocalyptic open world. After The Final War, humanity was brought to its knees and the remaining survivors cling to the remains of this unforgiving world ravaged by a mutated plague which was Miscreated in the fallout. You must survive against horrific mutants, hostile animals, other desperate survivors and even the elements. Explore the world of Miscreated - an extremely detailed and diverse landscape featuring picturesque forests, towering cities, deep hidden caves, bunkers and sewers. Discover over 15 types of drivable vehicles and repair them to travel faster on land or in water. As you explore the amazing world of Miscreated you will need to obtain food and water. Due to The Final War a lot of the items you find will be dirty, irradiated, or possibly even poisoned, so always inspect items before you consume them. Hunting wildlife to harvest meat, or growing your own crops, is the safest option. Be sure to cook any raw meat before you eat it! Miscreated features an extensive temperature system and dynamic weather that can alter your character’s statistics. Dramatically shifting weather patterns include; raging thunderstorms, thick heavy fog, snow, blizzards, tornadoes, radiation storms and more. Always be equipped for the unexpected, wrap up warm when needed or hide inside buildings for shelter to survive the harsh elements. The fallout of The Final War has ravaged the world with the mutant horde. Other players are the least of your worries in Miscreated as you confront a wide range of dynamic PvE encounters on a journey filled with diverse hostile mutants and wildlife. Take back what is yours and leave your mark on the Miscreated world! Featuring hundreds of different base building parts and free-form base building system so you can flexibly build what you desire and call it home. Find crafting guides and create more advanced parts. Discover even stronger building components throughout Miscreated and tow them back to your base. Form clans with friends and strangers to combine efforts and work together to create an architectural masterpiece. Miscreated features over 100 different weapons including; traps, short-ranged melee, pistols, assault rifles, sub-machine guns, long-ranged rifles, and even non-lethal weapons you can use to knock out players and then restrain them. There is a weapon for every type of play style. Players can enhance weapons with collectible attachments and scopes to customize them for the situation, or gather materials and craft your own. Players only have one life, so becoming mortally wounded or dying in combat makes for player interaction an intense heart racing rush to hang onto the gear you have obtained.',
+    description:
+      'Miscreated is an online multiplayer hardcore survival game set in a post-apocalyptic open world. After The Final War, humanity was brought to its knees and the remaining survivors cling to the remains of this unforgiving world ravaged by a mutated plague which was Miscreated in the fallout. You must survive against horrific mutants, hostile animals, other desperate survivors and even the elements. Explore the world of Miscreated - an extremely detailed and diverse landscape featuring picturesque forests, towering cities, deep hidden caves, bunkers and sewers. Discover over 15 types of drivable vehicles and repair them to travel faster on land or in water. As you explore the amazing world of Miscreated you will need to obtain food and water. Due to The Final War a lot of the items you find will be dirty, irradiated, or possibly even poisoned, so always inspect items before you consume them. Hunting wildlife to harvest meat, or growing your own crops, is the safest option. Be sure to cook any raw meat before you eat it! Miscreated features an extensive temperature system and dynamic weather that can alter your character’s statistics. Dramatically shifting weather patterns include; raging thunderstorms, thick heavy fog, snow, blizzards, tornadoes, radiation storms and more. Always be equipped for the unexpected, wrap up warm when needed or hide inside buildings for shelter to survive the harsh elements. The fallout of The Final War has ravaged the world with the mutant horde. Other players are the least of your worries in Miscreated as you confront a wide range of dynamic PvE encounters on a journey filled with diverse hostile mutants and wildlife. Take back what is yours and leave your mark on the Miscreated world! Featuring hundreds of different base building parts and free-form base building system so you can flexibly build what you desire and call it home. Find crafting guides and create more advanced parts. Discover even stronger building components throughout Miscreated and tow them back to your base. Form clans with friends and strangers to combine efforts and work together to create an architectural masterpiece. Miscreated features over 100 different weapons including; traps, short-ranged melee, pistols, assault rifles, sub-machine guns, long-ranged rifles, and even non-lethal weapons you can use to knock out players and then restrain them. There is a weapon for every type of play style. Players can enhance weapons with collectible attachments and scopes to customize them for the situation, or gather materials and craft your own. Players only have one life, so becoming mortally wounded or dying in combat makes for player interaction an intense heart racing rush to hang onto the gear you have obtained.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/299740/header.jpg',
     minimal_gpu: 'GeForce GTX 780',
     recommended_gpu: 'GeForce GTX 970',
     minimal_cpu: 'AMD Ryzen 3 1300X',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     recommended_ram_size: 12,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'AO Tennis 2',
     year: 2020,
-    description: 'Use the comprehensive Academy editing suite to create a player just like YOU as well as your own courts, or you can download thousands of community creations. See how you compare to the big names on the ATP & WTA circuits, including Rafael Nadal, Ash Barty, Angelique Kerber and many more. Set out to conquer the world rankings in a singles career or in doubles with a friend. Manage your Reputation, sponsors and performance to reach the top. Relive legendary matches or create new challenges using the scenario editor.',
+    description:
+      'Use the comprehensive Academy editing suite to create a player just like YOU as well as your own courts, or you can download thousands of community creations. See how you compare to the big names on the ATP & WTA circuits, including Rafael Nadal, Ash Barty, Angelique Kerber and many more. Set out to conquer the world rankings in a singles career or in doubles with a friend. Manage your Reputation, sponsors and performance to reach the top. Relive legendary matches or create new challenges using the scenario editor.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1072500/header.jpg',
     recommended_gpu: 'Radeon R9 390X',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X4 555',
     recommended_cpu: 'AMD Phenom II X4 970',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'AO Tennis 2',
     year: 2020,
-    description: 'Use the comprehensive Academy editing suite to create a player just like YOU as well as your own courts, or you can download thousands of community creations. See how you compare to the big names on the ATP & WTA circuits, including Rafael Nadal, Ash Barty, Angelique Kerber and many more. Set out to conquer the world rankings in a singles career or in doubles with a friend. Manage your Reputation, sponsors and performance to reach the top. Relive legendary matches or create new challenges using the scenario editor.',
+    description:
+      'Use the comprehensive Academy editing suite to create a player just like YOU as well as your own courts, or you can download thousands of community creations. See how you compare to the big names on the ATP & WTA circuits, including Rafael Nadal, Ash Barty, Angelique Kerber and many more. Set out to conquer the world rankings in a singles career or in doubles with a friend. Manage your Reputation, sponsors and performance to reach the top. Relive legendary matches or create new challenges using the scenario editor.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1072500/header.jpg',
     recommended_gpu: 'Radeon R9 390X',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X4 555',
     recommended_cpu: 'AMD Phenom II X4 970',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Medal of Honor: Airborne',
     year: 2007,
-    description: 'Step into the boots of Boyd Travers, Private First Class of the “All-American” 82nd Airborne Division, and revolutionize the way the war is fought. From a rocky beginning in Sicily to war winning triumphs in the heart of Germany, fight the epic WWII battles that turned America’s first paratroopers into combat legends. Begin each mission from the air and behind enemy lines, then jump immediately into the action. On the ground, tackle objectives in any order across an expansive, free-roaming environment, using a wide variety of upgradeable weapons to your strategic advantage. **For instructions on how to switch language in-game after initial launch, see the README file available in game Support file.**',
+    description:
+      'Step into the boots of Boyd Travers, Private First Class of the “All-American” 82nd Airborne Division, and revolutionize the way the war is fought. From a rocky beginning in Sicily to war winning triumphs in the heart of Germany, fight the epic WWII battles that turned America’s first paratroopers into combat legends. Begin each mission from the air and behind enemy lines, then jump immediately into the action. On the ground, tackle objectives in any order across an expansive, free-roaming environment, using a wide variety of upgradeable weapons to your strategic advantage. **For instructions on how to switch language in-game after initial launch, see the README file available in game Support file.**',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/24840/header.jpg',
     recommended_gpu: 'GeForce 6600',
     minimal_gpu: 'GeForce 6600',
     recommended_cpu: 'AMD Athlon 2800+',
     minimal_cpu: 'AMD Athlon 2800+',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'Hearts of Iron IV: Allied Speeches Music Pack',
     year: 2020,
-    description: 'Allied Speeches Pack Monumental and inspirational moments from history come alive in your Hearts of Iron IV game with the Allied Speech Pack. Set to activate when certain in-game conditions are met, the Allied Speech Pack brings you closer to the past.',
+    description:
+      'Allied Speeches Pack Monumental and inspirational moments from history come alive in your Hearts of Iron IV game with the Allied Speech Pack. Set to activate when certain in-game conditions are met, the Allied Speech Pack brings you closer to the past.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1317250/header.jpg',
     recommended_gpu: 'Radeon HD 5850',
     minimal_gpu: 'Radeon HD 5850',
     recommended_cpu: 'AMD Athlon II X4 650',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Hearts of Iron IV: Allied Armor Pack',
     year: 2020,
-    description: 'Bust through the Ardennes or encircle the Axis in style with this new cosmetic pack for Hearts of Iron IV . Including tanks previously only available in the Colonel Edition, this pack adds a number of new armored and tracked vehicles for the Allies and Comintern powers. The Allied Armor Pack includes:',
+    description:
+      'Bust through the Ardennes or encircle the Axis in style with this new cosmetic pack for Hearts of Iron IV . Including tanks previously only available in the Colonel Edition, this pack adds a number of new armored and tracked vehicles for the Allies and Comintern powers. The Allied Armor Pack includes:',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1317230/header.jpg',
     recommended_gpu: 'Radeon HD 5850',
     minimal_gpu: 'Radeon HD 5850',
     recommended_cpu: 'AMD Athlon II X4 650',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Hearts of Iron IV: Allied Armor Pack',
     year: 2020,
-    description: 'Bust through the Ardennes or encircle the Axis in style with this new cosmetic pack for Hearts of Iron IV . Including tanks previously only available in the Colonel Edition, this pack adds a number of new armored and tracked vehicles for the Allies and Comintern powers. The Allied Armor Pack includes:',
+    description:
+      'Bust through the Ardennes or encircle the Axis in style with this new cosmetic pack for Hearts of Iron IV . Including tanks previously only available in the Colonel Edition, this pack adds a number of new armored and tracked vehicles for the Allies and Comintern powers. The Allied Armor Pack includes:',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1317230/header.jpg',
     recommended_gpu: 'Radeon HD 5850',
     minimal_gpu: 'Radeon HD 5850',
     recommended_cpu: 'AMD Athlon II X4 650',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Mutant Year Zero: Seed of Evil',
     year: 2019,
-    description: 'Seed\u202fof\u202fEvil\u202fis an expansion to the award-winning tactical adventure game Mutant Year Zero: Road to Eden picking up where the original game ended and offering hours of more gameplay, new locations to visit, and a new leading character! Continue the main story and explore many hours of all new content. Expand your team with the veteran stalker Big Khan the moose and get ready to defeat a new threat to Dux, Bormin, Selma and all the others. In Seed of Evil you must solve the mystery of the powerful and ominous roots which have taken over the Ark. Discover huge new maps, battle new enemies, improve your mutations, get your hands on all new gear, defeat foes trying to take back lost ground and face off against a vicious new adversary. See what happens after the ending of Mutant Year Zero: Road to Eden. Continue into a new future for Bormin, Dux, Pripp and all the others at the Ark. How will they deal with what they have learned? You can now add Big Kahn the moose to your squad of mutants. He is a veteran stalker who has been exploring the Zone alone. He is not only skilled at doing critical hits but also has the unique mutations Ground Pound and Flame Puke, which make him excellent at dealing with groups of enemies. The Ark has suddenly become enveloped in mysterious roots and many of its inhabitants do not seem to be their normal selves. Even the Zone Ghouls appear to have been taken over by this new menace and it is up to your team of stalkers to set things right! Take on new enemies in places like the Hall of Electric Coffins and Mausoleum of Suburbia. The new story in Seed of Evil offers a host of new challenges and brutal fights. Get ready to rethink your tactics as you face off against brand new enemies. Upgrade Bormin’s Hog Rush to Bear Smash for increased power and Corpse Eater to Corpse Feaster so that regaining lost HP no longer costs an action. Upgrade Dux’s Moth Wings to Wings of the Sniper which removes all range penalties.\nRevisit places like the Spear of Heavens or Sea Titans as Zone Ghouls and police bots once again encroach upon places you have already cleared. This time they are stronger than ever!',
+    description:
+      'Seed\u202fof\u202fEvil\u202fis an expansion to the award-winning tactical adventure game Mutant Year Zero: Road to Eden picking up where the original game ended and offering hours of more gameplay, new locations to visit, and a new leading character! Continue the main story and explore many hours of all new content. Expand your team with the veteran stalker Big Khan the moose and get ready to defeat a new threat to Dux, Bormin, Selma and all the others. In Seed of Evil you must solve the mystery of the powerful and ominous roots which have taken over the Ark. Discover huge new maps, battle new enemies, improve your mutations, get your hands on all new gear, defeat foes trying to take back lost ground and face off against a vicious new adversary. See what happens after the ending of Mutant Year Zero: Road to Eden. Continue into a new future for Bormin, Dux, Pripp and all the others at the Ark. How will they deal with what they have learned? You can now add Big Kahn the moose to your squad of mutants. He is a veteran stalker who has been exploring the Zone alone. He is not only skilled at doing critical hits but also has the unique mutations Ground Pound and Flame Puke, which make him excellent at dealing with groups of enemies. The Ark has suddenly become enveloped in mysterious roots and many of its inhabitants do not seem to be their normal selves. Even the Zone Ghouls appear to have been taken over by this new menace and it is up to your team of stalkers to set things right! Take on new enemies in places like the Hall of Electric Coffins and Mausoleum of Suburbia. The new story in Seed of Evil offers a host of new challenges and brutal fights. Get ready to rethink your tactics as you face off against brand new enemies. Upgrade Bormin’s Hog Rush to Bear Smash for increased power and Corpse Eater to Corpse Feaster so that regaining lost HP no longer costs an action. Upgrade Dux’s Moth Wings to Wings of the Sniper which removes all range penalties.\nRevisit places like the Spear of Heavens or Sea Titans as Zone Ghouls and police bots once again encroach upon places you have already cleared. This time they are stronger than ever!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1088000/header.jpg',
     minimal_gpu: 'Radeon HD 7870',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Phenom II X4 965',
     recommended_cpu: 'AMD Ryzen 5 1600X',
     recommended_ram_size: 8,
-    minimal_ram_size: 6
+    minimal_ram_size: 6,
   },
   {
     name: 'The Red Strings Club',
     year: 2018,
-    description: 'is a cyberpunk narrative experience about fate and happiness featuring the extensive use of pottery, bartending and impersonating people on the phone to take down a corporate conspiracy. The professed altruistic corporation Supercontinent Ltd is on the verge of releasing Social Psyche Welfare: a system that will eliminate depression, anger and fear from society. However, the bartender of a clandestine club and a freelance hacker don\'t regard this evolution as an improvement but as brainwashing. Alongside unwitting company employees and a rogue empathy android, the duo will pull all the strings they can to bring down this scheme. Uncover a mysterious corporate program that promises a blissful existence while debating what does happiness means and what lengths are permissible to obtain it. Read your customer\'s’ mood and mix the perfect cocktail to manipulate the client\'s emotions in order to gather the information you want and progress your agenda of stopping Supercontinent\'s plans. Design genetic implants at a high-tech lathe to change the attitude and direction of the corporation’s most influential executives. Assume the voice of important figures in the Social Psyche Welfare project and play their own motivations against each other over the phone to uncloak their plans.',
+    description:
+      "is a cyberpunk narrative experience about fate and happiness featuring the extensive use of pottery, bartending and impersonating people on the phone to take down a corporate conspiracy. The professed altruistic corporation Supercontinent Ltd is on the verge of releasing Social Psyche Welfare: a system that will eliminate depression, anger and fear from society. However, the bartender of a clandestine club and a freelance hacker don't regard this evolution as an improvement but as brainwashing. Alongside unwitting company employees and a rogue empathy android, the duo will pull all the strings they can to bring down this scheme. Uncover a mysterious corporate program that promises a blissful existence while debating what does happiness means and what lengths are permissible to obtain it. Read your customer's’ mood and mix the perfect cocktail to manipulate the client's emotions in order to gather the information you want and progress your agenda of stopping Supercontinent's plans. Design genetic implants at a high-tech lathe to change the attitude and direction of the corporation’s most influential executives. Assume the voice of important figures in the Social Psyche Welfare project and play their own motivations against each other over the phone to uncloak their plans.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/589780/header.jpg',
     recommended_gpu: 'Radeon HD 2600 PRO',
     minimal_gpu: 'Radeon HD 2600 PRO',
     recommended_cpu: 'AMD Athlon 64 4000+',
     minimal_cpu: 'AMD Athlon 64 4000+',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'The Red Strings Club',
     year: 2018,
-    description: 'is a cyberpunk narrative experience about fate and happiness featuring the extensive use of pottery, bartending and impersonating people on the phone to take down a corporate conspiracy. The professed altruistic corporation Supercontinent Ltd is on the verge of releasing Social Psyche Welfare: a system that will eliminate depression, anger and fear from society. However, the bartender of a clandestine club and a freelance hacker don\'t regard this evolution as an improvement but as brainwashing. Alongside unwitting company employees and a rogue empathy android, the duo will pull all the strings they can to bring down this scheme. Uncover a mysterious corporate program that promises a blissful existence while debating what does happiness means and what lengths are permissible to obtain it. Read your customer\'s’ mood and mix the perfect cocktail to manipulate the client\'s emotions in order to gather the information you want and progress your agenda of stopping Supercontinent\'s plans. Design genetic implants at a high-tech lathe to change the attitude and direction of the corporation’s most influential executives. Assume the voice of important figures in the Social Psyche Welfare project and play their own motivations against each other over the phone to uncloak their plans.',
+    description:
+      "is a cyberpunk narrative experience about fate and happiness featuring the extensive use of pottery, bartending and impersonating people on the phone to take down a corporate conspiracy. The professed altruistic corporation Supercontinent Ltd is on the verge of releasing Social Psyche Welfare: a system that will eliminate depression, anger and fear from society. However, the bartender of a clandestine club and a freelance hacker don't regard this evolution as an improvement but as brainwashing. Alongside unwitting company employees and a rogue empathy android, the duo will pull all the strings they can to bring down this scheme. Uncover a mysterious corporate program that promises a blissful existence while debating what does happiness means and what lengths are permissible to obtain it. Read your customer's’ mood and mix the perfect cocktail to manipulate the client's emotions in order to gather the information you want and progress your agenda of stopping Supercontinent's plans. Design genetic implants at a high-tech lathe to change the attitude and direction of the corporation’s most influential executives. Assume the voice of important figures in the Social Psyche Welfare project and play their own motivations against each other over the phone to uncloak their plans.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/589780/header.jpg',
     recommended_gpu: 'Radeon HD 2600 PRO',
     minimal_gpu: 'Radeon HD 2600 PRO',
     recommended_cpu: 'AMD Athlon 64 4000+',
     minimal_cpu: 'AMD Athlon 64 4000+',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'BLACK CLOVER: QUARTET KNIGHTS',
     year: 2018,
-    description: 'In this magic battle action game, take part in 4-on-4 team battles and cast an array of magic spells to defeat the opposing team. You can assume one of four roles: Fighter, Healer, Support, Ranged. Use your role and spells to the best possible effect, and cooperate with your teammates to win the battle! The protagonist, Asta, is the only boy unable to use magic in a world where magic is everything. Despite this affliction, Asta manages to overcome all sorts of hurdles with the help of his friends, and persists in his goal of becoming the Wizard King. This game also includes an original story not depicted in the currently airing Black Clover anime series. Yami Sukehiro, the captain of Asta\'s knight order, the Black Bulls, suddenly grows younger, just as a mysterious mage launches an attack on the Clover Kingdom. Join Asta and his friends as they embark on a new adventure of trials and tribulations.',
+    description:
+      "In this magic battle action game, take part in 4-on-4 team battles and cast an array of magic spells to defeat the opposing team. You can assume one of four roles: Fighter, Healer, Support, Ranged. Use your role and spells to the best possible effect, and cooperate with your teammates to win the battle! The protagonist, Asta, is the only boy unable to use magic in a world where magic is everything. Despite this affliction, Asta manages to overcome all sorts of hurdles with the help of his friends, and persists in his goal of becoming the Wizard King. This game also includes an original story not depicted in the currently airing Black Clover anime series. Yami Sukehiro, the captain of Asta's knight order, the Black Bulls, suddenly grows younger, just as a mysterious mage launches an attack on the Clover Kingdom. Join Asta and his friends as they embark on a new adventure of trials and tribulations.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/714080/header.jpg',
     recommended_gpu: 'Radeon HD 7870',
     minimal_gpu: 'Radeon Vega 8',
     minimal_cpu: 'AMD Phenom II X4 945',
     recommended_cpu: 'AMD A12-9800',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Train Sim World®: Hauptstrecke Rhein-Ruhr: Duisburg - Bochum Route Add-On',
     year: 2020,
-    description: 'Experience bustling regional and commuter operations from aboard modern and well-known traction with Train Sim World: Hauptstrecke Rhein-Ruhr. Drive your trains over a rail network represented how it is today, complete with both routes between Essen and Bochum that are populated by different trains and services. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry passengers along Deutsche Bahn’s ever-busy Hauptstrecke Rhein-Ruhr. Manage the complexities of keeping to the timetable, picking up and dropping off passengers in a timely yet safe and comfortable manner. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a modern commuter line. Take control of a duo of DB multiple units, the hard-working DB BR 425 which is used on regional services by the dozen throughout Germany, and the DB BR 422 that works exclusively for the S-Bahn Rhein-Ruhr. Together the two work passenger duties along the route. Featuring authentic AC EMU simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World: Hauptstrecke Rhein-Ruhr caters for players of all ability levels with accessible training for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment of the Hauptstrecke Rhein-Ruhr! Choose how you want to play in Train Sim World: Hauptstrecke Rhein-Ruhr. Take control and master modern multiple units, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring and complete all the Jobs? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Hauptstrecke Rhein-Ruhr.',
+    description:
+      "Experience bustling regional and commuter operations from aboard modern and well-known traction with Train Sim World: Hauptstrecke Rhein-Ruhr. Drive your trains over a rail network represented how it is today, complete with both routes between Essen and Bochum that are populated by different trains and services. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry passengers along Deutsche Bahn’s ever-busy Hauptstrecke Rhein-Ruhr. Manage the complexities of keeping to the timetable, picking up and dropping off passengers in a timely yet safe and comfortable manner. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a modern commuter line. Take control of a duo of DB multiple units, the hard-working DB BR 425 which is used on regional services by the dozen throughout Germany, and the DB BR 422 that works exclusively for the S-Bahn Rhein-Ruhr. Together the two work passenger duties along the route. Featuring authentic AC EMU simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World: Hauptstrecke Rhein-Ruhr caters for players of all ability levels with accessible training for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment of the Hauptstrecke Rhein-Ruhr! Choose how you want to play in Train Sim World: Hauptstrecke Rhein-Ruhr. Take control and master modern multiple units, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring and complete all the Jobs? Whatever you choose to do, there's lots to see and experience in Train Sim World: Hauptstrecke Rhein-Ruhr.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1113823/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Hearts of Iron IV: Allied Speeches Music Pack',
     year: 2020,
-    description: 'Allied Speeches Pack Monumental and inspirational moments from history come alive in your Hearts of Iron IV game with the Allied Speech Pack. Set to activate when certain in-game conditions are met, the Allied Speech Pack brings you closer to the past.',
+    description:
+      'Allied Speeches Pack Monumental and inspirational moments from history come alive in your Hearts of Iron IV game with the Allied Speech Pack. Set to activate when certain in-game conditions are met, the Allied Speech Pack brings you closer to the past.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1317250/header.jpg',
     recommended_gpu: 'Radeon HD 5850',
     minimal_gpu: 'Radeon HD 5850',
     recommended_cpu: 'AMD Athlon II X4 650',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Dead Age 2',
     year: 2020,
-    description: 'is a unique combination of survival, management, Rogue-Like events, turn-based combat, classic role-playing game with tons of quests and a story in which your decisions directly affect plot progression! 10 years after the initial outbreak of the zombie apocalypse, the members of Jack\'s camp fled to Freedom City, where a cure for the zombie plague was developed. But the news brings more suffering than relief. New factions have sprung up in the region, in constant battle for dominance. The merciless Military, the shady Smugglers and the Independents made up primarily of civilians. When an Independents\' refugee camp was overrun by an undead horde, the few survivors struggle for food and valuable resources in an unforgiving world, always looking over their shoulder for gangs of looters and the flesh-eating dead. While the big advantage of Dead Age\'s turn-based combat system versus tactics-based games is faster progression, the mechanics have evolved. A character can now bring up to 24 skills to the battle. Change up your tactics mid-fight to instantly gain the advantage over zombies and hostile survivors. Place front-row combatants to protect ranged-combat allies from attackers, and deploy turrets, hunting dogs and tigers, as well as an array of new weapons. Visit the outposts of other factions to trade and take on missions and improve your standing with them. Improving relations with the region\'s greater factions unlocks better equipment and plot devices. A negative reputation can lead to confrontation or even a bounty. Your 3D base is your central hub of operations. Here, you assign crafting or building jobs to survivors, build and upgrade stations to improve defense and quality of life and unlock improved craftable items and higher yield of resources. The new open game-world offers free exploration of the world map with over 80 detailed graphically depicted locations. Beside nature scenes, features new indoor locations like hospitals, bunkers, schools, malls and army supply stores. Decisions you make while playing can have significant effects on the progression of the story involving the three survivor factions, romanceable characters, and bring you closer to one of the game\'s six endings! Like its predecessor, features random events on the map resulting in a variety of consequences, but this time those events are depicted fully in 3D. Survival RPGs are especially dangerous. 3 difficulty levels and permadeath may result at any time in losing an ally for good. If your main character falls victim to the apocalypse you are forced to begin a new playthrough, for which you can purchase upgrades and advantages unlocked in previous runs. Gain enough standing with the factions and you may purchase things like upgraded faction equipment for newly-created characters, as well as unlock unique endings. This gives high replayability!',
+    description:
+      "is a unique combination of survival, management, Rogue-Like events, turn-based combat, classic role-playing game with tons of quests and a story in which your decisions directly affect plot progression! 10 years after the initial outbreak of the zombie apocalypse, the members of Jack's camp fled to Freedom City, where a cure for the zombie plague was developed. But the news brings more suffering than relief. New factions have sprung up in the region, in constant battle for dominance. The merciless Military, the shady Smugglers and the Independents made up primarily of civilians. When an Independents' refugee camp was overrun by an undead horde, the few survivors struggle for food and valuable resources in an unforgiving world, always looking over their shoulder for gangs of looters and the flesh-eating dead. While the big advantage of Dead Age's turn-based combat system versus tactics-based games is faster progression, the mechanics have evolved. A character can now bring up to 24 skills to the battle. Change up your tactics mid-fight to instantly gain the advantage over zombies and hostile survivors. Place front-row combatants to protect ranged-combat allies from attackers, and deploy turrets, hunting dogs and tigers, as well as an array of new weapons. Visit the outposts of other factions to trade and take on missions and improve your standing with them. Improving relations with the region's greater factions unlocks better equipment and plot devices. A negative reputation can lead to confrontation or even a bounty. Your 3D base is your central hub of operations. Here, you assign crafting or building jobs to survivors, build and upgrade stations to improve defense and quality of life and unlock improved craftable items and higher yield of resources. The new open game-world offers free exploration of the world map with over 80 detailed graphically depicted locations. Beside nature scenes, features new indoor locations like hospitals, bunkers, schools, malls and army supply stores. Decisions you make while playing can have significant effects on the progression of the story involving the three survivor factions, romanceable characters, and bring you closer to one of the game's six endings! Like its predecessor, features random events on the map resulting in a variety of consequences, but this time those events are depicted fully in 3D. Survival RPGs are especially dangerous. 3 difficulty levels and permadeath may result at any time in losing an ally for good. If your main character falls victim to the apocalypse you are forced to begin a new playthrough, for which you can purchase upgrades and advantages unlocked in previous runs. Gain enough standing with the factions and you may purchase things like upgraded faction equipment for newly-created characters, as well as unlock unique endings. This gives high replayability!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/951430/header.jpg',
     minimal_gpu: 'Radeon RX 560',
     recommended_gpu: 'GeForce GTX 1060',
     recommended_cpu: 'AMD Ryzen 5 1600',
     minimal_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Hearts of Iron IV: Axis Armor Pack',
     year: 2019,
-    description: 'Push through the plains of the Low Countries or the jungles of Burma in style with new 3D unit models of Axis armor units. A total of 53 new armor models are in this pack which, added to the eight tanks available in the German Tank Pack, gives the forces of fascist militarism 61 different armor designs you can see in-game. As a free bonus - the Axis Armor Pack also includes eight German tank models, previously only available in the Hearts of Iron IV: Colonel edition, such as the King Tiger and the Maus super heavy tank. After all, you can’t have Axis Armor without German tanks. A range of tank destroyers, self propelled artillery and self propelled anti-air vehicles, including the Stug III, the Wespe and the Elefant heavy tank destroyer.\nA range of every armor type, with seven different Japanese tank designs like the experimental heavy O-I tank that never went into production and a number of tank destroyers.\nA roster of Semovente tank destroyers and the always outmatched L6 tank highlight this list of Italian armor from the war.',
+    description:
+      'Push through the plains of the Low Countries or the jungles of Burma in style with new 3D unit models of Axis armor units. A total of 53 new armor models are in this pack which, added to the eight tanks available in the German Tank Pack, gives the forces of fascist militarism 61 different armor designs you can see in-game. As a free bonus - the Axis Armor Pack also includes eight German tank models, previously only available in the Hearts of Iron IV: Colonel edition, such as the King Tiger and the Maus super heavy tank. After all, you can’t have Axis Armor without German tanks. A range of tank destroyers, self propelled artillery and self propelled anti-air vehicles, including the Stug III, the Wespe and the Elefant heavy tank destroyer.\nA range of every armor type, with seven different Japanese tank designs like the experimental heavy O-I tank that never went into production and a number of tank destroyers.\nA roster of Semovente tank destroyers and the always outmatched L6 tank highlight this list of Italian armor from the war.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1086480/header.jpg',
     minimal_gpu: 'Radeon HD 5850',
     recommended_gpu: 'Radeon HD 6950',
     minimal_cpu: 'AMD Athlon II X4 650',
     recommended_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Agony',
@@ -693,103 +750,111 @@ const games = [
     minimal_cpu: 'AMD Phenom II X4 955',
     recommended_cpu: 'AMD Ryzen 5 1600',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
-    name: 'Train Sim World®: BR Class 20 \'Chopper\' Loco Add-On',
+    name: "Train Sim World®: BR Class 20 'Chopper' Loco Add-On",
     year: 2020,
-    description: 'Developed in the 1950s, the English Electric Type 1 was the first major step on British Railways’ path to dieselisation. After many trials and failures, the Type 1 showed promise as a 1000hp (746 kW) locomotive, and between 1957 and 1968 a total of 228 would be produced. The Type 1s took over from steam locomotives of equivalent power, primarily working light, mixed-freight traffic throughout the midlands and in Scotland. Unlike newer locomotives, the Type 1s featured a rather unique single cab design. The cab, situated at the rear of the locomotive, has controls facing in either direction and gives the locos a tank engine-like appearance, with the diesel engine and on-board equipment sat much like how a firebox and boiler would, in front of the cab. Another steam-like feature was the headcode discs adorning each end of the loco. The first 127 Type 1s were built as such. Visibility when travelling nose first was quickly realised as a concern, so it became common to see pairs of Type 1s coupled at the nose, allowing for greater view of the track ahead and with the added benefit of doubling the horsepower, meaning they could handle heaver trains. With the introduction of the TOPS classification system, the EE Type 1s were rebranded as BR Class 20s, although they are known by many as “Choppers” owing to their engines sounding like helicopters when under load. Despite being some of the oldest diesels around the Class 20s have remained in operational use to this day, and a rather fitting 20 examples have survived into preservation, making them a frequent sight on heritage railways. A veteran in every right, the Class 20 has earned its place among enthusiasts’ hearts; and now Type 1 traction comes to life in Train Sim World, ready for hard-working duty on the Tees Valley Line!',
+    description:
+      'Developed in the 1950s, the English Electric Type 1 was the first major step on British Railways’ path to dieselisation. After many trials and failures, the Type 1 showed promise as a 1000hp (746 kW) locomotive, and between 1957 and 1968 a total of 228 would be produced. The Type 1s took over from steam locomotives of equivalent power, primarily working light, mixed-freight traffic throughout the midlands and in Scotland. Unlike newer locomotives, the Type 1s featured a rather unique single cab design. The cab, situated at the rear of the locomotive, has controls facing in either direction and gives the locos a tank engine-like appearance, with the diesel engine and on-board equipment sat much like how a firebox and boiler would, in front of the cab. Another steam-like feature was the headcode discs adorning each end of the loco. The first 127 Type 1s were built as such. Visibility when travelling nose first was quickly realised as a concern, so it became common to see pairs of Type 1s coupled at the nose, allowing for greater view of the track ahead and with the added benefit of doubling the horsepower, meaning they could handle heaver trains. With the introduction of the TOPS classification system, the EE Type 1s were rebranded as BR Class 20s, although they are known by many as “Choppers” owing to their engines sounding like helicopters when under load. Despite being some of the oldest diesels around the Class 20s have remained in operational use to this day, and a rather fitting 20 examples have survived into preservation, making them a frequent sight on heritage railways. A veteran in every right, the Class 20 has earned its place among enthusiasts’ hearts; and now Type 1 traction comes to life in Train Sim World, ready for hard-working duty on the Tees Valley Line!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1255311/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Steel Division 2 - The Fate of Finland',
     year: 2020,
-    description: 'Steel Division 2 - The Fate of Finland is the second History DLC for the popular and expansive World War 2 RTS set on the Eastern Front. The Fate of Finland takes the action to the far north, where the powerful Red Army is poised to knock out hardy but outnumbered Finland out of the war - Nazi Germany’s Nordic ally. Steel Division 2 - The Fate of Finland brings a ton of new content, available in solo, coop and multiplayer, including 6 new Divisions, 200+ new units, 2 new Aces, 2 new Historical Battles, and a gigantic new Army General turn-based strategic campaign centered on the Soviet offensive on the Karelian Isthmus in the summer 1944. Steel Division 2 -The Fate of Finland is included in the , Steel Division 2 - General Deluxe Edition and Steel Division 2 - Total Conflict Edition.',
+    description:
+      'Steel Division 2 - The Fate of Finland is the second History DLC for the popular and expansive World War 2 RTS set on the Eastern Front. The Fate of Finland takes the action to the far north, where the powerful Red Army is poised to knock out hardy but outnumbered Finland out of the war - Nazi Germany’s Nordic ally. Steel Division 2 - The Fate of Finland brings a ton of new content, available in solo, coop and multiplayer, including 6 new Divisions, 200+ new units, 2 new Aces, 2 new Historical Battles, and a gigantic new Army General turn-based strategic campaign centered on the Soviet offensive on the Karelian Isthmus in the summer 1944. Steel Division 2 -The Fate of Finland is included in the , Steel Division 2 - General Deluxe Edition and Steel Division 2 - Total Conflict Edition.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1236360/header.jpg',
     minimal_gpu: 'GeForce GT 1030',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Athlon 200GE',
     recommended_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
-    name: 'Train Sim World®: BR Class 20 \'Chopper\' Loco Add-On',
+    name: "Train Sim World®: BR Class 20 'Chopper' Loco Add-On",
     year: 2020,
-    description: 'Developed in the 1950s, the English Electric Type 1 was the first major step on British Railways’ path to dieselisation. After many trials and failures, the Type 1 showed promise as a 1000hp (746 kW) locomotive, and between 1957 and 1968 a total of 228 would be produced. The Type 1s took over from steam locomotives of equivalent power, primarily working light, mixed-freight traffic throughout the midlands and in Scotland. Unlike newer locomotives, the Type 1s featured a rather unique single cab design. The cab, situated at the rear of the locomotive, has controls facing in either direction and gives the locos a tank engine-like appearance, with the diesel engine and on-board equipment sat much like how a firebox and boiler would, in front of the cab. Another steam-like feature was the headcode discs adorning each end of the loco. The first 127 Type 1s were built as such. Visibility when travelling nose first was quickly realised as a concern, so it became common to see pairs of Type 1s coupled at the nose, allowing for greater view of the track ahead and with the added benefit of doubling the horsepower, meaning they could handle heaver trains. With the introduction of the TOPS classification system, the EE Type 1s were rebranded as BR Class 20s, although they are known by many as “Choppers” owing to their engines sounding like helicopters when under load. Despite being some of the oldest diesels around the Class 20s have remained in operational use to this day, and a rather fitting 20 examples have survived into preservation, making them a frequent sight on heritage railways. A veteran in every right, the Class 20 has earned its place among enthusiasts’ hearts; and now Type 1 traction comes to life in Train Sim World, ready for hard-working duty on the Tees Valley Line!',
+    description:
+      'Developed in the 1950s, the English Electric Type 1 was the first major step on British Railways’ path to dieselisation. After many trials and failures, the Type 1 showed promise as a 1000hp (746 kW) locomotive, and between 1957 and 1968 a total of 228 would be produced. The Type 1s took over from steam locomotives of equivalent power, primarily working light, mixed-freight traffic throughout the midlands and in Scotland. Unlike newer locomotives, the Type 1s featured a rather unique single cab design. The cab, situated at the rear of the locomotive, has controls facing in either direction and gives the locos a tank engine-like appearance, with the diesel engine and on-board equipment sat much like how a firebox and boiler would, in front of the cab. Another steam-like feature was the headcode discs adorning each end of the loco. The first 127 Type 1s were built as such. Visibility when travelling nose first was quickly realised as a concern, so it became common to see pairs of Type 1s coupled at the nose, allowing for greater view of the track ahead and with the added benefit of doubling the horsepower, meaning they could handle heaver trains. With the introduction of the TOPS classification system, the EE Type 1s were rebranded as BR Class 20s, although they are known by many as “Choppers” owing to their engines sounding like helicopters when under load. Despite being some of the oldest diesels around the Class 20s have remained in operational use to this day, and a rather fitting 20 examples have survived into preservation, making them a frequent sight on heritage railways. A veteran in every right, the Class 20 has earned its place among enthusiasts’ hearts; and now Type 1 traction comes to life in Train Sim World, ready for hard-working duty on the Tees Valley Line!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1255311/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: Rapid Transit',
     year: 2017,
-    description: 'Train Sim World®: Rapid Transit is an all new First-Person Simulator that brings to life the experience of driving rapid transit commuter passenger trains on one of Germany’s most popular S-Bahn railways. Take control of the sleek DB BR 1442 ‘Talent 2’ and transport passengers along the S-Bahn S2-Line through the historic and picturesque city of Leipzig. You’ve been invited to work for Deutsche Bahn as a driver on one of Germany’s distinctive S-Bahn railways. Navigating the busy S-Bahn will require you to master the layout of the route and the functions and systems of your train as well as Deutsche Bahn’s unique signalling system. With thousands of passengers to transport on-time, your skill, focus and endurance will be tested to the limit! Experience a full ‘day-in-the-life’ in Service Mode, which features the recreation of an entire 24-hour timetable based on real-world activities. Hop on and off a range of services as they carry out their duties. Take control or ride along, the choice is yours. Powered by Dovetail Games’ proprietary SimuGraph® vehicle dynamics engine and Unreal Engine 4® technology, Train Sim World uses real-world data to accurately replicate the performance, sounds and feel of real trains. Catering for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Rapid Transit!',
+    description:
+      'Train Sim World®: Rapid Transit is an all new First-Person Simulator that brings to life the experience of driving rapid transit commuter passenger trains on one of Germany’s most popular S-Bahn railways. Take control of the sleek DB BR 1442 ‘Talent 2’ and transport passengers along the S-Bahn S2-Line through the historic and picturesque city of Leipzig. You’ve been invited to work for Deutsche Bahn as a driver on one of Germany’s distinctive S-Bahn railways. Navigating the busy S-Bahn will require you to master the layout of the route and the functions and systems of your train as well as Deutsche Bahn’s unique signalling system. With thousands of passengers to transport on-time, your skill, focus and endurance will be tested to the limit! Experience a full ‘day-in-the-life’ in Service Mode, which features the recreation of an entire 24-hour timetable based on real-world activities. Hop on and off a range of services as they carry out their duties. Take control or ride along, the choice is yours. Powered by Dovetail Games’ proprietary SimuGraph® vehicle dynamics engine and Unreal Engine 4® technology, Train Sim World uses real-world data to accurately replicate the performance, sounds and feel of real trains. Catering for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Rapid Transit!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/577358/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Hyper Jam',
     year: 2019,
-    description: 'Hyper Jam is a neon-soaked arena brawler with a dynamic perk drafting system that makes each match different from the last. The hard-hitting fusion of lethal weapons, stackable perks, furious combat, and a killer synthwave soundtrack makes Hyper Jam a multiplayer experience that\'ll keep you coming back for more.\nHyper Jam features fast-paced multiplayer arena gameplay for up to 4 players. Annihilate your opponents round after round using katanas, rocket launchers, sledgehammers, and more. The fluid combat is easy to pick up, while also leaving plenty of room to improve and dominate your friends!\nAfter every round, players draft new perks that stay with them for the rest of the game, stacking and combining with their existing ones to create more powerful effects. A wide pool of distinctive perks ensures no two games are ever the same.\nGrab some controllers and take on your friends at home, or add your Steam friends to a private lobby alongside local players (and bots!). Cross-platform matchmaking also lets you and another local player test your skills against others online!\nPlay as a strong selection of \'80s-inspired characters on a variety of beautiful and dangerous arenas, ranging from a sun-drenched Miami hotel rooftop to a gritty Neo-Tokyo subway.\nAn addictive soundtrack featuring Carpenter Brut, Dance With The Dead, Meteor and more will keep hearts racing as you blow each other to bits.\nHone your skills against AI bots before taking the fight online. Customise bot difficulty, game rules and more to create your own challenge.',
+    description:
+      "Hyper Jam is a neon-soaked arena brawler with a dynamic perk drafting system that makes each match different from the last. The hard-hitting fusion of lethal weapons, stackable perks, furious combat, and a killer synthwave soundtrack makes Hyper Jam a multiplayer experience that'll keep you coming back for more.\nHyper Jam features fast-paced multiplayer arena gameplay for up to 4 players. Annihilate your opponents round after round using katanas, rocket launchers, sledgehammers, and more. The fluid combat is easy to pick up, while also leaving plenty of room to improve and dominate your friends!\nAfter every round, players draft new perks that stay with them for the rest of the game, stacking and combining with their existing ones to create more powerful effects. A wide pool of distinctive perks ensures no two games are ever the same.\nGrab some controllers and take on your friends at home, or add your Steam friends to a private lobby alongside local players (and bots!). Cross-platform matchmaking also lets you and another local player test your skills against others online!\nPlay as a strong selection of '80s-inspired characters on a variety of beautiful and dangerous arenas, ranging from a sun-drenched Miami hotel rooftop to a gritty Neo-Tokyo subway.\nAn addictive soundtrack featuring Carpenter Brut, Dance With The Dead, Meteor and more will keep hearts racing as you blow each other to bits.\nHone your skills against AI bots before taking the fight online. Customise bot difficulty, game rules and more to create your own challenge.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/556050/header.jpg',
     minimal_gpu: 'Radeon HD 7870',
     recommended_gpu: 'Radeon RX 570',
     minimal_cpu: 'Intel Core i3-3210 @ 3.20GHz',
     recommended_cpu: 'Intel Core i5-4430 @ 3.00GHz',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Blazing Chrome',
     year: 2019,
-    description: 'In Blazing Chrome, machines rule the world and the few humans left are on the edge of total extermination, lacking power, prestige or status among their metal and circuits overlords. Bring your best pal and kick some metal butts to free the humankind while enjoying a classic run’n’gun, fully loaded with action and exciting fights! Humans are expendable after an AI controlled robot army take over the world. They survive in hiding while their hunters rule the surface. When a small rebel group gets an intel about a big AI\'s power plant, the machines strike their camp before they can organize an attack. A small group of rebels escape and go in a suicide mission to destroy this power plant. Choose to play as Mavra, a super badass human resistance soldier, or Doyle, the equally groovy and deadly insurgent robot. This suicide mission will result in heavy casualties and a ton of lock-and-load fast-paced action where scraping robots and blazing chrome with your powerful weapons is the only thing standing between you and your freedom. Dash through 5 apocalyptic environments with hundred of robots-enemies to blow to pieces. Blast your way through the enemy lines and and try to defeat a bunch of mechanical bosses with using hoverbikes, huge armors and a whole arsenal of kick-ass weapons. Blazing Chrome offers a lot of features in the legacy of classic run’n’gun games: ● Local Co-op Gameplay\n● 16-bits post-apocalyptic environments\n● Classic fast-paced run-and-gun experience\n● Epic boss battles and crazy lot minibosses fights\n● Genuine arcade feel\n● Motorcycle and jetpack action\n● Rad pixel art',
+    description:
+      "In Blazing Chrome, machines rule the world and the few humans left are on the edge of total extermination, lacking power, prestige or status among their metal and circuits overlords. Bring your best pal and kick some metal butts to free the humankind while enjoying a classic run’n’gun, fully loaded with action and exciting fights! Humans are expendable after an AI controlled robot army take over the world. They survive in hiding while their hunters rule the surface. When a small rebel group gets an intel about a big AI's power plant, the machines strike their camp before they can organize an attack. A small group of rebels escape and go in a suicide mission to destroy this power plant. Choose to play as Mavra, a super badass human resistance soldier, or Doyle, the equally groovy and deadly insurgent robot. This suicide mission will result in heavy casualties and a ton of lock-and-load fast-paced action where scraping robots and blazing chrome with your powerful weapons is the only thing standing between you and your freedom. Dash through 5 apocalyptic environments with hundred of robots-enemies to blow to pieces. Blast your way through the enemy lines and and try to defeat a bunch of mechanical bosses with using hoverbikes, huge armors and a whole arsenal of kick-ass weapons. Blazing Chrome offers a lot of features in the legacy of classic run’n’gun games: ● Local Co-op Gameplay\n● 16-bits post-apocalyptic environments\n● Classic fast-paced run-and-gun experience\n● Epic boss battles and crazy lot minibosses fights\n● Genuine arcade feel\n● Motorcycle and jetpack action\n● Rad pixel art",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/609110/header.jpg',
     recommended_gpu: 'Radeon HD 3870',
     minimal_gpu: 'Radeon HD 3870',
     recommended_cpu: 'AMD Phenom II X2 550',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'BLACK CLOVER: QUARTET KNIGHTS',
     year: 2018,
-    description: 'In this magic battle action game, take part in 4-on-4 team battles and cast an array of magic spells to defeat the opposing team. You can assume one of four roles: Fighter, Healer, Support, Ranged. Use your role and spells to the best possible effect, and cooperate with your teammates to win the battle! The protagonist, Asta, is the only boy unable to use magic in a world where magic is everything. Despite this affliction, Asta manages to overcome all sorts of hurdles with the help of his friends, and persists in his goal of becoming the Wizard King. This game also includes an original story not depicted in the currently airing Black Clover anime series. Yami Sukehiro, the captain of Asta\'s knight order, the Black Bulls, suddenly grows younger, just as a mysterious mage launches an attack on the Clover Kingdom. Join Asta and his friends as they embark on a new adventure of trials and tribulations.',
+    description:
+      "In this magic battle action game, take part in 4-on-4 team battles and cast an array of magic spells to defeat the opposing team. You can assume one of four roles: Fighter, Healer, Support, Ranged. Use your role and spells to the best possible effect, and cooperate with your teammates to win the battle! The protagonist, Asta, is the only boy unable to use magic in a world where magic is everything. Despite this affliction, Asta manages to overcome all sorts of hurdles with the help of his friends, and persists in his goal of becoming the Wizard King. This game also includes an original story not depicted in the currently airing Black Clover anime series. Yami Sukehiro, the captain of Asta's knight order, the Black Bulls, suddenly grows younger, just as a mysterious mage launches an attack on the Clover Kingdom. Join Asta and his friends as they embark on a new adventure of trials and tribulations.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/714080/header.jpg',
     recommended_gpu: 'Radeon HD 7870',
     minimal_gpu: 'Radeon Vega 8',
     minimal_cpu: 'AMD Phenom II X4 945',
     recommended_cpu: 'AMD A12-9800',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Steel Division 2 - The Fate of Finland',
     year: 2020,
-    description: 'Steel Division 2 - The Fate of Finland is the second History DLC for the popular and expansive World War 2 RTS set on the Eastern Front. The Fate of Finland takes the action to the far north, where the powerful Red Army is poised to knock out hardy but outnumbered Finland out of the war - Nazi Germany’s Nordic ally. Steel Division 2 - The Fate of Finland brings a ton of new content, available in solo, coop and multiplayer, including 6 new Divisions, 200+ new units, 2 new Aces, 2 new Historical Battles, and a gigantic new Army General turn-based strategic campaign centered on the Soviet offensive on the Karelian Isthmus in the summer 1944. Steel Division 2 -The Fate of Finland is included in the , Steel Division 2 - General Deluxe Edition and Steel Division 2 - Total Conflict Edition.',
+    description:
+      'Steel Division 2 - The Fate of Finland is the second History DLC for the popular and expansive World War 2 RTS set on the Eastern Front. The Fate of Finland takes the action to the far north, where the powerful Red Army is poised to knock out hardy but outnumbered Finland out of the war - Nazi Germany’s Nordic ally. Steel Division 2 - The Fate of Finland brings a ton of new content, available in solo, coop and multiplayer, including 6 new Divisions, 200+ new units, 2 new Aces, 2 new Historical Battles, and a gigantic new Army General turn-based strategic campaign centered on the Soviet offensive on the Karelian Isthmus in the summer 1944. Steel Division 2 -The Fate of Finland is included in the , Steel Division 2 - General Deluxe Edition and Steel Division 2 - Total Conflict Edition.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1236360/header.jpg',
     minimal_gpu: 'GeForce GT 1030',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Athlon 200GE',
     recommended_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Agony',
@@ -801,511 +866,553 @@ const games = [
     minimal_cpu: 'AMD Phenom II X4 955',
     recommended_cpu: 'AMD Ryzen 5 1600',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: Rhein-Ruhr Osten: Wuppertal - Hagen Route Add-On',
     year: 2019,
-    description: 'The hustle and bustle of urban sprawl passenger operations and intermix of freight are yours to experience in Train Sim World: Rhein-Ruhr Osten. Take in the scenic backdrop of the North Rhine-Westphalia as you carry out passenger and freight duties whilst negotiating the busy Rhein-Ruhr route. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry passengers and freight over the Rhein-Ruhr. Manage your trains through the route as it forges along two separate paths and deliver your cargo on-time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of German railways at their best. Take control of two very different German electric trains, the DB BR 422 EMU as they serve the many passenger stations, and the MRCE BR 185.5 on freight duty. Featuring authentic AC Electric simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World: Rhein-Ruhr caters for players of all ability levels with accessible training for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Rhein-Ruhr Osten! Choose how you want to play in Train Sim World: Rhein-Ruhr Osten. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring and complete all the Jobs? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Rhein-Ruhr Osten.',
+    description:
+      "The hustle and bustle of urban sprawl passenger operations and intermix of freight are yours to experience in Train Sim World: Rhein-Ruhr Osten. Take in the scenic backdrop of the North Rhine-Westphalia as you carry out passenger and freight duties whilst negotiating the busy Rhein-Ruhr route. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry passengers and freight over the Rhein-Ruhr. Manage your trains through the route as it forges along two separate paths and deliver your cargo on-time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of German railways at their best. Take control of two very different German electric trains, the DB BR 422 EMU as they serve the many passenger stations, and the MRCE BR 185.5 on freight duty. Featuring authentic AC Electric simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World: Rhein-Ruhr caters for players of all ability levels with accessible training for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Rhein-Ruhr Osten! Choose how you want to play in Train Sim World: Rhein-Ruhr Osten. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring and complete all the Jobs? Whatever you choose to do, there's lots to see and experience in Train Sim World: Rhein-Ruhr Osten.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010137/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: Ruhr-Sieg Nord: Hagen - Finnentrop Route Add-On',
     year: 2018,
-    description: 'Deep valleys, tight curves and picturesque vistas are yours to experience in Train Sim World: Ruhr-Sieg Nord, bringing one of Germany’s oldest railways to life. Operate your trains over the historic rails of the Ruhr Valley and keep to the precise timetable. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry freight and passengers over the historic Ruhr-Sieg Railway. Manage your powerful locomotives over the twisting railway carving its way through the Ruhr Valley and deliver your cargo on-time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of German railways at their best. Take control of two icons of German electric motive power, the DB BR 185.2 freight locomotive and the DB BR 143 mixed traffic locomotive. Featuring an authentic AC Electric simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Ruhr-Sieg Nord caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Ruhr-Sieg Nord! Choose how you want to play in Train Sim World: Ruhr-Sieg Nord. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Ruhr-Sieg Nord.',
+    description:
+      "Deep valleys, tight curves and picturesque vistas are yours to experience in Train Sim World: Ruhr-Sieg Nord, bringing one of Germany’s oldest railways to life. Operate your trains over the historic rails of the Ruhr Valley and keep to the precise timetable. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry freight and passengers over the historic Ruhr-Sieg Railway. Manage your powerful locomotives over the twisting railway carving its way through the Ruhr Valley and deliver your cargo on-time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of German railways at their best. Take control of two icons of German electric motive power, the DB BR 185.2 freight locomotive and the DB BR 143 mixed traffic locomotive. Featuring an authentic AC Electric simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Ruhr-Sieg Nord caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Ruhr-Sieg Nord! Choose how you want to play in Train Sim World: Ruhr-Sieg Nord. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there's lots to see and experience in Train Sim World: Ruhr-Sieg Nord.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/577355/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Counter Terrorist Agency',
     year: 2019,
-    description: ', an international organisation developed to fight terrorism. Use modern invigilation techniques, gather information, search for important members of terrorist networks and prevent devastating attacks. Decide who should be spied on and who should be neutralized. Discover Islamic World Caliphate cells all over the world. Fight far-right terrorism in United States and Europe. Uncover hidden truth about dangerous sects planning to take over the world. Some of decisions will be tough, but you have to act surely and quickly. Terrorism never sleeps... is a combination of real-time strategy and manager/simulation game. In CTA your task will be to manage the most modern organization, fight international terrorism, and prevent attacks all over the world. Use modern invigilation techniques, discover connections, listen to suspicious phone calls, read private conversations, interrogate suspects, eliminate threats and dismantle terrorist networks. Test your patience. Will you be able to perceive a potential threat based on scraps of information? And react according to the situation. Too early - you might have scare suspects and other unknown members of the suspicious network. However, wait a little bit longer, get more Intel, and risk a sudden attack. Listen to realistic phone calls and decide who should be taken under investigation. Be careful though cause people are innocent till proven guilty. Read and analyze captured suspicious emails, SMS, web talks etc. Having your base on keywords, content and context, decide, react...or not. Assault on privacy? As a head of the agency, sometimes you will be forced to make moral decisions. Will you be able to sacrifice what it takes to prevent the final attack? Do not let yourself to be caught between the devil and the deep-blue sea. Upgrade your intel and strike units with experience points. Gain new useful abilities to become even more effective. Your prevent and strike power depend on the resources you manage. The more you have, the stronger you are. Earn points by successful actions, spend them on additional swat or drone units. Be prepared. Lone wolf... or a whole pack? Getting rid of one suspect might not be enough. Analyze network connections between groups of people. Who is going to throw a punch first? Who is just an average criminal? Who will be the attacker? Decide. So the time has come. It\'s your move. You are ready to step in and take action. Choose whether you need to kill or arrest the suspect. Swat, police, drones. Take a proper response to a threat. "Are you ready to talk"? Probably that will be the first question after you arrest the suspect. Behind the closed door, get the information you need. Will you cross the red line? Many faces of terror: Middle East fundamentalism, far-right activism in United States and Europe, destructive cults, narco-terrorism',
+    description:
+      ', an international organisation developed to fight terrorism. Use modern invigilation techniques, gather information, search for important members of terrorist networks and prevent devastating attacks. Decide who should be spied on and who should be neutralized. Discover Islamic World Caliphate cells all over the world. Fight far-right terrorism in United States and Europe. Uncover hidden truth about dangerous sects planning to take over the world. Some of decisions will be tough, but you have to act surely and quickly. Terrorism never sleeps... is a combination of real-time strategy and manager/simulation game. In CTA your task will be to manage the most modern organization, fight international terrorism, and prevent attacks all over the world. Use modern invigilation techniques, discover connections, listen to suspicious phone calls, read private conversations, interrogate suspects, eliminate threats and dismantle terrorist networks. Test your patience. Will you be able to perceive a potential threat based on scraps of information? And react according to the situation. Too early - you might have scare suspects and other unknown members of the suspicious network. However, wait a little bit longer, get more Intel, and risk a sudden attack. Listen to realistic phone calls and decide who should be taken under investigation. Be careful though cause people are innocent till proven guilty. Read and analyze captured suspicious emails, SMS, web talks etc. Having your base on keywords, content and context, decide, react...or not. Assault on privacy? As a head of the agency, sometimes you will be forced to make moral decisions. Will you be able to sacrifice what it takes to prevent the final attack? Do not let yourself to be caught between the devil and the deep-blue sea. Upgrade your intel and strike units with experience points. Gain new useful abilities to become even more effective. Your prevent and strike power depend on the resources you manage. The more you have, the stronger you are. Earn points by successful actions, spend them on additional swat or drone units. Be prepared. Lone wolf... or a whole pack? Getting rid of one suspect might not be enough. Analyze network connections between groups of people. Who is going to throw a punch first? Who is just an average criminal? Who will be the attacker? Decide. So the time has come. It\'s your move. You are ready to step in and take action. Choose whether you need to kill or arrest the suspect. Swat, police, drones. Take a proper response to a threat. "Are you ready to talk"? Probably that will be the first question after you arrest the suspect. Behind the closed door, get the information you need. Will you cross the red line? Many faces of terror: Middle East fundamentalism, far-right activism in United States and Europe, destructive cults, narco-terrorism',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/936490/header.jpg',
     recommended_gpu: 'GeForce GTX 560',
     minimal_gpu: 'GeForce GTX 560',
     recommended_cpu: 'AMD Phenom II X4 955',
     minimal_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Counter Terrorist Agency',
     year: 2019,
-    description: ', an international organisation developed to fight terrorism. Use modern invigilation techniques, gather information, search for important members of terrorist networks and prevent devastating attacks. Decide who should be spied on and who should be neutralized. Discover Islamic World Caliphate cells all over the world. Fight far-right terrorism in United States and Europe. Uncover hidden truth about dangerous sects planning to take over the world. Some of decisions will be tough, but you have to act surely and quickly. Terrorism never sleeps... is a combination of real-time strategy and manager/simulation game. In CTA your task will be to manage the most modern organization, fight international terrorism, and prevent attacks all over the world. Use modern invigilation techniques, discover connections, listen to suspicious phone calls, read private conversations, interrogate suspects, eliminate threats and dismantle terrorist networks. Test your patience. Will you be able to perceive a potential threat based on scraps of information? And react according to the situation. Too early - you might have scare suspects and other unknown members of the suspicious network. However, wait a little bit longer, get more Intel, and risk a sudden attack. Listen to realistic phone calls and decide who should be taken under investigation. Be careful though cause people are innocent till proven guilty. Read and analyze captured suspicious emails, SMS, web talks etc. Having your base on keywords, content and context, decide, react...or not. Assault on privacy? As a head of the agency, sometimes you will be forced to make moral decisions. Will you be able to sacrifice what it takes to prevent the final attack? Do not let yourself to be caught between the devil and the deep-blue sea. Upgrade your intel and strike units with experience points. Gain new useful abilities to become even more effective. Your prevent and strike power depend on the resources you manage. The more you have, the stronger you are. Earn points by successful actions, spend them on additional swat or drone units. Be prepared. Lone wolf... or a whole pack? Getting rid of one suspect might not be enough. Analyze network connections between groups of people. Who is going to throw a punch first? Who is just an average criminal? Who will be the attacker? Decide. So the time has come. It\'s your move. You are ready to step in and take action. Choose whether you need to kill or arrest the suspect. Swat, police, drones. Take a proper response to a threat. "Are you ready to talk"? Probably that will be the first question after you arrest the suspect. Behind the closed door, get the information you need. Will you cross the red line? Many faces of terror: Middle East fundamentalism, far-right activism in United States and Europe, destructive cults, narco-terrorism',
+    description:
+      ', an international organisation developed to fight terrorism. Use modern invigilation techniques, gather information, search for important members of terrorist networks and prevent devastating attacks. Decide who should be spied on and who should be neutralized. Discover Islamic World Caliphate cells all over the world. Fight far-right terrorism in United States and Europe. Uncover hidden truth about dangerous sects planning to take over the world. Some of decisions will be tough, but you have to act surely and quickly. Terrorism never sleeps... is a combination of real-time strategy and manager/simulation game. In CTA your task will be to manage the most modern organization, fight international terrorism, and prevent attacks all over the world. Use modern invigilation techniques, discover connections, listen to suspicious phone calls, read private conversations, interrogate suspects, eliminate threats and dismantle terrorist networks. Test your patience. Will you be able to perceive a potential threat based on scraps of information? And react according to the situation. Too early - you might have scare suspects and other unknown members of the suspicious network. However, wait a little bit longer, get more Intel, and risk a sudden attack. Listen to realistic phone calls and decide who should be taken under investigation. Be careful though cause people are innocent till proven guilty. Read and analyze captured suspicious emails, SMS, web talks etc. Having your base on keywords, content and context, decide, react...or not. Assault on privacy? As a head of the agency, sometimes you will be forced to make moral decisions. Will you be able to sacrifice what it takes to prevent the final attack? Do not let yourself to be caught between the devil and the deep-blue sea. Upgrade your intel and strike units with experience points. Gain new useful abilities to become even more effective. Your prevent and strike power depend on the resources you manage. The more you have, the stronger you are. Earn points by successful actions, spend them on additional swat or drone units. Be prepared. Lone wolf... or a whole pack? Getting rid of one suspect might not be enough. Analyze network connections between groups of people. Who is going to throw a punch first? Who is just an average criminal? Who will be the attacker? Decide. So the time has come. It\'s your move. You are ready to step in and take action. Choose whether you need to kill or arrest the suspect. Swat, police, drones. Take a proper response to a threat. "Are you ready to talk"? Probably that will be the first question after you arrest the suspect. Behind the closed door, get the information you need. Will you cross the red line? Many faces of terror: Middle East fundamentalism, far-right activism in United States and Europe, destructive cults, narco-terrorism',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/936490/header.jpg',
     recommended_gpu: 'GeForce GTX 560',
     minimal_gpu: 'GeForce GTX 560',
     recommended_cpu: 'AMD Phenom II X4 955',
     minimal_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Between the Stars',
     year: 2019,
-    description: 'Between the Stars is a space action game with RPG growth and real time combat that places you at the helm of an interstellar cruiser. Your mission will be to protect the civilized world from the Children of the Sun, a faction that dominates border planets in the known universe. In order to undertake your mission you must cross the galaxy, face new challenges at each warp jump, and make difficult decisions that affect your ship, crew and the world that surrounds you while upgrading your ship\'s equipment and fighting in battles to survive.',
+    description:
+      "Between the Stars is a space action game with RPG growth and real time combat that places you at the helm of an interstellar cruiser. Your mission will be to protect the civilized world from the Children of the Sun, a faction that dominates border planets in the known universe. In order to undertake your mission you must cross the galaxy, face new challenges at each warp jump, and make difficult decisions that affect your ship, crew and the world that surrounds you while upgrading your ship's equipment and fighting in battles to survive.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/727130/header.jpg',
     minimal_gpu: 'Radeon R9 270X',
     recommended_gpu: 'GeForce GTX 1060',
     recommended_cpu: 'AMD FX-6300 Six-Core',
     minimal_cpu: 'AMD FX-4330',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: East Coastway: Brighton - Eastbourne & Seaford Route Add-On',
     year: 2019,
-    description: 'Experience modern commuter traction along the wonderfully picturesque countryside of Southern England in Train Sim World: East Coastway. Operate your trains over a rail network represented how it is today, complete with modern signalling on a route that defines commuter and seaside rail operations. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to take passengers and freight across England’s southern coast and into the country’s oldest rail-served seaside town, Brighton. Manage the complexities of running a modern-day railway, complete with separate branches that demand trains are kept to timetable in order to ensure everything remains on time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a state-of-the-art railway. Take control of an icon of British commuter motive power, the BR Class 377, as well as the BR Class 66 which heads freight traffic. Featuring authentic 750V DC Electric and Diesel-Electric simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World: East Coastway caters for players of all ability levels with accessible training for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in East Coastway! Choose how you want to play in Train Sim World: East Coastway. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring and complete all the Jobs? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: East Coastway.',
+    description:
+      "Experience modern commuter traction along the wonderfully picturesque countryside of Southern England in Train Sim World: East Coastway. Operate your trains over a rail network represented how it is today, complete with modern signalling on a route that defines commuter and seaside rail operations. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to take passengers and freight across England’s southern coast and into the country’s oldest rail-served seaside town, Brighton. Manage the complexities of running a modern-day railway, complete with separate branches that demand trains are kept to timetable in order to ensure everything remains on time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a state-of-the-art railway. Take control of an icon of British commuter motive power, the BR Class 377, as well as the BR Class 66 which heads freight traffic. Featuring authentic 750V DC Electric and Diesel-Electric simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World: East Coastway caters for players of all ability levels with accessible training for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in East Coastway! Choose how you want to play in Train Sim World: East Coastway. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring and complete all the Jobs? Whatever you choose to do, there's lots to see and experience in Train Sim World: East Coastway.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010139/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Dead In Vinland',
     year: 2018,
-    description: 'is a survival/management game, mixed with RPG and adventure elements, about a Viking family trying their best to survive on a mysterious island. on a faraway and unknown land, lead and his on their quest to .\nManage their physical and mental health, explore the , organize your and deal with other human beings. Some will help you, and some will be less... friendly.\nUnveil the esoteric mysteries of . They could save your life… or lead you to your demise.',
+    description:
+      'is a survival/management game, mixed with RPG and adventure elements, about a Viking family trying their best to survive on a mysterious island. on a faraway and unknown land, lead and his on their quest to .\nManage their physical and mental health, explore the , organize your and deal with other human beings. Some will help you, and some will be less... friendly.\nUnveil the esoteric mysteries of . They could save your life… or lead you to your demise.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/573120/header.jpg',
     recommended_gpu: 'GeForce GTS 450',
     minimal_gpu: 'GeForce GTS 450',
     recommended_cpu: 'AMD Athlon II X4 640',
     minimal_cpu: 'AMD Athlon II X4 640',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Train Sim World®: Hauptstrecke Rhein-Ruhr: Duisburg - Bochum Route Add-On',
     year: 2020,
-    description: 'Experience bustling regional and commuter operations from aboard modern and well-known traction with Train Sim World: Hauptstrecke Rhein-Ruhr. Drive your trains over a rail network represented how it is today, complete with both routes between Essen and Bochum that are populated by different trains and services. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry passengers along Deutsche Bahn’s ever-busy Hauptstrecke Rhein-Ruhr. Manage the complexities of keeping to the timetable, picking up and dropping off passengers in a timely yet safe and comfortable manner. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a modern commuter line. Take control of a duo of DB multiple units, the hard-working DB BR 425 which is used on regional services by the dozen throughout Germany, and the DB BR 422 that works exclusively for the S-Bahn Rhein-Ruhr. Together the two work passenger duties along the route. Featuring authentic AC EMU simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World: Hauptstrecke Rhein-Ruhr caters for players of all ability levels with accessible training for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment of the Hauptstrecke Rhein-Ruhr! Choose how you want to play in Train Sim World: Hauptstrecke Rhein-Ruhr. Take control and master modern multiple units, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring and complete all the Jobs? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Hauptstrecke Rhein-Ruhr.',
+    description:
+      "Experience bustling regional and commuter operations from aboard modern and well-known traction with Train Sim World: Hauptstrecke Rhein-Ruhr. Drive your trains over a rail network represented how it is today, complete with both routes between Essen and Bochum that are populated by different trains and services. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry passengers along Deutsche Bahn’s ever-busy Hauptstrecke Rhein-Ruhr. Manage the complexities of keeping to the timetable, picking up and dropping off passengers in a timely yet safe and comfortable manner. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a modern commuter line. Take control of a duo of DB multiple units, the hard-working DB BR 425 which is used on regional services by the dozen throughout Germany, and the DB BR 422 that works exclusively for the S-Bahn Rhein-Ruhr. Together the two work passenger duties along the route. Featuring authentic AC EMU simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World: Hauptstrecke Rhein-Ruhr caters for players of all ability levels with accessible training for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment of the Hauptstrecke Rhein-Ruhr! Choose how you want to play in Train Sim World: Hauptstrecke Rhein-Ruhr. Take control and master modern multiple units, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring and complete all the Jobs? Whatever you choose to do, there's lots to see and experience in Train Sim World: Hauptstrecke Rhein-Ruhr.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1113823/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Rover Mechanic Simulator',
     year: 2020,
-    description: 'See also our upcoming game: Rover Mechanic Simulator is a game in which you are a mechanic working on one of the first Martian colonies. Your main tasks include the repair and maintenance of Mars rovers, so that the remaining crew can collect detailed information about the structure of the planet. There are many devices at your disposal that will allow you to dismantle and maintain even the smallest parts of the rover. Use different tools such as a 3D printer, recycling machine, overhead crane, soldering iron and many more. Not all parts need to be replaced entirely. You can use special workbenches to repair damaged PCBs, clean and maintain parts that have worn out during rover\'s work. Thanks to this, you can save resources for much more difficult tasks. The game offers you several development paths that you can choose. Are you a tinkerer who enjoys disassembling devices into small parts? Become a technician! But if you prefer to precisely analyze the damaged parts and find malfunctions faster, then become an analyst. If you want to master the recovery of resources, follow the economist’s path. There are many devices on Mars which served people in the past but broke down at some point. You can fix and restore them to service. Thanks to you they can continue to perform their tasks by sending specialized information about the composition of the planet. "Spirit", "Opportunity" and others have served people for years and they can still do it! Gain experience, earn higher and higher ranks and undertake more and more difficult tasks. Become the best engineer on Mars!',
+    description:
+      'See also our upcoming game: Rover Mechanic Simulator is a game in which you are a mechanic working on one of the first Martian colonies. Your main tasks include the repair and maintenance of Mars rovers, so that the remaining crew can collect detailed information about the structure of the planet. There are many devices at your disposal that will allow you to dismantle and maintain even the smallest parts of the rover. Use different tools such as a 3D printer, recycling machine, overhead crane, soldering iron and many more. Not all parts need to be replaced entirely. You can use special workbenches to repair damaged PCBs, clean and maintain parts that have worn out during rover\'s work. Thanks to this, you can save resources for much more difficult tasks. The game offers you several development paths that you can choose. Are you a tinkerer who enjoys disassembling devices into small parts? Become a technician! But if you prefer to precisely analyze the damaged parts and find malfunctions faster, then become an analyst. If you want to master the recovery of resources, follow the economist’s path. There are many devices on Mars which served people in the past but broke down at some point. You can fix and restore them to service. Thanks to you they can continue to perform their tasks by sending specialized information about the composition of the planet. "Spirit", "Opportunity" and others have served people for years and they can still do it! Gain experience, earn higher and higher ranks and undertake more and more difficult tasks. Become the best engineer on Mars!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/864680/header.jpg',
     recommended_gpu: 'GeForce GTX 1070',
     minimal_gpu: 'GeForce GTX 960',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 5 2600X',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Hyper Jam',
     year: 2019,
-    description: 'Hyper Jam is a neon-soaked arena brawler with a dynamic perk drafting system that makes each match different from the last. The hard-hitting fusion of lethal weapons, stackable perks, furious combat, and a killer synthwave soundtrack makes Hyper Jam a multiplayer experience that\'ll keep you coming back for more.\nHyper Jam features fast-paced multiplayer arena gameplay for up to 4 players. Annihilate your opponents round after round using katanas, rocket launchers, sledgehammers, and more. The fluid combat is easy to pick up, while also leaving plenty of room to improve and dominate your friends!\nAfter every round, players draft new perks that stay with them for the rest of the game, stacking and combining with their existing ones to create more powerful effects. A wide pool of distinctive perks ensures no two games are ever the same.\nGrab some controllers and take on your friends at home, or add your Steam friends to a private lobby alongside local players (and bots!). Cross-platform matchmaking also lets you and another local player test your skills against others online!\nPlay as a strong selection of \'80s-inspired characters on a variety of beautiful and dangerous arenas, ranging from a sun-drenched Miami hotel rooftop to a gritty Neo-Tokyo subway.\nAn addictive soundtrack featuring Carpenter Brut, Dance With The Dead, Meteor and more will keep hearts racing as you blow each other to bits.\nHone your skills against AI bots before taking the fight online. Customise bot difficulty, game rules and more to create your own challenge.',
+    description:
+      "Hyper Jam is a neon-soaked arena brawler with a dynamic perk drafting system that makes each match different from the last. The hard-hitting fusion of lethal weapons, stackable perks, furious combat, and a killer synthwave soundtrack makes Hyper Jam a multiplayer experience that'll keep you coming back for more.\nHyper Jam features fast-paced multiplayer arena gameplay for up to 4 players. Annihilate your opponents round after round using katanas, rocket launchers, sledgehammers, and more. The fluid combat is easy to pick up, while also leaving plenty of room to improve and dominate your friends!\nAfter every round, players draft new perks that stay with them for the rest of the game, stacking and combining with their existing ones to create more powerful effects. A wide pool of distinctive perks ensures no two games are ever the same.\nGrab some controllers and take on your friends at home, or add your Steam friends to a private lobby alongside local players (and bots!). Cross-platform matchmaking also lets you and another local player test your skills against others online!\nPlay as a strong selection of '80s-inspired characters on a variety of beautiful and dangerous arenas, ranging from a sun-drenched Miami hotel rooftop to a gritty Neo-Tokyo subway.\nAn addictive soundtrack featuring Carpenter Brut, Dance With The Dead, Meteor and more will keep hearts racing as you blow each other to bits.\nHone your skills against AI bots before taking the fight online. Customise bot difficulty, game rules and more to create your own challenge.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/556050/header.jpg',
     minimal_gpu: 'Radeon HD 7870',
     recommended_gpu: 'Radeon RX 570',
     minimal_cpu: 'Intel Core i3-3210 @ 3.20GHz',
     recommended_cpu: 'Intel Core i5-4430 @ 3.00GHz',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Mosaic',
     year: 2019,
-    description: 'Mosaic is a narrative driven modern adventure game with a story that lasts about 2-3 hours. You live a monotonous and repetitive lonely life in a cold overpopulated ever-expanding city. The phone is distracting you with meaningless notifications as you move through anonymous crowds on your way to work at a megacorporation where yet another long day with overtime awaits. You have no real sense of meaning - until one crucial day, when strange things start to happen on your commute to work and everything changes. Mosaic is a dark surrealistic and atmospheric adventure game about urban isolation and the dread of being a piece in a giant machinery you can’t understand. From the creators of Among the Sleep, Krillbite Studio is going from horrors of childhood to the dreadful lonely adult life.',
+    description:
+      'Mosaic is a narrative driven modern adventure game with a story that lasts about 2-3 hours. You live a monotonous and repetitive lonely life in a cold overpopulated ever-expanding city. The phone is distracting you with meaningless notifications as you move through anonymous crowds on your way to work at a megacorporation where yet another long day with overtime awaits. You have no real sense of meaning - until one crucial day, when strange things start to happen on your commute to work and everything changes. Mosaic is a dark surrealistic and atmospheric adventure game about urban isolation and the dread of being a piece in a giant machinery you can’t understand. From the creators of Among the Sleep, Krillbite Studio is going from horrors of childhood to the dreadful lonely adult life.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/349270/header.jpg',
     minimal_gpu: 'GeForce GTX 465',
     recommended_gpu: 'Radeon R9 380',
     minimal_cpu: 'AMD Phenom II X4 970',
     recommended_cpu: 'AMD Ryzen 5 1600',
     recommended_ram_size: 2,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'Train Sim World®: DB BR 182 Loco Add-On',
     year: 2019,
-    description: 'The DB BR 182 is a locomotive which is capable of diverse duty, irrespective of region or intended use, all while meeting the latest standards of safety and technology of the time. Deutsche Bahn ordered 25 of these locomotives for “universal” work, giving them a fleet which they could operate on both passenger and freight services in Germany and Austria. Classified as the DB BR 182, these locomotives have spent their lives filling in for other traction wherever necessary, particularly on commuter networks which were amidst fleet upgrades. The same is true on the Mitteldeutschland S-Bahn, which was not receiving its order of DB BR 1442 units fast enough to replace aging motive power, so the DB BR 182s were drafted into service with DoppelStock vehicles for push/pull passenger operation. The DB BR 182, along with other “universal” similar locomotives, are known for being some of the fastest accelerating in the world. Not only that, but they are renowned for a unique quirk in their traction motors: as one accelerates, the three-phase motor sequence produces a finely tuned “Do Re Mi” melody, rising up through 13 notes before settling into a more traditional sound set. In addition, as typical braking uses the traction motors to slow down, the same can be heard in reverse, stepping down gradually until the locomotive comes to a stop. In Train Sim World, the DB BR 182 adds a dash of red to the “Rapid Transit” route, and depicts the Mitteldeutschland S-Bahn S2 line during the transitional period where DB BR 1442 EMUs were still being delivered.',
+    description:
+      'The DB BR 182 is a locomotive which is capable of diverse duty, irrespective of region or intended use, all while meeting the latest standards of safety and technology of the time. Deutsche Bahn ordered 25 of these locomotives for “universal” work, giving them a fleet which they could operate on both passenger and freight services in Germany and Austria. Classified as the DB BR 182, these locomotives have spent their lives filling in for other traction wherever necessary, particularly on commuter networks which were amidst fleet upgrades. The same is true on the Mitteldeutschland S-Bahn, which was not receiving its order of DB BR 1442 units fast enough to replace aging motive power, so the DB BR 182s were drafted into service with DoppelStock vehicles for push/pull passenger operation. The DB BR 182, along with other “universal” similar locomotives, are known for being some of the fastest accelerating in the world. Not only that, but they are renowned for a unique quirk in their traction motors: as one accelerates, the three-phase motor sequence produces a finely tuned “Do Re Mi” melody, rising up through 13 notes before settling into a more traditional sound set. In addition, as typical braking uses the traction motors to slow down, the same can be heard in reverse, stepping down gradually until the locomotive comes to a stop. In Train Sim World, the DB BR 182 adds a dash of red to the “Rapid Transit” route, and depicts the Mitteldeutschland S-Bahn S2 line during the transitional period where DB BR 1442 EMUs were still being delivered.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010130/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: Tees Valley Line: Darlington – Saltburn-by-the-Sea Route Add-On',
     year: 2019,
-    description: 'Experience a bygone era of British Rail in the historic birthplace of railways and the heart of the British Steel industry in Train Sim World: Tees Valley Line. Operate your trains over an aging rail network with out-of-date infrastructure on a route deep in transition between old and new. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach back in time and touch them. It’s your job to carry steel over the rails that follow the route of the historic Darlington & Stockton Railway, the world’s first commercial railway. Manage your powerful locomotives and heavy trains navigating the scenic countryside and industrial centres of North East England. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a chapter of British railways long forgotten in time. Take control of three icons of British motive power, the BR Class 37 mixed traffic locomotive, the BR Class 08 diesel shunting locomotive and the BR Class 101 Diesel Multiple Unit. Featuring authentic Diesel-Electric and Diesel-Mechanical simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Tees Valley Line caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Tees Valley Line! Choose how you want to play in Train Sim World: Tees Valley Line. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Tees Valley Line.',
+    description:
+      "Experience a bygone era of British Rail in the historic birthplace of railways and the heart of the British Steel industry in Train Sim World: Tees Valley Line. Operate your trains over an aging rail network with out-of-date infrastructure on a route deep in transition between old and new. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach back in time and touch them. It’s your job to carry steel over the rails that follow the route of the historic Darlington & Stockton Railway, the world’s first commercial railway. Manage your powerful locomotives and heavy trains navigating the scenic countryside and industrial centres of North East England. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a chapter of British railways long forgotten in time. Take control of three icons of British motive power, the BR Class 37 mixed traffic locomotive, the BR Class 08 diesel shunting locomotive and the BR Class 101 Diesel Multiple Unit. Featuring authentic Diesel-Electric and Diesel-Mechanical simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Tees Valley Line caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Tees Valley Line! Choose how you want to play in Train Sim World: Tees Valley Line. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there's lots to see and experience in Train Sim World: Tees Valley Line.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010134/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Blazing Chrome',
     year: 2019,
-    description: 'In Blazing Chrome, machines rule the world and the few humans left are on the edge of total extermination, lacking power, prestige or status among their metal and circuits overlords. Bring your best pal and kick some metal butts to free the humankind while enjoying a classic run’n’gun, fully loaded with action and exciting fights! Humans are expendable after an AI controlled robot army take over the world. They survive in hiding while their hunters rule the surface. When a small rebel group gets an intel about a big AI\'s power plant, the machines strike their camp before they can organize an attack. A small group of rebels escape and go in a suicide mission to destroy this power plant. Choose to play as Mavra, a super badass human resistance soldier, or Doyle, the equally groovy and deadly insurgent robot. This suicide mission will result in heavy casualties and a ton of lock-and-load fast-paced action where scraping robots and blazing chrome with your powerful weapons is the only thing standing between you and your freedom. Dash through 5 apocalyptic environments with hundred of robots-enemies to blow to pieces. Blast your way through the enemy lines and and try to defeat a bunch of mechanical bosses with using hoverbikes, huge armors and a whole arsenal of kick-ass weapons. Blazing Chrome offers a lot of features in the legacy of classic run’n’gun games: ● Local Co-op Gameplay\n● 16-bits post-apocalyptic environments\n● Classic fast-paced run-and-gun experience\n● Epic boss battles and crazy lot minibosses fights\n● Genuine arcade feel\n● Motorcycle and jetpack action\n● Rad pixel art',
+    description:
+      "In Blazing Chrome, machines rule the world and the few humans left are on the edge of total extermination, lacking power, prestige or status among their metal and circuits overlords. Bring your best pal and kick some metal butts to free the humankind while enjoying a classic run’n’gun, fully loaded with action and exciting fights! Humans are expendable after an AI controlled robot army take over the world. They survive in hiding while their hunters rule the surface. When a small rebel group gets an intel about a big AI's power plant, the machines strike their camp before they can organize an attack. A small group of rebels escape and go in a suicide mission to destroy this power plant. Choose to play as Mavra, a super badass human resistance soldier, or Doyle, the equally groovy and deadly insurgent robot. This suicide mission will result in heavy casualties and a ton of lock-and-load fast-paced action where scraping robots and blazing chrome with your powerful weapons is the only thing standing between you and your freedom. Dash through 5 apocalyptic environments with hundred of robots-enemies to blow to pieces. Blast your way through the enemy lines and and try to defeat a bunch of mechanical bosses with using hoverbikes, huge armors and a whole arsenal of kick-ass weapons. Blazing Chrome offers a lot of features in the legacy of classic run’n’gun games: ● Local Co-op Gameplay\n● 16-bits post-apocalyptic environments\n● Classic fast-paced run-and-gun experience\n● Epic boss battles and crazy lot minibosses fights\n● Genuine arcade feel\n● Motorcycle and jetpack action\n● Rad pixel art",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/609110/header.jpg',
     recommended_gpu: 'Radeon HD 3870',
     minimal_gpu: 'Radeon HD 3870',
     recommended_cpu: 'AMD Phenom II X2 550',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Pillars of Eternity - The White March Part I',
     year: 2015,
-    description: 'is a large sprawling expansion pack with hours of gameplay integrated into the main adventure. Along with the new quests and area content, the team at Obsidian continues to support and make improvements to the entire game, including the additions of Player Party AI and Enhanced Enemy AI. Even if you haven\'t played Pillars of Eternity, now is a great time to jump in and experience the hardcore classic RPG with The White March - Part I.',
+    description:
+      "is a large sprawling expansion pack with hours of gameplay integrated into the main adventure. Along with the new quests and area content, the team at Obsidian continues to support and make improvements to the entire game, including the additions of Player Party AI and Enhanced Enemy AI. Even if you haven't played Pillars of Eternity, now is a great time to jump in and experience the hardcore classic RPG with The White March - Part I.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/373340/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'GeForce GTX 570',
     minimal_cpu: 'AMD Phenom II X3 B73',
     recommended_cpu: 'AMD Phenom II X6 1100T',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tales of Berseria™ - Adventure Items Super Pack',
     year: 2017,
-    description: 'Set of item for adventurer containing the following enhancement goods: - Skill Booster - Max Item Expansion - Double Experience - Double Gald - Double Grade - 50% Discount Price to Enhance Weapon - HP +1000 - HP +1000 (2) - Growth Enhancement Set (Green) - Growth Enhancement Set (Red) - Level +5 (1) - Level +5 (2) - Level +5 (3) - Level +5 (4) - Level +10 (1) - Level +10 (2)',
+    description:
+      'Set of item for adventurer containing the following enhancement goods: - Skill Booster - Max Item Expansion - Double Experience - Double Gald - Double Grade - 50% Discount Price to Enhance Weapon - HP +1000 - HP +1000 (2) - Growth Enhancement Set (Green) - Growth Enhancement Set (Red) - Level +5 (1) - Level +5 (2) - Level +5 (3) - Level +5 (4) - Level +10 (1) - Level +10 (2)',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/525430/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 7870',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Train Sim World®: DB BR 204 Loco Add-On',
     year: 2020,
-    description: 'A hard-working classic comes to life in Train Sim World with the stunning DB BR 204 diesel locomotive! In the 1950s, the Deutsche Reichsbahn were keen to get dieselisation underway, replacing steam locomotives with a modern fleet of standardised locomotives, that between all variants could cover any duty required on the network. Many locomotive designs started cropping up, including the V60, V90 and V164, however none managed to fill the 1,000 horsepower (746 kW) market, and so a further design was established. Named the “V100”, the first of this new 1,000 horsepower locomotive was built in 1966 (following the production of two prototypes) and the result was a double-ended locomotive with the cab situated in the middle, allowing for seamless operation in either direction. In all, over 860 of these locomotives would be built, and they were put to use on all medium-weight freight traffic throughout East Germany. Many locomotives were rebuilt during their lifespan in order to excel at more specific duties, one such in particular was retrofitted with a 1,475 horsepower (1100 kW) engine, and these were classified as the DR Class 114. With the Reunification of Germany and the merger of Deutsche Reichsbahn and Deutsche Bundesbahn, these locomotives were reclassified once again to become the DB BR 204 and started to see more widespread use, particularly as shunting locomotives. Now, you can experience the classic DB BR 204 for yourself, as it has been authentically brought to life in Train Sim World!',
+    description:
+      'A hard-working classic comes to life in Train Sim World with the stunning DB BR 204 diesel locomotive! In the 1950s, the Deutsche Reichsbahn were keen to get dieselisation underway, replacing steam locomotives with a modern fleet of standardised locomotives, that between all variants could cover any duty required on the network. Many locomotive designs started cropping up, including the V60, V90 and V164, however none managed to fill the 1,000 horsepower (746 kW) market, and so a further design was established. Named the “V100”, the first of this new 1,000 horsepower locomotive was built in 1966 (following the production of two prototypes) and the result was a double-ended locomotive with the cab situated in the middle, allowing for seamless operation in either direction. In all, over 860 of these locomotives would be built, and they were put to use on all medium-weight freight traffic throughout East Germany. Many locomotives were rebuilt during their lifespan in order to excel at more specific duties, one such in particular was retrofitted with a 1,475 horsepower (1100 kW) engine, and these were classified as the DR Class 114. With the Reunification of Germany and the merger of Deutsche Reichsbahn and Deutsche Bundesbahn, these locomotives were reclassified once again to become the DB BR 204 and started to see more widespread use, particularly as shunting locomotives. Now, you can experience the classic DB BR 204 for yourself, as it has been authentically brought to life in Train Sim World!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1113824/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: Peninsula Corridor: San Francisco - San Jose Route Add-On',
     year: 2019,
-    description: 'Experience California Dreamin’ railroading-style with the contemporary and dynamic Train Sim World: Peninsula Corridor. Stretching south from San Francisco, is home to one of America’s most modern and captivating commuter railroads – Caltrain – and Train Sim World’s Peninsula Corridor brings to life Caltrain commuter operations extending from San Francisco’s 4th & King Street station to San Jose Diridon station. Over the 47 miles between “the City by the Bay” and trendy San Jose, Caltrain calls at 26 commuter stations. In serving San Francisco and portions of California’s famed “Silicon Valley,” Caltrain has since its creation in the 1980s emerged as an innovative commuter railroad, carrying more than 17 million riders per year. And equipped with Caltrain’s EMD F40PH-2CAT diesels and Nippon-Sharyo Gallery commuter equipment, it will be your job to keep those thousands of daily commuters on time and happy. American rail giant Union Pacific operates freight services on the Peninsula and Train Sim World’s Peninsula Corridor will also deliver the challenges of hauling tonnage on the always-busy railroad as you climb aboard Union Pacific’s versatile EMD GP38-2 locomotive. Featuring an authentic Diesel-Electric simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make the trains feel just like the real thing. Train Sim World: Peninsula Corridor caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you\'re looking to get started operating trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment of California’s Peninsula Corridor. Choose how you want to play in Train Sim World: Peninsula Corridor. Take control and master modern diesel and “push-pull” commuter equipment in a bustling and challenging operating environment or ride along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there\'s lots to see, experience, and enjoy with Train Sim World: Peninsula Corridor.',
+    description:
+      "Experience California Dreamin’ railroading-style with the contemporary and dynamic Train Sim World: Peninsula Corridor. Stretching south from San Francisco, is home to one of America’s most modern and captivating commuter railroads – Caltrain – and Train Sim World’s Peninsula Corridor brings to life Caltrain commuter operations extending from San Francisco’s 4th & King Street station to San Jose Diridon station. Over the 47 miles between “the City by the Bay” and trendy San Jose, Caltrain calls at 26 commuter stations. In serving San Francisco and portions of California’s famed “Silicon Valley,” Caltrain has since its creation in the 1980s emerged as an innovative commuter railroad, carrying more than 17 million riders per year. And equipped with Caltrain’s EMD F40PH-2CAT diesels and Nippon-Sharyo Gallery commuter equipment, it will be your job to keep those thousands of daily commuters on time and happy. American rail giant Union Pacific operates freight services on the Peninsula and Train Sim World’s Peninsula Corridor will also deliver the challenges of hauling tonnage on the always-busy railroad as you climb aboard Union Pacific’s versatile EMD GP38-2 locomotive. Featuring an authentic Diesel-Electric simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make the trains feel just like the real thing. Train Sim World: Peninsula Corridor caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you're looking to get started operating trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment of California’s Peninsula Corridor. Choose how you want to play in Train Sim World: Peninsula Corridor. Take control and master modern diesel and “push-pull” commuter equipment in a bustling and challenging operating environment or ride along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there's lots to see, experience, and enjoy with Train Sim World: Peninsula Corridor.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010136/header.jpg',
     recommended_gpu: 'Radeon R9 270',
     minimal_gpu: 'Radeon R9 270',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'DRAGON BALL Z: KAKAROT Pre-Order DLC Pack',
     year: 2020,
-    description: 'Get access to a Cooking Item that gives you permanent Melee ATK and HP stat boosts, a sub-quest, and an Early Unlock to a Training Menu that allows you to fight “Bonyu”, a new Character created by the author, Akira Toriyama.',
+    description:
+      'Get access to a Cooking Item that gives you permanent Melee ATK and HP stat boosts, a sub-quest, and an Early Unlock to a Training Menu that allows you to fight “Bonyu”, a new Character created by the author, Akira Toriyama.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1144640/header.jpg',
     minimal_gpu: 'GeForce GTX 750 Ti',
     recommended_gpu: 'Radeon R9 280X',
     minimal_cpu: 'AMD Phenom II X6 1100T',
     recommended_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
-    name: 'Wilmot\'s Warehouse',
+    name: "Wilmot's Warehouse",
     year: 2019,
-    description: 'Wilmot\'s Warehouse is a puzzle game about keeping a warehouse running in tip-top shape. You play as Wilmot, a hard working warehouse employee tasked with pushing, sorting and stacking a variety of products. Over time more and more truckloads of these products will arrive, gradually filling up the warehouse. How you arrange them all is entirely up to you - organize by color, type, the Dewey Decimal System, or some wild format that only you understand - it’s all good! Just remember where you put everything, because when the service hatch opens, you\'ll need to find the things people want quickly, in order to earn the coveted Performance Stars required for all manner of labor-saving upgrades. Features\n- Unique relaxing gameplay.\n- 500 possible products to stock.\n- All manner of upgrades and perks.\n- Splitscreen 2 player co-op: Work in tandem to organize the warehouse with a friend - Customise your game with Expert Mode for an extra challenge\n- Sublime electronic music to listen to while you decide whether wellington boots belong in the footwear section, or with the umbrellas.',
+    description:
+      "Wilmot's Warehouse is a puzzle game about keeping a warehouse running in tip-top shape. You play as Wilmot, a hard working warehouse employee tasked with pushing, sorting and stacking a variety of products. Over time more and more truckloads of these products will arrive, gradually filling up the warehouse. How you arrange them all is entirely up to you - organize by color, type, the Dewey Decimal System, or some wild format that only you understand - it’s all good! Just remember where you put everything, because when the service hatch opens, you'll need to find the things people want quickly, in order to earn the coveted Performance Stars required for all manner of labor-saving upgrades. Features\n- Unique relaxing gameplay.\n- 500 possible products to stock.\n- All manner of upgrades and perks.\n- Splitscreen 2 player co-op: Work in tandem to organize the warehouse with a friend - Customise your game with Expert Mode for an extra challenge\n- Sublime electronic music to listen to while you decide whether wellington boots belong in the footwear section, or with the umbrellas.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/839870/header.jpg',
     recommended_gpu: 'Radeon HD 5850',
     minimal_gpu: 'Radeon HD 5850',
     recommended_cpu: 'AMD Athlon 64 X2 Dual Core 6400+',
     minimal_cpu: 'AMD Athlon 64 X2 Dual Core 6400+',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'Train Sim World®: LIRR M3 EMU Add-On',
     year: 2020,
-    description: 'Take the controls of a “Big Apple” railroading classic with the Long Island Rail Road M3 electric-multiple-unit (EMU) for Train Sim World! During the late 1960s and early 1970s in a major fleet renewal program, New York’s Long Island Rail Road, with funding from the Metropolitan Transportation Authority, purchased 770 M1 EMUs constructed by Budd and General Electric. Christened Metropolitans, the M1s immediately became the workhorses of LIRR electric operations. With its business expanding and its electrified trackage being extended, in 1984-1986, LIRR and MTA returned to Budd to acquire 174 similar M3 EMUs. LIRR’s M3 cars stretch 85-feet in length and are constructed of stainless steel. The cars operate on D. C. current from LIRR’s third-rail system and are powered by four 160-horsepower traction motors riding in General Steel GSI trucks. The versatile EMUs, built in two-car “married pairs,” operate at speeds up to 80 mph (129 km/h) on the LIRR. Dressed in yellow, gray, and silver, the LIRR M3 and M1 EMUs have become railroading classics and while the M1s were retired in 2007, the LIRR M3s soldier on and are expected to remain in serve for a number of years to come. And now you can experience the challenges of operating the memorable LIRR M3 EMUs on Train Sim World’s Long Island Rail Road route!',
+    description:
+      'Take the controls of a “Big Apple” railroading classic with the Long Island Rail Road M3 electric-multiple-unit (EMU) for Train Sim World! During the late 1960s and early 1970s in a major fleet renewal program, New York’s Long Island Rail Road, with funding from the Metropolitan Transportation Authority, purchased 770 M1 EMUs constructed by Budd and General Electric. Christened Metropolitans, the M1s immediately became the workhorses of LIRR electric operations. With its business expanding and its electrified trackage being extended, in 1984-1986, LIRR and MTA returned to Budd to acquire 174 similar M3 EMUs. LIRR’s M3 cars stretch 85-feet in length and are constructed of stainless steel. The cars operate on D. C. current from LIRR’s third-rail system and are powered by four 160-horsepower traction motors riding in General Steel GSI trucks. The versatile EMUs, built in two-car “married pairs,” operate at speeds up to 80 mph (129 km/h) on the LIRR. Dressed in yellow, gray, and silver, the LIRR M3 and M1 EMUs have become railroading classics and while the M1s were retired in 2007, the LIRR M3s soldier on and are expected to remain in serve for a number of years to come. And now you can experience the challenges of operating the memorable LIRR M3 EMUs on Train Sim World’s Long Island Rail Road route!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1255310/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Pillars of Eternity - The White March Part I',
     year: 2015,
-    description: 'is a large sprawling expansion pack with hours of gameplay integrated into the main adventure. Along with the new quests and area content, the team at Obsidian continues to support and make improvements to the entire game, including the additions of Player Party AI and Enhanced Enemy AI. Even if you haven\'t played Pillars of Eternity, now is a great time to jump in and experience the hardcore classic RPG with The White March - Part I.',
+    description:
+      "is a large sprawling expansion pack with hours of gameplay integrated into the main adventure. Along with the new quests and area content, the team at Obsidian continues to support and make improvements to the entire game, including the additions of Player Party AI and Enhanced Enemy AI. Even if you haven't played Pillars of Eternity, now is a great time to jump in and experience the hardcore classic RPG with The White March - Part I.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/373340/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'GeForce GTX 570',
     minimal_cpu: 'AMD Phenom II X3 B73',
     recommended_cpu: 'AMD Phenom II X6 1100T',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Train Sim World®: Main Spessart Bahn: Aschaffenburg - Gemünden Route Add-On',
     year: 2019,
-    description: 'A wondrous mix of steep gradients, scenic hillsides and swooping turns come to life in Train Sim World: Main Spessart Bahn, a timeless freight-heavy and passenger-laden corridor through the heart of the German countryside. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry freight and passengers over Main Spessart Bahn. Manage your powerful locomotives over the steep grade and deliver your cargo on-time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of German railways at their best. Take control of two modern icons of German motive power, the DB BR 185.2 locomotive and the DB BR 146.2 locomotive and experience push-pull operation in the DoppelStockwagen control car. Featuring authentic electric simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Main Spessart Bahn caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Main Spessart Bahn! Choose how you want to play in Train Sim World: Main Spessart Bahn. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Main Spessart Bahn.',
+    description:
+      "A wondrous mix of steep gradients, scenic hillsides and swooping turns come to life in Train Sim World: Main Spessart Bahn, a timeless freight-heavy and passenger-laden corridor through the heart of the German countryside. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry freight and passengers over Main Spessart Bahn. Manage your powerful locomotives over the steep grade and deliver your cargo on-time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of German railways at their best. Take control of two modern icons of German motive power, the DB BR 185.2 locomotive and the DB BR 146.2 locomotive and experience push-pull operation in the DoppelStockwagen control car. Featuring authentic electric simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Main Spessart Bahn caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Main Spessart Bahn! Choose how you want to play in Train Sim World: Main Spessart Bahn. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there's lots to see and experience in Train Sim World: Main Spessart Bahn.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/577351/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Rugby League Live 4',
     year: 2017,
-    description: 'Set Plays - A variety of tactics give you a choice of dynamic attacking options to outsmart the defense. Real Time On-The-Fly Interchange System. A deep career mode that spans multiple decades, take a player from junior ranks right up to the big leagues! FanHub Creation Suite - Create your own stadiums, logos, players and teams and share them online across all supported platforms. Over 100 teams, 300 NRL players with photorealistic likenesses, and up to date 2017 rosters and team jerseys. All new motion captured animations - including ankle taps, big hits and more! Logo Creator - Create any logo you wish and apply to player\'s, jersey and stadium. Stadium Creator - Create your own colosseum, boutique stadium or your very own local ground.',
+    description:
+      "Set Plays - A variety of tactics give you a choice of dynamic attacking options to outsmart the defense. Real Time On-The-Fly Interchange System. A deep career mode that spans multiple decades, take a player from junior ranks right up to the big leagues! FanHub Creation Suite - Create your own stadiums, logos, players and teams and share them online across all supported platforms. Over 100 teams, 300 NRL players with photorealistic likenesses, and up to date 2017 rosters and team jerseys. All new motion captured animations - including ankle taps, big hits and more! Logo Creator - Create any logo you wish and apply to player's, jersey and stadium. Stadium Creator - Create your own colosseum, boutique stadium or your very own local ground.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/556480/header.jpg',
     recommended_gpu: 'Radeon R9 390X',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X4 555',
     recommended_cpu: 'AMD Phenom II X4 970',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Catch & Release',
     year: 2018,
-    description: 'Step into your rowboat, grab the paddles and dive into a meditative, relaxing VR fishing experience like no other. Catch & Release places you on a beautiful mountain lake and lets you freely explore and row around while you choose your fishing spot and take in the scenery. The backdrop for your fishing adventures includes dense forest, mountains, cliffs and reed covered coastlines. While you fish you can listen to music on the radio, skip stones across the lake or use any other of the many interactive items. Choose the right bait, pick a good fishing ground and cast your rod to get the biggest fish on the hook! But once you do, it’s not over yet. You’ll have to tire out your catch and win the fight before you can reel it in! The game is designed to enable players to unwind and play however they want, or you can take on missions to unlock new gear and interactive items to help you catch the biggest fish! Catch & Release has been built from the ground up for VR and tracked controllers. We have also compiled several radio channels with their own music genres for your listening pleasure on the lake. works on Oculus Rift, HTC Vive and Microsoft Mixed Reality.',
+    description:
+      'Step into your rowboat, grab the paddles and dive into a meditative, relaxing VR fishing experience like no other. Catch & Release places you on a beautiful mountain lake and lets you freely explore and row around while you choose your fishing spot and take in the scenery. The backdrop for your fishing adventures includes dense forest, mountains, cliffs and reed covered coastlines. While you fish you can listen to music on the radio, skip stones across the lake or use any other of the many interactive items. Choose the right bait, pick a good fishing ground and cast your rod to get the biggest fish on the hook! But once you do, it’s not over yet. You’ll have to tire out your catch and win the fight before you can reel it in! The game is designed to enable players to unwind and play however they want, or you can take on missions to unlock new gear and interactive items to help you catch the biggest fish! Catch & Release has been built from the ground up for VR and tracked controllers. We have also compiled several radio channels with their own music genres for your listening pleasure on the lake. works on Oculus Rift, HTC Vive and Microsoft Mixed Reality.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/679750/header.jpg',
     minimal_gpu: 'Radeon RX 480',
     recommended_gpu: 'Radeon RX Vega 56',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Tales of Berseria™ - Adventure Items Super Pack',
     year: 2017,
-    description: 'Set of item for adventurer containing the following enhancement goods: - Skill Booster - Max Item Expansion - Double Experience - Double Gald - Double Grade - 50% Discount Price to Enhance Weapon - HP +1000 - HP +1000 (2) - Growth Enhancement Set (Green) - Growth Enhancement Set (Red) - Level +5 (1) - Level +5 (2) - Level +5 (3) - Level +5 (4) - Level +10 (1) - Level +10 (2)',
+    description:
+      'Set of item for adventurer containing the following enhancement goods: - Skill Booster - Max Item Expansion - Double Experience - Double Gald - Double Grade - 50% Discount Price to Enhance Weapon - HP +1000 - HP +1000 (2) - Growth Enhancement Set (Green) - Growth Enhancement Set (Red) - Level +5 (1) - Level +5 (2) - Level +5 (3) - Level +5 (4) - Level +10 (1) - Level +10 (2)',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/525430/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 7870',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Train Sim World: Caltrain MP15DC Diesel Switcher Loco Add-On',
     year: 2020,
-    description: 'Climb aboard for challenging switching, maintenance-of-way, and train rescue operations with the Train Sim World Caltrain Electro-Motive MP15DC diesel locomotive for the Peninsula Corridor: San Francisco – San Jose route! To handle a variety of special duties, commuter railroad Caltrain rosters a pair of versatile EMD MP15DC locomotives which originally served the Southern Pacific. The MP15DC is a multi-purpose locomotive build in the traditional “end cab” design of diesel switchers but equipped with trucks capable of mainline service. Constructed by Electro-Motive (EMD) from 1974 through 1980, the MP15DC is a four-axle (B-B), 1,500-horsepower (1119 kW) locomotive powered by an EMD 12-cylinder 645-series engine and employing a D.C. generator. A total of 351 MP15s were constructed. Dressed in Caltrain’s colorful livery, the TSW MP15DC is a superb re-creation of the distinctive locomotive and features exacting details, fully interactive and realistic controls, and true-to-life performance. And you’ll have the opportunity to put the Caltrain MP15DC through its paces in a variety of authentic duties ranging from switching and train make-up duties at the railroad’s San Jose shop facilities to handling heavy-tonnage work trains on the main line to coming to the rescue of failed commuter trains!',
+    description:
+      'Climb aboard for challenging switching, maintenance-of-way, and train rescue operations with the Train Sim World Caltrain Electro-Motive MP15DC diesel locomotive for the Peninsula Corridor: San Francisco – San Jose route! To handle a variety of special duties, commuter railroad Caltrain rosters a pair of versatile EMD MP15DC locomotives which originally served the Southern Pacific. The MP15DC is a multi-purpose locomotive build in the traditional “end cab” design of diesel switchers but equipped with trucks capable of mainline service. Constructed by Electro-Motive (EMD) from 1974 through 1980, the MP15DC is a four-axle (B-B), 1,500-horsepower (1119 kW) locomotive powered by an EMD 12-cylinder 645-series engine and employing a D.C. generator. A total of 351 MP15s were constructed. Dressed in Caltrain’s colorful livery, the TSW MP15DC is a superb re-creation of the distinctive locomotive and features exacting details, fully interactive and realistic controls, and true-to-life performance. And you’ll have the opportunity to put the Caltrain MP15DC through its paces in a variety of authentic duties ranging from switching and train make-up duties at the railroad’s San Jose shop facilities to handling heavy-tonnage work trains on the main line to coming to the rescue of failed commuter trains!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1113822/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: Main Spessart Bahn: Aschaffenburg - Gemünden Route Add-On',
     year: 2019,
-    description: 'A wondrous mix of steep gradients, scenic hillsides and swooping turns come to life in Train Sim World: Main Spessart Bahn, a timeless freight-heavy and passenger-laden corridor through the heart of the German countryside. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry freight and passengers over Main Spessart Bahn. Manage your powerful locomotives over the steep grade and deliver your cargo on-time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of German railways at their best. Take control of two modern icons of German motive power, the DB BR 185.2 locomotive and the DB BR 146.2 locomotive and experience push-pull operation in the DoppelStockwagen control car. Featuring authentic electric simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Main Spessart Bahn caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Main Spessart Bahn! Choose how you want to play in Train Sim World: Main Spessart Bahn. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Main Spessart Bahn.',
+    description:
+      "A wondrous mix of steep gradients, scenic hillsides and swooping turns come to life in Train Sim World: Main Spessart Bahn, a timeless freight-heavy and passenger-laden corridor through the heart of the German countryside. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach out and touch them. It’s your job to carry freight and passengers over Main Spessart Bahn. Manage your powerful locomotives over the steep grade and deliver your cargo on-time. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of German railways at their best. Take control of two modern icons of German motive power, the DB BR 185.2 locomotive and the DB BR 146.2 locomotive and experience push-pull operation in the DoppelStockwagen control car. Featuring authentic electric simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Main Spessart Bahn caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Main Spessart Bahn! Choose how you want to play in Train Sim World: Main Spessart Bahn. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there's lots to see and experience in Train Sim World: Main Spessart Bahn.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/577351/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Minit',
     year: 2018,
-    description: 'Minit is a peculiar little adventure played sixty seconds at a time. Journey outside the comfort of your home to help unusual folk, uncover countless secrets, and overcome dangerous foes, all in hopes of lifting a rather unfortunate curse that ends each day after just one minute. Minit is a collaboration between Kitty Calis, Jan Willem Nijman, Jukio Kallio & Dominik Johann.',
+    description:
+      'Minit is a peculiar little adventure played sixty seconds at a time. Journey outside the comfort of your home to help unusual folk, uncover countless secrets, and overcome dangerous foes, all in hopes of lifting a rather unfortunate curse that ends each day after just one minute. Minit is a collaboration between Kitty Calis, Jan Willem Nijman, Jukio Kallio & Dominik Johann.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/609490/header.jpg',
     recommended_gpu: 'GeForce 7600 GS',
     minimal_gpu: 'GeForce 7600 GS',
     recommended_cpu: 'AMD Athlon 64 4000+',
     minimal_cpu: 'AMD Athlon 64 4000+',
     recommended_ram_size: 1,
-    minimal_ram_size: 1
+    minimal_ram_size: 1,
   },
   {
     name: 'Miscreated - Canyonlands',
     year: 2019,
-    description: 'Miscreated: Canyonlands DLC is a completely brand new map for Miscreated, designed from the ground up to utilize a vastly different environment based on a fictional Navajo desert. Survive and explore in a post-apocalyptic open world with up to 50 players on a server. You must use your wits to overcome the mutant hordes, hostile animals, other desperate online players, and even the elements. Canyonlands offers a brand new biome based in a fictional Navajo desert. With an all new terrain to explore you will become lost in this intriguing wasteland paradise. From the open plains to massive canyons and deep caves - dive into an unforgettable and beautiful online experience. Canyonlands weather has been adjusted to suit the new desert biome including a brand-new sand storm weather pattern. The dynamic weather can be very unpredictable and force you to change your plans so be prepared. Gather any protective gear you can find. If you’re caught out in the wild seek refuge in a nearby building, bunker or cave to outlast the harrowing storms. Cover more ground with 2 brand new modes of transport, the small and nimble beetle-style car allows you to cut across the sand and weave between rocks and canyons. Very useful for making daring escapes or to travel off road to various locations spread across the new terrain. Intimidate your foes with the Police SUV variant, flash your lights and pull over some online players on your travels, this beefy police SUV is perfect for your law and order role playing fantasy. Featuring 2 new western style weapons, the classic modeled Peacekeeper revolver offers that western vibe to unload some lead into your foes. The Model 1873, a new lever action rifle, further extends the old wild west feeling. Go hunting for some meat and pelt, or pop a nicely placed headshot into your enemies. A new biome, a new ecosystem. Hunt down rams, donkeys, and hostile giant mutant scorpions. Collect food and crafting resources to cling onto the life you have left. Featuring an all new outfit. Dress like a desert scavenger and blend into the backdrop of the desert apocalypse. The outfit comes in 3 parts, the Scavenger shirt, pants and helmet - you’ll look totally badass!',
+    description:
+      'Miscreated: Canyonlands DLC is a completely brand new map for Miscreated, designed from the ground up to utilize a vastly different environment based on a fictional Navajo desert. Survive and explore in a post-apocalyptic open world with up to 50 players on a server. You must use your wits to overcome the mutant hordes, hostile animals, other desperate online players, and even the elements. Canyonlands offers a brand new biome based in a fictional Navajo desert. With an all new terrain to explore you will become lost in this intriguing wasteland paradise. From the open plains to massive canyons and deep caves - dive into an unforgettable and beautiful online experience. Canyonlands weather has been adjusted to suit the new desert biome including a brand-new sand storm weather pattern. The dynamic weather can be very unpredictable and force you to change your plans so be prepared. Gather any protective gear you can find. If you’re caught out in the wild seek refuge in a nearby building, bunker or cave to outlast the harrowing storms. Cover more ground with 2 brand new modes of transport, the small and nimble beetle-style car allows you to cut across the sand and weave between rocks and canyons. Very useful for making daring escapes or to travel off road to various locations spread across the new terrain. Intimidate your foes with the Police SUV variant, flash your lights and pull over some online players on your travels, this beefy police SUV is perfect for your law and order role playing fantasy. Featuring 2 new western style weapons, the classic modeled Peacekeeper revolver offers that western vibe to unload some lead into your foes. The Model 1873, a new lever action rifle, further extends the old wild west feeling. Go hunting for some meat and pelt, or pop a nicely placed headshot into your enemies. A new biome, a new ecosystem. Hunt down rams, donkeys, and hostile giant mutant scorpions. Collect food and crafting resources to cling onto the life you have left. Featuring an all new outfit. Dress like a desert scavenger and blend into the backdrop of the desert apocalypse. The outfit comes in 3 parts, the Scavenger shirt, pants and helmet - you’ll look totally badass!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1192820/header.jpg',
     minimal_gpu: 'GeForce GTX 780',
     recommended_gpu: 'GeForce GTX 970',
     minimal_cpu: 'AMD Ryzen 3 1300X',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     recommended_ram_size: 12,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'ONE PIECE: PIRATE WARRIORS 4 Whole Cake Island Pack',
     year: 2020,
-    description: 'Get three new playable characters in this Character Pack! Jump into the fray and enjoy all-new ONE PIECE: PIRATE WARRIORS action with three characters from the Whole Cake Island Arc! Additional Playable Characters: - Charlotte Smoothie - Charlotte Cracker - Vinsmoke Judge',
+    description:
+      'Get three new playable characters in this Character Pack! Jump into the fray and enjoy all-new ONE PIECE: PIRATE WARRIORS action with three characters from the Whole Cake Island Arc! Additional Playable Characters: - Charlotte Smoothie - Charlotte Cracker - Vinsmoke Judge',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1130840/header.jpg',
     minimal_gpu: 'Radeon HD 7870',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Ryzen 3 1300X',
     recommended_cpu: 'AMD Ryzen 5 1400',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Tales of Berseria™ - High School Costumes Set',
     year: 2017,
-    description: 'It\'s summertime in Berseria, so make sure all characters look the part with this 6-costume set! Get 1 costume in 3 colors for each main character: Velvet, Rokurou, Laphicet, Eizen, Magilou and Eleanor! Includes:',
+    description:
+      "It's summertime in Berseria, so make sure all characters look the part with this 6-costume set! Get 1 costume in 3 colors for each main character: Velvet, Rokurou, Laphicet, Eizen, Magilou and Eleanor! Includes:",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/528052/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 7870',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Assassin’s Creed®IV Black Flag™ - Illustrious Pirates Pack',
     year: 2014,
-    description: 'Explore new locations and discover the secrets of the Black island, Mystery Island and Sacrifice Island to find hidden treasure chest to get access to new outfits and weapons for Edward, and figureheads and sails for you ship, the Jackdaw. Stand out in multiplayer with new and exclusive costume sets, pictures, titles, relics and emblems!',
+    description:
+      'Explore new locations and discover the secrets of the Black island, Mystery Island and Sacrifice Island to find hidden treasure chest to get access to new outfits and weapons for Edward, and figureheads and sails for you ship, the Jackdaw. Stand out in multiplayer with new and exclusive costume sets, pictures, titles, relics and emblems!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/264804/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
-    name: 'Miscreated - Iron Sons\' Cache',
+    name: "Miscreated - Iron Sons' Cache",
     year: 2018,
-    description: 'Entrada Interactive and the entire Miscreated team thanks you for your continued support of Miscreated! The Iron Sons\' Cache will provide you with the following extra content: Display your Iron Sons\' pride by using any of the over 50 included exclusive weapon skins in Miscreated! To apply any of the exclusive skins to your weapon, just visit any Amalgamated kiosk in the game and they will be displayed in the Skins tab, then right-click on the weapon in your player\'s inventory you want a skin applied to. Enhance the look of your computer by using one of the 10 exclusive Miscreated wallpapers. The wallpapers are all captured at a 4K resolution, so they will look extra sharp!\nView 30 pieces of concept art and inspiration boards that were used in the development of Miscreated. As an added bonus, the Iron Sons\' logo is also included in PSD format, so you can use it to express your distaste for, and rise up against, the Amalgamated corporation.\nThe Miscreated main menu theme music is included in MP3 format. The musical score was composed and performed by Anthony Casalena. Both the 1 minute short version and the full 10 minute looping versions are included.\n8K resolution maps of both the islands and canyonlands levels. Print them out and post them on your wall!',
+    description:
+      "Entrada Interactive and the entire Miscreated team thanks you for your continued support of Miscreated! The Iron Sons' Cache will provide you with the following extra content: Display your Iron Sons' pride by using any of the over 50 included exclusive weapon skins in Miscreated! To apply any of the exclusive skins to your weapon, just visit any Amalgamated kiosk in the game and they will be displayed in the Skins tab, then right-click on the weapon in your player's inventory you want a skin applied to. Enhance the look of your computer by using one of the 10 exclusive Miscreated wallpapers. The wallpapers are all captured at a 4K resolution, so they will look extra sharp!\nView 30 pieces of concept art and inspiration boards that were used in the development of Miscreated. As an added bonus, the Iron Sons' logo is also included in PSD format, so you can use it to express your distaste for, and rise up against, the Amalgamated corporation.\nThe Miscreated main menu theme music is included in MP3 format. The musical score was composed and performed by Anthony Casalena. Both the 1 minute short version and the full 10 minute looping versions are included.\n8K resolution maps of both the islands and canyonlands levels. Print them out and post them on your wall!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/995380/header.jpg',
     minimal_gpu: 'GeForce GTX 780',
     recommended_gpu: 'GeForce GTX 970',
     minimal_cpu: 'AMD Ryzen 3 1300X',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     recommended_ram_size: 12,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'The Wanderer: Frankenstein’s Creature',
     year: 2019,
-    description: 'Play as the Creature, a wanderer without memory or past, a virgin spirit in a completely fabricated body. To forge the destiny of this artificial being who is ignorant of both Good and Evil, you will have to explore the vast world and experience joy and sorrow.\nDr. Frankenstein\'s founding myth is once again revealed in all its glory through the innocent eyes of his creature. A thousand miles from the horror stories, here is a sensitive wander in the shoes of a pop icon. Imbued with a dark romanticism, the game\'s universe draws its astonishing beauty from 19th century paintings. Through evolving landscapes, the boundary between reality and fiction fades and the novel comes to life. Powerful and original, the soundtrack highlights the Creature\'s feelings of wanderlust. One choice after another, feel your way towards your destiny. Confronted with humans, you will no longer be able to escape the question of your origins. Who gave you life? This introspective quest will take you on an adventure across Europe. Bitter or pleasant, your experiences will bring you closer to the truth. Will you be ready to face it? The Wanderer: Frankenstein\'s Creature is the new video game from La Belle Games, co-produced and published by ARTE, the cultural European TV and digital channel.',
+    description:
+      "Play as the Creature, a wanderer without memory or past, a virgin spirit in a completely fabricated body. To forge the destiny of this artificial being who is ignorant of both Good and Evil, you will have to explore the vast world and experience joy and sorrow.\nDr. Frankenstein's founding myth is once again revealed in all its glory through the innocent eyes of his creature. A thousand miles from the horror stories, here is a sensitive wander in the shoes of a pop icon. Imbued with a dark romanticism, the game's universe draws its astonishing beauty from 19th century paintings. Through evolving landscapes, the boundary between reality and fiction fades and the novel comes to life. Powerful and original, the soundtrack highlights the Creature's feelings of wanderlust. One choice after another, feel your way towards your destiny. Confronted with humans, you will no longer be able to escape the question of your origins. Who gave you life? This introspective quest will take you on an adventure across Europe. Bitter or pleasant, your experiences will bring you closer to the truth. Will you be ready to face it? The Wanderer: Frankenstein's Creature is the new video game from La Belle Games, co-produced and published by ARTE, the cultural European TV and digital channel.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/966670/header.jpg',
     recommended_gpu: 'GeForce GT 630',
     minimal_gpu: 'Radeon HD 6450',
     minimal_cpu: 'AMD Athlon II X2 245',
     recommended_cpu: 'Intel Core2 Duo E6700 @ 2.66GHz',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Mutant Year Zero: Road to Eden - Fan Edition Content',
     year: 2018,
-    description: 'Mutant Year Zero: Road to Eden is a tactical adventure game combining turn-based combat with real-time exploration, story, stealth, and strategy. Explore a post-human Earth where mankind has been eradicated by climate change, nuclear war, and pandemics. Will your team of mutants survive the Zone?\nJump between real-time exploration and a deep, tactical combat system at will.\nJourney through a world of abandoned cities and an overgrown countryside as you unravel the story of what happened to our earth.\nTalking animals and other mutants – these aren\'t your typical heroes!\nReal-time stealth allows you to sneak into enemy camps set up ambushes.\nShape your characters by giving them unique mutations such as Stoneskin, Moth Wings, Hog Rush or Corpse Eater.\nStay out of floodlights, hide from line of sight, or just blast down walls and create havoc!',
+    description:
+      "Mutant Year Zero: Road to Eden is a tactical adventure game combining turn-based combat with real-time exploration, story, stealth, and strategy. Explore a post-human Earth where mankind has been eradicated by climate change, nuclear war, and pandemics. Will your team of mutants survive the Zone?\nJump between real-time exploration and a deep, tactical combat system at will.\nJourney through a world of abandoned cities and an overgrown countryside as you unravel the story of what happened to our earth.\nTalking animals and other mutants – these aren't your typical heroes!\nReal-time stealth allows you to sneak into enemy camps set up ambushes.\nShape your characters by giving them unique mutations such as Stoneskin, Moth Wings, Hog Rush or Corpse Eater.\nStay out of floodlights, hide from line of sight, or just blast down walls and create havoc!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/887780/header.jpg',
     minimal_gpu: 'Radeon HD 7870',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Phenom II X4 965',
     recommended_cpu: 'AMD Ryzen 5 1600X',
     recommended_ram_size: 8,
-    minimal_ram_size: 6
+    minimal_ram_size: 6,
   },
   {
     name: 'Mutant Year Zero: Road to Eden - Fan Edition Content',
     year: 2018,
-    description: 'Mutant Year Zero: Road to Eden is a tactical adventure game combining turn-based combat with real-time exploration, story, stealth, and strategy. Explore a post-human Earth where mankind has been eradicated by climate change, nuclear war, and pandemics. Will your team of mutants survive the Zone?\nJump between real-time exploration and a deep, tactical combat system at will.\nJourney through a world of abandoned cities and an overgrown countryside as you unravel the story of what happened to our earth.\nTalking animals and other mutants – these aren\'t your typical heroes!\nReal-time stealth allows you to sneak into enemy camps set up ambushes.\nShape your characters by giving them unique mutations such as Stoneskin, Moth Wings, Hog Rush or Corpse Eater.\nStay out of floodlights, hide from line of sight, or just blast down walls and create havoc!',
+    description:
+      "Mutant Year Zero: Road to Eden is a tactical adventure game combining turn-based combat with real-time exploration, story, stealth, and strategy. Explore a post-human Earth where mankind has been eradicated by climate change, nuclear war, and pandemics. Will your team of mutants survive the Zone?\nJump between real-time exploration and a deep, tactical combat system at will.\nJourney through a world of abandoned cities and an overgrown countryside as you unravel the story of what happened to our earth.\nTalking animals and other mutants – these aren't your typical heroes!\nReal-time stealth allows you to sneak into enemy camps set up ambushes.\nShape your characters by giving them unique mutations such as Stoneskin, Moth Wings, Hog Rush or Corpse Eater.\nStay out of floodlights, hide from line of sight, or just blast down walls and create havoc!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/887780/header.jpg',
     minimal_gpu: 'Radeon HD 7870',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Phenom II X4 965',
     recommended_cpu: 'AMD Ryzen 5 1600X',
     recommended_ram_size: 8,
-    minimal_ram_size: 6
+    minimal_ram_size: 6,
   },
   {
     name: 'Steel Division 2 - Pre-order Pack',
     year: 2019,
-    description: 'Unlock two Exclusive Divisions, one per side, build the perfect Battlegroups and lead Exclusive Units on the Battlefield! Field iconic World War 2 Aces on the battlefield, learn about their incredible story and lead them to victory! Exclusively available for pre-order, these cosmetic models are: The Pre-Order Pack also contains exclusive camos to customize your favorite units on the battlefield, and fantastic wallpapers specially made for your desktop!',
+    description:
+      'Unlock two Exclusive Divisions, one per side, build the perfect Battlegroups and lead Exclusive Units on the Battlefield! Field iconic World War 2 Aces on the battlefield, learn about their incredible story and lead them to victory! Exclusively available for pre-order, these cosmetic models are: The Pre-Order Pack also contains exclusive camos to customize your favorite units on the battlefield, and fantastic wallpapers specially made for your desktop!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/988172/header.jpg',
     minimal_gpu: 'GeForce GT 1030',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Athlon 200GE',
     recommended_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tales of Berseria™ - Maid/Butler Costumes Set',
     year: 2017,
-    description: 'Maid costumes for Velvet, Magilou, and Eleanor & servant costumes for Rokurou, Laphicet, and Eizen! Includes:',
+    description:
+      'Maid costumes for Velvet, Magilou, and Eleanor & servant costumes for Rokurou, Laphicet, and Eizen! Includes:',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/528053/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 7870',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Blasphemous - Digital Comic',
     year: 2019,
-    description: 'Take a journey back with us, to before the beginning of Blasphemous. Unravel the secrets and lore from within the game, answer the questions that have been building up with this story.',
+    description:
+      'Take a journey back with us, to before the beginning of Blasphemous. Unravel the secrets and lore from within the game, answer the questions that have been building up with this story.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1143851/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 5770',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 945',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Arboria',
     year: 2020,
-    description: 'Arboria is a 3D rogue-lite, third-person action RPG. As a warrior, a Yotun, explore procedurally generated dungeons, use a variety of tools to overcome challenges, obliterate enemies using Symbiotic Weapons and mutate to become stronger. Become the Chosen One who will save the Yotunz Tribe from extinction. Leave the safety of your Refuge to venture through The Hole into the vast and ever-changing land of Durnar. The underground world is full of dangers, mysteries and the only way leads down… Heal The Father Tree and restore the power of your tribe. You will fight enemies in real-time dynamic combat that will challenge your skills. Dash, roll, attack. Adjust your combat tactics when facing various opponents and choose your symbiont weapons wisely—they will affect your combat style. For an additional advantage, make the best use of organic mutations. If you fail in combat, your character dies permanently and you have to start the next run from the beginning. The you collect serves two purposes—it’s an offering for the Godz and your key to growth. Warriors do not live long, but their successors will pick the fruits of their efforts, affecting the next generation’s stats and abilities.',
+    description:
+      'Arboria is a 3D rogue-lite, third-person action RPG. As a warrior, a Yotun, explore procedurally generated dungeons, use a variety of tools to overcome challenges, obliterate enemies using Symbiotic Weapons and mutate to become stronger. Become the Chosen One who will save the Yotunz Tribe from extinction. Leave the safety of your Refuge to venture through The Hole into the vast and ever-changing land of Durnar. The underground world is full of dangers, mysteries and the only way leads down… Heal The Father Tree and restore the power of your tribe. You will fight enemies in real-time dynamic combat that will challenge your skills. Dash, roll, attack. Adjust your combat tactics when facing various opponents and choose your symbiont weapons wisely—they will affect your combat style. For an additional advantage, make the best use of organic mutations. If you fail in combat, your character dies permanently and you have to start the next run from the beginning. The you collect serves two purposes—it’s an offering for the Godz and your key to growth. Warriors do not live long, but their successors will pick the fruits of their efforts, affecting the next generation’s stats and abilities.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/924070/header.jpg',
     minimal_gpu: 'Radeon R9 280',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Phenom II X4 955',
     recommended_cpu: 'AMD Ryzen 5 1600',
     recommended_ram_size: 16,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'TerraTech - Charity Pack',
     year: 2020,
-    description: 'The world is facing an unprecedented challenge with communities and economies everywhere affected by the growing COVID-19 pandemic, and we wanted to help provide support on a global level. As such, we have decided to offer this DLC pack containing cosmetic skins which were originally exclusive to high-tier Kickstarter backers, in support of COVID-19 disaster relief. , coordinated by the World Health Organization (WHO). This money will help patients get the care they need, help ship essential supplies to frontline workers, and accelerate efforts to develop vaccines, tests and treatments. This DLC pack contains 5 unique GSO skins that work across all game modes, and include:',
+    description:
+      'The world is facing an unprecedented challenge with communities and economies everywhere affected by the growing COVID-19 pandemic, and we wanted to help provide support on a global level. As such, we have decided to offer this DLC pack containing cosmetic skins which were originally exclusive to high-tier Kickstarter backers, in support of COVID-19 disaster relief. , coordinated by the World Health Organization (WHO). This money will help patients get the care they need, help ship essential supplies to frontline workers, and accelerate efforts to develop vaccines, tests and treatments. This DLC pack contains 5 unique GSO skins that work across all game modes, and include:',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1289390/header.jpg',
     recommended_gpu: 'Radeon HD 5670',
     minimal_gpu: 'Intel HD 4000',
     minimal_cpu: 'Intel Core2 Duo T7600 @ 2.33GHz',
     recommended_cpu: 'AMD Phenom II X4 945',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tales of Berseria™ - Pirate Costumes Set',
@@ -1317,644 +1424,697 @@ const games = [
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Blind',
     year: 2018,
-    description: 'Blind is a narrative-driven psychological thriller for virtual reality where the player is blind and must explore their surroundings using echolocation. Waking up in a strange room with little memory of how she came to be there, a young woman makes the shocking discovery she has lost her sense of sight. Goaded by the sinister and twisted Warden, she must explore a perverse and frightening mansion using sound alone. By sending out soundwaves with a cane, the outlines of objects are briefly revealed, enabling the player to navigate the mansion, solve puzzles and uncover the mystery of what is happening to her. As she gets closer and closer to the truth, however, she will be forced to confront her worst enemy--that which she does not, or will not see. Born out of the Global Game Jam in 2014, which had the theme of “We don’t see things as they are, we see them as we are”, the Blind team won the Best Game award at the Turin (Italy) jam site with their entry Come to See My House. The team then began work on a full game based on this initial concept. Built from the ground up for virtual reality, Blind will be launching September 18, 2018. Learn to navigate carefully and cautiously using your cane. Send out soundwaves to reveal your surroundings briefly before they fade into darkness. Gramophones and other objects that make sound become lighthouses in the all-encompassing blackness. Built from the ground up for virtual reality and supporting binaural audio and motion control, Blind is a fully immersive and unique experience that removes you from the world you are used to, and asks you to see things differently. Where are you? Who is the Warden? Why has he kidnapped you and why does he want you to solve the puzzles in this strange and yet somehow eerily familiar place? Experience a constant sense of foreboding and emotional tension as you travel deeper into a mansion riddled with puzzles and dangers. As you search for answers, will you find things you’d rather not see?',
+    description:
+      'Blind is a narrative-driven psychological thriller for virtual reality where the player is blind and must explore their surroundings using echolocation. Waking up in a strange room with little memory of how she came to be there, a young woman makes the shocking discovery she has lost her sense of sight. Goaded by the sinister and twisted Warden, she must explore a perverse and frightening mansion using sound alone. By sending out soundwaves with a cane, the outlines of objects are briefly revealed, enabling the player to navigate the mansion, solve puzzles and uncover the mystery of what is happening to her. As she gets closer and closer to the truth, however, she will be forced to confront her worst enemy--that which she does not, or will not see. Born out of the Global Game Jam in 2014, which had the theme of “We don’t see things as they are, we see them as we are”, the Blind team won the Best Game award at the Turin (Italy) jam site with their entry Come to See My House. The team then began work on a full game based on this initial concept. Built from the ground up for virtual reality, Blind will be launching September 18, 2018. Learn to navigate carefully and cautiously using your cane. Send out soundwaves to reveal your surroundings briefly before they fade into darkness. Gramophones and other objects that make sound become lighthouses in the all-encompassing blackness. Built from the ground up for virtual reality and supporting binaural audio and motion control, Blind is a fully immersive and unique experience that removes you from the world you are used to, and asks you to see things differently. Where are you? Who is the Warden? Why has he kidnapped you and why does he want you to solve the puzzles in this strange and yet somehow eerily familiar place? Experience a constant sense of foreboding and emotional tension as you travel deeper into a mansion riddled with puzzles and dangers. As you search for answers, will you find things you’d rather not see?',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/406860/header.jpg',
     minimal_gpu: 'Radeon RX 470',
     recommended_gpu: 'Radeon RX 480',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     minimal_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: BR Heavy Freight Pack Loco Add-On',
     year: 2019,
-    description: 'The BR Heavy Freight Pack brings together two icons of British Motive Power, the Class 40, one of the first mass produced diesel-electric locomotive classes for British Railways, and the BR Class 08, perhaps one of the most common sights on the British railway network. This bumper double-loco pack brings iconic and historic heavy freight operations to the Northern Trans-Pennine route. Experience a bygone era of freight haulage as you move thousands of tons of fuel and goods over the challenging Trans-Pennine grades. A total of 200 ‘Whistlers’ (so called because of their distinctive turbo whistle sound) were built by English Electric over a four-year period from 1958 and were – for a time – considered to be the pride of British Rail’s early diesel fleet. Despite the mixed success of the initial 10 Class 40 prototypes, BR ordered a further 190 locomotives. Such were the changes in working practices during the build period of the ‘Whistlers’, batches were delivered with significant design differences. The Class 08 was the ‘go to’ locomotive for general purpose duties, with almost any shunting required in yards and at stations carried out by a ‘Gronk’. Over a ten-year period from 1952, almost 1,000 models were built at British Railways’ Derby, Crewe, Darlington, Doncaster and Horwich Works, making it the most numerous of all BR classes.',
+    description:
+      'The BR Heavy Freight Pack brings together two icons of British Motive Power, the Class 40, one of the first mass produced diesel-electric locomotive classes for British Railways, and the BR Class 08, perhaps one of the most common sights on the British railway network. This bumper double-loco pack brings iconic and historic heavy freight operations to the Northern Trans-Pennine route. Experience a bygone era of freight haulage as you move thousands of tons of fuel and goods over the challenging Trans-Pennine grades. A total of 200 ‘Whistlers’ (so called because of their distinctive turbo whistle sound) were built by English Electric over a four-year period from 1958 and were – for a time – considered to be the pride of British Rail’s early diesel fleet. Despite the mixed success of the initial 10 Class 40 prototypes, BR ordered a further 190 locomotives. Such were the changes in working practices during the build period of the ‘Whistlers’, batches were delivered with significant design differences. The Class 08 was the ‘go to’ locomotive for general purpose duties, with almost any shunting required in yards and at stations carried out by a ‘Gronk’. Over a ten-year period from 1952, almost 1,000 models were built at British Railways’ Derby, Crewe, Darlington, Doncaster and Horwich Works, making it the most numerous of all BR classes.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010133/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Friday the 13th: The Game - Spring Break 1984 Clothing Pack',
     year: 2017,
-    description: 'It’s Spring Break at Camp Crystal Lake, and the counselors have decided to break out their trunks and bikinis! That’s right campers, introducing the Spring Break 1984 swimsuit clothing pack. Each counselor will receive one new swimsuit with various color options to be used on every map! Be sure to check out Chad in that speedo, or Tiffany sporting her newest bikini! Swim the lake as Buggzy, lounge around as Deborah or hang out by the campfire while you play as LaChappa! You\'ll be sporting the newest styles at Camp Crystal Lake. They\'re worth dying for!',
+    description:
+      "It’s Spring Break at Camp Crystal Lake, and the counselors have decided to break out their trunks and bikinis! That’s right campers, introducing the Spring Break 1984 swimsuit clothing pack. Each counselor will receive one new swimsuit with various color options to be used on every map! Be sure to check out Chad in that speedo, or Tiffany sporting her newest bikini! Swim the lake as Buggzy, lounge around as Deborah or hang out by the campfire while you play as LaChappa! You'll be sporting the newest styles at Camp Crystal Lake. They're worth dying for!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/702660/header.jpg',
     minimal_gpu: 'Radeon HD 7770',
     recommended_gpu: 'Radeon R9 270X',
     minimal_cpu: 'AMD Athlon II X2 270',
     recommended_cpu: 'AMD Athlon X4 860K',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Legendary Knight - 傳奇騎士',
     year: 2020,
-    description: 'The enemy is invading our territory, and the king leads his men to resist. The king takes on the responsibility of defending his homeland. Vowing to expel tons of enemy forces away from our country, and guard the sacred statues that symbolize our ruling power. During the preparation time, the king can Passing all waves is your only way to win. "Village" has 25 rounds and "Fortress" has 40 rounds. If the statue is destroyed or the king dies, you will be defeated immediately. Good Luck!',
+    description:
+      'The enemy is invading our territory, and the king leads his men to resist. The king takes on the responsibility of defending his homeland. Vowing to expel tons of enemy forces away from our country, and guard the sacred statues that symbolize our ruling power. During the preparation time, the king can Passing all waves is your only way to win. "Village" has 25 rounds and "Fortress" has 40 rounds. If the statue is destroyed or the king dies, you will be defeated immediately. Good Luck!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1240240/header.jpg',
     recommended_gpu: 'ION',
     minimal_gpu: 'ION',
     recommended_cpu: 'Intel Pentium G2020 @ 2.90GHz',
     minimal_cpu: 'Intel Pentium G2020 @ 2.90GHz',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Rugby League Live 4',
     year: 2017,
-    description: 'Set Plays - A variety of tactics give you a choice of dynamic attacking options to outsmart the defense. Real Time On-The-Fly Interchange System. A deep career mode that spans multiple decades, take a player from junior ranks right up to the big leagues! FanHub Creation Suite - Create your own stadiums, logos, players and teams and share them online across all supported platforms. Over 100 teams, 300 NRL players with photorealistic likenesses, and up to date 2017 rosters and team jerseys. All new motion captured animations - including ankle taps, big hits and more! Logo Creator - Create any logo you wish and apply to player\'s, jersey and stadium. Stadium Creator - Create your own colosseum, boutique stadium or your very own local ground.',
+    description:
+      "Set Plays - A variety of tactics give you a choice of dynamic attacking options to outsmart the defense. Real Time On-The-Fly Interchange System. A deep career mode that spans multiple decades, take a player from junior ranks right up to the big leagues! FanHub Creation Suite - Create your own stadiums, logos, players and teams and share them online across all supported platforms. Over 100 teams, 300 NRL players with photorealistic likenesses, and up to date 2017 rosters and team jerseys. All new motion captured animations - including ankle taps, big hits and more! Logo Creator - Create any logo you wish and apply to player's, jersey and stadium. Stadium Creator - Create your own colosseum, boutique stadium or your very own local ground.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/556480/header.jpg',
     recommended_gpu: 'Radeon R9 390X',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X4 555',
     recommended_cpu: 'AMD Phenom II X4 970',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'ZOMBI',
     year: 2015,
-    description: 'You’re still breathing, for now, but how long will you survive the labyrinth of London’s streets and underground canals, abandoned by the outside world and surrounded by infected? The horrifying remains of humanity, ravaged by the terrifying disease, are shuffling through the streets, waiting at every turn to prey on your living flesh. The nail-biting survival experience of ZombiU™ has been upgraded for download on next-gen consoles and PC. ZOMBI takes the power of the latest generation of hardware to bring you a new level of horror. Test your will to survive, but beware: death is permanent, and one wrong move can cause you to lose everything. Resources are scarce, your enemies are numerous, and you never know when you’ll find more weapons, ammunition, first aid, or food. How you allocate your resources determines if you live or die. Survival is not guaranteed. Once you die, your character becomes infected and joins the horde of undead shambling through London. You’ll come back as an entirely new character and try to survive, again, with your first mission being to retrieve your previous character’s supplies. Your bug-out bag holds all your possessions, tools, inventory, first aid kits, maps, and more. Don’t get distracted, as zombies can attack you at any moment. If you die, your bag stays with your old character, who is now a zombie. Will you risk it all to get your bag back, or start scavenging anew? Survive in a city steeped in grisly history, royal secrets, and bloody tales. Navigate through the medieval Tower of London, stately Buckingham Palace, and modern streets swarming with mobs of the undead. Combining the horror of ZombiU with refined gameplay and upgraded graphics, ZOMBI brings the survivalist first-person shooter to next-gen consoles and PC. Adapted to a single screen experience, the active pause system still makes you vulnerable while scanning your environment, completing mini-games or searching your inventory & equipment.',
+    description:
+      'You’re still breathing, for now, but how long will you survive the labyrinth of London’s streets and underground canals, abandoned by the outside world and surrounded by infected? The horrifying remains of humanity, ravaged by the terrifying disease, are shuffling through the streets, waiting at every turn to prey on your living flesh. The nail-biting survival experience of ZombiU™ has been upgraded for download on next-gen consoles and PC. ZOMBI takes the power of the latest generation of hardware to bring you a new level of horror. Test your will to survive, but beware: death is permanent, and one wrong move can cause you to lose everything. Resources are scarce, your enemies are numerous, and you never know when you’ll find more weapons, ammunition, first aid, or food. How you allocate your resources determines if you live or die. Survival is not guaranteed. Once you die, your character becomes infected and joins the horde of undead shambling through London. You’ll come back as an entirely new character and try to survive, again, with your first mission being to retrieve your previous character’s supplies. Your bug-out bag holds all your possessions, tools, inventory, first aid kits, maps, and more. Don’t get distracted, as zombies can attack you at any moment. If you die, your bag stays with your old character, who is now a zombie. Will you risk it all to get your bag back, or start scavenging anew? Survive in a city steeped in grisly history, royal secrets, and bloody tales. Navigate through the medieval Tower of London, stately Buckingham Palace, and modern streets swarming with mobs of the undead. Combining the horror of ZombiU with refined gameplay and upgraded graphics, ZOMBI brings the survivalist first-person shooter to next-gen consoles and PC. Adapted to a single screen experience, the active pause system still makes you vulnerable while scanning your environment, completing mini-games or searching your inventory & equipment.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/339230/header.jpg',
     minimal_gpu: 'GeForce GTS 450',
     recommended_gpu: 'GeForce GTX 660',
     minimal_cpu: 'AMD Athlon II X2 240',
     recommended_cpu: 'AMD Phenom II X4 955',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Train Sim World®: BR Class 31 Loco Add-On',
     year: 2019,
-    description: 'The 1950s were in full swing, and British Railways were kicking off the start of the radical modernisation plan, which would see steam locomotives retired in favour of brand new, diesel-powered traction. Brush Traction developed the Type 2, which was designed to fill the 1000-1499 horsepower role, making them suitable on lower-priority passenger and freight trains. The first Type 2s entered service in the Eastern Region, however they soon found use across the country as the fleet grew in size, and with the introduction of TOPS, they were classified as the BR Class 31. Multiple subclasses of the Class 31s were produced, particularly as technology progressed over time, however the standard locomotive was the 31/1, which featured steam heating boilers, a headcode display atop each cab, and multiple-working compatibility with many other diesel locomotives. The 31/1s were used on secondary passenger duties and lighter freight traffic – they would often be used in pairs for freight as their low power rating would make them prone to slipping. The fleet of 263 locomotives were based across 12 depots throughout England, including in Thornaby Depot, where the 31s would take charge of trains across the Tees Valley Line. After having a career spanning decades, and a successful life in preservation, it’s time to turn back the clock and experience the iconic BR Class 31 in its heyday in Train Sim World!',
+    description:
+      'The 1950s were in full swing, and British Railways were kicking off the start of the radical modernisation plan, which would see steam locomotives retired in favour of brand new, diesel-powered traction. Brush Traction developed the Type 2, which was designed to fill the 1000-1499 horsepower role, making them suitable on lower-priority passenger and freight trains. The first Type 2s entered service in the Eastern Region, however they soon found use across the country as the fleet grew in size, and with the introduction of TOPS, they were classified as the BR Class 31. Multiple subclasses of the Class 31s were produced, particularly as technology progressed over time, however the standard locomotive was the 31/1, which featured steam heating boilers, a headcode display atop each cab, and multiple-working compatibility with many other diesel locomotives. The 31/1s were used on secondary passenger duties and lighter freight traffic – they would often be used in pairs for freight as their low power rating would make them prone to slipping. The fleet of 263 locomotives were based across 12 depots throughout England, including in Thornaby Depot, where the 31s would take charge of trains across the Tees Valley Line. After having a career spanning decades, and a successful life in preservation, it’s time to turn back the clock and experience the iconic BR Class 31 in its heyday in Train Sim World!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010138/header.jpg',
     recommended_gpu: 'Radeon R9 270',
     minimal_gpu: 'Radeon R9 270',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'STRIDER™ / ストライダー飛竜®',
     year: 2014,
-    description: 'Strider returns in a brand new adventure, complete with incredible side-scrolling action, and lightning fast combat all in a massive interconnected world! Download the full game February 19th and become the original assassin!',
+    description:
+      'Strider returns in a brand new adventure, complete with incredible side-scrolling action, and lightning fast combat all in a massive interconnected world! Download the full game February 19th and become the original assassin!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/235210/header.jpg',
     recommended_gpu: 'Radeon HD 5770',
     minimal_gpu: 'Radeon HD 5770',
     recommended_cpu: 'AMD Phenom II X3 720',
     minimal_cpu: 'AMD Phenom II X3 720',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Friday the 13th: The Game - Jason Part 7 Machete Kill Pack',
     year: 2017,
-    description: 'Experience three all new grab kills for Part 7 Jason Voorhees with his Machete. Three new kills include the \'Mother\'s Favorite,\' \'Candy Dispenser,\' and \'Fish Gut!\' These kills are exclusive to Part 7 Jason. After installation you can select kills from the customization screen for Jason Part 7 either in your customization sub-menu or in-lobby. Assign each kill with the click of a button!',
+    description:
+      "Experience three all new grab kills for Part 7 Jason Voorhees with his Machete. Three new kills include the 'Mother's Favorite,' 'Candy Dispenser,' and 'Fish Gut!' These kills are exclusive to Part 7 Jason. After installation you can select kills from the customization screen for Jason Part 7 either in your customization sub-menu or in-lobby. Assign each kill with the click of a button!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/739581/header.jpg',
     minimal_gpu: 'Radeon HD 7770',
     recommended_gpu: 'Radeon R9 270X',
     minimal_cpu: 'AMD Athlon II X2 270',
     recommended_cpu: 'AMD Athlon X4 860K',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tales of Berseria™ - Maid/Butler Costumes Set',
     year: 2017,
-    description: 'Maid costumes for Velvet, Magilou, and Eleanor & servant costumes for Rokurou, Laphicet, and Eizen! Includes:',
+    description:
+      'Maid costumes for Velvet, Magilou, and Eleanor & servant costumes for Rokurou, Laphicet, and Eizen! Includes:',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/528053/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 7870',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Ashes Cricket',
     year: 2017,
-    description: 'OUR GREATEST TEST Ashes Cricket is the officially licensed video game of cricket’s greatest rivalry. Bringing all the fast paced action, big hits and skill that you see in the greatest cricket competition on earth, in both a more realistic and authentic way than ever before, you’ll be able to bathe your team in glory in the men’s and women’s 2017/2018 Ashes tours. Courtesy of Big Ant’s unique photogrammetry technology, Ashes Cricket presents official photorealistic likenesses for all of the Australian and English men’s and women’s teams – it will make you feel like you’re right there at the live game. Star Test players have been fully motion-captured and you can choose your own batting or bowling style to make your game your own. Big Ant’s most detailed and refined cricket engine to date allows for true 360-degree batting. No two players will play the game the same way! Other features of the most in-depth and realistic cricket game to date include: • A deep career mode that offers the ability to play as a star or start as a junior and play club cricket until reaching international level. • Fully customise your play experience. Create players, teams and even umpires in the Cricket Academy and upload it on the online community. • All the officially licensed stadiums featured in the 2017/18 Ashes tour. • Want to create your own dream competition? Create your own stadiums and logos to enhance your playing experience. Make this your personal cricket game. • Online play - play with or against players in the most competitive online cricket game yet!',
+    description:
+      'OUR GREATEST TEST Ashes Cricket is the officially licensed video game of cricket’s greatest rivalry. Bringing all the fast paced action, big hits and skill that you see in the greatest cricket competition on earth, in both a more realistic and authentic way than ever before, you’ll be able to bathe your team in glory in the men’s and women’s 2017/2018 Ashes tours. Courtesy of Big Ant’s unique photogrammetry technology, Ashes Cricket presents official photorealistic likenesses for all of the Australian and English men’s and women’s teams – it will make you feel like you’re right there at the live game. Star Test players have been fully motion-captured and you can choose your own batting or bowling style to make your game your own. Big Ant’s most detailed and refined cricket engine to date allows for true 360-degree batting. No two players will play the game the same way! Other features of the most in-depth and realistic cricket game to date include: • A deep career mode that offers the ability to play as a star or start as a junior and play club cricket until reaching international level. • Fully customise your play experience. Create players, teams and even umpires in the Cricket Academy and upload it on the online community. • All the officially licensed stadiums featured in the 2017/18 Ashes tour. • Want to create your own dream competition? Create your own stadiums and logos to enhance your playing experience. Make this your personal cricket game. • Online play - play with or against players in the most competitive online cricket game yet!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/649640/header.jpg',
     recommended_gpu: 'Radeon R9 390X',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X4 555',
     recommended_cpu: 'AMD Phenom II X4 970',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Legendary Knight - 傳奇騎士',
     year: 2020,
-    description: 'The enemy is invading our territory, and the king leads his men to resist. The king takes on the responsibility of defending his homeland. Vowing to expel tons of enemy forces away from our country, and guard the sacred statues that symbolize our ruling power. During the preparation time, the king can Passing all waves is your only way to win. "Village" has 25 rounds and "Fortress" has 40 rounds. If the statue is destroyed or the king dies, you will be defeated immediately. Good Luck!',
+    description:
+      'The enemy is invading our territory, and the king leads his men to resist. The king takes on the responsibility of defending his homeland. Vowing to expel tons of enemy forces away from our country, and guard the sacred statues that symbolize our ruling power. During the preparation time, the king can Passing all waves is your only way to win. "Village" has 25 rounds and "Fortress" has 40 rounds. If the statue is destroyed or the king dies, you will be defeated immediately. Good Luck!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1240240/header.jpg',
     recommended_gpu: 'ION',
     minimal_gpu: 'ION',
     recommended_cpu: 'Intel Pentium G2020 @ 2.90GHz',
     minimal_cpu: 'Intel Pentium G2020 @ 2.90GHz',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Train Sim World®: BR Class 31 Loco Add-On',
     year: 2019,
-    description: 'The 1950s were in full swing, and British Railways were kicking off the start of the radical modernisation plan, which would see steam locomotives retired in favour of brand new, diesel-powered traction. Brush Traction developed the Type 2, which was designed to fill the 1000-1499 horsepower role, making them suitable on lower-priority passenger and freight trains. The first Type 2s entered service in the Eastern Region, however they soon found use across the country as the fleet grew in size, and with the introduction of TOPS, they were classified as the BR Class 31. Multiple subclasses of the Class 31s were produced, particularly as technology progressed over time, however the standard locomotive was the 31/1, which featured steam heating boilers, a headcode display atop each cab, and multiple-working compatibility with many other diesel locomotives. The 31/1s were used on secondary passenger duties and lighter freight traffic – they would often be used in pairs for freight as their low power rating would make them prone to slipping. The fleet of 263 locomotives were based across 12 depots throughout England, including in Thornaby Depot, where the 31s would take charge of trains across the Tees Valley Line. After having a career spanning decades, and a successful life in preservation, it’s time to turn back the clock and experience the iconic BR Class 31 in its heyday in Train Sim World!',
+    description:
+      'The 1950s were in full swing, and British Railways were kicking off the start of the radical modernisation plan, which would see steam locomotives retired in favour of brand new, diesel-powered traction. Brush Traction developed the Type 2, which was designed to fill the 1000-1499 horsepower role, making them suitable on lower-priority passenger and freight trains. The first Type 2s entered service in the Eastern Region, however they soon found use across the country as the fleet grew in size, and with the introduction of TOPS, they were classified as the BR Class 31. Multiple subclasses of the Class 31s were produced, particularly as technology progressed over time, however the standard locomotive was the 31/1, which featured steam heating boilers, a headcode display atop each cab, and multiple-working compatibility with many other diesel locomotives. The 31/1s were used on secondary passenger duties and lighter freight traffic – they would often be used in pairs for freight as their low power rating would make them prone to slipping. The fleet of 263 locomotives were based across 12 depots throughout England, including in Thornaby Depot, where the 31s would take charge of trains across the Tees Valley Line. After having a career spanning decades, and a successful life in preservation, it’s time to turn back the clock and experience the iconic BR Class 31 in its heyday in Train Sim World!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010138/header.jpg',
     recommended_gpu: 'Radeon R9 270',
     minimal_gpu: 'Radeon R9 270',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Friday the 13th: The Game - Jason Part 2 Pick Axe Kill Pack',
     year: 2018,
-    description: 'Experience three all new grab kills with Jason\'s Pick Axe. Three new kills include the \'Curb Stomp,\' \'Top Popper,\' and \'Leg Sweep!\' After installation you can select kills from the customization screen for Jason either in your customization sub-menu or in-lobby. Assign each kill with the click of a button!',
+    description:
+      "Experience three all new grab kills with Jason's Pick Axe. Three new kills include the 'Curb Stomp,' 'Top Popper,' and 'Leg Sweep!' After installation you can select kills from the customization screen for Jason either in your customization sub-menu or in-lobby. Assign each kill with the click of a button!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/857280/header.jpg',
     minimal_gpu: 'Radeon HD 7770',
     recommended_gpu: 'Radeon R9 270X',
     minimal_cpu: 'AMD Athlon II X2 270',
     recommended_cpu: 'AMD Athlon X4 860K',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tales of Berseria™ - Tales of Legacy Bundle',
     year: 2017,
-    description: 'Legendary characters from the "Tales of" series! Outfits for Velvet, Magilou, Eleanor, Rokurou, Laphicet, and Eizen! Includes:',
+    description:
+      'Legendary characters from the "Tales of" series! Outfits for Velvet, Magilou, Eleanor, Rokurou, Laphicet, and Eizen! Includes:',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/528056/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 7870',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: '303 Squadron: Battle of Britain',
     year: 2018,
-    description: '303 Squadron: Battle of Britain portrays the life of WWII heroes from an unique perspective. Joining the 303 Squadron you will fight with other pilots in realistic history-based battles, but also repair your planes in 1st Person Mechanic Mode. The open world of RAF Northolt Base allows you to experience the daily life’s struggles of War and discover countless additional side-missions. Thanks to the variety of available roles, you will be able to embrace the real life of Fighter Squadron and get to know the importance of each role- from the ground crew to the pilot. The gameplay is entirely based on historical events. All the characters, missions, even planes’ mechanics is precisely and realistically recreated in order to deliver the most exciting, unique and inimitable experience. Most importantly, 303 Squadron: Battle of Britain is a game, but also a tribute to all the heroes of 303, and other, Squadrons. No. 303 Fighter Squadron was formed in Britain in July 1940 comprised of polish and other nations pilots. It fought alongside other RAF units in the Battle of Britain. The 303 Squdadron was well-known for its bravado, fearless attitude, precision and professionalism. During the WWII, they were one of the most effective units of Royal Air Force. Now, you can learn about those heroes. And become one of them. :',
+    description:
+      '303 Squadron: Battle of Britain portrays the life of WWII heroes from an unique perspective. Joining the 303 Squadron you will fight with other pilots in realistic history-based battles, but also repair your planes in 1st Person Mechanic Mode. The open world of RAF Northolt Base allows you to experience the daily life’s struggles of War and discover countless additional side-missions. Thanks to the variety of available roles, you will be able to embrace the real life of Fighter Squadron and get to know the importance of each role- from the ground crew to the pilot. The gameplay is entirely based on historical events. All the characters, missions, even planes’ mechanics is precisely and realistically recreated in order to deliver the most exciting, unique and inimitable experience. Most importantly, 303 Squadron: Battle of Britain is a game, but also a tribute to all the heroes of 303, and other, Squadrons. No. 303 Fighter Squadron was formed in Britain in July 1940 comprised of polish and other nations pilots. It fought alongside other RAF units in the Battle of Britain. The 303 Squdadron was well-known for its bravado, fearless attitude, precision and professionalism. During the WWII, they were one of the most effective units of Royal Air Force. Now, you can learn about those heroes. And become one of them. :',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/675170/header.jpg',
     minimal_gpu: 'Radeon R9 270X',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Friday the 13th: The Game - Emote Party Pack 1',
     year: 2017,
-    description: 'Express yourself with dance, confidence or fear with our Emote Pack One. Each counselor at Camp Crystal Lake will now have access to 10 new emotes with a variety of feelings and expressions! Show off your best moves or resign yourself in fear as you meet your maker as Jason Voorhees comes to kill you. After installation you can select emotes from the various offerings in the counselor customization screen via the main menu or during character select in any lobby. Assign each emote with the click of a button! Works for all counselors, male and female!',
+    description:
+      'Express yourself with dance, confidence or fear with our Emote Pack One. Each counselor at Camp Crystal Lake will now have access to 10 new emotes with a variety of feelings and expressions! Show off your best moves or resign yourself in fear as you meet your maker as Jason Voorhees comes to kill you. After installation you can select emotes from the various offerings in the counselor customization screen via the main menu or during character select in any lobby. Assign each emote with the click of a button! Works for all counselors, male and female!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/719330/header.jpg',
     minimal_gpu: 'Radeon HD 7770',
     recommended_gpu: 'Radeon R9 270X',
     minimal_cpu: 'AMD Athlon II X2 270',
     recommended_cpu: 'AMD Athlon X4 860K',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Train Sim World®: BR Heavy Freight Pack Loco Add-On',
     year: 2019,
-    description: 'The BR Heavy Freight Pack brings together two icons of British Motive Power, the Class 40, one of the first mass produced diesel-electric locomotive classes for British Railways, and the BR Class 08, perhaps one of the most common sights on the British railway network. This bumper double-loco pack brings iconic and historic heavy freight operations to the Northern Trans-Pennine route. Experience a bygone era of freight haulage as you move thousands of tons of fuel and goods over the challenging Trans-Pennine grades. A total of 200 ‘Whistlers’ (so called because of their distinctive turbo whistle sound) were built by English Electric over a four-year period from 1958 and were – for a time – considered to be the pride of British Rail’s early diesel fleet. Despite the mixed success of the initial 10 Class 40 prototypes, BR ordered a further 190 locomotives. Such were the changes in working practices during the build period of the ‘Whistlers’, batches were delivered with significant design differences. The Class 08 was the ‘go to’ locomotive for general purpose duties, with almost any shunting required in yards and at stations carried out by a ‘Gronk’. Over a ten-year period from 1952, almost 1,000 models were built at British Railways’ Derby, Crewe, Darlington, Doncaster and Horwich Works, making it the most numerous of all BR classes.',
+    description:
+      'The BR Heavy Freight Pack brings together two icons of British Motive Power, the Class 40, one of the first mass produced diesel-electric locomotive classes for British Railways, and the BR Class 08, perhaps one of the most common sights on the British railway network. This bumper double-loco pack brings iconic and historic heavy freight operations to the Northern Trans-Pennine route. Experience a bygone era of freight haulage as you move thousands of tons of fuel and goods over the challenging Trans-Pennine grades. A total of 200 ‘Whistlers’ (so called because of their distinctive turbo whistle sound) were built by English Electric over a four-year period from 1958 and were – for a time – considered to be the pride of British Rail’s early diesel fleet. Despite the mixed success of the initial 10 Class 40 prototypes, BR ordered a further 190 locomotives. Such were the changes in working practices during the build period of the ‘Whistlers’, batches were delivered with significant design differences. The Class 08 was the ‘go to’ locomotive for general purpose duties, with almost any shunting required in yards and at stations carried out by a ‘Gronk’. Over a ten-year period from 1952, almost 1,000 models were built at British Railways’ Derby, Crewe, Darlington, Doncaster and Horwich Works, making it the most numerous of all BR classes.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010133/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'TerraTech - Weapons of War Pack',
     year: 2019,
-    description: 'Send Hawkeye back in time with the 1940\'s-inspired Iron Hunter, and take to the skies with Venture as you design your very own Warbird, with this set of unique custom blocks and themed skins.',
+    description:
+      "Send Hawkeye back in time with the 1940's-inspired Iron Hunter, and take to the skies with Venture as you design your very own Warbird, with this set of unique custom blocks and themed skins.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1199630/header.jpg',
     recommended_gpu: 'Radeon HD 5670',
     minimal_gpu: 'Intel HD 4000',
     minimal_cpu: 'Intel Core2 Duo T7600 @ 2.33GHz',
     recommended_cpu: 'AMD Phenom II X4 945',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tales of Berseria™ - Idolm@ster Costumes Set',
     year: 2017,
-    description: 'It\'s the Idolm@ster Cinderella Girls! Idol costumes for Velvet, Magilou, and Eleanor! Includes:\n-Idolmaster Velvet -Idolmaster Magilou -Idolmaster Eleanor',
+    description:
+      "It's the Idolm@ster Cinderella Girls! Idol costumes for Velvet, Magilou, and Eleanor! Includes:\n-Idolmaster Velvet -Idolmaster Magilou -Idolmaster Eleanor",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/528055/header.jpg',
     recommended_gpu: 'Radeon HD 4850',
     minimal_gpu: 'Radeon HD 4850',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'TerraTech - To the Stars Pack',
     year: 2019,
-    description: 'Relive Roswell with Better Future and enter the Space Race as GSO, with this set of unique custom blocks and themed skins.',
+    description:
+      'Relive Roswell with Better Future and enter the Space Race as GSO, with this set of unique custom blocks and themed skins.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1090730/header.jpg',
     recommended_gpu: 'Radeon HD 5670',
     minimal_gpu: 'Intel HD 4000',
     minimal_cpu: 'Intel Core2 Duo T7600 @ 2.33GHz',
     recommended_cpu: 'AMD Phenom II X4 945',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Train Sim World®: Northern Trans-Pennine: Manchester - Leeds Route Add-On',
     year: 2018,
-    description: 'Towering moors, challenging grades and tight curves are yours to conquer in Train Sim World: Northern Trans-Pennine, bringing a bygone era of British Rail roaring back to life. Operate your trains over an aging rail network with out-of-date infrastructure and no modern safety systems to assist you. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach back in time and touch them. It’s your job to carry passengers over the famous Trans-Pennine Railway. Manage your powerful locomotives and enjoy the charm of running loco-hauled services that no longer exist today over the twisting railway carving its way through England’s Pennine Hills. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a chapter of British railways long forgotten in time. Take control of three icons of British motive power, the BR Class 45 express passenger locomotive, the BR Class 47 mixed traffic locomotive and the BR Class 101 Diesel Multiple Unit. Featuring authentic Diesel-Electric and Diesel-Mechanical simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Northern Trans-Pennine caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you\'re looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Northern Trans-Pennine! Choose how you want to play in Train Sim World: Northern Trans-Pennine. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Northern Trans-Pennine.',
+    description:
+      "Towering moors, challenging grades and tight curves are yours to conquer in Train Sim World: Northern Trans-Pennine, bringing a bygone era of British Rail roaring back to life. Operate your trains over an aging rail network with out-of-date infrastructure and no modern safety systems to assist you. Reproduced in exquisite detail, every station, signal and milepost feel so real you could almost reach back in time and touch them. It’s your job to carry passengers over the famous Trans-Pennine Railway. Manage your powerful locomotives and enjoy the charm of running loco-hauled services that no longer exist today over the twisting railway carving its way through England’s Pennine Hills. Whether you’re driving, riding along or watching the action, experience all the sights and sounds of a chapter of British railways long forgotten in time. Take control of three icons of British motive power, the BR Class 45 express passenger locomotive, the BR Class 47 mixed traffic locomotive and the BR Class 101 Diesel Multiple Unit. Featuring authentic Diesel-Electric and Diesel-Mechanical simulations underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make them feel just like the real thing. Train Sim World®: Northern Trans-Pennine caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you're looking to get started driving trains or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control then live out your dreams exploring the highly detailed and immersive environment in Northern Trans-Pennine! Choose how you want to play in Train Sim World: Northern Trans-Pennine. Take control and master powerful locomotives, running-to-time or carrying out important tasks or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there's lots to see and experience in Train Sim World: Northern Trans-Pennine.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/577353/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: DB BR 155 Loco Add-On',
     year: 2019,
-    description: 'As freight demands and the spread of electrification grew throughout the mid-1960s, it became apparent that Deutsche Reichsbahn’s current fleet of freight locomotives were no longer up to the task alone; not only that, but motive power which pre-dated the Second World War was in dire need of replacement. This meant a new electric locomotive was needed. DR were after a six-axle locomotive that could easily haul any form of rolling stock, be that freight or passenger, and other features such as a light steel body and ergonomic driver’s cab were also part of the plans. The new Co’Co’ locomotives were given the title of “E51” and construction of the first prototypes began in the early 1970s. By the time of their completion in 1974, the prototypes had been designated as the DR BR 250. Following the reunification of Germany in 1994, the DR BR 250s were renumbered under Deutsche Bahn’s reclassification system and become known as the DB BR 155s. Following this, the BR 155s could be seen all over the German rail network, hauling a wide variety of freight services, including fast container trains on the high-speed lines. The “Electric Container”, as it’s affectionately known to railfans, has stood the test of time and you can take to the rails hauling heavy freight with a nostalgic twist, as the iconic DB BR 155 is now available for Train Sim World for enticing Ruhr-Sieg Nord action!',
+    description:
+      'As freight demands and the spread of electrification grew throughout the mid-1960s, it became apparent that Deutsche Reichsbahn’s current fleet of freight locomotives were no longer up to the task alone; not only that, but motive power which pre-dated the Second World War was in dire need of replacement. This meant a new electric locomotive was needed. DR were after a six-axle locomotive that could easily haul any form of rolling stock, be that freight or passenger, and other features such as a light steel body and ergonomic driver’s cab were also part of the plans. The new Co’Co’ locomotives were given the title of “E51” and construction of the first prototypes began in the early 1970s. By the time of their completion in 1974, the prototypes had been designated as the DR BR 250. Following the reunification of Germany in 1994, the DR BR 250s were renumbered under Deutsche Bahn’s reclassification system and become known as the DB BR 155s. Following this, the BR 155s could be seen all over the German rail network, hauling a wide variety of freight services, including fast container trains on the high-speed lines. The “Electric Container”, as it’s affectionately known to railfans, has stood the test of time and you can take to the rails hauling heavy freight with a nostalgic twist, as the iconic DB BR 155 is now available for Train Sim World for enticing Ruhr-Sieg Nord action!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010131/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Don Bradman Cricket 14',
     year: 2014,
-    description: 'The first thing to think about when you start playing Don Bradman Cricket 14 is to forget what you know about Cricket games and start afresh...it\'s cricket like you\'ve never seen it before! Take to the field with any of the 100+ teams provided or choose from over 14,000 teams available online from the Academy. Don Bradman Cricket 14 includes:\n• Career Mode, allowing you to take control of an aspiring young cricketer and take him through the ranks to International glory.\n• Unique Batting and Bowling Controls, giving full 360 Shot control and Line and Length delivery without pitch markers.\n• A fully featured fielding system that allows you to run down the ball and slide to prevent a four, catch a high ball on the boundary rope, or knock down the stumps to take a vital run out. You are always involved in the play at every stage of the game!\n• Ball Physics giving realistic Edges, bat pad catches and movement off the pitch.\n• A complete player physics system with individual attributes including weight and height – imagine running in a 200cm bowler to delivery that perfect bouncer!\n• Appeal and Electronic Review system allowing for the first time challenges of the umpires decision.\n• Practice Nets, Hone your skills to perfection before taking to the field.\n• Dynamic time of day, Weather System and Pitch Degradation that are based on real world data with effects occurring in real-time throughout a days’ play.\n• The Cricket Academy, allowing for unparalleled customisation of your Cricket experience, creating Teams, players, Tours, Competitions, Match Types and even Umpires.\n• More than 150,000 Community created players and teams ready to download and use in game.\n• An online Save system that lets you continue your match whenever you want with online opponents.\n• Online & Offline 2 Player Vs AI Co-op.',
+    description:
+      "The first thing to think about when you start playing Don Bradman Cricket 14 is to forget what you know about Cricket games and start afresh...it's cricket like you've never seen it before! Take to the field with any of the 100+ teams provided or choose from over 14,000 teams available online from the Academy. Don Bradman Cricket 14 includes:\n• Career Mode, allowing you to take control of an aspiring young cricketer and take him through the ranks to International glory.\n• Unique Batting and Bowling Controls, giving full 360 Shot control and Line and Length delivery without pitch markers.\n• A fully featured fielding system that allows you to run down the ball and slide to prevent a four, catch a high ball on the boundary rope, or knock down the stumps to take a vital run out. You are always involved in the play at every stage of the game!\n• Ball Physics giving realistic Edges, bat pad catches and movement off the pitch.\n• A complete player physics system with individual attributes including weight and height – imagine running in a 200cm bowler to delivery that perfect bouncer!\n• Appeal and Electronic Review system allowing for the first time challenges of the umpires decision.\n• Practice Nets, Hone your skills to perfection before taking to the field.\n• Dynamic time of day, Weather System and Pitch Degradation that are based on real world data with effects occurring in real-time throughout a days’ play.\n• The Cricket Academy, allowing for unparalleled customisation of your Cricket experience, creating Teams, players, Tours, Competitions, Match Types and even Umpires.\n• More than 150,000 Community created players and teams ready to download and use in game.\n• An online Save system that lets you continue your match whenever you want with online opponents.\n• Online & Offline 2 Player Vs AI Co-op.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/216260/header.jpg',
     recommended_gpu: 'Radeon HD 7790',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X2 250',
     recommended_cpu: 'AMD Phenom II X4 960T',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Blind',
     year: 2018,
-    description: 'Blind is a narrative-driven psychological thriller for virtual reality where the player is blind and must explore their surroundings using echolocation. Waking up in a strange room with little memory of how she came to be there, a young woman makes the shocking discovery she has lost her sense of sight. Goaded by the sinister and twisted Warden, she must explore a perverse and frightening mansion using sound alone. By sending out soundwaves with a cane, the outlines of objects are briefly revealed, enabling the player to navigate the mansion, solve puzzles and uncover the mystery of what is happening to her. As she gets closer and closer to the truth, however, she will be forced to confront her worst enemy--that which she does not, or will not see. Born out of the Global Game Jam in 2014, which had the theme of “We don’t see things as they are, we see them as we are”, the Blind team won the Best Game award at the Turin (Italy) jam site with their entry Come to See My House. The team then began work on a full game based on this initial concept. Built from the ground up for virtual reality, Blind will be launching September 18, 2018. Learn to navigate carefully and cautiously using your cane. Send out soundwaves to reveal your surroundings briefly before they fade into darkness. Gramophones and other objects that make sound become lighthouses in the all-encompassing blackness. Built from the ground up for virtual reality and supporting binaural audio and motion control, Blind is a fully immersive and unique experience that removes you from the world you are used to, and asks you to see things differently. Where are you? Who is the Warden? Why has he kidnapped you and why does he want you to solve the puzzles in this strange and yet somehow eerily familiar place? Experience a constant sense of foreboding and emotional tension as you travel deeper into a mansion riddled with puzzles and dangers. As you search for answers, will you find things you’d rather not see?',
+    description:
+      'Blind is a narrative-driven psychological thriller for virtual reality where the player is blind and must explore their surroundings using echolocation. Waking up in a strange room with little memory of how she came to be there, a young woman makes the shocking discovery she has lost her sense of sight. Goaded by the sinister and twisted Warden, she must explore a perverse and frightening mansion using sound alone. By sending out soundwaves with a cane, the outlines of objects are briefly revealed, enabling the player to navigate the mansion, solve puzzles and uncover the mystery of what is happening to her. As she gets closer and closer to the truth, however, she will be forced to confront her worst enemy--that which she does not, or will not see. Born out of the Global Game Jam in 2014, which had the theme of “We don’t see things as they are, we see them as we are”, the Blind team won the Best Game award at the Turin (Italy) jam site with their entry Come to See My House. The team then began work on a full game based on this initial concept. Built from the ground up for virtual reality, Blind will be launching September 18, 2018. Learn to navigate carefully and cautiously using your cane. Send out soundwaves to reveal your surroundings briefly before they fade into darkness. Gramophones and other objects that make sound become lighthouses in the all-encompassing blackness. Built from the ground up for virtual reality and supporting binaural audio and motion control, Blind is a fully immersive and unique experience that removes you from the world you are used to, and asks you to see things differently. Where are you? Who is the Warden? Why has he kidnapped you and why does he want you to solve the puzzles in this strange and yet somehow eerily familiar place? Experience a constant sense of foreboding and emotional tension as you travel deeper into a mansion riddled with puzzles and dangers. As you search for answers, will you find things you’d rather not see?',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/406860/header.jpg',
     minimal_gpu: 'Radeon RX 470',
     recommended_gpu: 'Radeon RX 480',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     minimal_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'The Wanderer: Frankenstein’s Creature',
     year: 2019,
-    description: 'Play as the Creature, a wanderer without memory or past, a virgin spirit in a completely fabricated body. To forge the destiny of this artificial being who is ignorant of both Good and Evil, you will have to explore the vast world and experience joy and sorrow.\nDr. Frankenstein\'s founding myth is once again revealed in all its glory through the innocent eyes of his creature. A thousand miles from the horror stories, here is a sensitive wander in the shoes of a pop icon. Imbued with a dark romanticism, the game\'s universe draws its astonishing beauty from 19th century paintings. Through evolving landscapes, the boundary between reality and fiction fades and the novel comes to life. Powerful and original, the soundtrack highlights the Creature\'s feelings of wanderlust. One choice after another, feel your way towards your destiny. Confronted with humans, you will no longer be able to escape the question of your origins. Who gave you life? This introspective quest will take you on an adventure across Europe. Bitter or pleasant, your experiences will bring you closer to the truth. Will you be ready to face it? The Wanderer: Frankenstein\'s Creature is the new video game from La Belle Games, co-produced and published by ARTE, the cultural European TV and digital channel.',
+    description:
+      "Play as the Creature, a wanderer without memory or past, a virgin spirit in a completely fabricated body. To forge the destiny of this artificial being who is ignorant of both Good and Evil, you will have to explore the vast world and experience joy and sorrow.\nDr. Frankenstein's founding myth is once again revealed in all its glory through the innocent eyes of his creature. A thousand miles from the horror stories, here is a sensitive wander in the shoes of a pop icon. Imbued with a dark romanticism, the game's universe draws its astonishing beauty from 19th century paintings. Through evolving landscapes, the boundary between reality and fiction fades and the novel comes to life. Powerful and original, the soundtrack highlights the Creature's feelings of wanderlust. One choice after another, feel your way towards your destiny. Confronted with humans, you will no longer be able to escape the question of your origins. Who gave you life? This introspective quest will take you on an adventure across Europe. Bitter or pleasant, your experiences will bring you closer to the truth. Will you be ready to face it? The Wanderer: Frankenstein's Creature is the new video game from La Belle Games, co-produced and published by ARTE, the cultural European TV and digital channel.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/966670/header.jpg',
     recommended_gpu: 'GeForce GT 630',
     minimal_gpu: 'Radeon HD 6450',
     minimal_cpu: 'AMD Athlon II X2 245',
     recommended_cpu: 'Intel Core2 Duo E6700 @ 2.66GHz',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
-    name: 'Assassin’s Creed®IV Black Flag™ - MP Character Pack: Blackbeard\'s Wrath',
+    name: "Assassin’s Creed®IV Black Flag™ - MP Character Pack: Blackbeard's Wrath",
     year: 2013,
-    description: 'Ready for another sea-worthy challenge? This pack contains three new fearsome contenders who will keep you on your toes: The Jaguar, a good and mighty Aztec Templar; Blackbeard, the most feared pirate of the seven seas; The Orchid, the stone-hearted pirate queen. Test your abilities by engaging in countless battles against these cold-blooded champions.',
+    description:
+      'Ready for another sea-worthy challenge? This pack contains three new fearsome contenders who will keep you on your toes: The Jaguar, a good and mighty Aztec Templar; Blackbeard, the most feared pirate of the seven seas; The Orchid, the stone-hearted pirate queen. Test your abilities by engaging in countless battles against these cold-blooded champions.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/264802/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Assassin’s Creed® IV Black Flag™ - Time saver: Technology Pack',
     year: 2013,
-    description: 'Obtain a technology advantage that removes the requirement to find the 18 Upgrade Plans to be able to buy the higher ship upgrades (gameplay and cosmetic upgrades). Important: You need to progress until Sequence 3 memory 04 to see the effect of this DLC. The plan requirement will be removed from the best ship’s upgrades. You still need to get money and resources to be able to buy and equip them.',
+    description:
+      'Obtain a technology advantage that removes the requirement to find the 18 Upgrade Plans to be able to buy the higher ship upgrades (gameplay and cosmetic upgrades). Important: You need to progress until Sequence 3 memory 04 to see the effect of this DLC. The plan requirement will be removed from the best ship’s upgrades. You still need to get money and resources to be able to buy and equip them.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/264750/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
-    name: 'Assassin’s Creed®IV Black Flag™ - MP Character Pack: Blackbeard\'s Wrath',
+    name: "Assassin’s Creed®IV Black Flag™ - MP Character Pack: Blackbeard's Wrath",
     year: 2013,
-    description: 'Ready for another sea-worthy challenge? This pack contains three new fearsome contenders who will keep you on your toes: The Jaguar, a good and mighty Aztec Templar; Blackbeard, the most feared pirate of the seven seas; The Orchid, the stone-hearted pirate queen. Test your abilities by engaging in countless battles against these cold-blooded champions.',
+    description:
+      'Ready for another sea-worthy challenge? This pack contains three new fearsome contenders who will keep you on your toes: The Jaguar, a good and mighty Aztec Templar; Blackbeard, the most feared pirate of the seven seas; The Orchid, the stone-hearted pirate queen. Test your abilities by engaging in countless battles against these cold-blooded champions.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/264802/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'AO International Tennis',
     year: 2018,
-    description: 'AO International Tennis is the most authentic, community-focused tennis game ever. Make use of comprehensive PlayFace™, Stadium Creator, and other customisation features to put a photo-realistic version of yourself in your local tennis competition. Then put yourself up against the greats, including Rafael Nadal, Angelique Kerber, and up-an-coming heroes such as Naomi Osaka and Hyeon Chung. With more play features than any tennis game before, this is a tennis game for fans of tennis, made by fans of tennis.\nSupported by a vibrant community, download and play with thousands of players created by other AO International Tennis fans, including photo-realistic players created through Big Ant Studios’ proprietary PlayFace™ application.\nEvery major court surface is supported in AO International Tennis. Play on existing stadia and tennis parks, or create your own with the comprehensive in-game editor!\nProfessional players have been 3D scanned and motion captured in order to bring the most authentic tennis game to date.\nPlay tournaments all around the world in the quest to become #1! Play special event matches against champions to unlock new play styles and improve your game.\nChallenge the world and become the world champion from the comfort of your living room.',
+    description:
+      'AO International Tennis is the most authentic, community-focused tennis game ever. Make use of comprehensive PlayFace™, Stadium Creator, and other customisation features to put a photo-realistic version of yourself in your local tennis competition. Then put yourself up against the greats, including Rafael Nadal, Angelique Kerber, and up-an-coming heroes such as Naomi Osaka and Hyeon Chung. With more play features than any tennis game before, this is a tennis game for fans of tennis, made by fans of tennis.\nSupported by a vibrant community, download and play with thousands of players created by other AO International Tennis fans, including photo-realistic players created through Big Ant Studios’ proprietary PlayFace™ application.\nEvery major court surface is supported in AO International Tennis. Play on existing stadia and tennis parks, or create your own with the comprehensive in-game editor!\nProfessional players have been 3D scanned and motion captured in order to bring the most authentic tennis game to date.\nPlay tournaments all around the world in the quest to become #1! Play special event matches against champions to unlock new play styles and improve your game.\nChallenge the world and become the world champion from the comfort of your living room.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/758410/header.jpg',
     recommended_gpu: 'Radeon R9 390X',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X4 555',
     recommended_cpu: 'AMD Phenom II X4 970',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Assassin’s Creed® IV Black Flag™ – Guild of Rogues',
     year: 2014,
-    description: 'The chaos ensues as three new fearless adventurers ready themselves for the challenge. Test your skill and wisdom against: The Powder Monkey, the mischievous, talkative spy; The Shaman, the crafty houngan asogwe (high priest); The Mermaid, a Templar navigational expert who gave her heart to the sea. This pack also comes with new customization options, and new moves.',
+    description:
+      'The chaos ensues as three new fearless adventurers ready themselves for the challenge. Test your skill and wisdom against: The Powder Monkey, the mischievous, talkative spy; The Shaman, the crafty houngan asogwe (high priest); The Mermaid, a Templar navigational expert who gave her heart to the sea. This pack also comes with new customization options, and new moves.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/264805/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Assassin’s Creed® IV Black Flag™ - Time saver: Technology Pack',
     year: 2013,
-    description: 'Obtain a technology advantage that removes the requirement to find the 18 Upgrade Plans to be able to buy the higher ship upgrades (gameplay and cosmetic upgrades). Important: You need to progress until Sequence 3 memory 04 to see the effect of this DLC. The plan requirement will be removed from the best ship’s upgrades. You still need to get money and resources to be able to buy and equip them.',
+    description:
+      'Obtain a technology advantage that removes the requirement to find the 18 Upgrade Plans to be able to buy the higher ship upgrades (gameplay and cosmetic upgrades). Important: You need to progress until Sequence 3 memory 04 to see the effect of this DLC. The plan requirement will be removed from the best ship’s upgrades. You still need to get money and resources to be able to buy and equip them.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/264750/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Assassin’s Creed® IV Black Flag™ - Time saver: Collectibles Pack',
     year: 2013,
-    description: 'This pack will save you time by revealing all of the collectibles locations on your map. Note that you will still need to travel to these locations and beat the game play in order to get the rewards.',
+    description:
+      'This pack will save you time by revealing all of the collectibles locations on your map. Note that you will still need to travel to these locations and beat the game play in order to get the rewards.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/260471/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Assassin’s Creed® IV Black Flag™ - Crusader & Florentine Pack',
     year: 2013,
-    description: 'Sail with Altaïr and Ezio’s colors with 4 customization items for your ship and 2 new weapons for Edward: Ezio’s Iconic Figurehead, Ezio’s Unique Sails, Ezio’s Swords, Altaïr’s Iconic Figurehead, Altaïr’s Unique Sails, Altaïr’s Sword. Important: You need to progress until Sequence 3 memory 04 to see those items in the Jackdaw and Edward upgrade menu. Go into your Captain’s cabin to equip them.',
+    description:
+      'Sail with Altaïr and Ezio’s colors with 4 customization items for your ship and 2 new weapons for Edward: Ezio’s Iconic Figurehead, Ezio’s Unique Sails, Ezio’s Swords, Altaïr’s Iconic Figurehead, Altaïr’s Unique Sails, Altaïr’s Sword. Important: You need to progress until Sequence 3 memory 04 to see those items in the Jackdaw and Edward upgrade menu. Go into your Captain’s cabin to equip them.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/260474/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Transpose',
     year: 2018,
-    description: 'The universe renews, refreshes and repeats, infinitely folding in on itself. I am made of its energy. My past and future selves are always with me. We work together to generate the infinite cycle of creation and destruction. I exist within and without time, I am inevitable, I am eternal. Time and gravity are my tools to manipulate the world. I don\'t recognize this world, but I know I have been here before. Transpose is a dreamlike VR puzzle game set in a universe where time and gravity are used as tools to manipulate the world. By creating and working with looped recordings of their actions, players must solve increasingly complex physics puzzles in a mysterious setting where notions of space and time no longer apply. Transpose features real time player recording, allowing you to play back your actions one to one in real time while interacting with your past selves. You must create echoes of your self, rewind time, and work with these echoes to solve puzzles. Go ahead, give yourself a high five. Set in a mesmerizingly surreal world, Transpose allows players to control time and gravity. Rotate the environment around you to walk on walls and ceilings, experience perspective shifts and multifaceted puzzles in ways only possible in VR. Travel across 3 distinct worlds solving gravity defying physics puzzles in over 35 unique levels featuring impossible, otherworldly architecture.',
+    description:
+      "The universe renews, refreshes and repeats, infinitely folding in on itself. I am made of its energy. My past and future selves are always with me. We work together to generate the infinite cycle of creation and destruction. I exist within and without time, I am inevitable, I am eternal. Time and gravity are my tools to manipulate the world. I don't recognize this world, but I know I have been here before. Transpose is a dreamlike VR puzzle game set in a universe where time and gravity are used as tools to manipulate the world. By creating and working with looped recordings of their actions, players must solve increasingly complex physics puzzles in a mysterious setting where notions of space and time no longer apply. Transpose features real time player recording, allowing you to play back your actions one to one in real time while interacting with your past selves. You must create echoes of your self, rewind time, and work with these echoes to solve puzzles. Go ahead, give yourself a high five. Set in a mesmerizingly surreal world, Transpose allows players to control time and gravity. Rotate the environment around you to walk on walls and ceilings, experience perspective shifts and multifaceted puzzles in ways only possible in VR. Travel across 3 distinct worlds solving gravity defying physics puzzles in over 35 unique levels featuring impossible, otherworldly architecture.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/835950/header.jpg',
     minimal_gpu: 'Radeon RX 470',
     recommended_gpu: 'Radeon RX 480',
     recommended_cpu: 'AMD Ryzen 5 1500X',
     minimal_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 5
+    minimal_ram_size: 5,
   },
   {
     name: 'Assassin’s Creed® IV Black Flag™ - Crusader & Florentine Pack',
     year: 2013,
-    description: 'Sail with Altaïr and Ezio’s colors with 4 customization items for your ship and 2 new weapons for Edward: Ezio’s Iconic Figurehead, Ezio’s Unique Sails, Ezio’s Swords, Altaïr’s Iconic Figurehead, Altaïr’s Unique Sails, Altaïr’s Sword. Important: You need to progress until Sequence 3 memory 04 to see those items in the Jackdaw and Edward upgrade menu. Go into your Captain’s cabin to equip them.',
+    description:
+      'Sail with Altaïr and Ezio’s colors with 4 customization items for your ship and 2 new weapons for Edward: Ezio’s Iconic Figurehead, Ezio’s Unique Sails, Ezio’s Swords, Altaïr’s Iconic Figurehead, Altaïr’s Unique Sails, Altaïr’s Sword. Important: You need to progress until Sequence 3 memory 04 to see those items in the Jackdaw and Edward upgrade menu. Go into your Captain’s cabin to equip them.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/260474/header.jpg',
     minimal_gpu: 'Radeon HD 4870',
     recommended_gpu: 'Radeon HD 5850',
     minimal_cpu: 'AMD Athlon II X4 620',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: '303 Squadron: Battle of Britain',
     year: 2018,
-    description: '303 Squadron: Battle of Britain portrays the life of WWII heroes from an unique perspective. Joining the 303 Squadron you will fight with other pilots in realistic history-based battles, but also repair your planes in 1st Person Mechanic Mode. The open world of RAF Northolt Base allows you to experience the daily life’s struggles of War and discover countless additional side-missions. Thanks to the variety of available roles, you will be able to embrace the real life of Fighter Squadron and get to know the importance of each role- from the ground crew to the pilot. The gameplay is entirely based on historical events. All the characters, missions, even planes’ mechanics is precisely and realistically recreated in order to deliver the most exciting, unique and inimitable experience. Most importantly, 303 Squadron: Battle of Britain is a game, but also a tribute to all the heroes of 303, and other, Squadrons. No. 303 Fighter Squadron was formed in Britain in July 1940 comprised of polish and other nations pilots. It fought alongside other RAF units in the Battle of Britain. The 303 Squdadron was well-known for its bravado, fearless attitude, precision and professionalism. During the WWII, they were one of the most effective units of Royal Air Force. Now, you can learn about those heroes. And become one of them. :',
+    description:
+      '303 Squadron: Battle of Britain portrays the life of WWII heroes from an unique perspective. Joining the 303 Squadron you will fight with other pilots in realistic history-based battles, but also repair your planes in 1st Person Mechanic Mode. The open world of RAF Northolt Base allows you to experience the daily life’s struggles of War and discover countless additional side-missions. Thanks to the variety of available roles, you will be able to embrace the real life of Fighter Squadron and get to know the importance of each role- from the ground crew to the pilot. The gameplay is entirely based on historical events. All the characters, missions, even planes’ mechanics is precisely and realistically recreated in order to deliver the most exciting, unique and inimitable experience. Most importantly, 303 Squadron: Battle of Britain is a game, but also a tribute to all the heroes of 303, and other, Squadrons. No. 303 Fighter Squadron was formed in Britain in July 1940 comprised of polish and other nations pilots. It fought alongside other RAF units in the Battle of Britain. The 303 Squdadron was well-known for its bravado, fearless attitude, precision and professionalism. During the WWII, they were one of the most effective units of Royal Air Force. Now, you can learn about those heroes. And become one of them. :',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/675170/header.jpg',
     minimal_gpu: 'Radeon R9 270X',
     recommended_gpu: 'GeForce GTX 1060',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Friday the 13th: The Game - Jason Part 7 Machete Kill Pack',
     year: 2017,
-    description: 'Experience three all new grab kills for Part 7 Jason Voorhees with his Machete. Three new kills include the \'Mother\'s Favorite,\' \'Candy Dispenser,\' and \'Fish Gut!\' These kills are exclusive to Part 7 Jason. After installation you can select kills from the customization screen for Jason Part 7 either in your customization sub-menu or in-lobby. Assign each kill with the click of a button!',
+    description:
+      "Experience three all new grab kills for Part 7 Jason Voorhees with his Machete. Three new kills include the 'Mother's Favorite,' 'Candy Dispenser,' and 'Fish Gut!' These kills are exclusive to Part 7 Jason. After installation you can select kills from the customization screen for Jason Part 7 either in your customization sub-menu or in-lobby. Assign each kill with the click of a button!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/739581/header.jpg',
     minimal_gpu: 'Radeon HD 7770',
     recommended_gpu: 'Radeon R9 270X',
     minimal_cpu: 'AMD Athlon II X2 270',
     recommended_cpu: 'AMD Athlon X4 860K',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Meow Motors',
     year: 2018,
-    description: 'Meet the kitties, the main heroes of the new go-kart racing game! You will take to the track and play as one of a dozen colorful cats memorable for their different characteristics and unique personalities. Overcome various difficulties of the tracks drifting through mines and bombs, stop and slow down your competitors by blasting them with bubble gum and other astonishing weapons. And don\'t forget to gather power-ups along the way if you want to be the fastest driver on the track! Tracks consist of three different modes: circle races, drifts and \'strike\' mode. In order to win you should take advantage of power-ups, combining them with your skills to use the stored energy. The game is played via a storyline campaign and local multiplayer mode (Split-screen game) allowing you to play with up to 4 people on one device. Gather the team, overcome Master Duke and discover his scary mystery! While moving through the championship you will acquire new teammates, cars and power-ups.',
+    description:
+      "Meet the kitties, the main heroes of the new go-kart racing game! You will take to the track and play as one of a dozen colorful cats memorable for their different characteristics and unique personalities. Overcome various difficulties of the tracks drifting through mines and bombs, stop and slow down your competitors by blasting them with bubble gum and other astonishing weapons. And don't forget to gather power-ups along the way if you want to be the fastest driver on the track! Tracks consist of three different modes: circle races, drifts and 'strike' mode. In order to win you should take advantage of power-ups, combining them with your skills to use the stored energy. The game is played via a storyline campaign and local multiplayer mode (Split-screen game) allowing you to play with up to 4 people on one device. Gather the team, overcome Master Duke and discover his scary mystery! While moving through the championship you will acquire new teammates, cars and power-ups.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/773430/header.jpg',
     recommended_gpu: 'Radeon HD 7870',
     minimal_gpu: 'Radeon HD 7870',
     recommended_cpu: 'AMD Phenom II X4 965',
     minimal_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Train Sim World®: Long Island Rail Road: New York - Hicksville Route Add-On',
     year: 2018,
-    description: 'Experience America’s busiest commuter railroad and all the bustle and challenges of railroading in New York City in Train Sim World: Long Island Rail Road. The famed “LIRR” operates 24/7 and carries more than 350,000 commuters each weekday, and you’ll take the controls of the railroad’s modern LIRR M7 EMUs to keep the trains moving in and out of New York City and through America’s busiest rail junction at Jamaica, New York. The Long Island Rail Road route features all three of LIRR’s key New York-area stations – Penn Station, Atlantic Terminal, and Long Island City – extends east to Hicksville, New York, and includes the captivating Hempstead Branch. It’s your job to deliver New York area commuters to work – and back home – on time and happy, calling at a total of 26 LIRR stations. Just imagine the excitement and challenges as you navigate LIRR’s always-busy main line and make your way through Jamaica which hosts more than 1,000 trains a day. Whether you’re at the controls of a LIRR M7, riding along, or watching the show from trackside, experience all the sights and sounds of American commuter railroading at its bustling best. Take the controls of Long Island Rail Road’s workhorse LIRR M7 Electric-Multiple-Unit (EMU), with authentic operating controls and featuring an authentic DC Electric simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make it feel just like the real thing. Train Sim World®: Long Island Rail Road caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you\'re looking to get started as a railroad engineer or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control, then live out your dreams exploring the highly detailed and immersive environment of the Long Island Rail Road. Choose how you want to play in Train Sim World: Long Island Rail Road. Take control and master modern electric equipment and running-to-time in an extreme rail environment or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there\'s lots to see and experience in Train Sim World: Long Island Rail Road.',
+    description:
+      "Experience America’s busiest commuter railroad and all the bustle and challenges of railroading in New York City in Train Sim World: Long Island Rail Road. The famed “LIRR” operates 24/7 and carries more than 350,000 commuters each weekday, and you’ll take the controls of the railroad’s modern LIRR M7 EMUs to keep the trains moving in and out of New York City and through America’s busiest rail junction at Jamaica, New York. The Long Island Rail Road route features all three of LIRR’s key New York-area stations – Penn Station, Atlantic Terminal, and Long Island City – extends east to Hicksville, New York, and includes the captivating Hempstead Branch. It’s your job to deliver New York area commuters to work – and back home – on time and happy, calling at a total of 26 LIRR stations. Just imagine the excitement and challenges as you navigate LIRR’s always-busy main line and make your way through Jamaica which hosts more than 1,000 trains a day. Whether you’re at the controls of a LIRR M7, riding along, or watching the show from trackside, experience all the sights and sounds of American commuter railroading at its bustling best. Take the controls of Long Island Rail Road’s workhorse LIRR M7 Electric-Multiple-Unit (EMU), with authentic operating controls and featuring an authentic DC Electric simulation underpinned with expert technical knowledge and real-world data, the performance, sounds and feel has been accurately reproduced to make it feel just like the real thing. Train Sim World®: Long Island Rail Road caters for players of all ability levels with accessible tutorials for beginners and advanced procedures for experts. Whether you're looking to get started as a railroad engineer or refreshing your expert knowledge, Train Sim World has it covered. Feel the detail as you step into the cab, take control, then live out your dreams exploring the highly detailed and immersive environment of the Long Island Rail Road. Choose how you want to play in Train Sim World: Long Island Rail Road. Take control and master modern electric equipment and running-to-time in an extreme rail environment or riding along as a passenger and watching the world go by. Why not watch all the action unfold and capture amazing screenshots or go exploring to hunt down all the hidden collectables? Whatever you choose to do, there's lots to see and experience in Train Sim World: Long Island Rail Road.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/577354/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Don Bradman Cricket 14',
     year: 2014,
-    description: 'The first thing to think about when you start playing Don Bradman Cricket 14 is to forget what you know about Cricket games and start afresh...it\'s cricket like you\'ve never seen it before! Take to the field with any of the 100+ teams provided or choose from over 14,000 teams available online from the Academy. Don Bradman Cricket 14 includes:\n• Career Mode, allowing you to take control of an aspiring young cricketer and take him through the ranks to International glory.\n• Unique Batting and Bowling Controls, giving full 360 Shot control and Line and Length delivery without pitch markers.\n• A fully featured fielding system that allows you to run down the ball and slide to prevent a four, catch a high ball on the boundary rope, or knock down the stumps to take a vital run out. You are always involved in the play at every stage of the game!\n• Ball Physics giving realistic Edges, bat pad catches and movement off the pitch.\n• A complete player physics system with individual attributes including weight and height – imagine running in a 200cm bowler to delivery that perfect bouncer!\n• Appeal and Electronic Review system allowing for the first time challenges of the umpires decision.\n• Practice Nets, Hone your skills to perfection before taking to the field.\n• Dynamic time of day, Weather System and Pitch Degradation that are based on real world data with effects occurring in real-time throughout a days’ play.\n• The Cricket Academy, allowing for unparalleled customisation of your Cricket experience, creating Teams, players, Tours, Competitions, Match Types and even Umpires.\n• More than 150,000 Community created players and teams ready to download and use in game.\n• An online Save system that lets you continue your match whenever you want with online opponents.\n• Online & Offline 2 Player Vs AI Co-op.',
+    description:
+      "The first thing to think about when you start playing Don Bradman Cricket 14 is to forget what you know about Cricket games and start afresh...it's cricket like you've never seen it before! Take to the field with any of the 100+ teams provided or choose from over 14,000 teams available online from the Academy. Don Bradman Cricket 14 includes:\n• Career Mode, allowing you to take control of an aspiring young cricketer and take him through the ranks to International glory.\n• Unique Batting and Bowling Controls, giving full 360 Shot control and Line and Length delivery without pitch markers.\n• A fully featured fielding system that allows you to run down the ball and slide to prevent a four, catch a high ball on the boundary rope, or knock down the stumps to take a vital run out. You are always involved in the play at every stage of the game!\n• Ball Physics giving realistic Edges, bat pad catches and movement off the pitch.\n• A complete player physics system with individual attributes including weight and height – imagine running in a 200cm bowler to delivery that perfect bouncer!\n• Appeal and Electronic Review system allowing for the first time challenges of the umpires decision.\n• Practice Nets, Hone your skills to perfection before taking to the field.\n• Dynamic time of day, Weather System and Pitch Degradation that are based on real world data with effects occurring in real-time throughout a days’ play.\n• The Cricket Academy, allowing for unparalleled customisation of your Cricket experience, creating Teams, players, Tours, Competitions, Match Types and even Umpires.\n• More than 150,000 Community created players and teams ready to download and use in game.\n• An online Save system that lets you continue your match whenever you want with online opponents.\n• Online & Offline 2 Player Vs AI Co-op.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/216260/header.jpg',
     recommended_gpu: 'Radeon HD 7790',
     minimal_gpu: 'Radeon HD 6670',
     minimal_cpu: 'AMD Athlon II X2 250',
     recommended_cpu: 'AMD Phenom II X4 960T',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Friday the 13th: The Game - Emote Party Pack 1',
     year: 2017,
-    description: 'Express yourself with dance, confidence or fear with our Emote Pack One. Each counselor at Camp Crystal Lake will now have access to 10 new emotes with a variety of feelings and expressions! Show off your best moves or resign yourself in fear as you meet your maker as Jason Voorhees comes to kill you. After installation you can select emotes from the various offerings in the counselor customization screen via the main menu or during character select in any lobby. Assign each emote with the click of a button! Works for all counselors, male and female!',
+    description:
+      'Express yourself with dance, confidence or fear with our Emote Pack One. Each counselor at Camp Crystal Lake will now have access to 10 new emotes with a variety of feelings and expressions! Show off your best moves or resign yourself in fear as you meet your maker as Jason Voorhees comes to kill you. After installation you can select emotes from the various offerings in the counselor customization screen via the main menu or during character select in any lobby. Assign each emote with the click of a button! Works for all counselors, male and female!',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/719330/header.jpg',
     minimal_gpu: 'Radeon HD 7770',
     recommended_gpu: 'Radeon R9 270X',
     minimal_cpu: 'AMD Athlon II X2 270',
     recommended_cpu: 'AMD Athlon X4 860K',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Disney Universe',
     year: 2011,
-    description: 'Disney Universe is an off-the-wall non-stop action-adventure video game where Disney worlds and characters mix up for the first time. Players will be able to suit up in iconic character costumes and face challenges in legendary Disney worlds. Battle through each world and experience a different style of gameplay, with various movie-inspired storylines being explored throughout the game. Players can defeat enemies, collect coins and power-ups, unlock new costumes and explore with friends in a mix-up of worlds inspired by numerous Disney and Disney•Pixar films.',
+    description:
+      'Disney Universe is an off-the-wall non-stop action-adventure video game where Disney worlds and characters mix up for the first time. Players will be able to suit up in iconic character costumes and face challenges in legendary Disney worlds. Battle through each world and experience a different style of gameplay, with various movie-inspired storylines being explored throughout the game. Players can defeat enemies, collect coins and power-ups, unlock new costumes and explore with friends in a mix-up of worlds inspired by numerous Disney and Disney•Pixar films.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/316260/header.jpg',
     recommended_gpu: 'GeForce 8400',
     minimal_gpu: 'GeForce 8400',
     recommended_cpu: 'AMD Athlon 64 3500+',
     minimal_cpu: 'AMD Athlon 64 3500+',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Disney•Pixar Brave: The Video Game',
     year: 2012,
-    description: 'Brave: The Video Game is a Third-Person Action-Adventure game that is a companion release to the Disney/Pixar 2012 major animated release of the same name. Brave is Pixar\'s first fairy tale release and features the adventures of Merida, the studio\'s first female lead character in a movie. The game features: a family-friendly storyline, bow and arrow as well as a sword combat, agile in-game movement, puzzle play, characters from the movie as well as others unique to the game, and compatibility with both Windows and Mac operating systems. Inspired by "Brave", the Disney/Pixar animated fantasy adventure movie, Brave: The Video Game invites players to run, jump and battle their way through the rugged landscape of mythical and mysterious Scotland. By using their wits and bravery, gamers will also be able to wield a sword and bow and arrow to defeat fierce enemies, break a magical curse and save a kingdom. Play as Merida, Pixar\'s first female hero and an expert archer, or in the console versions players can also play as other entertaining characters from the film. In addition, they will be able to go on quests through a magical world and solve puzzles to uncover secrets. Gameplay features include an exciting single-player campaign, co-op for family and friends and a special Bear mode, in which players are able to play as a bear.',
+    description:
+      "Brave: The Video Game is a Third-Person Action-Adventure game that is a companion release to the Disney/Pixar 2012 major animated release of the same name. Brave is Pixar's first fairy tale release and features the adventures of Merida, the studio's first female lead character in a movie. The game features: a family-friendly storyline, bow and arrow as well as a sword combat, agile in-game movement, puzzle play, characters from the movie as well as others unique to the game, and compatibility with both Windows and Mac operating systems. Inspired by \"Brave\", the Disney/Pixar animated fantasy adventure movie, Brave: The Video Game invites players to run, jump and battle their way through the rugged landscape of mythical and mysterious Scotland. By using their wits and bravery, gamers will also be able to wield a sword and bow and arrow to defeat fierce enemies, break a magical curse and save a kingdom. Play as Merida, Pixar's first female hero and an expert archer, or in the console versions players can also play as other entertaining characters from the film. In addition, they will be able to go on quests through a magical world and solve puzzles to uncover secrets. Gameplay features include an exciting single-player campaign, co-op for family and friends and a special Bear mode, in which players are able to play as a bear.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/301830/header.jpg',
     recommended_gpu: 'GeForce 8400',
     minimal_gpu: 'GeForce 8400',
     recommended_cpu: 'AMD Athlon 64 3500+',
     minimal_cpu: 'AMD Athlon 64 3500+',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'DRAGON BALL Z: KAKAROT - MUSIC COMPILATION PACK',
     year: 2020,
-    description: 'Change the Field and Battle Background Music to songs from the anime DRAGON BALL, DRAGON BALL Z, and DRAGON BALL KAI with the MUSIC COMPILATION PACK! The MUSIC COMPILATION PACK includes 11 songs: - MAKAFUSHIGI ADVENTURE! - ROMANTIC AGERUYO - WE GOTTA POWER - DETEKOI TOBIKIRI ZENKAI POWER - BOKUTACHIHA TENSHIDATTA - Dragon Soul - UNMEINO HI ~TAMASHII VS - TAMASHII~ - DRAGON BALL Z" BGM (TV) - KAIBUTSU FRIEZA VS DENSETSUNO SUPER SAIYANS - YAPPARI SAIKYO SONGOKU!! (WE GOTTA POWER) - SOLID STATE SCOUTER',
+    description:
+      'Change the Field and Battle Background Music to songs from the anime DRAGON BALL, DRAGON BALL Z, and DRAGON BALL KAI with the MUSIC COMPILATION PACK! The MUSIC COMPILATION PACK includes 11 songs: - MAKAFUSHIGI ADVENTURE! - ROMANTIC AGERUYO - WE GOTTA POWER - DETEKOI TOBIKIRI ZENKAI POWER - BOKUTACHIHA TENSHIDATTA - Dragon Soul - UNMEINO HI ~TAMASHII VS - TAMASHII~ - DRAGON BALL Z" BGM (TV) - KAIBUTSU FRIEZA VS DENSETSUNO SUPER SAIYANS - YAPPARI SAIKYO SONGOKU!! (WE GOTTA POWER) - SOLID STATE SCOUTER',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1144645/header.jpg',
     minimal_gpu: 'GeForce GTX 750 Ti',
     recommended_gpu: 'Radeon R9 280X',
     minimal_cpu: 'AMD Phenom II X6 1100T',
     recommended_cpu: 'AMD Ryzen 3 1200',
     recommended_ram_size: 8,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Takenoko',
     year: 2019,
-    description: 'PLANT, IRRIGATE, AND GROW BAMBOO… BUT WILL YOU BE ABLE TO SATISFY THE APPETITE OF THE GREEDY IMPERIAL PANDA? The Japanese emperor has called the very best gardeners in the empire to compete for the complicated task of caring for his sacred panda. Only the gardener with the very best plots of bamboo will be able to satisfy this picky animal! Plant a bamboo forest around the emperor’s pond. Cultivate and irrigate your plots to grow all the types of bamboo the panda loves. To beat your rivals, make improvements to your plots: build irrigation channels or add fertilizer to accelerate the growth of your bamboo… and pray that the weather is favorable! The player who completes the most objectives wins the game. Only one gardener can win the emperor’s favor… So grab a rake! Characteristics:\n-\tSimple and tactical gameplay adapted from the acclaimed board game, Takenoko, by Antoine Bauza.\n-\t1 to 4 players\n-\tPlay in single-player mode against the computer or your friends and the rest of the world in local or online multi-player!\n-\tChibis: an extension pack with all new objectives, new plots of land, and most importantly, Miss Panda and her babies. Available for purchase in the game shop! Original board game awards:\n- 2013 Ludoteca Ideale official selection\n- 2013 winner of Games Magazine best new family game\n- 2012 Tric Trac nomination\n- 2012 winner of Lys public choice award\n- 2012 nomination for JoTa best family board game\n- 2012 nomination for Golden Geek best family board game\n- 2012 nomination for the Golden Geek best kids’ board game\n- 2012 winner of As d’Or-Jeu de l’Année Languages available: French, English, German, Spanish and Italian.',
+    description:
+      'PLANT, IRRIGATE, AND GROW BAMBOO… BUT WILL YOU BE ABLE TO SATISFY THE APPETITE OF THE GREEDY IMPERIAL PANDA? The Japanese emperor has called the very best gardeners in the empire to compete for the complicated task of caring for his sacred panda. Only the gardener with the very best plots of bamboo will be able to satisfy this picky animal! Plant a bamboo forest around the emperor’s pond. Cultivate and irrigate your plots to grow all the types of bamboo the panda loves. To beat your rivals, make improvements to your plots: build irrigation channels or add fertilizer to accelerate the growth of your bamboo… and pray that the weather is favorable! The player who completes the most objectives wins the game. Only one gardener can win the emperor’s favor… So grab a rake! Characteristics:\n-\tSimple and tactical gameplay adapted from the acclaimed board game, Takenoko, by Antoine Bauza.\n-\t1 to 4 players\n-\tPlay in single-player mode against the computer or your friends and the rest of the world in local or online multi-player!\n-\tChibis: an extension pack with all new objectives, new plots of land, and most importantly, Miss Panda and her babies. Available for purchase in the game shop! Original board game awards:\n- 2013 Ludoteca Ideale official selection\n- 2013 winner of Games Magazine best new family game\n- 2012 Tric Trac nomination\n- 2012 winner of Lys public choice award\n- 2012 nomination for JoTa best family board game\n- 2012 nomination for Golden Geek best family board game\n- 2012 nomination for the Golden Geek best kids’ board game\n- 2012 winner of As d’Or-Jeu de l’Année Languages available: French, English, German, Spanish and Italian.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/865160/header.jpg',
     minimal_gpu: 'Radeon HD 6570',
     recommended_gpu: 'Radeon HD 4850',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
-    name: 'Blasphemous - \'Alloy of Sin\' Character Skin',
+    name: "Blasphemous - 'Alloy of Sin' Character Skin",
     year: 2019,
-    description: 'With this DLC you will be able to change the skin of The Penitent One into a bronze knight as he slashes any enemy that stands in his way on his journey to free the people of Cvstodia from it\'s disastrous fate.',
+    description:
+      "With this DLC you will be able to change the skin of The Penitent One into a bronze knight as he slashes any enemy that stands in his way on his journey to free the people of Cvstodia from it's disastrous fate.",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1143853/header.jpg',
     minimal_gpu: 'Radeon HD 4850',
     recommended_gpu: 'Radeon HD 5770',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 945',
     recommended_ram_size: 4,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Dead In Vinland - The Vallhund',
     year: 2018,
-    description: 'The Swedish Vallhund were guarding and herding dogs bred by the Vikings. You can now bring your furry friend with you on your survival adventures in Dead In Vinland with this first DLC, appropriately named\n. During one of her usual strolls in the forest, looking for trouble, Kari finds this cute little doggie and he won\'t stop following her! Recruit the Vallhund and it will become a valuable part of your camp! Maybe. It’s a very versatile companion, that will help your characters in many ways: Will she manage to make him a fearsome beast like Garmr, the dog who slew Tyr during Ragnarök?\nYou will be able to recruit The Vallhund automatically after day 5 (compatible with old saves)',
+    description:
+      "The Swedish Vallhund were guarding and herding dogs bred by the Vikings. You can now bring your furry friend with you on your survival adventures in Dead In Vinland with this first DLC, appropriately named\n. During one of her usual strolls in the forest, looking for trouble, Kari finds this cute little doggie and he won't stop following her! Recruit the Vallhund and it will become a valuable part of your camp! Maybe. It’s a very versatile companion, that will help your characters in many ways: Will she manage to make him a fearsome beast like Garmr, the dog who slew Tyr during Ragnarök?\nYou will be able to recruit The Vallhund automatically after day 5 (compatible with old saves)",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/896640/header.jpg',
     recommended_gpu: 'GeForce GTS 450',
     minimal_gpu: 'GeForce GTS 450',
     recommended_cpu: 'AMD Athlon II X4 640',
     minimal_cpu: 'AMD Athlon II X4 640',
     recommended_ram_size: 2,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
     name: 'Friday the 13th: The Game - Jason Part 4 Pig Splitter Kill Pack',
     year: 2017,
-    description: 'Experience three all new grab kills for Part 4 Jason Voorhees with his Pig Splitter. Three new kills include the \'Throat Slit,\' \'Kneecapper,\' as well as the \'Slam and Gut,\' kill. All new kills exclusive to Part 4. After installation you can select kills from the customization screen for Jason Part 4 either in your customization sub-menu or in-lobby. Assign each kill with the click of a button!',
+    description:
+      "Experience three all new grab kills for Part 4 Jason Voorhees with his Pig Splitter. Three new kills include the 'Throat Slit,' 'Kneecapper,' as well as the 'Slam and Gut,' kill. All new kills exclusive to Part 4. After installation you can select kills from the customization screen for Jason Part 4 either in your customization sub-menu or in-lobby. Assign each kill with the click of a button!",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/737990/header.jpg',
     minimal_gpu: 'Radeon HD 7770',
     recommended_gpu: 'Radeon R9 270X',
     minimal_cpu: 'AMD Athlon II X2 270',
     recommended_cpu: 'AMD Athlon X4 860K',
     recommended_ram_size: 6,
-    minimal_ram_size: 4
+    minimal_ram_size: 4,
   },
   {
     name: 'Tales of Berseria™ - Idolm@ster Costumes Set',
     year: 2017,
-    description: 'It\'s the Idolm@ster Cinderella Girls! Idol costumes for Velvet, Magilou, and Eleanor! Includes:\n-Idolmaster Velvet -Idolmaster Magilou -Idolmaster Eleanor',
+    description:
+      "It's the Idolm@ster Cinderella Girls! Idol costumes for Velvet, Magilou, and Eleanor! Includes:\n-Idolmaster Velvet -Idolmaster Magilou -Idolmaster Eleanor",
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/528055/header.jpg',
     recommended_gpu: 'Radeon HD 4850',
     minimal_gpu: 'Radeon HD 4850',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 965',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
+    minimal_ram_size: 2,
   },
   {
-    name: 'Train Sim World®: BR Class 52 \'Western\' Loco Add-On',
+    name: "Train Sim World®: BR Class 52 'Western' Loco Add-On",
     year: 2019,
-    description: 'Built to work top-link expresses, the BR Class 52 spent its days racing through BR’s Western Region and now enjoys retirement on heritage railways. 1955, the modernisation plan of British Railways was published. The plan called for all regions to gradually phase out steam locomotives in favour of modern diesel motive power. Most of the network opted for diesel-electric technology, the Western Region however took a different approach, and started chasing the idea of using hydraulic transmission. A handful of designs would be produced in the following years for various duties, but none would be as striking as the “Western” which first rolled off the production line in the early 1960s. Derived from German diesel hydraulic technology, the “Western” was fitted with two engines, that when combined resulted in a much higher tractive effort than the previously built efforts. The Class 52 was capable of achieving 90 mph, and unofficial records claim they reached speeds of 110 mph, nevertheless, they defined the standard for GWR express operation throughout the 1960s and 1970s, proving diesel-hydraulic traction could be used effectively. However, this reign only lasted until 1977 when they were displaced by the new BR Class 50 and British Rail’s flagship High Speed Train sets. From a total pool of 74 locomotives, only 7 would survive into preservation and, even though this remaining few exist in various conditions, some are operational and call the West Somerset Railway their home.',
+    description:
+      'Built to work top-link expresses, the BR Class 52 spent its days racing through BR’s Western Region and now enjoys retirement on heritage railways. 1955, the modernisation plan of British Railways was published. The plan called for all regions to gradually phase out steam locomotives in favour of modern diesel motive power. Most of the network opted for diesel-electric technology, the Western Region however took a different approach, and started chasing the idea of using hydraulic transmission. A handful of designs would be produced in the following years for various duties, but none would be as striking as the “Western” which first rolled off the production line in the early 1960s. Derived from German diesel hydraulic technology, the “Western” was fitted with two engines, that when combined resulted in a much higher tractive effort than the previously built efforts. The Class 52 was capable of achieving 90 mph, and unofficial records claim they reached speeds of 110 mph, nevertheless, they defined the standard for GWR express operation throughout the 1960s and 1970s, proving diesel-hydraulic traction could be used effectively. However, this reign only lasted until 1977 when they were displaced by the new BR Class 50 and British Rail’s flagship High Speed Train sets. From a total pool of 74 locomotives, only 7 would survive into preservation and, even though this remaining few exist in various conditions, some are operational and call the West Somerset Railway their home.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/1010132/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Train Sim World®: BR Class 33 Loco Add-On',
     year: 2018,
-    description: '1957, an order was placed for a batch of diesel-electric locomotives which were destined for the Southern Region of British Railways. Known at the time as the BRCW Type 3s, they were built as Bo-Bo, mixed-traffic locomotives, fitted with 1550 horsepower Sulzer engines that could propel them to a top speed of 85 mph. They housed Crompton Parkinson electrical equipment, forever giving them the nickname “Cromptons”. A true classic, the BR Class 33 comes to Train Sim World for heritage diesel operation. The first BRCW Type 3s were rolled off the production line in 1959, entering service that December; the initial batch of 65 locomotives was delivered until 1961, and then a second batch was completed by 1962, totalling 98 locomotives across 3 main variants. Once in regular service, the Type 3s quickly became a staple throughout the Southern Region, and particularly in the South Eastern Division to begin with, working principle passenger and freight services to Dover; steel trains between Sheerness and Willesden, cement runs, engineering trains, and the list goes on. They were also used in the South West, where a subset of locomotives were fitted with SR multiple unit equipment so they could work push-pull trains to Salisbury and Weymouth that originated from London Waterloo. Their widespread success in transforming key services throughout the Southern Region gave the Class 33s a keen following, and it is probably the reason that 29 have survived into preservation, including some which are mainline certified, not a bad effort for a fleet pushing for 60 years old. Two of the preserved locomotives; D6566 (33048) and D6575 (33057) “Seagull” have found a home on the West Somerset Railway, both operational and sporting the classic BR Green livery. The Train Sim World BR Class 33 now joins the BR Class 47 and BR Class 09 to further bring to life the heritage festivities of the West Somerset Railway route’s diesel gala.',
+    description:
+      '1957, an order was placed for a batch of diesel-electric locomotives which were destined for the Southern Region of British Railways. Known at the time as the BRCW Type 3s, they were built as Bo-Bo, mixed-traffic locomotives, fitted with 1550 horsepower Sulzer engines that could propel them to a top speed of 85 mph. They housed Crompton Parkinson electrical equipment, forever giving them the nickname “Cromptons”. A true classic, the BR Class 33 comes to Train Sim World for heritage diesel operation. The first BRCW Type 3s were rolled off the production line in 1959, entering service that December; the initial batch of 65 locomotives was delivered until 1961, and then a second batch was completed by 1962, totalling 98 locomotives across 3 main variants. Once in regular service, the Type 3s quickly became a staple throughout the Southern Region, and particularly in the South Eastern Division to begin with, working principle passenger and freight services to Dover; steel trains between Sheerness and Willesden, cement runs, engineering trains, and the list goes on. They were also used in the South West, where a subset of locomotives were fitted with SR multiple unit equipment so they could work push-pull trains to Salisbury and Weymouth that originated from London Waterloo. Their widespread success in transforming key services throughout the Southern Region gave the Class 33s a keen following, and it is probably the reason that 29 have survived into preservation, including some which are mainline certified, not a bad effort for a fleet pushing for 60 years old. Two of the preserved locomotives; D6566 (33048) and D6575 (33057) “Seagull” have found a home on the West Somerset Railway, both operational and sporting the classic BR Green livery. The Train Sim World BR Class 33 now joins the BR Class 47 and BR Class 09 to further bring to life the heritage festivities of the West Somerset Railway route’s diesel gala.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/577352/header.jpg',
     minimal_gpu: 'Radeon R9 270',
     recommended_gpu: 'Radeon RX 480',
     minimal_cpu: 'AMD Ryzen 5 1500X',
     recommended_cpu: 'AMD Ryzen 7 1700',
     recommended_ram_size: 8,
-    minimal_ram_size: 8
+    minimal_ram_size: 8,
   },
   {
     name: 'Takenoko',
     year: 2019,
-    description: 'PLANT, IRRIGATE, AND GROW BAMBOO… BUT WILL YOU BE ABLE TO SATISFY THE APPETITE OF THE GREEDY IMPERIAL PANDA? The Japanese emperor has called the very best gardeners in the empire to compete for the complicated task of caring for his sacred panda. Only the gardener with the very best plots of bamboo will be able to satisfy this picky animal! Plant a bamboo forest around the emperor’s pond. Cultivate and irrigate your plots to grow all the types of bamboo the panda loves. To beat your rivals, make improvements to your plots: build irrigation channels or add fertilizer to accelerate the growth of your bamboo… and pray that the weather is favorable! The player who completes the most objectives wins the game. Only one gardener can win the emperor’s favor… So grab a rake! Characteristics:\n-\tSimple and tactical gameplay adapted from the acclaimed board game, Takenoko, by Antoine Bauza.\n-\t1 to 4 players\n-\tPlay in single-player mode against the computer or your friends and the rest of the world in local or online multi-player!\n-\tChibis: an extension pack with all new objectives, new plots of land, and most importantly, Miss Panda and her babies. Available for purchase in the game shop! Original board game awards:\n- 2013 Ludoteca Ideale official selection\n- 2013 winner of Games Magazine best new family game\n- 2012 Tric Trac nomination\n- 2012 winner of Lys public choice award\n- 2012 nomination for JoTa best family board game\n- 2012 nomination for Golden Geek best family board game\n- 2012 nomination for the Golden Geek best kids’ board game\n- 2012 winner of As d’Or-Jeu de l’Année Languages available: French, English, German, Spanish and Italian.',
+    description:
+      'PLANT, IRRIGATE, AND GROW BAMBOO… BUT WILL YOU BE ABLE TO SATISFY THE APPETITE OF THE GREEDY IMPERIAL PANDA? The Japanese emperor has called the very best gardeners in the empire to compete for the complicated task of caring for his sacred panda. Only the gardener with the very best plots of bamboo will be able to satisfy this picky animal! Plant a bamboo forest around the emperor’s pond. Cultivate and irrigate your plots to grow all the types of bamboo the panda loves. To beat your rivals, make improvements to your plots: build irrigation channels or add fertilizer to accelerate the growth of your bamboo… and pray that the weather is favorable! The player who completes the most objectives wins the game. Only one gardener can win the emperor’s favor… So grab a rake! Characteristics:\n-\tSimple and tactical gameplay adapted from the acclaimed board game, Takenoko, by Antoine Bauza.\n-\t1 to 4 players\n-\tPlay in single-player mode against the computer or your friends and the rest of the world in local or online multi-player!\n-\tChibis: an extension pack with all new objectives, new plots of land, and most importantly, Miss Panda and her babies. Available for purchase in the game shop! Original board game awards:\n- 2013 Ludoteca Ideale official selection\n- 2013 winner of Games Magazine best new family game\n- 2012 Tric Trac nomination\n- 2012 winner of Lys public choice award\n- 2012 nomination for JoTa best family board game\n- 2012 nomination for Golden Geek best family board game\n- 2012 nomination for the Golden Geek best kids’ board game\n- 2012 winner of As d’Or-Jeu de l’Année Languages available: French, English, German, Spanish and Italian.',
     image: 'https://steamcdn-a.akamaihd.net/steam/apps/865160/header.jpg',
     minimal_gpu: 'Radeon HD 6570',
     recommended_gpu: 'Radeon HD 4850',
     minimal_cpu: 'AMD Phenom II X2 550',
     recommended_cpu: 'AMD Phenom II X4 940',
     recommended_ram_size: 4,
-    minimal_ram_size: 2
-  }
-]
+    minimal_ram_size: 2,
+  },
+];
 
 module.exports = games;

@@ -1,7 +1,16 @@
 import { FastifyRequest } from 'fastify';
 
-export type GetRamRequest = FastifyRequest<{
+export type GetOneRamRequest = FastifyRequest<{
   Params: { id: string };
+}>;
+
+export type GetAllRamsRequest = FastifyRequest<{
+  Params: { id: string };
+  Querystring: {
+    typeId: string;
+    from: number;
+    count: number;
+  };
 }>;
 
 export type PostRamRequest = FastifyRequest<{
