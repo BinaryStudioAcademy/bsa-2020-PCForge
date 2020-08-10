@@ -51,7 +51,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
           <div className={styles.userPreferences}>
             {setups.map((setup, index) => (
               <SetupCard
-                key={generateKey(setup.title,index)}
+                key={generateKey(setup.title, index)}
                 image={setup.image}
                 title={setup.title}
                 description={setup.description}
