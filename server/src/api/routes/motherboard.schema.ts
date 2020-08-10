@@ -4,6 +4,7 @@ export type GetAllMotherboardsRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: {
     socketId: string | null;
+    ramTypeId: string | null;
     from: number | null;
     count: number | null;
   };
