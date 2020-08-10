@@ -1,4 +1,5 @@
 import { CpuDataAttributes, CpuModel } from '../../data/models/cpu';
+import { IWithMeta } from '../../data/repositories/base.repository';
 import { CpuRepository } from '../../data/repositories/cpu.repository';
 
 interface ICpuFilter {
@@ -15,7 +16,7 @@ export class CpuService {
     return cpu;
   }
 
-  async getAllCpus(filter: ICpuFilter): Promise<CpuModel[]> {
+  async getAllCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
     const cpus = await this.repository.getAllCpus(filter);
     return cpus;
   }
