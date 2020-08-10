@@ -5,14 +5,13 @@ import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from '../SetupCard';
 import styles from './styles.module.scss';
 
-console.log(styles);
 export interface UserPreferencesProps {
   games?: GameCardProps[];
   setups?: SetupCardProps[];
 }
 
-const generateKey = (pre: string) => {
-  return `${pre}_${new Date().getTime()}`;
+const generateKey = (pre: string, index: number) => {
+  return `${pre}_${new Date().getTime()}_${index}`;
 };
 
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
@@ -27,9 +26,9 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
             </Button>
           </div>
           <div className={styles.userPreferences}>
-            {games.map((game) => (
+            {games.map((game, index) => (
               <GameCard
-                key={generateKey(game.title)}
+                key={generateKey(game.title, index)}
                 image={game.image}
                 title={game.title}
                 releaseDate={game.releaseDate}
@@ -50,9 +49,9 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
             </Link>
           </div>
           <div className={styles.userPreferences}>
-            {setups.map((setup) => (
+            {setups.map((setup, index) => (
               <SetupCard
-                key={generateKey(setup.title)}
+                key={generateKey(setup.title,index)}
                 image={setup.image}
                 title={setup.title}
                 description={setup.description}
