@@ -3,9 +3,9 @@ import { FastifyRequest } from 'fastify';
 export type GetAllCpusRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: {
-    socketId: string;
-    from: number;
-    count: number;
+    socketId: string | null;
+    from: number | null;
+    count: number | null;
   };
 }>;
 

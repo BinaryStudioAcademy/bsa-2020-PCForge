@@ -1,6 +1,7 @@
 import { CpuDataAttributes, CpuModel, CpuStatic } from '../models/cpu';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, RichModel } from './base.repository';
+import { Op } from 'sequelize';
 
 interface ICpuFilter {
   socketId: string;
@@ -26,8 +27,10 @@ export class CpuRepository extends BaseRepository<CpuModel> {
     return cpu;
   }
 
+  private notNullSocket = { [Op.ne]: null };
+
   async getAllCpus(filter: ICpuFilter): Promise<CpuModel[]> {
-    const { socketId, from: offset, count: limit } = filter;
+    const { socketId = this.notNullSocket, from: offset = 0, count: limit = 50 } = filter;
     const cpus = await this.model.findAll({
       group: ['cpu.id', 'socket.id'],
       where: { socketId },
