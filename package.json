@@ -1,0 +1,15 @@
+{
+    "name": "PCForge",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+      "start": "cd ./client && npm run build && cd ../server && npm run dev"
+    },
+    "author": "",
+    "license": "MIT",
+    "dependencies": { },
+    "engines": {
+        "node": "12.x"
+    }
+  }
+  

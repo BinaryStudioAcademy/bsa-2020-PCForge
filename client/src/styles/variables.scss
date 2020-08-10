@@ -14,6 +14,8 @@ $colorBlue: #4972ff;
 $colorRed: #eb3d55;
 $colorOrange: #f27a54;
 
+$colorBackgroundGray: #3c444d;
+
 $colorTextWhite: #fff;
 $colorTextGray: #cbcfd4;
 $colorTextOrange: #f27a54;
@@ -21,3 +23,8 @@ $colorTextOrange: #f27a54;
 
 $userPageUserInfo: rgb(20, 17, 18);
 $gameCardColor: rgb(1, 19, 22);
+// Breakpoints
+$phone: 576px;
+$tablet: 768px;
+$largeTablet: 992px;
+$desktop: 1200px;

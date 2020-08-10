@@ -1,0 +1,125 @@
+@import '../../../styles//variables.scss';
+
+.requirementVariants {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+  margin-top: -1rem;
+}
+
+.requirementVariant {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 4rem;
+  font-size: 14px;
+  line-height: 22px;
+  margin-top: 1rem;
+}
+
+.requirementText {
+  font-size: 14px;
+  line-height: 22px;
+  color: $colorTextGray;
+}
+
+$border-width: 1px;
+$space-width: 30px;
+
+.performanceGraphItem {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: $space-width;
+  border-top-color: $colorGray;
+  border-top-style: solid;
+  border-bottom-color: $colorGray;
+  border-bottom-style: solid;
+  height: 4rem;
+}
+
+.performanceGraphItem:nth-of-type(1) {
+  border-top-width: $border-width;
+  border-bottom: $border-width / 2;
+}
+
+.performanceGraphItem:nth-of-type(2) {
+  border-top-width: $border-width / 2;
+  border-bottom: $border-width / 2;
+}
+
+.performanceGraphItem:nth-of-type(3) {
+  border-top-width: $border-width / 2;
+  border-bottom-width: $border-width;
+}
+
+.performanceGraphCentralLine {
+  position: absolute;
+  width: 100%;
+  border-top: $border-width solid $colorGray;
+}
+
+.performanceIndicator {
+  position: absolute;
+  left: -3px;
+  width: 60%;
+  height: 40%;
+  background: $colorRed;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.performanceIndicatorHeader {
+  position: absolute;
+  left: -$space-width - 5;
+  text-align: center;
+  font-family: Montserrat;
+  font-size: 10px;
+  line-height: 12px;
+  text-transform: uppercase;
+
+  color: #747D88;
+}
+
+.indicatorValues {
+  display: flex;
+  justify-content: space-between;
+  margin-left: $space-width;
+  margin-right: 2rem;
+  margin-top: 1rem;
+}
+
+.indicatorValue {
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #747D88;
+  margin-right: 4px;
+}
+
+.usedComponents {
+  margin-top: 2rem;
+}
+
+.usedComponentHeader {
+  text-align: left;
+  padding-right: 1rem;
+  padding-bottom: .5rem;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: $colorTextWhite;
+}
+
+.usedComponentsBody {
+  font-size: 16px;
+  padding-right: 1rem;
+  padding-bottom: .5rem;
+  line-height: 22px;
+  color: $colorTextGray;
+}
