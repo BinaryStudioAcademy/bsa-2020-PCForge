@@ -11,6 +11,20 @@ export interface GameAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface GameDataAttributes {
+  name: string;
+  year: number;
+  image: string;
+  description: string;
+  recommendedCpuId: string;
+  recommendedGpuId: string;
+  recommendedRamSize: number;
+  minimalCpuId: string;
+  minimalGpuId: string;
+  minimalRamSize: number;
+}
+
 export interface GameModel extends Model<GameAttributes>, GameAttributes {}
 export class Game extends Model<GameModel, GameAttributes> {}
 
