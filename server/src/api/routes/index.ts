@@ -7,7 +7,6 @@ import { router as motherboardRouter } from './motherboard.router';
 import { router as gpuRouter } from './gpu.router';
 import { router as cpuRouter } from './cpu.router';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-// import auth from '../plugins/auth';
 import { router as authRouter } from './auth.router';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
@@ -18,7 +17,7 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(motherboardRouter, { prefix: '/motherboards' });
   fastify.register(gpuRouter, { prefix: '/gpus' });
   fastify.register(cpuRouter, { prefix: '/cpus' });
-  fastify.register(authRouter);
+  fastify.register(authRouter, { prefix: '/auth' });
 
   next();
 };
