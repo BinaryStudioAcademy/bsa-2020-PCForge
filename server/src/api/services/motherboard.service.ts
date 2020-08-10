@@ -30,8 +30,8 @@ export class MotherboardService {
     if (!oldMotherboard) {
       throw new Error(`Motherboard with id: ${id} does not exists`);
     }
-    const Motherboard = await this.repository.updateMotherboardById(id, data);
-    return Motherboard;
+    const motherboard = await this.repository.updateMotherboardById(id, data);
+    return motherboard;
   }
 
   async deleteMotherboardById(inputMotherboard: { id: string }): Promise<void> {
