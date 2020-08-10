@@ -2,12 +2,7 @@ import { MotherboardDataAttributes, MotherboardModel, MotherboardStatic } from '
 import { RamTypeStatic } from '../models/ramtype';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, RichModel } from './base.repository';
-
-interface IMotherboardFilter {
-  socketId: string;
-  from: number;
-  count: number;
-}
+import { ISocketFilter, SocketFilterDefaults } from './repositoriesFilterInterfaces';
 
 export class MotherboardRepository extends BaseRepository<MotherboardModel> {
   constructor(
@@ -36,11 +31,11 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel> {
     return motherboard;
   }
 
-  async getAllMotherboards(filter: IMotherboardFilter): Promise<MotherboardModel[]> {
-    const { socketId, from: offset, count: limit } = filter;
+  async getAllMotherboards(filter: ISocketFilter): Promise<MotherboardModel[]> {
+    const { socketId, from: offset, count: limit } = { ...SocketFilterDefaults, ...filter };
     const motherboards = await this.model.findAll({
       group: ['motherboard.id', 'socket.id', 'ramType.id'],
-      where: { socketId },
+      where: { socketId: socketId },
       include: [
         {
           model: this.ramTypeModel,
