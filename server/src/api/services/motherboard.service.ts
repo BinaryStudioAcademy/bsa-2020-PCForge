@@ -1,11 +1,6 @@
 import { MotherboardDataAttributes, MotherboardModel } from '../../data/models/Motherboard';
 import { MotherboardRepository } from '../../data/repositories/Motherboard.repository';
-
-interface IMotherboardFilter {
-  socketId: string;
-  from: number;
-  count: number;
-}
+import { ISocketFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class MotherboardService {
   constructor(private repository: MotherboardRepository) {}
@@ -15,7 +10,7 @@ export class MotherboardService {
     return motherboard;
   }
 
-  async getAllMotherboards(filter: IMotherboardFilter): Promise<MotherboardModel[]> {
+  async getAllMotherboards(filter: ISocketFilter): Promise<MotherboardModel[]> {
     const motherboards = await this.repository.getAllMotherboards(filter);
     return motherboards;
   }

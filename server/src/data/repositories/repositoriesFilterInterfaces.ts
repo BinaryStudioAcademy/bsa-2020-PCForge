@@ -7,7 +7,7 @@ export interface IFilter {
 
 export const FilterDefaults: IFilter = {
   from: 0,
-  count: 1,
+  count: 50,
 };
 
 export interface ISocketFilter extends IFilter {
@@ -16,6 +16,6 @@ export interface ISocketFilter extends IFilter {
 
 export const SocketFilterDefaults: ISocketFilter = {
   from: 0,
-  count: 1,
+  count: 50,
   socketId: notNull,
 };
