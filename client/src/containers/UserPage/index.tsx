@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, Tab, AppBar } from '@material-ui/core';
 import styles from './styles.module.scss';
 import Input from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import UserPreferences from './components/UserPreferences';
+import { useParams } from 'react-router';
 
 enum UserPageTabs {
   Games = 0,
@@ -106,12 +107,26 @@ const UserPage: React.FC = () => {
     },
   ];
 
+  let { id } = useParams();
+  console.log(id);
+
   const [editableInput, setEditableInput] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
   const [name, setName] = useState('Takeshi');
   const [email, setEmail] = useState('Takeshi@gmail');
+  const [password, setPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('');
 
-  const focusInput = (input: HTMLInputElement) => input && input.focus();
+ 
+
+  const inputRef = React.createRef<HTMLInputElement>();
+
+  useEffect(() => {
+    if(editableInput) {
+      inputRef.current?.focus();
+    }
+  }, [editableInput])
+
   const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
     setSelectedTab(newValue);
   };
@@ -124,6 +139,25 @@ const UserPage: React.FC = () => {
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
+  };
+  const handleConfirmedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmedPassword(event.target.value);
+  };
+
+  // const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   // const target= event.target as HTMLInputElement;
+  //   // const file: File = (target.files as FileList)[0];
+  //   // console.log(file);
+  //   const target = event.target as HTMLInputElement;
+  //   if (target.files) {
+  //     const selectedFile = target.files[0];
+  //   }
+   
+   
+  // };
+
 
   return (
     <div className={styles.userPageContainer}>
@@ -132,13 +166,19 @@ const UserPage: React.FC = () => {
           <img src="https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg" alt="" />
         </div>
         <div className={styles.userData}>
+          {editableInput && (
+            <Button className={styles.chooseImageButton} buttonType={ButtonType.secondary}>
+              Change Image
+            
+            </Button>
+          )}
           <Input
             disabled={editableInput ? false : true}
             className={editableInput ? styles.autoFocused : ''}
             icon="Face"
             value={name}
             onChange={handleNameChange}
-            inputRef={focusInput}
+            inputRef={inputRef}
           />
           <Input
             disabled={editableInput ? false : true}
@@ -147,16 +187,26 @@ const UserPage: React.FC = () => {
             value={email}
             onChange={handleEmailChange}
           />
-          {editableInput &&  <Input
-            className={editableInput ? styles.autoFocused : ''}
-            icon="VpnKey"
-            value='password'
-          />}
-          {editableInput &&  <Input
-            className={editableInput ? styles.autoFocused : ''}
-            icon="VpnKey"
-            placeholder='Confirm password'
-          />}
+          {editableInput && (
+            <Input
+              className={editableInput ? styles.autoFocused : ''}
+              icon="VpnKey"
+              type="password"
+              placeholder="New password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          )}
+          {editableInput && (
+            <Input
+              className={editableInput ? styles.autoFocused : ''}
+              icon="VpnKey"
+              type="password"
+              placeholder="Confirm password"
+              value={confirmedPassword}
+              onChange={handleConfirmedPasswordChange}
+            />
+          )}
 
           <Button onClick={handleClick} buttonType={ButtonType.primary}>
             {editableInput ? 'Save' : 'Edit'}
@@ -179,3 +229,6 @@ const UserPage: React.FC = () => {
 };
 
 export default UserPage;
+
+
+// <input name="image" type="file" hidden  onChange={handleChangeImage}/> 
