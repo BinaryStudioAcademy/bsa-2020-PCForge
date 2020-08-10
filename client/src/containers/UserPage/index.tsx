@@ -107,7 +107,7 @@ const UserPage: React.FC = () => {
     },
   ];
 
-  let { id } = useParams();
+  const { id } = useParams();
   console.log(id);
 
   const [editableInput, setEditableInput] = useState(false);
@@ -124,7 +124,7 @@ const UserPage: React.FC = () => {
     if (editableInput) {
       inputRef.current?.focus();
     }
-  }, [editableInput]);
+  }, [editableInput, inputRef]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
     setSelectedTab(newValue);
