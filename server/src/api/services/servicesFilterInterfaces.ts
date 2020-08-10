@@ -4,14 +4,14 @@ export interface IFilter {
 }
 
 export interface ICpuFilter extends IFilter {
-  socketId: string | null;
+  socketId: string;
 }
 
 export interface IRamFilter extends IFilter {
-  typeId: string | null;
+  typeId: string;
 }
 
 export interface IMotherboardFilter extends IFilter {
-  ramTypeId: string | null;
-  socketId: string | null;
+  ramTypeId: string;
+  socketId: string;
 }
