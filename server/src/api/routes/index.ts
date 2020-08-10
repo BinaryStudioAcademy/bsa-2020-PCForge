@@ -1,4 +1,5 @@
 import { FastifyInstance } from 'fastify';
+import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import { router as ramTypeRouter } from './ramType.router';
 import { router as ramRouter } from './ram.router';
 import { router as powerSupplyRouter } from './powerSupply.router';
@@ -7,8 +8,8 @@ import { router as motherboardRouter } from './motherboard.router';
 import { router as gpuRouter } from './gpu.router';
 import { router as cpuRouter } from './cpu.router';
 import { router as userRouter } from './user.router';
-import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import { router as authRouter } from './auth.router';
+import { router as gameRouter } from './game.router';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
   fastify.register(ramTypeRouter, { prefix: '/ramTypes' });
@@ -19,6 +20,7 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(gpuRouter, { prefix: '/gpus' });
   fastify.register(cpuRouter, { prefix: '/cpus' });
   fastify.register(userRouter, { prefix: '/users' });
+  fastify.register(gameRouter, { prefix: '/games' });
   fastify.register(authRouter);
   next();
 };
