@@ -1,0 +1,39 @@
+@import 'styles/index';
+
+.userPreferences {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  max-height: calc(100% - 123px);
+  justify-content: flex-start;
+  overflow: auto;
+  padding: 15px;
+  border-top: 1px solid rgb(102, 102, 102);
+
+  @media (max-width: 768px) {
+    overflow: auto;
+    justify-content: center;
+  }
+
+  &>div:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 4px 5px rgba($color: $linkColor, $alpha: 0.2);
+  }
+}
+
+.addGameButton {
+  margin: 20px 30px 20px !important;
+}
+
+.setupLink {
+  margin: 20px 30px 20px !important;
+  display: inline-block;
+  font-size: 22px;
+}
+
+.buttonPlacement {
+  @media(max-width: 768px) {
+    display: flex;
+    justify-content: center;
+  }
+}

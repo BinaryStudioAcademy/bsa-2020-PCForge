@@ -1,6 +1,7 @@
 import { RamDataAttributes, RamModel, RamStatic } from '../models/ram';
 import { RamTypeStatic } from '../models/ramtype';
-import { BaseRepository, RichModel } from './base.repository';
+import { BaseRepository, IWithMeta, RichModel } from './base.repository';
+import { IRamFilter, RamFilterDefaults } from './repositoriesFilterInterfaces';
 
 export class RamRepository extends BaseRepository<RamModel> {
   constructor(private model: RamStatic, private ramTypeModel: RamTypeStatic) {
@@ -21,15 +22,20 @@ export class RamRepository extends BaseRepository<RamModel> {
     return ram;
   }
 
-  async getAllRams(): Promise<RamModel[]> {
-    const rams = await this.model.findAll({
+  async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
+    const { typeId, from: offset, count: limit } = { ...RamFilterDefaults, ...filter };
+    const rams = await this.getAll({
       group: ['ram.id', 'ramType.id'],
+      where: { typeId },
       include: [
         {
           model: this.ramTypeModel,
           attributes: ['id', 'name'],
         },
       ],
+      order: [['id', 'ASC']],
+      offset: offset,
+      limit: limit,
     });
     return rams;
   }

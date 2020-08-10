@@ -1,5 +1,7 @@
 import { RamDataAttributes, RamModel } from '../../data/models/ram';
+import { IWithMeta } from '../../data/repositories/base.repository';
 import { RamRepository } from '../../data/repositories/ram.repository';
+import { IRamFilter } from './servicesFilterInterfaces';
 
 export class RamService {
   constructor(private repository: RamRepository) {}
@@ -9,8 +11,8 @@ export class RamService {
     return ram;
   }
 
-  async getAllRams(): Promise<RamModel[]> {
-    const rams = await this.repository.getAllRams();
+  async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
+    const rams = await this.repository.getAllRams(filter);
     return rams;
   }
 

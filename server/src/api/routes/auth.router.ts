@@ -2,8 +2,6 @@ import { FastifyInstance } from 'fastify';
 import { error } from 'console';
 import { bcrypt } from 'bcrypt';
 import { PostAuthRequest, IsUserAuthenticated } from './auth.schema';
-const bcrypt = require('bcrypt');
-
 import { OAuth2Client } from 'google-auth-library';
 
 export function router(fastify: FastifyInstance, opts, next): void {
@@ -42,16 +40,12 @@ export function router(fastify: FastifyInstance, opts, next): void {
 
   fastify.get('/google/callback', {}, async function (request, responses) {
     const token = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
-    console.log('token', token);
     responses.send({ token: token.access_token });
   });
 
   fastify.post('/logged_in', {}, async function (request: IsUserAuthenticated, response) {
     const body = request.body;
-    console.log('body', body);
-    // const token = JSON.parse;
-    const token = '';
-
+    const token = body.token;
     fastify.jwt.verify(token, async (err, decoded) => {
       if (err) {
         try {

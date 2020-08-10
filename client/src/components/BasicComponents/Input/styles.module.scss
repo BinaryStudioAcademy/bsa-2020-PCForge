@@ -11,8 +11,12 @@ $bg-color-input: #575858;
     &::before, &::after {
       border: none !important;
     }
-
   }
+
+  & svg {
+    margin-left: 10px !important;
+  }
+
 
   & > div path {
     color: $bg-color-text;
