@@ -17,7 +17,6 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(motherboardRouter, { prefix: '/motherboards' });
   fastify.register(gpuRouter, { prefix: '/gpus' });
   fastify.register(cpuRouter, { prefix: '/cpus' });
-  fastify.register(authRouter, { prefix: '/auth' });
-
+  fastify.register(authRouter);
   next();
 };
