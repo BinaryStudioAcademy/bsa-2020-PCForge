@@ -11,8 +11,8 @@ module.exports = {
           'gpus',
           {
             where: {
-              name: game.minimal_gpu
-            }
+              name: game.minimal_gpu,
+            },
           },
           ['id']
         );
@@ -21,8 +21,8 @@ module.exports = {
           'gpus',
           {
             where: {
-              name: game.recommended_gpu
-            }
+              name: game.recommended_gpu,
+            },
           },
           ['id']
         );
@@ -31,8 +31,8 @@ module.exports = {
           'cpus',
           {
             where: {
-              name: game.minimal_cpu
-            }
+              name: game.minimal_cpu,
+            },
           },
           ['id']
         );
@@ -41,19 +41,14 @@ module.exports = {
           'cpus',
           {
             where: {
-              name: game.recommended_cpu
-            }
+              name: game.recommended_cpu,
+            },
           },
           ['id']
         );
 
-        if (
-          minimalGpuId &&
-          recommendedGpuId &&
-          minimalCpuId &&
-          recommendedCpuId
-        ) {
-          gamesToSeed.push(({
+        if (minimalGpuId && recommendedGpuId && minimalCpuId && recommendedCpuId) {
+          gamesToSeed.push({
             name: game.name,
             description: game.description,
             year: game.year,
@@ -66,11 +61,11 @@ module.exports = {
             minimalGpuId,
             createdAt: new Date(Date.now()),
             updatedAt: new Date(Date.now()),
-          }))
+          });
         }
       }
       await queryInterface.bulkInsert('games', gamesToSeed, {});
-    } catch(err) {
+    } catch (err) {
       console.log(`Seeding error: ${err}`);
     }
   },
