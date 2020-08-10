@@ -1,7 +1,7 @@
 import { CpuDataAttributes, CpuModel } from '../../data/models/cpu';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { CpuRepository } from '../../data/repositories/cpu.repository';
-import { ISocketFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { ICpuFilter } from './servicesFilterInterfaces';
 
 export class CpuService {
   constructor(private repository: CpuRepository) {}

@@ -3,9 +3,10 @@ import { FastifyRequest } from 'fastify';
 export type GetAllMotherboardsRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: {
-    socketId: string | null;
-    from: number | null;
-    count: number | null;
+    socketId: string;
+    ramTypeId: string;
+    from: number;
+    count: number;
   };
 }>;
 
