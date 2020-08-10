@@ -6,7 +6,7 @@ import Button from 'components/BasicComponents/Button';
 import { Routes } from 'common/enums';
 
 const NotFound = ({ history }: RouteComponentProps): JSX.Element => {
-  const goHome = () => history.push(Routes.LOGIN);
+  const goHome = () => history.push(Routes.DEFAULT);
 
   return (
     <>
