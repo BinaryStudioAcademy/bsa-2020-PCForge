@@ -1,4 +1,5 @@
 import { MotherboardDataAttributes, MotherboardModel } from '../../data/models/Motherboard';
+import { IWithMeta } from '../../data/repositories/base.repository';
 import { MotherboardRepository } from '../../data/repositories/Motherboard.repository';
 import { ISocketFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
@@ -10,7 +11,7 @@ export class MotherboardService {
     return motherboard;
   }
 
-  async getAllMotherboards(filter: ISocketFilter): Promise<MotherboardModel[]> {
+  async getAllMotherboards(filter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
     const motherboards = await this.repository.getAllMotherboards(filter);
     return motherboards;
   }
