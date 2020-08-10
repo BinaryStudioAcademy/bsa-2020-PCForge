@@ -5,6 +5,11 @@ import Input from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import UserPreferences from './components/UserPreferences';
 
+enum UserPageTabs {
+  Games = 0,
+  Setups = 1,
+}
+
 const UserPage: React.FC = () => {
   const gamesArray = [
     {
@@ -155,8 +160,8 @@ const UserPage: React.FC = () => {
             <Tab label="Setups" />
           </Tabs>
         </AppBar>
-        {selectedTab === 0 && <UserPreferences games={gamesArray} />}
-        {selectedTab === 1 && <UserPreferences setups={setupsArray} />}
+        {selectedTab === UserPageTabs.Games && <UserPreferences games={gamesArray} />}
+        {selectedTab === UserPageTabs.Setups && <UserPreferences setups={setupsArray} />}
       </div>
     </div>
   );
