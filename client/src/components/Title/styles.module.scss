@@ -1,0 +1,21 @@
+.wrapper {
+  & .title {
+    margin-bottom: 4px;
+    font-family: Lato, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 32px;
+    /* identical to box height, or 114% */
+    letter-spacing: -0.4px;
+    color: #fdfdfd;
+  }
+  & .subtitle {
+    font-family: Lato, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 26px;
+    color: #7f8489;
+  }
+}
