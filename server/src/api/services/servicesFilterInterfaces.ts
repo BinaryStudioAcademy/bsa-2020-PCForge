@@ -3,6 +3,15 @@ export interface IFilter {
   count: number;
 }
 
-export interface ISocketFilter extends IFilter {
-  socketId?: string;
+export interface ICpuFilter extends IFilter {
+  socketId: string | null;
+}
+
+export interface IRamFilter extends IFilter {
+  typeId: string | null;
+}
+
+export interface IMotherboardFilter extends IFilter {
+  ramTypeId: string | null;
+  socketId: string | null;
 }
