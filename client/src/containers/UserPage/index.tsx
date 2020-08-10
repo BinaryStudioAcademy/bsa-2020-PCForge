@@ -117,15 +117,14 @@ const UserPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
 
- 
-
   const inputRef = React.createRef<HTMLInputElement>();
+  const imageInputRef = React.createRef<HTMLInputElement>();
 
   useEffect(() => {
-    if(editableInput) {
+    if (editableInput) {
       inputRef.current?.focus();
     }
-  }, [editableInput])
+  }, [editableInput]);
 
   const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
     setSelectedTab(newValue);
@@ -146,18 +145,9 @@ const UserPage: React.FC = () => {
     setConfirmedPassword(event.target.value);
   };
 
-  // const handleChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   // const target= event.target as HTMLInputElement;
-  //   // const file: File = (target.files as FileList)[0];
-  //   // console.log(file);
-  //   const target = event.target as HTMLInputElement;
-  //   if (target.files) {
-  //     const selectedFile = target.files[0];
-  //   }
-   
-   
-  // };
-
+  const handleChangeImage = () => {
+    // TODO: Upload image and show
+  };
 
   return (
     <div className={styles.userPageContainer}>
@@ -167,10 +157,24 @@ const UserPage: React.FC = () => {
         </div>
         <div className={styles.userData}>
           {editableInput && (
-            <Button className={styles.chooseImageButton} buttonType={ButtonType.secondary}>
-              Change Image
-            
-            </Button>
+            <>
+              <input
+                id="userImageInput"
+                name="image"
+                type="file"
+                accept="image/*"
+                hidden
+                onChange={handleChangeImage}
+                ref={imageInputRef}
+              />
+              <Button
+                className={styles.chooseImageButton}
+                buttonType={ButtonType.secondary}
+                onClick={() => imageInputRef.current?.click()}
+              >
+                Change Image
+              </Button>
+            </>
           )}
           <Input
             disabled={editableInput ? false : true}
@@ -229,6 +233,3 @@ const UserPage: React.FC = () => {
 };
 
 export default UserPage;
-
-
-// <input name="image" type="file" hidden  onChange={handleChangeImage}/> 
