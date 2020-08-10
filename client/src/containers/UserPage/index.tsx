@@ -147,6 +147,17 @@ const UserPage: React.FC = () => {
             value={email}
             onChange={handleEmailChange}
           />
+          {editableInput &&  <Input
+            className={editableInput ? styles.autoFocused : ''}
+            icon="VpnKey"
+            value='password'
+          />}
+          {editableInput &&  <Input
+            className={editableInput ? styles.autoFocused : ''}
+            icon="VpnKey"
+            placeholder='Confirm password'
+          />}
+
           <Button onClick={handleClick} buttonType={ButtonType.primary}>
             {editableInput ? 'Save' : 'Edit'}
           </Button>
