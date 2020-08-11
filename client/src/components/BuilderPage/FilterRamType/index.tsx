@@ -8,11 +8,11 @@ import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Spinner from '../Spinner';
-import { getAllRamType } from '../../../services/ramTypeService';
-import { TypeRamType } from '../../../models/typeRamType';
-import { TypeFilter } from '../../../models/typeFilterBuilder';
-import styles from '../styles.module.scss';
+import Spinner from 'components/BuilderPage/Spinner';
+import { getAllRamType } from 'services/ramTypeService';
+import { TypeRamType } from 'models/typeRamType';
+import { TypeFilter } from 'models/typeFilterBuilder';
+import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilter;

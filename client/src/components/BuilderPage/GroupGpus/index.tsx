@@ -3,16 +3,16 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import SpecificationField from '../SpecificationField';
-import ListComponentsItem from '../ListComponentsItem';
-import GroupItemSummary from '../GroupItemSummary';
-import Paginator from '../Paginator';
-import FilterRange from '../FilterRange';
-import Spinner from '../Spinner';
-import { getAllGpu } from '../../../services/gpuService';
-import { TypeGpu } from '../../../models/typeGpu';
-import { TypeFilter } from '../../../models/typeFilterBuilder';
-import styles from '../styles.module.scss';
+import SpecificationField from 'components/BuilderPage/SpecificationField';
+import ListComponentsItem from 'components/BuilderPage/ListComponentsItem';
+import GroupItemSummary from 'components/BuilderPage/GroupItemSummary';
+import Paginator from 'components/BuilderPage/Paginator';
+import FilterRange from 'components/BuilderPage/FilterRange';
+import Spinner from 'components/BuilderPage/Spinner';
+import { getAllGpu } from 'services/gpuService';
+import { TypeGpu } from 'models/typeGpu';
+import { TypeFilter } from 'models/typeFilterBuilder';
+import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilter;

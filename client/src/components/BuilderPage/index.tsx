@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import { Box } from '@material-ui/core';
-import BuilderTitle from './BuilderTitle';
-import GroupCpus from './GroupCpus';
-import GroupGpus from './GroupGpus';
-import GroupRams from './GroupRams';
-import GroupMotherboards from './GroupMotherboards';
-import GroupPowersupplies from './GroupPowersupply';
-import { TypeFilter } from '../../models/typeFilterBuilder';
-import { TypeCpu } from '../../models/typeCpu';
-import { TypeGpu } from '../../models/typeGpu';
-import { TypeRam } from '../../models/typeRam';
-import { TypeMotherboard } from '../../models/typeMotherboard';
-import { TypePowersupplies } from '../../models/typePowersupplies';
+import BuilderTitle from 'components/BuilderPage/BuilderTitle';
+import GroupCpus from 'components/BuilderPage/GroupCpus';
+import GroupGpus from 'components/BuilderPage/GroupGpus';
+import GroupRams from 'components/BuilderPage/GroupRams';
+import GroupMotherboards from 'components/BuilderPage/GroupMotherboards';
+import GroupPowersupplies from 'components/BuilderPage/GroupPowersupply';
+import { TypeFilter } from 'models/typeFilterBuilder';
+import { TypeCpu } from 'models/typeCpu';
+import { TypeGpu } from 'models/typeGpu';
+import { TypeRam } from 'models/typeRam';
+import { TypeMotherboard } from 'models/typeMotherboard';
+import { TypePowersupplies } from 'models/typePowersupplies';
 // import styles from './styles.module.scss';
 
 type PropsType = {
