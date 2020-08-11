@@ -11,12 +11,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Spinner from '../Spinner';
 import { getAllSocket } from '../../../services/socketService';
 import { TypeSocket } from '../../../models/typeSocket';
-import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
-import styles from "../styles.module.scss";
+import { TypeFilter } from '../../../models/typeFilterBuilder';
+import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilterBuilder;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  filter: TypeFilter;
+  onAddFilter: ({}: TypeFilter) => void;
 };
 
 const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
@@ -27,8 +27,8 @@ const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
   const getSockets = async () => {
     setLoad(true);
     try {
-      const newSockets = await getAllSocket();
-      setSockets(newSockets);
+      const res = await getAllSocket({});
+      setSockets(res.data);
     } catch (err) {
       console.log(err); // add notification
     } finally {
