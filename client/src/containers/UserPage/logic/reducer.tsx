@@ -1,13 +1,14 @@
+import { IUser } from './interfaces';
 import { UserActionTypes, LOAD_USER_SUCCESS, UPDATE_USER_SUCCESS, SHOW_SPINNER, HIDE_SPINNER } from './actionTypes';
 
 export interface IUserState {
-  loadedUser: null | {};
+  loadedUser: IUser | null;
   showSpinner: boolean;
 }
 
 const initialState: IUserState = {
   loadedUser: null,
-  showSpinner: false,
+  showSpinner: true,
 };
 
 function UserReducer(state = initialState, action: UserActionTypes) {

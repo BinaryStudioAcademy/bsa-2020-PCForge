@@ -1,3 +1,5 @@
+import { IUser } from './interfaces';
+
 export const LOAD_USER = 'LOAD_USER';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 export const UPDATE_USER = 'UPDATE_USER';
@@ -14,17 +16,17 @@ export interface loadUser {
 
 export interface loadUserSuccess {
   type: typeof LOAD_USER_SUCCESS;
-  payload: {};
+  payload: IUser;
 }
 
 export interface updateUser {
   type: typeof UPDATE_USER;
-  payload: {};
+  payload: IUser;
 }
 
 export interface updateUserSuccess {
   type: typeof UPDATE_USER_SUCCESS;
-  payload: {};
+  payload: IUser;
 }
 
 export interface showSpinner {

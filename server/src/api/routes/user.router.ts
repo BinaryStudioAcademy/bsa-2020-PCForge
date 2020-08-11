@@ -16,10 +16,14 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(users);
   });
 
-  fastify.get('/:id', {}, async function (request: GetOneUserRequest) {
+  fastify.get('/:id', {}, async function (request: GetOneUserRequest, reply) {
     const { id } = request.params;
-    const user = UserService.getUser(id);
-    return user;
+    const user = await UserService.getUser(id);
+    if (user) {
+      reply.send(user);
+    } else {
+      reply.code(404).type('text/html').send('Not Found');
+    }
   });
 
   fastify.post('/', {}, async (request: PostUserRequest, reply) => {

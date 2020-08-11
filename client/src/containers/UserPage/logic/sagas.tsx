@@ -1,3 +1,4 @@
+import { IUser } from './interfaces';
 import { all, takeEvery, call, put, select } from 'redux-saga/effects';
 // TODO: import api service here
 import { loadUser as loadUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
@@ -19,9 +20,11 @@ function* watchLoadUser() {
 function* loadUser(action: loadUserAction) {
   yield put(showSpinner());
   try {
-    const user = yield call(fetch, `${apiUrl}/users/${action.payload.id}`);
+    const res = yield call(fetch, `${apiUrl}users/${action.payload.id}`, { method: 'GET' });
+    const user = yield call([res, res.json])
+
     yield put(loadUserSuccess(user));
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
   yield put(hideSpinner());
