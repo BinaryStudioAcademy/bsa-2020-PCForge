@@ -1,7 +1,5 @@
-import { RamTypeCreationAttributes, RamTypeModel } from '../../data/models/ramtype';
-import { IWithMeta } from '../../data/repositories/base.repository';
+import { RamTypeDataAttributes, RamTypeModel } from '../../data/models/ramtype';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class RamTypeService {
   constructor(private repository: RamTypeRepository) {}
@@ -11,17 +9,17 @@ export class RamTypeService {
     return ramType;
   }
 
-  async getAllRamTypes(filter: IFilter): Promise<IWithMeta<RamTypeModel>> {
-    const ramTypes = await this.repository.getAllRamTypes(filter);
+  async getAllRamTypes(): Promise<RamTypeModel[]> {
+    const ramTypes = await this.repository.getAllRamTypes();
     return ramTypes;
   }
 
-  async createRamType(inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
+  async createRamType(inputRamType: RamTypeDataAttributes): Promise<RamTypeModel> {
     const ramType = await this.repository.createRamType(inputRamType);
     return ramType;
   }
 
-  async updateRamById(inputRamType: { id: string; data: RamTypeCreationAttributes }): Promise<RamTypeModel> {
+  async updateRamById(inputRamType: { id: string; data: RamTypeDataAttributes }): Promise<RamTypeModel> {
     const { id, data } = inputRamType;
     const oldRamType = await this.repository.getRamTypeById(id);
     if (!oldRamType) {

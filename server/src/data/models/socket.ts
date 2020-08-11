@@ -7,7 +7,7 @@ export interface SocketAttributes {
   updatedAt: Date;
 }
 
-export interface SocketCreationAttributes {
+export interface SocketDataAttributes {
   name: string;
 }
 

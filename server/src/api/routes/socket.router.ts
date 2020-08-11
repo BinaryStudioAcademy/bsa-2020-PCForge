@@ -1,22 +1,16 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import {
-  PostSocketRequest,
-  GetOneSocketRequest,
-  PutSocketRequest,
-  DeleteSocketRequest,
-  GetAllSocketsRequest,
-} from './socket.schema';
+import { PostSocketRequest, GetSocketRequest, PutSocketRequest, DeleteSocketRequest } from './socket.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { SocketService } = fastify.services;
 
-  fastify.get('/', {}, async (request: GetAllSocketsRequest, reply) => {
-    const sockets = await SocketService.getAllSockets(request.query);
+  fastify.get('/', {}, async (request, reply) => {
+    const sockets = await SocketService.getAllSockets();
     reply.send(sockets);
   });
 
-  fastify.get('/:id', {}, async (request: GetOneSocketRequest, reply) => {
+  fastify.get('/:id', {}, async (request: GetSocketRequest, reply) => {
     const { id } = request.params;
     const socket = await SocketService.getSocketById(id);
     reply.send(socket);

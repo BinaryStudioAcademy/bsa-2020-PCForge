@@ -1,22 +1,20 @@
 import { FastifyRequest } from 'fastify';
-import { SocketCreationAttributes } from '../../data/models/socket';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
-export type GetAllSocketsRequest = FastifyRequest<{
-  Querystring: IFilter;
-}>;
-
-export type GetOneSocketRequest = FastifyRequest<{
+export type GetSocketRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
 export type PostSocketRequest = FastifyRequest<{
-  Body: SocketCreationAttributes;
+  Body: {
+    name: string;
+  };
 }>;
 
 export type PutSocketRequest = FastifyRequest<{
   Params: { id: string };
-  Body: SocketCreationAttributes;
+  Body: {
+    name: string;
+  };
 }>;
 
 export type DeleteSocketRequest = FastifyRequest<{

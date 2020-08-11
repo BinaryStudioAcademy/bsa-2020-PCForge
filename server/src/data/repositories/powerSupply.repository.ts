@@ -1,6 +1,5 @@
-import { PowerSupplyCreationAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/PowerSupply';
-import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IFilter } from './repositoriesFilterInterfaces';
+import { PowerSupplyDataAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/PowerSupply';
+import { BaseRepository, RichModel } from './base.repository';
 
 export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
   constructor(private model: PowerSupplyStatic) {
@@ -12,19 +11,17 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
     return powerSupply;
   }
 
-  async getAllPowerSupplies(filter: IFilter): Promise<IWithMeta<PowerSupplyModel>> {
-    const powerSupplies = await this.getAll(filter, {
-      group: ['powerSupply.id'],
-    });
-    return powerSupplies;
+  async getAllPowerSupplies(): Promise<PowerSupplyModel[]> {
+    const powerSupplies = await this.getAll();
+    return powerSupplies.data;
   }
 
-  async createPowerSupply(inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
+  async createPowerSupply(inputPowerSupply: PowerSupplyDataAttributes): Promise<PowerSupplyModel> {
     const powerSupply = await this.model.create(inputPowerSupply);
     return powerSupply;
   }
 
-  async updatePowerSupplyById(id: string, inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
+  async updatePowerSupplyById(id: string, inputPowerSupply: PowerSupplyDataAttributes): Promise<PowerSupplyModel> {
     const powerSupply = await this.updateById(id, inputPowerSupply);
     return powerSupply;
   }

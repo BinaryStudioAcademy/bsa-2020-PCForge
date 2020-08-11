@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-import { UserModel, UserCreationAttributes } from '../../data/models/user';
+import { UserModel, UserDataAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 
 interface UserCreateAttributes {
@@ -28,7 +28,7 @@ export class UserService {
   }
 
   async createUser(inputUser: UserCreateAttributes): Promise<UserModel> {
-    const userAttributes: UserCreationAttributes = {
+    const userAttributes: UserDataAttributes = {
       ...inputUser,
       isAdmin: false,
       password: this.hash(inputUser.password),

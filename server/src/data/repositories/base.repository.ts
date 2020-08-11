@@ -1,5 +1,4 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
-import { FilterDefaults, IFilter } from './repositoriesFilterInterfaces';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
@@ -7,7 +6,6 @@ export type RichModel = typeof Model & {
 
 export interface IMeta {
   globalCount: number;
-  countAfterFiltering: number;
 }
 
 export interface IWithMeta<M extends Model> {
@@ -18,26 +16,16 @@ export interface IWithMeta<M extends Model> {
 export abstract class BaseRepository<M extends Model> {
   constructor(private _model: RichModel) {}
 
-  async getAll(filter?: IFilter, params?: FindOptions): Promise<IWithMeta<M>> {
+  async getAll(params?: FindOptions): Promise<IWithMeta<M>> {
     let result = [];
-    const { from: offset, count: limit, ...uniqueFilters } = { ...FilterDefaults, ...filter };
     if (params) {
-      result = await this._model.findAll({
-        order: [['id', 'ASC']],
-        offset: offset,
-        limit: limit,
-        ...params,
-      });
+      result = await this._model.findAll(params);
     } else {
       result = await this._model.findAll();
     }
     const globalCount = await this._model.count();
-    let countAfterFiltering = globalCount;
-    if (filter) {
-      countAfterFiltering = await this._model.count({ where: { ...uniqueFilters } });
-    }
     return {
-      meta: { globalCount, countAfterFiltering },
+      meta: { globalCount },
       data: result as M[],
     };
   }

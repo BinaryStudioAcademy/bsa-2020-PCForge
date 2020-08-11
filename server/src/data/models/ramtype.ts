@@ -7,7 +7,7 @@ export interface RamTypeAttributes {
   updatedAt: Date;
 }
 
-export interface RamTypeCreationAttributes {
+export interface RamTypeDataAttributes {
   name: string;
 }
 

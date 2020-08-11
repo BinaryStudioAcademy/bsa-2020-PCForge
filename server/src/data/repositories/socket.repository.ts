@@ -1,6 +1,5 @@
-import { SocketCreationAttributes, SocketModel, SocketStatic } from '../models/socket';
-import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IFilter } from './repositoriesFilterInterfaces';
+import { SocketDataAttributes, SocketModel, SocketStatic } from '../models/socket';
+import { BaseRepository, RichModel } from './base.repository';
 
 export class SocketRepository extends BaseRepository<SocketModel> {
   constructor(private model: SocketStatic) {
@@ -12,19 +11,17 @@ export class SocketRepository extends BaseRepository<SocketModel> {
     return socket;
   }
 
-  async getAllSockets(filter: IFilter): Promise<IWithMeta<SocketModel>> {
-    const sockets = await this.getAll(filter, {
-      group: ['socket.id'],
-    });
-    return sockets;
+  async getAllSockets(): Promise<SocketModel[]> {
+    const sockets = await this.getAll();
+    return sockets.data;
   }
 
-  async createSocket(inputSocket: SocketCreationAttributes): Promise<SocketModel> {
+  async createSocket(inputSocket: SocketDataAttributes): Promise<SocketModel> {
     const socket = await this.model.create(inputSocket);
     return socket;
   }
 
-  async updateSocketById(id: string, inputSocket: SocketCreationAttributes): Promise<SocketModel> {
+  async updateSocketById(id: string, inputSocket: SocketDataAttributes): Promise<SocketModel> {
     const socket = await this.updateById(id, inputSocket);
     return socket;
   }

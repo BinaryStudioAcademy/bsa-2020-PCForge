@@ -1,22 +1,22 @@
 import { FastifyRequest } from 'fastify';
-import { TopGameCreationAttributes } from '../../data/models/topgame';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
-export type GetAllTopGamesRequest = FastifyRequest<{
-  Querystring: IFilter;
-}>;
+export type GetAllTopGamesRequest = FastifyRequest;
 
 export type GetOneTopGameRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
 export type PostTopGameRequest = FastifyRequest<{
-  Body: TopGameCreationAttributes;
+  Body: {
+    gameId: number;
+  };
 }>;
 
 export type PutTopGameRequest = FastifyRequest<{
   Params: { id: string };
-  Body: TopGameCreationAttributes;
+  Body: {
+    gameId: number;
+  };
 }>;
 
 export type DeleteTopGameRequest = FastifyRequest<{

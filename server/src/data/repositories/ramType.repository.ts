@@ -1,6 +1,5 @@
-import { RamTypeCreationAttributes, RamTypeModel, RamTypeStatic } from '../models/ramtype';
-import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IFilter } from './repositoriesFilterInterfaces';
+import { RamTypeDataAttributes, RamTypeModel, RamTypeStatic } from '../models/ramtype';
+import { BaseRepository, RichModel } from './base.repository';
 
 export class RamTypeRepository extends BaseRepository<RamTypeModel> {
   constructor(private model: RamTypeStatic) {
@@ -12,19 +11,17 @@ export class RamTypeRepository extends BaseRepository<RamTypeModel> {
     return ramType;
   }
 
-  async getAllRamTypes(filter: IFilter): Promise<IWithMeta<RamTypeModel>> {
-    const ramTypes = await this.getAll(filter, {
-      group: ['ramType.id'],
-    });
-    return ramTypes;
+  async getAllRamTypes(): Promise<RamTypeModel[]> {
+    const ramTypes = await this.getAll();
+    return ramTypes.data;
   }
 
-  async createRamType(inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
+  async createRamType(inputRamType: RamTypeDataAttributes): Promise<RamTypeModel> {
     const ramType = await this.model.create(inputRamType);
     return ramType;
   }
 
-  async updateRamTypeById(id: string, inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
+  async updateRamTypeById(id: string, inputRamType: RamTypeDataAttributes): Promise<RamTypeModel> {
     const ramType = await this.updateById(id, inputRamType);
     return ramType;
   }

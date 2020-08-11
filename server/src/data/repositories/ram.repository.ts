@@ -1,4 +1,4 @@
-import { RamCreationAttributes, RamModel, RamStatic } from '../models/ram';
+import { RamDataAttributes, RamModel, RamStatic } from '../models/ram';
 import { RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IRamFilter, RamFilterDefaults } from './repositoriesFilterInterfaces';
@@ -15,6 +15,7 @@ export class RamRepository extends BaseRepository<RamModel> {
       include: [
         {
           model: this.ramTypeModel,
+          attributes: ['id', 'name'],
         },
       ],
     });
@@ -22,26 +23,30 @@ export class RamRepository extends BaseRepository<RamModel> {
   }
 
   async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
-    const { typeId } = { ...RamFilterDefaults, ...filter };
-    const rams = await this.getAll(filter, {
+    const { typeId, from: offset, count: limit } = { ...RamFilterDefaults, ...filter };
+    const rams = await this.getAll({
       group: ['ram.id', 'ramType.id'],
       where: { typeId },
       include: [
         {
           model: this.ramTypeModel,
+          attributes: ['id', 'name'],
         },
       ],
+      order: [['id', 'ASC']],
+      offset: offset,
+      limit: limit,
     });
     return rams;
   }
 
-  async createRam(inputRam: RamCreationAttributes): Promise<RamModel> {
+  async createRam(inputRam: RamDataAttributes): Promise<RamModel> {
     const { id } = await this.model.create(inputRam);
     const ram = this.getRamById(id.toString());
     return ram;
   }
 
-  async updateRamById(id: string, inputRam: RamCreationAttributes): Promise<RamModel> {
+  async updateRamById(id: string, inputRam: RamDataAttributes): Promise<RamModel> {
     const ram = await this.updateById(id, inputRam);
     return ram;
   }

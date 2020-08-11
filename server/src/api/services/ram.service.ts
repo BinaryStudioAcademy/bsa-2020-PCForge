@@ -1,7 +1,7 @@
-import { RamCreationAttributes, RamModel } from '../../data/models/ram';
+import { RamDataAttributes, RamModel } from '../../data/models/ram';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { RamRepository } from '../../data/repositories/ram.repository';
-import { IRamFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IRamFilter } from './servicesFilterInterfaces';
 
 export class RamService {
   constructor(private repository: RamRepository) {}
@@ -16,12 +16,12 @@ export class RamService {
     return rams;
   }
 
-  async createRam(inputRam: RamCreationAttributes): Promise<RamModel> {
+  async createRam(inputRam: RamDataAttributes): Promise<RamModel> {
     const ram = await this.repository.createRam(inputRam);
     return ram;
   }
 
-  async updateRamById(inputRam: { id: string; data: RamCreationAttributes }): Promise<RamModel> {
+  async updateRamById(inputRam: { id: string; data: RamDataAttributes }): Promise<RamModel> {
     const { id, data } = inputRam;
     const oldRam = await this.repository.getRamById(id);
     if (!oldRam) {

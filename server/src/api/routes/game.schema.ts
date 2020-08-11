@@ -1,22 +1,40 @@
 import { FastifyRequest } from 'fastify';
-import { GameCreationAttributes } from '../../data/models/game';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
-export type GetAllGamesRequest = FastifyRequest<{
-  Querystring: IFilter;
-}>;
+export type GetAllGamesRequest = FastifyRequest;
 
 export type GetOneGameRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
 export type PostGameRequest = FastifyRequest<{
-  Body: GameCreationAttributes;
+  Body: {
+    name: string;
+    year: number;
+    image: string;
+    description: string;
+    recommendedCpuId: string;
+    recommendedGpuId: string;
+    recommendedRamSize: number;
+    minimalCpuId: string;
+    minimalGpuId: string;
+    minimalRamSize: number;
+  };
 }>;
 
 export type PutGameRequest = FastifyRequest<{
   Params: { id: string };
-  Body: GameCreationAttributes;
+  Body: {
+    name: string;
+    year: number;
+    image: string;
+    description: string;
+    recommendedCpuId: string;
+    recommendedGpuId: string;
+    recommendedRamSize: number;
+    minimalCpuId: string;
+    minimalGpuId: string;
+    minimalRamSize: number;
+  };
 }>;
 
 export type DeleteGameRequest = FastifyRequest<{

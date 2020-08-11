@@ -1,22 +1,22 @@
 import { FastifyRequest } from 'fastify';
-import { PowerSupplyCreationAttributes } from '../../data/models/powersupply';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
-export type GetOnePowerSuppliesRequest = FastifyRequest<{
-  Querystring: IFilter;
-}>;
-
-export type GetOnePowerSupplyRequest = FastifyRequest<{
+export type GetPowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
 export type PostPowerSupplyRequest = FastifyRequest<{
-  Body: PowerSupplyCreationAttributes;
+  Body: {
+    name: string;
+    power: number;
+  };
 }>;
 
 export type PutPowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
-  Body: PowerSupplyCreationAttributes;
+  Body: {
+    name: string;
+    power: number;
+  };
 }>;
 
 export type DeletePowerSupplyRequest = FastifyRequest<{

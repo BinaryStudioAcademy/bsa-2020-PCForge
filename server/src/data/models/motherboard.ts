@@ -1,17 +1,13 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
-import { RamTypeAttributes } from './ramtype';
-import { SocketAttributes } from './socket';
 
 export interface MotherboardAttributes {
   id: number;
   name: string;
-  socket: SocketAttributes;
-  ramType: RamTypeAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface MotherboardCreationAttributes {
+export interface MotherboardDataAttributes {
   name: string;
   socketId: number;
   ramTypeId: number;

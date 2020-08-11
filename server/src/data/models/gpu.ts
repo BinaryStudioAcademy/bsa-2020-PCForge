@@ -13,7 +13,7 @@ export interface GpuAttributes {
   updatedAt: Date;
 }
 
-export interface GpuCreationAttributes {
+export interface GpuDataAttributes {
   name: string;
   interface: string;
   memorySize: number;

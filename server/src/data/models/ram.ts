@@ -1,5 +1,4 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
-import { RamTypeAttributes } from './ramtype';
 
 export interface RamAttributes {
   id: number;
@@ -7,12 +6,11 @@ export interface RamAttributes {
   memorySize: number;
   frequency: number;
   power: number;
-  type: RamTypeAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface RamCreationAttributes {
+export interface RamDataAttributes {
   name: string;
   memorySize: number;
   frequency: number;

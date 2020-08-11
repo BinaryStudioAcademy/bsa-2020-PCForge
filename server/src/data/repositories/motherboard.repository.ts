@@ -1,4 +1,4 @@
-import { MotherboardCreationAttributes, MotherboardModel, MotherboardStatic } from '../models/Motherboard';
+import { MotherboardDataAttributes, MotherboardModel, MotherboardStatic } from '../models/Motherboard';
 import { RamTypeStatic } from '../models/ramtype';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
@@ -20,9 +20,11 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel> {
       include: [
         {
           model: this.ramTypeModel,
+          attributes: ['id', 'name'],
         },
         {
           model: this.socketModel,
+          attributes: ['id', 'name'],
         },
       ],
     });
@@ -30,29 +32,34 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel> {
   }
 
   async getAllMotherboards(filter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
-    const { socketId, ramTypeId } = { ...MotherboardFilterDefaults, ...filter };
-    const motherboards = await this.getAll(filter, {
+    const { socketId, ramTypeId, from: offset, count: limit } = { ...MotherboardFilterDefaults, ...filter };
+    const motherboards = await this.getAll({
       group: ['motherboard.id', 'socket.id', 'ramType.id'],
       where: { socketId, ramTypeId },
       include: [
         {
           model: this.ramTypeModel,
+          attributes: ['id', 'name'],
         },
         {
           model: this.socketModel,
+          attributes: ['id', 'name'],
         },
       ],
+      order: [['id', 'ASC']],
+      offset: offset,
+      limit: limit,
     });
     return motherboards;
   }
 
-  async createMotherboard(inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
+  async createMotherboard(inputMotherboard: MotherboardDataAttributes): Promise<MotherboardModel> {
     const { id } = await this.model.create(inputMotherboard);
     const motherboard = this.getMotherboardById(id.toString());
     return motherboard;
   }
 
-  async updateMotherboardById(id: string, inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
+  async updateMotherboardById(id: string, inputMotherboard: MotherboardDataAttributes): Promise<MotherboardModel> {
     const motherboard = await this.updateById(id, inputMotherboard);
     return motherboard;
   }

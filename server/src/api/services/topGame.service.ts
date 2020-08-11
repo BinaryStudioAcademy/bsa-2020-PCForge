@@ -1,6 +1,5 @@
 import { TopGameCreationAttributes, TopGameModel } from '../../data/models/topGame';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 import { TopGameRepository } from '../../data/repositories/topGame.repository';
 
 export class TopGameService {
@@ -11,8 +10,8 @@ export class TopGameService {
     return TopGame;
   }
 
-  async getAllTopGames(filter: IFilter): Promise<IWithMeta<TopGameModel>> {
-    const TopGames = await this.repository.getAllTopGames(filter);
+  async getAllTopGames(): Promise<IWithMeta<TopGameModel>> {
+    const TopGames = await this.repository.getAllTopGames();
     return TopGames;
   }
 

@@ -1,9 +1,7 @@
-import { filter } from 'bluebird';
 import { CpuStatic } from '../models/cpu';
-import { GameCreationAttributes, GameModel, GameStatic } from '../models/game';
+import { GameDataAttributes, GameModel, GameStatic } from '../models/game';
 import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IFilter } from './repositoriesFilterInterfaces';
 
 export class GameRepository extends BaseRepository<GameModel> {
   constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
@@ -17,56 +15,65 @@ export class GameRepository extends BaseRepository<GameModel> {
         {
           model: this.cpuModel,
           as: 'recommendedCpu',
+          attributes: ['id', 'name'],
         },
         {
           model: this.cpuModel,
           as: 'minimalCpu',
+          attributes: ['id', 'name'],
         },
         {
           model: this.gpuModel,
           as: 'recommendedGpu',
+          attributes: ['id', 'name'],
         },
         {
           model: this.gpuModel,
           as: 'minimalGpu',
+          attributes: ['id', 'name'],
         },
       ],
     });
     return game;
   }
 
-  async getAllGames(filter: IFilter): Promise<IWithMeta<GameModel>> {
-    const games = await this.getAll(filter, {
+  async getAllGames(): Promise<IWithMeta<GameModel>> {
+    const games = await this.getAll({
       group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
       include: [
         {
           model: this.cpuModel,
           as: 'recommendedCpu',
+          attributes: ['id', 'name'],
         },
         {
           model: this.cpuModel,
           as: 'minimalCpu',
+          attributes: ['id', 'name'],
         },
         {
           model: this.gpuModel,
           as: 'recommendedGpu',
+          attributes: ['id', 'name'],
         },
         {
           model: this.gpuModel,
           as: 'minimalGpu',
+          attributes: ['id', 'name'],
         },
       ],
+      order: [['id', 'ASC']],
     });
     return games;
   }
 
-  async createGame(inputGame: GameCreationAttributes): Promise<GameModel> {
+  async createGame(inputGame: GameDataAttributes): Promise<GameModel> {
     const { id } = await this.model.create(inputGame);
     const game = this.getGameById(id.toString());
     return game;
   }
 
-  async updateGameById(id: string, inputGame: GameCreationAttributes): Promise<GameModel> {
+  async updateGameById(id: string, inputGame: GameDataAttributes): Promise<GameModel> {
     const game = await this.updateById(id, inputGame);
     return game;
   }
