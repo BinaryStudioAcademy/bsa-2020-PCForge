@@ -1,7 +1,12 @@
 import { FastifyRequest } from 'fastify';
 import { PowerSupplyCreationAttributes } from '../../data/models/powersupply';
+import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
-export type GetPowerSupplyRequest = FastifyRequest<{
+export type GetOnePowerSuppliesRequest = FastifyRequest<{
+  Querystring: IFilter;
+}>;
+
+export type GetOnePowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 

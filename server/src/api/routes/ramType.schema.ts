@@ -1,7 +1,12 @@
 import { FastifyRequest } from 'fastify';
 import { RamTypeCreationAttributes } from '../../data/models/ramtype';
+import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
-export type GetRamTypeRequest = FastifyRequest<{
+export type GetAllRamTypesRequest = FastifyRequest<{
+  Querystring: IFilter;
+}>;
+
+export type GetOneRamTypeRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 

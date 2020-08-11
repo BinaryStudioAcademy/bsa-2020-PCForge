@@ -1,4 +1,6 @@
 import { SocketCreationAttributes, SocketModel } from '../../data/models/socket';
+import { IWithMeta } from '../../data/repositories/base.repository';
+import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 import { SocketRepository } from '../../data/repositories/socket.repository';
 
 export class SocketService {
@@ -9,8 +11,8 @@ export class SocketService {
     return socket;
   }
 
-  async getAllSockets(): Promise<SocketModel[]> {
-    const sockets = await this.repository.getAllSockets();
+  async getAllSockets(filter: IFilter): Promise<IWithMeta<SocketModel>> {
+    const sockets = await this.repository.getAllSockets(filter);
     return sockets;
   }
 

@@ -12,7 +12,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const { TopGameService } = fastify.services;
 
   fastify.get('/', {}, async (request: GetAllTopGamesRequest, reply) => {
-    const TopGames = await TopGameService.getAllTopGames();
+    const TopGames = await TopGameService.getAllTopGames(request.query);
     reply.send(TopGames);
   });
 
