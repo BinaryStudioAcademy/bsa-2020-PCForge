@@ -21,6 +21,7 @@ enum labels {
 interface IRatingBox {
   ratingValue: number;
   disabled: boolean;
+  name: string;
 }
 
 const StyledRating = withStyles({
@@ -36,16 +37,16 @@ const StyledRating = withStyles({
   },
 })(Rating);
 
-const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled }) => {
+const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name }) => {
   const [value, setValue] = React.useState<number>(ratingValue);
   const [hover, setHover] = React.useState<number>(-1);
 
   const tooltipValue = disabled ? value : labels[hover !== -1 ? hover : 0.5];
   return (
     <Tooltip title={tooltipValue} placement="right-start" arrow>
-      <Box mb={1} borderColor="transparent" display="inline-block">
+      <Box mb={0.5} borderColor="transparent" display="inline-block">
         <StyledRating
-          name="customized-color"
+          name={`${name}-rating-box`}
           value={value}
           disabled={disabled}
           precision={disabled ? 0.1 : 0.5}
@@ -66,4 +67,4 @@ const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled }) => {
   );
 };
 export default RatingBox;
-// example of using: <RatingBox ratingValue={3.4} disabled={false} />
+// example of using: <RatingBox ratingValue={3.4} disabled={false} name={'rated-element-key-id-is-here'}/>
