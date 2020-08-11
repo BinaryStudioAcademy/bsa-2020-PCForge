@@ -1,4 +1,4 @@
-import { RamTypeDataAttributes, RamTypeModel, RamTypeStatic } from '../models/ramtype';
+import { RamTypeCreationAttributes, RamTypeModel, RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, RichModel } from './base.repository';
 
 export class RamTypeRepository extends BaseRepository<RamTypeModel> {
@@ -16,12 +16,12 @@ export class RamTypeRepository extends BaseRepository<RamTypeModel> {
     return ramTypes.data;
   }
 
-  async createRamType(inputRamType: RamTypeDataAttributes): Promise<RamTypeModel> {
+  async createRamType(inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
     const ramType = await this.model.create(inputRamType);
     return ramType;
   }
 
-  async updateRamTypeById(id: string, inputRamType: RamTypeDataAttributes): Promise<RamTypeModel> {
+  async updateRamTypeById(id: string, inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
     const ramType = await this.updateById(id, inputRamType);
     return ramType;
   }

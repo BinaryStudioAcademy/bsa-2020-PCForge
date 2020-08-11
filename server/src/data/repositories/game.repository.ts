@@ -1,5 +1,5 @@
 import { CpuStatic } from '../models/cpu';
-import { GameDataAttributes, GameModel, GameStatic } from '../models/game';
+import { GameCreationAttributes, GameModel, GameStatic } from '../models/game';
 import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 
@@ -15,22 +15,18 @@ export class GameRepository extends BaseRepository<GameModel> {
         {
           model: this.cpuModel,
           as: 'recommendedCpu',
-          attributes: ['id', 'name'],
         },
         {
           model: this.cpuModel,
           as: 'minimalCpu',
-          attributes: ['id', 'name'],
         },
         {
           model: this.gpuModel,
           as: 'recommendedGpu',
-          attributes: ['id', 'name'],
         },
         {
           model: this.gpuModel,
           as: 'minimalGpu',
-          attributes: ['id', 'name'],
         },
       ],
     });
@@ -44,22 +40,18 @@ export class GameRepository extends BaseRepository<GameModel> {
         {
           model: this.cpuModel,
           as: 'recommendedCpu',
-          attributes: ['id', 'name'],
         },
         {
           model: this.cpuModel,
           as: 'minimalCpu',
-          attributes: ['id', 'name'],
         },
         {
           model: this.gpuModel,
           as: 'recommendedGpu',
-          attributes: ['id', 'name'],
         },
         {
           model: this.gpuModel,
           as: 'minimalGpu',
-          attributes: ['id', 'name'],
         },
       ],
       order: [['id', 'ASC']],
@@ -67,13 +59,13 @@ export class GameRepository extends BaseRepository<GameModel> {
     return games;
   }
 
-  async createGame(inputGame: GameDataAttributes): Promise<GameModel> {
+  async createGame(inputGame: GameCreationAttributes): Promise<GameModel> {
     const { id } = await this.model.create(inputGame);
     const game = this.getGameById(id.toString());
     return game;
   }
 
-  async updateGameById(id: string, inputGame: GameDataAttributes): Promise<GameModel> {
+  async updateGameById(id: string, inputGame: GameCreationAttributes): Promise<GameModel> {
     const game = await this.updateById(id, inputGame);
     return game;
   }

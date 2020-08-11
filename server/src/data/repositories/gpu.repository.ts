@@ -1,4 +1,4 @@
-import { GpuDataAttributes, GpuModel, GpuStatic } from '../models/Gpu';
+import { GpuCreationAttributes, GpuModel, GpuStatic } from '../models/Gpu';
 import { BaseRepository, RichModel } from './base.repository';
 
 export class GpuRepository extends BaseRepository<GpuModel> {
@@ -16,12 +16,12 @@ export class GpuRepository extends BaseRepository<GpuModel> {
     return gpus.data;
   }
 
-  async createGpu(inputGpu: GpuDataAttributes): Promise<GpuModel> {
+  async createGpu(inputGpu: GpuCreationAttributes): Promise<GpuModel> {
     const gpu = await this.model.create(inputGpu);
     return gpu;
   }
 
-  async updateGpuById(id: string, inputGpu: GpuDataAttributes): Promise<GpuModel> {
+  async updateGpuById(id: string, inputGpu: GpuCreationAttributes): Promise<GpuModel> {
     const gpu = await this.updateById(id, inputGpu);
     return gpu;
   }

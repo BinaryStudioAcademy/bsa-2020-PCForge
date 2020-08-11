@@ -1,4 +1,4 @@
-import { CpuDataAttributes, CpuModel, CpuStatic } from '../models/cpu';
+import { CpuCreationAttributes, CpuModel, CpuStatic } from '../models/cpu';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { ICpuFilter, CpuFilterDefaults } from './repositoriesFilterInterfaces';
@@ -14,7 +14,6 @@ export class CpuRepository extends BaseRepository<CpuModel> {
       include: [
         {
           model: this.socketModel,
-          attributes: ['id', 'name'],
         },
       ],
     });
@@ -29,7 +28,6 @@ export class CpuRepository extends BaseRepository<CpuModel> {
       include: [
         {
           model: this.socketModel,
-          attributes: ['id', 'name'],
         },
       ],
       order: [['id', 'ASC']],
@@ -39,13 +37,13 @@ export class CpuRepository extends BaseRepository<CpuModel> {
     return cpus;
   }
 
-  async createCpu(inputCpu: CpuDataAttributes): Promise<CpuModel> {
+  async createCpu(inputCpu: CpuCreationAttributes): Promise<CpuModel> {
     const { id } = await this.model.create(inputCpu);
     const cpu = this.getCpuById(id.toString());
     return cpu;
   }
 
-  async updateCpuById(id: string, inputCpu: CpuDataAttributes): Promise<CpuModel> {
+  async updateCpuById(id: string, inputCpu: CpuCreationAttributes): Promise<CpuModel> {
     const cpu = await this.updateById(id, inputCpu);
     return cpu;
   }

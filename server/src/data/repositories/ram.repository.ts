@@ -1,4 +1,4 @@
-import { RamDataAttributes, RamModel, RamStatic } from '../models/ram';
+import { RamCreationAttributes, RamModel, RamStatic } from '../models/ram';
 import { RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IRamFilter, RamFilterDefaults } from './repositoriesFilterInterfaces';
@@ -15,7 +15,6 @@ export class RamRepository extends BaseRepository<RamModel> {
       include: [
         {
           model: this.ramTypeModel,
-          attributes: ['id', 'name'],
         },
       ],
     });
@@ -30,7 +29,6 @@ export class RamRepository extends BaseRepository<RamModel> {
       include: [
         {
           model: this.ramTypeModel,
-          attributes: ['id', 'name'],
         },
       ],
       order: [['id', 'ASC']],
@@ -40,13 +38,13 @@ export class RamRepository extends BaseRepository<RamModel> {
     return rams;
   }
 
-  async createRam(inputRam: RamDataAttributes): Promise<RamModel> {
+  async createRam(inputRam: RamCreationAttributes): Promise<RamModel> {
     const { id } = await this.model.create(inputRam);
     const ram = this.getRamById(id.toString());
     return ram;
   }
 
-  async updateRamById(id: string, inputRam: RamDataAttributes): Promise<RamModel> {
+  async updateRamById(id: string, inputRam: RamCreationAttributes): Promise<RamModel> {
     const ram = await this.updateById(id, inputRam);
     return ram;
   }
