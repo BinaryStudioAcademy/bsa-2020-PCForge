@@ -9,7 +9,7 @@ export class GameRepository extends BaseRepository<GameModel> {
   }
 
   async getGameById(id: string): Promise<GameModel> {
-    const Game = await this.model.findByPk(id, {
+    const game = await this.model.findByPk(id, {
       group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
       include: [
         {
@@ -34,11 +34,11 @@ export class GameRepository extends BaseRepository<GameModel> {
         },
       ],
     });
-    return Game;
+    return game;
   }
 
   async getAllGames(): Promise<IWithMeta<GameModel>> {
-    const Games = await this.getAll({
+    const games = await this.getAll({
       group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
       include: [
         {
@@ -64,7 +64,7 @@ export class GameRepository extends BaseRepository<GameModel> {
       ],
       order: [['id', 'ASC']],
     });
-    return Games;
+    return games;
   }
 
   async createGame(inputGame: GameDataAttributes): Promise<GameModel> {
