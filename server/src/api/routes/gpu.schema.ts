@@ -1,7 +1,12 @@
 import { FastifyRequest } from 'fastify';
 import { GpuCreationAttributes } from '../../data/models/gpu';
+import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
-export type GetGpuRequest = FastifyRequest<{
+export type GetAllGpusRequest = FastifyRequest<{
+  Querystring: IFilter;
+}>;
+
+export type GetOneGpuRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 

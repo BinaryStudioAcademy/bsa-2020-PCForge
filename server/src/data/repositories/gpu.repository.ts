@@ -1,5 +1,6 @@
 import { GpuCreationAttributes, GpuModel, GpuStatic } from '../models/Gpu';
-import { BaseRepository, RichModel } from './base.repository';
+import { BaseRepository, IWithMeta, RichModel } from './base.repository';
+import { IFilter, FilterDefaults } from './repositoriesFilterInterfaces';
 
 export class GpuRepository extends BaseRepository<GpuModel> {
   constructor(private model: GpuStatic) {
@@ -11,9 +12,11 @@ export class GpuRepository extends BaseRepository<GpuModel> {
     return gpu;
   }
 
-  async getAllGpus(): Promise<GpuModel[]> {
-    const gpus = await this.getAll();
-    return gpus.data;
+  async getAllGpus(filter: IFilter): Promise<IWithMeta<GpuModel>> {
+    const gpus = await this.getAll(filter, {
+      group: ['gpu.id'],
+    });
+    return gpus;
   }
 
   async createGpu(inputGpu: GpuCreationAttributes): Promise<GpuModel> {
