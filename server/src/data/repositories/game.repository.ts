@@ -3,7 +3,7 @@ import { CpuStatic } from '../models/cpu';
 import { GameCreationAttributes, GameModel, GameStatic } from '../models/game';
 import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { FilterDefaults, IFilter } from './repositoriesFilterInterfaces';
+import { IFilter } from './repositoriesFilterInterfaces';
 
 export class GameRepository extends BaseRepository<GameModel> {
   constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
