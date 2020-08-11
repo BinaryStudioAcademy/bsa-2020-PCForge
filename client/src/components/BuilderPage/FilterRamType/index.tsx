@@ -27,8 +27,8 @@ const FilterRamTypes = ({ filter, onAddFilter }: PropsType): JSX.Element => {
   const getRamTypes = async () => {
     setLoad(true);
     try {
-      const newRamTypes = await getAllRamType();
-      setRamTypes(newRamTypes);
+      const res = await getAllRamType({});
+      setRamTypes(res.data);
     } catch (err) {
       console.log(err); // add notification
     } finally {
