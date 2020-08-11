@@ -10,7 +10,8 @@ $dark: #777;
   .footerTitle {
     color: $light;
     margin-bottom: 4px;
-    font-family: LatoRegular, sans-serif;
+    font-family: Lato, sans-serif;
+    font-weight: 400;
   }
 }
 
@@ -36,7 +37,8 @@ $dark: #777;
     .title {
       color: $light;
       margin-bottom: 4px;
-      font-family: LatoRegular, sans-serif;
+      font-family: Lato, sans-serif;
+      font-weight: 400;
     }
     .list {
       list-style: none;
@@ -46,7 +48,8 @@ $dark: #777;
     }
     .listItem {
       color: $dark;
-      font-family: LatoRegular, sans-serif;
+      font-family: Lato, sans-serif;
+      font-weight: 400;
     }
   }
 }
@@ -54,7 +57,8 @@ $dark: #777;
 .copyRights {
   color: $dark;
   font-size: 12px;
-  font-family: LatoRegular, sans-serif;
+  font-family: Lato, sans-serif;
+  font-weight: 400;
   margin-top: 24px;
 }
 

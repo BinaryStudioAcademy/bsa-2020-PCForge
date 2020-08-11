@@ -46,7 +46,7 @@ const options: ThemeOptions & Colors & Typography = {
     red: '#EB3D55',
   },
   typography: {
-    fontFamily: 'LatoRegular, Arial, sans-serif',
+    fontFamily: 'Lato, Arial, sans-serif',
   },
   overrides: {
     MuiCssBaseline: {

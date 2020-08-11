@@ -37,7 +37,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
   }
 
   sendData(event: React.FormEvent<HTMLButtonElement>) {
-    event.preventDefault();
     const state = this.props.authState;
     if (state.email && state.password) {
       state.isRegistration
