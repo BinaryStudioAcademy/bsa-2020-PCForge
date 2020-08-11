@@ -11,7 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Spinner from '../Spinner';
 import { getAllRamType } from '../../../services/ramTypeService';
 import { TypeRamType } from '../../../models/typeRamType';
-import { TypeFilter } from '../../../models/typeFilter';
+import { TypeFilter } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {

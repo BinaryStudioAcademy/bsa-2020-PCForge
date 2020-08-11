@@ -11,12 +11,12 @@ import FilterRange from '../FilterRange';
 import Spinner from '../Spinner';
 import { getAllGpu } from '../../../services/gpuService';
 import { TypeGpu } from '../../../models/typeGpu';
-import { TypeFilter } from '../../../models/typeFilter';
+import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
-  onAddFilter: ({}: TypeFilter) => void;
+  filter: TypeFilterBuilder;
+  onAddFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeGpu) => void;
 };
 

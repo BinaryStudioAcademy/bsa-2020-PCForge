@@ -6,7 +6,7 @@ import GroupGpus from './GroupGpus';
 import GroupRams from './GroupRams';
 import GroupMotherboards from './GroupMotherboards';
 import GroupPowersupplies from './GroupPowersupply';
-import { TypeFilter } from '../../models/typeFilter';
+import { TypeFilterBuilder } from '../../models/typeFilterBuilder';
 import { TypeCpu } from '../../models/typeCpu';
 import { TypeGpu } from '../../models/typeGpu';
 import { TypeRam } from '../../models/typeRam';
@@ -27,10 +27,10 @@ type TypeBuild = {
 };
 
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
-  const [filter, setFilter] = useState({} as TypeFilter);
+  const [filter, setFilter] = useState({} as TypeFilterBuilder);
   const [build, setBuild] = useState({} as TypeBuild);
 
-  const addFilterHandler = (newFilter: TypeFilter) => {
+  const addFilterHandler = (newFilter: TypeFilterBuilder) => {
     setFilter({
       ...filter,
       ...newFilter,

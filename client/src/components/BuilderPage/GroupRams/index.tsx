@@ -12,12 +12,12 @@ import Paginator from '../Paginator';
 import Spinner from '../Spinner';
 import { getAllRam } from '../../../services/ramService';
 import { TypeRam } from '../../../models/typeRam';
-import { TypeFilter } from '../../../models/typeFilter';
+import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
-  onAddFilter: ({}: TypeFilter) => void;
+  filter: TypeFilterBuilder;
+  onAddFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeRam) => void;
 };
 

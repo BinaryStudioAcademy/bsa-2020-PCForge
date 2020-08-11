@@ -11,12 +11,12 @@ import Paginator from '../Paginator';
 import Spinner from '../Spinner';
 import { getAllPowersupplies } from '../../../services/powersupplyService';
 import { TypePowersupplies } from '../../../models/typePowersupplies';
-import { TypeFilter } from '../../../models/typeFilter';
+import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
-  onAddFilter: ({}: TypeFilter) => void;
+  filter: TypeFilterBuilder;
+  onAddFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypePowersupplies) => void;
 };
 
