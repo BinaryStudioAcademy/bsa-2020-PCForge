@@ -1,4 +1,4 @@
-import Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize';
 import * as config from '../../../config/db.config';
 import fp from 'fastify-plugin';
 
