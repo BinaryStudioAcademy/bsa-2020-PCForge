@@ -5,6 +5,7 @@ import RatingBox from 'components/RatingBox';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';
 
 interface I_Props {
+  id: string;
   imageSource: string;
   setupName: string;
   processor: string;
@@ -14,7 +15,7 @@ interface I_Props {
   ram: string;
 }
 
-const SetupCard: React.FC<I_Props> = ({ imageSource, setupName, processor, gpu, ram, rating, comments }) => {
+const SetupCard: React.FC<I_Props> = ({ id, imageSource, setupName, processor, gpu, ram, rating, comments }) => {
   return (
     <div className={classes.setupCard}>
       <img className={classes.setupCardImage} src={imageSource} alt={setupName} />
@@ -37,7 +38,7 @@ const SetupCard: React.FC<I_Props> = ({ imageSource, setupName, processor, gpu, 
           <span className={classes.characteristicValue}>{ram}</span>
         </li>
       </ul>
-      <RatingBox ratingValue={rating} disabled={false} />
+      <RatingBox name={id} ratingValue={rating} disabled={false} />
       <Button className={classes.setupCardButton} buttonType={ButtonType.primary}>
         VIEW MORE INFO
       </Button>

@@ -13,7 +13,7 @@ export class SocketRepository extends BaseRepository<SocketModel> {
 
   async getAllSockets(): Promise<SocketModel[]> {
     const sockets = await this.getAll();
-    return sockets;
+    return sockets.data;
   }
 
   async createSocket(inputSocket: SocketDataAttributes): Promise<SocketModel> {

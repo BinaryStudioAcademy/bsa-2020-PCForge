@@ -1,37 +1,28 @@
-import callWebApi from '../helpers/webApiHelper';
+import webApi from '../helpers/webApiHelper';
+import { TypeFilter } from '../models/typeFilterBuilder';
 import { TypeSocket } from '../models/typeSocket';
+
+type TypeResponseAll = {
+  meta: {
+    globalCount: string;
+  };
+  data: TypeSocket[];
+};
 
 const endpoint = '/api/sockets';
 
-export const getAllSocket = async (): Promise<TypeSocket[]> => {
-  const response = await callWebApi({
-    endpoint,
-    type: 'GET',
-  });
-  return response.json();
+export const getAllSocket = async (filter: TypeFilter): Promise<TypeResponseAll> => {
+  return await webApi.get(endpoint, filter);
 };
 
 export const getSocket = async (id: number): Promise<TypeSocket> => {
-  const response = await callWebApi({
-    endpoint: `${endpoint}/${id}`,
-    type: 'GET',
-  });
-  return response.json();
+  return await webApi.get(`${endpoint}/${id}`);
 };
 
 export const updateSocket = async (request: TypeSocket): Promise<TypeSocket> => {
-  const response = await callWebApi({
-    endpoint: `${endpoint}/${request.id}`,
-    type: 'PUT',
-    request,
-  });
-  return response.json();
+  return await webApi.put(`${endpoint}/${request.id}`, request);
 };
 
-export const deleteSocket = async (id: number): Promise<{}> => {
-  const response = await callWebApi({
-    endpoint: `${endpoint}/${id}`,
-    type: 'DELETE',
-  });
-  return response.json();
+export const deleteSocket = async (id: number): Promise<void> => {
+  return await webApi.delete(`${endpoint}/${id}`);
 };

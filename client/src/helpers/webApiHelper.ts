@@ -1,65 +1,100 @@
-import * as queryString from 'query-string';
+import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import { getToken } from './tokenHelper';
 
-type TypeArgs = {
-  endpoint: string;
-  type: 'GET' | 'POST' | 'PUT' | 'DELETE';
-  query?: any;
-  request?: any;
-  attachment?: string | Blob;
-  skipAuthorization?: boolean;
-  ct?: AbortSignal;
-};
-
-function getFetchUrl(args: TypeArgs): string {
-  return args.endpoint + (args.query ? `?${queryString.stringify(args.query)}` : '');
-}
-
-function getFetchArgs(args: TypeArgs): RequestInit {
-  const headers: HeadersInit = {};
-  if (!args.attachment) {
-    headers['Content-Type'] = 'application/json';
-    headers.Accept = 'application/json';
+class Api {
+  instance: AxiosInstance;
+  constructor() {
+    this.instance = axios.create({
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
-  const token = localStorage.getItem('token');
-  if (token && !args.skipAuthorization) {
-    headers.Authorization = `Bearer ${token}`;
+
+  async get(url: string, params?: any) {
+    await this.checkAuthToken();
+    return await this.instance
+      .get(url, {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+        params,
+      })
+      .then(this.handleResponse)
+      .catch(this.handleError);
   }
-  let body;
-  if (args.attachment) {
-    if (args.type === 'GET') {
-      throw new Error('GET request does not support attachments.');
+
+  async post(url: string, data: any) {
+    return await this.instance
+      .post(url, data, {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      })
+      .then(this.handleResponse)
+      .catch(this.handleError);
+  }
+
+  async image(url: string, image: Blob) {
+    const data = new FormData();
+    data.append('image', image);
+    return await this.instance
+      .post(url, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(this.handleResponse)
+      .catch(this.handleError);
+  }
+
+  async put(url: string, data: any) {
+    return await this.instance
+      .put(url, data, {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      })
+      .then(this.handleResponse)
+      .catch(this.handleError);
+  }
+
+  async delete(url: string, data?: any) {
+    return await this.instance
+      .delete(url, {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+        data,
+      })
+      .then(this.handleResponse)
+      .catch(this.handleError);
+  }
+
+  private handleResponse(response: AxiosResponse) {
+    return response.data;
+  }
+
+  private handleError(error: AxiosError) {
+    if (error.response) {
+      return { error: error.response.data };
+      // throw new Error(error.response.data.message);
+    } else if (error.request) {
+      return { error: error.request.responseText };
+      // throw new Error(error.request.responseText);
+    } else {
+      return { error: error.message };
+      // throw new Error(error.message);
     }
-    const formData = new FormData();
-    formData.append('image', args.attachment);
-    body = formData;
-  } else if (args.request) {
-    if (args.type === 'GET') {
-      throw new Error('GET request does not support request body.');
-    }
-    body = JSON.stringify(args.request);
   }
-  return {
-    method: args.type,
-    headers,
-    signal: args.ct,
-    ...(args.type === 'GET' ? {} : { body }),
-  };
-}
 
-export async function throwIfResponseFailed(res: Response): Promise<void> {
-  if (!res.ok) {
-    let parsedException = 'Something went wrong with request!';
+  private async checkAuthToken() {
     try {
-      parsedException = await res.json();
-    } catch (err) {
-      //
+      // check auth token success
+    } catch (error) {
+      // on error
     }
-    throw parsedException;
   }
 }
 
-export default async function callWebApi(args: TypeArgs): Promise<Response> {
-  const res = await fetch(getFetchUrl(args), getFetchArgs(args));
-  await throwIfResponseFailed(res);
-  return res;
-}
+export default new Api();
