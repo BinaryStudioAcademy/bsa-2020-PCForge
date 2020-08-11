@@ -2,7 +2,7 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonAdd from 'components/BuilderPage/ButtonAdd';
-// import { RatingBox } from '../../RatingBox';
+import RatingBox from 'components/RatingBox';
 import styles from './styles.module.scss';
 import defaultImg from 'assets/images/defaultImgComponent.png';
 
@@ -29,7 +29,9 @@ const ListComponentsItem = ({
           {title}
         </Typography>
         {specifications}
-        {/*{RatingBox(3, false)}*/}
+        <div className={styles.rating}>
+          <RatingBox ratingValue={3} disabled={false} name="Name" />
+        </div>
       </div>
       <ButtonAdd className={styles.btnAdd} onClick={onAddComponent} />
     </Paper>
