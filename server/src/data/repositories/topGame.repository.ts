@@ -3,7 +3,6 @@ import { TopGameCreationAttributes, TopGameModel, TopGameStatic } from '../model
 import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { GameStatic } from '../models/game';
-import { UserStatic } from '../models/user';
 import { IFilter } from './repositoriesFilterInterfaces';
 
 export class TopGameRepository extends BaseRepository<TopGameModel> {
@@ -11,8 +10,7 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
     private model: TopGameStatic,
     private gameModel: GameStatic,
     private cpuModel: CpuStatic,
-    private gpuModel: GpuStatic,
-    private userModel: UserStatic
+    private gpuModel: GpuStatic
   ) {
     super(<RichModel>model);
   }
@@ -26,7 +24,6 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
         'game->minimalCpu.id',
         'game->recommendedGpu.id',
         'game->minimalGpu.id',
-        'addedBy.id',
       ],
       include: [
         {
@@ -49,10 +46,6 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
               as: 'minimalGpu',
             },
           ],
-        },
-        {
-          model: this.userModel,
-          as: 'addedBy',
         },
       ],
     });
@@ -68,7 +61,6 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
         'game->minimalCpu.id',
         'game->recommendedGpu.id',
         'game->minimalGpu.id',
-        'addedBy.id',
       ],
       include: [
         {
@@ -91,10 +83,6 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
               as: 'minimalGpu',
             },
           ],
-        },
-        {
-          model: this.userModel,
-          as: 'addedBy',
         },
       ],
     });
