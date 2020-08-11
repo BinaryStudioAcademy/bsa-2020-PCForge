@@ -21,15 +21,16 @@ type PropsType = {
 };
 
 const GroupGpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+  const countComponentsOnPage = 10;
   const [gpus, setGpus] = useState([] as TypeGpu[]);
   const [count, setCount] = useState(0);
-  const [pagination, setPagination] = useState({ from: 0, count: 0 });
+  const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
 
   const getGpus = async () => {
     setLoad(true);
     try {
-      const res = await getAllGpu({ ...filter, ...pagination });
+      const res = await getAllGpu({ ...pagination });
       setGpus(res.data);
       setCount(res.meta.countAfterFiltering);
       // setGpus(newGpus.length > 10 ? newGpus.slice(0, 9) : newGpus); // while the bug is on the server
@@ -57,7 +58,7 @@ const GroupGpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
     </Box>
   );
 
-  const listGpuElements = gpus.map((gpu) => (
+  const listGpuElements = gpus?.map((gpu) => (
     <ListComponentsItem
       key={gpu.id}
       title={gpu.name}
@@ -77,7 +78,11 @@ const GroupGpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listGpuElements}
             <Spinner load={load} />
-            <Paginator countComponents={count} setPagination={setPagination} />
+            <Paginator
+              countComponents={count}
+              countComponentsOnPage={countComponentsOnPage}
+              setPagination={setPagination}
+            />
           </Grid>
         </Grid>
       </AccordionDetails>

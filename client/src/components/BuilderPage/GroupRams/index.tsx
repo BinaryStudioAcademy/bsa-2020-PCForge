@@ -22,15 +22,17 @@ type PropsType = {
 };
 
 const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+  const countComponentsOnPage = 10;
   const [rams, setRams] = useState([] as TypeRam[]);
   const [count, setCount] = useState(0);
-  const [pagination, setPagination] = useState({ from: 0, count: 0 });
+  const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
 
   const getRams = async () => {
     setLoad(true);
+    const { ramTypeId } = filter;
     try {
-      const res = await getAllRam({ ...filter, ...pagination });
+      const res = await getAllRam({ typeId: ramTypeId, ...pagination });
       setRams(res.data);
       setCount(res.meta.countAfterFiltering);
       // setRams(newRams.length > 10 ? newRams.slice(0, 9) : newRams); // while the bug is on the server
@@ -58,7 +60,7 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
     </Box>
   );
 
-  const listRamElements = rams.map((ram) => (
+  const listRamElements = rams?.map((ram) => (
     <ListComponentsItem
       key={ram.id}
       title={ram.name}
@@ -79,7 +81,11 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listRamElements}
             <Spinner load={load} />
-            <Paginator countComponents={count} setPagination={setPagination} />
+            <Paginator
+              countComponents={count}
+              countComponentsOnPage={countComponentsOnPage}
+              setPagination={setPagination}
+            />
           </Grid>
         </Grid>
       </AccordionDetails>

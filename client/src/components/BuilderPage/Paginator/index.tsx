@@ -5,11 +5,12 @@ import styles from './styles.module.scss';
 
 type PropsType = {
   countComponents: number;
+  countComponentsOnPage: number;
   setPagination: ({}: { from: number; count: number }) => void;
 };
 
-const Paginator = ({ countComponents, setPagination }: PropsType): JSX.Element => {
-  const countComponentsOnPage = 10;
+const Paginator = ({ countComponents, countComponentsOnPage, setPagination }: PropsType): JSX.Element => {
+  // const countComponentsOnPage = 10;
   const count = Math.ceil(countComponents / countComponentsOnPage);
   const [page, setPage] = useState(1);
 

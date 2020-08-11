@@ -21,15 +21,16 @@ type PropsType = {
 };
 
 const GroupPowersupplies = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+  const countComponentsOnPage = 10;
   const [powersupplies, setPowersupplies] = useState([] as TypePowersupplies[]);
   const [count, setCount] = useState(0);
-  const [pagination, setPagination] = useState({ from: 0, count: 0 });
+  const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
 
   const getPowersupplies = async () => {
     setLoad(true);
     try {
-      const res = await getAllPowersupplies({ ...filter, ...pagination });
+      const res = await getAllPowersupplies({ ...pagination });
       setPowersupplies(res.data);
       setCount(res.meta.countAfterFiltering);
       // setPowersupplies(newPowersupplies.length > 10 ? newPowersupplies.slice(0, 9) : newPowersupplies); // while the bug is on the server
@@ -54,7 +55,7 @@ const GroupPowersupplies = ({ filter, onAddFilter, onAddComponent }: PropsType):
     </Box>
   );
 
-  const listPowersupplyElements = powersupplies.map((powersupply) => (
+  const listPowersupplyElements = powersupplies?.map((powersupply) => (
     <ListComponentsItem
       key={powersupply.id}
       title={powersupply.name}
@@ -74,7 +75,11 @@ const GroupPowersupplies = ({ filter, onAddFilter, onAddComponent }: PropsType):
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listPowersupplyElements}
             <Spinner load={load} />
-            <Paginator countComponents={count} setPagination={setPagination} />
+            <Paginator
+              countComponents={count}
+              countComponentsOnPage={countComponentsOnPage}
+              setPagination={setPagination}
+            />
           </Grid>
         </Grid>
       </AccordionDetails>

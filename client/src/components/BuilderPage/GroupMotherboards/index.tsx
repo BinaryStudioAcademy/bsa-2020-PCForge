@@ -22,15 +22,17 @@ type PropsType = {
 };
 
 const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+  const countComponentsOnPage = 10;
   const [motherboards, setMotherboards] = useState([] as TypeMotherboard[]);
   const [count, setCount] = useState(0);
-  const [pagination, setPagination] = useState({ from: 0, count: 0 });
+  const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
 
   const getMotherboards = async () => {
     setLoad(true);
+    const { socketId, ramTypeId } = filter;
     try {
-      const res = await getAllMotherboard({ ...filter, ...pagination });
+      const res = await getAllMotherboard({ socketId, ramTypeId, ...pagination });
       setMotherboards(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -57,7 +59,7 @@ const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): 
     </Box>
   );
 
-  const listMotherboardElements = motherboards.map((motherboard) => (
+  const listMotherboardElements = motherboards?.map((motherboard) => (
     <ListComponentsItem
       key={motherboard.id}
       title={motherboard.name}
@@ -78,7 +80,11 @@ const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): 
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listMotherboardElements}
             <Spinner load={load} />
-            <Paginator countComponents={count} setPagination={setPagination} />
+            <Paginator
+              countComponents={count}
+              countComponentsOnPage={countComponentsOnPage}
+              setPagination={setPagination}
+            />
           </Grid>
         </Grid>
       </AccordionDetails>

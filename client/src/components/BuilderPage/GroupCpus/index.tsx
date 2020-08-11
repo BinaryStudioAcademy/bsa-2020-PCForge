@@ -22,15 +22,17 @@ type PropsType = {
 };
 
 const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+  const countComponentsOnPage = 10;
   const [cpus, setCpus] = useState([] as TypeCpu[]);
   const [count, setCount] = useState(0);
-  const [pagination, setPagination] = useState({ from: 0, count: 0 });
+  const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
 
   const getCpus = async () => {
     setLoad(true);
+    const { socketId } = filter;
     try {
-      const res = await getAllCpu({ ...filter, ...pagination });
+      const res = await getAllCpu({ socketId, ...pagination });
       setCpus(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -59,7 +61,7 @@ const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
     </Box>
   );
 
-  const listCpuElements = cpus.map((cpu) => (
+  const listCpuElements = cpus?.map((cpu) => (
     <ListComponentsItem
       key={cpu.id}
       title={cpu.name}
@@ -80,7 +82,11 @@ const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listCpuElements}
             <Spinner load={load} />
-            <Paginator countComponents={count} setPagination={setPagination} />
+            <Paginator
+              countComponents={count}
+              countComponentsOnPage={countComponentsOnPage}
+              setPagination={setPagination}
+            />
           </Grid>
         </Grid>
       </AccordionDetails>
