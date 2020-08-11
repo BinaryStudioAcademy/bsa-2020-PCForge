@@ -68,7 +68,7 @@ export const initializeModels = (orm: Sequelize) => {
   RateModel.belongsTo(NewsModel, { foreignKey: 'ratebleId', constraints: false });
   RateModel.belongsTo(GameModel, { foreignKey: 'ratebleId', constraints: false });
 
-  SetupModel.belongsTo(UserModel);
+  SetupModel.belongsTo(UserModel, { foreignKey: 'authorId', constraints: false });
   SetupModel.belongsTo(CpuModel);
   SetupModel.belongsTo(GpuModel);
   SetupModel.belongsTo(RamModel);
@@ -85,7 +85,7 @@ export const initializeModels = (orm: Sequelize) => {
 
   UserModel.hasMany(RateModel);
   UserModel.hasMany(CommentModel);
-  UserModel.hasMany(SetupModel);
+  UserModel.hasMany(SetupModel, { foreignKey: 'authorId', constraints: false });
   UserModel.hasMany(UserGameModel);
 
   UserGameModel.belongsTo(UserModel);
