@@ -5,6 +5,7 @@ import { TypeRamType } from '../models/typeRamType';
 type TypeResponseAll = {
   meta: {
     globalCount: string;
+    countAfterFiltering?: string;
   };
   data: TypeRamType[];
 };

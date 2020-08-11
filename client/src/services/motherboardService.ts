@@ -5,6 +5,7 @@ import { TypeMotherboard } from '../models/typeMotherboard';
 type TypeResponseAll = {
   meta: {
     globalCount: string;
+    countAfterFiltering: string;
   };
   data: TypeMotherboard[];
 };

@@ -5,6 +5,7 @@ import { TypeSocket } from '../models/typeSocket';
 type TypeResponseAll = {
   meta: {
     globalCount: string;
+    countAfterFiltering?: string;
   };
   data: TypeSocket[];
 };

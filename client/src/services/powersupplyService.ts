@@ -5,6 +5,7 @@ import { TypePowersupplies } from '../models/typePowersupplies';
 type TypeResponseAll = {
   meta: {
     globalCount: string;
+    countAfterFiltering: string;
   };
   data: TypePowersupplies[];
 };
