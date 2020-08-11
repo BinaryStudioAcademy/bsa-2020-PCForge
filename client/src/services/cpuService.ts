@@ -5,6 +5,7 @@ import { TypeCpu } from '../models/typeCpu';
 type TypeResponseAll = {
   meta: {
     globalCount: string;
+    countAfterFiltering: string;
   };
   data: TypeCpu[];
 };
