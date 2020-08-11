@@ -12,12 +12,12 @@ import Paginator from '../Paginator';
 import Spinner from '../Spinner';
 import { getAllCpu } from '../../../services/cpuService';
 import { TypeCpu } from '../../../models/typeCpu';
-import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
+import { TypeFilter } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilterBuilder;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  filter: TypeFilter;
+  onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeCpu) => void;
 };
 
@@ -27,23 +27,12 @@ const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   const [pagination, setPagination] = useState({ from: 0, count: 0 });
   const [load, setLoad] = useState(false);
 
-  const getAllCpus = async () => {
-    setLoad(true);
-    try {
-      const allCpus = await getAllCpu(filter);
-      setCount(allCpus?.length);
-      getCpus();
-    } catch (err) {
-      console.log(err); // add notification
-      setLoad(false);
-    }
-  };
-
   const getCpus = async () => {
     setLoad(true);
     try {
-      const newCpus = await getAllCpu({ ...filter, ...pagination });
-      setCpus(newCpus);
+      const res = await getAllCpu({ ...filter, ...pagination });
+      setCpus(res.data);
+      setCount(res.meta.countAfterFiltering);
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -52,12 +41,8 @@ const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   };
 
   useEffect(() => {
-    getAllCpus();
-  }, [filter]);
-
-  useEffect(() => {
     getCpus();
-  }, [pagination]);
+  }, [filter, pagination]);
 
   const AddComponentHandler = (cpu: TypeCpu): void => {
     onAddFilter({ socketId: cpu.socketId });
