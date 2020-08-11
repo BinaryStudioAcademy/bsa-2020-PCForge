@@ -12,12 +12,12 @@ import Paginator from '../Paginator';
 import Spinner from '../Spinner';
 import { getAllMotherboard } from '../../../services/motherboardService';
 import { TypeMotherboard } from '../../../models/typeMotherboard';
-import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
+import { TypeFilter } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilterBuilder;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  filter: TypeFilter;
+  onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeMotherboard) => void;
 };
 
@@ -27,23 +27,12 @@ const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): 
   const [pagination, setPagination] = useState({ from: 0, count: 0 });
   const [load, setLoad] = useState(false);
 
-  const getAllMotherboards = async () => {
-    setLoad(true);
-    try {
-      const allMotherboards = await getAllMotherboard(filter);
-      setCount(allMotherboards?.length);
-      getMotherboards();
-    } catch (err) {
-      console.log(err); // add notification
-      setLoad(false);
-    }
-  };
-
   const getMotherboards = async () => {
     setLoad(true);
     try {
-      const newMotherboards = await getAllMotherboard({ ...filter, ...pagination });
-      setMotherboards(newMotherboards);
+      const res = await getAllMotherboard({ ...filter, ...pagination });
+      setMotherboards(res.data);
+      setCount(res.meta.countAfterFiltering);
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -52,12 +41,8 @@ const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): 
   };
 
   useEffect(() => {
-    getAllMotherboards();
-  }, [filter]);
-
-  useEffect(() => {
     getMotherboards();
-  }, [pagination]);
+  }, [filter, pagination]);
 
   const AddComponentHandler = (motherboard: TypeMotherboard): void => {
     onAddFilter({ socketId: motherboard.socketId });
