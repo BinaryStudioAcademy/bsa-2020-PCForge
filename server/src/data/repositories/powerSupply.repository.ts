@@ -1,5 +1,6 @@
 import { PowerSupplyCreationAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/PowerSupply';
-import { BaseRepository, RichModel } from './base.repository';
+import { BaseRepository, IWithMeta, RichModel } from './base.repository';
+import { FilterDefaults, IFilter } from './repositoriesFilterInterfaces';
 
 export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
   constructor(private model: PowerSupplyStatic) {
@@ -11,9 +12,15 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
     return powerSupply;
   }
 
-  async getAllPowerSupplies(): Promise<PowerSupplyModel[]> {
-    const powerSupplies = await this.getAll();
-    return powerSupplies.data;
+  async getAllPowerSupplies(filter: IFilter): Promise<IWithMeta<PowerSupplyModel>> {
+    const { from: offset, count: limit } = { ...FilterDefaults, ...filter };
+    const powerSupplies = await this.getAll({
+      group: ['powerSupply.id'],
+      order: [['id', 'ASC']],
+      offset: offset,
+      limit: limit,
+    });
+    return powerSupplies;
   }
 
   async createPowerSupply(inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {

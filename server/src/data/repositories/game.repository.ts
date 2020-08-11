@@ -1,7 +1,9 @@
+import { filter } from 'bluebird';
 import { CpuStatic } from '../models/cpu';
 import { GameCreationAttributes, GameModel, GameStatic } from '../models/game';
 import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
+import { FilterDefaults } from './repositoriesFilterInterfaces';
 
 export class GameRepository extends BaseRepository<GameModel> {
   constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
@@ -34,6 +36,7 @@ export class GameRepository extends BaseRepository<GameModel> {
   }
 
   async getAllGames(): Promise<IWithMeta<GameModel>> {
+    const { from: offset, count: limit } = { ...FilterDefaults, ...filter };
     const games = await this.getAll({
       group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
       include: [
@@ -55,6 +58,8 @@ export class GameRepository extends BaseRepository<GameModel> {
         },
       ],
       order: [['id', 'ASC']],
+      offset: offset,
+      limit: limit,
     });
     return games;
   }
