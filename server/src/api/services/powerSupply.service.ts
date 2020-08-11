@@ -1,5 +1,7 @@
-import { PowerSupplyDataAttributes, PowerSupplyModel } from '../../data/models/powerSupply';
+import { PowerSupplyCreationAttributes, PowerSupplyModel } from '../../data/models/powerSupply';
+import { IWithMeta } from '../../data/repositories/base.repository';
 import { PowerSupplyRepository } from '../../data/repositories/powerSupply.repository';
+import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class PowerSupplyService {
   constructor(private repository: PowerSupplyRepository) {}
@@ -9,19 +11,19 @@ export class PowerSupplyService {
     return powerSupply;
   }
 
-  async getAllPowerSupplies(): Promise<PowerSupplyModel[]> {
-    const powerSupplies = await this.repository.getAllPowerSupplies();
+  async getAllPowerSupplies(filter: IFilter): Promise<IWithMeta<PowerSupplyModel>> {
+    const powerSupplies = await this.repository.getAllPowerSupplies(filter);
     return powerSupplies;
   }
 
-  async createPowerSupply(inputPowerSupply: PowerSupplyDataAttributes): Promise<PowerSupplyModel> {
+  async createPowerSupply(inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
     const powerSupply = await this.repository.createPowerSupply(inputPowerSupply);
     return powerSupply;
   }
 
   async updatePowerSupplyById(inputPowerSupply: {
     id: string;
-    data: PowerSupplyDataAttributes;
+    data: PowerSupplyCreationAttributes;
   }): Promise<PowerSupplyModel> {
     const { id, data } = inputPowerSupply;
     const oldPowerSupply = await this.repository.getPowerSupplyById(id);

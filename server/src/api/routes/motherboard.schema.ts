@@ -1,12 +1,9 @@
 import { FastifyRequest } from 'fastify';
+import { MotherboardCreationAttributes } from '../../data/models/motherboard';
+import { IMotherboardFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export type GetAllMotherboardsRequest = FastifyRequest<{
-  Querystring: {
-    socketId: string;
-    ramTypeId: string;
-    from: number;
-    count: number;
-  };
+  Querystring: IMotherboardFilter;
 }>;
 
 export type GetOneMotherboardRequest = FastifyRequest<{
@@ -14,20 +11,12 @@ export type GetOneMotherboardRequest = FastifyRequest<{
 }>;
 
 export type PostMotherboardRequest = FastifyRequest<{
-  Body: {
-    name: string;
-    socketId: number;
-    ramTypeId: number;
-  };
+  Body: MotherboardCreationAttributes;
 }>;
 
 export type PutMotherboardRequest = FastifyRequest<{
   Params: { id: string };
-  Body: {
-    name: string;
-    socketId: number;
-    ramTypeId: number;
-  };
+  Body: MotherboardCreationAttributes;
 }>;
 
 export type DeleteMotherboardRequest = FastifyRequest<{

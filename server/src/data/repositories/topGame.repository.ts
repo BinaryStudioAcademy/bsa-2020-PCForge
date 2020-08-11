@@ -4,6 +4,7 @@ import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { GameStatic } from '../models/game';
 import { UserStatic } from '../models/user';
+import { IFilter } from './repositoriesFilterInterfaces';
 
 export class TopGameRepository extends BaseRepository<TopGameModel> {
   constructor(
@@ -58,8 +59,8 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
     return topGame;
   }
 
-  async getAllTopGames(): Promise<IWithMeta<TopGameModel>> {
-    const TopGames = await this.getAll({
+  async getAllTopGames(filter: IFilter): Promise<IWithMeta<TopGameModel>> {
+    const topGames = await this.getAll(filter, {
       group: [
         'topGame.id',
         'game.id',
@@ -96,20 +97,19 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
           as: 'addedBy',
         },
       ],
-      order: [['id', 'ASC']],
     });
-    return TopGames;
+    return topGames;
   }
 
   async createTopGame(inputTopGame: TopGameCreationAttributes): Promise<TopGameModel> {
     const { id } = await this.model.create(inputTopGame);
-    const TopGame = this.getTopGameById(id.toString());
-    return TopGame;
+    const topGame = this.getTopGameById(id.toString());
+    return topGame;
   }
 
   async updateTopGameById(id: string, inputTopGame: TopGameCreationAttributes): Promise<TopGameModel> {
-    const TopGame = await this.updateById(id, inputTopGame);
-    return TopGame;
+    const topGame = await this.updateById(id, inputTopGame);
+    return topGame;
   }
 
   async deleteTopGameById(id: string): Promise<void> {

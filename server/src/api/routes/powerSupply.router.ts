@@ -2,20 +2,21 @@ import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import {
   PostPowerSupplyRequest,
-  GetPowerSupplyRequest,
+  GetOnePowerSupplyRequest,
   PutPowerSupplyRequest,
   DeletePowerSupplyRequest,
+  GetOnePowerSuppliesRequest,
 } from './powerSupply.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { PowerSupplyService } = fastify.services;
 
-  fastify.get('/', {}, async (request, reply) => {
-    const powerSupplies = await PowerSupplyService.getAllPowerSupplies();
+  fastify.get('/', {}, async (request: GetOnePowerSuppliesRequest, reply) => {
+    const powerSupplies = await PowerSupplyService.getAllPowerSupplies(request.query);
     reply.send(powerSupplies);
   });
 
-  fastify.get('/:id', {}, async (request: GetPowerSupplyRequest, reply) => {
+  fastify.get('/:id', {}, async (request: GetOnePowerSupplyRequest, reply) => {
     const { id } = request.params;
     const PowerSupply = await PowerSupplyService.getPowerSupplyById(id);
     reply.send(PowerSupply);

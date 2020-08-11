@@ -1,11 +1,9 @@
 import { FastifyRequest } from 'fastify';
+import { CpuCreationAttributes } from '../../data/models/cpu';
+import { ICpuFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export type GetAllCpusRequest = FastifyRequest<{
-  Querystring: {
-    socketId: string;
-    from: number;
-    count: number;
-  };
+  Querystring: ICpuFilter;
 }>;
 
 export type GetOneCpuRequest = FastifyRequest<{
@@ -13,28 +11,12 @@ export type GetOneCpuRequest = FastifyRequest<{
 }>;
 
 export type PostCpuRequest = FastifyRequest<{
-  Body: {
-    name: string;
-    performance: number;
-    socketId: number;
-    clockspeed: number;
-    tdp: number;
-    cores: number;
-    class: string;
-  };
+  Body: CpuCreationAttributes;
 }>;
 
 export type PutCpuRequest = FastifyRequest<{
   Params: { id: string };
-  Body: {
-    name: string;
-    performance: number;
-    socketId: number;
-    clockspeed: number;
-    tdp: number;
-    cores: number;
-    class: string;
-  };
+  Body: CpuCreationAttributes;
 }>;
 
 export type DeleteCpuRequest = FastifyRequest<{

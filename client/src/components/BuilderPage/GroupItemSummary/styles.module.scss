@@ -1,0 +1,19 @@
+@import '../../../styles/variables';
+
+div.groupItemSummary {
+  padding: 8px 20px;
+  background-color: $colorDarkGray;
+}
+
+.groupItemSummary>div {
+  display: flex;
+  align-items: center;
+}
+
+.groupItemSummaryTitle {
+  margin: 0 20px;
+}
+
+.groupItemSummaryCount {
+  color: $colorRed;
+}
