@@ -12,8 +12,8 @@ export class RamTypeRepository extends BaseRepository<RamTypeModel> {
   }
 
   async getAllRamTypes(): Promise<RamTypeModel[]> {
-    const ramTypes = await this.model.findAll();
-    return ramTypes;
+    const ramTypes = await this.getAll();
+    return ramTypes.data;
   }
 
   async createRamType(inputRamType: RamTypeDataAttributes): Promise<RamTypeModel> {
