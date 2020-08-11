@@ -11,6 +11,7 @@ import { RamTypeFactory } from './ramtype';
 import { RateFactory } from './rate';
 import { SetupFactory } from './setup';
 import { SocketFactory } from './socket';
+import { TopGameFactory } from './topgame';
 import { UserFactory } from './user';
 import { UserGameFactory } from './usergame';
 
@@ -30,6 +31,7 @@ export const initializeModels = (orm: Sequelize) => {
   const SocketModel = SocketFactory(orm);
   const UserModel = UserFactory(orm);
   const UserGameModel = UserGameFactory(orm);
+  const TopGameModel = TopGameFactory(orm);
 
   CommentModel.belongsTo(UserModel);
   CommentModel.belongsTo(SetupModel, { foreignKey: 'commentableId', constraints: false });
@@ -91,6 +93,9 @@ export const initializeModels = (orm: Sequelize) => {
   UserGameModel.belongsTo(UserModel);
   UserGameModel.belongsTo(GameModel);
 
+  TopGameModel.belongsTo(GameModel);
+  GameModel.hasOne(TopGameModel);
+
   // eslint-disable-next-line prettier/prettier
   return {
     Comment: CommentModel,
@@ -107,5 +112,6 @@ export const initializeModels = (orm: Sequelize) => {
     User: UserModel,
     UserGame: UserGameModel,
     Rate: RateModel,
+    TopGame: TopGameModel,
   };
 };

@@ -8,6 +8,7 @@ import { PowerSupplyRepository } from './powerSupply.repository';
 import { RamRepository } from './ram.repository';
 import { SocketRepository } from './socket.repository';
 import { GameRepository } from './game.repository';
+import { TopGameRepository } from './topGame.repository';
 
 export interface Repositories {
   RamTypeRepository: RamTypeRepository;
@@ -17,8 +18,9 @@ export interface Repositories {
   MotherboardRepository: MotherboardRepository;
   GpuRepository: GpuRepository;
   CpuRepository: CpuRepository;
-  UsersRepository: UserRepository;
-  GamesRepository: GameRepository;
+  UserRepository: UserRepository;
+  GameRepository: GameRepository;
+  TopGameRepository: TopGameRepository;
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
@@ -31,6 +33,7 @@ export const initializeRepositories = (models: Models): Repositories => {
   const gpuRepository = new GpuRepository(models.Gpu);
   const cpuRepository = new CpuRepository(models.Cpu, models.Socket);
   const gameRepository = new GameRepository(models.Game, models.Cpu, models.Gpu);
+  const topGameRepository = new TopGameRepository(models.TopGame, models.Game, models.Cpu, models.Gpu);
   const repositories: Repositories = {
     RamTypeRepository: ramTypeRepository,
     RamRepository: ramRepository,
@@ -39,8 +42,9 @@ export const initializeRepositories = (models: Models): Repositories => {
     MotherboardRepository: motherboardRepository,
     GpuRepository: gpuRepository,
     CpuRepository: cpuRepository,
-    UsersRepository: usersRepository,
-    GamesRepository: gameRepository,
+    UserRepository: usersRepository,
+    GameRepository: gameRepository,
+    TopGameRepository: topGameRepository,
   };
   return repositories;
 };
