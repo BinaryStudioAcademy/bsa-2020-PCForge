@@ -12,12 +12,12 @@ import Paginator from '../Paginator';
 import Spinner from '../Spinner';
 import { getAllRam } from '../../../services/ramService';
 import { TypeRam } from '../../../models/typeRam';
-import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
+import { TypeFilter } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilterBuilder;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  filter: TypeFilter;
+  onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeRam) => void;
 };
 
@@ -27,24 +27,13 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   const [pagination, setPagination] = useState({ from: 0, count: 0 });
   const [load, setLoad] = useState(false);
 
-  const getAllRams = async () => {
-    setLoad(true);
-    try {
-      const allRams = await getAllRam(filter);
-      setCount(allRams?.length);
-      getRams();
-    } catch (err) {
-      console.log(err); // add notification
-      setLoad(false);
-    }
-  };
-
   const getRams = async () => {
     setLoad(true);
     try {
-      const newRams = await getAllRam({ ...filter, ...pagination });
-      // setRams(newRams);
-      setRams(newRams.length > 10 ? newRams.slice(0, 9) : newRams); // while the bug is on the server
+      const res = await getAllRam({ ...filter, ...pagination });
+      setRams(res.data);
+      setCount(res.meta.countAfterFiltering);
+      // setRams(newRams.length > 10 ? newRams.slice(0, 9) : newRams); // while the bug is on the server
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -53,12 +42,8 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   };
 
   useEffect(() => {
-    getAllRams();
-  }, [filter]);
-
-  useEffect(() => {
     getRams();
-  }, [pagination]);
+  }, [filter, pagination]);
 
   const AddComponentHandler = (ram: TypeRam): void => {
     onAddFilter({ ramTypeId: ram.typeId });
