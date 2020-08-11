@@ -11,12 +11,12 @@ import Paginator from '../Paginator';
 import Spinner from '../Spinner';
 import { getAllPowersupplies } from '../../../services/powersupplyService';
 import { TypePowersupplies } from '../../../models/typePowersupplies';
-import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
+import { TypeFilter } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilterBuilder;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  filter: TypeFilter;
+  onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypePowersupplies) => void;
 };
 
@@ -26,24 +26,13 @@ const GroupPowersupplies = ({ filter, onAddFilter, onAddComponent }: PropsType):
   const [pagination, setPagination] = useState({ from: 0, count: 0 });
   const [load, setLoad] = useState(false);
 
-  const getAllPower = async () => {
-    setLoad(true);
-    try {
-      const allPowersupplies = await getAllPowersupplies(filter);
-      setCount(allPowersupplies?.length);
-      getPowersupplies();
-    } catch (err) {
-      console.log(err); // add notification
-      setLoad(false);
-    }
-  };
-
   const getPowersupplies = async () => {
     setLoad(true);
     try {
-      const newPowersupplies = await getAllPowersupplies({ ...filter, ...pagination });
-      // setPowersupplies(newPowersupplies);
-      setPowersupplies(newPowersupplies.length > 10 ? newPowersupplies.slice(0, 9) : newPowersupplies); // while the bug is on the server
+      const res = await getAllPowersupplies({ ...filter, ...pagination });
+      setPowersupplies(res.data);
+      setCount(res.meta.countAfterFiltering);
+      // setPowersupplies(newPowersupplies.length > 10 ? newPowersupplies.slice(0, 9) : newPowersupplies); // while the bug is on the server
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -52,12 +41,8 @@ const GroupPowersupplies = ({ filter, onAddFilter, onAddComponent }: PropsType):
   };
 
   useEffect(() => {
-    getAllPower();
-  }, [filter]);
-
-  useEffect(() => {
     getPowersupplies();
-  }, [pagination]);
+  }, [filter, pagination]);
 
   const AddComponentHandler = (powersupply: TypePowersupplies): void => {
     onAddComponent(powersupply);
