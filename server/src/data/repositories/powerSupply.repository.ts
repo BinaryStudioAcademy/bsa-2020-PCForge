@@ -13,7 +13,7 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
 
   async getAllPowerSupplies(): Promise<PowerSupplyModel[]> {
     const powerSupplies = await this.getAll();
-    return powerSupplies;
+    return powerSupplies.data;
   }
 
   async createPowerSupply(inputPowerSupply: PowerSupplyDataAttributes): Promise<PowerSupplyModel> {
