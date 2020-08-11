@@ -6,10 +6,11 @@ import {
   PostUserRequest,
   DeleteUserRequest,
   PutUserRequest,
+  FavoriteGameRequest,
 } from './user.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
-  const { UserService } = fastify.services;
+  const { UserService, UserGameService } = fastify.services;
 
   fastify.get('/', {}, async (request: GetAllUsersRequest, reply) => {
     const users = await UserService.getUsers();
@@ -37,6 +38,13 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     const { id } = request.params;
     await UserService.deleteUser(id);
     reply.send({});
+  });
+
+  fastify.post('/favorite-game', {}, async (request: FavoriteGameRequest, reply) => {
+    const { userId, gameId } = request.body;
+    await UserGameService.favorite(userId, gameId);
+
+    reply.send({ message: 'Done' });
   });
 
   next();

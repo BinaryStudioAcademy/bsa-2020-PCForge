@@ -1,6 +1,7 @@
 import { Models } from '../../data/db/connection';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
 import { UserRepository } from './user.repository';
+import { UserGameRepository } from './usergame.repository';
 import { CpuRepository } from './cpu.repository';
 import { GpuRepository } from './gpu.repository';
 import { MotherboardRepository } from './motherboard.repository';
@@ -17,11 +18,13 @@ export interface Repositories {
   GpuRepository: GpuRepository;
   CpuRepository: CpuRepository;
   Users: UserRepository;
+  UserGame: UserGameRepository;
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
   const ramTypeRepository = new RamTypeRepository(models.RamType);
   const usersRepository = new UserRepository(models.User);
+  const userGameRepository = new UserGameRepository(models.UserGame);
   const ramRepository = new RamRepository(models.Ram, models.RamType);
   const powerSupplyRepository = new PowerSupplyRepository(models.PowerSupply);
   const socketRepository = new SocketRepository(models.Socket);
@@ -37,6 +40,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     GpuRepository: gpuRepository,
     CpuRepository: cpuRepository,
     Users: usersRepository,
+    UserGame: userGameRepository,
   };
   return repositories;
 };

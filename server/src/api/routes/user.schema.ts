@@ -28,3 +28,7 @@ export type PutUserRequest = FastifyRequest<{
 export type DeleteUserRequest = FastifyRequest<{
   Params: { id: string };
 }>;
+
+export type FavoriteGameRequest = FastifyRequest<{
+  Body: { userId: number; gameId: number };
+}>;
