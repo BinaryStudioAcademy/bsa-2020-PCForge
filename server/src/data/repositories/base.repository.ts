@@ -7,6 +7,7 @@ export type RichModel = typeof Model & {
 
 export interface IMeta {
   globalCount: number;
+  countAfterFiltering: number;
 }
 
 export interface IWithMeta<M extends Model> {
@@ -19,7 +20,7 @@ export abstract class BaseRepository<M extends Model> {
 
   async getAll(filter?: IFilter, params?: FindOptions): Promise<IWithMeta<M>> {
     let result = [];
-    const { from: offset, count: limit } = { ...FilterDefaults, ...filter };
+    const { from: offset, count: limit, ...uniqueFilters } = { ...FilterDefaults, ...filter };
     if (params) {
       result = await this._model.findAll({
         order: [['id', 'ASC']],
@@ -31,8 +32,12 @@ export abstract class BaseRepository<M extends Model> {
       result = await this._model.findAll();
     }
     const globalCount = await this._model.count();
+    let countAfterFiltering = globalCount;
+    if (filter) {
+      countAfterFiltering = await this._model.count({ where: { ...uniqueFilters } });
+    }
     return {
-      meta: { globalCount },
+      meta: { globalCount, countAfterFiltering },
       data: result as M[],
     };
   }
