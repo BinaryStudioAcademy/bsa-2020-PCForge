@@ -1,9 +1,11 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 import { GameModel } from './game';
+import { UserAttributes } from './user';
 
 export interface TopGameAttributes {
   id: number;
   game: GameModel;
+  addedBy: UserAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
