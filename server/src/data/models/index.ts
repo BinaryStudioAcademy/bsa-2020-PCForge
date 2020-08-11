@@ -89,11 +89,13 @@ export const initializeModels = (orm: Sequelize) => {
   UserModel.hasMany(CommentModel);
   UserModel.hasMany(SetupModel);
   UserModel.hasMany(UserGameModel);
+  UserModel.hasMany(TopGameModel, { foreignKey: 'addedById' });
 
   UserGameModel.belongsTo(UserModel);
   UserGameModel.belongsTo(GameModel);
 
   TopGameModel.belongsTo(GameModel);
+  TopGameModel.belongsTo(UserModel, { as: 'addedBy', foreignKey: 'addedById' });
   GameModel.hasOne(TopGameModel);
 
   // eslint-disable-next-line prettier/prettier
