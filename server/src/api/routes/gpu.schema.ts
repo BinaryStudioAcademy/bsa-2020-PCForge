@@ -1,32 +1,17 @@
 import { FastifyRequest } from 'fastify';
+import { GpuCreationAttributes } from '../../data/models/gpu';
 
 export type GetGpuRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
 export type PostGpuRequest = FastifyRequest<{
-  Body: {
-    name: string;
-    interface: string;
-    memorySize: number;
-    coreClocks: number;
-    opengl: string;
-    tdp: number;
-    performance: number;
-  };
+  Body: GpuCreationAttributes;
 }>;
 
 export type PutGpuRequest = FastifyRequest<{
   Params: { id: string };
-  Body: {
-    name: string;
-    interface: string;
-    memorySize: number;
-    coreClocks: number;
-    opengl: string;
-    tdp: number;
-    performance: number;
-  };
+  Body: GpuCreationAttributes;
 }>;
 
 export type DeleteGpuRequest = FastifyRequest<{

@@ -1,4 +1,5 @@
 import { FastifyRequest } from 'fastify';
+import { GameCreationAttributes } from '../../data/models/game';
 
 export type GetAllGamesRequest = FastifyRequest;
 
@@ -7,34 +8,12 @@ export type GetOneGameRequest = FastifyRequest<{
 }>;
 
 export type PostGameRequest = FastifyRequest<{
-  Body: {
-    name: string;
-    year: number;
-    image: string;
-    description: string;
-    recommendedCpuId: string;
-    recommendedGpuId: string;
-    recommendedRamSize: number;
-    minimalCpuId: string;
-    minimalGpuId: string;
-    minimalRamSize: number;
-  };
+  Body: GameCreationAttributes;
 }>;
 
 export type PutGameRequest = FastifyRequest<{
   Params: { id: string };
-  Body: {
-    name: string;
-    year: number;
-    image: string;
-    description: string;
-    recommendedCpuId: string;
-    recommendedGpuId: string;
-    recommendedRamSize: number;
-    minimalCpuId: string;
-    minimalGpuId: string;
-    minimalRamSize: number;
-  };
+  Body: GameCreationAttributes;
 }>;
 
 export type DeleteGameRequest = FastifyRequest<{

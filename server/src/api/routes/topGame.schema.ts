@@ -1,4 +1,5 @@
 import { FastifyRequest } from 'fastify';
+import { TopGameCreationAttributes } from '../../data/models/topgame';
 
 export type GetAllTopGamesRequest = FastifyRequest;
 
@@ -7,16 +8,12 @@ export type GetOneTopGameRequest = FastifyRequest<{
 }>;
 
 export type PostTopGameRequest = FastifyRequest<{
-  Body: {
-    gameId: number;
-  };
+  Body: TopGameCreationAttributes;
 }>;
 
 export type PutTopGameRequest = FastifyRequest<{
   Params: { id: string };
-  Body: {
-    gameId: number;
-  };
+  Body: TopGameCreationAttributes;
 }>;
 
 export type DeleteTopGameRequest = FastifyRequest<{

@@ -1,22 +1,17 @@
 import { FastifyRequest } from 'fastify';
+import { PowerSupplyCreationAttributes } from '../../data/models/powersupply';
 
 export type GetPowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
 export type PostPowerSupplyRequest = FastifyRequest<{
-  Body: {
-    name: string;
-    power: number;
-  };
+  Body: PowerSupplyCreationAttributes;
 }>;
 
 export type PutPowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
-  Body: {
-    name: string;
-    power: number;
-  };
+  Body: PowerSupplyCreationAttributes;
 }>;
 
 export type DeletePowerSupplyRequest = FastifyRequest<{
