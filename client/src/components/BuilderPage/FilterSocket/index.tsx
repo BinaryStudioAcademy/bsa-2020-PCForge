@@ -8,7 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Spinner from 'components/BuilderPage/Spinner';
+import Spinner from 'components/Spinner';
 import { getAllSocket } from 'services/socketService';
 import { TypeSocket } from 'models/typeSocket';
 import { TypeFilter } from 'models/typeFilterBuilder';

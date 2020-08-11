@@ -10,7 +10,6 @@ type PropsType = {
 };
 
 const Paginator = ({ countComponents, countComponentsOnPage, setPagination }: PropsType): JSX.Element => {
-  // const countComponentsOnPage = 10;
   const count = Math.ceil(countComponents / countComponentsOnPage);
   const [page, setPage] = useState(1);
 
