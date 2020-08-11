@@ -43,6 +43,7 @@
   background-color: $colorDarkGray;
   padding: 15px;
   border-radius: 10px;
+  overflow:auto;
 
   @media (max-width: 768px) {
     width:100%; 
@@ -73,7 +74,12 @@
   .userImage {
     margin-top: 20px;
     margin-bottom: 15px;
-    width:90%;
+    width:80%;
+
+    .imageLink {
+      display: block;
+      margin-bottom: 10px;
+    }
 
     @media (min-width: 550px) and (max-width: 768px) {
       margin: 10px auto;
@@ -82,18 +88,19 @@
     }
 
     @media (max-width: 549px) { 
-      width:30%;
+      width:90%;
       align-self: center;
     }
     
     img {
-      width:100%;
+      width:90%;
       border-radius: 20px;
       object-fit: contain;
       box-shadow: 0px 0px 5px 7px rgba(0, 0, 0, 0.1);
 
       @media (max-width: 549px) {
       border-radius: 50%;
+      width:40%;
       }
     }
   }
@@ -105,22 +112,29 @@
     height:100%;
     width:90%;
     position: relative;
+    padding-bottom: 60px;
 
     & > div {
       margin-bottom: 15px;
     }
 
-    .chooseImageButton {
-      position: relative;
-      margin-top: 0;
-    }
-
-    & button {
+    .buttonsContainer {
      position: absolute;
      bottom:0;
      margin-top: auto;
      margin-bottom: 20px;
      width: 100%;
+     display: flex;
+     justify-content: space-between;
+
+     & button {
+       flex: 1;
+     }
+
+     & button:nth-child(2) {
+       flex: 1;
+       margin-left:10px;
+     }
 
      @media (max-width: 768px) {
       position: static;
@@ -135,10 +149,12 @@
     @media (max-width: 768px) {
       width:50%;
       margin:10px;
+      padding-bottom: 0;
     }
     @media (max-width: 549px) {
-      width:70%;
+      width:100%;
       margin:10px;
+      padding-bottom: 0;
     }
   }
 }

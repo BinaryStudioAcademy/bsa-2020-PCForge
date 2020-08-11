@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs, Tab, AppBar } from '@material-ui/core';
 import styles from './styles.module.scss';
-import Input from 'components/BasicComponents/Input';
+import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import Link from 'components/BasicComponents/Link';
 import UserPreferences from './components/UserPreferences';
 import { useParams } from 'react-router';
 
@@ -132,6 +133,10 @@ const UserPage: React.FC = () => {
   const handleClick = (event: React.MouseEvent) => {
     setEditableInput(!editableInput);
   };
+
+  const handleCancel = (event: React.MouseEvent) => {
+    setEditableInput(false);
+  };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
@@ -153,9 +158,6 @@ const UserPage: React.FC = () => {
     <div className={styles.userPageContainer}>
       <div className={styles.userInfo}>
         <div className={styles.userImage}>
-          <img src="https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg" alt="" />
-        </div>
-        <div className={styles.userData}>
           {editableInput && (
             <>
               <input
@@ -167,20 +169,21 @@ const UserPage: React.FC = () => {
                 onChange={handleChangeImage}
                 ref={imageInputRef}
               />
-              <Button
-                className={styles.chooseImageButton}
-                buttonType={ButtonType.secondary}
-                onClick={() => imageInputRef.current?.click()}
-              >
+
+              <Link className={styles.imageLink} icon="Image" onClick={() => imageInputRef.current?.click()}>
                 Change Image
-              </Button>
+              </Link>
             </>
           )}
+          <img src="https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg" alt="" />
+        </div>
+        <div className={styles.userData}>
           <Input
             disabled={editableInput ? false : true}
             className={editableInput ? styles.autoFocused : ''}
             icon="Face"
             value={name}
+            inputType={name ? undefined : InputType.error}
             onChange={handleNameChange}
             inputRef={inputRef}
           />
@@ -212,9 +215,16 @@ const UserPage: React.FC = () => {
             />
           )}
 
-          <Button onClick={handleClick} buttonType={ButtonType.primary}>
-            {editableInput ? 'Save' : 'Edit'}
-          </Button>
+          <div className={styles.buttonsContainer}>
+            {editableInput && (
+              <Button onClick={handleCancel} buttonType={ButtonType.secondary}>
+                Cancel
+              </Button>
+            )}
+            <Button onClick={handleClick} buttonType={ButtonType.primary}>
+              {editableInput ? 'Save' : 'Edit'}
+            </Button>
+          </div>
         </div>
       </div>
 
