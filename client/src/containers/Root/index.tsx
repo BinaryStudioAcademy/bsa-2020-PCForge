@@ -4,53 +4,59 @@ import Footer from '../../components/Footer';
 import Title from '../../components/Title';
 import classes from './styles.module.scss';
 import { Redirect } from 'react-router-dom';
-
-type MenuItemNumber = 0 | 1 | 2 | 3 | 4;
+import { MenuItems, Routes } from 'common/enums';
 
 interface IProps {
   pageTitle: string;
-  selectedMenuItemNumber: MenuItemNumber;
+  selectedMenuItemNumber: MenuItems;
   leftComponent: React.ReactElement;
   rightComponent: React.ReactElement;
 }
 
 const RootComponent: React.FC<IProps> = ({ pageTitle, selectedMenuItemNumber, leftComponent, rightComponent }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+
   useEffect(() => {
     checkIsUserAuthenticated();
   }, []);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   const checkIsUserAuthenticated = async () => {
     const currentToken: string = localStorage.getItem('token') || '';
-    const response = await fetch('http://localhost:5001/api/auth/logged_in', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token: currentToken,
-      }),
-    });
-    const isAuthenticated = await response.json();
-    console.log('checkIsUserAuthenticated -> isAuthenticated', isAuthenticated);
-    if (!isAuthenticated.logged_in) {
-      localStorage.removeItem('token');
+    console.log('checkIsUserAuthenticated -> currentToken', currentToken);
+    if (currentToken) {
+      const response = await fetch('http://localhost:5001/api/auth/logged_in', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token: currentToken,
+        }),
+      });
+      const isAuthenticated = await response.json();
+      console.log('checkIsUserAuthenticated -> isAuthenticated', isAuthenticated);
+      if (!isAuthenticated.logged_in) {
+        localStorage.removeItem('token');
+      }
+      setIsAuthenticated(isAuthenticated.logged_in);
     }
-    setIsAuthenticated(isAuthenticated.logged_in);
+    setLoading(false);
   };
 
-  return !isAuthenticated ? (
-    <Redirect to="/login" />
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : !isAuthenticated ? (
+    <Redirect to={Routes.LOGIN} />
   ) : (
     <div className={classes.rootComponent}>
       <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} />
-      <div className={classes.rootComponent__wrapper}>
-        <div className={classes.rootComponent__body}>
+      <div className={classes.contentWrapper}>
+        <div className={classes.contentBody}>
           <Title title={pageTitle} />
           <div className={classes.mainContent}>
-            <div className={classes.mainContent__left}>{leftComponent}</div>
-            <div className={classes.mainContent__right}>{rightComponent}</div>
+            <div className={classes.leftContent}>{leftComponent}</div>
+            <div className={classes.rightContent}>{rightComponent}</div>
           </div>
         </div>
         <Footer />

@@ -5,8 +5,18 @@ import { UserRepository } from '../../data/repositories/user.repository';
 export class UserService {
   constructor(private repository: UserRepository) {}
 
-  async getUserByLoginOrEmail(login: string): Promise<UserModel> {
+  async getUserByLoginOrEmail(login: string, password: string): Promise<UserModel> {
+    if (!login || !password) {
+      throw { error: `You are missing login or password`, status: 400 };
+    }
     const user = await this.repository.getUserByUserNameOrEmail(login);
+    const isPasswordValidForUser = user ? await bcrypt.compare(password, user.password) : 0;
+    if (!isPasswordValidForUser) {
+      throw {
+        error: `Invalid login or password`,
+        status: 401,
+      };
+    }
     return user;
   }
 

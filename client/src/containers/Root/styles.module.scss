@@ -3,13 +3,13 @@
   width: 100%;
   min-height: 100vh;
   display: flex;
-  &__wrapper {
+  .contentWrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-  &__body {
+  .contentBody {
     margin: 40px 60px;
   }
 
@@ -18,10 +18,10 @@
     display: flex;
     justify-content: space-between;
 
-    &__left {
+    .leftContent {
       width: 75%;
     }
-    &__right {
+    .rightContent {
       margin-left: 40px;
       width: 25%;
     }
@@ -32,10 +32,10 @@
   .mainContent {
     display: flex;
     flex-direction: column;
-    .mainContent__left {
+    .leftContent {
       width: 100%;
     }
-    .mainContent__right {
+    .rightContent {
       margin-left: 0;
       width: 100%;
     }
