@@ -1,4 +1,4 @@
-import { PowerSupplyDataAttributes, PowerSupplyModel } from '../../data/models/powerSupply';
+import { PowerSupplyCreationAttributes, PowerSupplyModel } from '../../data/models/powerSupply';
 import { PowerSupplyRepository } from '../../data/repositories/powerSupply.repository';
 
 export class PowerSupplyService {
@@ -14,14 +14,14 @@ export class PowerSupplyService {
     return powerSupplies;
   }
 
-  async createPowerSupply(inputPowerSupply: PowerSupplyDataAttributes): Promise<PowerSupplyModel> {
+  async createPowerSupply(inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
     const powerSupply = await this.repository.createPowerSupply(inputPowerSupply);
     return powerSupply;
   }
 
   async updatePowerSupplyById(inputPowerSupply: {
     id: string;
-    data: PowerSupplyDataAttributes;
+    data: PowerSupplyCreationAttributes;
   }): Promise<PowerSupplyModel> {
     const { id, data } = inputPowerSupply;
     const oldPowerSupply = await this.repository.getPowerSupplyById(id);

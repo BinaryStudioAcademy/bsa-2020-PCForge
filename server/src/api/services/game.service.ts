@@ -1,4 +1,4 @@
-import { GameDataAttributes, GameModel } from '../../data/models/Game';
+import { GameCreationAttributes, GameModel } from '../../data/models/Game';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { GameRepository } from '../../data/repositories/game.repository';
 
@@ -15,12 +15,12 @@ export class GameService {
     return Games;
   }
 
-  async createGame(inputGame: GameDataAttributes): Promise<GameModel> {
+  async createGame(inputGame: GameCreationAttributes): Promise<GameModel> {
     const Game = await this.repository.createGame(inputGame);
     return Game;
   }
 
-  async updateGameById(inputGame: { id: string; data: GameDataAttributes }): Promise<GameModel> {
+  async updateGameById(inputGame: { id: string; data: GameCreationAttributes }): Promise<GameModel> {
     const { id, data } = inputGame;
     const oldGame = await this.repository.getGameById(id);
     if (!oldGame) {

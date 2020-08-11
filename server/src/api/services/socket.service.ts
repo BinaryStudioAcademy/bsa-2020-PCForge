@@ -1,4 +1,4 @@
-import { SocketDataAttributes, SocketModel } from '../../data/models/socket';
+import { SocketCreationAttributes, SocketModel } from '../../data/models/socket';
 import { SocketRepository } from '../../data/repositories/socket.repository';
 
 export class SocketService {
@@ -14,12 +14,12 @@ export class SocketService {
     return sockets;
   }
 
-  async createSocket(inputSocket: SocketDataAttributes): Promise<SocketModel> {
+  async createSocket(inputSocket: SocketCreationAttributes): Promise<SocketModel> {
     const socket = await this.repository.createSocket(inputSocket);
     return socket;
   }
 
-  async updateSocketById(inputSocket: { id: string; data: SocketDataAttributes }): Promise<SocketModel> {
+  async updateSocketById(inputSocket: { id: string; data: SocketCreationAttributes }): Promise<SocketModel> {
     const { id, data } = inputSocket;
     const oldSocket = await this.repository.getSocketById(id);
     if (!oldSocket) {

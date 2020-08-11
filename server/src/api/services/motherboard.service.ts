@@ -1,7 +1,7 @@
-import { MotherboardDataAttributes, MotherboardModel } from '../../data/models/Motherboard';
+import { MotherboardCreationAttributes, MotherboardModel } from '../../data/models/Motherboard';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { MotherboardRepository } from '../../data/repositories/Motherboard.repository';
-import { IMotherboardFilter } from './servicesFilterInterfaces';
+import { IMotherboardFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class MotherboardService {
   constructor(private repository: MotherboardRepository) {}
@@ -16,14 +16,14 @@ export class MotherboardService {
     return motherboards;
   }
 
-  async createMotherboard(inputMotherboard: MotherboardDataAttributes): Promise<MotherboardModel> {
+  async createMotherboard(inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
     const motherboard = await this.repository.createMotherboard(inputMotherboard);
     return motherboard;
   }
 
   async updateMotherboardById(inputMotherboard: {
     id: string;
-    data: MotherboardDataAttributes;
+    data: MotherboardCreationAttributes;
   }): Promise<MotherboardModel> {
     const { id, data } = inputMotherboard;
     const oldMotherboard = await this.repository.getMotherboardById(id);
