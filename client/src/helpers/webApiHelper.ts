@@ -35,6 +35,19 @@ class Api {
       .catch(this.handleError);
   }
 
+  async image(url: string, image: Blob) {
+    const data = new FormData();
+    data.append('image', image);
+    return await this.instance
+      .post(url, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(this.handleResponse)
+      .catch(this.handleError);
+  }
+
   async put(url: string, data: any) {
     return await this.instance
       .put(url, data, {
