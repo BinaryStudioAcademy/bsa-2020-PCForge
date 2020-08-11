@@ -3,7 +3,7 @@ import { TopGameCreationAttributes, TopGameModel, TopGameStatic } from '../model
 import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { GameStatic } from '../models/game';
-import { FilterDefaults, IFilter } from './repositoriesFilterInterfaces';
+import { IFilter } from './repositoriesFilterInterfaces';
 
 export class TopGameRepository extends BaseRepository<TopGameModel> {
   constructor(
@@ -53,8 +53,7 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
   }
 
   async getAllTopGames(filter: IFilter): Promise<IWithMeta<TopGameModel>> {
-    const { from: offset, count: limit } = { ...FilterDefaults, ...filter };
-    const topGames = await this.getAll({
+    const topGames = await this.getAll(filter, {
       group: [
         'topGame.id',
         'game.id',
@@ -86,9 +85,6 @@ export class TopGameRepository extends BaseRepository<TopGameModel> {
           ],
         },
       ],
-      order: [['id', 'ASC']],
-      offset: offset,
-      limit: limit,
     });
     return topGames;
   }

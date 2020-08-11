@@ -13,12 +13,8 @@ export class GpuRepository extends BaseRepository<GpuModel> {
   }
 
   async getAllGpus(filter: IFilter): Promise<IWithMeta<GpuModel>> {
-    const { from: offset, count: limit } = { ...FilterDefaults, ...filter };
-    const gpus = await this.getAll({
+    const gpus = await this.getAll(filter, {
       group: ['gpu.id'],
-      order: [['id', 'ASC']],
-      offset: offset,
-      limit: limit,
     });
     return gpus;
   }

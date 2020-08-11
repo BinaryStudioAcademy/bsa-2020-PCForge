@@ -22,8 +22,8 @@ export class RamRepository extends BaseRepository<RamModel> {
   }
 
   async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
-    const { typeId, from: offset, count: limit } = { ...RamFilterDefaults, ...filter };
-    const rams = await this.getAll({
+    const { typeId } = { ...RamFilterDefaults, ...filter };
+    const rams = await this.getAll(filter, {
       group: ['ram.id', 'ramType.id'],
       where: { typeId },
       include: [
@@ -31,9 +31,6 @@ export class RamRepository extends BaseRepository<RamModel> {
           model: this.ramTypeModel,
         },
       ],
-      order: [['id', 'ASC']],
-      offset: offset,
-      limit: limit,
     });
     return rams;
   }

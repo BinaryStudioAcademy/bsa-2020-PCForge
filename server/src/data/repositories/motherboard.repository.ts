@@ -30,8 +30,8 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel> {
   }
 
   async getAllMotherboards(filter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
-    const { socketId, ramTypeId, from: offset, count: limit } = { ...MotherboardFilterDefaults, ...filter };
-    const motherboards = await this.getAll({
+    const { socketId, ramTypeId } = { ...MotherboardFilterDefaults, ...filter };
+    const motherboards = await this.getAll(filter, {
       group: ['motherboard.id', 'socket.id', 'ramType.id'],
       where: { socketId, ramTypeId },
       include: [
@@ -42,9 +42,6 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel> {
           model: this.socketModel,
         },
       ],
-      order: [['id', 'ASC']],
-      offset: offset,
-      limit: limit,
     });
     return motherboards;
   }
