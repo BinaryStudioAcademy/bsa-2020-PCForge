@@ -24,6 +24,7 @@
     "axios": "^0.19.2",
     "lodash-es": "^4.17.15",
     "node-sass": "^4.14.1",
+    "query-string": "^6.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
@@ -78,5 +79,6 @@
       "prettier --write",
       "eslint --fix"
     ]
-  }
+  },
+  "proxy": "http://localhost:5001/"
 }

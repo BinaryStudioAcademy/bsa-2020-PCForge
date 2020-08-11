@@ -1,0 +1,9 @@
+@import 'src/styles/variables';
+
+button.root {
+  background-color: $colorRed;
+
+  &:hover {
+    background-color: transparentize($colorRed, 0.08);
+  }
+}
