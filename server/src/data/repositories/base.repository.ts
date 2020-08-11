@@ -1,15 +1,33 @@
-import { BuildOptions, Model } from 'sequelize/types';
+import { BuildOptions, FindOptions, Model } from 'sequelize/types';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
 };
 
+export interface IMeta {
+  globalCount: number;
+}
+
+export interface IWithMeta<M extends Model> {
+  meta: IMeta;
+  data: M[];
+}
+
 export abstract class BaseRepository<M extends Model> {
   constructor(private _model: RichModel) {}
 
-  async getAll(): Promise<M[]> {
-    const result = await this._model.findAll();
-    return result as M[];
+  async getAll(params?: FindOptions): Promise<IWithMeta<M>> {
+    let result = [];
+    if (params) {
+      result = await this._model.findAll(params);
+    } else {
+      result = await this._model.findAll();
+    }
+    const globalCount = await this._model.count();
+    return {
+      meta: { globalCount },
+      data: result as M[],
+    };
   }
 
   async getById(id: string): Promise<M> {

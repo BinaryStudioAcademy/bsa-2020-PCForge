@@ -1,16 +1,16 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostRamRequest, GetRamRequest, PutRamRequest, DeleteRamRequest } from './ram.schema';
+import { PostRamRequest, GetOneRamRequest, PutRamRequest, DeleteRamRequest, GetAllRamsRequest } from './ram.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { RamService } = fastify.services;
 
-  fastify.get('/', {}, async (request, reply) => {
-    const rams = await RamService.getAllRams();
+  fastify.get('/', {}, async (request: GetAllRamsRequest, reply) => {
+    const rams = await RamService.getAllRams(request.query);
     reply.send(rams);
   });
 
-  fastify.get('/:id', {}, async (request: GetRamRequest, reply) => {
+  fastify.get('/:id', {}, async (request: GetOneRamRequest, reply) => {
     const { id } = request.params;
     const ram = await RamService.getRamById(id);
     reply.send(ram);
