@@ -7,9 +7,8 @@ import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import UserPreferences from './components/UserPreferences';
-
-import { IUserState } from './logic/reducer';
 import { RootState } from 'redux/rootReducer';
+import { loadUser } from './logic/actions';
 
 enum UserPageTabs {
   Games = 0,
@@ -20,8 +19,7 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const UserPage = (props: Props) => {
-  const { loadedUser, spinner } = props;
-  console.log(loadedUser, spinner);
+  const { loadedUser, spinner, loadUser } = props;
 
   const gamesArray = [
     {
@@ -119,7 +117,6 @@ const UserPage = (props: Props) => {
   ];
 
   const { id } = useParams();
-  console.log(id);
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [editableInput, setEditableInput] = useState(false);
@@ -132,6 +129,10 @@ const UserPage = (props: Props) => {
 
   const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
+
+  useEffect(() => {
+    loadUser(id);
+  }, []);
 
   useEffect(() => {
     if (editableInput) {
@@ -279,6 +280,10 @@ const mapState = (state: RootState) => ({
   spinner: state.user.showSpinner,
 });
 
-const connector = connect(mapState);
+const mapDispatch = {
+  loadUser,
+};
+
+const connector = connect(mapState, mapDispatch);
 
 export default connector(UserPage);

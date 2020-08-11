@@ -5,31 +5,33 @@ export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const SHOW_SPINNER = 'SHOW_SPINNER';
 export const HIDE_SPINNER = 'HIDE_SPINNER';
 
-interface loadUser {
+export interface loadUser {
   type: typeof LOAD_USER;
-  payload: {};
+  payload: {
+    id: string;
+  };
 }
 
-interface loadUserSuccess {
+export interface loadUserSuccess {
   type: typeof LOAD_USER_SUCCESS;
   payload: {};
 }
 
-interface updateUser {
+export interface updateUser {
   type: typeof UPDATE_USER;
   payload: {};
 }
 
-interface updateUserSuccess {
+export interface updateUserSuccess {
   type: typeof UPDATE_USER_SUCCESS;
   payload: {};
 }
 
-interface showSpinner {
+export interface showSpinner {
   type: typeof SHOW_SPINNER;
 }
 
-interface hideSpinner {
+export interface hideSpinner {
   type: typeof HIDE_SPINNER;
 }
 
