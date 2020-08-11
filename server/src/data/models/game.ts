@@ -1,4 +1,6 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
+import { CpuAttributes } from './cpu';
+import { GpuAttributes } from './gpu';
 
 export interface GameAttributes {
   id: number;
@@ -10,7 +12,25 @@ export interface GameAttributes {
   minimalRamSize: number;
   createdAt: Date;
   updatedAt: Date;
+  recommendedCpu: CpuAttributes;
+  minimalCpu: CpuAttributes;
+  recommendedGpu: GpuAttributes;
+  minimalGpu: GpuAttributes;
 }
+
+export interface GameCreationAttributes {
+  name: string;
+  year: number;
+  image: string;
+  description: string;
+  recommendedCpuId: string;
+  recommendedGpuId: string;
+  recommendedRamSize: number;
+  minimalCpuId: string;
+  minimalGpuId: string;
+  minimalRamSize: number;
+}
+
 export interface GameModel extends Model<GameAttributes>, GameAttributes {}
 export class Game extends Model<GameModel, GameAttributes> {}
 
