@@ -9,7 +9,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.changeColumn('setups', 'description', {
-      type: Sequelize.STRING(500),
+      type: Sequelize.STRING(50),
     });
   },
 };
