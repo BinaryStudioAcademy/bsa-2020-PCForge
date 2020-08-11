@@ -1,4 +1,4 @@
-import { UserModel, UserStatic, UserAttributes } from '../models/user';
+import { UserModel, UserStatic, UserDataAttributes } from '../models/user';
 import { BaseRepository, RichModel } from './base.repository';
 import { Op } from 'sequelize';
 
@@ -7,7 +7,12 @@ export class UserRepository extends BaseRepository<UserModel> {
     super(<RichModel>model);
   }
 
-  async create(attributes: UserAttributes): Promise<UserModel> {
+  async getAllUsers(): Promise<UserModel[]> {
+    const user = await this.getAll();
+    return user.data;
+  }
+
+  async create(attributes: UserDataAttributes): Promise<UserModel> {
     const user = await this.model.create(attributes);
     return user;
   }

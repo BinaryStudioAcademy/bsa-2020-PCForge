@@ -12,6 +12,17 @@ export interface UserAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface UserDataAttributes {
+  name: string;
+  password: string;
+  email: string;
+  isAdmin: boolean;
+  avatar: string | null;
+  verifyEmailToken: string | null;
+  resetPasswordToken: string | null;
+}
+
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
 export class User extends Model<UserModel, UserAttributes> {}
 
