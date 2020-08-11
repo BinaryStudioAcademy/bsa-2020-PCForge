@@ -3,7 +3,7 @@ import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import styles from './styles.module.scss';
-import defaultImg from './default.png';
+import defaultImg from 'assets/images/defaultImgGroup.png';
 
 type PropsType = {
   id: string;

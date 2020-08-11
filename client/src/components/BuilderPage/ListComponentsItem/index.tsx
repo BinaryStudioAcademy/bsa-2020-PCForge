@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonAdd from 'components/BuilderPage/ButtonAdd';
 // import { RatingBox } from '../../RatingBox';
 import styles from './styles.module.scss';
-import defaultImg from './default.png';
+import defaultImg from 'assets/images/defaultImgComponent.png';
 
 type PropsType = {
   img?: string;
