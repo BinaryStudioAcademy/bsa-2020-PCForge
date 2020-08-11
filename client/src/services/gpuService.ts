@@ -4,8 +4,8 @@ import { TypeGpu } from '../models/typeGpu';
 
 type TypeResponseAll = {
   meta: {
-    globalCount: string;
-    countAfterFiltering: string;
+    globalCount: number;
+    countAfterFiltering: number;
   };
   data: TypeGpu[];
 };

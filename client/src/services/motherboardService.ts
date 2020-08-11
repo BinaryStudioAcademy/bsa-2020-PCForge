@@ -4,8 +4,8 @@ import { TypeMotherboard } from '../models/typeMotherboard';
 
 type TypeResponseAll = {
   meta: {
-    globalCount: string;
-    countAfterFiltering: string;
+    globalCount: number;
+    countAfterFiltering: number;
   };
   data: TypeMotherboard[];
 };

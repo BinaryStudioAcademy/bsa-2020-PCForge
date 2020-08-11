@@ -4,8 +4,8 @@ import { TypeRam } from '../models/typeRam';
 
 type TypeResponseAll = {
   meta: {
-    globalCount: string;
-    countAfterFiltering: string;
+    globalCount: number;
+    countAfterFiltering: number;
   };
   data: TypeRam[];
 };

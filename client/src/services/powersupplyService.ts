@@ -4,8 +4,8 @@ import { TypePowersupplies } from '../models/typePowersupplies';
 
 type TypeResponseAll = {
   meta: {
-    globalCount: string;
-    countAfterFiltering: string;
+    globalCount: number;
+    countAfterFiltering: number;
   };
   data: TypePowersupplies[];
 };
