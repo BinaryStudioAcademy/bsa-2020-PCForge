@@ -16,7 +16,7 @@ const initialState: IUserState = {
    showSpinner: false
 }
   
-function userReducer(state = initialState, action: UserActionTypes) {
+function UserReducer(state = initialState, action: UserActionTypes) {
     switch (action.type) {
         case SHOW_SPINNER:
             return {
@@ -38,7 +38,9 @@ function userReducer(state = initialState, action: UserActionTypes) {
                 ...state,
                 loadedUser: action.payload
             }
+        default:
+            return state;
     }
 }
 
-export default userReducer;
+export default UserReducer;
