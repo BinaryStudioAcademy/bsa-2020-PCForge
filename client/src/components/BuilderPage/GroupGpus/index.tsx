@@ -11,12 +11,12 @@ import FilterRange from '../FilterRange';
 import Spinner from '../Spinner';
 import { getAllGpu } from '../../../services/gpuService';
 import { TypeGpu } from '../../../models/typeGpu';
-import { TypeFilterBuilder } from '../../../models/typeFilterBuilder';
+import { TypeFilter } from '../../../models/typeFilterBuilder';
 import styles from '../styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilterBuilder;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  filter: TypeFilter;
+  onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeGpu) => void;
 };
 
@@ -26,24 +26,13 @@ const GroupGpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   const [pagination, setPagination] = useState({ from: 0, count: 0 });
   const [load, setLoad] = useState(false);
 
-  const getAllGpus = async () => {
-    setLoad(true);
-    try {
-      const allGpus = await getAllGpu(filter);
-      setCount(allGpus?.length);
-      getGpus();
-    } catch (err) {
-      console.log(err); // add notification
-      setLoad(false);
-    }
-  };
-
   const getGpus = async () => {
     setLoad(true);
     try {
-      const newGpus = await getAllGpu({ ...filter, ...pagination });
-      // setGpus(newGpus);
-      setGpus(newGpus.length > 10 ? newGpus.slice(0, 9) : newGpus); // while the bug is on the server
+      const res = await getAllGpu({ ...filter, ...pagination });
+      setGpus(res.data);
+      setCount(res.meta.countAfterFiltering);
+      // setGpus(newGpus.length > 10 ? newGpus.slice(0, 9) : newGpus); // while the bug is on the server
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -52,12 +41,8 @@ const GroupGpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   };
 
   useEffect(() => {
-    getAllGpus();
-  }, [filter]);
-
-  useEffect(() => {
     getGpus();
-  }, [pagination]);
+  }, [filter, pagination]);
 
   const AddComponentHandler = (gpu: TypeGpu): void => {
     onAddComponent(gpu);
