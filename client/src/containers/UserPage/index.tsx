@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
+import { connect, ConnectedProps } from 'react-redux';
 import { Tabs, Tab, AppBar } from '@material-ui/core';
 import styles from './styles.module.scss';
 import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import UserPreferences from './components/UserPreferences';
-import { useParams } from 'react-router';
+
+import { IUserState } from './logic/reducer';
+import { RootState } from 'redux/rootReducer';
 
 enum UserPageTabs {
   Games = 0,
   Setups = 1,
 }
 
-const UserPage: React.FC = () => {
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux;
+
+const UserPage = (props: Props) => {
+  const { loadedUser, spinner } = props;
+  console.log(loadedUser, spinner);
+
   const gamesArray = [
     {
       image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
@@ -111,12 +121,14 @@ const UserPage: React.FC = () => {
   const { id } = useParams();
   console.log(id);
 
-  const [editableInput, setEditableInput] = useState(false);
   const [selectedTab, setSelectedTab] = useState(0);
+  const [editableInput, setEditableInput] = useState(false);
+  const [requireOldPassword, setRequireOldPassword] = useState(false);
   const [name, setName] = useState('Takeshi');
   const [email, setEmail] = useState('Takeshi@gmail');
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
 
   const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
@@ -125,31 +137,41 @@ const UserPage: React.FC = () => {
     if (editableInput) {
       inputRef.current?.focus();
     }
-  }, [editableInput, inputRef]);
+  }, [editableInput]);
 
-  const handleChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
+  const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
     setSelectedTab(newValue);
   };
-  const handleClick = (event: React.MouseEvent) => {
+
+  const handleSetEditable = (event: React.MouseEvent) => {
+    if (editableInput) {
+      console.log("you'll have to save here");
+      setRequireOldPassword(false);
+    }
     setEditableInput(!editableInput);
   };
 
   const handleCancel = (event: React.MouseEvent) => {
     setEditableInput(false);
+    setRequireOldPassword(false);
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+    setRequireOldPassword(true);
   };
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+    setRequireOldPassword(true);
   };
   const handleConfirmedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setConfirmedPassword(event.target.value);
   };
-
+  const handleOldPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setOldPassword(event.target.value);
+  };
   const handleChangeImage = () => {
     // TODO: Upload image and show
   };
@@ -214,23 +236,33 @@ const UserPage: React.FC = () => {
               onChange={handleConfirmedPasswordChange}
             />
           )}
+          {requireOldPassword && (
+            <Input
+              className={styles.autoFocused}
+              icon="VpnKey"
+              type="password"
+              placeholder="Old password"
+              value={oldPassword}
+              onChange={handleOldPasswordChange}
+            />
+          )}
 
           <div className={styles.buttonsContainer}>
+            <Button onClick={handleSetEditable} buttonType={ButtonType.primary}>
+              {editableInput ? 'Save' : 'Edit'}
+            </Button>
             {editableInput && (
               <Button onClick={handleCancel} buttonType={ButtonType.secondary}>
                 Cancel
               </Button>
             )}
-            <Button onClick={handleClick} buttonType={ButtonType.primary}>
-              {editableInput ? 'Save' : 'Edit'}
-            </Button>
           </div>
         </div>
       </div>
 
       <div className={styles.preferencesSection}>
         <AppBar position="static" className={styles.tabsBar}>
-          <Tabs value={selectedTab} onChange={handleChange}>
+          <Tabs value={selectedTab} onChange={handleTabChange}>
             <Tab label="Games" />
             <Tab label="Setups" />
           </Tabs>
@@ -242,4 +274,11 @@ const UserPage: React.FC = () => {
   );
 };
 
-export default UserPage;
+const mapState = (state: RootState) => ({
+  loadedUser: state.user.loadedUser,
+  spinner: state.user.showSpinner,
+});
+
+const connector = connect(mapState);
+
+export default connector(UserPage);
