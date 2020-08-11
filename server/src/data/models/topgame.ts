@@ -1,9 +1,9 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
-import { GameModel } from './game';
+import { GameAttributes } from './game';
 
 export interface TopGameAttributes {
   id: number;
-  game: GameModel;
+  game: GameAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -11,19 +11,6 @@ export interface TopGameAttributes {
 export interface TopGameCreationAttributes {
   gameId: number;
 }
-
-// export interface TopGameDataAttributes {
-//   name: string;
-//   year: number;
-//   image: string;
-//   description: string;
-//   recommendedCpuId: string;
-//   recommendedGpuId: string;
-//   recommendedRamSize: number;
-//   minimalCpuId: string;
-//   minimalGpuId: string;
-//   minimalRamSize: number;
-// }
 
 export interface TopGameModel extends Model<TopGameAttributes>, TopGameAttributes {}
 export class TopGame extends Model<TopGameModel, TopGameAttributes> {}
