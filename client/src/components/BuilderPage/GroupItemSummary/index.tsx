@@ -4,15 +4,17 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import styles from './styles.module.scss';
 import defaultImg from 'assets/images/defaultImgGroup.png';
+import Button from 'components/BasicComponents/Button';
 
 type PropsType = {
   id: string;
   title: string;
   count: number;
+  nameComponent?: string;
   img?: string;
 };
 
-const GroupItemSummary = ({ id, title, count, img = defaultImg }: PropsType): JSX.Element => {
+const GroupItemSummary = ({ id, title, count, nameComponent = '', img = defaultImg }: PropsType): JSX.Element => {
   return (
     <AccordionSummary
       className={styles.groupItemSummary}
@@ -25,6 +27,8 @@ const GroupItemSummary = ({ id, title, count, img = defaultImg }: PropsType): JS
         <span className={styles.groupItemSummaryTitle}>{title}</span>
         <span className={styles.groupItemSummaryCount}>{count}</span>
       </Typography>
+      <Typography className={styles.nameComponent}>{nameComponent}</Typography>
+      {!!nameComponent && <Button>Clear</Button>}
     </AccordionSummary>
   );
 };

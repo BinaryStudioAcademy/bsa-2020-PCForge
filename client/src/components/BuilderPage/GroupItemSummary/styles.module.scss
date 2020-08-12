@@ -16,4 +16,10 @@ div.groupItemSummary {
 
 .groupItemSummaryCount {
   color: $colorRed;
+  margin-right: 10px;
+}
+
+.groupItemSummary .nameComponent {
+  margin-left: auto;
+  margin-right: 10px;
 }
