@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
-import { getToken } from './tokenHelper';
+import { getToken } from 'helpers/tokenHelper';
 
 class Api {
   instance: AxiosInstance;
