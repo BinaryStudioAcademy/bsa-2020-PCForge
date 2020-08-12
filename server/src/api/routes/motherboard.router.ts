@@ -6,7 +6,7 @@ import {
   DeleteMotherboardRequest,
   GetAllMotherboardsRequest,
   GetOneMotherboardRequest,
-} from './Motherboard.schema';
+} from './motherboard.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { MotherboardService } = fastify.services;

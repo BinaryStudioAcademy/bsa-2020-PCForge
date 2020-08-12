@@ -1,4 +1,4 @@
-import { PowerSupplyDataAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/PowerSupply';
+import { PowerSupplyDataAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/powersupply';
 import { BaseRepository, RichModel } from './base.repository';
 
 export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
