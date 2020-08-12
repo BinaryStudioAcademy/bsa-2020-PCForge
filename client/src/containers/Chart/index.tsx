@@ -11,7 +11,7 @@ import TestDifferentSystem from 'components/ChartComponents/TestDifferentSystem'
 const GameMatcherResult = (): JSX.Element => {
   return (
     <div className={styles.gameMatcherRoot}>
-      <div className={styles.content} role="main">
+      <div className={styles.content}>
         <h1 className={[sharedStyles.mainHeader, styles.pageHeader].join(' ')}>
           3 Skulls of Toltecs System Requirements
         </h1>

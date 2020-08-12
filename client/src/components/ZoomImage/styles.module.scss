@@ -1,0 +1,14 @@
+.imageWrapper {
+  background-repeat: no-repeat;
+}
+
+.imageWrapper:hover .image {
+  opacity: 0;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  pointer-events: none;
+  object-fit: cover;
+}
