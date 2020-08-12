@@ -1,15 +1,47 @@
-import { BuildOptions, Model } from 'sequelize/types';
+import { BuildOptions, FindOptions, Model } from 'sequelize/types';
+import { reduceTo } from '../../helpers/filter.helper';
+import { IFilter } from './filters/base.filter';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
 };
 
-export abstract class BaseRepository<M extends Model> {
-  constructor(private _model: RichModel) {}
+export interface IMeta {
+  globalCount: number;
+  countAfterFiltering: number;
+}
 
-  async getAll(): Promise<M[]> {
-    const result = await this._model.findAll();
-    return result as M[];
+export interface IWithMeta<M extends Model> {
+  meta: IMeta;
+  data: M[];
+}
+
+export abstract class BaseRepository<M extends Model, F extends IFilter = IFilter> {
+  constructor(private _model: RichModel, private filterFactory: new () => F) {}
+
+  private async getCount(where?: Record<string, unknown>): Promise<number> {
+    const count = await this._model.count({ where });
+    return count;
+  }
+
+  async getAll(filter?: F, params?: FindOptions): Promise<IWithMeta<M>> {
+    const { from: offset, count: limit, ...uniqueFilters } = reduceTo<F>(filter, this.filterFactory);
+
+    const result = await this._model.findAll({
+      order: [['id', 'ASC']],
+      where: uniqueFilters,
+      offset: offset,
+      limit: limit,
+      ...params,
+    });
+
+    const globalCount = await this.getCount();
+    const countAfterFiltering = await this.getCount({ ...uniqueFilters });
+
+    return {
+      meta: { globalCount, countAfterFiltering },
+      data: result as M[],
+    };
   }
 
   async getById(id: string): Promise<M> {

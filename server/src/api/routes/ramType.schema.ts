@@ -1,16 +1,22 @@
 import { FastifyRequest } from 'fastify';
+import { RamTypeCreationAttributes } from '../../data/models/ramtype';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 
-export type GetRamTypeRequest = FastifyRequest<{
+export type GetAllRamTypesRequest = FastifyRequest<{
+  Querystring: IFilter;
+}>;
+
+export type GetOneRamTypeRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
 export type PostRamTypeRequest = FastifyRequest<{
-  Body: { name: string };
+  Body: RamTypeCreationAttributes;
 }>;
 
 export type PutRamTypeRequest = FastifyRequest<{
   Params: { id: string };
-  Body: { name: string };
+  Body: RamTypeCreationAttributes;
 }>;
 
 export type DeleteRamTypeRequest = FastifyRequest<{

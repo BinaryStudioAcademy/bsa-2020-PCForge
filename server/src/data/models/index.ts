@@ -11,6 +11,7 @@ import { RamTypeFactory } from './ramtype';
 import { RateFactory } from './rate';
 import { SetupFactory } from './setup';
 import { SocketFactory } from './socket';
+import { TopGameFactory } from './topgame';
 import { UserFactory } from './user';
 import { UserGameFactory } from './usergame';
 
@@ -30,6 +31,7 @@ export const initializeModels = (orm: Sequelize) => {
   const SocketModel = SocketFactory(orm);
   const UserModel = UserFactory(orm);
   const UserGameModel = UserGameFactory(orm);
+  const TopGameModel = TopGameFactory(orm);
 
   CommentModel.belongsTo(UserModel);
   CommentModel.belongsTo(SetupModel, { foreignKey: 'commentableId', constraints: false });
@@ -68,7 +70,7 @@ export const initializeModels = (orm: Sequelize) => {
   RateModel.belongsTo(NewsModel, { foreignKey: 'ratebleId', constraints: false });
   RateModel.belongsTo(GameModel, { foreignKey: 'ratebleId', constraints: false });
 
-  SetupModel.belongsTo(UserModel);
+  SetupModel.belongsTo(UserModel, { foreignKey: 'authorId', constraints: false });
   SetupModel.belongsTo(CpuModel);
   SetupModel.belongsTo(GpuModel);
   SetupModel.belongsTo(RamModel);
@@ -85,11 +87,14 @@ export const initializeModels = (orm: Sequelize) => {
 
   UserModel.hasMany(RateModel);
   UserModel.hasMany(CommentModel);
-  UserModel.hasMany(SetupModel);
+  UserModel.hasMany(SetupModel, { foreignKey: 'authorId', constraints: false });
   UserModel.hasMany(UserGameModel);
 
   UserGameModel.belongsTo(UserModel);
   UserGameModel.belongsTo(GameModel);
+
+  TopGameModel.belongsTo(GameModel);
+  GameModel.hasOne(TopGameModel);
 
   // eslint-disable-next-line prettier/prettier
   return {
@@ -107,5 +112,6 @@ export const initializeModels = (orm: Sequelize) => {
     User: UserModel,
     UserGame: UserGameModel,
     Rate: RateModel,
+    TopGame: TopGameModel,
   };
 };

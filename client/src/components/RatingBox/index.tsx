@@ -5,19 +5,6 @@ import Box from '@material-ui/core/Box';
 import RatingIcon from './RatingIcon/index';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const StyledRating = withStyles({
-  iconFilled: {
-    color: '#EB3D55',
-  },
-  iconHover: {
-    color: '#EB3D55',
-  },
-  iconEmpty: {
-    opacity: 0.2,
-    color: '#EB3D55',
-  },
-})(Rating);
-
 enum labels {
   'Useless' = 0.5,
   'Better that just useless' = 1,
@@ -31,34 +18,53 @@ enum labels {
   'Better that just excellent' = 5,
 }
 
-export function RatingBox(ratingValue: number, disabled: boolean) {
+interface IRatingBox {
+  ratingValue: number;
+  disabled: boolean;
+  name: string;
+}
+
+const StyledRating = withStyles({
+  iconFilled: {
+    color: '#EB3D55',
+  },
+  iconHover: {
+    color: '#EB3D55',
+  },
+  iconEmpty: {
+    opacity: 0.2,
+    color: '#EB3D55',
+  },
+})(Rating);
+
+const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name }) => {
   const [value, setValue] = React.useState<number>(ratingValue);
   const [hover, setHover] = React.useState<number>(-1);
 
   const tooltipValue = disabled ? value : labels[hover !== -1 ? hover : 0.5];
   return (
     <Tooltip title={tooltipValue} placement="right-start" arrow>
-      <Box mb={1} borderColor="transparent" display="inline-block">
+      <Box mb={0.5} borderColor="transparent" display="inline-block">
         <StyledRating
-          name="customized-color"
+          name={`${name}-rating-box`}
           value={value}
           disabled={disabled}
           precision={disabled ? 0.1 : 0.5}
           icon={<RatingIcon />}
           size="small"
-          // eslint-disable-next-line
-          onChange={(event: React.ChangeEvent<{}>, newValue: number | null) => {
+          onChange={(event: React.ChangeEvent<Record<string, unknown>>, newValue: number | null) => {
             if (newValue) {
               setValue(newValue);
               //add function that change rating value
             }
           }}
-          // eslint-disable-next-line
-          onChangeActive={(event: React.ChangeEvent<{}>, newHover) => {
+          onChangeActive={(event: React.ChangeEvent<Record<string, unknown>>, newHover) => {
             setHover(newHover);
           }}
         />
       </Box>
     </Tooltip>
   );
-}
+};
+export default RatingBox;
+// example of using: <RatingBox ratingValue={3.4} disabled={false} name={'rated-element-key-id-is-here'}/>

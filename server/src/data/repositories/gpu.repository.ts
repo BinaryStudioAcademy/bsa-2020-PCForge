@@ -1,9 +1,10 @@
-import { GpuDataAttributes, GpuModel, GpuStatic } from '../models/Gpu';
-import { BaseRepository, RichModel } from './base.repository';
+import { GpuCreationAttributes, GpuModel, GpuStatic } from '../models/gpu';
+import { BaseRepository, IWithMeta, RichModel } from './base.repository';
+import { IFilter } from './filters/base.filter';
 
-export class GpuRepository extends BaseRepository<GpuModel> {
+export class GpuRepository extends BaseRepository<GpuModel, IFilter> {
   constructor(private model: GpuStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IFilter);
   }
 
   async getGpuById(id: string): Promise<GpuModel> {
@@ -11,17 +12,19 @@ export class GpuRepository extends BaseRepository<GpuModel> {
     return gpu;
   }
 
-  async getAllGpus(): Promise<GpuModel[]> {
-    const gpus = await this.getAll();
+  async getAllGpus(filter: IFilter): Promise<IWithMeta<GpuModel>> {
+    const gpus = await this.getAll(filter, {
+      group: ['gpu.id'],
+    });
     return gpus;
   }
 
-  async createGpu(inputGpu: GpuDataAttributes): Promise<GpuModel> {
+  async createGpu(inputGpu: GpuCreationAttributes): Promise<GpuModel> {
     const gpu = await this.model.create(inputGpu);
     return gpu;
   }
 
-  async updateGpuById(id: string, inputGpu: GpuDataAttributes): Promise<GpuModel> {
+  async updateGpuById(id: string, inputGpu: GpuCreationAttributes): Promise<GpuModel> {
     const gpu = await this.updateById(id, inputGpu);
     return gpu;
   }

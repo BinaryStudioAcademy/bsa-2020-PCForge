@@ -1,0 +1,106 @@
+@import '../../styles/variables.scss';
+$light: #ccc;
+$dark: #777;
+
+.footer {
+  width: 100%;
+  background-color: #000;
+  padding: 2em 4em;
+
+  .footerTitle {
+    color: $light;
+    margin-bottom: 4px;
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+  }
+}
+
+.listWrapper {
+  min-width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  .item {
+    a {
+      text-decoration: none;
+      color: $dark;
+      &:hover {
+        text-decoration: underline;
+        color: $light;
+      }
+    }
+    .title {
+      color: $light;
+      margin-bottom: 4px;
+      font-family: Lato, sans-serif;
+      font-weight: 400;
+    }
+    .list {
+      list-style: none;
+      line-height: 24px;
+      padding: 0;
+      margin: 0;
+    }
+    .listItem {
+      color: $dark;
+      font-family: Lato, sans-serif;
+      font-weight: 400;
+    }
+  }
+}
+
+.copyRights {
+  color: $dark;
+  font-size: 12px;
+  font-family: Lato, sans-serif;
+  font-weight: 400;
+  margin-top: 24px;
+}
+
+@media screen and (max-width: $tablet) {
+  .listWrapper {
+    flex-direction: column;
+    min-width: unset;
+  }
+
+  .wrapper {
+    .title {
+      font-size: 18px;
+    }
+    .listItem {
+      font-size: 16px;
+      line-height: 30px;
+    }
+  }
+}
+
+@media screen and (max-width: $phone) {
+  .footer {
+    .footerTitle {
+      font-size: 18px;
+      margin: 0;
+    }
+  }
+  .wrapper {
+    flex-direction: column;
+    .title {
+      font-size: 14px;
+    }
+    .listItem {
+      font-size: 12px;
+      line-height: 24px;
+    }
+  }
+  .listWrapper {
+    flex-direction: row;
+    min-width: unset;
+  }
+  .copyRights {
+    font-size: 10px;
+  }
+}

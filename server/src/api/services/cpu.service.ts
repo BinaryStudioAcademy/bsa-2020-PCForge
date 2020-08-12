@@ -1,5 +1,7 @@
-import { CpuDataAttributes, CpuModel } from '../../data/models/cpu';
+import { CpuCreationAttributes, CpuModel } from '../../data/models/cpu';
+import { IWithMeta } from '../../data/repositories/base.repository';
 import { CpuRepository } from '../../data/repositories/cpu.repository';
+import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 
 export class CpuService {
   constructor(private repository: CpuRepository) {}
@@ -9,17 +11,17 @@ export class CpuService {
     return cpu;
   }
 
-  async getAllCpus(): Promise<CpuModel[]> {
-    const cpus = await this.repository.getAllCpus();
+  async getAllCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
+    const cpus = await this.repository.getAllCpus(filter);
     return cpus;
   }
 
-  async createCpu(inputCpu: CpuDataAttributes): Promise<CpuModel> {
+  async createCpu(inputCpu: CpuCreationAttributes): Promise<CpuModel> {
     const cpu = await this.repository.createCpu(inputCpu);
     return cpu;
   }
 
-  async updateCpuById(inputCpu: { id: string; data: CpuDataAttributes }): Promise<CpuModel> {
+  async updateCpuById(inputCpu: { id: string; data: CpuCreationAttributes }): Promise<CpuModel> {
     const { id, data } = inputCpu;
     const oldCpu = await this.repository.getCpuById(id);
     if (!oldCpu) {

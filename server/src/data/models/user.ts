@@ -12,6 +12,17 @@ export interface UserAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface UserCreationAttributes {
+  name: string;
+  password: string;
+  email: string;
+  isAdmin: boolean;
+  avatar: string | null;
+  verifyEmailToken: string | null;
+  resetPasswordToken: string | null;
+}
+
 export interface UserModel extends Model<UserAttributes>, UserAttributes {}
 export class User extends Model<UserModel, UserAttributes> {}
 
@@ -32,7 +43,7 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
     },
     password: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(60),
     },
     email: {
       allowNull: false,
