@@ -1,41 +1,52 @@
 import { FastifyInstance } from 'fastify';
-import { error } from 'console';
-import { bcrypt } from 'bcrypt';
-import { PostAuthRequest } from './auth.schema';
-const bcrypt = require('bcrypt');
+import { FastifyNext, FastifyOptions } from './fastifyTypes';
+import { PostAuthRequest, IsUserAuthenticated } from './auth.schema';
+import { OAuth2Client } from 'google-auth-library';
 
-export function router(fastify: FastifyInstance, opts, next): void {
+export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { UserService } = fastify.services;
+  const oAuth2Client = new OAuth2Client(
+    process.env.GOOGLE_OAUTH_CLIENT_ID,
+    process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+    'http://localhost:5001/api/auth/google/callback'
+  );
 
-  fastify.post('/auth/login', {}, async (request: PostAuthRequest, reply) => {
+  fastify.post('/login', {}, async (request: PostAuthRequest, response) => {
+    const { login, password } = request.body || {};
     try {
-      const { login, password } = request.body;
-      if (login && password) {
-        const User = await UserService.getUserByLoginOrEmail(login);
-        const isPasswordValidForUser = await bcrypt.compare(password, User.password);
-        if (isPasswordValidForUser) {
-          const token = fastify.jwt.sign({}, { expiresIn: 86400 });
-          reply.send(token);
-        } else {
-          reply.status(401).send({
-            error: true,
-            msg: 'Incorrect login or password, please try again',
-          });
-        }
-      } else {
-        throw error;
-      }
+      //return user
+      await UserService.getUserByLoginOrEmail(login, password);
+      const token = fastify.jwt.sign({}, { expiresIn: 86400 });
+      response.send(token);
     } catch (error) {
-      reply.status(400).send({
-        error: true,
-        msg: 'Mandatory fields are missing',
+      response.status(error.status).send({
+        err: true,
+        msg: error.error,
       });
     }
   });
 
-  fastify.get('/auth/google/callback', {}, async function (req, res) {
-    const token = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(req);
-    res.send({ token: token.access_token });
+  fastify.get('/google/callback', {}, async function (request, response) {
+    const token = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
+    response.send({ token: token.access_token });
+  });
+
+  fastify.post('/logged_in', {}, async function (request: IsUserAuthenticated, response) {
+    const body = request.body;
+    const token = body.token;
+    fastify.jwt.verify(token, async (err, decoded) => {
+      if (err) {
+        try {
+          //Return object with information about user
+          await oAuth2Client.verifyIdToken({ idToken: token });
+          response.send({ logged_in: true });
+        } catch (err) {
+          response.send({ logged_in: false });
+        }
+      } else {
+        response.send({ logged_in: true });
+      }
+    });
   });
 
   next();

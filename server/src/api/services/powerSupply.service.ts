@@ -1,4 +1,4 @@
-import { PowerSupplyDataAttributes, PowerSupplyModel } from '../../data/models/powerSupply';
+import { PowerSupplyDataAttributes, PowerSupplyModel } from '../../data/models/powersupply';
 import { PowerSupplyRepository } from '../../data/repositories/powerSupply.repository';
 
 export class PowerSupplyService {

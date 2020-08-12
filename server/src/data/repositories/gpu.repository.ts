@@ -1,4 +1,4 @@
-import { GpuDataAttributes, GpuModel, GpuStatic } from '../models/Gpu';
+import { GpuDataAttributes, GpuModel, GpuStatic } from '../models/gpu';
 import { BaseRepository, RichModel } from './base.repository';
 
 export class GpuRepository extends BaseRepository<GpuModel> {
@@ -13,7 +13,7 @@ export class GpuRepository extends BaseRepository<GpuModel> {
 
   async getAllGpus(): Promise<GpuModel[]> {
     const gpus = await this.getAll();
-    return gpus;
+    return gpus.data;
   }
 
   async createGpu(inputGpu: GpuDataAttributes): Promise<GpuModel> {

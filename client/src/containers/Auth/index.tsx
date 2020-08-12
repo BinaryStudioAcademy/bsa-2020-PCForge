@@ -37,7 +37,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
   }
 
   sendData(event: React.FormEvent<HTMLButtonElement>) {
-    event.preventDefault();
     const state = this.props.authState;
     if (state.email && state.password) {
       state.isRegistration
@@ -71,7 +70,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
     return (
       <React.Fragment>
         <div className={styles.bgContainer} />
-        <Container maxWidth="md">
+        <Container className={styles.authContainer} maxWidth="md">
           <Grid container spacing={4} direction="row" justify="center" alignItems="flex-start">
             <Grid item md>
               <div className={styles.infoWrapper}>

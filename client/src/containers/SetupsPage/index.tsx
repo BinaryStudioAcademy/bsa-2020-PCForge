@@ -1,11 +1,13 @@
 import React from 'react';
-import RootComponent from 'components/Root';
+import RootComponent from 'containers/Root';
 import SetupCard from 'components/SetupCard';
 import classes from './styles.module.scss';
 import { connect } from 'react-redux';
 import TopFiveList from 'components/TopFiveList';
-import RatingBox from 'components/RatingBox';
+import { MenuItems } from 'common/enums';
+
 interface Setup {
+  id: string;
   title: string;
   description: string;
   image?: string;
@@ -107,6 +109,7 @@ const SetupPage: React.FC<I_Props> = ({ setups, userId }) => {
       return (
         <SetupCard
           key={setup.id}
+          id={setup.id}
           imageSource={setup.image}
           setupName={setup.title}
           processor={setup.cpu}
@@ -124,7 +127,7 @@ const SetupPage: React.FC<I_Props> = ({ setups, userId }) => {
   return (
     <RootComponent
       pageTitle="Setups"
-      selectedMenuItemNumber={1}
+      selectedMenuItemNumber={MenuItems.Setup}
       leftComponent={createCards()}
       rightComponent={<TopFiveList />}
     />

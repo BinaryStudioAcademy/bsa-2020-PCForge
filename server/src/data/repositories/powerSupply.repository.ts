@@ -1,4 +1,4 @@
-import { PowerSupplyDataAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/PowerSupply';
+import { PowerSupplyDataAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/powersupply';
 import { BaseRepository, RichModel } from './base.repository';
 
 export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
@@ -13,7 +13,7 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
 
   async getAllPowerSupplies(): Promise<PowerSupplyModel[]> {
     const powerSupplies = await this.getAll();
-    return powerSupplies;
+    return powerSupplies.data;
   }
 
   async createPowerSupply(inputPowerSupply: PowerSupplyDataAttributes): Promise<PowerSupplyModel> {
