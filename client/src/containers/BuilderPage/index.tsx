@@ -6,12 +6,12 @@ import GroupGpus from 'components/BuilderPage/GroupGpus';
 import GroupRams from 'components/BuilderPage/GroupRams';
 import GroupMotherboards from 'components/BuilderPage/GroupMotherboards';
 import GroupPowersupplies from 'components/BuilderPage/GroupPowersupply';
-import { TypeFilter } from 'models/typeFilterBuilder';
-import { TypeCpu } from 'models/typeCpu';
-import { TypeGpu } from 'models/typeGpu';
-import { TypeRam } from 'models/typeRam';
-import { TypeMotherboard } from 'models/typeMotherboard';
-import { TypePowersupplies } from 'models/typePowersupplies';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeCpu } from 'common/models/typeCpu';
+import { TypeGpu } from 'common/models/typeGpu';
+import { TypeRam } from 'common/models/typeRam';
+import { TypeMotherboard } from 'common/models/typeMotherboard';
+import { TypePowersupplies } from 'common/models/typePowersupplies';
 // import styles from './styles.module.scss';
 
 type PropsType = {
