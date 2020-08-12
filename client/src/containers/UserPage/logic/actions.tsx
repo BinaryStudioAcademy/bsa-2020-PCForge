@@ -20,9 +20,12 @@ export const loadUserSuccess = (data: TypeUser): UserActionTypes => ({
   payload: data,
 });
 
-export const updateUser = (data: TypeUser): UserActionTypes => ({
+export const updateUser = (data: TypeUser, oldPassword?: string): UserActionTypes => ({
   type: UPDATE_USER,
-  payload: data,
+  payload: {
+    data,
+    oldPassword,
+  },
 });
 
 export const updateUserSuccess = (data: TypeUser): UserActionTypes => ({

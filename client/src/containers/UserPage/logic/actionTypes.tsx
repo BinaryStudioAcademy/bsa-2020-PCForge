@@ -21,7 +21,10 @@ export interface loadUserSuccess {
 
 export interface updateUser {
   type: typeof UPDATE_USER;
-  payload: TypeUser;
+  payload: {
+    data: TypeUser;
+    oldPassword?: string;
+  };
 }
 
 export interface updateUserSuccess {

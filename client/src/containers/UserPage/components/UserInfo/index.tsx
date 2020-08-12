@@ -7,6 +7,7 @@ import Link from 'components/BasicComponents/Link';
 import UserPreferences from '../UserPreferences';
 import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'models/typeUser';
+import { UserActionTypes } from '../../logic/actionTypes';
 
 enum UserPageTabs {
   Games = 0,
@@ -15,10 +16,11 @@ enum UserPageTabs {
 
 interface IUserInfoProps {
   user: TypeUser;
+  updateUser: (data: TypeUser, oldPassword?: string) => UserActionTypes
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const { user } = props;
+  const { user, updateUser } = props;
   const gamesArray = [
     {
       image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
@@ -154,7 +156,18 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
         nameValid(name, errorMessages, setErrorMessages as SetErrorMessages) &&
         (!requireOldPassword || oldPassword)
       ) {
-        console.log("you'll have to save here");
+        const dataToUpdate = {
+          id: user.id,
+          name,
+          email
+        } as TypeUser;
+
+        if (password) {
+          dataToUpdate.password = password;
+        }
+
+        updateUser(dataToUpdate, oldPassword || undefined);
+
         setEditableInput(false);
         setRequireOldPassword(false);
         setPassword('');

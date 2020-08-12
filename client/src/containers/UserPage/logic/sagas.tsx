@@ -1,13 +1,10 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
-import { getUser } from 'services/userService';
-import { loadUser as loadUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
+import { getUser, updateUser as updateUserService } from 'services/userService';
+import { loadUser as loadUserAction, updateUser as updateUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
 import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess } from './actions';
 
 export default function* userSagas() {
-  yield all([
-    watchLoadUser(),
-    // watchUpdateUser(),
-  ]);
+  yield all([watchLoadUser(), watchUpdateUser()]);
 }
 
 function* watchLoadUser() {
@@ -25,12 +22,17 @@ function* loadUser(action: loadUserAction) {
   yield put(hideSpinner());
 }
 
-// function* watchUpdateUser() {
-//     yield takeEvery(UPDATE_USER, updateUser);
-// }
+function* watchUpdateUser() {
+  yield takeEvery(UPDATE_USER, updateUser);
+}
 
-// function* updateUser(action) {
-//     // TODO: Implement
-//     // const data = await fetch(`/users/${action.id}`);
-//     // yield put(updateUserSuccess(data));
-// }
+function* updateUser(action: updateUserAction) {
+  yield put(showSpinner());
+  try {
+    const updatedUser = yield call(updateUserService, action.payload.data, action.payload.oldPassword);
+    yield put(updateUserSuccess(updatedUser));
+  } catch (error) {
+    console.log(error);
+  }
+  yield put(hideSpinner());
+}
