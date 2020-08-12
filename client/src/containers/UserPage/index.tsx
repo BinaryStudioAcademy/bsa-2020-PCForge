@@ -5,6 +5,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import UserInfo from './components/UserInfo';
 import { RootState } from 'redux/rootReducer';
 import { loadUser } from './logic/actions';
+import Spinner from 'components/Spinner';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -19,11 +20,11 @@ const UserPage = (props: Props) => {
   }, []);
 
   if (showSpinner) {
-    return <div>Spinner</div>;
-  } else if(loadedUser) {
+    return <Spinner load />;
+  } else if (loadedUser) {
     return <UserInfo user={loadedUser} />;
   } else {
-    return <Redirect to="/404" />
+    return <Redirect to="/404" />;
   }
 };
 
