@@ -13,7 +13,7 @@ export interface UserAttributes {
   updatedAt: Date;
 }
 
-export interface UserDataAttributes {
+export interface UserCreationAttributes {
   name: string;
   password: string;
   email: string;

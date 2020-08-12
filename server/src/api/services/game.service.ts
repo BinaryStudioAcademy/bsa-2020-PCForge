@@ -1,7 +1,7 @@
-import { GameModel, GameDataAttributes } from '../../data/models/game';
-import { GameRepository } from '../../data/repositories/game.repository';
+import { GameCreationAttributes, GameModel } from '../../data/models/game';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { IGameFilter } from './servicesFilterInterfaces';
+import { GameRepository } from '../../data/repositories/game.repository';
+import { IGameFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class GameService {
   constructor(private repository: GameRepository) {}
@@ -16,13 +16,18 @@ export class GameService {
     return games;
   }
 
-  async createGame(gameNewData: GameDataAttributes): Promise<GameModel> {
-    const game = await this.repository.creatGame(gameNewData);
+  async createGame(inputGame: GameCreationAttributes): Promise<GameModel> {
+    const game = await this.repository.createGame(inputGame);
     return game;
   }
 
-  async updateGameById(id: string, gameUpdatedData: GameDataAttributes): Promise<GameModel> {
-    const game = await this.repository.updateGameById(id, gameUpdatedData);
+  async updateGameById(inputGame: { id: string; data: GameCreationAttributes }): Promise<GameModel> {
+    const { id, data } = inputGame;
+    const oldGame = await this.repository.getGameById(id);
+    if (!oldGame) {
+      throw new Error(`Game with id: ${id} does not exists`);
+    }
+    const game = await this.repository.updateGameById(id, data);
     return game;
   }
 
