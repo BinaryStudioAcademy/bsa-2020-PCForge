@@ -15,9 +15,9 @@ const ViewSetupPage: React.FC<Props> = (props): JSX.Element => {
   const { cpu, gpu, motherBoard, powerSupply, ram, comments } = mockSetup();
   return (
     <div className={styles.setupPageRoot}>
-      <h1>PC setup</h1>
+      <h1 className={styles.setupHeader}>PC setup</h1>
       <div className={styles.contentWrapper}>
-        <Container className={styles.setupsDetails}>
+        <Container className={styles.setupsDetails} classes={{ root: styles.noMargin }}>
           <SetupCard setup={mockSetup()} />
           <div className={[styles.underline, styles.noMarginTop].join(' ')}></div>
           <PcComponentView
