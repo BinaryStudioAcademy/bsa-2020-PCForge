@@ -8,7 +8,7 @@ export interface PowerSupplyAttributes {
   updatedAt: Date;
 }
 
-export interface PowerSupplyDataAttributes {
+export interface PowerSupplyCreationAttributes {
   name: string;
   power: number;
 }

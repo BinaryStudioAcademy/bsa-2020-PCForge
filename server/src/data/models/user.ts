@@ -13,7 +13,7 @@ export interface UserAttributes {
   updatedAt: Date;
 }
 
-export interface UserDataAttributes {
+export interface UserCreationAttributes {
   name: string;
   password: string;
   email: string;
@@ -43,7 +43,7 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
     },
     password: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(60),
     },
     email: {
       allowNull: false,

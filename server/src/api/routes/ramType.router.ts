@@ -1,16 +1,22 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostRamTypeRequest, GetRamTypeRequest, PutRamTypeRequest, DeleteRamTypeRequest } from './ramType.schema';
+import {
+  PostRamTypeRequest,
+  GetOneRamTypeRequest,
+  PutRamTypeRequest,
+  DeleteRamTypeRequest,
+  GetAllRamTypesRequest,
+} from './ramType.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { RamTypeService } = fastify.services;
 
-  fastify.get('/', {}, async (request, reply) => {
-    const ramTypes = await RamTypeService.getAllRamTypes();
+  fastify.get('/', {}, async (request: GetAllRamTypesRequest, reply) => {
+    const ramTypes = await RamTypeService.getAllRamTypes(request.query);
     reply.send(ramTypes);
   });
 
-  fastify.get('/:id', {}, async (request: GetRamTypeRequest, reply) => {
+  fastify.get('/:id', {}, async (request: GetOneRamTypeRequest, reply) => {
     const { id } = request.params;
     const ramType = await RamTypeService.getRamTypeById(id);
     reply.send(ramType);
@@ -31,7 +37,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   fastify.delete('/:id', {}, async (request: DeleteRamTypeRequest, reply) => {
     const { id } = request.params;
-    await RamTypeService.deleteRamTypeById({ id });
+    await RamTypeService.deleteRamTypeById(id);
     reply.send({});
   });
 

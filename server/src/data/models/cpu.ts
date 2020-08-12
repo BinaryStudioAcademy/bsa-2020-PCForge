@@ -1,4 +1,5 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
+import { SocketAttributes } from './socket';
 
 export interface CpuAttributes {
   id: number;
@@ -8,17 +9,19 @@ export interface CpuAttributes {
   tdp: number;
   cores: number;
   class: string;
+  socket: SocketAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface CpuDataAttributes {
+export interface CpuCreationAttributes {
   name: string;
   performance: number;
   clockspeed: number;
   tdp: number;
   cores: number;
   class: string;
+  socketId: number;
 }
 
 export interface CpuModel extends Model<CpuAttributes>, CpuAttributes {}
