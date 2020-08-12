@@ -45,9 +45,9 @@ export interface Db {
 
 export default fp(async (fastify, opts, next) => {
   const { database, username, password, ...params } = config;
-  const sequelize = process.env.DATABASE_URL ? 
-    new Sequelize(process.env.DATABASE_URL, params) :
-    new Sequelize(database, username, password, params);
+  const sequelize = process.env.DATABASE_URL
+    ? new Sequelize(process.env.DATABASE_URL, params)
+    : new Sequelize(database, username, password, params);
 
   try {
     await sequelize.authenticate();

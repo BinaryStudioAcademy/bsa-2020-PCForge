@@ -1,6 +1,6 @@
 import { SocketCreationAttributes, SocketModel } from '../../data/models/socket';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SocketRepository } from '../../data/repositories/socket.repository';
 
 export class SocketService {

@@ -1,6 +1,6 @@
 import { TopGameCreationAttributes, TopGameModel } from '../../data/models/topGame';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 import { TopGameRepository } from '../../data/repositories/topGame.repository';
 
 export class TopGameService {
