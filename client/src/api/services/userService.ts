@@ -1,4 +1,4 @@
-import webApi from 'helpers/webApiHelper';
+import webApi from 'api/webApiHelper';
 import { TypeUser } from 'models/typeUser';
 
 const endpoint = '/api/users';
