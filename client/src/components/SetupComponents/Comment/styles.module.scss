@@ -1,0 +1,33 @@
+@import '../../../styles/variables.scss';
+
+.commentRoot {
+  margin-top: 1rem;
+  list-style: none;
+  border-bottom: 1px solid $colorRed;
+}
+
+.commentWrapper {
+  display: flex;
+  flex-direction: column;
+  padding-right: 2rem;
+  overflow: auto;
+}
+
+.ratingBoxWrapper {
+  margin-top: 5px;
+  position: relative;
+  align-self: flex-end;
+}
+
+.commentAuthor {
+  font-size: 24px;
+  line-height: 28px;
+  color: $colorOrange;
+}
+
+.commentBody {
+  font-size: 16px;
+  line-height: 22px;
+  color: $colorTextWhite;
+}
+

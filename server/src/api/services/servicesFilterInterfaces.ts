@@ -15,3 +15,7 @@ export interface IMotherboardFilter extends IFilter {
   ramTypeId: string;
   socketId: string;
 }
+
+export interface IGameFilter extends IFilter {
+  year: number;
+}
