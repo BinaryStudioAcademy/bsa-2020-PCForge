@@ -9,7 +9,6 @@ import { router as gpuRouter } from './gpu.router';
 import { router as cpuRouter } from './cpu.router';
 import { router as userRouter } from './user.router';
 import { router as setupRouter } from './setup.router';
-import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import { router as authRouter } from './auth.router';
 import { router as gameRouter } from './game.router';
 import { router as topGameRouter } from './topGame.router';

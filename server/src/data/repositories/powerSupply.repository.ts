@@ -1,4 +1,4 @@
-import { PowerSupplyCreationAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/powerSupply';
+import { PowerSupplyCreationAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/powersupply';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 
