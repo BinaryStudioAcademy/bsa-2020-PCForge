@@ -7,6 +7,7 @@ import { MotherboardRepository } from './motherboard.repository';
 import { PowerSupplyRepository } from './powerSupply.repository';
 import { RamRepository } from './ram.repository';
 import { SocketRepository } from './socket.repository';
+import { GameRepository } from './game.repository';
 
 export interface Repositories {
   RamType: RamTypeRepository;
@@ -17,6 +18,7 @@ export interface Repositories {
   GpuRepository: GpuRepository;
   CpuRepository: CpuRepository;
   Users: UserRepository;
+  GameRepository: GameRepository;
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
@@ -28,6 +30,7 @@ export const initializeRepositories = (models: Models): Repositories => {
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
   const gpuRepository = new GpuRepository(models.Gpu);
   const cpuRepository = new CpuRepository(models.Cpu, models.Socket);
+  const gameRepository = new GameRepository(models.Game, models.Cpu, models.Gpu);
   const repositories: Repositories = {
     RamType: ramTypeRepository,
     RamRepository: ramRepository,
@@ -37,6 +40,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     GpuRepository: gpuRepository,
     CpuRepository: cpuRepository,
     Users: usersRepository,
+    GameRepository: gameRepository,
   };
   return repositories;
 };
