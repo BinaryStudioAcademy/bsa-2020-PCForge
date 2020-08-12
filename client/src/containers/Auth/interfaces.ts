@@ -1,4 +1,5 @@
 import { AuthActionTypes } from 'containers/Auth/actionTypes';
+import { User } from 'common/models/user';
 
 export interface IAuthProps {
   authState: IAuthState;
@@ -18,4 +19,11 @@ export interface IAuthState {
   isRegistration: boolean;
   isLoading: boolean;
   errorMessage: string;
+  user: null | User;
+}
+
+export interface IAuthPayload {
+  email: string;
+  password: string;
+  keepSignedIn: boolean;
 }

@@ -38,7 +38,7 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
       primaryKey: true,
     },
     name: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING(50),
     },
     password: {
