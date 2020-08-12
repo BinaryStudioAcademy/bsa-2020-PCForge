@@ -11,6 +11,7 @@ import { router as userRouter } from './user.router';
 import { router as authRouter } from './auth.router';
 import { router as gameRouter } from './game.router';
 import { router as topGameRouter } from './topGame.router';
+import { router as newsRouter } from './news.router';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
   fastify.register(ramTypeRouter, { prefix: '/ramTypes' });
@@ -24,6 +25,7 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(userRouter, { prefix: '/users' });
   fastify.register(gameRouter, { prefix: '/games' });
   fastify.register(topGameRouter, { prefix: '/topGames' });
+  fastify.register(newsRouter, { prefix: '/news' });
   fastify.register(authRouter);
   next();
 };

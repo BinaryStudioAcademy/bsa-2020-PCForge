@@ -9,6 +9,7 @@ import { RamRepository } from './ram.repository';
 import { SocketRepository } from './socket.repository';
 import { GameRepository } from './game.repository';
 import { TopGameRepository } from './topGame.repository';
+import { NewsRepository } from './news.repository';
 
 export interface Repositories {
   RamTypeRepository: RamTypeRepository;
@@ -21,6 +22,7 @@ export interface Repositories {
   UserRepository: UserRepository;
   GameRepository: GameRepository;
   TopGameRepository: TopGameRepository;
+  NewsRepository: NewsRepository;
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
@@ -34,6 +36,7 @@ export const initializeRepositories = (models: Models): Repositories => {
   const cpuRepository = new CpuRepository(models.Cpu, models.Socket);
   const gameRepository = new GameRepository(models.Game, models.Cpu, models.Gpu);
   const topGameRepository = new TopGameRepository(models.TopGame, models.Game, models.Cpu, models.Gpu);
+  const newsRepository = new NewsRepository(models.News);
   const repositories: Repositories = {
     RamTypeRepository: ramTypeRepository,
     RamRepository: ramRepository,
@@ -45,6 +48,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     UserRepository: usersRepository,
     GameRepository: gameRepository,
     TopGameRepository: topGameRepository,
+    NewsRepository: newsRepository,
   };
   return repositories;
 };
