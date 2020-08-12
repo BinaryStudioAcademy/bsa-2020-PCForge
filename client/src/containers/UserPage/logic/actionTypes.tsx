@@ -1,4 +1,4 @@
-import { TypeUser } from 'models/typeUser';
+import { TypeUser } from 'common/models/typeUser';
 
 export const LOAD_USER = 'LOAD_USER';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';

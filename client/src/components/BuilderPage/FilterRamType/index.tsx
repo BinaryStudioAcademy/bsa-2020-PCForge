@@ -9,9 +9,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Spinner from 'components/Spinner';
-import { getAllRamType } from 'services/ramTypeService';
-import { TypeRamType } from 'models/typeRamType';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllRamType } from 'api/services/ramTypeService';
+import { TypeRamType } from 'common/models/typeRamType';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
