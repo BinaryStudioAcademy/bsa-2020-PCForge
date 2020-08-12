@@ -12,9 +12,17 @@ type PropsType = {
   count: number;
   nameComponent?: string;
   img?: string;
+  onClear: () => void;
 };
 
-const GroupItemSummary = ({ id, title, count, nameComponent = '', img = defaultImg }: PropsType): JSX.Element => {
+const GroupItemSummary = ({
+  id,
+  title,
+  count,
+  nameComponent = '',
+  img = defaultImg,
+  onClear,
+}: PropsType): JSX.Element => {
   return (
     <AccordionSummary
       className={styles.groupItemSummary}
@@ -28,7 +36,7 @@ const GroupItemSummary = ({ id, title, count, nameComponent = '', img = defaultI
         <span className={styles.groupItemSummaryCount}>{count}</span>
       </Typography>
       <Typography className={styles.nameComponent}>{nameComponent}</Typography>
-      {!!nameComponent && <Button>Clear</Button>}
+      {!!nameComponent && <Button onClick={onClear}>Clear</Button>}
     </AccordionSummary>
   );
 };
