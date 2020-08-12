@@ -11,7 +11,7 @@ const initialState: IUserState = {
   showSpinner: true,
 };
 
-function UserReducer(state = initialState, action: UserActionTypes) {
+function UserReducer(state = initialState, action: UserActionTypes): IUserState {
   switch (action.type) {
     case SHOW_SPINNER:
       return {

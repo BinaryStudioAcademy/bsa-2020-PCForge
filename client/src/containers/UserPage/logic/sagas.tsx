@@ -1,4 +1,4 @@
-import { all, takeEvery, call, put } from 'redux-saga/effects';
+import { all, takeEvery, call, put, ForkEffect } from 'redux-saga/effects';
 import { getUser, updateUser as updateUserService } from 'services/userService';
 import { loadUser as loadUserAction, updateUser as updateUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
 import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess } from './actions';

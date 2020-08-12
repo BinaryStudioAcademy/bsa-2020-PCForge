@@ -16,7 +16,7 @@ enum UserPageTabs {
 
 interface IUserInfoProps {
   user: TypeUser;
-  updateUser: (data: TypeUser, oldPassword?: string) => UserActionTypes
+  updateUser: (data: TypeUser, oldPassword?: string) => UserActionTypes;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
@@ -148,9 +148,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
 
   const handleSetEditable = (event: React.MouseEvent) => {
     if (editableInput) {
-      let valid = true;
       if (
-        valid &&
         emailValid(email, errorMessages, setErrorMessages as SetErrorMessages) &&
         passwordValid(password, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages) &&
         nameValid(name, errorMessages, setErrorMessages as SetErrorMessages) &&
@@ -159,7 +157,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
         const dataToUpdate = {
           id: user.id,
           name,
-          email
+          email,
         } as TypeUser;
 
         if (password) {

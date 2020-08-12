@@ -8,7 +8,11 @@ interface IErrorMessage {
 
 export type SetErrorMessages = (message: IErrorMessage) => void;
 
-export const emailValid = (email: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages) => {
+export const emailValid = (
+  email: string,
+  errorMessages: IErrorMessage,
+  setErrorMessages: SetErrorMessages
+): boolean => {
   let emailMessage = null;
   const regex = /([A-Za-z0-9$_\-.+%])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/;
   if (!(email.length > 5 && email.length < 30)) {
@@ -27,7 +31,7 @@ export const passwordValid = (
   confirmedPassword: string,
   errorMessages: IErrorMessage,
   setErrorMessages: SetErrorMessages
-) => {
+): boolean => {
   let passwordMessage = null;
   let confirmedMessage = null;
   const regex = /^[a-zA-Z0-9@\-%$_.+]{5,30}$/;
@@ -48,7 +52,7 @@ export const passwordValid = (
   return !(passwordMessage || confirmedMessage);
 };
 
-export const nameValid = (name: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages) => {
+export const nameValid = (name: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages): boolean => {
   let nameMessage = null;
   const regex = /^[a-zA-Z0-9._-]{3,30}$/;
   if (!regex.test(name)) {
