@@ -11,7 +11,7 @@ import cors from 'fastify-cors';
 const port = parseInt(process.env.APP_PORT, 10) || 5001;
 const server = fastify({
   querystringParser: (str) => {
-    const parsed = qs.parse(str);
+    const parsed = qs.parse(str, { comma: true });
     return parsed as { [key: string]: string | string[] };
   },
 });
