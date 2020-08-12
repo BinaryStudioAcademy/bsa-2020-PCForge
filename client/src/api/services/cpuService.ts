@@ -1,6 +1,6 @@
-import webApi from '../helpers/webApiHelper';
-import { TypeFilter } from '../models/typeFilterBuilder';
-import { TypeCpu } from '../models/typeCpu';
+import webApi from 'api/webApiHelper';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeCpu } from 'common/models/typeCpu';
 
 type TypeResponseAll = {
   meta: {
@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypeCpu[];
 };
 
-const endpoint = '/api/cpus';
+const endpoint = '/cpus';
 
 export const getAllCpu = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);

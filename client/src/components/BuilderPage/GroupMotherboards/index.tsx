@@ -10,9 +10,9 @@ import FilterSocket from 'components/BuilderPage/FilterSocket';
 import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { getAllMotherboard } from 'services/motherboardService';
-import { TypeMotherboard } from 'models/typeMotherboard';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllMotherboard } from 'api/services/motherboardService';
+import { TypeMotherboard } from 'common/models/typeMotherboard';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {

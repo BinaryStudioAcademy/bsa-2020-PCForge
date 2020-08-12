@@ -9,9 +9,9 @@ import SpecificationField from 'components/BuilderPage/SpecificationField';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { getAllPowersupplies } from 'services/powersupplyService';
-import { TypePowersupplies } from 'models/typePowersupplies';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllPowersupplies } from 'api/services/powersupplyService';
+import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {

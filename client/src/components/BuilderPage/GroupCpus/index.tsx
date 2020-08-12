@@ -10,9 +10,9 @@ import FilterSocket from 'components/BuilderPage/FilterSocket';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { getAllCpu } from 'services/cpuService';
-import { TypeCpu } from 'models/typeCpu';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllCpu } from 'api/services/cpuService';
+import { TypeCpu } from 'common/models/typeCpu';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {

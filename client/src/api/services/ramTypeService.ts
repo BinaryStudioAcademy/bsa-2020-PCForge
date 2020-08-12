@@ -1,6 +1,6 @@
-import webApi from '../helpers/webApiHelper';
-import { TypeFilter } from '../models/typeFilterBuilder';
-import { TypeRamType } from '../models/typeRamType';
+import webApi from 'api/webApiHelper';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeRamType } from 'common/models/typeRamType';
 
 type TypeResponseAll = {
   meta: {
@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypeRamType[];
 };
 
-const endpoint = '/api/ramTypes';
+const endpoint = '/ramTypes';
 
 export const getAllRamType = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);
