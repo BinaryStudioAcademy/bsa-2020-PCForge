@@ -2,7 +2,6 @@ import React from 'react';
 import RootComponent from 'containers/Root';
 import SetupCard from 'components/SetupCard';
 import classes from './styles.module.scss';
-import { connect } from 'react-redux';
 import TopFiveList from 'components/TopFiveList';
 import { MenuItems } from 'common/enums';
 

@@ -13,7 +13,7 @@ interface Progress {
   value: number;
 }
 
-const GameMatcherFpsAnalysis = () => {
+const GameMatcherFpsAnalysis = (): JSX.Element => {
   const [selectedResolution, setSelectedResolution] = useState<number>(0);
 
   const resolutions = [

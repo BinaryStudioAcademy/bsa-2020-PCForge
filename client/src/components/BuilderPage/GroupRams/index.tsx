@@ -69,6 +69,10 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
     />
   ));
 
+  function onChangeFilterRange() {
+    // do nothing.
+  }
+
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
       <GroupItemSummary id="RAM" title="RAM" count={count} />
@@ -76,7 +80,7 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
             <FilterRamTypes filter={filter} onAddFilter={onAddFilter} />
-            <FilterRange title="Memory size" min={1} max={64} dimension="Gb" onChange={() => {}} />
+            <FilterRange title="Memory size" min={1} max={64} dimension="Gb" onChange={onChangeFilterRange} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listRamElements}
