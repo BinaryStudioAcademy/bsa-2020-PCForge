@@ -4,8 +4,8 @@ import SetupCard from 'components/SetupCard';
 import classes from './styles.module.scss';
 import { connect } from 'react-redux';
 import TopFiveList from 'components/TopFiveList';
-import RatingBox from 'components/RatingBox';
 interface Setup {
+  id: string;
   title: string;
   description: string;
   image?: string;
@@ -107,6 +107,7 @@ const SetupPage: React.FC<I_Props> = ({ setups, userId }) => {
       return (
         <SetupCard
           key={setup.id}
+          id={setup.id}
           imageSource={setup.image}
           setupName={setup.title}
           processor={setup.cpu}

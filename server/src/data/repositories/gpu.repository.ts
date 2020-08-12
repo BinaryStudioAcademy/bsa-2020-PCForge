@@ -13,7 +13,7 @@ export class GpuRepository extends BaseRepository<GpuModel> {
 
   async getAllGpus(): Promise<GpuModel[]> {
     const gpus = await this.getAll();
-    return gpus;
+    return gpus.data;
   }
 
   async createGpu(inputGpu: GpuDataAttributes): Promise<GpuModel> {

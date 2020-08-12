@@ -33,6 +33,7 @@ const LoginForm = ({
           </Alert>
         ) : null}
         <Input
+          name="Email"
           className={styles.emailInput}
           onChange={handleChangeEmail}
           value={email}
@@ -41,6 +42,7 @@ const LoginForm = ({
           required
         />
         <Input
+          name="Password"
           className={styles.passwordInput}
           onChange={handleChangePassword}
           placeholder="Password"
@@ -48,7 +50,7 @@ const LoginForm = ({
           required
         />
         <div className={styles.registerButtonBox}>
-          <Button onClick={register} disabled={isLoading}>
+          <Button type="submit" onClick={register} disabled={isLoading}>
             Register
           </Button>
         </div>

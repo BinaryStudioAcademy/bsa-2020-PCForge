@@ -38,6 +38,7 @@ const LoginForm = ({
           </Alert>
         ) : null}
         <Input
+          name="Email"
           className={styles.emailInput}
           onChange={handleChangeEmail}
           value={email}
@@ -46,6 +47,7 @@ const LoginForm = ({
           required
         />
         <Input
+          name="Password"
           className={styles.passwordInput}
           onChange={handleChangePassword}
           placeholder="Password"
@@ -62,7 +64,7 @@ const LoginForm = ({
             label="Keep me signed in"
             checkboxType={CheckboxType.primary}
           />
-          <Button onClick={login} disabled={isLoading}>
+          <Button type="submit" onClick={login} disabled={isLoading}>
             Login
           </Button>
         </div>
