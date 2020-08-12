@@ -7,6 +7,7 @@ import { RamService } from './ram.service';
 import { RamTypeService } from './ramType.service';
 import { UserService } from './user.service';
 import { SocketService } from './socket.service';
+import { SetupService } from './setup.service';
 import { GameService } from './game.service';
 import { TopGameService } from './topGame.service';
 import { NewsService } from './news.service';
@@ -20,14 +21,18 @@ export interface Services {
   GpuService: GpuService;
   CpuService: CpuService;
   UserService: UserService;
+
   GameService: GameService;
   TopGameService: TopGameService;
   NewsService: NewsService;
+  SetupService: SetupService;
 }
 
 export const initializeServices = (repositories: Repositories): Services => {
   const ramTypeService = new RamTypeService(repositories.RamTypeRepository);
   const usersService = new UserService(repositories.UserRepository);
+  const setupService = new SetupService(repositories.SetupRepository);
+
   const ramService = new RamService(repositories.RamRepository);
   const powerSupplyService = new PowerSupplyService(repositories.PowerSupplyRepository);
   const socketService = new SocketService(repositories.SocketRepository);
@@ -46,6 +51,7 @@ export const initializeServices = (repositories: Repositories): Services => {
     GpuService: gpuService,
     CpuService: cpuService,
     UserService: usersService,
+    SetupService: setupService,
     GameService: gameService,
     TopGameService: topGameService,
     NewsService: newsService,
