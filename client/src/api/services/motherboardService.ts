@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypeMotherboard[];
 };
 
-const endpoint = '/api/motherboards';
+const endpoint = '/motherboards';
 
 export const getAllMotherboard = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);

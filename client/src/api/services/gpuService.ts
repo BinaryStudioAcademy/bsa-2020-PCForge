@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypeGpu[];
 };
 
-const endpoint = '/api/gpus';
+const endpoint = '/gpus';
 
 export const getAllGpu = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);

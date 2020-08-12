@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypeCpu[];
 };
 
-const endpoint = '/api/cpus';
+const endpoint = '/cpus';
 
 export const getAllCpu = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);

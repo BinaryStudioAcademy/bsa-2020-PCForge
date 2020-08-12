@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypeRam[];
 };
 
-const endpoint = '/api/rams';
+const endpoint = '/rams';
 
 export const getAllRam = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);

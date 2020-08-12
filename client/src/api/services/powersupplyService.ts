@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypePowersupplies[];
 };
 
-const endpoint = '/api/powerSupplies';
+const endpoint = '/powerSupplies';
 
 export const getAllPowersupplies = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);

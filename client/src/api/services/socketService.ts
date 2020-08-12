@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypeSocket[];
 };
 
-const endpoint = '/api/sockets';
+const endpoint = '/sockets';
 
 export const getAllSocket = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);
