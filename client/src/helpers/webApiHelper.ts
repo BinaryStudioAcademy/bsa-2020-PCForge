@@ -77,14 +77,14 @@ class Api {
 
   private handleError(error: AxiosError) {
     if (error.response) {
-      return { error: error.response.data };
-      // throw new Error(error.response.data.message);
+      // return { error: error.response.data };
+      throw new Error(error.response.data.message);
     } else if (error.request) {
-      return { error: error.request.responseText };
-      // throw new Error(error.request.responseText);
+      // return { error: error.request.responseText };
+      throw new Error(error.request.responseText);
     } else {
-      return { error: error.message };
-      // throw new Error(error.message);
+      // return { error: error.message };
+      throw new Error(error.message);
     }
   }
 
