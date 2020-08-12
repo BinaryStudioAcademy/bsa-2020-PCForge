@@ -1,5 +1,5 @@
 import { CpuStatic } from '../models/cpu';
-import { TopGameCreationAttributes, TopGameModel, TopGameStatic } from '../models/TopGame';
+import { TopGameCreationAttributes, TopGameModel, TopGameStatic } from '../models/topgame';
 import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { GameStatic } from '../models/game';
