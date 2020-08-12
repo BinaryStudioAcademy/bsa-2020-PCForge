@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from './tokenHelper';
 
@@ -11,6 +12,7 @@ class Api {
     });
   }
 
+  // TODO: remove any. (maybe use generics?)
   async get(url: string, params?: any) {
     await this.checkAuthToken();
     return await this.instance
