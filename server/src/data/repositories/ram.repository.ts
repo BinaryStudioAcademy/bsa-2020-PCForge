@@ -3,9 +3,9 @@ import { RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IRamFilter } from './filters/ram.filter';
 
-export class RamRepository extends BaseRepository<RamModel> {
+export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
   constructor(private model: RamStatic, private ramTypeModel: RamTypeStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IRamFilter);
   }
 
   async getRamById(id: string): Promise<RamModel> {

@@ -2,9 +2,9 @@ import { GpuCreationAttributes, GpuModel, GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 
-export class GpuRepository extends BaseRepository<GpuModel> {
+export class GpuRepository extends BaseRepository<GpuModel, IFilter> {
   constructor(private model: GpuStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IFilter);
   }
 
   async getGpuById(id: string): Promise<GpuModel> {

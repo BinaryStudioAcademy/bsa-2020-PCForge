@@ -2,9 +2,9 @@ import { SocketCreationAttributes, SocketModel, SocketStatic } from '../models/s
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 
-export class SocketRepository extends BaseRepository<SocketModel> {
+export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
   constructor(private model: SocketStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IFilter);
   }
 
   async getSocketById(id: string): Promise<SocketModel> {

@@ -5,14 +5,14 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { GameStatic } from '../models/game';
 import { IFilter } from './filters/base.filter';
 
-export class TopGameRepository extends BaseRepository<TopGameModel> {
+export class TopGameRepository extends BaseRepository<TopGameModel, IFilter> {
   constructor(
     private model: TopGameStatic,
     private gameModel: GameStatic,
     private cpuModel: CpuStatic,
     private gpuModel: GpuStatic
   ) {
-    super(<RichModel>model);
+    super(<RichModel>model, IFilter);
   }
 
   async getTopGameById(id: string): Promise<TopGameModel> {

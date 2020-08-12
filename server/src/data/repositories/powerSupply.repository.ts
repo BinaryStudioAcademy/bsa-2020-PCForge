@@ -2,9 +2,9 @@ import { PowerSupplyCreationAttributes, PowerSupplyModel, PowerSupplyStatic } fr
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 
-export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
+export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, IFilter> {
   constructor(private model: PowerSupplyStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IFilter);
   }
 
   async getPowerSupplyById(id: string): Promise<PowerSupplyModel> {

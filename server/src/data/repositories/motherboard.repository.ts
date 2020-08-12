@@ -4,13 +4,13 @@ import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IMotherboardFilter } from './filters/motherboard.filter';
 
-export class MotherboardRepository extends BaseRepository<MotherboardModel> {
+export class MotherboardRepository extends BaseRepository<MotherboardModel, IMotherboardFilter> {
   constructor(
     private model: MotherboardStatic,
     private ramTypeModel: RamTypeStatic,
     private socketModel: SocketStatic
   ) {
-    super(<RichModel>model);
+    super(<RichModel>model, IMotherboardFilter);
   }
 
   async getMotherboardById(id: string): Promise<MotherboardModel> {

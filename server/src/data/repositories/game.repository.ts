@@ -4,9 +4,9 @@ import { CpuStatic } from '../models/cpu';
 import { GpuStatic } from '../models/gpu';
 import { IGameFilter } from './filters/game.filter';
 
-export class GameRepository extends BaseRepository<GameModel> {
+export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
   constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IGameFilter);
   }
 
   async getGameById(id: string): Promise<GameModel> {

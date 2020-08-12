@@ -1,9 +1,10 @@
 import { NewsCreationAttributes, NewsModel, NewsStatic } from '../models/news';
 import { BaseRepository, RichModel } from './base.repository';
+import { IFilter } from './filters/base.filter';
 
-export class NewsRepository extends BaseRepository<NewsModel> {
+export class NewsRepository extends BaseRepository<NewsModel, IFilter> {
   constructor(private model: NewsStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IFilter);
   }
 
   async getNewsById(id: string): Promise<NewsModel> {
