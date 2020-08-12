@@ -31,8 +31,7 @@ export class RamTypeService {
     return ramType;
   }
 
-  async deleteRamTypeById(inputRamType: { id: string }): Promise<void> {
-    const { id } = inputRamType;
+  async deleteRamTypeById(id: string): Promise<void> {
     await this.repository.deleteRamTypeById(id);
   }
 }

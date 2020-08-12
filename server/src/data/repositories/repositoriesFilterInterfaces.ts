@@ -41,3 +41,13 @@ export const MotherboardFilterDefaults: IMotherboardFilter = {
   ramTypeId: notNull,
   socketId: notNull,
 };
+
+export interface IGameFilter extends IFilter {
+  year: number | Record<string, unknown>;
+}
+
+export const GameFilterDefaults: IGameFilter = {
+  from: 0,
+  count: 10,
+  year: notNull,
+};

@@ -1,7 +1,7 @@
-import { GameCreationAttributes, GameModel } from '../../data/models/Game';
+import { GameCreationAttributes, GameModel } from '../../data/models/game';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { GameRepository } from '../../data/repositories/game.repository';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IGameFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class GameService {
   constructor(private repository: GameRepository) {}
@@ -11,7 +11,7 @@ export class GameService {
     return game;
   }
 
-  async getAllGames(filter: IFilter): Promise<IWithMeta<GameModel>> {
+  async getAllGames(filter: IGameFilter): Promise<IWithMeta<GameModel>> {
     const games = await this.repository.getAllGames(filter);
     return games;
   }
@@ -31,8 +31,7 @@ export class GameService {
     return game;
   }
 
-  async deleteGameById(inputGame: { id: string }): Promise<void> {
-    const { id } = inputGame;
+  async deleteGameById(id: string): Promise<void> {
     await this.repository.deleteGameById(id);
   }
 }

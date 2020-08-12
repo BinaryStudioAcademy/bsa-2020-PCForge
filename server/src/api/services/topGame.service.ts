@@ -31,8 +31,7 @@ export class TopGameService {
     return TopGame;
   }
 
-  async deleteTopGameById(inputTopGame: { id: string }): Promise<void> {
-    const { id } = inputTopGame;
+  async deleteTopGameById(id: string): Promise<void> {
     await this.repository.deleteTopGameById(id);
   }
 }

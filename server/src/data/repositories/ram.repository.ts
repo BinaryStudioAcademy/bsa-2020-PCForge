@@ -22,10 +22,8 @@ export class RamRepository extends BaseRepository<RamModel> {
   }
 
   async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
-    const { typeId } = { ...RamFilterDefaults, ...filter };
     const rams = await this.getAll(filter, {
       group: ['ram.id', 'ramType.id'],
-      where: { typeId },
       include: [
         {
           model: this.ramTypeModel,

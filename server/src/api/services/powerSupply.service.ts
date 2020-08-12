@@ -34,8 +34,7 @@ export class PowerSupplyService {
     return PowerSupply;
   }
 
-  async deletePowerSupplyById(inputPowerSupply: { id: string }): Promise<void> {
-    const { id } = inputPowerSupply;
+  async deletePowerSupplyById(id: string): Promise<void> {
     await this.repository.deletePowerSupplyById(id);
   }
 }

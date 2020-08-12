@@ -1,9 +1,10 @@
 import { FastifyRequest } from 'fastify';
 import { GameCreationAttributes } from '../../data/models/game';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IGameFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export type GetAllGamesRequest = FastifyRequest<{
-  Querystring: IFilter;
+  Params: { id: string };
+  Querystring: IGameFilter;
 }>;
 
 export type GetOneGameRequest = FastifyRequest<{

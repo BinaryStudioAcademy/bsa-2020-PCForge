@@ -23,14 +23,13 @@ export interface GameCreationAttributes {
   year: number;
   image: string;
   description: string;
-  recommendedCpuId: string;
-  recommendedGpuId: string;
   recommendedRamSize: number;
-  minimalCpuId: string;
-  minimalGpuId: string;
   minimalRamSize: number;
+  recommendedCpuId: number;
+  recommendedGpuId: number;
+  minimalCpuId: number;
+  minimalGpuId: number;
 }
-
 export interface GameModel extends Model<GameAttributes>, GameAttributes {}
 export class Game extends Model<GameModel, GameAttributes> {}
 

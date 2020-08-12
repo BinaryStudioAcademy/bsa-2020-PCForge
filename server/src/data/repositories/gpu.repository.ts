@@ -1,4 +1,4 @@
-import { GpuCreationAttributes, GpuModel, GpuStatic } from '../models/Gpu';
+import { GpuCreationAttributes, GpuModel, GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './repositoriesFilterInterfaces';
 

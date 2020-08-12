@@ -21,10 +21,8 @@ export class CpuRepository extends BaseRepository<CpuModel> {
   }
 
   async getAllCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
-    const { socketId } = { ...CpuFilterDefaults, ...filter };
     const cpus = await this.getAll(filter, {
       group: ['cpu.id', 'socket.id'],
-      where: { socketId },
       include: [
         {
           model: this.socketModel,

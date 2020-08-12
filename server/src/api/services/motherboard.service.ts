@@ -1,4 +1,4 @@
-import { MotherboardCreationAttributes, MotherboardModel } from '../../data/models/Motherboard';
+import { MotherboardCreationAttributes, MotherboardModel } from '../../data/models/motherboard';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { MotherboardRepository } from '../../data/repositories/Motherboard.repository';
 import { IMotherboardFilter } from '../../data/repositories/repositoriesFilterInterfaces';
@@ -34,8 +34,7 @@ export class MotherboardService {
     return motherboard;
   }
 
-  async deleteMotherboardById(inputMotherboard: { id: string }): Promise<void> {
-    const { id } = inputMotherboard;
+  async deleteMotherboardById(id: string): Promise<void> {
     await this.repository.deleteMotherboardById(id);
   }
 }

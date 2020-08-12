@@ -31,8 +31,7 @@ export class SocketService {
     return socket;
   }
 
-  async deleteSocketById(inputSocket: { id: string }): Promise<void> {
-    const { id } = inputSocket;
+  async deleteSocketById(id: string): Promise<void> {
     await this.repository.deleteSocketById(id);
   }
 }
