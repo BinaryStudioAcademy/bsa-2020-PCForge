@@ -1,10 +1,7 @@
-import { TypeUser } from 'models/typeUser';
-import { all, takeEvery, call, put, select } from 'redux-saga/effects';
-// TODO: import api service here
+import { all, takeEvery, call, put } from 'redux-saga/effects';
+import { getUser } from 'services/userService';
 import { loadUser as loadUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
 import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess } from './actions';
-
-const apiUrl = 'http://localhost:5001/api/';
 
 export default function* userSagas() {
   yield all([
@@ -20,9 +17,7 @@ function* watchLoadUser() {
 function* loadUser(action: loadUserAction) {
   yield put(showSpinner());
   try {
-    const res = yield call(fetch, `${apiUrl}users/${action.payload.id}`, { method: 'GET' });
-    const user = yield call([res, res.json])
-
+    const user = yield call(getUser, action.payload.id);
     yield put(loadUserSuccess(user));
   } catch (error) {
     console.log(error);

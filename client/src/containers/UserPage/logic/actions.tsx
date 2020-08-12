@@ -10,7 +10,7 @@ import {
 
 import { TypeUser } from 'models/typeUser';
 
-export const loadUser = (id: string): UserActionTypes => ({
+export const loadUser = (id: number): UserActionTypes => ({
   type: LOAD_USER,
   payload: { id },
 });

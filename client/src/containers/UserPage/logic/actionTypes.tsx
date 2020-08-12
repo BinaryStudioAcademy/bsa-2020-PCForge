@@ -10,7 +10,7 @@ export const HIDE_SPINNER = 'HIDE_SPINNER';
 export interface loadUser {
   type: typeof LOAD_USER;
   payload: {
-    id: string;
+    id: number;
   };
 }
 

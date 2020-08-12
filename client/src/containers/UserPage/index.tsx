@@ -15,7 +15,7 @@ const UserPage = (props: Props) => {
   const { id } = useParams();
 
   useEffect(() => {
-    loadUser(id);
+    loadUser(parseInt(id));
   }, []);
 
   if (showSpinner) {
