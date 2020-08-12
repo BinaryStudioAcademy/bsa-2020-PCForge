@@ -8,7 +8,7 @@ import jwtAuth from './api/plugins/auth';
 import googleAuth from './api/plugins/googleAuth';
 import cors from 'fastify-cors';
 
-const port = parseInt(process.env.APP_PORT, 10) || 5001;
+const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
 const server = fastify({
   querystringParser: (str) => {
     const parsed = qs.parse(str, { comma: true });
@@ -30,7 +30,7 @@ server.register(fastifyStatic, {
 
 server.register(routes, { prefix: '/api' });
 
-server.listen(port, (err, address) => {
+server.listen(port, '0.0.0.0', (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);

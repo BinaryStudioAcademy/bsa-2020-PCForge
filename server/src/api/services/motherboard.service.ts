@@ -1,7 +1,7 @@
-import { MotherboardCreationAttributes, MotherboardModel } from '../../data/models/Motherboard';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { MotherboardRepository } from '../../data/repositories/Motherboard.repository';
 import { IMotherboardFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { MotherboardCreationAttributes, MotherboardModel } from '../../data/models/motherboard';
+import { MotherboardRepository } from '../../data/repositories/motherboard.repository';
 
 export class MotherboardService {
   constructor(private repository: MotherboardRepository) {}

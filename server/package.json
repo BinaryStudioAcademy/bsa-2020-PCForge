@@ -23,6 +23,7 @@
     "fastify-oauth2": "^4.0.0",
     "fastify-plugin": "^2.1.1",
     "fastify-static": "^3.2.0",
+    "google-auth-library": "^6.0.6",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
     "qs": "^6.9.4",

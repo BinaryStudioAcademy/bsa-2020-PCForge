@@ -1,4 +1,4 @@
-import { MotherboardCreationAttributes, MotherboardModel, MotherboardStatic } from '../models/Motherboard';
+import { MotherboardCreationAttributes, MotherboardModel, MotherboardStatic } from '../models/motherboard';
 import { RamTypeStatic } from '../models/ramtype';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
