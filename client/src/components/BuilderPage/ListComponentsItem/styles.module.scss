@@ -1,0 +1,35 @@
+@import '../../../styles/variables';
+
+.componentItem {
+  display: flex;
+  align-items: center;
+  padding: 16px 30px;
+  background-color: $colorDarkGray;
+  margin-bottom: 8px;
+}
+
+div.componentItem {
+  background-color: $colorDarkGray;
+}
+
+.img {
+  margin-right: 16px;
+}
+
+.main {
+  flex-grow: 1;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.componentItem .btnAdd {
+  margin-left: 16px;
+}
+
+.rating {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: -15px;
+}
