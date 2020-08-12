@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { MotherboardCreationAttributes } from '../../data/models/motherboard';
-import { IMotherboardFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.filter';
 
 export type GetAllMotherboardsRequest = FastifyRequest<{
   Querystring: IMotherboardFilter;

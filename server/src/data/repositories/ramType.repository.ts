@@ -1,6 +1,6 @@
 import { RamTypeCreationAttributes, RamTypeModel, RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IFilter } from './repositoriesFilterInterfaces';
+import { IFilter } from './filters/base.filter';
 
 export class RamTypeRepository extends BaseRepository<RamTypeModel> {
   constructor(private model: RamTypeStatic) {

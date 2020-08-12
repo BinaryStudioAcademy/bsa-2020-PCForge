@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { TopGameCreationAttributes } from '../../data/models/topgame';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 
 export type GetAllTopGamesRequest = FastifyRequest<{
   Querystring: IFilter;

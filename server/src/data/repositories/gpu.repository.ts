@@ -1,6 +1,6 @@
 import { GpuCreationAttributes, GpuModel, GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IFilter } from './repositoriesFilterInterfaces';
+import { IFilter } from './filters/base.filter';
 
 export class GpuRepository extends BaseRepository<GpuModel> {
   constructor(private model: GpuStatic) {

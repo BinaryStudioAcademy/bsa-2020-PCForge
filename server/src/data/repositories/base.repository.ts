@@ -1,5 +1,5 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
-import { FilterDefaults, IFilter } from './repositoriesFilterInterfaces';
+import { IFilter } from './filters/base.filter';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
@@ -20,7 +20,7 @@ export abstract class BaseRepository<M extends Model> {
 
   async getAll(filter?: IFilter, params?: FindOptions): Promise<IWithMeta<M>> {
     let result = [];
-    const { from: offset, count: limit, ...uniqueFilters } = { ...FilterDefaults, ...filter };
+    const { from: offset, count: limit, ...uniqueFilters } = filter;
     if (params) {
       result = await this._model.findAll({
         order: [['id', 'ASC']],

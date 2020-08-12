@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { RamTypeCreationAttributes } from '../../data/models/ramtype';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 
 export type GetAllRamTypesRequest = FastifyRequest<{
   Querystring: IFilter;

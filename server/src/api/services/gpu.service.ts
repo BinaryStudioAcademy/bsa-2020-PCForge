@@ -1,7 +1,7 @@
 import { GpuCreationAttributes, GpuModel } from '../../data/models/gpu';
 import { IWithMeta } from '../../data/repositories/base.repository';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 import { GpuRepository } from '../../data/repositories/gpu.repository';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class GpuService {
   constructor(private repository: GpuRepository) {}

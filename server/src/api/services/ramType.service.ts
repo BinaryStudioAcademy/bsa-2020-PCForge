@@ -1,7 +1,7 @@
 import { RamTypeCreationAttributes, RamTypeModel } from '../../data/models/ramtype';
 import { IWithMeta } from '../../data/repositories/base.repository';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class RamTypeService {
   constructor(private repository: RamTypeRepository) {}

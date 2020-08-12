@@ -1,6 +1,6 @@
 import { PowerSupplyCreationAttributes, PowerSupplyModel, PowerSupplyStatic } from '../models/powerSupply';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IFilter } from './repositoriesFilterInterfaces';
+import { IFilter } from './filters/base.filter';
 
 export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel> {
   constructor(private model: PowerSupplyStatic) {

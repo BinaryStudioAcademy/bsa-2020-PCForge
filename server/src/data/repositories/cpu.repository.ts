@@ -1,7 +1,7 @@
 import { CpuCreationAttributes, CpuModel, CpuStatic } from '../models/cpu';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { ICpuFilter, CpuFilterDefaults } from './repositoriesFilterInterfaces';
+import { ICpuFilter } from './filters/cpu.filter';
 
 export class CpuRepository extends BaseRepository<CpuModel> {
   constructor(private model: CpuStatic, private socketModel: SocketStatic) {
