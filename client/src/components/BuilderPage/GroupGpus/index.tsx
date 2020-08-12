@@ -9,9 +9,9 @@ import GroupItemSummary from 'components/BuilderPage/GroupItemSummary';
 import Paginator from 'components/Paginator';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Spinner from 'components/Spinner';
-import { getAllGpu } from 'services/gpuService';
-import { TypeGpu } from 'models/typeGpu';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllGpu } from 'api/services/gpuService';
+import { TypeGpu } from 'common/models/typeGpu';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {

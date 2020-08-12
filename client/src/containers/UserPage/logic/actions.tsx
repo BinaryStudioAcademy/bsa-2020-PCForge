@@ -8,7 +8,7 @@ import {
   HIDE_SPINNER,
 } from './actionTypes';
 
-import { TypeUser } from 'models/typeUser';
+import { TypeUser } from 'common/models/typeUser';
 
 export const loadUser = (id: number): UserActionTypes => ({
   type: LOAD_USER,

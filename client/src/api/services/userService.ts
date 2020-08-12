@@ -1,7 +1,7 @@
 import webApi from 'api/webApiHelper';
-import { TypeUser } from 'models/typeUser';
+import { TypeUser } from 'common/models/typeUser';
 
-const endpoint = '/api/users';
+const endpoint = '/users';
 
 export const getUser = async (id: number): Promise<TypeUser> => {
   return await webApi.get(`${endpoint}/${id}`);

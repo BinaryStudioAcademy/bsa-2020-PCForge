@@ -10,9 +10,9 @@ import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { getAllRam } from 'services/ramService';
-import { TypeRam } from 'models/typeRam';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllRam } from 'api/services/ramService';
+import { TypeRam } from 'common/models/typeRam';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
