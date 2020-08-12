@@ -5,6 +5,7 @@ export interface SetupAttributes {
   title: string;
   description: string;
   image: string;
+  authorId: number;
   createdAt: Date;
   updatedAt: Date;
 }
