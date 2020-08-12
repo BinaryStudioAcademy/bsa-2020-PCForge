@@ -25,7 +25,8 @@ const RootComponent: React.FC<IProps> = ({ pageTitle, selectedMenuItemNumber, le
     const currentToken: string = localStorage.getItem('token') || '';
     console.log('checkIsUserAuthenticated -> currentToken', currentToken);
     if (currentToken) {
-      const response = await fetch('http://localhost:5001/api/auth/logged_in', {
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+      const response = await fetch(`${apiUrl}/auth/logged_in`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
