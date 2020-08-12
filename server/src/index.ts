@@ -1,4 +1,5 @@
 import fastify from 'fastify';
+import qs from 'qs';
 import fastifyStatic from 'fastify-static';
 import db from './data/db/connection';
 import routes from './api/routes/index';
@@ -8,7 +9,12 @@ import googleAuth from './api/plugins/googleAuth';
 import cors from 'fastify-cors';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
-const server = fastify();
+const server = fastify({
+  querystringParser: (str) => {
+    const parsed = qs.parse(str, { comma: true });
+    return parsed as { [key: string]: string | string[] };
+  },
+});
 
 server.register(cors, {
   origin: process.env.APP_CLIENT_URL,

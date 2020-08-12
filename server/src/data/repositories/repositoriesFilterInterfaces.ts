@@ -1,4 +1,4 @@
-import { notNull } from './repositoriesTypes';
+import { FilterByIdType, notNull } from './repositoriesTypes';
 
 export interface IFilter {
   from: number;
@@ -11,7 +11,7 @@ export const FilterDefaults: IFilter = {
 };
 
 export interface ICpuFilter extends IFilter {
-  socketId: string | Record<string, unknown>;
+  socketId: FilterByIdType;
 }
 
 export const CpuFilterDefaults: ICpuFilter = {
@@ -21,7 +21,7 @@ export const CpuFilterDefaults: ICpuFilter = {
 };
 
 export interface IRamFilter extends IFilter {
-  typeId: string | Record<string, unknown>;
+  typeId: FilterByIdType;
 }
 
 export const RamFilterDefaults: IRamFilter = {
@@ -31,8 +31,8 @@ export const RamFilterDefaults: IRamFilter = {
 };
 
 export interface IMotherboardFilter extends IFilter {
-  ramTypeId: string | Record<string, unknown>;
-  socketId: string | Record<string, unknown>;
+  ramTypeId: FilterByIdType;
+  socketId: FilterByIdType;
 }
 
 export const MotherboardFilterDefaults: IMotherboardFilter = {
