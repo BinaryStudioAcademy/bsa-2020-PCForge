@@ -1,6 +1,6 @@
-import webApi from '../helpers/webApiHelper';
-import { TypeFilter } from '../models/typeFilterBuilder';
-import { TypeMotherboard } from '../models/typeMotherboard';
+import webApi from 'api/webApiHelper';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeMotherboard } from 'common/models/typeMotherboard';
 
 type TypeResponseAll = {
   meta: {
@@ -10,7 +10,7 @@ type TypeResponseAll = {
   data: TypeMotherboard[];
 };
 
-const endpoint = '/api/motherboards';
+const endpoint = '/motherboards';
 
 export const getAllMotherboard = async (filter: TypeFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);
