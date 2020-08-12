@@ -1,6 +1,6 @@
-import { MotherboardDataAttributes, MotherboardModel } from '../../data/models/Motherboard';
+import { MotherboardDataAttributes, MotherboardModel } from '../../data/models/motherboard';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { MotherboardRepository } from '../../data/repositories/Motherboard.repository';
+import { MotherboardRepository } from '../../data/repositories/motherboard.repository';
 import { IMotherboardFilter } from './servicesFilterInterfaces';
 
 export class MotherboardService {

@@ -1,4 +1,4 @@
-import { GpuDataAttributes, GpuModel, GpuStatic } from '../models/Gpu';
+import { GpuDataAttributes, GpuModel, GpuStatic } from '../models/gpu';
 import { BaseRepository, RichModel } from './base.repository';
 
 export class GpuRepository extends BaseRepository<GpuModel> {
