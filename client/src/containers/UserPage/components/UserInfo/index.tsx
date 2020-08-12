@@ -5,7 +5,7 @@ import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import UserPreferences from '../UserPreferences';
-import { IUser } from '../../logic/interfaces';
+import { TypeUser } from 'models/typeUser';
 
 enum UserPageTabs {
   Games = 0,
@@ -13,7 +13,7 @@ enum UserPageTabs {
 }
 
 interface IUserInfoProps {
-  user: IUser;
+  user: TypeUser;
 }
 
 interface IErrorMessage {
@@ -59,7 +59,7 @@ const passwordValid = (
     }
   }
   setErrorMessages({ ...errorMessages, passwordErrorMessage: passwordMessage });
-    return !passwordMessage;
+  return !passwordMessage;
 };
 
 const nameValid = (name: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages) => {

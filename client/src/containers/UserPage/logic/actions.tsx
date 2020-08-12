@@ -8,24 +8,24 @@ import {
   HIDE_SPINNER,
 } from './actionTypes';
 
-import { IUser } from './interfaces';
+import { TypeUser } from 'models/typeUser';
 
 export const loadUser = (id: string): UserActionTypes => ({
   type: LOAD_USER,
   payload: { id },
 });
 
-export const loadUserSuccess = (data: IUser): UserActionTypes => ({
+export const loadUserSuccess = (data: TypeUser): UserActionTypes => ({
   type: LOAD_USER_SUCCESS,
   payload: data,
 });
 
-export const updateUser = (data: IUser): UserActionTypes => ({
+export const updateUser = (data: TypeUser): UserActionTypes => ({
   type: UPDATE_USER,
   payload: data,
 });
 
-export const updateUserSuccess = (data: IUser): UserActionTypes => ({
+export const updateUserSuccess = (data: TypeUser): UserActionTypes => ({
   type: UPDATE_USER_SUCCESS,
   payload: data,
 });

@@ -1,4 +1,4 @@
-import { IUser } from './interfaces';
+import { TypeUser } from 'models/typeUser';
 import { all, takeEvery, call, put, select } from 'redux-saga/effects';
 // TODO: import api service here
 import { loadUser as loadUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';

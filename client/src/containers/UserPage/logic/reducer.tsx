@@ -1,8 +1,8 @@
-import { IUser } from './interfaces';
+import { TypeUser } from 'models/typeUser';
 import { UserActionTypes, LOAD_USER_SUCCESS, UPDATE_USER_SUCCESS, SHOW_SPINNER, HIDE_SPINNER } from './actionTypes';
 
 export interface IUserState {
-  loadedUser: IUser | null;
+  loadedUser: TypeUser | null;
   showSpinner: boolean;
 }
 
