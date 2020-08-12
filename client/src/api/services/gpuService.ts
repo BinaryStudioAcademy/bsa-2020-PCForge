@@ -1,6 +1,6 @@
 import webApi from 'api/webApiHelper';
-import { TypeFilter } from 'api/models/typeFilterBuilder';
-import { TypeGpu } from 'api/models/typeGpu';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeGpu } from 'common/models/typeGpu';
 
 type TypeResponseAll = {
   meta: {

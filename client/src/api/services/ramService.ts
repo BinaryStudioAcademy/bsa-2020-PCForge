@@ -1,6 +1,6 @@
 import webApi from 'api/webApiHelper';
-import { TypeFilter } from 'api/models/typeFilterBuilder';
-import { TypeRam } from 'api/models/typeRam';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeRam } from 'common/models/typeRam';
 
 type TypeResponseAll = {
   meta: {

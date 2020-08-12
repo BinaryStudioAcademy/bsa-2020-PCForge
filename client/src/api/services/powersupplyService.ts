@@ -1,6 +1,6 @@
 import webApi from 'api/webApiHelper';
-import { TypeFilter } from 'api/models/typeFilterBuilder';
-import { TypePowersupplies } from 'api/models/typePowersupplies';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypePowersupplies } from 'common/models/typePowersupplies';
 
 type TypeResponseAll = {
   meta: {

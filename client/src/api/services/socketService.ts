@@ -1,6 +1,6 @@
 import webApi from 'api/webApiHelper';
-import { TypeFilter } from 'api/models/typeFilterBuilder';
-import { TypeSocket } from 'api/models/typeSocket';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeSocket } from 'common/models/typeSocket';
 
 type TypeResponseAll = {
   meta: {
