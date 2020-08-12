@@ -6,3 +6,9 @@ export type PostAuthRequest = FastifyRequest<{
     password: string;
   };
 }>;
+
+export type IsUserAuthenticated = FastifyRequest<{
+  Body: {
+    token: string;
+  };
+}>;
