@@ -22,7 +22,7 @@ const SetupCard: React.FC<Props> = (props): JSX.Element => {
         <div className={styles.cardContent}>
           <Typography className={styles.cardText}>{description}</Typography>
           <div className={styles.ratingBoxWrapper}>
-            <RatingBox ratingValue={rating} disabled={false} />
+            <RatingBox name="rating" ratingValue={rating} disabled={false} />
           </div>
         </div>
       </div>

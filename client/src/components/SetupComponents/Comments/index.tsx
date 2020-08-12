@@ -29,7 +29,7 @@ const SetupPageComments: React.FC<Props> = (props): JSX.Element => {
           inputProps={{ className: styles.userReviewInput }}
         />
         <div className={styles.userReviewBlock}>
-          <RatingBox disabled={false} ratingValue={1} />
+          <RatingBox name="rating" disabled={false} ratingValue={1} />
           <Button
             buttonType={ButtonType.primary}
             className={styles.addCommentButton}

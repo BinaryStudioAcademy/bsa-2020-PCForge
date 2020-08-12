@@ -17,7 +17,7 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
         </div>
         <p className={styles.commentBody}>{comment.body}</p>
         <div className={styles.ratingBoxWrapper}>
-          <RatingBox disabled ratingValue={comment.rating} />
+          <RatingBox name="rating" disabled ratingValue={comment.rating} />
         </div>
       </div>
     </li>

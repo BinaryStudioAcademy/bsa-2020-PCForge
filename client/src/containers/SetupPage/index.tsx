@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import { PCSetup } from 'common/models/setup';
-import PcComponentView, { KeyValue } from 'components/SetupComponents/PcComponentView';
+import PcComponentView from 'components/SetupComponents/PcComponentView';
 import SetupCard from 'components/SetupComponents/SetupCard';
 import Container from '@material-ui/core/Container';
 import SetupPageComments from 'components/SetupComponents/Comments';
