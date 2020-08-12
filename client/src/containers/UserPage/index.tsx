@@ -4,6 +4,8 @@ import styles from './styles.module.scss';
 import Input from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import UserPreferences from './components/UserPreferences';
+import PageComponent from 'containers/PageComponent';
+import { MenuItems } from 'common/enums';
 
 enum UserPageTabs {
   Games = 0,
@@ -126,44 +128,46 @@ const UserPage: React.FC = () => {
   };
 
   return (
-    <div className={styles.userPageContainer}>
-      <div className={styles.userInfo}>
-        <div className={styles.userImage}>
-          <img src="https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg" alt="" />
+    <PageComponent selectedMenuItemNumber={MenuItems.Home}>
+      <div className={styles.userPageContainer}>
+        <div className={styles.userInfo}>
+          <div className={styles.userImage}>
+            <img src="https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg" alt="" />
+          </div>
+          <div className={styles.userData}>
+            <Input
+              disabled={editableInput ? false : true}
+              className={editableInput ? styles.autoFocused : ''}
+              icon="Face"
+              value={name}
+              onChange={handleNameChange}
+              inputRef={focusInput}
+            />
+            <Input
+              disabled={editableInput ? false : true}
+              className={editableInput ? styles.autoFocused : ''}
+              icon="Email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+            <Button onClick={handleClick} buttonType={ButtonType.primary}>
+              {editableInput ? 'Save' : 'Edit'}
+            </Button>
+          </div>
         </div>
-        <div className={styles.userData}>
-          <Input
-            disabled={editableInput ? false : true}
-            className={editableInput ? styles.autoFocused : ''}
-            icon="Face"
-            value={name}
-            onChange={handleNameChange}
-            inputRef={focusInput}
-          />
-          <Input
-            disabled={editableInput ? false : true}
-            className={editableInput ? styles.autoFocused : ''}
-            icon="Email"
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <Button onClick={handleClick} buttonType={ButtonType.primary}>
-            {editableInput ? 'Save' : 'Edit'}
-          </Button>
-        </div>
-      </div>
 
-      <div className={styles.preferencesSection}>
-        <AppBar position="static" className={styles.tabsBar}>
-          <Tabs value={selectedTab} onChange={handleChange}>
-            <Tab label="Games" />
-            <Tab label="Setups" />
-          </Tabs>
-        </AppBar>
-        {selectedTab === UserPageTabs.Games && <UserPreferences games={gamesArray} />}
-        {selectedTab === UserPageTabs.Setups && <UserPreferences setups={setupsArray} />}
+        <div className={styles.preferencesSection}>
+          <AppBar position="static" className={styles.tabsBar}>
+            <Tabs value={selectedTab} onChange={handleChange}>
+              <Tab label="Games" />
+              <Tab label="Setups" />
+            </Tabs>
+          </AppBar>
+          {selectedTab === UserPageTabs.Games && <UserPreferences games={gamesArray} />}
+          {selectedTab === UserPageTabs.Setups && <UserPreferences setups={setupsArray} />}
+        </div>
       </div>
-    </div>
+    </PageComponent>
   );
 };
 

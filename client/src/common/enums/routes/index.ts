@@ -4,6 +4,7 @@ enum Routes {
   CHART = '/chart',
   MATCHER = '/matcher',
   SETUP = '/setup/:id',
+  SETUPS = '/setups',
   USER = '/user/:id',
 }
 
