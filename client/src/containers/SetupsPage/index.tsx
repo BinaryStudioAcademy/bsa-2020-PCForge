@@ -1,5 +1,5 @@
 import React from 'react';
-// import RootComponent from 'components/Root';
+import RootComponent from 'components/Root';
 import SetupCard from 'components/SetupCard';
 import classes from './styles.module.scss';
 import { connect } from 'react-redux';
@@ -122,13 +122,14 @@ const SetupPage: React.FC<I_Props> = ({ setups, userId }) => {
     return <div className={classes.cardsContainer}>{cardsElements}</div>;
   };
 
-  return null;
-  // <RootComponent
-  //   pageTitle="Setups"
-  //   selectedMenuItemNumber={1}
-  //   leftComponent={createCards()}
-  //   rightComponent={<TopFiveList />}
-  // />
+  return (
+    <RootComponent
+      pageTitle="Setups"
+      selectedMenuItemNumber={1}
+      leftComponent={createCards()}
+      rightComponent={<TopFiveList />}
+    />
+  );
 };
 
 //When has been added functionality, change state type
