@@ -12,11 +12,67 @@ enum UserPageTabs {
   Setups = 1,
 }
 
-interface UserInfoProps {
+interface IUserInfoProps {
   user: IUser;
 }
 
-const UserInfo: React.FC<UserInfoProps> = (props) => {
+interface IErrorMessage {
+  emailErrorMessage: null | string;
+  passwordErrorMessage: null | string;
+  nameErrorMessage: null | string;
+}
+
+type SetErrorMessages = (message: IErrorMessage) => void;
+
+const emailValid = (email: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages) => {
+  let emailMessage = null;
+  const regex = /([A-Za-z0-9$_\-.+%])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/;
+  if (!(email.length > 5 && email.length < 30)) {
+    emailMessage = 'Email length: 5-30';
+  } else {
+    if (!regex.test(email)) {
+      emailMessage = 'Wrong email format';
+    }
+  }
+  setErrorMessages({ ...errorMessages, emailErrorMessage: emailMessage });
+  return !emailMessage;
+};
+
+const passwordValid = (
+  password: string,
+  confirmedPassword: string,
+  errorMessages: IErrorMessage,
+  setErrorMessages: SetErrorMessages
+) => {
+  let passwordMessage = null;
+  const regex = /^[a-zA-Z0-9@\-%$_.+]{5,30}$/;
+  // if (password == '' && confirmedPassword == '') {
+  //   passwordMessage = null;
+  // }
+  if (password !== '') {
+    if (!regex.test(password)) {
+      passwordMessage = 'Wrong password format';
+      console.log('wrong format');
+    } else if (password !== confirmedPassword) {
+      passwordMessage = 'Passwords do not match';
+      console.log('do not match');
+    }
+  }
+  setErrorMessages({ ...errorMessages, passwordErrorMessage: passwordMessage });
+    return !passwordMessage;
+};
+
+const nameValid = (name: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages) => {
+  let nameMessage = null;
+  const regex = /^[a-zA-Z0-9._-]{3,30}$/;
+  if (!regex.test(name)) {
+    nameMessage = 'Wrong email format';
+  }
+  setErrorMessages({ ...errorMessages, nameErrorMessage: nameMessage });
+  return !nameMessage;
+};
+
+const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const { user } = props;
   const gamesArray = [
     {
@@ -122,6 +178,11 @@ const UserInfo: React.FC<UserInfoProps> = (props) => {
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
+  const [errorMessages, setErrorMessages] = useState({
+    emailErrorMessage: null,
+    passwordErrorMessage: null,
+    nameErrorMessage: null,
+  });
 
   const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
@@ -138,10 +199,23 @@ const UserInfo: React.FC<UserInfoProps> = (props) => {
 
   const handleSetEditable = (event: React.MouseEvent) => {
     if (editableInput) {
-      console.log("you'll have to save here");
+      let valid = true;
+
+      if (
+        valid &&
+        emailValid(email, errorMessages, setErrorMessages as SetErrorMessages) &&
+        passwordValid(password, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages) &&
+        nameValid(name, errorMessages, setErrorMessages as SetErrorMessages)
+      ) {
+        console.log("you'll have to save here");
+        setEditableInput(false);
+      } else {
+        console.log('wrong');
+      }
       setRequireOldPassword(false);
+    } else {
+      setEditableInput(true);
     }
-    setEditableInput(!editableInput);
   };
 
   const handleCancel = (event: React.MouseEvent) => {
@@ -189,7 +263,6 @@ const UserInfo: React.FC<UserInfoProps> = (props) => {
                 onChange={handleChangeImage}
                 ref={imageInputRef}
               />
-
               <Link className={styles.imageLink} icon="Image" onClick={() => imageInputRef.current?.click()}>
                 Change Image
               </Link>
@@ -232,6 +305,7 @@ const UserInfo: React.FC<UserInfoProps> = (props) => {
               placeholder="Confirm password"
               value={confirmedPassword}
               onChange={handleConfirmedPasswordChange}
+              helperText={password !== confirmedPassword ? 'passwords must match' : ''}
             />
           )}
           {requireOldPassword && (
