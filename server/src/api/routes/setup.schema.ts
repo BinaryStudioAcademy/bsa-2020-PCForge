@@ -8,12 +8,22 @@ export type GetSetupRequest = FastifyRequest<{
 }>;
 
 export type PostSetupRequest = FastifyRequest<{
-  Body: SetupAttributes;
+  Body: {
+    title: string;
+    description: string;
+    image: string;
+    authorId: number;
+  };
 }>;
 
 export type PutSetupRequest = FastifyRequest<{
   Params: { id: string };
-  Body: SetupAttributes;
+  Body: {
+    title: string;
+    description: string;
+    image: string;
+    authorId: number;
+  };
 }>;
 
 export type DeleteSetupRequest = FastifyRequest<{

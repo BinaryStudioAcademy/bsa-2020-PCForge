@@ -1,13 +1,13 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 
 export interface SetupAttributes {
-  id?: number;
+  id: number;
   title: string;
   description: string;
   image: string;
   authorId: number;
-  createdAt?: Date;
-  updatedAt?: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 export interface SetupModel extends Model<SetupAttributes>, SetupAttributes {}
 export class Setup extends Model<SetupModel, SetupAttributes> {}
