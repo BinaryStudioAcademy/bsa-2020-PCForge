@@ -147,6 +147,11 @@ const UserInfo: React.FC<UserInfoProps> = (props) => {
   const handleCancel = (event: React.MouseEvent) => {
     setEditableInput(false);
     setRequireOldPassword(false);
+    setName(user.name);
+    setEmail(user.email);
+    setPassword('');
+    setOldPassword('');
+    setConfirmedPassword('');
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
