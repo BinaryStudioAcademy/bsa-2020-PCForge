@@ -37,7 +37,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   fastify.delete('/:id', {}, async (request: DeleteRamTypeRequest, reply) => {
     const { id } = request.params;
-    await RamTypeService.deleteRamTypeById({ id });
+    await RamTypeService.deleteRamTypeById(id);
     reply.send({});
   });
 

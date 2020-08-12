@@ -35,7 +35,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   fastify.delete('/:id', {}, async (request: DeleteTopGameRequest, reply) => {
     const { id } = request.params;
-    await TopGameService.deleteTopGameById({ id });
+    await TopGameService.deleteTopGameById(id);
     reply.send({});
   });
 

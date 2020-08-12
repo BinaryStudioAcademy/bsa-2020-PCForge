@@ -35,7 +35,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   fastify.delete('/:id', {}, async (request: DeleteSocketRequest, reply) => {
     const { id } = request.params;
-    await SocketService.deleteSocketById({ id });
+    await SocketService.deleteSocketById(id);
     reply.send({});
   });
 

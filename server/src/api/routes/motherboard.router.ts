@@ -35,7 +35,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   fastify.delete('/:id', {}, async (request: DeleteMotherboardRequest, reply) => {
     const { id } = request.params;
-    await MotherboardService.deleteMotherboardById({ id });
+    await MotherboardService.deleteMotherboardById(id);
     reply.send({});
   });
 

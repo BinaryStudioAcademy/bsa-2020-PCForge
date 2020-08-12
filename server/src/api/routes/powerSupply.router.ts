@@ -35,7 +35,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   fastify.delete('/:id', {}, async (request: DeletePowerSupplyRequest, reply) => {
     const { id } = request.params;
-    await PowerSupplyService.deletePowerSupplyById({ id });
+    await PowerSupplyService.deletePowerSupplyById(id);
     reply.send({});
   });
 
