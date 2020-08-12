@@ -1,5 +1,5 @@
 $input-warning: rgb(214, 142, 59);
-$input-error: rgb(235, 83, 45);
+$input-error: #cb5134;
 $bg-color-text: rgb(199, 195, 195);
 $bg-color-input: #575858;
 
@@ -19,6 +19,12 @@ $bg-color-input: #575858;
 
   & > div path {
     color: $bg-color-text;
+  }
+
+  & > p {
+    font-size: 14px !important;
+    margin-top: 0;
+    margin-left: 15px;
   }
 
   & > div > fieldset {
@@ -49,6 +55,14 @@ $bg-color-input: #575858;
       color: $input-warning;
     }
 
+    p {
+      color: $input-warning;
+    }
+
+    & > div {
+      border:2px solid $input-warning;
+    }
+
     & > div > input {
       color: $input-warning;
 
@@ -66,6 +80,15 @@ $bg-color-input: #575858;
   &.inputError {
     & > div path {
       color: $input-error;
+    }
+
+    p {
+      color: $input-error;
+    }
+
+    & > div {
+      border:2px solid $input-error;
+
     }
 
     & > div > input {

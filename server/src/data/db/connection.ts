@@ -19,6 +19,7 @@ import { UserGameStatic } from '../models/usergame';
 import { initializeModels } from '../models/index';
 import { initializeRepositories, Repositories } from '../repositories';
 import { initializeServices, Services } from '../../api/services';
+import { TopGameStatic } from '../models/topgame';
 
 export interface Models {
   Comment: CommentStatic;
@@ -35,6 +36,7 @@ export interface Models {
   Socket: SocketStatic;
   User: UserStatic;
   UserGame: UserGameStatic;
+  TopGame: TopGameStatic;
 }
 
 export interface Db {
