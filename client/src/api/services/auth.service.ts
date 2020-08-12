@@ -1,29 +1,26 @@
 import { User } from 'common/models/user';
 import { IAuthPayload } from 'containers/Auth/interfaces';
+import { setToken } from 'helpers/tokenHelper';
+import api from 'helpers/webApiHelper';
 
 export class AuthService {
   async login(data: IAuthPayload): Promise<User> {
-    const apiRoute = 'http://localhost:5001/api/auth/login';
+    const apiRoute: string = 'http://localhost:5001/api/auth/login';
 
-    const response = await fetch(apiRoute, { method: 'POST', body: JSON.stringify(data) });
-    const responseJSON = await response.json();
-    if (!response.ok) {
-      throw new Error(responseJSON.error);
-    }
+    const response = await api.post(apiRoute, data);
+    setToken(response.token);
 
-    const token: string = responseJSON.token;
-    localStorage.setItem('token', token);
-    return responseJSON.user;
+    return response;
   }
 
-  async createUser(email: string, password: string) {
-    const apiRoute = 'http://localhost:5001/api/users';
+  async createUser(email: string, password: string): Promise<User> {
+    const apiRoute: string = 'http://localhost:5001/api/users';
     const data = {
       email,
       password,
     };
-    const response = await fetch(apiRoute, { method: 'POST', body: JSON.stringify(data) });
-    return response.json();
+    const response = await api.post(apiRoute, data);
+    return response;
   }
 }
 

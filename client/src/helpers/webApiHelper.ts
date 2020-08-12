@@ -78,7 +78,7 @@ class Api {
   private handleError(error: AxiosError) {
     if (error.response) {
       // return { error: error.response.data };
-      throw new Error(error.response.data.message);
+      throw new Error(error.response.data.error);
     } else if (error.request) {
       // return { error: error.request.responseText };
       throw new Error(error.request.responseText);
