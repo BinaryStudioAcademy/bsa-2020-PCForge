@@ -13,12 +13,8 @@ export class AuthService {
     return response;
   }
 
-  async createUser(email: string, password: string): Promise<User> {
+  async createUser(data: IAuthPayload): Promise<User> {
     const apiRoute: string = 'http://localhost:5001/api/users';
-    const data = {
-      email,
-      password,
-    };
     const response = await api.post(apiRoute, data);
     return response;
   }
