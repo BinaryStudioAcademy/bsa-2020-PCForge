@@ -6,6 +6,7 @@ import path from 'path';
 import jwtAuth from './api/plugins/auth';
 import googleAuth from './api/plugins/googleAuth';
 import cors from 'fastify-cors';
+import multer from 'fastify-multer';
 
 const port = parseInt(process.env.APP_PORT, 10) || 5001;
 const server = fastify();
@@ -17,6 +18,7 @@ server.register(cors, {
 server.register(jwtAuth);
 server.register(googleAuth);
 server.register(db);
+server.register(multer.contentParser);
 server.register(fastifyStatic, {
   root: path.join(__dirname, '..', '..', 'client', 'build'),
   prefix: '/',
