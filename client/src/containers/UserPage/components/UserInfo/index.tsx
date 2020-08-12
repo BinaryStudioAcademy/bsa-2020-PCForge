@@ -5,6 +5,7 @@ import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import UserPreferences from '../UserPreferences';
+import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'models/typeUser';
 
 enum UserPageTabs {
@@ -15,62 +16,6 @@ enum UserPageTabs {
 interface IUserInfoProps {
   user: TypeUser;
 }
-
-interface IErrorMessage {
-  emailErrorMessage: null | string;
-  passwordErrorMessage: null | string;
-  nameErrorMessage: null | string;
-}
-
-type SetErrorMessages = (message: IErrorMessage) => void;
-
-const emailValid = (email: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages) => {
-  let emailMessage = null;
-  const regex = /([A-Za-z0-9$_\-.+%])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,})$/;
-  if (!(email.length > 5 && email.length < 30)) {
-    emailMessage = 'Email length: 5-30';
-  } else {
-    if (!regex.test(email)) {
-      emailMessage = 'Wrong email format';
-    }
-  }
-  setErrorMessages({ ...errorMessages, emailErrorMessage: emailMessage });
-  return !emailMessage;
-};
-
-const passwordValid = (
-  password: string,
-  confirmedPassword: string,
-  errorMessages: IErrorMessage,
-  setErrorMessages: SetErrorMessages
-) => {
-  let passwordMessage = null;
-  const regex = /^[a-zA-Z0-9@\-%$_.+]{5,30}$/;
-  // if (password == '' && confirmedPassword == '') {
-  //   passwordMessage = null;
-  // }
-  if (password !== '') {
-    if (!regex.test(password)) {
-      passwordMessage = 'Wrong password format';
-      console.log('wrong format');
-    } else if (password !== confirmedPassword) {
-      passwordMessage = 'Passwords do not match';
-      console.log('do not match');
-    }
-  }
-  setErrorMessages({ ...errorMessages, passwordErrorMessage: passwordMessage });
-  return !passwordMessage;
-};
-
-const nameValid = (name: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages) => {
-  let nameMessage = null;
-  const regex = /^[a-zA-Z0-9._-]{3,30}$/;
-  if (!regex.test(name)) {
-    nameMessage = 'Wrong email format';
-  }
-  setErrorMessages({ ...errorMessages, nameErrorMessage: nameMessage });
-  return !nameMessage;
-};
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const { user } = props;
@@ -182,6 +127,8 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     emailErrorMessage: null,
     passwordErrorMessage: null,
     nameErrorMessage: null,
+    confirmedPasswordErrorMessage: null,
+    oldPasswordErrorMessage: null,
   });
 
   const inputRef = React.createRef<HTMLInputElement>();
@@ -200,19 +147,20 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const handleSetEditable = (event: React.MouseEvent) => {
     if (editableInput) {
       let valid = true;
-
       if (
         valid &&
         emailValid(email, errorMessages, setErrorMessages as SetErrorMessages) &&
         passwordValid(password, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages) &&
-        nameValid(name, errorMessages, setErrorMessages as SetErrorMessages)
+        nameValid(name, errorMessages, setErrorMessages as SetErrorMessages) &&
+        (!requireOldPassword || oldPassword)
       ) {
         console.log("you'll have to save here");
         setEditableInput(false);
-      } else {
-        console.log('wrong');
+        setRequireOldPassword(false);
+        setPassword('');
+        setConfirmedPassword('');
+        setOldPassword('');
       }
-      setRequireOldPassword(false);
     } else {
       setEditableInput(true);
     }
@@ -229,17 +177,21 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
+    nameValid(event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
   };
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+    emailValid(event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
     setRequireOldPassword(true);
   };
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
+    passwordValid(event.target.value, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages);
     setRequireOldPassword(true);
   };
   const handleConfirmedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setConfirmedPassword(event.target.value);
+    passwordValid(password, event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
   };
   const handleOldPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOldPassword(event.target.value);
@@ -276,16 +228,19 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             className={editableInput ? styles.autoFocused : ''}
             icon="Face"
             value={name}
-            inputType={name ? undefined : InputType.error}
+            inputType={errorMessages.nameErrorMessage ? InputType.error : undefined}
             onChange={handleNameChange}
             inputRef={inputRef}
+            helperText={errorMessages.nameErrorMessage || ''}
           />
           <Input
             disabled={editableInput ? false : true}
             className={editableInput ? styles.autoFocused : ''}
             icon="Email"
             value={email}
+            inputType={errorMessages.emailErrorMessage ? InputType.error : undefined}
             onChange={handleEmailChange}
+            helperText={errorMessages.emailErrorMessage || ''}
           />
           {editableInput && (
             <Input
@@ -294,7 +249,9 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
               type="password"
               placeholder="New password"
               value={password}
+              inputType={errorMessages.passwordErrorMessage ? InputType.error : undefined}
               onChange={handlePasswordChange}
+              helperText={errorMessages.passwordErrorMessage || ''}
             />
           )}
           {editableInput && (
@@ -305,7 +262,8 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
               placeholder="Confirm password"
               value={confirmedPassword}
               onChange={handleConfirmedPasswordChange}
-              helperText={password !== confirmedPassword ? 'passwords must match' : ''}
+              inputType={errorMessages.confirmedPasswordErrorMessage ? InputType.error : undefined}
+              helperText={errorMessages.confirmedPasswordErrorMessage || ''}
             />
           )}
           {requireOldPassword && (
@@ -316,6 +274,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
               placeholder="Old password"
               value={oldPassword}
               onChange={handleOldPasswordChange}
+              inputType={oldPassword ? undefined : InputType.warning}
             />
           )}
 
