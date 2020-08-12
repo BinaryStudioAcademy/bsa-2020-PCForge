@@ -1,4 +1,5 @@
 import fastify from 'fastify';
+import qs from 'qs';
 import fastifyStatic from 'fastify-static';
 import db from './data/db/connection';
 import routes from './api/routes/index';
@@ -7,8 +8,13 @@ import jwtAuth from './api/plugins/auth';
 import googleAuth from './api/plugins/googleAuth';
 import cors from 'fastify-cors';
 
-const port = parseInt(process.env.APP_PORT, 10) || 5001;
-const server = fastify();
+const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
+const server = fastify({
+  querystringParser: (str) => {
+    const parsed = qs.parse(str, { comma: true });
+    return parsed as { [key: string]: string | string[] };
+  },
+});
 
 server.register(cors, {
   origin: process.env.APP_CLIENT_URL,
@@ -24,7 +30,7 @@ server.register(fastifyStatic, {
 
 server.register(routes, { prefix: '/api' });
 
-server.listen(port, (err, address) => {
+server.listen(port, '0.0.0.0', (err, address) => {
   if (err) {
     console.error(err);
     process.exit(1);

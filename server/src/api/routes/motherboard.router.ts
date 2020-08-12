@@ -6,7 +6,7 @@ import {
   DeleteMotherboardRequest,
   GetAllMotherboardsRequest,
   GetOneMotherboardRequest,
-} from './Motherboard.schema';
+} from './motherboard.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { MotherboardService } = fastify.services;
@@ -35,7 +35,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   fastify.delete('/:id', {}, async (request: DeleteMotherboardRequest, reply) => {
     const { id } = request.params;
-    await MotherboardService.deleteMotherboardById({ id });
+    await MotherboardService.deleteMotherboardById(id);
     reply.send({});
   });
 
