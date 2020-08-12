@@ -1,4 +1,4 @@
-import { NewsDataAttributes, NewsModel } from '../../data/models/news';
+import { NewsCreationAttributes, NewsModel } from '../../data/models/news';
 import { NewsRepository } from '../../data/repositories/news.repository';
 
 export class NewsService {
@@ -14,12 +14,12 @@ export class NewsService {
     return news;
   }
 
-  async createNews(inputNews: NewsDataAttributes): Promise<NewsModel> {
+  async createNews(inputNews: NewsCreationAttributes): Promise<NewsModel> {
     const news = await this.repository.createNews(inputNews);
     return news;
   }
 
-  async updateNewsById(inputNews: { id: string; data: NewsDataAttributes }): Promise<NewsModel> {
+  async updateNewsById(inputNews: { id: string; data: NewsCreationAttributes }): Promise<NewsModel> {
     const { id, data } = inputNews;
     const oldNews = await this.repository.getNewsById(id);
     if (!oldNews) {

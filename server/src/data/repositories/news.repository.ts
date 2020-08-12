@@ -1,4 +1,4 @@
-import { NewsDataAttributes, NewsModel, NewsStatic } from '../models/news';
+import { NewsCreationAttributes, NewsModel, NewsStatic } from '../models/news';
 import { BaseRepository, RichModel } from './base.repository';
 
 export class NewsRepository extends BaseRepository<NewsModel> {
@@ -16,12 +16,12 @@ export class NewsRepository extends BaseRepository<NewsModel> {
     return news.data;
   }
 
-  async createNews(inputNews: NewsDataAttributes): Promise<NewsModel> {
+  async createNews(inputNews: NewsCreationAttributes): Promise<NewsModel> {
     const news = await this.model.create(inputNews);
     return news;
   }
 
-  async updateNewsById(id: string, inputNews: NewsDataAttributes): Promise<NewsModel> {
+  async updateNewsById(id: string, inputNews: NewsCreationAttributes): Promise<NewsModel> {
     const news = await this.updateById(id, inputNews);
     return news;
   }
