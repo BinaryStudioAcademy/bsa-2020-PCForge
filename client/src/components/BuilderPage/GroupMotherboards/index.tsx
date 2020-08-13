@@ -10,18 +10,26 @@ import FilterSocket from 'components/BuilderPage/FilterSocket';
 import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { getAllMotherboard } from 'services/motherboardService';
-import { TypeMotherboard } from 'models/typeMotherboard';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllMotherboard } from 'api/services/motherboardService';
+import { TypeMotherboard } from 'common/models/typeMotherboard';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilter;
+  selectedComponent: TypeMotherboard | null;
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeMotherboard) => void;
+  onRemoveSelectedComponent: () => void;
 };
 
-const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+const GroupMotherboards = ({
+  filter,
+  selectedComponent,
+  onAddFilter,
+  onAddComponent,
+  onRemoveSelectedComponent,
+}: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [motherboards, setMotherboards] = useState([] as TypeMotherboard[]);
   const [count, setCount] = useState(0);
@@ -47,8 +55,11 @@ const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): 
   }, [filter, pagination]);
 
   const AddComponentHandler = (motherboard: TypeMotherboard): void => {
-    onAddFilter({ socketId: motherboard.socketId });
-    onAddFilter({ ramTypeId: motherboard.ramTypeId });
+    onAddFilter({
+      ...filter,
+      socketId: motherboard.socketId,
+      ramTypeId: motherboard.ramTypeId,
+    });
     onAddComponent(motherboard);
   };
 
@@ -70,7 +81,13 @@ const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): 
 
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
-      <GroupItemSummary id="Motherboard" title="Motherboard" count={count} />
+      <GroupItemSummary
+        id="Motherboard"
+        title="Motherboard"
+        count={count}
+        nameComponent={selectedComponent ? selectedComponent.name : ''}
+        onClear={onRemoveSelectedComponent}
+      />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>

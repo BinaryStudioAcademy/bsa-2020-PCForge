@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { CpuCreationAttributes } from '../../data/models/cpu';
-import { ICpuFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 
 export type GetAllCpusRequest = FastifyRequest<{
   Querystring: ICpuFilter;

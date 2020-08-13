@@ -9,9 +9,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Spinner from 'components/Spinner';
-import { getAllRamType } from 'services/ramTypeService';
-import { TypeRamType } from 'models/typeRamType';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllRamType } from 'api/services/ramTypeService';
+import { TypeRamType } from 'common/models/typeRamType';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -42,12 +42,13 @@ const FilterRamTypes = ({ filter, onAddFilter }: PropsType): JSX.Element => {
 
   useEffect(() => {
     setValue(ramTypes.find((ram) => ram.id === filter.ramTypeId)?.name as string);
-  }, [filter]);
+  }, [ramTypes, filter]);
 
   const onChangeHandler = (ev: { target: { value: string } }) => {
     const name = ev.target.value;
     const id = ramTypes.find((ram) => ram.name === name)?.id as number;
     onAddFilter({
+      ...filter,
       ramTypeId: id,
     });
   };

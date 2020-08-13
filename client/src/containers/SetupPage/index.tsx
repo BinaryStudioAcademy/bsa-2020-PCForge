@@ -6,6 +6,8 @@ import SetupCard from 'components/SetupComponents/SetupCard';
 import Container from '@material-ui/core/Container';
 import SetupPageComments from 'components/SetupComponents/Comments';
 import TopGames from 'components/ChartComponents/TopGames';
+import PageComponent from 'containers/PageComponent';
+import { MenuItems } from 'common/enums';
 
 interface Props {
   setup: PCSetup;
@@ -14,49 +16,51 @@ interface Props {
 const ViewSetupPage: React.FC<Props> = (props): JSX.Element => {
   const { cpu, gpu, motherBoard, powerSupply, ram, comments } = mockSetup();
   return (
-    <div className={styles.setupPageRoot}>
-      <h1 className={styles.setupHeader}>PC setup</h1>
-      <div className={styles.contentWrapper}>
-        <Container className={styles.setupsDetails} classes={{ root: styles.noMargin }}>
-          <SetupCard setup={mockSetup()} />
-          <div className={[styles.underline, styles.noMarginTop].join(' ')}></div>
-          <PcComponentView
-            title="Processor"
-            pcComponent={cpu}
-            neededProperties={{
-              name: 'Name',
-              cores: 'Cores',
-              clockspeed: 'Clock Speed',
-              class: 'Class',
-              tdp: 'Thermal design power',
-            }}
-          />
-          <PcComponentView
-            title="Graphics"
-            pcComponent={gpu}
-            neededProperties={{
-              name: 'Name',
-              interface: 'Interface',
-              memorySize: 'Memory',
-              opengl: 'OpenGL',
-              tdp: 'Thermal design power',
-            }}
-          />
-          <PcComponentView
-            title="RAM"
-            pcComponent={ram}
-            neededProperties={{ name: 'Name', memorySize: 'Memory', frequency: 'Frequency' }}
-          />
-          <PcComponentView title="Motherboard" pcComponent={motherBoard} neededProperties={{ name: 'Name' }} />
-          <PcComponentView title="Power Supply" pcComponent={powerSupply} neededProperties={{ name: 'Name' }} />
-          <div className={styles.underline}></div>
-          <SetupPageComments comments={comments} />
-        </Container>
-        <div className={styles.asideItems}>
-          <TopGames games={[]} />
+    <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
+      <div className={styles.setupPageRoot}>
+        <h1>PC setup</h1>
+        <div className={styles.contentWrapper}>
+          <Container className={styles.setupsDetails}>
+            <SetupCard setup={mockSetup()} />
+            <div className={[styles.underline, styles.noMarginTop].join(' ')}></div>
+            <PcComponentView
+              title="Processor"
+              pcComponent={cpu}
+              neededProperties={{
+                name: 'Name',
+                cores: 'Cores',
+                clockspeed: 'Clock Speed',
+                class: 'Class',
+                tdp: 'Thermal design power',
+              }}
+            />
+            <PcComponentView
+              title="Graphics"
+              pcComponent={gpu}
+              neededProperties={{
+                name: 'Name',
+                interface: 'Interface',
+                memorySize: 'Memory',
+                opengl: 'OpenGL',
+                tdp: 'Thermal design power',
+              }}
+            />
+            <PcComponentView
+              title="RAM"
+              pcComponent={ram}
+              neededProperties={{ name: 'Name', memorySize: 'Memory', frequency: 'Frequency' }}
+            />
+            <PcComponentView title="Motherboard" pcComponent={motherBoard} neededProperties={{ name: 'Name' }} />
+            <PcComponentView title="Power Supply" pcComponent={powerSupply} neededProperties={{ name: 'Name' }} />
+            <div className={styles.underline}></div>
+            <SetupPageComments comments={comments} />
+          </Container>
+          <div className={styles.asideItems}>
+            <TopGames games={[]} />
+          </div>
         </div>
       </div>
-    </div>
+    </PageComponent>
   );
 };
 

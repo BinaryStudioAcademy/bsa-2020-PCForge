@@ -1,11 +1,11 @@
 import { CpuCreationAttributes, CpuModel, CpuStatic } from '../models/cpu';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { ICpuFilter, CpuFilterDefaults } from './repositoriesFilterInterfaces';
+import { ICpuFilter } from './filters/cpu.filter';
 
-export class CpuRepository extends BaseRepository<CpuModel> {
+export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
   constructor(private model: CpuStatic, private socketModel: SocketStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, ICpuFilter);
   }
 
   async getCpuById(id: string): Promise<CpuModel> {

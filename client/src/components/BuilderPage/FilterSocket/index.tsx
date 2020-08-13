@@ -9,9 +9,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Spinner from 'components/Spinner';
-import { getAllSocket } from 'services/socketService';
-import { TypeSocket } from 'models/typeSocket';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllSocket } from 'api/services/socketService';
+import { TypeSocket } from 'common/models/typeSocket';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -42,12 +42,13 @@ const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
 
   useEffect(() => {
     setValue(sockets.find((s) => s.id === filter.socketId)?.name as string);
-  }, [filter]);
+  }, [sockets, filter]);
 
   const onChangeHandler = (ev: { target: { value: string } }) => {
     const name = ev.target.value;
     const id = sockets.find((s) => s.name === name)?.id as number;
     onAddFilter({
+      ...filter,
       socketId: id,
     });
   };

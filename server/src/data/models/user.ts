@@ -38,12 +38,12 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
       primaryKey: true,
     },
     name: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING(50),
     },
     password: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(60),
     },
     email: {
       allowNull: false,

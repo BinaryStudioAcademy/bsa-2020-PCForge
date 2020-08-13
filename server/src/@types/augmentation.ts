@@ -1,4 +1,3 @@
-import * as http from 'http';
 import { Services } from '../api/services';
 import { OAuth2Namespace } from 'fastify-oauth2';
 import { FastifyLoggerInstance } from 'fastify';

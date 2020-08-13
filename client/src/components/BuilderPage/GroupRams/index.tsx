@@ -10,18 +10,26 @@ import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { getAllRam } from 'services/ramService';
-import { TypeRam } from 'models/typeRam';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllRam } from 'api/services/ramService';
+import { TypeRam } from 'common/models/typeRam';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilter;
+  selectedComponent: TypeRam | null;
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeRam) => void;
+  onRemoveSelectedComponent: () => void;
 };
 
-const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+const GroupRams = ({
+  filter,
+  selectedComponent,
+  onAddFilter,
+  onAddComponent,
+  onRemoveSelectedComponent,
+}: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [rams, setRams] = useState([] as TypeRam[]);
   const [count, setCount] = useState(0);
@@ -48,7 +56,10 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   }, [filter, pagination]);
 
   const AddComponentHandler = (ram: TypeRam): void => {
-    onAddFilter({ ramTypeId: ram.typeId });
+    onAddFilter({
+      ...filter,
+      ramTypeId: ram.typeId,
+    });
     onAddComponent(ram);
   };
 
@@ -69,14 +80,24 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
     />
   ));
 
+  function onChangeFilterRange() {
+    // do nothing.
+  }
+
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
-      <GroupItemSummary id="RAM" title="RAM" count={count} />
+      <GroupItemSummary
+        id="RAM"
+        title="RAM"
+        count={count}
+        nameComponent={selectedComponent ? selectedComponent.name : ''}
+        onClear={onRemoveSelectedComponent}
+      />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
             <FilterRamTypes filter={filter} onAddFilter={onAddFilter} />
-            <FilterRange title="Memory size" min={1} max={64} dimension="Gb" onChange={() => {}} />
+            <FilterRange title="Memory size" min={1} max={64} dimension="Gb" onChange={onChangeFilterRange} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listRamElements}

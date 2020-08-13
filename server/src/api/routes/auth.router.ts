@@ -12,17 +12,20 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   );
 
   fastify.post('/login', {}, async (request: PostAuthRequest, response) => {
-    const { login, password } = request.body || {};
+    if (typeof request.body === 'string') {
+      request.body = JSON.parse(request.body);
+    }
+    const { email, password } = request.body || {};
     try {
       //return user
-      await UserService.getUserByLoginOrEmail(login, password);
+      const user = await UserService.getUserByLoginOrEmail(email, password);
       const token = fastify.jwt.sign({}, { expiresIn: 86400 });
-      response.send(token);
+      response.send({token, user});
     } catch (error) {
-      response.status(error.status).send({
-        err: true,
-        msg: error.error,
-      });
+      throw {
+        error: `User not found`,
+        status: 401,
+      };
     }
   });
 
@@ -32,6 +35,9 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   fastify.post('/logged_in', {}, async function (request: IsUserAuthenticated, response) {
+    if (typeof request.body === 'string') {
+      request.body = JSON.parse(request.body);
+    }
     const body = request.body;
     const token = body.token;
     fastify.jwt.verify(token, async (err, decoded) => {

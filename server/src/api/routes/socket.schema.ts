@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { SocketCreationAttributes } from '../../data/models/socket';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 
 export type GetAllSocketsRequest = FastifyRequest<{
   Querystring: IFilter;
