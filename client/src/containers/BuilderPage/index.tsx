@@ -118,6 +118,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           onAddComponent={(ps) => dispatch(addPowersupplyToSetupAction(ps.id))}
           onRemoveSelectedComponent={() => dispatch(removePowersupplyFromSetupAction())}
         />
+        </Box>
       </Box>
     </PageComponent>
   );
