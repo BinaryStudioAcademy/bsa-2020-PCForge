@@ -37,7 +37,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', {}, async (request: PutUserRequest, reply) => {
     const { id } = request.params;
     const { body } = request;
-    const oldPassword = body.oldPassword || undefined;
+    const oldPassword = body.oldPassword || '';
     try {
       if (oldPassword) {
         delete body.oldPassword;
