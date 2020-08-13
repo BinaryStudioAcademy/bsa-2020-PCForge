@@ -27,6 +27,9 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   fastify.post('/', {}, async (request: PostUserRequest, reply) => {
+    if (typeof request.body === 'string') {
+      request.body = JSON.parse(request.body);
+    }
     const user = await UserService.createUser(request.body);
     reply.send(user);
   });

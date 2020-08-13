@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Container, Grid } from '@material-ui/core';
 import { RootState } from 'redux/rootReducer';
 import styles from 'containers/Auth/styles.module.scss';
@@ -7,6 +8,7 @@ import * as AuthActions from 'containers/Auth/actions';
 import LoginForm from 'components/Auth/LoginForm';
 import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from './interfaces';
+import { Routes } from 'common/enums';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
@@ -37,6 +39,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
   }
 
   sendData(event: React.FormEvent<HTMLButtonElement>) {
+    event.preventDefault();
     const state = this.props.authState;
     if (state.email && state.password) {
       state.isRegistration
@@ -67,6 +70,11 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
+
+    if (state.user) {
+      return <Redirect to={'/'} />;
+    }
+
     return (
       <React.Fragment>
         <div className={styles.bgContainer} />
