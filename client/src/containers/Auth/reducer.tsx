@@ -7,9 +7,13 @@ import {
   AUTH_KEEP_SIGN_IN,
   AUTH_LOADING_STATUS,
   AUTH_SWITCH_AUTH_PAGE,
+  AUTH_REGISTRATION_SUCCESS,
+  AUTH_REGISTRATION_ERROR,
 } from './actionTypes';
 
 const initialState: IAuthState = {
+  user: null,
+  isRegistered: false,
   email: '',
   password: '',
   errorMessage: '',
@@ -52,6 +56,16 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         password: '',
         errorMessage: '',
         isRegistration: action.payload.isRegistration,
+      };
+    case AUTH_REGISTRATION_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case AUTH_REGISTRATION_ERROR:
+      return {
+        ...state,
+        errorMessage: action.payload.message,
       };
     default:
       return state;

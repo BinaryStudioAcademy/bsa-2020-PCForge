@@ -7,6 +7,7 @@ import * as AuthActions from 'containers/Auth/actions';
 import LoginForm from 'components/Auth/LoginForm';
 import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from './interfaces';
+import Spinner from '../../components/Spinner';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
@@ -37,6 +38,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
   }
 
   sendData(event: React.FormEvent<HTMLButtonElement>) {
+    event.preventDefault();
     const state = this.props.authState;
     if (state.email && state.password) {
       state.isRegistration
@@ -67,6 +69,11 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
+    if (state.user && state.isRegistered) {
+      state.isRegistration = false; //should change to registration after registration and login
+      state.isRegistered = false;
+    }
+
     return (
       <React.Fragment>
         <div className={styles.bgContainer} />
@@ -80,15 +87,19 @@ class Auth extends Component<IAuthProps, IAuthState> {
             </Grid>
             <Grid item md>
               {state.isRegistration ? (
-                <RegistrationForm
-                  email={state.email}
-                  errorMessage={state.errorMessage}
-                  isLoading={state.isLoading}
-                  handleChangeEmail={this.handleChangeEmail}
-                  handleChangePassword={this.handleChangePassword}
-                  register={this.sendData}
-                  switchToLogin={this.switchToLogin}
-                />
+                state.isLoading ? (
+                  <Spinner load={true} />
+                ) : (
+                  <RegistrationForm
+                    email={state.email}
+                    errorMessage={state.errorMessage}
+                    isLoading={state.isLoading}
+                    handleChangeEmail={this.handleChangeEmail}
+                    handleChangePassword={this.handleChangePassword}
+                    register={this.sendData}
+                    switchToLogin={this.switchToLogin}
+                  />
+                )
               ) : (
                 <LoginForm
                   email={state.email}
