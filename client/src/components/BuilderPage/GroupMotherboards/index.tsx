@@ -21,6 +21,8 @@ type PropsType = {
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeMotherboard) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: string | false) => void;
 };
 
 const GroupMotherboards = ({
@@ -29,6 +31,8 @@ const GroupMotherboards = ({
   onAddFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [motherboards, setMotherboards] = useState([] as TypeMotherboard[]);
@@ -80,7 +84,13 @@ const GroupMotherboards = ({
   ));
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      // onChange={onChange}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'motherboard' : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="Motherboard"
         title="Motherboard"

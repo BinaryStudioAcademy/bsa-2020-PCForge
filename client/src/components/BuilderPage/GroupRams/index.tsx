@@ -21,6 +21,8 @@ type PropsType = {
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeRam) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: string | false) => void;
 };
 
 const GroupRams = ({
@@ -29,6 +31,8 @@ const GroupRams = ({
   onAddFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [rams, setRams] = useState([] as TypeRam[]);
@@ -85,7 +89,13 @@ const GroupRams = ({
   }
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      // onChange={onChange}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'ram' : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="RAM"
         title="RAM"

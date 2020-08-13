@@ -20,6 +20,8 @@ type PropsType = {
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeGpu) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: string | false) => void;
 };
 
 const GroupGpus = ({
@@ -28,6 +30,8 @@ const GroupGpus = ({
   onAddFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [gpus, setGpus] = useState([] as TypeGpu[]);
@@ -80,7 +84,13 @@ const GroupGpus = ({
   }
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      // onChange={onChange}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'gpu' : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="GPU"
         title="GPU"

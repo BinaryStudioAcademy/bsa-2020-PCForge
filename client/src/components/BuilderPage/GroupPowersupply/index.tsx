@@ -20,6 +20,8 @@ type PropsType = {
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypePowersupplies) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: string | false) => void;
 };
 
 const GroupPowersupplies = ({
@@ -28,6 +30,8 @@ const GroupPowersupplies = ({
   onAddFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [powersupplies, setPowersupplies] = useState([] as TypePowersupplies[]);
@@ -77,7 +81,13 @@ const GroupPowersupplies = ({
   }
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      // onChange={onChange}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'powersupply' : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="Power supply"
         title="Power supply"

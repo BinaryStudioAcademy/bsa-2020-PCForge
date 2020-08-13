@@ -45,6 +45,7 @@ type TypeBuild = {
 
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const [filter, setFilter] = useState({} as TypeFilter);
+  const [expanded, setExpanded] = React.useState(false as string | false);
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
   const dispatch = useDispatch();
@@ -52,26 +53,6 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const addFilterHandler = (newFilter: TypeFilter) => {
     setFilter(newFilter);
   };
-
-  // const addCpuHandler = (cpu: TypeCpu) => {
-  //   dispatch(addCpuToSetupAction(cpu.id));
-  // };
-  //
-  // const addGpuHandler = (gpu: TypeGpu) => {
-  //   dispatch(addGpuToSetupAction(gpu.id));
-  // };
-  //
-  // const addRamHandler = (ram: TypeRam) => {
-  //   dispatch(addRamToSetupAction(ram.id));
-  // };
-  //
-  // const addMotherboardHandler = (motherboard: TypeMotherboard) => {
-  //   dispatch(addMotherboardToSetupAction(motherboard.id));
-  // };
-  //
-  // const addPowersuppliesHandler = (powersupplies: TypePowersupplies) => {
-  //   dispatch(addPowersupplyToSetupAction(powersupplies.id));
-  // };
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
@@ -89,6 +70,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             onAddFilter={addFilterHandler}
             onAddComponent={(cpu) => dispatch(addCpuToSetupAction(cpu.id))}
             onRemoveSelectedComponent={() => dispatch(removeCpuFromSetupAction())}
+            expanded={expanded === 'cpu'}
+            onChangeExpanded={setExpanded}
           />
           <GroupGpus
             filter={filter}
@@ -96,6 +79,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             onAddFilter={addFilterHandler}
             onAddComponent={(gpu) => dispatch(addGpuToSetupAction(gpu.id))}
             onRemoveSelectedComponent={() => dispatch(removeGpuFromSetupAction())}
+            expanded={expanded === 'gpu'}
+            onChangeExpanded={setExpanded}
           />
           <GroupRams
             filter={filter}
@@ -103,6 +88,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             onAddFilter={addFilterHandler}
             onAddComponent={(ram) => dispatch(addRamToSetupAction(ram.id))}
             onRemoveSelectedComponent={() => dispatch(removeRamFromSetupAction())}
+            expanded={expanded === 'ram'}
+            onChangeExpanded={setExpanded}
           />
           <GroupMotherboards
             filter={filter}
@@ -110,6 +97,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             onAddFilter={addFilterHandler}
             onAddComponent={(mb) => dispatch(addMotherboardToSetupAction(mb.id))}
             onRemoveSelectedComponent={() => dispatch(removeMotherboardFromSetupAction())}
+            expanded={expanded === 'motherboard'}
+            onChangeExpanded={setExpanded}
           />
           <GroupPowersupplies
             filter={filter}
@@ -117,6 +106,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             onAddFilter={addFilterHandler}
             onAddComponent={(ps) => dispatch(addPowersupplyToSetupAction(ps.id))}
             onRemoveSelectedComponent={() => dispatch(removePowersupplyFromSetupAction())}
+            expanded={expanded === 'powersupply'}
+            onChangeExpanded={setExpanded}
           />
         </Box>
       </Box>

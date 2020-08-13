@@ -21,6 +21,8 @@ type PropsType = {
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeCpu) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: string | false) => void;
 };
 
 const GroupCpus = ({
@@ -29,6 +31,8 @@ const GroupCpus = ({
   onAddFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [cpus, setCpus] = useState([] as TypeCpu[]);
@@ -90,7 +94,13 @@ const GroupCpus = ({
   }
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      // onChange={onChange}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'cpu' : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="CPU"
         title="CPU"
