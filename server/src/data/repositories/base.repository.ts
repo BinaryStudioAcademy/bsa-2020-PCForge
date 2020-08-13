@@ -1,5 +1,4 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
-import { reduceTo } from '../../helpers/filter.helper';
 import { IFilter } from './filters/base.filter';
 
 export type RichModel = typeof Model & {
@@ -24,10 +23,8 @@ export abstract class BaseRepository<M extends Model, F extends IFilter = IFilte
     return count;
   }
 
-  async getAll(params?: FindOptions, inputFilter?: F): Promise<IWithMeta<M>> {
-    const filter = inputFilter || new this.filterFactory();
-    const reducedFilter = reduceTo<F>(filter, this.filterFactory);
-    const { from: offset, count: limit } = reducedFilter;
+  async getAll(params?: FindOptions, filter?: F): Promise<IWithMeta<M>> {
+    const { from: offset, count: limit } = filter;
 
     const result = await this._model.findAndCountAll({
       order: [['id', 'ASC']],
