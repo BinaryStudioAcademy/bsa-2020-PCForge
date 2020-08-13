@@ -1,9 +1,9 @@
 import { IFilter } from './base.filter';
-import { FilterByIdType, notNull } from './types';
+import { IRamTypeFilter } from './ramType.filter';
 
 export class IRamFilter extends IFilter {
   constructor() {
     super();
   }
-  typeId: FilterByIdType = notNull;
+  type: IRamTypeFilter;
 }

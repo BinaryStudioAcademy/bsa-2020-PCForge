@@ -1,10 +1,11 @@
 import { IFilter } from './base.filter';
-import { FilterByIdType, notNull } from './types';
+import { IRamTypeFilter } from './ramType.filter';
+import { ISocketFilter } from './socket.filter';
 
 export class IMotherboardFilter extends IFilter {
   constructor() {
     super();
   }
-  ramTypeId: FilterByIdType = notNull;
-  socketId: FilterByIdType = notNull;
+  socket: ISocketFilter;
+  ramType: IRamTypeFilter;
 }
