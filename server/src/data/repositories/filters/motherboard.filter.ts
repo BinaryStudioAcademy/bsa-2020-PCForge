@@ -6,6 +6,6 @@ export class IMotherboardFilter extends IFilter {
   constructor() {
     super();
   }
-  socket: ISocketFilter;
-  ramType: IRamTypeFilter;
+  socket: ISocketFilter = new ISocketFilter();
+  ramType: IRamTypeFilter = new IRamTypeFilter();
 }

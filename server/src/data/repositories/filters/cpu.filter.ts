@@ -5,5 +5,5 @@ export class ICpuFilter extends IFilter {
   constructor() {
     super();
   }
-  socket: ISocketFilter;
+  socket: ISocketFilter = new ISocketFilter();
 }
