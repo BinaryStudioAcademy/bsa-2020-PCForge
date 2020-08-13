@@ -17,11 +17,19 @@ import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilter;
+  selectedComponent: TypeRam | null;
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeRam) => void;
+  onRemoveSelectedComponent: () => void;
 };
 
-const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+const GroupRams = ({
+  filter,
+  selectedComponent,
+  onAddFilter,
+  onAddComponent,
+  onRemoveSelectedComponent,
+}: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [rams, setRams] = useState([] as TypeRam[]);
   const [count, setCount] = useState(0);
@@ -48,7 +56,10 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   }, [filter, pagination]);
 
   const AddComponentHandler = (ram: TypeRam): void => {
-    onAddFilter({ ramTypeId: ram.typeId });
+    onAddFilter({
+      ...filter,
+      ramTypeId: ram.typeId,
+    });
     onAddComponent(ram);
   };
 
@@ -75,7 +86,13 @@ const GroupRams = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
 
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
-      <GroupItemSummary id="RAM" title="RAM" count={count} />
+      <GroupItemSummary
+        id="RAM"
+        title="RAM"
+        count={count}
+        nameComponent={selectedComponent ? selectedComponent.name : ''}
+        onClear={onRemoveSelectedComponent}
+      />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
