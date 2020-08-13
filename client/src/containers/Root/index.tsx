@@ -4,8 +4,8 @@ interface IProps {
   children: React.ReactElement;
 }
 
-export class RootComponent extends Component<{}, IProps> {
-  render() {
+export class RootComponent extends Component<Record<string, unknown>, IProps> {
+  render(): JSX.Element {
     return <div className={classes.content}>{this.props.children}</div>;
   }
 }

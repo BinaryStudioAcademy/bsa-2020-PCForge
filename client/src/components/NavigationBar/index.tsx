@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,6 +12,8 @@ import SetupIcon from './NavigationIcons/SetupIcon';
 import GameMatcherIcon from './NavigationIcons/GameMatcherIcon';
 import HardwareIcon from './NavigationIcons/HardwareIcon';
 import AdminToolsIcon from './NavigationIcons/AdminToolsIcon';
+
+import { Routes } from 'common/enums';
 
 import styles from './styles.module.scss';
 
@@ -28,16 +31,18 @@ const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultS
       <List className={styles.listIcons}>
         <NavigationLogo className={styles.logo} />
         {props.map((item, key) => (
-          <Tooltip title={item.name} key={`${key}-tooltip`} placement="right-start">
-            <ListItem
-              button
-              key={key}
-              className={`${styles.listItem} ${selected === key ? styles.selectedButon : ''}`}
-              onClick={() => setSelected(key)}
-            >
-              <div className={styles.icon}>{item.icon}</div>
-            </ListItem>
-          </Tooltip>
+          <Link key={`${key}-link`} to={item.link}>
+            <Tooltip title={item.name} key={`${key}-tooltip`} placement="right-start">
+              <ListItem
+                button
+                key={key}
+                className={`${styles.listItem} ${selected === key ? styles.selectedButon : ''}`}
+                onClick={() => setSelected(key)}
+              >
+                <div className={styles.icon}>{item.icon}</div>
+              </ListItem>
+            </Tooltip>
+          </Link>
         ))}
       </List>
     </Drawer>
@@ -48,22 +53,22 @@ const listHeader: Array<IListNavigatinBar> = [
   {
     name: 'Home',
     icon: <HomeIcon />,
-    link: '#',
+    link: Routes.DEFAULT,
   },
   {
     name: 'Build Setup',
     icon: <BuildSetupIcon />,
-    link: '#',
+    link: Routes.BUILDER,
   },
   {
     name: 'Setup',
     icon: <SetupIcon />,
-    link: '#',
+    link: Routes.SETUPS,
   },
   {
     name: 'Game Matcher',
     icon: <GameMatcherIcon />,
-    link: '#',
+    link: Routes.MATCHER,
   },
   {
     name: 'Hardware',

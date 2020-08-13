@@ -27,7 +27,9 @@ import {
   removeRamFromSetupAction,
   resetSetupAction,
 } from './actions';
-// import styles from './styles.module.scss';
+import { MenuItems } from '../../common/enums/MenuItems';
+import PageComponent from '../PageComponent';
+import styles from './styles.module.scss';
 
 type PropsType = {
   className?: string;
@@ -72,6 +74,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   // };
 
   return (
+    <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
     <Box className={className}>
       <BuilderTitle
         showResetSetup={Object.values(setup).some((e) => !!e)}
@@ -116,7 +119,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           onRemoveSelectedComponent={() => dispatch(removePowersupplyFromSetupAction())}
         />
       </Box>
-    </Box>
+    </PageComponent>
   );
 };
 
