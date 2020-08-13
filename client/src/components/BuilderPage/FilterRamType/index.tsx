@@ -42,12 +42,13 @@ const FilterRamTypes = ({ filter, onAddFilter }: PropsType): JSX.Element => {
 
   useEffect(() => {
     setValue(ramTypes.find((ram) => ram.id === filter.ramTypeId)?.name as string);
-  }, [filter]);
+  }, [ramTypes, filter]);
 
   const onChangeHandler = (ev: { target: { value: string } }) => {
     const name = ev.target.value;
     const id = ramTypes.find((ram) => ram.name === name)?.id as number;
     onAddFilter({
+      ...filter,
       ramTypeId: id,
     });
   };

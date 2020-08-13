@@ -59,7 +59,10 @@ const GroupCpus = ({
   }, [selectedComponent]);
 
   const AddComponentHandler = (cpu: TypeCpu): void => {
-    onAddFilter({ socketId: cpu.socketId });
+    onAddFilter({
+      ...filter,
+      socketId: cpu.socketId,
+    });
     onAddComponent(cpu);
   };
 

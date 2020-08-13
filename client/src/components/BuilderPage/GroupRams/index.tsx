@@ -56,7 +56,10 @@ const GroupRams = ({
   }, [filter, pagination]);
 
   const AddComponentHandler = (ram: TypeRam): void => {
-    onAddFilter({ ramTypeId: ram.typeId });
+    onAddFilter({
+      ...filter,
+      ramTypeId: ram.typeId,
+    });
     onAddComponent(ram);
   };
 

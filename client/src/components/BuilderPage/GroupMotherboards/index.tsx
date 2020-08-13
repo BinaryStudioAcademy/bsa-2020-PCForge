@@ -55,8 +55,11 @@ const GroupMotherboards = ({
   }, [filter, pagination]);
 
   const AddComponentHandler = (motherboard: TypeMotherboard): void => {
-    onAddFilter({ socketId: motherboard.socketId });
-    onAddFilter({ ramTypeId: motherboard.ramTypeId });
+    onAddFilter({
+      ...filter,
+      socketId: motherboard.socketId,
+      ramTypeId: motherboard.ramTypeId,
+    });
     onAddComponent(motherboard);
   };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
@@ -48,11 +48,12 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const dispatch = useDispatch();
 
   const addFilterHandler = (newFilter: TypeFilter) => {
-    setFilter({
-      ...filter,
-      ...newFilter,
-    });
+    setFilter(newFilter);
   };
+
+  useEffect(() => {
+    console.log('filter', filter);
+  }, [filter]);
 
   // const addCpuHandler = (cpu: TypeCpu) => {
   //   dispatch(addCpuToSetupAction(cpu.id));
