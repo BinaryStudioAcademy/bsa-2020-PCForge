@@ -5,16 +5,16 @@ import api from 'helpers/webApiHelper';
 
 export class AuthService {
   async login(data: IAuthPayload): Promise<User> {
-    const apiRoute: string = 'http://localhost:5001/api/auth/login';
+    const apiRoute = 'http://localhost:5001/api/auth/login';
 
     const response = await api.post(apiRoute, data);
     setToken(response.token);
 
-    return response;
+    return response.user;
   }
 
   async createUser(data: IAuthPayload): Promise<User> {
-    const apiRoute: string = 'http://localhost:5001/api/users';
+    const apiRoute = 'http://localhost:5001/api/users';
     const response = await api.post(apiRoute, data);
     return response;
   }
