@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import PageComponent from 'containers/PageComponent';
+import { MenuItems } from 'common/enums';
 import { Redirect } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
@@ -19,13 +21,19 @@ const UserPage = (props: Props) => {
     loadUser(parseInt(id));
   }, []);
 
-  if (showSpinner) {
-    return <Spinner load />;
-  } else if (loadedUser) {
-    return <UserInfo user={loadedUser} updateUser={userUpdate} />;
-  } else {
-    return <Redirect to="/404" />;
-  }
+  const renderContent = () => {
+    if (showSpinner) {
+      return <Spinner load />;
+    } else if (loadedUser) {
+      return <UserInfo user={loadedUser} updateUser={userUpdate} />;
+    } else {
+      return <Redirect to="/404" />;
+    }
+  };
+
+  return (<PageComponent selectedMenuItemNumber={MenuItems.User}>
+    {renderContent()}
+  </PageComponent>);
 };
 
 const mapState = (state: RootState) => ({
