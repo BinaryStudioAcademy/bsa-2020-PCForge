@@ -12,10 +12,14 @@ export class GpuRepository extends BaseRepository<GpuModel, IFilter> {
     return gpu;
   }
 
-  async getAllGpus(filter: IFilter): Promise<IWithMeta<GpuModel>> {
-    const gpus = await this.getAll(filter, {
-      group: ['gpu.id'],
-    });
+  async getAllGpus(inputFilter: IFilter): Promise<IWithMeta<GpuModel>> {
+    const filter = inputFilter || new IFilter();
+    const gpus = await this.getAll(
+      {
+        group: ['gpu.id'],
+      },
+      filter
+    );
     return gpus;
   }
 

@@ -29,18 +29,28 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel, IMot
     return motherboard;
   }
 
-  async getAllMotherboards(filter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
-    const motherboards = await this.getAll(filter, {
-      group: ['motherboard.id', 'socket.id', 'ramType.id'],
-      include: [
-        {
-          model: this.ramTypeModel,
-        },
-        {
-          model: this.socketModel,
-        },
-      ],
-    });
+  async getAllMotherboards(inputFilter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
+    const filter = inputFilter || new IMotherboardFilter();
+    const motherboards = await this.getAll(
+      {
+        group: ['motherboard.id', 'socket.id', 'ramType.id'],
+        include: [
+          {
+            model: this.ramTypeModel,
+            where: {
+              id: filter.ramType.id,
+            },
+          },
+          {
+            model: this.socketModel,
+            where: {
+              id: filter.socket.id,
+            },
+          },
+        ],
+      },
+      filter
+    );
     return motherboards;
   }
 

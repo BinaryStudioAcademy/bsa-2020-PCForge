@@ -11,10 +11,18 @@ export class CommentRepository extends BaseRepository<CommentModel, ICommentFilt
     return await this.getById(id);
   }
 
-  async getAllComments(filter: ICommentFilter): Promise<IWithMeta<CommentModel>> {
-    return await this.getAll(filter, {
-      group: ['comment.id'],
-    });
+  async getAllComments(inputFilter: ICommentFilter): Promise<IWithMeta<CommentModel>> {
+    const filter = inputFilter || new ICommentFilter();
+    return await this.getAll(
+      {
+        group: ['comment.id'],
+        where: {
+          commentableId: filter.commentableId,
+          commentableType: filter.commentableType,
+        },
+      },
+      filter
+    );
   }
 
   async createComment(inputComment: CommentCreationAttributes): Promise<CommentModel> {

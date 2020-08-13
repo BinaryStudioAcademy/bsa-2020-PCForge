@@ -1,6 +1,7 @@
 import { SocketCreationAttributes, SocketModel, SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
+import { ISocketFilter } from './filters/socket.filter';
 
 export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
   constructor(private model: SocketStatic) {
@@ -12,10 +13,17 @@ export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
     return socket;
   }
 
-  async getAllSockets(filter: IFilter): Promise<IWithMeta<SocketModel>> {
-    const sockets = await this.getAll(filter, {
-      group: ['socket.id'],
-    });
+  async getAllSockets(inputFilter: ISocketFilter): Promise<IWithMeta<SocketModel>> {
+    const filter = inputFilter || new ISocketFilter();
+    const sockets = await this.getAll(
+      {
+        group: ['socket.id'],
+        where: {
+          id: filter.id,
+        },
+      },
+      filter
+    );
     return sockets;
   }
 

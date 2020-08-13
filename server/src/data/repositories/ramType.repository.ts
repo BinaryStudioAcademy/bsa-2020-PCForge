@@ -12,10 +12,14 @@ export class RamTypeRepository extends BaseRepository<RamTypeModel, IFilter> {
     return ramType;
   }
 
-  async getAllRamTypes(filter: IFilter): Promise<IWithMeta<RamTypeModel>> {
-    const ramTypes = await this.getAll(filter, {
-      group: ['ramType.id'],
-    });
+  async getAllRamTypes(inputFilter: IFilter): Promise<IWithMeta<RamTypeModel>> {
+    const filter = inputFilter || new IFilter();
+    const ramTypes = await this.getAll(
+      {
+        group: ['ramType.id'],
+      },
+      filter
+    );
     return ramTypes;
   }
 

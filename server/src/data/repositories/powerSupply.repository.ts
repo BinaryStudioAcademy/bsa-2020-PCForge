@@ -12,10 +12,14 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, IFil
     return powerSupply;
   }
 
-  async getAllPowerSupplies(filter: IFilter): Promise<IWithMeta<PowerSupplyModel>> {
-    const powerSupplies = await this.getAll(filter, {
-      group: ['powerSupply.id'],
-    });
+  async getAllPowerSupplies(inputFilter: IFilter): Promise<IWithMeta<PowerSupplyModel>> {
+    const filter = inputFilter || new IFilter();
+    const powerSupplies = await this.getAll(
+      {
+        group: ['powerSupply.id'],
+      },
+      filter
+    );
     return powerSupplies;
   }
 

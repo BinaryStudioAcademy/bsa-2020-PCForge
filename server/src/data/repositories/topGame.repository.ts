@@ -52,40 +52,44 @@ export class TopGameRepository extends BaseRepository<TopGameModel, IFilter> {
     return topGame;
   }
 
-  async getAllTopGames(filter: IFilter): Promise<IWithMeta<TopGameModel>> {
-    const topGames = await this.getAll(filter, {
-      group: [
-        'topGame.id',
-        'game.id',
-        'game->recommendedCpu.id',
-        'game->minimalCpu.id',
-        'game->recommendedGpu.id',
-        'game->minimalGpu.id',
-      ],
-      include: [
-        {
-          model: this.gameModel,
-          include: [
-            {
-              model: this.cpuModel,
-              as: 'recommendedCpu',
-            },
-            {
-              model: this.cpuModel,
-              as: 'minimalCpu',
-            },
-            {
-              model: this.gpuModel,
-              as: 'recommendedGpu',
-            },
-            {
-              model: this.gpuModel,
-              as: 'minimalGpu',
-            },
-          ],
-        },
-      ],
-    });
+  async getAllTopGames(inputFilter: IFilter): Promise<IWithMeta<TopGameModel>> {
+    const filter = inputFilter || new IFilter();
+    const topGames = await this.getAll(
+      {
+        group: [
+          'topGame.id',
+          'game.id',
+          'game->recommendedCpu.id',
+          'game->minimalCpu.id',
+          'game->recommendedGpu.id',
+          'game->minimalGpu.id',
+        ],
+        include: [
+          {
+            model: this.gameModel,
+            include: [
+              {
+                model: this.cpuModel,
+                as: 'recommendedCpu',
+              },
+              {
+                model: this.cpuModel,
+                as: 'minimalCpu',
+              },
+              {
+                model: this.gpuModel,
+                as: 'recommendedGpu',
+              },
+              {
+                model: this.gpuModel,
+                as: 'minimalGpu',
+              },
+            ],
+          },
+        ],
+      },
+      filter
+    );
     return topGames;
   }
 

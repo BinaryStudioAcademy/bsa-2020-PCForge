@@ -21,15 +21,22 @@ export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
     return ram;
   }
 
-  async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
-    const rams = await this.getAll(filter, {
-      group: ['ram.id', 'ramType.id'],
-      include: [
-        {
-          model: this.ramTypeModel,
-        },
-      ],
-    });
+  async getAllRams(inputFilter: IRamFilter): Promise<IWithMeta<RamModel>> {
+    const filter = inputFilter || new IRamFilter();
+    const rams = await this.getAll(
+      {
+        group: ['ram.id', 'ramType.id'],
+        include: [
+          {
+            model: this.ramTypeModel,
+            where: {
+              id: filter.type.id,
+            },
+          },
+        ],
+      },
+      filter
+    );
     return rams;
   }
 

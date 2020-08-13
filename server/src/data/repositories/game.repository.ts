@@ -34,28 +34,33 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
     return game;
   }
 
-  async getAllGames(filter: IGameFilter): Promise<IWithMeta<GameModel>> {
-    const games = await this.getAll(filter, {
-      group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
-      include: [
-        {
-          model: this.cpuModel,
-          as: 'recommendedCpu',
-        },
-        {
-          model: this.cpuModel,
-          as: 'minimalCpu',
-        },
-        {
-          model: this.gpuModel,
-          as: 'recommendedGpu',
-        },
-        {
-          model: this.gpuModel,
-          as: 'minimalGpu',
-        },
-      ],
-    });
+  async getAllGames(inputFilter: IGameFilter): Promise<IWithMeta<GameModel>> {
+    const filter = inputFilter || new IGameFilter();
+    const games = await this.getAll(
+      {
+        group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
+        where: { year: filter.year },
+        include: [
+          {
+            model: this.cpuModel,
+            as: 'recommendedCpu',
+          },
+          {
+            model: this.cpuModel,
+            as: 'minimalCpu',
+          },
+          {
+            model: this.gpuModel,
+            as: 'recommendedGpu',
+          },
+          {
+            model: this.gpuModel,
+            as: 'minimalGpu',
+          },
+        ],
+      },
+      filter
+    );
     return games;
   }
 

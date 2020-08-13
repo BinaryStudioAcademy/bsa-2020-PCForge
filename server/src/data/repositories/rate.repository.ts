@@ -11,10 +11,18 @@ export class RateRepository extends BaseRepository<RateModel, IRateFilter> {
     return await this.getById(id);
   }
 
-  async getAllRates(filter: IRateFilter): Promise<IWithMeta<RateModel>> {
-    return await this.getAll(filter, {
-      group: ['rate.id'],
-    });
+  async getAllRates(inputFilter: IRateFilter): Promise<IWithMeta<RateModel>> {
+    const filter = inputFilter || new IRateFilter();
+    return await this.getAll(
+      {
+        group: ['rate.id'],
+        where: {
+          ratebleType: filter.ratebleType,
+          ratebleId: filter.ratebleId,
+        },
+      },
+      filter
+    );
   }
 
   async createRate(inputRate: RateCreationAttributes): Promise<RateModel> {
