@@ -166,7 +166,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           dataToUpdate.password = password;
         }
 
-        updateUser(dataToUpdate, oldPassword || undefined);
+        updateUser(dataToUpdate, oldPassword || '');
 
         setEditableInput(false);
         setRequireOldPassword(false);
@@ -286,7 +286,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
               className={styles.autoFocused}
               icon="VpnKey"
               type="password"
-              placeholder="Old password"
+              placeholder="Confirm your current password"
               value={oldPassword}
               onChange={handleOldPasswordChange}
               inputType={oldPassword ? undefined : InputType.warning}
