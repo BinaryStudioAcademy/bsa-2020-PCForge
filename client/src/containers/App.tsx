@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Routes, MenuItems } from 'common/enums';
+import { Routes } from 'common/enums';
 import UserPage from 'containers/UserPage';
 import Chart from 'containers/Chart';
 import GameMatcherPage from './GameMatcher';
