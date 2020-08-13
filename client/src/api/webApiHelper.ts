@@ -1,16 +1,23 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
-import { getToken } from './tokenHelper';
+import { getToken } from 'helpers/tokenHelper';
+
+const BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
 class Api {
+  baseUrl: string;
   instance: AxiosInstance;
   constructor() {
+    this.baseUrl = BASE_URL;
     this.instance = axios.create({
+      baseURL: BASE_URL,
       headers: {
         'Content-Type': 'application/json',
       },
     });
   }
 
+  // TODO: remove any. (maybe use generics?)
   async get(url: string, params?: any) {
     await this.checkAuthToken();
     return await this.instance

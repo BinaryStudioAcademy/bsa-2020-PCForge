@@ -43,7 +43,7 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
     },
     password: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(60),
     },
     email: {
       allowNull: false,

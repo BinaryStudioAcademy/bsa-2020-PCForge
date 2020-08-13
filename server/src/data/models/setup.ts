@@ -9,6 +9,14 @@ export interface SetupAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface SetupCreationAttributes {
+  title: string;
+  description: string;
+  image: string;
+  authorId: number;
+}
+
 export interface SetupModel extends Model<SetupAttributes>, SetupAttributes {}
 export class Setup extends Model<SetupModel, SetupAttributes> {}
 

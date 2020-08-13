@@ -3,9 +3,17 @@ import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 export interface CommentAttributes {
   id: number;
   commentableType: string;
+  userId: number;
   commentableId: number;
   createdAt: Date;
   updatedAt: Date;
+  value: string;
+}
+export interface CommentCreationAttributes {
+  commentableType: string;
+  userId: number;
+  commentableId: number;
+  value: string;
 }
 export interface CommentModel extends Model<CommentAttributes>, CommentAttributes {}
 export class Comment extends Model<CommentModel, CommentAttributes> {}
@@ -25,6 +33,14 @@ export function CommentFactory(sequelize: Sequelize): CommentStatic {
       allowNull: false,
       type: DataTypes.STRING(50),
     },
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id',
+      },
+    },
     commentableId: {
       allowNull: false,
       type: DataTypes.INTEGER,
@@ -39,5 +55,9 @@ export function CommentFactory(sequelize: Sequelize): CommentStatic {
       allowNull: false,
       defaultValue: DataTypes.NOW,
     },
+    value: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   });
 }

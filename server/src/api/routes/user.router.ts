@@ -16,10 +16,14 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(users);
   });
 
-  fastify.get('/:id', {}, async function (request: GetOneUserRequest) {
+  fastify.get('/:id', {}, async function (request: GetOneUserRequest, reply) {
     const { id } = request.params;
-    const user = UserService.getUser(id);
-    return user;
+    const user = await UserService.getUser(id);
+    if (user) {
+      reply.send(user);
+    } else {
+      reply.code(404).type('text/html').send('Not Found');
+    }
   });
 
   fastify.post('/', {}, async (request: PostUserRequest, reply) => {
@@ -32,8 +36,17 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   fastify.put('/:id', {}, async (request: PutUserRequest, reply) => {
     const { id } = request.params;
-    const user = await UserService.updateUser(id, request.body);
-    reply.send(user);
+    const { body } = request;
+    const oldPassword = body.oldPassword || undefined;
+    try {
+      if (oldPassword) {
+        delete body.oldPassword;
+      }
+      const user = await UserService.updateUser(id, body, oldPassword);
+      reply.send(user);
+    } catch (error) {
+      reply.code(500).type('text/html').send(error.message);
+    }
   });
 
   fastify.delete('/:id', {}, async (request: DeleteUserRequest, reply) => {

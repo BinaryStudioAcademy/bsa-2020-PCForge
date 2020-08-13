@@ -49,10 +49,21 @@ export class UserService {
     return user;
   }
 
-  async updateUser(id: string, inputUser: UserCreateAttributes): Promise<UserModel> {
-    const oldUser = this.repository.getById(id);
+  async updateUser(id: string, inputUser: UserCreateAttributes, oldPassword?: string): Promise<UserModel> {
+    const oldUser = await this.repository.getById(id);
     if (!oldUser) {
-      throw new Error(`User with id: ${id} does not exists`);
+      throw new Error(`User with id: ${id} does not exist`);
+    }
+
+    if (inputUser.password || inputUser.email !== oldUser.email) {
+      const passwordsMatch = await bcrypt.compare(oldPassword, oldUser.password);
+      if (!passwordsMatch) {
+        throw new Error('Invalid password');
+      }
+    }
+
+    if (inputUser.password) {
+      inputUser.password = this.hash(inputUser.password);
     }
 
     const user = await this.repository.updateById(id, inputUser);
