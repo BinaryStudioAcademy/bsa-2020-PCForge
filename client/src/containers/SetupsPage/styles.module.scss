@@ -16,3 +16,43 @@
     grid-template-columns: 1fr;
   }
 }
+
+.contentBody {
+  margin: 20px 60px;
+}
+
+.mainContent {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+
+  .leftContent {
+    width: 75%;
+  }
+  .rightContent {
+    margin-left: 40px;
+    width: 25%;
+  }
+}
+
+.spinnerWrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1400px) {
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    .leftContent {
+      width: 100%;
+    }
+    .rightContent {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+}

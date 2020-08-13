@@ -42,12 +42,13 @@ const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
 
   useEffect(() => {
     setValue(sockets.find((s) => s.id === filter.socketId)?.name as string);
-  }, [filter]);
+  }, [sockets, filter]);
 
   const onChangeHandler = (ev: { target: { value: string } }) => {
     const name = ev.target.value;
     const id = sockets.find((s) => s.name === name)?.id as number;
     onAddFilter({
+      ...filter,
       socketId: id,
     });
   };

@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './styles.module.scss';
 
-const Footer = () => (
+const Footer = (): JSX.Element => (
   <div className={classes.footer}>
     <div className={classes.wrapper}>
       <div className={classes.item}>

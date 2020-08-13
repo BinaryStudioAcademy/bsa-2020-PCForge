@@ -1,7 +1,6 @@
-@import '../../styles/variables.sass';
+@import '../../styles/variables.scss';
 
 .navigationBar {
-
   .listIcons {
     padding: 10px 20px;
     height: 100%;
@@ -18,7 +17,6 @@
       border-radius: 12px;
     }
 
-
     .listItem {
       margin: 15px 0;
       width: 40px;
@@ -29,7 +27,7 @@
       justify-content: center;
       align-content: center;
 
-      &:hover{
+      &:hover {
         border: 1px solid $colorRed;
       }
 
@@ -43,6 +41,3 @@
     }
   }
 }
-
-
-

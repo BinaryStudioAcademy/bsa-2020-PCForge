@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Pagination from '@material-ui/lab/Pagination';
 import styles from './styles.module.scss';
@@ -21,7 +21,7 @@ const Paginator = ({ countComponents, countComponentsOnPage, setPagination }: Pr
     });
   }, [countComponents]);
 
-  const onChangeHandler = (event: object, page: number) => {
+  const onChangeHandler = (event: ChangeEvent<unknown>, page: number) => {
     setPage(page);
     setPagination({
       from: (page - 1) * countComponentsOnPage,

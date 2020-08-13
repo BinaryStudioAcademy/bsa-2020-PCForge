@@ -1,5 +1,6 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
-import { FilterDefaults, IFilter } from './repositoriesFilterInterfaces';
+import { reduceTo } from '../../helpers/filter.helper';
+import { IFilter } from './filters/base.filter';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
@@ -15,27 +16,28 @@ export interface IWithMeta<M extends Model> {
   data: M[];
 }
 
-export abstract class BaseRepository<M extends Model> {
-  constructor(private _model: RichModel) {}
+export abstract class BaseRepository<M extends Model, F extends IFilter = IFilter> {
+  constructor(private _model: RichModel, private filterFactory: new () => F) {}
 
-  async getAll(filter?: IFilter, params?: FindOptions): Promise<IWithMeta<M>> {
-    let result = [];
-    const { from: offset, count: limit, ...uniqueFilters } = { ...FilterDefaults, ...filter };
-    if (params) {
-      result = await this._model.findAll({
-        order: [['id', 'ASC']],
-        offset: offset,
-        limit: limit,
-        ...params,
-      });
-    } else {
-      result = await this._model.findAll();
-    }
-    const globalCount = await this._model.count();
-    let countAfterFiltering = globalCount;
-    if (filter) {
-      countAfterFiltering = await this._model.count({ where: { ...uniqueFilters } });
-    }
+  private async getCount(where?: Record<string, unknown>): Promise<number> {
+    const count = await this._model.count({ where });
+    return count;
+  }
+
+  async getAll(filter?: F, params?: FindOptions): Promise<IWithMeta<M>> {
+    const { from: offset, count: limit, ...uniqueFilters } = reduceTo<F>(filter, this.filterFactory);
+
+    const result = await this._model.findAll({
+      order: [['id', 'ASC']],
+      where: uniqueFilters,
+      offset: offset,
+      limit: limit,
+      ...params,
+    });
+
+    const globalCount = await this.getCount();
+    const countAfterFiltering = await this.getCount({ ...uniqueFilters });
+
     return {
       meta: { globalCount, countAfterFiltering },
       data: result as M[],
