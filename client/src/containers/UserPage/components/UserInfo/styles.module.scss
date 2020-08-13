@@ -9,9 +9,9 @@
   margin-bottom: 30px;
 
   @media (max-width: 768px) {
-    width:90%;
+    width: 90%;
     flex-direction: column;
-    align-items: center;  
+    align-items: center;
     margin-top: 20px;
     height: auto;
   }
@@ -25,7 +25,7 @@
   border-radius: 10px;
 
   @media (max-width: 768px) {
-    width:100%; 
+    width: 100%;
     margin-top: 0px;
     overflow: none;
     border-top-right-radius: 0px;
@@ -43,12 +43,13 @@
   background-color: $colorDarkGray;
   padding: 10px;
   border-radius: 10px;
-  overflow:auto;
+  overflow: auto;
 
   @media (max-width: 768px) {
-    width:100%; 
-    margin:0 10px;
-    height:auto;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 10px;
+    height: auto;
     align-items: flex-start;
     padding-bottom: 0;
     margin-bottom: 0;
@@ -57,16 +58,15 @@
   }
 
   @media (min-width: 550px)and (max-width: 768px) {
-    width:100%; 
-    padding:20px;
-    height:auto;
+    width: 100%;
+    padding: 20px;
+    height: auto;
     flex-direction: row;
     justify-content: space-around;
-   
   }
 
   @media (max-width: 549px) {
-    min-height:350px;
+    min-height: 350px;
     align-items: center;
     position: relative;
   }
@@ -74,7 +74,7 @@
   .userImage {
     margin-top: 20px;
     margin-bottom: 15px;
-    width:80%;
+    width: 80%;
 
     .imageLink {
       display: block;
@@ -83,24 +83,24 @@
 
     @media (min-width: 550px) and (max-width: 768px) {
       margin: 10px auto;
-      width:155px;
+      width: 155px;
       align-self: flex-start;
     }
 
-    @media (max-width: 549px) { 
-      width:90%;
+    @media (max-width: 549px) {
+      width: 90%;
       align-self: center;
     }
-    
+
     img {
-      width:90%;
+      width: 90%;
       border-radius: 20px;
       object-fit: contain;
       box-shadow: 0px 0px 5px 7px rgba(0, 0, 0, 0.1);
 
       @media (max-width: 549px) {
-      border-radius: 50%;
-      width:40%;
+        border-radius: 50%;
+        width: 40%;
       }
     }
   }
@@ -109,69 +109,72 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    height:100%;
-    width:90%;
+    height: 100%;
+    width: 90%;
     position: relative;
     padding-bottom: 60px;
 
-    & > div {
+    &>div {
       margin-bottom: 15px;
     }
 
     .buttonsContainer {
-     position: absolute;
-     bottom:0;
-     margin-top: auto;
-     margin-bottom: 20px;
-     width: 100%;
-     display: flex;
-     justify-content: space-between;
+      position: absolute;
+      bottom: 0;
+      margin-top: auto;
+      margin-bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
 
-     & button {
-       flex: 1;
-     }
+      & button {
+        flex: 1;
+      }
 
-     & button:nth-child(2) {
-       flex: 1;
-       margin-left:10px;
-     }
+      & button:nth-child(2) {
+        flex: 1;
+        margin-left: 10px;
+      }
 
-     @media (max-width: 768px) {
-      position: static;
-      margin-top: 20px;
+      @media (max-width: 768px) {
+        position: static;
+        margin-top: 20px;
       }
     }
-    
+
     & p {
       font-size: 24px;
     }
 
     @media (max-width: 768px) {
-      width:50%;
-      margin:10px;
+      width: 50%;
+      margin: 10px;
       padding-bottom: 0;
     }
+
     @media (max-width: 549px) {
-      width:100%;
-      margin:10px;
+      width: 100%;
+      margin: 10px;
       padding-bottom: 0;
     }
   }
 }
 
-.autoFocused > div {
+.autoFocused>div {
   background-color: rgb(51, 50, 50) !important;
 }
 
 // Tab component
 .tabsBar {
   background-color: rgb(19, 18, 18) !important;
-  & > div > div > div > div > span {
+
+  &>div>div>div>div>span {
     color: #EB3D55;
   }
 
-  & > div > div > div {
+  &>div>div>div {
     justify-content: space-evenly;
+
     button {
       flex: 1;
       max-width: none;

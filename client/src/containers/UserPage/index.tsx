@@ -31,9 +31,7 @@ const UserPage = (props: Props) => {
     }
   };
 
-  return (<PageComponent selectedMenuItemNumber={MenuItems.User}>
-    {renderContent()}
-  </PageComponent>);
+  return <PageComponent selectedMenuItemNumber={MenuItems.User}>{renderContent()}</PageComponent>;
 };
 
 const mapState = (state: RootState) => ({
