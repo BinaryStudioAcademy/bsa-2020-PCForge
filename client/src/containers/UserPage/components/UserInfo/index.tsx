@@ -116,6 +116,14 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     },
   ];
 
+  const emptyErrorMessages = {
+    emailErrorMessage: null,
+    passwordErrorMessage: null,
+    nameErrorMessage: null,
+    confirmedPasswordErrorMessage: null,
+    oldPasswordErrorMessage: null,
+  };
+
   const [selectedTab, setSelectedTab] = useState(0);
   const [editableInput, setEditableInput] = useState(false);
   const [requireOldPassword, setRequireOldPassword] = useState(false);
@@ -125,13 +133,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
-  const [errorMessages, setErrorMessages] = useState({
-    emailErrorMessage: null,
-    passwordErrorMessage: null,
-    nameErrorMessage: null,
-    confirmedPasswordErrorMessage: null,
-    oldPasswordErrorMessage: null,
-  });
+  const [errorMessages, setErrorMessages] = useState(emptyErrorMessages);
 
   const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
@@ -185,6 +187,8 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     setPassword('');
     setOldPassword('');
     setConfirmedPassword('');
+
+    setErrorMessages(emptyErrorMessages);
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
