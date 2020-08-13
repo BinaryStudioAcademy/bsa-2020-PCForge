@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
 import GroupCpus from 'components/BuilderPage/GroupCpus';
@@ -12,6 +13,20 @@ import { TypeGpu } from 'common/models/typeGpu';
 import { TypeRam } from 'common/models/typeRam';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { TypeSetup } from './reducer';
+import {
+  addCpuToSetupAction,
+  addGpuToSetupAction,
+  addMotherboardToSetupAction,
+  addPowersupplyToSetupAction,
+  addRamToSetupAction,
+  removeCpuFromSetupAction,
+  removeGpuFromSetupAction,
+  removeMotherboardFromSetupAction,
+  removePowersupplyFromSetupAction,
+  removeRamFromSetupAction,
+  resetSetupAction,
+} from './actions';
 // import styles from './styles.module.scss';
 
 type PropsType = {
@@ -28,7 +43,9 @@ type TypeBuild = {
 
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const [filter, setFilter] = useState({} as TypeFilter);
-  const [build, setBuild] = useState({} as TypeBuild);
+
+  const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
+  const dispatch = useDispatch();
 
   const addFilterHandler = (newFilter: TypeFilter) => {
     setFilter({
@@ -37,35 +54,65 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     });
   };
 
-  const addCpuHandler = (cpu: TypeCpu) => {
-    setBuild({ ...build, cpu });
-  };
-
-  const addGpuHandler = (gpu: TypeGpu) => {
-    setBuild({ ...build, gpu });
-  };
-
-  const addRamHandler = (ram: TypeRam) => {
-    setBuild({ ...build, ram });
-  };
-
-  const addMotherboardHandler = (motherboard: TypeMotherboard) => {
-    setBuild({ ...build, motherboard });
-  };
-
-  const addPowersuppliesHandler = (powersupplies: TypePowersupplies) => {
-    setBuild({ ...build, powersupplies });
-  };
+  // const addCpuHandler = (cpu: TypeCpu) => {
+  //   dispatch(addCpuToSetupAction(cpu.id));
+  // };
+  //
+  // const addGpuHandler = (gpu: TypeGpu) => {
+  //   dispatch(addGpuToSetupAction(gpu.id));
+  // };
+  //
+  // const addRamHandler = (ram: TypeRam) => {
+  //   dispatch(addRamToSetupAction(ram.id));
+  // };
+  //
+  // const addMotherboardHandler = (motherboard: TypeMotherboard) => {
+  //   dispatch(addMotherboardToSetupAction(motherboard.id));
+  // };
+  //
+  // const addPowersuppliesHandler = (powersupplies: TypePowersupplies) => {
+  //   dispatch(addPowersupplyToSetupAction(powersupplies.id));
+  // };
 
   return (
     <Box className={className}>
-      <BuilderTitle />
+      <BuilderTitle showReset={Object.values(setup).some((e) => !!e)} onReset={() => dispatch(resetSetupAction())} />
       <Box>
-        <GroupCpus filter={filter} onAddFilter={addFilterHandler} onAddComponent={addCpuHandler} />
-        <GroupGpus filter={filter} onAddFilter={addFilterHandler} onAddComponent={addGpuHandler} />
-        <GroupRams filter={filter} onAddFilter={addFilterHandler} onAddComponent={addRamHandler} />
-        <GroupMotherboards filter={filter} onAddFilter={addFilterHandler} onAddComponent={addMotherboardHandler} />
-        <GroupPowersupplies filter={filter} onAddFilter={addFilterHandler} onAddComponent={addPowersuppliesHandler} />
+        <GroupCpus
+          filter={filter}
+          selectedComponent={setup.cpu}
+          onAddFilter={addFilterHandler}
+          onAddComponent={(cpu) => dispatch(addCpuToSetupAction(cpu.id))}
+          onRemoveSelectedComponent={() => dispatch(removeCpuFromSetupAction())}
+        />
+        <GroupGpus
+          filter={filter}
+          selectedComponent={setup.gpu}
+          onAddFilter={addFilterHandler}
+          onAddComponent={(gpu) => dispatch(addGpuToSetupAction(gpu.id))}
+          onRemoveSelectedComponent={() => dispatch(removeGpuFromSetupAction())}
+        />
+        <GroupRams
+          filter={filter}
+          selectedComponent={setup.ram}
+          onAddFilter={addFilterHandler}
+          onAddComponent={(ram) => dispatch(addRamToSetupAction(ram.id))}
+          onRemoveSelectedComponent={() => dispatch(removeRamFromSetupAction())}
+        />
+        <GroupMotherboards
+          filter={filter}
+          selectedComponent={setup.motherboard}
+          onAddFilter={addFilterHandler}
+          onAddComponent={(mb) => dispatch(addMotherboardToSetupAction(mb.id))}
+          onRemoveSelectedComponent={() => dispatch(removeMotherboardFromSetupAction())}
+        />
+        <GroupPowersupplies
+          filter={filter}
+          selectedComponent={setup.powersupply}
+          onAddFilter={addFilterHandler}
+          onAddComponent={(ps) => dispatch(addPowersupplyToSetupAction(ps.id))}
+          onRemoveSelectedComponent={() => dispatch(removePowersupplyFromSetupAction())}
+        />
       </Box>
     </Box>
   );

@@ -16,11 +16,19 @@ import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilter;
+  selectedComponent: TypePowersupplies | null;
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypePowersupplies) => void;
+  onRemoveSelectedComponent: () => void;
 };
 
-const GroupPowersupplies = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+const GroupPowersupplies = ({
+  filter,
+  selectedComponent,
+  onAddFilter,
+  onAddComponent,
+  onRemoveSelectedComponent,
+}: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [powersupplies, setPowersupplies] = useState([] as TypePowersupplies[]);
   const [count, setCount] = useState(0);
@@ -66,7 +74,13 @@ const GroupPowersupplies = ({ filter, onAddFilter, onAddComponent }: PropsType):
 
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
-      <GroupItemSummary id="Power supply" title="Power supply" count={count} />
+      <GroupItemSummary
+        id="Power supply"
+        title="Power supply"
+        count={count}
+        nameComponent={selectedComponent ? selectedComponent.name : ''}
+        onClear={onRemoveSelectedComponent}
+      />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>

@@ -17,11 +17,19 @@ import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilter;
+  selectedComponent: TypeCpu | null;
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeCpu) => void;
+  onRemoveSelectedComponent: () => void;
 };
 
-const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+const GroupCpus = ({
+  filter,
+  selectedComponent,
+  onAddFilter,
+  onAddComponent,
+  onRemoveSelectedComponent,
+}: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [cpus, setCpus] = useState([] as TypeCpu[]);
   const [count, setCount] = useState(0);
@@ -45,6 +53,10 @@ const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
   useEffect(() => {
     getCpus();
   }, [filter, pagination]);
+
+  useEffect(() => {
+    console.log('selectedComponent: ', selectedComponent);
+  }, [selectedComponent]);
 
   const AddComponentHandler = (cpu: TypeCpu): void => {
     onAddFilter({ socketId: cpu.socketId });
@@ -72,7 +84,13 @@ const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
 
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
-      <GroupItemSummary id="CPU" title="CPU" count={count} />
+      <GroupItemSummary
+        id="CPU"
+        title="CPU"
+        count={count}
+        nameComponent={selectedComponent ? selectedComponent.name : ''}
+        onClear={onRemoveSelectedComponent}
+      />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>

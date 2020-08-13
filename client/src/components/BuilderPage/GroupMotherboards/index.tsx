@@ -17,11 +17,19 @@ import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilter;
+  selectedComponent: TypeMotherboard | null;
   onAddFilter: ({}: TypeFilter) => void;
   onAddComponent: ({}: TypeMotherboard) => void;
+  onRemoveSelectedComponent: () => void;
 };
 
-const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Element => {
+const GroupMotherboards = ({
+  filter,
+  selectedComponent,
+  onAddFilter,
+  onAddComponent,
+  onRemoveSelectedComponent,
+}: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [motherboards, setMotherboards] = useState([] as TypeMotherboard[]);
   const [count, setCount] = useState(0);
@@ -70,7 +78,13 @@ const GroupMotherboards = ({ filter, onAddFilter, onAddComponent }: PropsType): 
 
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
-      <GroupItemSummary id="Motherboard" title="Motherboard" count={count} />
+      <GroupItemSummary
+        id="Motherboard"
+        title="Motherboard"
+        count={count}
+        nameComponent={selectedComponent ? selectedComponent.name : ''}
+        onClear={onRemoveSelectedComponent}
+      />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
