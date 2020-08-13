@@ -72,7 +72,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
     const state = this.props.authState;
 
     if (state.user) {
-      return <Redirect to={Routes.USER} />;
+      return <Redirect to={'/'} />;
     }
 
     return (

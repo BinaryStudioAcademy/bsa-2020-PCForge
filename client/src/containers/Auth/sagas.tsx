@@ -1,6 +1,6 @@
 import { call, put, takeEvery, all } from 'redux-saga/effects';
 import { loginRequestAction, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST } from './actionTypes';
-import { authService, AuthService } from 'api/services/auth.service';
+import { authService } from 'api/services/auth.service';
 import { User } from 'common/models/user';
 import { IAuthPayload } from './interfaces';
 
