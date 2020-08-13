@@ -1,6 +1,7 @@
 import { RamTypeCreationAttributes, RamTypeModel, RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
+import { mergeFilters } from './filters/helper';
 
 export class RamTypeRepository extends BaseRepository<RamTypeModel, IFilter> {
   constructor(private model: RamTypeStatic) {
@@ -13,7 +14,7 @@ export class RamTypeRepository extends BaseRepository<RamTypeModel, IFilter> {
   }
 
   async getAllRamTypes(inputFilter: IFilter): Promise<IWithMeta<RamTypeModel>> {
-    const filter = inputFilter || new IFilter();
+    const filter = mergeFilters<IFilter>(new IFilter(), inputFilter);
     const ramTypes = await this.getAll(
       {
         group: ['ramType.id'],

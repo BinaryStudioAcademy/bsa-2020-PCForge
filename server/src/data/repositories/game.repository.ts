@@ -3,6 +3,7 @@ import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { CpuStatic } from '../models/cpu';
 import { GpuStatic } from '../models/gpu';
 import { IGameFilter } from './filters/game.filter';
+import { mergeFilters } from './filters/helper';
 
 export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
   constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
@@ -35,7 +36,7 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
   }
 
   async getAllGames(inputFilter: IGameFilter): Promise<IWithMeta<GameModel>> {
-    const filter = inputFilter || new IGameFilter();
+    const filter = mergeFilters<IGameFilter>(new IGameFilter(), inputFilter);
     const games = await this.getAll(
       {
         group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],

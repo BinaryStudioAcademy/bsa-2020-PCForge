@@ -1,5 +1,6 @@
 import { RateCreationAttributes, RateModel, RateStatic } from '../models/rate';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
+import { mergeFilters } from './filters/helper';
 import { IRateFilter } from './filters/rate.filter';
 
 export class RateRepository extends BaseRepository<RateModel, IRateFilter> {
@@ -12,7 +13,7 @@ export class RateRepository extends BaseRepository<RateModel, IRateFilter> {
   }
 
   async getAllRates(inputFilter: IRateFilter): Promise<IWithMeta<RateModel>> {
-    const filter = inputFilter || new IRateFilter();
+    const filter = mergeFilters<IRateFilter>(new IRateFilter(), inputFilter);
     return await this.getAll(
       {
         group: ['rate.id'],

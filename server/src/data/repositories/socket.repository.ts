@@ -1,6 +1,7 @@
 import { SocketCreationAttributes, SocketModel, SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
+import { mergeFilters } from './filters/helper';
 import { ISocketFilter } from './filters/socket.filter';
 
 export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
@@ -14,7 +15,7 @@ export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
   }
 
   async getAllSockets(inputFilter: ISocketFilter): Promise<IWithMeta<SocketModel>> {
-    const filter = inputFilter || new ISocketFilter();
+    const filter = mergeFilters<ISocketFilter>(new ISocketFilter(), inputFilter);
     const sockets = await this.getAll(
       {
         group: ['socket.id'],

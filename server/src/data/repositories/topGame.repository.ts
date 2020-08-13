@@ -4,6 +4,7 @@ import { GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { GameStatic } from '../models/game';
 import { IFilter } from './filters/base.filter';
+import { mergeFilters } from './filters/helper';
 
 export class TopGameRepository extends BaseRepository<TopGameModel, IFilter> {
   constructor(
@@ -53,7 +54,7 @@ export class TopGameRepository extends BaseRepository<TopGameModel, IFilter> {
   }
 
   async getAllTopGames(inputFilter: IFilter): Promise<IWithMeta<TopGameModel>> {
-    const filter = inputFilter || new IFilter();
+    const filter = mergeFilters<IFilter>(new IFilter(), inputFilter);
     const topGames = await this.getAll(
       {
         group: [
