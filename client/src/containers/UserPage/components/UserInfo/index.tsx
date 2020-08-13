@@ -16,7 +16,7 @@ enum UserPageTabs {
 
 interface IUserInfoProps {
   user: TypeUser;
-  updateUser: (data: TypeUser, oldPassword?: string) => UserActionTypes;
+  updateUser: (data: TypeUser, avatarData?: Blob, oldPassword?: string) => UserActionTypes;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
@@ -116,7 +116,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     },
   ];
 
-  const emptyErrorMessages = {
+  const initialErrorMessages = {
     emailErrorMessage: null,
     passwordErrorMessage: null,
     nameErrorMessage: null,
@@ -124,16 +124,18 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     oldPasswordErrorMessage: null,
   };
 
+  const initialAvatar = user.avatar || 'https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg';
+
   const [selectedTab, setSelectedTab] = useState(0);
   const [editableInput, setEditableInput] = useState(false);
   const [requireOldPassword, setRequireOldPassword] = useState(false);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
-  const [avatar, setAvatar] = useState('https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg');
+  const [avatar, setAvatar] = useState(initialAvatar);
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
-  const [errorMessages, setErrorMessages] = useState(emptyErrorMessages);
+  const [errorMessages, setErrorMessages] = useState(initialErrorMessages);
 
   const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
@@ -166,7 +168,9 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           dataToUpdate.password = password;
         }
 
-        updateUser(dataToUpdate, oldPassword || '');
+        const avatarData = (imageInputRef.current?.files && imageInputRef.current?.files[0]) || undefined;
+
+        updateUser(dataToUpdate, avatarData, oldPassword || '');
 
         setEditableInput(false);
         setRequireOldPassword(false);
@@ -182,13 +186,14 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const handleCancel = (event: React.MouseEvent) => {
     setEditableInput(false);
     setRequireOldPassword(false);
+    setAvatar(initialAvatar);
     setName(user.name);
     setEmail(user.email);
     setPassword('');
     setOldPassword('');
     setConfirmedPassword('');
 
-    setErrorMessages(emptyErrorMessages);
+    setErrorMessages(initialErrorMessages);
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -211,8 +216,10 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const handleOldPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setOldPassword(event.target.value);
   };
-  const handleChangeImage = () => {
-    // TODO: Upload image and show
+  const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setAvatar(URL.createObjectURL(event.target.files[0]));
+    }
   };
 
   return (

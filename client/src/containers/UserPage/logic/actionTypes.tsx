@@ -23,6 +23,7 @@ export interface updateUser {
   type: typeof UPDATE_USER;
   payload: {
     data: TypeUser;
+    avatarData?: Blob;
     oldPassword?: string;
   };
 }
