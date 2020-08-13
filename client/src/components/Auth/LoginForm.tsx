@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from 'containers/Auth/styles.module.scss';
 import Alert, { AlertType } from '../BasicComponents/Alert';
 import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
 import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
+import { authService } from 'api/services/auth.service';
 
 interface ILoginFormProps {
   email: string;

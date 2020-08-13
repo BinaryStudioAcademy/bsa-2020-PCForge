@@ -1,6 +1,10 @@
+import { User } from 'common/models/user';
+
 export const AUTH_CHANGE_EMAIL = 'AUTH_CHANGE_EMAIL';
 export const AUTH_CHANGE_PASSWORD = 'AUTH_CHANGE_PASSWORD';
 export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
+export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
+export const AUTH_LOGIN_FAILURE = 'AUTH_LOGIN_FAILURE';
 export const AUTH_REGISTER_REQUEST = 'AUTH_REGISTER_REQUEST';
 export const AUTH_VALIDATION_ERROR = 'AUTH_VALIDATION_ERROR';
 export const AUTH_KEEP_SIGN_IN = 'AUTH_KEEP_SIGN_IN';
@@ -21,12 +25,26 @@ interface changePasswordAction {
   };
 }
 
-interface loginRequestAction {
+export interface loginRequestAction {
   type: typeof AUTH_LOGIN_REQUEST;
   payload: {
     email: string;
     password: string;
     keepSignedIn: boolean;
+  };
+}
+
+export interface loginRequestSuccess {
+  type: typeof AUTH_LOGIN_SUCCESS;
+  payload: {
+    user: User;
+  };
+}
+
+export interface loginRequestFailure {
+  type: typeof AUTH_LOGIN_FAILURE;
+  payload: {
+    message: string;
   };
 }
 
@@ -70,6 +88,8 @@ export type AuthActionTypes =
   | changeEmailAction
   | changePasswordAction
   | loginRequestAction
+  | loginRequestSuccess
+  | loginRequestFailure
   | registerRequestAction
   | validationErrorAction
   | keepSignedInAction
