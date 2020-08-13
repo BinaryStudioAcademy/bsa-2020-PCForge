@@ -4,6 +4,11 @@ $skin: #f5b078;
 $wood: #bc6043;
 $font: 'Lato', sans-serif;
 
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .holeWrapper {
   overflow: hidden;
   position: absolute;
