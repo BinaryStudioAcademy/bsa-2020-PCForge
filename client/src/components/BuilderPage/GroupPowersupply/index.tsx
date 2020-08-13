@@ -72,6 +72,10 @@ const GroupPowersupplies = ({
     />
   ));
 
+  function onChangeFilterRange() {
+    // do nothing.
+  }
+
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
       <GroupItemSummary
@@ -84,7 +88,7 @@ const GroupPowersupplies = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterRange title="Power" min={200} max={800} dimension="W" onChange={() => {}} />
+            <FilterRange title="Power" min={200} max={800} dimension="W" onChange={onChangeFilterRange} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listPowersupplyElements}

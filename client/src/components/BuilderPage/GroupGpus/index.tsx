@@ -75,6 +75,10 @@ const GroupGpus = ({
     />
   ));
 
+  function onChangeFilterRange() {
+    // do nothing.
+  }
+
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
       <GroupItemSummary
@@ -87,7 +91,7 @@ const GroupGpus = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterRange title="Memory size" min={32} max={2048} dimension="Mb" onChange={() => {}} />
+            <FilterRange title="Memory size" min={32} max={2048} dimension="Mb" onChange={onChangeFilterRange} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listGpuElements}

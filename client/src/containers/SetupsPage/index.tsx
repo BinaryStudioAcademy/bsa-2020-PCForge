@@ -1,10 +1,10 @@
 import React from 'react';
-import RootComponent from 'containers/Root';
+import PageComponent from 'containers/PageComponent';
 import SetupCard from 'components/SetupCard';
 import classes from './styles.module.scss';
-import { connect } from 'react-redux';
 import TopFiveList from 'components/TopFiveList';
 import { MenuItems } from 'common/enums';
+import Title from 'components/Title';
 
 interface Setup {
   id: string;
@@ -125,12 +125,15 @@ const SetupPage: React.FC<I_Props> = ({ setups, userId }) => {
   };
 
   return (
-    <RootComponent
-      pageTitle="Setups"
-      selectedMenuItemNumber={MenuItems.Setup}
-      leftComponent={createCards()}
-      rightComponent={<TopFiveList />}
-    />
+    <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
+      <div className={classes.contentBody}>
+        <Title title="User setups" />
+        <div className={classes.mainContent}>
+          <div className={classes.leftContent}>{createCards()}</div>
+          <div className={classes.rightContent}>{<TopFiveList />}</div>
+        </div>
+      </div>
+    </PageComponent>
   );
 };
 

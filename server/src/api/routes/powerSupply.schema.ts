@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { PowerSupplyCreationAttributes } from '../../data/models/powersupply';
-import { IFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 
 export type GetOnePowerSuppliesRequest = FastifyRequest<{
   Querystring: IFilter;

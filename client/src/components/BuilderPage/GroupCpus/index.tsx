@@ -82,6 +82,10 @@ const GroupCpus = ({
     />
   ));
 
+  function onChangeFilterRange() {
+    // do nothing.
+  }
+
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
       <GroupItemSummary
@@ -95,7 +99,13 @@ const GroupCpus = ({
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
             <FilterSocket filter={filter} onAddFilter={onAddFilter} />
-            <FilterRange title="Processor Frequency" min={1000} max={3000} dimension="MHz" onChange={() => {}} />
+            <FilterRange
+              title="Processor Frequency"
+              min={1000}
+              max={3000}
+              dimension="MHz"
+              onChange={onChangeFilterRange}
+            />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listCpuElements}

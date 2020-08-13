@@ -1,6 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { RamCreationAttributes } from '../../data/models/ram';
-import { IRamFilter } from '../../data/repositories/repositoriesFilterInterfaces';
+import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 
 export type GetOneRamRequest = FastifyRequest<{
   Params: { id: string };

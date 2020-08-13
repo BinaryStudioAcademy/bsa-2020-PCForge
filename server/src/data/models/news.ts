@@ -8,11 +8,13 @@ export interface NewsAttributes {
   createdAt: Date;
   updatedAt: Date;
 }
-export interface NewsDataAttributes {
+
+export interface NewsCreationAttributes {
   title: string;
   content: string;
   image: string;
 }
+
 export interface NewsModel extends Model<NewsAttributes>, NewsAttributes {}
 export class News extends Model<NewsModel, NewsAttributes> {}
 

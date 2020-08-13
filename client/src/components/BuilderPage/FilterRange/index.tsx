@@ -18,7 +18,7 @@ type PropsType = {
 const FilterRange = ({ title, min, max, onChange, dimension = '' }: PropsType): JSX.Element => {
   const [value, setValue] = useState([min, max]);
 
-  const onChangeHandler = (ev: React.ChangeEvent<{}>, value: number | number[]) => {
+  const onChangeHandler = (ev: React.ChangeEvent<Record<string, unknown>>, value: number | number[]) => {
     setValue(value as number[]);
     onChange(value as number[]);
   };
