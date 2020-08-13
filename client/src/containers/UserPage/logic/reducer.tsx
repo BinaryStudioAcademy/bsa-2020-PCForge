@@ -1,4 +1,4 @@
-import { TypeUser } from 'models/typeUser';
+import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes, LOAD_USER_SUCCESS, UPDATE_USER_SUCCESS, SHOW_SPINNER, HIDE_SPINNER } from './actionTypes';
 
 export interface IUserState {

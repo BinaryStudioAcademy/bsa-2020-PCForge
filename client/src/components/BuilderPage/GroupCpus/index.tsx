@@ -10,9 +10,9 @@ import FilterSocket from 'components/BuilderPage/FilterSocket';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { getAllCpu } from 'services/cpuService';
-import { TypeCpu } from 'models/typeCpu';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllCpu } from 'api/services/cpuService';
+import { TypeCpu } from 'common/models/typeCpu';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -70,6 +70,10 @@ const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
     />
   ));
 
+  function onChangeFilterRange() {
+    // do nothing.
+  }
+
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
       <GroupItemSummary id="CPU" title="CPU" count={count} />
@@ -77,7 +81,13 @@ const GroupCpus = ({ filter, onAddFilter, onAddComponent }: PropsType): JSX.Elem
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
             <FilterSocket filter={filter} onAddFilter={onAddFilter} />
-            <FilterRange title="Processor Frequency" min={1000} max={3000} dimension="MHz" onChange={() => {}} />
+            <FilterRange
+              title="Processor Frequency"
+              min={1000}
+              max={3000}
+              dimension="MHz"
+              onChange={onChangeFilterRange}
+            />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listCpuElements}

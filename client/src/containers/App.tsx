@@ -10,12 +10,14 @@ import ViewSetupPage from './SetupPage';
 import Home from './Home';
 import RootComponent from './Root';
 import SetupPage from './SetupsPage';
+import BuilderPage from './BuilderPage';
 export default class App extends Component {
   render(): JSX.Element {
     return (
       <RootComponent>
         <Switch>
           <Route exact path={Routes.MATCHER} component={GameMatcherPage} />
+          <Route exact path={Routes.BUILDER} component={BuilderPage} />
           <Route exact path={Routes.CHART} component={Chart} />
           <Route exact path={Routes.LOGIN} component={Login} />
           <Route exact path={Routes.USER} component={UserPage} />

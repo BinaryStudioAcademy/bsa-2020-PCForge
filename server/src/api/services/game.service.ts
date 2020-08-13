@@ -1,7 +1,7 @@
 import { GameCreationAttributes, GameModel } from '../../data/models/game';
 import { IWithMeta } from '../../data/repositories/base.repository';
+import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { GameRepository } from '../../data/repositories/game.repository';
-import { IGameFilter } from '../../data/repositories/repositoriesFilterInterfaces';
 
 export class GameService {
   constructor(private repository: GameRepository) {}

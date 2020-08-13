@@ -9,9 +9,9 @@ import SpecificationField from 'components/BuilderPage/SpecificationField';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { getAllPowersupplies } from 'services/powersupplyService';
-import { TypePowersupplies } from 'models/typePowersupplies';
-import { TypeFilter } from 'models/typeFilterBuilder';
+import { getAllPowersupplies } from 'api/services/powersupplyService';
+import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -64,13 +64,17 @@ const GroupPowersupplies = ({ filter, onAddFilter, onAddComponent }: PropsType):
     />
   ));
 
+  function onChangeFilterRange() {
+    // do nothing.
+  }
+
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
       <GroupItemSummary id="Power supply" title="Power supply" count={count} />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterRange title="Power" min={200} max={800} dimension="W" onChange={() => {}} />
+            <FilterRange title="Power" min={200} max={800} dimension="W" onChange={onChangeFilterRange} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listPowersupplyElements}

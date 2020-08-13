@@ -6,7 +6,7 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import UserPreferences from '../UserPreferences';
 import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
-import { TypeUser } from 'models/typeUser';
+import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from '../../logic/actionTypes';
 
 enum UserPageTabs {
