@@ -51,10 +51,6 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     setFilter(newFilter);
   };
 
-  useEffect(() => {
-    console.log('filter', filter);
-  }, [filter]);
-
   // const addCpuHandler = (cpu: TypeCpu) => {
   //   dispatch(addCpuToSetupAction(cpu.id));
   // };
@@ -77,7 +73,12 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
 
   return (
     <Box className={className}>
-      <BuilderTitle showReset={Object.values(setup).some((e) => !!e)} onReset={() => dispatch(resetSetupAction())} />
+      <BuilderTitle
+        showResetSetup={Object.values(setup).some((e) => !!e)}
+        onResetSetup={() => dispatch(resetSetupAction())}
+        showResetFilter={Object.values(filter).some((e) => !!e)}
+        onResetFilter={() => setFilter({})}
+      />
       <Box>
         <GroupCpus
           filter={filter}
