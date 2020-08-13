@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 import userSagas from 'containers/UserPage/logic/sagas';
+import builderSagas from 'containers/BuilderPage/sagas';
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function* rootSaga() {
-  yield all([userSagas()]);
+  yield all([userSagas(), builderSagas()]);
 }
