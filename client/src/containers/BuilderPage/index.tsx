@@ -12,7 +12,9 @@ import { TypeGpu } from 'common/models/typeGpu';
 import { TypeRam } from 'common/models/typeRam';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
-// import styles from './styles.module.scss';
+import { MenuItems } from '../../common/enums/MenuItems';
+import PageComponent from '../PageComponent';
+import styles from './styles.module.scss';
 
 type PropsType = {
   className?: string;
@@ -58,16 +60,18 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   };
 
   return (
-    <Box className={className}>
-      <BuilderTitle />
-      <Box>
-        <GroupCpus filter={filter} onAddFilter={addFilterHandler} onAddComponent={addCpuHandler} />
-        <GroupGpus filter={filter} onAddFilter={addFilterHandler} onAddComponent={addGpuHandler} />
-        <GroupRams filter={filter} onAddFilter={addFilterHandler} onAddComponent={addRamHandler} />
-        <GroupMotherboards filter={filter} onAddFilter={addFilterHandler} onAddComponent={addMotherboardHandler} />
-        <GroupPowersupplies filter={filter} onAddFilter={addFilterHandler} onAddComponent={addPowersuppliesHandler} />
+    <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
+      <Box className={styles.builderWrapper}>
+        <BuilderTitle />
+        <Box>
+          <GroupCpus filter={filter} onAddFilter={addFilterHandler} onAddComponent={addCpuHandler} />
+          <GroupGpus filter={filter} onAddFilter={addFilterHandler} onAddComponent={addGpuHandler} />
+          <GroupRams filter={filter} onAddFilter={addFilterHandler} onAddComponent={addRamHandler} />
+          <GroupMotherboards filter={filter} onAddFilter={addFilterHandler} onAddComponent={addMotherboardHandler} />
+          <GroupPowersupplies filter={filter} onAddFilter={addFilterHandler} onAddComponent={addPowersuppliesHandler} />
+        </Box>
       </Box>
-    </Box>
+    </PageComponent>
   );
 };
 
