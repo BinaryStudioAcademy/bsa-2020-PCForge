@@ -1,9 +1,17 @@
 export interface CommentModel {
   id: number;
   commentableType: string;
+  userId: number;
   commentableId: number;
   createdAt: Date;
   updatedAt: Date;
+  value: string;
+}
+export interface CommentCreationModel {
+  commentableType: string;
+  userId: number;
+  commentableId: number;
+  value: string;
 }
 export interface CpuModel {
   id: number;
@@ -16,6 +24,16 @@ export interface CpuModel {
   socket: SocketModel;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface CpuCreationModel {
+  name: string;
+  performance: number;
+  clockspeed: number;
+  tdp: number;
+  cores: number;
+  class: string;
+  socketId: number;
 }
 
 export interface GameModel {
@@ -34,6 +52,18 @@ export interface GameModel {
   minimalGpu: GpuModel;
 }
 
+export interface GameCreationModel {
+  name: string;
+  year: number;
+  image: string;
+  description: string;
+  recommendedRamSize: number;
+  minimalRamSize: number;
+  recommendedCpuId: number;
+  recommendedGpuId: number;
+  minimalCpuId: number;
+  minimalGpuId: number;
+}
 export interface GpuModel {
   id: number;
   name: string;
@@ -47,6 +77,16 @@ export interface GpuModel {
   updatedAt: Date;
 }
 
+export interface GpuCreationModel {
+  name: string;
+  interface: string;
+  memorySize: number;
+  coreClocks: number;
+  opengl: string;
+  tdp: number;
+  performance: number;
+}
+
 export interface MotherboardModel {
   id: number;
   name: string;
@@ -54,6 +94,12 @@ export interface MotherboardModel {
   ramType: RamTypeModel;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface MotherboardCreationModel {
+  name: string;
+  socketId: number;
+  ramTypeId: number;
 }
 
 export interface NewsModel {
@@ -64,12 +110,24 @@ export interface NewsModel {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface NewsCreationModel {
+  title: string;
+  content: string;
+  image: string;
+}
+
 export interface PowerSupplyModel {
   id: number;
   name: string;
   power: number;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface PowerSupplyCreationModel {
+  name: string;
+  power: number;
 }
 
 export interface RamModel {
@@ -83,6 +141,14 @@ export interface RamModel {
   updatedAt: Date;
 }
 
+export interface RamCreationModel {
+  name: string;
+  memorySize: number;
+  frequency: number;
+  typeId: number;
+  power: number;
+}
+
 export interface RamTypeModel {
   id: number;
   name: string;
@@ -90,21 +156,42 @@ export interface RamTypeModel {
   updatedAt: Date;
 }
 
+export interface RamTypeCreationModel {
+  name: string;
+}
+
 export interface RateModel {
   id: number;
   ratebleType: string;
+  userId: number;
   ratebleId: number;
   createdAt: Date;
   updatedAt: Date;
+  value: number;
+}
+export interface RateCreationModel {
+  ratebleType: string;
+  userId: number;
+  ratebleId: number;
+  value: number;
 }
 export interface SetupModel {
   id: number;
   title: string;
   description: string;
   image: string;
+  authorId: number;
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface SetupCreationModel {
+  title: string;
+  description: string;
+  image: string;
+  authorId: number;
+}
+
 export interface SocketModel {
   id: number;
   name: string;
@@ -112,11 +199,19 @@ export interface SocketModel {
   updatedAt: Date;
 }
 
+export interface SocketCreationModel {
+  name: string;
+}
+
 export interface TopGameModel {
   id: number;
   game: GameModel;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface TopGameCreationModel {
+  gameId: number;
 }
 
 export interface UserModel {
@@ -132,8 +227,19 @@ export interface UserModel {
   updatedAt: Date;
 }
 
+export interface UserCreationModel {
+  name: string;
+  password: string;
+  email: string;
+  isAdmin: boolean;
+  avatar: string | null;
+  verifyEmailToken: string | null;
+  resetPasswordToken: string | null;
+}
+
 export interface UserGameModel {
   id: number;
   createdAt: Date;
   updatedAt: Date;
 }
+export interface UserGameModel extends Model<UserGameModel>, UserGameModel {}
