@@ -67,7 +67,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
       const user = (payload as UserModel).toJSON();
       newPayload = deleteUserSecureFields(user as UserAttributes);
     }
-    console.log(newPayload);
 
     done(err, newPayload)
   })
