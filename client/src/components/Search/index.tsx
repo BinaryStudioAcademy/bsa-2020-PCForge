@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react';
 import { FormControl, OutlinedInput, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 
-import styles from './index.module.sass';
+import styles from './index.module.scss';
 
 type Props = { value: string; onChange: (event: React.ChangeEvent<HTMLInputElement>) => void };
 const Search = ({ value, onChange }: Props): ReactElement => (
