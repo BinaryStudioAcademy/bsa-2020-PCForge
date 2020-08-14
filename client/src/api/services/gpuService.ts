@@ -2,7 +2,7 @@ import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeGpu } from 'common/models/typeGpu';
 
-type TypeResponseAll = {
+export type TypeResponseAllGpus = {
   meta: {
     globalCount: number;
     countAfterFiltering: number;
@@ -12,7 +12,7 @@ type TypeResponseAll = {
 
 const endpoint = '/gpus';
 
-export const getAllGpu = async (filter: TypeFilter): Promise<TypeResponseAll> => {
+export const getAllGpu = async (filter: TypeFilter): Promise<TypeResponseAllGpus> => {
   return await webApi.get(endpoint, filter);
 };
 

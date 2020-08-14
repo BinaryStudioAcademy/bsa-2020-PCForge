@@ -1,0 +1,57 @@
+@import '../../../styles/variables.scss';
+
+.selectRoot {
+  width: 100%;
+  position: relative;
+  min-width: 200px !important;
+}
+
+.inputContainer {
+  width: 100%;
+  background: #fff;
+  // height: 1.1876em;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  color: #222;
+  padding: .3rem 1rem 0.5rem;
+}
+
+.input.input {
+  color: #222;
+}
+
+.selectOptionsContainer {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 100%;
+  z-index: 2;
+  background: #fff;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.selectOption {
+  cursor: pointer;
+  padding: .5rem 1rem;
+  color: $colorOrange;
+  transition-duration: 0.1s;
+}
+
+.seeMore {
+  cursor: pointer;
+  padding: .5rem 1rem;
+  color: $colorOrange;
+  transition-duration: 0.1s;
+  color: #444;
+}
+
+.selectOption:hover {
+  background: #ddd;
+}
+
+.seeMore:hover {
+  background: #dfdfdf;
+}

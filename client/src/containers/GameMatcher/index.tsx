@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import Select from 'components/BasicComponents/Select';
 import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from '../PageComponent';
 import { MenuItems } from 'common/enums';
-// const mockDataCallback = async () => ([{value: 'example', title: 'example'}]);
-const mockData = [{ value: 'example', title: 'example' }];
+import InputBasedSelect, { SelectOption } from 'components/BasicComponents/InputBasedSelect';
+import * as actions from './actions';
+import { RootState } from 'redux/rootReducer';
+import { connect } from 'react-redux';
+import { GameMatcherProps } from './interfaces';
 
-const GameMatcherPage = (): JSX.Element => {
+const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
+  const {
+    setCPUS,
+    getCPUS,
+    setGPUS,
+    getGPUS,
+    setRAMS,
+    getRAMS
+  } = props;
+
+  const [selectedRam, setSelectedRam] = useState<number | null>(null);
+  const [selectedCpu, setSelectedCpu] = useState<number | null>(null);
+  const [selectedGpu, setSelectedGpu] = useState<number | null>(null);
+
+  const gameOptions = props.state.games.map(game => ({ label: game.name, value: game.id }));
+  const ramOptions = props.state.rams.map(ram => ({ label: ram.name, value: ram.id }));
+  const cpuOptions = props.state.cpus.map(cpu => ({ label: cpu.name, value: cpu.id }));
+  const gpuOptions = props.state.gpus.map(gpu => ({ label: gpu.name, value: gpu.id }));
+
+  const onTestGame = () => {
+    if (selectedRam && selectedCpu && selectedGpu) {
+      console.log('success');
+    }
+  }
+
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.GameMatcher}>
       <main className={styles.gameMatcher} role="main">
@@ -20,47 +46,62 @@ const GameMatcherPage = (): JSX.Element => {
               <section>
                 <h2 className={styles.sectionHeader}>Choose a Game</h2>
                 <div className={styles.selectItem}>
-                  <Select
-                    inputLabel="Game's name"
-                    inputOptions={mockData}
-                    placeholder="Select a game"
+                  <InputBasedSelect
+                    label="Game's name"
+                    placeholder="Choose a game"
+                    inputId="game"
+                    options={gameOptions}
                     labelClassName={styles.selectItemHeader}
-                  >
-                    {' '}
-                  </Select>
+                    onInputChange={() => {console.log('needs games filters')}}
+                    onSelect={() => {console.log('needs games filters')}}
+                    onSeeMoreClick={() => {console.log('needs games filters')}}
+                  />
                 </div>
               </section>
               <section>
                 <h2 className={styles.sectionHeader}>Your Computer Hardware</h2>
                 <div className={styles.selectItem}>
-                  <Select
-                    inputLabel="Processor"
-                    inputOptions={mockData}
-                    placeholder="Select"
-                    labelClassName={styles.selectItemHeader}
-                  ></Select>
+                  <InputBasedSelect
+                      label="RAM"
+                      placeholder="Choose a RAM"
+                      inputId="ram"
+                      options={ramOptions}
+                      labelClassName={styles.selectItemHeader}
+                      onInputChange={() => setRAMS([]) && getRAMS({count: 20})}
+                      onSelect={(id: number) => setSelectedRam(id)}
+                      onSeeMoreClick={({itemsCount}) => getRAMS({count: 20, from: itemsCount})}
+                    />
                 </div>
                 <div className={styles.selectItem}>
-                  <Select
-                    inputLabel="CPU"
-                    inputOptions={mockData}
-                    placeholder="Select"
-                    labelClassName={styles.selectItemHeader}
-                  ></Select>
+                  <InputBasedSelect
+                      label="CPU"
+                      placeholder="Choose a processor"
+                      inputId="cpu"
+                      options={cpuOptions}
+                      labelClassName={styles.selectItemHeader}
+                      onInputChange={() => setCPUS([]) && getCPUS({count: 20})}
+                      onSelect={(id: number) => setSelectedCpu(id)}
+                      onSeeMoreClick={({itemsCount}) => getCPUS({count: 20, from: itemsCount})}
+                    />
                 </div>
                 <div className={styles.selectItem}>
-                  <Select
-                    inputLabel="GPU"
-                    inputOptions={mockData}
-                    placeholder="Select"
-                    labelClassName={styles.selectItemHeader}
-                  ></Select>
+                  <InputBasedSelect
+                      label="GPU"
+                      placeholder="Choose a graphics"
+                      inputId="gpu"
+                      options={gpuOptions}
+                      labelClassName={styles.selectItemHeader}
+                      onInputChange={() => setGPUS([]) && getGPUS({count: 20})}
+                      onSelect={(id: number) => setSelectedGpu(id)}
+                      onSeeMoreClick={({itemsCount}) => getGPUS({count: 20, from: itemsCount})}
+                    />
                 </div>
               </section>
               <Button
                 buttonType={ButtonType.primary}
                 className={styles.pageButton}
-                classes={{ label: styles.buttonLabel }}
+                classes={{label: styles.buttonLabel}}
+                onClick={() => onTestGame()}
               >
                 Can I Run It
               </Button>
@@ -73,4 +114,12 @@ const GameMatcherPage = (): JSX.Element => {
   );
 };
 
-export default GameMatcherPage;
+const mapStateToProps = (state: RootState) => ({
+  state: state.matcher
+})
+
+const mapDispatchToProps = {
+  ...actions
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameMatcherPage);
