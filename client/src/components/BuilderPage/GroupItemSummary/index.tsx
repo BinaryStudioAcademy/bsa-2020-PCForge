@@ -23,6 +23,11 @@ const GroupItemSummary = ({
   img = defaultImg,
   onClear,
 }: PropsType): JSX.Element => {
+  const clear = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    event.stopPropagation();
+    onClear();
+  };
+
   return (
     <AccordionSummary
       className={styles.groupItemSummary}
@@ -36,7 +41,7 @@ const GroupItemSummary = ({
         <span className={styles.groupItemSummaryCount}>{count}</span>
       </Typography>
       <Typography className={styles.nameComponent}>{nameComponent}</Typography>
-      {!!nameComponent && <Button onClick={onClear}>Clear</Button>}
+      {!!nameComponent && <Button onClick={clear}>Clear</Button>}
     </AccordionSummary>
   );
 };
