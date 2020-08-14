@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     tile: {
       borderRadius: 50,
+      '&:hover': {
+        opacity: 0.75,
+      },
     },
   })
 );
@@ -83,7 +86,13 @@ const ImageList: React.FC<IImageListProps> = ({
         spacing={20}
       >
         {data.slice(0, maxItemCount).map((tile) => (
-          <GridListTile key={tile.image} rows={1} classes={{ tile: styles.tile }} onClick={() => onSelect(tile)}>
+          <GridListTile
+            key={tile.image}
+            rows={1}
+            classes={{ tile: styles.tile }}
+            className={styles.tile}
+            onClick={() => onSelect(tile)}
+          >
             <img src={tile.image} alt={tile.title} />
           </GridListTile>
         ))}
