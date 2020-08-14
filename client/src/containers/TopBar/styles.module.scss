@@ -1,0 +1,24 @@
+.topBarRoot {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 3rem;
+  padding-top: 1rem;
+}
+
+.rightTopBar {
+  align-items: center;
+  display: flex;
+}
+
+.leftTopBar {
+ padding-left: 3rem;
+}
+
+.titleWrapper {
+  margin-bottom: 0.5rem;
+}
+
+.settingIconWrapper {
+  cursor: pointer;
+  margin: 0 0.75rem;
+}
