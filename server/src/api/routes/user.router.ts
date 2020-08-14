@@ -7,6 +7,8 @@ import {
   DeleteUserRequest,
   PutUserRequest,
 } from './user.schema';
+import { UserModel, UserAttributes } from '../../data/models/user';
+import { deleteUserSecureFields } from '../../helpers/security.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { UserService } = fastify.services;
@@ -54,6 +56,21 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     await UserService.deleteUser(id);
     reply.send({});
   });
+
+  fastify.addHook('preSerialization', (request, reply, payload, done) => {
+    const err = null;
+    let newPayload = payload;
+    if (payload instanceof Array) {
+      newPayload = (payload as UserModel[]).map(user => user.toJSON()).map(deleteUserSecureFields);
+    }
+    else if (payload instanceof Object) {
+      const user = (payload as UserModel).toJSON();
+      newPayload = deleteUserSecureFields(user as UserAttributes);
+    }
+    console.log(newPayload);
+
+    done(err, newPayload)
+  })
 
   next();
 }
