@@ -40,6 +40,7 @@ export interface IImageListProps {
   data: IImage[];
   maxItemCount?: number;
   onImageSelect?: (index: number) => void;
+  className?: string;
 }
 
 const ImageList: React.FC<IImageListProps> = ({
@@ -48,6 +49,7 @@ const ImageList: React.FC<IImageListProps> = ({
   onImageSelect = () => {
     // do nothing
   },
+  className = '',
 }: IImageListProps): JSX.Element => {
   const styles = useStyles();
 
@@ -78,7 +80,7 @@ const ImageList: React.FC<IImageListProps> = ({
   };
 
   return (
-    <div className={styles.root}>
+    <div className={`${styles.root} ${className}`}>
       <GridList
         cols={maxItemCount - 0.5}
         className={styles.gridList}
