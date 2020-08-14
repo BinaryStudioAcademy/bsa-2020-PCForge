@@ -25,12 +25,16 @@ type Props = PropsFromRedux & {
   onGameInputChange: (newGameName: string) => void;
 };
 
-const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames: onGameInputChange }): JSX.Element => {
+const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element => {
   const [gameName, setGameName] = React.useState<string>('');
+
+  React.useEffect(() => {
+    fetchGames('');
+  }, []);
 
   const onGameNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newName = event.currentTarget.value;
-    onGameInputChange(newName);
+    fetchGames(newName);
     setGameName(newName);
   };
 
