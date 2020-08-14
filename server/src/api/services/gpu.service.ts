@@ -17,7 +17,6 @@ export class GpuService {
     if (filter.name) {
       filter.name = {[Op.iLike]: '%' + filter.name + '%'};
     }
-    console.log(filter)
     const gpus = await this.repository.getAllGpus(filter);
     return gpus;
   }
