@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
+const { NotFound, Unauthorized } = require('http-errors');
 
 interface UserCreateAttributes {
   name: string;
@@ -34,7 +35,11 @@ export class UserService {
 
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getById(id);
-    return user;
+    if (user) {
+      return user;
+    } else {
+      throw new NotFound();
+    }
   }
 
   async createUser(inputUser: UserCreateAttributes): Promise<UserModel> {
@@ -52,13 +57,13 @@ export class UserService {
   async updateUser(id: string, inputUser: UserCreateAttributes, oldPassword?: string): Promise<UserModel> {
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
-      throw new Error(`User with id: ${id} does not exist`);
+      throw new NotFound();
     }
 
     if (inputUser.password || inputUser.email !== oldUser.email) {
       const passwordsMatch = await bcrypt.compare(oldPassword, oldUser.password);
       if (!passwordsMatch) {
-        throw new Error('Invalid password');
+        throw new Unauthorized('Invalid password');
       }
     }
 
