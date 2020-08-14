@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts"
   },
@@ -13,7 +15,9 @@
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/bluebird": "^3.5.32",
+    "@types/lodash": "^4.14.159",
     "@types/node": "^14.0.27",
+    "@types/qs": "^6.9.4",
     "@types/validator": "^13.1.0",
     "aws-sdk": "^2.731.0",
     "bcrypt": "^5.0.0",
@@ -27,8 +31,11 @@
     "fastify-static": "^3.2.0",
     "multer-s3": "^2.9.0",
     "path": "^0.12.7",
+    "google-auth-library": "^6.0.6",
+    "lodash": "^4.17.19",
     "pg": "^8.3.0",
     "pg-hstore": "^2.3.3",
+    "qs": "^6.9.4",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.22.3",
     "typescript": "^3.9.7"

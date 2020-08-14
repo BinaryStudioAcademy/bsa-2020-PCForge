@@ -1,0 +1,47 @@
+@import '../../../styles/index.scss';
+
+.commentsRoot {
+  margin-top: 4rem;
+}
+
+.commentsList {
+  padding: 0;
+}
+
+.reviewHeader {
+  font-size: 24px;
+  line-height: 28px;
+  color: $colorTextWhite;
+}
+
+.addCommentButton {
+  width: 30%;
+}
+
+.userReviewRoot {
+  display: flex;
+  flex-direction: column;
+}
+
+.userReviewBlock {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.userReviewInput.userReviewInput {
+  padding: 0.5rem 1rem;
+}
+
+@media (max-width: 586px) {
+  .userReviewBlock {
+    flex-direction: column;
+  }
+
+  .addCommentButton {
+    width: unset;
+  }
+}

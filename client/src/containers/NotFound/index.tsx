@@ -9,7 +9,7 @@ const NotFound = ({ history }: RouteComponentProps): JSX.Element => {
   const goHome = () => history.push(Routes.DEFAULT);
 
   return (
-    <>
+    <div className={style.wrapper}>
       <div className={style.holeWrapper}>
         <div className={style.hole}>
           <div className={style.wood}></div>
@@ -24,9 +24,11 @@ const NotFound = ({ history }: RouteComponentProps): JSX.Element => {
         </div>
       </div>
       <div className={style.buttonWrapper}>
-        <Button onClick={goHome}>Go Home</Button>
+        <Button onClick={goHome} variant={'text'}>
+          Go Home
+        </Button>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from 'containers/Auth/styles.module.scss';
 import Alert, { AlertType } from '../BasicComponents/Alert';
 import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
 import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
+import { authService } from 'api/services/auth.service';
 
 interface ILoginFormProps {
   email: string;
@@ -38,6 +39,7 @@ const LoginForm = ({
           </Alert>
         ) : null}
         <Input
+          name="Email"
           className={styles.emailInput}
           onChange={handleChangeEmail}
           value={email}
@@ -46,6 +48,7 @@ const LoginForm = ({
           required
         />
         <Input
+          name="Password"
           className={styles.passwordInput}
           onChange={handleChangePassword}
           placeholder="Password"
@@ -62,7 +65,7 @@ const LoginForm = ({
             label="Keep me signed in"
             checkboxType={CheckboxType.primary}
           />
-          <Button onClick={login} disabled={isLoading}>
+          <Button type="submit" onClick={login} disabled={isLoading}>
             Login
           </Button>
         </div>

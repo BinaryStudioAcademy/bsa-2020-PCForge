@@ -31,11 +31,13 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3",
+    "strip-bom": "^4.0.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "aws s3 sync build/ s3://pcforge --acl public-read",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/ --ext .tsx,.ts",
@@ -78,5 +80,6 @@
       "prettier --write",
       "eslint --fix"
     ]
-  }
+  },
+  "proxy": "http://localhost:5001"
 }

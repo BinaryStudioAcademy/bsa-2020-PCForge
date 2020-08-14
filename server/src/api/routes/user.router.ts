@@ -1,35 +1,52 @@
 import { FastifyInstance } from 'fastify';
-import { GetUserRequest, PostUserRequest, DeleteUserRequest } from './user.schema';
-import { UserAttributes } from '../../data/models/user';
+import { FastifyDone, FastifyOptions } from './fastifyTypes';
+import {
+  GetOneUserRequest,
+  GetAllUsersRequest,
+  PostUserRequest,
+  DeleteUserRequest,
+  PutUserRequest,
+} from './user.schema';
 
-export function router(fastify: FastifyInstance, opts, next): void {
+export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { UserService } = fastify.services;
 
-  fastify.get('/', {}, async (request: GetUserRequest, reply) => {
+  fastify.get('/', {}, async (request: GetAllUsersRequest, reply) => {
     const users = await UserService.getUsers();
     reply.send(users);
   });
 
-  fastify.get('/:id', {}, async function (request) {
+  fastify.get('/:id', {}, async function (request: GetOneUserRequest, reply) {
     const { id } = request.params;
-    const user = UserService.getUser(id);
-    return user;
+    const user = await UserService.getUser(id);
+    if (user) {
+      reply.send(user);
+    } else {
+      reply.code(404).type('text/html').send('Not Found');
+    }
   });
 
   fastify.post('/', {}, async (request: PostUserRequest, reply) => {
-    const data: UserAttributes = { ...request.body };
-    data.isAdmin = false;
-
-    data.password = UserService.hash(data.password);
-
-    const user = await UserService.createUser(data);
+    if (typeof request.body === 'string') {
+      request.body = JSON.parse(request.body);
+    }
+    const user = await UserService.createUser(request.body);
     reply.send(user);
   });
 
-  fastify.put('/:id', {}, async (request: PostUserRequest, reply) => {
+  fastify.put('/:id', {}, async (request: PutUserRequest, reply) => {
     const { id } = request.params;
-    const user = await UserService.updateUser(id, request.body);
-    reply.send(user);
+    const { body } = request;
+    const oldPassword = body.oldPassword || '';
+    try {
+      if (oldPassword) {
+        delete body.oldPassword;
+      }
+      const user = await UserService.updateUser(id, body, oldPassword);
+      reply.send(user);
+    } catch (error) {
+      reply.code(500).type('text/html').send(error.message);
+    }
   });
 
   fastify.delete('/:id', {}, async (request: DeleteUserRequest, reply) => {

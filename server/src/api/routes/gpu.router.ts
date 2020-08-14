@@ -1,16 +1,16 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostGpuRequest, GetGpuRequest, PutGpuRequest, DeleteGpuRequest } from './gpu.schema';
+import { PostGpuRequest, GetOneGpuRequest, PutGpuRequest, DeleteGpuRequest, GetAllGpusRequest } from './gpu.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { GpuService } = fastify.services;
 
-  fastify.get('/', {}, async (request, reply) => {
-    const gpus = await GpuService.getAllGpus();
+  fastify.get('/', {}, async (request: GetAllGpusRequest, reply) => {
+    const gpus = await GpuService.getAllGpus(request.query);
     reply.send(gpus);
   });
 
-  fastify.get('/:id', {}, async (request: GetGpuRequest, reply) => {
+  fastify.get('/:id', {}, async (request: GetOneGpuRequest, reply) => {
     const { id } = request.params;
     const gpu = await GpuService.getGpuById(id);
     reply.send(gpu);

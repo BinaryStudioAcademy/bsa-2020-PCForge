@@ -2,7 +2,12 @@ $holeShadow: #c0c0c0;
 $black: #333333;
 $skin: #f5b078;
 $wood: #bc6043;
-$font: 'LatoBlack', sans-serif;
+$font: 'Lato', sans-serif;
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
 
 .holeWrapper {
   overflow: hidden;
@@ -100,7 +105,7 @@ $font: 'LatoBlack', sans-serif;
       &:before {
         font-family: $font;
         content: 'Page not found!';
-        font-weight: bold;
+        font-weight: 900;
         display: block;
         background: #fff;
         color: #000;
@@ -143,7 +148,7 @@ $font: 'LatoBlack', sans-serif;
   border-radius: 25px;
   a {
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 900;
     color: $black;
     transition: ease all 0.3s;
     &:hover {

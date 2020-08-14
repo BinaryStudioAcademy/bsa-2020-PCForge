@@ -1,8 +1,10 @@
 import { FastifyRequest } from 'fastify';
 
-export type GetUserRequest = FastifyRequest<{
+export type GetOneUserRequest = FastifyRequest<{
   Params: { id: string };
 }>;
+
+export type GetAllUsersRequest = FastifyRequest;
 
 export type PostUserRequest = FastifyRequest<{
   Body: {
@@ -20,6 +22,7 @@ export type PutUserRequest = FastifyRequest<{
     password: string;
     email: string;
     avatar: string;
+    oldPassword: string;
   };
 }>;
 

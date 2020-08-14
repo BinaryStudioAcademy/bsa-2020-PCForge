@@ -1,37 +1,22 @@
 import { FastifyRequest } from 'fastify';
+import { RamCreationAttributes } from '../../data/models/ram';
+import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 
 export type GetOneRamRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
 export type GetAllRamsRequest = FastifyRequest<{
-  Params: { id: string };
-  Querystring: {
-    typeId: string;
-    from: number;
-    count: number;
-  };
+  Querystring: IRamFilter;
 }>;
 
 export type PostRamRequest = FastifyRequest<{
-  Body: {
-    name: string;
-    memorySize: number;
-    frequency: number;
-    typeId: number;
-    power: number;
-  };
+  Body: RamCreationAttributes;
 }>;
 
 export type PutRamRequest = FastifyRequest<{
   Params: { id: string };
-  Body: {
-    name: string;
-    memorySize: number;
-    frequency: number;
-    typeId: number;
-    power: number;
-  };
+  Body: RamCreationAttributes;
 }>;
 
 export type DeleteRamRequest = FastifyRequest<{

@@ -1,5 +1,5 @@
 $input-warning: rgb(214, 142, 59);
-$input-error: rgb(235, 83, 45);
+$input-error: #cb5134;
 $bg-color-text: rgb(199, 195, 195);
 $bg-color-input: #575858;
 
@@ -17,11 +17,15 @@ $bg-color-input: #575858;
     margin-left: 10px !important;
   }
 
-
   & > div path {
     color: $bg-color-text;
   }
 
+  & > p {
+    font-size: 14px !important;
+    margin-top: 0;
+    margin-left: 15px;
+  }
 
   & > div > fieldset {
     border-radius: 40px;
@@ -31,6 +35,19 @@ $bg-color-input: #575858;
   & > div > input {
     padding: 8px 10px;
     color: $bg-color-text;
+    filter: none;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-internal-autofill-selected,
+    &:-internal-autofill-selected:hover,
+    &:-internal-autofill-selected:focus {
+      font-family: Lato, Arial, sans-serif;
+      -webkit-text-fill-color: $bg-color-text;
+      background-image: none;
+      transition: background-color 5000s ease-in-out 0s;
+    }
   }
 
   &.inputWarning {
@@ -38,8 +55,25 @@ $bg-color-input: #575858;
       color: $input-warning;
     }
 
+    p {
+      color: $input-warning;
+    }
+
+    & > div {
+      border:2px solid $input-warning;
+    }
+
     & > div > input {
       color: $input-warning;
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-internal-autofill-selected,
+      &:-internal-autofill-selected:hover,
+      &:-internal-autofill-selected:focus {
+        -webkit-text-fill-color: $input-warning;
+      }
     }
   }
 
@@ -48,9 +82,26 @@ $bg-color-input: #575858;
       color: $input-error;
     }
 
-    & > div > input {
+    p {
       color: $input-error;
     }
 
+    & > div {
+      border:2px solid $input-error;
+
+    }
+
+    & > div > input {
+      color: $input-error;
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-internal-autofill-selected,
+      &:-internal-autofill-selected:hover,
+      &:-internal-autofill-selected:focus {
+        -webkit-text-fill-color: $input-error;
+      }
+    }
   }
 }

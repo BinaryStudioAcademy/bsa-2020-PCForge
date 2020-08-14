@@ -1,11 +1,11 @@
-import { CpuDataAttributes, CpuModel, CpuStatic } from '../models/cpu';
+import { CpuCreationAttributes, CpuModel, CpuStatic } from '../models/cpu';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { ICpuFilter, CpuFilterDefaults } from './repositoriesFilterInterfaces';
+import { ICpuFilter } from './filters/cpu.filter';
 
-export class CpuRepository extends BaseRepository<CpuModel> {
+export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
   constructor(private model: CpuStatic, private socketModel: SocketStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, ICpuFilter);
   }
 
   async getCpuById(id: string): Promise<CpuModel> {
@@ -14,7 +14,6 @@ export class CpuRepository extends BaseRepository<CpuModel> {
       include: [
         {
           model: this.socketModel,
-          attributes: ['id', 'name'],
         },
       ],
     });
@@ -22,30 +21,24 @@ export class CpuRepository extends BaseRepository<CpuModel> {
   }
 
   async getAllCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
-    const { socketId, from: offset, count: limit } = { ...CpuFilterDefaults, ...filter };
-    const cpus = await this.getAll({
+    const cpus = await this.getAll(filter, {
       group: ['cpu.id', 'socket.id'],
-      where: { socketId },
       include: [
         {
           model: this.socketModel,
-          attributes: ['id', 'name'],
         },
       ],
-      order: [['id', 'ASC']],
-      offset: offset,
-      limit: limit,
     });
     return cpus;
   }
 
-  async createCpu(inputCpu: CpuDataAttributes): Promise<CpuModel> {
+  async createCpu(inputCpu: CpuCreationAttributes): Promise<CpuModel> {
     const { id } = await this.model.create(inputCpu);
     const cpu = this.getCpuById(id.toString());
     return cpu;
   }
 
-  async updateCpuById(id: string, inputCpu: CpuDataAttributes): Promise<CpuModel> {
+  async updateCpuById(id: string, inputCpu: CpuCreationAttributes): Promise<CpuModel> {
     const cpu = await this.updateById(id, inputCpu);
     return cpu;
   }

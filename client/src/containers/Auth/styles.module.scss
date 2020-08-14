@@ -1,12 +1,10 @@
 @import 'styles/variables';
 
-:global {
-  #root {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
-  }
+div.authContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .bgContainer {

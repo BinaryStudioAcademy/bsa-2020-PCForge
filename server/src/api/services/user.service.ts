@@ -1,17 +1,34 @@
 const bcrypt = require('bcrypt');
-import { UserModel, UserAttributes } from '../../data/models/user';
+import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
+
+interface UserCreateAttributes {
+  name: string;
+  password: string;
+  email: string;
+  avatar: string;
+}
 
 export class UserService {
   constructor(private repository: UserRepository) {}
 
-  async getUserByLoginOrEmail(login: string): Promise<UserModel> {
+  async getUserByLoginOrEmail(login: string, password: string): Promise<UserModel> {
+    if (!login || !password) {
+      throw { error: `You are missing login or password`, status: 400 };
+    }
     const user = await this.repository.getUserByUserNameOrEmail(login);
+    const isPasswordValidForUser = user ? await bcrypt.compare(password, user.password) : 0;
+    if (!isPasswordValidForUser) {
+      throw {
+        error: `Invalid login or password`,
+        status: 401,
+      };
+    }
     return user;
   }
 
   async getUsers(): Promise<UserModel[]> {
-    const users = await this.repository.getAll();
+    const users = await this.repository.getAllUsers();
     return users;
   }
 
@@ -20,15 +37,33 @@ export class UserService {
     return user;
   }
 
-  async createUser(inputUser: UserAttributes): Promise<UserModel> {
-    const user = await this.repository.create(inputUser);
+  async createUser(inputUser: UserCreateAttributes): Promise<UserModel> {
+    const userAttributes: UserCreationAttributes = {
+      ...inputUser,
+      isAdmin: false,
+      password: this.hash(inputUser.password),
+      verifyEmailToken: null,
+      resetPasswordToken: null,
+    };
+    const user = await this.repository.create(userAttributes);
     return user;
   }
 
-  async updateUser(id: string, inputUser: UserAttributes): Promise<UserModel> {
-    const oldUser = this.repository.getById(id);
+  async updateUser(id: string, inputUser: UserCreateAttributes, oldPassword?: string): Promise<UserModel> {
+    const oldUser = await this.repository.getById(id);
     if (!oldUser) {
-      throw new Error(`User with id: ${id} does not exists`);
+      throw new Error(`User with id: ${id} does not exist`);
+    }
+
+    if (inputUser.password || inputUser.email !== oldUser.email) {
+      const passwordsMatch = await bcrypt.compare(oldPassword, oldUser.password);
+      if (!passwordsMatch) {
+        throw new Error('Invalid password');
+      }
+    }
+
+    if (inputUser.password) {
+      inputUser.password = this.hash(inputUser.password);
     }
 
     const user = await this.repository.updateById(id, inputUser);

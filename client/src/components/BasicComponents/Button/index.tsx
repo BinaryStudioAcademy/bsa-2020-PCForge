@@ -43,7 +43,7 @@ const Button: React.FC<ButtonProps & IButtonProps> = (props) => {
 
   return (
     <MButton
-      variant="outlined"
+      // variant="outlined"
       startIcon={buttonIcon ? getIcon(buttonIcon) : null}
       className={classes.join(' ')}
       {...restProps}

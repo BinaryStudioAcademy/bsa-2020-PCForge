@@ -2,7 +2,13 @@ import { FastifyRequest } from 'fastify';
 
 export type PostAuthRequest = FastifyRequest<{
   Body: {
-    login: string;
+    email: string;
     password: string;
+  };
+}>;
+
+export type IsUserAuthenticated = FastifyRequest<{
+  Body: {
+    token: string;
   };
 }>;
