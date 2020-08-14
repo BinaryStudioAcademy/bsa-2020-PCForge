@@ -3,15 +3,21 @@ import { GameActionTypes, GameActions } from './actionTypes';
 
 export const fetchGames = (name: string): GameActions => ({
   type: GameActionTypes.FETCH_GAMES_REQUEST,
-  name,
+  payload: {
+    name,
+  },
 });
 
 export const setGames = (games: Game[]): GameActions => ({
   type: GameActionTypes.FETCH_GAMES_SUCCESS,
-  games,
+  payload: {
+    games,
+  },
 });
 
 export const setError = (error: string): GameActions => ({
   type: GameActionTypes.ERROR,
-  error,
+  payload: {
+    error,
+  },
 });

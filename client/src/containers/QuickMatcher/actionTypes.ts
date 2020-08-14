@@ -8,17 +8,23 @@ export enum GameActionTypes {
 
 export interface IFetchGamesRequestAction {
   type: GameActionTypes.FETCH_GAMES_REQUEST;
-  name: string;
+  payload: {
+    name: string;
+  };
 }
 
 interface IFetchGamesAction {
   type: GameActionTypes.FETCH_GAMES_SUCCESS;
-  games: Game[];
+  payload: {
+    games: Game[];
+  };
 }
 
 interface IErrorAction {
   type: GameActionTypes.ERROR;
-  error: string;
+  payload: {
+    error: string;
+  };
 }
 
 type GameRequests = IFetchGamesRequestAction;

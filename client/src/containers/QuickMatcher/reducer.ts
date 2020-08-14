@@ -10,7 +10,7 @@ export function QuickMatcherReducer(state = initialState, action: GameActions): 
     case GameActionTypes.FETCH_GAMES_SUCCESS: {
       return {
         ...state,
-        games: action.games,
+        games: action.payload.games,
       };
     }
 

@@ -39,16 +39,14 @@ interface IImage {
 export interface IImageListProps {
   data: IImage[];
   maxItemCount?: number;
-  onImageSelect?: (index: number) => void;
+  onImageSelect: (index: number) => void;
   className?: string;
 }
 
 const ImageList: React.FC<IImageListProps> = ({
   data = [],
   maxItemCount = data.length,
-  onImageSelect = () => {
-    // do nothing
-  },
+  onImageSelect,
   className = '',
 }: IImageListProps): JSX.Element => {
   const styles = useStyles();

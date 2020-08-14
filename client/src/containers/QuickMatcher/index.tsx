@@ -6,27 +6,12 @@ import { fetchGames } from './actions';
 
 import Search from 'components/Search';
 import { Box } from '@material-ui/core';
-import ImageList from '../../components/ImageList';
+import ImageList from 'components/ImageList';
 import Tachometer from 'components/Tachometer';
-import Text from '../../components/BasicComponents/Text';
+import Text from 'components/BasicComponents/Text';
 import CheckIcon from '@material-ui/icons/Check';
 
 import styles from './styles.module.scss';
-
-const mapState = (state: RootState) => ({
-  games: state.quickMatcher.games,
-});
-
-const mapDispatch = {
-  fetchGames,
-};
-
-const connector = connect(mapState, mapDispatch);
-type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux & {
-  games: Game[];
-  onGameInputChange: (newGameName: string) => void;
-};
 
 const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element => {
   const [gameName, setGameName] = React.useState<string>('');
@@ -63,6 +48,21 @@ const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element 
       </Box>
     </Box>
   );
+};
+
+const mapState = (state: RootState) => ({
+  games: state.quickMatcher.games,
+});
+
+const mapDispatch = {
+  fetchGames,
+};
+
+const connector = connect(mapState, mapDispatch);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux & {
+  games: Game[];
+  onGameInputChange: (newGameName: string) => void;
 };
 
 export default connector(QuickMatcher);
