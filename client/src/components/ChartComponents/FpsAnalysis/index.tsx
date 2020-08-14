@@ -63,7 +63,7 @@ const GameMatcherFpsAnalysis = (): JSX.Element => {
         <div className={styles.fpsTest}>
           <div className={styles.fpsGraph}>
             <div className={styles.gameLine}>
-              <span className={styles.gameLineText}>Game Line</span>
+              <span className={styles.gameLineText}>60 FPS</span>
             </div>
           </div>
           {progressColumns.map(ProgressColumn)}
