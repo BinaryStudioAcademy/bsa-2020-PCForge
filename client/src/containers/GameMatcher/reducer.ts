@@ -56,7 +56,6 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
         cpus: [...state.cpus, ...action.payload.data],
       };
     case GET_CPUS_FAILURE:
-      console.log('failed');
       return {
         ...state,
         cpusErrorMessage: true,
@@ -85,13 +84,13 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
     case GET_RAMS_SUCCESS:
       return {
         ...state,
-        gpusErrorMessage: false,
+        ramsErrorMessage: false,
         rams: [...state.rams, ...action.payload.data],
       };
     case GET_RAMS_FAILURE:
       return {
         ...state,
-        gpusErrorMessage: true,
+        ramsErrorMessage: true,
       };
     default:
       return state;
