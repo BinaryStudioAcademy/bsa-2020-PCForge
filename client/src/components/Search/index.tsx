@@ -4,10 +4,15 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import styles from './index.module.scss';
 
-type Props = { value: string; onChange: (event: React.ChangeEvent<HTMLInputElement>) => void };
-const Search = ({ value, onChange }: Props): ReactElement => (
+type Props = {
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+};
+const Search = ({ value, onChange, className = '' }: Props): ReactElement => (
   <FormControl variant="outlined">
     <OutlinedInput
+      className={className}
       classes={{
         root: styles.container,
       }}

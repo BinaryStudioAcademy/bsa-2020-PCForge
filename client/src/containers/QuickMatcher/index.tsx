@@ -47,7 +47,7 @@ const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element 
 
   return (
     <Box className={styles.quickMatcher}>
-      <Search value={gameName} onChange={onGameNameChange} />
+      <Search value={gameName} onChange={onGameNameChange} className={styles.search} />
       <ImageList data={transformGamesToImages(games)} />
       <Tachometer value={100} maxValue={100} type={''} />
     </Box>

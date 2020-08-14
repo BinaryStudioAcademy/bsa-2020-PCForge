@@ -1,8 +1,18 @@
+@import '../../styles/variables';
+
 .quickMatcher {
-  width: 600px;
+  max-width: 600px;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 10px 0;
+  padding: 25px;
   overflow: 'hidden';
+  margin: 0 auto;
+  border: 2px solid $colorDarkGray;
+  border-radius: 20px;
+}
+
+.search {
+  max-width: 100%;
+  margin-bottom: 20px;
 }
