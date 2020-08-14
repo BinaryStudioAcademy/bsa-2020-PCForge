@@ -11,10 +11,10 @@ import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
 import { getAllGames } from 'api/services/gamesService';
-import { getGames } from './sagas';
 
 const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
   const { setGames, getGames, setCPUS, getCPUS, setGPUS, getGPUS, setRAMS, getRAMS } = props;
+  const { gamesErrorMessage, ramsErrorMessage, cpusErrorMessage, gpusErrorMessage } = props.state;
 
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
   const [selectedRam, setSelectedRam] = useState<number | null>(null);
@@ -28,7 +28,6 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
 
   const onTestGame = async () => {
     const games = await getAllGames({});
-    console.log(games);
     if (selectedRam && selectedCpu && selectedGpu) {
       console.log('success');
     }
@@ -49,6 +48,7 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     placeholder="Choose a game"
                     inputId="game"
                     options={gameOptions}
+                    errorMessage={gamesErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     onInputChange={() => setGames([]) && getGames({ count: 20 })}
                     onSelect={(id: number) => setSelectedGame(id)}
@@ -64,6 +64,7 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     placeholder="Choose a RAM"
                     inputId="ram"
                     options={ramOptions}
+                    errorMessage={ramsErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     onInputChange={() => setRAMS([]) && getRAMS({ count: 20 })}
                     onSelect={(id: number) => setSelectedRam(id)}
@@ -76,6 +77,7 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     placeholder="Choose a processor"
                     inputId="cpu"
                     options={cpuOptions}
+                    errorMessage={cpusErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     onInputChange={() => setCPUS([]) && getCPUS({ count: 20 })}
                     onSelect={(id: number) => setSelectedCpu(id)}
@@ -88,6 +90,7 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     placeholder="Choose a graphics"
                     inputId="gpu"
                     options={gpuOptions}
+                    errorMessage={gpusErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     onInputChange={() => setGPUS([]) && getGPUS({ count: 20 })}
                     onSelect={(id: number) => setSelectedGpu(id)}

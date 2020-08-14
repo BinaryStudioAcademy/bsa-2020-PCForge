@@ -1,5 +1,8 @@
 @import '../../../styles/variables.scss';
 
+$error-border: #ca0000;
+$error-color: #ff5a5a;
+
 .selectRoot {
   width: 100%;
   position: relative;
@@ -54,4 +57,13 @@
 
 .seeMore:hover {
   background: #dfdfdf;
+}
+
+.errorMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparentize($color: $error-color, $amount: 0.9);
+  padding: .5rem 1rem;
+  color: $error-color;
 }

@@ -1,7 +1,8 @@
-import React, { useState, ChangeEvent, FocusEvent } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import Input from '@material-ui/core/Input';
 import styles from './styles.module.scss';
 import InputLabel from '@material-ui/core/InputLabel';
+import ErrorIcon from '@material-ui/icons/Error';
 
 export interface SelectOption {
   value: number;
@@ -10,14 +11,14 @@ export interface SelectOption {
 interface Props {
   onInputChange: (data: string) => void;
   onSelect: (value: number) => void;
-  onSeeMoreClick: ({itemsCount}: {itemsCount: number}) => void;
+  onSeeMoreClick: ({ itemsCount }: { itemsCount: number }) => void;
   options: SelectOption[];
   placeholder: string;
+  errorMessage?: string | boolean;
   inputId: string;
   label: string;
   labelClassName?: string;
 }
-
 
 const InputBasedSelect = (props: Props) => {
   const {
@@ -26,9 +27,10 @@ const InputBasedSelect = (props: Props) => {
     label,
     labelClassName,
     options,
+    errorMessage,
     onSelect,
     onInputChange,
-    onSeeMoreClick
+    onSeeMoreClick,
   } = props;
   const [inputValue, setInputValue] = useState('');
   const [selectVisible, setSelectVisible] = useState(false);
@@ -43,22 +45,24 @@ const InputBasedSelect = (props: Props) => {
     timeOutId = setTimeout(() => {
       setSelectVisible(false);
     });
-  }
-  const onFocus = (e: FocusEvent) => {
+  };
+  const onFocus = () => {
     setSelectVisible(true);
     if (timeOutId) {
       clearTimeout(timeOutId);
     }
-  }
+  };
 
   const enterKeyCode = 13;
-  const SelectOption = (props: {option: SelectOption}) => {
-    const { option: { value, label } } = props;
+  const SelectOption = (props: { option: SelectOption }) => {
+    const {
+      option: { value, label },
+    } = props;
     const onOptionSelect = () => {
       onSelect(value);
       setInputValue(label);
       setSelectVisible(false);
-    }
+    };
 
     return (
       <div
@@ -69,8 +73,8 @@ const InputBasedSelect = (props: Props) => {
       >
         {label}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div
@@ -88,25 +92,32 @@ const InputBasedSelect = (props: Props) => {
         className={styles.inputContainer}
         placeholder={placeholder}
         id={inputId}
-        classes={{input: styles.input}}
+        classes={{ input: styles.input }}
         onInput={onInputValueChange}
         value={inputValue}
       />
-      {
-        selectVisible && (
-          <div className={styles.selectOptionsContainer}>
-            {options.map((option, i) => <SelectOption option={option} key={option.value} />)}
-            <div
-              className={styles.seeMore}
-              onClick={() => onSeeMoreClick({itemsCount: options.length})}
-              tabIndex={0}
-              onKeyUp={(e) => e.keyCode === enterKeyCode && onSeeMoreClick({itemsCount: options.length})}
-            >See More</div>
+      {selectVisible && (
+        <div className={styles.selectOptionsContainer}>
+          {options.map((option, i) => (
+            <SelectOption option={option} key={option.value} />
+          ))}
+          <div
+            className={styles.seeMore}
+            onClick={() => onSeeMoreClick({ itemsCount: options.length })}
+            tabIndex={0}
+            onKeyUp={(e) => e.keyCode === enterKeyCode && onSeeMoreClick({ itemsCount: options.length })}
+          >
+            See More
           </div>
-        )
-      }
+          {errorMessage && (
+            <div className={styles.errorMessage}>
+              <ErrorIcon /> <span>{errorMessage !== true ? errorMessage : 'An error occurred. Please try later'}</span>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default InputBasedSelect;

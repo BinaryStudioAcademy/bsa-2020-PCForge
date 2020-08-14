@@ -117,10 +117,11 @@ export type MatcherActionTypes =
   | ISetGames
   | IGetGames
   | IGetGamesSuccess
-  | IGetRamsFailure
+  | IGetGamesFailure
   | ISetCpus
   | IGetCpus
   | IGetCpusSuccess
+  | IGetCpusFailure
   | ISetGpus
   | IGetGpus
   | IGetGpusSuccess

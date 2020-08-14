@@ -10,6 +10,11 @@ export interface GameMatcherState {
   cpus: Cpu[];
   gpus: Gpu[];
   rams: Ram[];
+
+  gamesErrorMessage?: string | boolean;
+  cpusErrorMessage?: string | boolean;
+  gpusErrorMessage?: string | boolean;
+  ramsErrorMessage?: string | boolean;
 }
 
 export interface GameMatcherProps {

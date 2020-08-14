@@ -9,6 +9,10 @@ import {
   GET_RAMS_SUCCESS,
   GET_GAMES_SUCCESS,
   SET_GAMES,
+  GET_GAMES_FAILURE,
+  GET_CPUS_FAILURE,
+  GET_RAMS_FAILURE,
+  GET_GPUS_FAILURE,
 } from './actionTypes';
 
 const initialState: GameMatcherState = {
@@ -16,6 +20,10 @@ const initialState: GameMatcherState = {
   cpus: [],
   gpus: [],
   rams: [],
+  gamesErrorMessage: false,
+  cpusErrorMessage: false,
+  gpusErrorMessage: false,
+  ramsErrorMessage: false,
 };
 
 export function MatcherReducer(state: GameMatcherState = initialState, action: MatcherActionTypes): GameMatcherState {
@@ -28,7 +36,13 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
     case GET_GAMES_SUCCESS:
       return {
         ...state,
+        gamesErrorMessage: false,
         games: [...state.games, ...action.payload.data],
+      };
+    case GET_GAMES_FAILURE:
+      return {
+        ...state,
+        gamesErrorMessage: true,
       };
     case SET_CPUS:
       return {
@@ -38,7 +52,14 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
     case GET_CPUS_SUCCESS:
       return {
         ...state,
+        cpusErrorMessage: false,
         cpus: [...state.cpus, ...action.payload.data],
+      };
+    case GET_CPUS_FAILURE:
+      console.log('failed');
+      return {
+        ...state,
+        cpusErrorMessage: true,
       };
     case SET_GPUS:
       return {
@@ -48,7 +69,13 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
     case GET_GPUS_SUCCESS:
       return {
         ...state,
+        gpusErrorMessage: false,
         gpus: [...state.gpus, ...action.payload.data],
+      };
+    case GET_GPUS_FAILURE:
+      return {
+        ...state,
+        gpusErrorMessage: true,
       };
     case SET_RAMS:
       return {
@@ -58,7 +85,13 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
     case GET_RAMS_SUCCESS:
       return {
         ...state,
+        gpusErrorMessage: false,
         rams: [...state.rams, ...action.payload.data],
+      };
+    case GET_RAMS_FAILURE:
+      return {
+        ...state,
+        gpusErrorMessage: true,
       };
     default:
       return state;

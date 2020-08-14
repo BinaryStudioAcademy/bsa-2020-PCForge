@@ -1,6 +1,5 @@
 import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
-import { TypeGpu } from 'common/models/typeGpu';
 import { Game } from 'common/models/game';
 
 export type TypeResponseAllGames = {
