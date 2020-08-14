@@ -30,6 +30,7 @@ type Props = PropsFromRedux & {
 
 const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element => {
   const [gameName, setGameName] = React.useState<string>('');
+  const [tachometerValue, setTachometerValue] = React.useState<number>(10);
 
   React.useEffect(() => {
     fetchGames('');
@@ -47,12 +48,17 @@ const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element 
     return transformed;
   };
 
+  const onGameSelect = (index: number) => {
+    // mock
+    setTachometerValue((index + 1) * 10);
+  };
+
   return (
     <Box className={styles.quickMatcher}>
       <Search value={gameName} onChange={onGameNameChange} className={styles.search} />
-      <ImageList data={transformGamesToImages(games)} />
+      <ImageList data={transformGamesToImages(games)} onImageSelect={onGameSelect} />
       <Box className={styles.results}>
-        <Tachometer value={70} maxValue={100} type={''} className={styles.tachometer} />
+        <Tachometer value={tachometerValue} maxValue={100} type={''} className={styles.tachometer} />
         <Text text={'Recommended settings'} icon={<CheckIcon />} iconPosition="left" className={styles.text} />
       </Box>
     </Box>

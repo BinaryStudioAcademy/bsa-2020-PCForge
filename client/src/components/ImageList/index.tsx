@@ -28,17 +28,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface IImage {
+  title: string;
+  image: string;
+}
+
 export interface IImageListProps {
-  data: {
-    title: string;
-    image: string;
-  }[];
+  data: IImage[];
   maxItemCount?: number;
+  onImageSelect?: (index: number) => void;
 }
 
 const ImageList: React.FC<IImageListProps> = ({
   data = [],
   maxItemCount = data.length,
+  onImageSelect = () => {
+    // do nothing
+  },
 }: IImageListProps): JSX.Element => {
   const styles = useStyles();
 
@@ -63,6 +69,11 @@ const ImageList: React.FC<IImageListProps> = ({
 
   const scrollRef = useHorizontalScroll();
 
+  const onSelect = (image: IImage) => {
+    const index = Math.max(0, data.indexOf(image));
+    onImageSelect(index);
+  };
+
   return (
     <div className={styles.root}>
       <GridList
@@ -72,7 +83,7 @@ const ImageList: React.FC<IImageListProps> = ({
         spacing={20}
       >
         {data.slice(0, maxItemCount).map((tile) => (
-          <GridListTile key={tile.image} rows={1} classes={{ tile: styles.tile }}>
+          <GridListTile key={tile.image} rows={1} classes={{ tile: styles.tile }} onClick={() => onSelect(tile)}>
             <img src={tile.image} alt={tile.title} />
           </GridListTile>
         ))}
