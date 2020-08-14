@@ -27,7 +27,7 @@ export function SocketFactory(sequelize: Sequelize): SocketStatic {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
     },
     createdAt: {
       type: DataTypes.DATE,
