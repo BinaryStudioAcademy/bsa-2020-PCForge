@@ -11,6 +11,7 @@ import Home from './Home';
 import RootComponent from './Root';
 import SetupPage from './SetupsPage';
 import BuilderPage from './BuilderPage';
+import AdminToolsPage from './AdminToolsPage';
 export default class App extends Component {
   render(): JSX.Element {
     return (
@@ -24,6 +25,7 @@ export default class App extends Component {
           <Route exact path={Routes.SETUP} component={ViewSetupPage} />
           <Route exact path={Routes.DEFAULT} component={Home} />
           <Route exact path={Routes.SETUPS} component={SetupPage} />
+          <Route exact path={Routes.ADMINTOOLS} component={AdminToolsPage} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>
       </RootComponent>

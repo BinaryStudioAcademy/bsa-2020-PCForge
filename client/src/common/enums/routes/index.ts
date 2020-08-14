@@ -7,6 +7,7 @@ enum Routes {
   SETUP = '/setup/:id',
   SETUPS = '/setups',
   USER = '/user/:id',
+  ADMINTOOLS = '/admintools',
 }
 
 export { Routes };

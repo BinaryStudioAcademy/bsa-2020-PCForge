@@ -1,0 +1,17 @@
+@import '../../styles/variables.scss';
+.contentPage {
+  margin: 20px 60px;
+}
+.pageHeader {
+}
+.contentMain {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+
+  .totalBlockContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}

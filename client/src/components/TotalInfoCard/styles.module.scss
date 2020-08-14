@@ -1,0 +1,23 @@
+@import '../../styles/variables.scss';
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid $colorWhite;
+  border-radius: 12px;
+  background-color: $componentBgColor;
+  padding: 15px 20px;
+  min-width: 300px;
+
+  .cardTitle {
+    line-height: 0;
+    text-transform: uppercase;
+  }
+  .buttonAdd {
+    position: absolute;
+    margin-top: 35px;
+    margin-left: -30px;
+    zoom: 85%;
+  }
+}
