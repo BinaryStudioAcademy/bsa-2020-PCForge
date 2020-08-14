@@ -1,5 +1,8 @@
 .quickMatcher {
+  width: 600px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
   padding: 10px 0;
+  overflow: 'hidden';
 }

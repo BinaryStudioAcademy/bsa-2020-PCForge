@@ -5,7 +5,7 @@ import { GameActionTypes, IFetchGamesRequestAction } from './actionTypes';
 
 function* fetchGames(action: IFetchGamesRequestAction) {
   try {
-    const { data: games } = yield call(getAllGames, action);
+    const { data: games } = yield call(getAllGames, { name: action.name });
     yield put(setGames(games));
   } catch (error) {
     yield put(setError(error));

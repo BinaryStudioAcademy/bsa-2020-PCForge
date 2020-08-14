@@ -6,7 +6,7 @@ import { fetchGames } from './actions';
 
 import Search from 'components/Search';
 import { Box } from '@material-ui/core';
-import ImageList from './ImageList';
+import ImageList from '../../components/ImageList';
 
 import styles from './styles.module.scss';
 
