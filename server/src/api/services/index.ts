@@ -13,7 +13,7 @@ import { TopGameService } from './topGame.service';
 import { NewsService } from './news.service';
 import { RateService } from './rate.service';
 import { CommentService } from './comment.service';
-import upload from './imageUpload.service';
+import uploadService from './imageUpload.service';
 
 export interface Services {
   RamTypeService: RamTypeService;
@@ -63,7 +63,7 @@ export const initializeServices = (repositories: Repositories): Services => {
     NewsService: newsService,
     RateService: rateService,
     CommentService: commentService,
-    UploadImageService: upload,
+    UploadImageService: uploadService,
   };
   return services;
 };

@@ -10,7 +10,7 @@ AWS.config.update({
 });
 
 const s3 = new AWS.S3();
-const upload = multer({
+const uploadService = multer({
   storage: multerS3({
     s3,
     bucket: process.env.AWS_BUCKET_NAME,
@@ -40,4 +40,4 @@ const upload = multer({
   },
 });
 
-export default upload;
+export default uploadService;
