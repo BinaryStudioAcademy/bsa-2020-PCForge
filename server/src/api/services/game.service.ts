@@ -2,6 +2,7 @@ import { GameCreationAttributes, GameModel } from '../../data/models/game';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { GameRepository } from '../../data/repositories/game.repository';
+import { Op } from 'sequelize';
 
 export class GameService {
   constructor(private repository: GameRepository) {}
@@ -12,6 +13,9 @@ export class GameService {
   }
 
   async getAllGames(filter: IGameFilter): Promise<IWithMeta<GameModel>> {
+    if (filter.name) {
+      filter.name = {[Op.iLike]: '%' + filter.name + '%'};
+    }
     const games = await this.repository.getAllGames(filter);
     return games;
   }

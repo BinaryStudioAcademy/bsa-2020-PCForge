@@ -1,4 +1,4 @@
-import { FilterByIdType, notNull } from './types';
+import { FilterByIdType, notNull, FilterByNameType } from './types';
 import { IFilter } from './base.filter';
 
 export class ICpuFilter extends IFilter {
@@ -6,4 +6,5 @@ export class ICpuFilter extends IFilter {
     super();
   }
   socketId: FilterByIdType = notNull;
+  name: FilterByNameType = null;
 }

@@ -2,6 +2,8 @@ import { GpuCreationAttributes, GpuModel } from '../../data/models/gpu';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { GpuRepository } from '../../data/repositories/gpu.repository';
+import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
+import { Op } from 'sequelize';
 
 export class GpuService {
   constructor(private repository: GpuRepository) {}
@@ -11,7 +13,11 @@ export class GpuService {
     return gpu;
   }
 
-  async getAllGpus(filter: IFilter): Promise<IWithMeta<GpuModel>> {
+  async getAllGpus(filter: IGpuFilter): Promise<IWithMeta<GpuModel>> {
+    if (filter.name) {
+      filter.name = {[Op.iLike]: '%' + filter.name + '%'};
+    }
+    console.log(filter)
     const gpus = await this.repository.getAllGpus(filter);
     return gpus;
   }

@@ -1,5 +1,5 @@
 import { IFilter } from './base.filter';
-import { FilterByIdType, notNull } from './types';
+import { FilterByIdType, notNull, FilterByNameType } from './types';
 
 export class IGameFilter extends IFilter {
   constructor() {
@@ -7,4 +7,5 @@ export class IGameFilter extends IFilter {
   }
   //TODO: move to separate type
   year: FilterByIdType = notNull;
+  name: FilterByNameType = null;
 }
