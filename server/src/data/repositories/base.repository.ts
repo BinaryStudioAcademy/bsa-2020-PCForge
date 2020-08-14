@@ -1,5 +1,6 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
 import { IFilter } from './filters/base.filter';
+import { mergeFilters } from './filters/helper';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
@@ -23,7 +24,8 @@ export abstract class BaseRepository<M extends Model, F extends IFilter = IFilte
     return count;
   }
 
-  async getAll(params?: FindOptions, filter?: F): Promise<IWithMeta<M>> {
+  async getAll(params?: FindOptions, inputFilter?: F): Promise<IWithMeta<M>> {
+    const filter = mergeFilters<F>(new this.filterFactory(), inputFilter);
     const { from: offset, count: limit } = filter;
 
     const result = await this._model.findAndCountAll({
