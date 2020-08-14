@@ -7,9 +7,11 @@ import { fetchGames } from './actions';
 import Search from 'components/Search';
 import { Box } from '@material-ui/core';
 import ImageList from '../../components/ImageList';
+import Tachometer from 'components/Tachometer';
+import Text from '../../components/BasicComponents/Text';
+import CheckIcon from '@material-ui/icons/Check';
 
 import styles from './styles.module.scss';
-import Tachometer from 'components/Tachometer';
 
 const mapState = (state: RootState) => ({
   games: state.quickMatcher.games,
@@ -49,7 +51,10 @@ const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element 
     <Box className={styles.quickMatcher}>
       <Search value={gameName} onChange={onGameNameChange} className={styles.search} />
       <ImageList data={transformGamesToImages(games)} />
-      <Tachometer value={100} maxValue={100} type={''} />
+      <Box className={styles.results}>
+        <Tachometer value={70} maxValue={100} type={''} className={styles.tachometer} />
+        <Text text={'Recommended settings'} icon={<CheckIcon />} iconPosition="left" className={styles.text} />
+      </Box>
     </Box>
   );
 };

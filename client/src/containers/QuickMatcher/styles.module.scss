@@ -16,3 +16,18 @@
   max-width: 100%;
   margin-bottom: 20px;
 }
+
+.tachometer {
+  max-width: 25%;
+  max-height: 25%;
+}
+
+.results {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+}
+
+.text {
+  margin-left: 25px;
+}
