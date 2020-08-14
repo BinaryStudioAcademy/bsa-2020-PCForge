@@ -5,36 +5,34 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from '../PageComponent';
 import { MenuItems } from 'common/enums';
-import InputBasedSelect, { SelectOption } from 'components/BasicComponents/InputBasedSelect';
+import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import * as actions from './actions';
 import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
+import { getAllGames } from 'api/services/gamesService';
+import { getGames } from './sagas';
 
 const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
-  const {
-    setCPUS,
-    getCPUS,
-    setGPUS,
-    getGPUS,
-    setRAMS,
-    getRAMS
-  } = props;
+  const { setGames, getGames, setCPUS, getCPUS, setGPUS, getGPUS, setRAMS, getRAMS } = props;
 
+  const [selectedGame, setSelectedGame] = useState<number | null>(null);
   const [selectedRam, setSelectedRam] = useState<number | null>(null);
   const [selectedCpu, setSelectedCpu] = useState<number | null>(null);
   const [selectedGpu, setSelectedGpu] = useState<number | null>(null);
 
-  const gameOptions = props.state.games.map(game => ({ label: game.name, value: game.id }));
-  const ramOptions = props.state.rams.map(ram => ({ label: ram.name, value: ram.id }));
-  const cpuOptions = props.state.cpus.map(cpu => ({ label: cpu.name, value: cpu.id }));
-  const gpuOptions = props.state.gpus.map(gpu => ({ label: gpu.name, value: gpu.id }));
+  const gameOptions = props.state.games.map((game) => ({ label: game.name, value: game.id }));
+  const ramOptions = props.state.rams.map((ram) => ({ label: ram.name, value: ram.id }));
+  const cpuOptions = props.state.cpus.map((cpu) => ({ label: cpu.name, value: cpu.id }));
+  const gpuOptions = props.state.gpus.map((gpu) => ({ label: gpu.name, value: gpu.id }));
 
-  const onTestGame = () => {
+  const onTestGame = async () => {
+    const games = await getAllGames({});
+    console.log(games);
     if (selectedRam && selectedCpu && selectedGpu) {
       console.log('success');
     }
-  }
+  };
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.GameMatcher}>
@@ -52,9 +50,9 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     inputId="game"
                     options={gameOptions}
                     labelClassName={styles.selectItemHeader}
-                    onInputChange={() => {console.log('needs games filters')}}
-                    onSelect={() => {console.log('needs games filters')}}
-                    onSeeMoreClick={() => {console.log('needs games filters')}}
+                    onInputChange={() => setGames([]) && getGames({ count: 20 })}
+                    onSelect={(id: number) => setSelectedGame(id)}
+                    onSeeMoreClick={({ itemsCount }) => getGames({ count: 20, from: itemsCount })}
                   />
                 </div>
               </section>
@@ -62,45 +60,45 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                 <h2 className={styles.sectionHeader}>Your Computer Hardware</h2>
                 <div className={styles.selectItem}>
                   <InputBasedSelect
-                      label="RAM"
-                      placeholder="Choose a RAM"
-                      inputId="ram"
-                      options={ramOptions}
-                      labelClassName={styles.selectItemHeader}
-                      onInputChange={() => setRAMS([]) && getRAMS({count: 20})}
-                      onSelect={(id: number) => setSelectedRam(id)}
-                      onSeeMoreClick={({itemsCount}) => getRAMS({count: 20, from: itemsCount})}
-                    />
+                    label="RAM"
+                    placeholder="Choose a RAM"
+                    inputId="ram"
+                    options={ramOptions}
+                    labelClassName={styles.selectItemHeader}
+                    onInputChange={() => setRAMS([]) && getRAMS({ count: 20 })}
+                    onSelect={(id: number) => setSelectedRam(id)}
+                    onSeeMoreClick={({ itemsCount }) => getRAMS({ count: 20, from: itemsCount })}
+                  />
                 </div>
                 <div className={styles.selectItem}>
                   <InputBasedSelect
-                      label="CPU"
-                      placeholder="Choose a processor"
-                      inputId="cpu"
-                      options={cpuOptions}
-                      labelClassName={styles.selectItemHeader}
-                      onInputChange={() => setCPUS([]) && getCPUS({count: 20})}
-                      onSelect={(id: number) => setSelectedCpu(id)}
-                      onSeeMoreClick={({itemsCount}) => getCPUS({count: 20, from: itemsCount})}
-                    />
+                    label="CPU"
+                    placeholder="Choose a processor"
+                    inputId="cpu"
+                    options={cpuOptions}
+                    labelClassName={styles.selectItemHeader}
+                    onInputChange={() => setCPUS([]) && getCPUS({ count: 20 })}
+                    onSelect={(id: number) => setSelectedCpu(id)}
+                    onSeeMoreClick={({ itemsCount }) => getCPUS({ count: 20, from: itemsCount })}
+                  />
                 </div>
                 <div className={styles.selectItem}>
                   <InputBasedSelect
-                      label="GPU"
-                      placeholder="Choose a graphics"
-                      inputId="gpu"
-                      options={gpuOptions}
-                      labelClassName={styles.selectItemHeader}
-                      onInputChange={() => setGPUS([]) && getGPUS({count: 20})}
-                      onSelect={(id: number) => setSelectedGpu(id)}
-                      onSeeMoreClick={({itemsCount}) => getGPUS({count: 20, from: itemsCount})}
-                    />
+                    label="GPU"
+                    placeholder="Choose a graphics"
+                    inputId="gpu"
+                    options={gpuOptions}
+                    labelClassName={styles.selectItemHeader}
+                    onInputChange={() => setGPUS([]) && getGPUS({ count: 20 })}
+                    onSelect={(id: number) => setSelectedGpu(id)}
+                    onSeeMoreClick={({ itemsCount }) => getGPUS({ count: 20, from: itemsCount })}
+                  />
                 </div>
               </section>
               <Button
                 buttonType={ButtonType.primary}
                 className={styles.pageButton}
-                classes={{label: styles.buttonLabel}}
+                classes={{ label: styles.buttonLabel }}
                 onClick={() => onTestGame()}
               >
                 Can I Run It
@@ -115,11 +113,11 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  state: state.matcher
-})
+  state: state.matcher,
+});
 
 const mapDispatchToProps = {
-  ...actions
-}
+  ...actions,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameMatcherPage);

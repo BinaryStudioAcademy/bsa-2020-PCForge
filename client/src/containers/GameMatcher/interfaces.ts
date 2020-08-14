@@ -1,9 +1,9 @@
-import { Game } from "common/models/game";
-import { Cpu } from "common/models/cpu";
-import { Gpu } from "common/models/gpu";
-import { Ram } from "common/models/ram";
-import { TypeFilter } from "common/models/typeFilterBuilder";
-import { MatcherActionTypes } from "./actionTypes";
+import { Game } from 'common/models/game';
+import { Cpu } from 'common/models/cpu';
+import { Gpu } from 'common/models/gpu';
+import { Ram } from 'common/models/ram';
+import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { MatcherActionTypes } from './actionTypes';
 
 export interface GameMatcherState {
   games: Game[];
@@ -14,6 +14,10 @@ export interface GameMatcherState {
 
 export interface GameMatcherProps {
   state: GameMatcherState;
+
+  setGames: (games: Game[]) => MatcherActionTypes;
+  getGames: (filter: TypeFilter) => MatcherActionTypes;
+
   setCPUS: (cpus: Cpu[]) => MatcherActionTypes;
   getCPUS: (filter: TypeFilter) => MatcherActionTypes;
 
