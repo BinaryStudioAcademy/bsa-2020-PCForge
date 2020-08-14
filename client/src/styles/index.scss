@@ -27,6 +27,7 @@ body {
   text-decoration: none;
   cursor: pointer;
   color: $linkColor;
+  transition: color .2s;
 
   &:hover {
     color: $linkHoveredColor;
