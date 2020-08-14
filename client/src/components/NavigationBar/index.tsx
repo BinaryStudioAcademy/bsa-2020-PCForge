@@ -5,13 +5,14 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import NavigationLogo from './NavigationIcons/NavigationLogo';
-import HomeIcon from './NavigationIcons/HomeIcon';
-import BuildSetupIcon from './NavigationIcons/BuildSetupIcon';
-import SetupIcon from './NavigationIcons/SetupIcon';
-import GameMatcherIcon from './NavigationIcons/GameMatcherIcon';
-import HardwareIcon from './NavigationIcons/HardwareIcon';
-import AdminToolsIcon from './NavigationIcons/AdminToolsIcon';
+import NavigationLogo from '../../assets/NavigationIcons/NavigationLogo';
+import HomeIcon from '../../assets/NavigationIcons/HomeIcon';
+import BuildSetupIcon from '../../assets/NavigationIcons/BuildSetupIcon';
+import SetupIcon from '../../assets/NavigationIcons/SetupIcon';
+import GameMatcherIcon from '../../assets/NavigationIcons/GameMatcherIcon';
+import HardwareIcon from '../../assets/NavigationIcons/HardwareIcon';
+import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
+import LogOutIcon from '../../assets/NavigationIcons/LogOutIcon';
 
 import { Routes } from 'common/enums';
 
@@ -77,7 +78,12 @@ const listHeader: Array<IListNavigatinBar> = [
   },
   {
     name: 'Admin Tools',
-    icon: <AdminToolsIcon />,
+    icon: <BuildOutlinedIcon style={{ color: 'white' }} />,
+    link: '#',
+  },
+  {
+    name: 'Log out',
+    icon: <LogOutIcon />,
     link: '#',
   },
 ];

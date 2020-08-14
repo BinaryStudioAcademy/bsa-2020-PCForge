@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import SvgIcon, { SvgIconProps } from '@material-ui/core/SvgIcon';
 
-export default function AdminToolsIcon(props: SvgIconProps): ReactElement {
+export default function LogOutIcon(props: SvgIconProps): ReactElement {
   return (
     <SvgIcon {...props} width="30" height="30" viewBox="0 0 30 30">
       <path
