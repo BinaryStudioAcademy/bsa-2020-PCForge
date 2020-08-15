@@ -4,6 +4,7 @@ import styles from './styles.module.scss';
 import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
+import PasswordInput from 'components/PasswordInput/PasswordInput';
 import UserPreferences from '../UserPreferences';
 import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'common/models/typeUser';
@@ -196,13 +197,15 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     setEmail(event.target.value);
     emailValid(event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
   };
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-    passwordValid(event.target.value, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages);
+  const handlePasswordChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = event.target as HTMLInputElement;
+    setPassword(target.value);
+    passwordValid(target.value, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages);
   };
-  const handleConfirmedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmedPassword(event.target.value);
-    passwordValid(password, event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
+  const handleConfirmedPasswordChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = event.target as HTMLInputElement;
+    setConfirmedPassword(target.value);
+    passwordValid(password, target.value, errorMessages, setErrorMessages as SetErrorMessages);
   };
 
   const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -254,30 +257,37 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             helperText={errorMessages.emailErrorMessage || ''}
           />
           {editableInput && (
-            <Input
-              className={editableInput ? styles.autoFocused : ''}
-              icon="VpnKey"
-              type="password"
-              placeholder="New password"
-              value={password}
-              inputType={errorMessages.passwordErrorMessage ? InputType.error : undefined}
-              onChange={handlePasswordChange}
-              helperText={errorMessages.passwordErrorMessage || ''}
-            />
+            <div
+              className={
+                styles.passwordInputHolder + (errorMessages.passwordErrorMessage ? ` ${styles.holderError}` : '')
+              }
+            >
+              <PasswordInput
+                icon="VpnKey"
+                inputHandler={handlePasswordChange}
+                value={password}
+                inputType={errorMessages.passwordErrorMessage ? InputType.error : undefined}
+                helperText={errorMessages.passwordErrorMessage || ''}
+              />
+            </div>
           )}
           {editableInput && (
-            <Input
-              className={editableInput ? styles.autoFocused : ''}
-              icon="VpnKey"
-              type="password"
-              placeholder="Confirm password"
-              value={confirmedPassword}
-              onChange={handleConfirmedPasswordChange}
-              inputType={errorMessages.confirmedPasswordErrorMessage ? InputType.error : undefined}
-              helperText={errorMessages.confirmedPasswordErrorMessage || ''}
-            />
+            <div
+              className={
+                styles.passwordInputHolder +
+                (errorMessages.confirmedPasswordErrorMessage ? ` ${styles.holderError}` : '')
+              }
+            >
+              <PasswordInput
+                icon="VpnKey"
+                placeholder="Confirm password"
+                inputHandler={handleConfirmedPasswordChange}
+                value={confirmedPassword}
+                inputType={errorMessages.confirmedPasswordErrorMessage ? InputType.error : undefined}
+                helperText={errorMessages.confirmedPasswordErrorMessage || ''}
+              />
+            </div>
           )}
-
           <div className={styles.buttonsContainer}>
             <Button onClick={handleSetEditable} buttonType={ButtonType.primary}>
               {editableInput ? 'Save' : 'Edit'}
