@@ -12,13 +12,13 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllMotherboard } from 'api/services/motherboardService';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
+  filter: TypeFilterBuilder;
   selectedComponent: TypeMotherboard | null;
-  onAddFilter: ({}: TypeFilter) => void;
+  onAddFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeMotherboard) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
@@ -42,9 +42,11 @@ const GroupMotherboards = ({
 
   const getMotherboards = async () => {
     setLoad(true);
-    const { socketId, ramTypeId } = filter;
+    const queryFilterSocket = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
+    const queryFilterRam = filter.ramTypeIdSet.size ? { ramTypeId: [Array.from(filter.ramTypeIdSet)].join(',') } : {};
+    const queryFilter = { ...queryFilterSocket, ...queryFilterRam };
     try {
-      const res = await getAllMotherboard({ socketId, ramTypeId, ...pagination });
+      const res = await getAllMotherboard({ ...queryFilter, ...pagination });
       setMotherboards(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -61,8 +63,8 @@ const GroupMotherboards = ({
   const AddComponentHandler = (motherboard: TypeMotherboard): void => {
     onAddFilter({
       ...filter,
-      socketId: motherboard.socketId,
-      ramTypeId: motherboard.ramTypeId,
+      socketIdSet: new Set(filter.socketIdSet.add(motherboard.socketId)),
+      ramTypeIdSet: new Set(filter.ramTypeIdSet.add(motherboard.ramTypeId)),
     });
     onAddComponent(motherboard);
   };
@@ -87,7 +89,6 @@ const GroupMotherboards = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      // onChange={onChange}
       onChange={(ev, expanded) => onChangeExpanded(expanded ? 'motherboard' : false)}
       TransitionProps={{ unmountOnExit: true }}
     >

@@ -12,13 +12,13 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllRam } from 'api/services/ramService';
 import { TypeRam } from 'common/models/typeRam';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeFilterBuilder } from '../../../containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
+  filter: TypeFilterBuilder;
   selectedComponent: TypeRam | null;
-  onAddFilter: ({}: TypeFilter) => void;
+  onAddFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeRam) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
@@ -42,12 +42,11 @@ const GroupRams = ({
 
   const getRams = async () => {
     setLoad(true);
-    const { ramTypeId } = filter;
+    const queryFilter = filter.ramTypeIdSet.size ? { typeId: [Array.from(filter.ramTypeIdSet)].join(',') } : {};
     try {
-      const res = await getAllRam({ typeId: ramTypeId, ...pagination });
+      const res = await getAllRam({ ...queryFilter, ...pagination });
       setRams(res.data);
       setCount(res.meta.countAfterFiltering);
-      // setRams(newRams.length > 10 ? newRams.slice(0, 9) : newRams); // while the bug is on the server
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -62,7 +61,7 @@ const GroupRams = ({
   const AddComponentHandler = (ram: TypeRam): void => {
     onAddFilter({
       ...filter,
-      ramTypeId: ram.typeId,
+      ramTypeIdSet: new Set(filter.ramTypeIdSet.add(ram.typeId)),
     });
     onAddComponent(ram);
   };
@@ -92,7 +91,6 @@ const GroupRams = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      // onChange={onChange}
       onChange={(ev, expanded) => onChangeExpanded(expanded ? 'ram' : false)}
       TransitionProps={{ unmountOnExit: true }}
     >

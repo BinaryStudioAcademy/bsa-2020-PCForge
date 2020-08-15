@@ -12,13 +12,13 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllCpu } from 'api/services/cpuService';
 import { TypeCpu } from 'common/models/typeCpu';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
+  filter: TypeFilterBuilder;
   selectedComponent: TypeCpu | null;
-  onAddFilter: ({}: TypeFilter) => void;
+  onAddFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeCpu) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
@@ -42,9 +42,9 @@ const GroupCpus = ({
 
   const getCpus = async () => {
     setLoad(true);
-    const { socketId } = filter;
+    const queryFilter = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
     try {
-      const res = await getAllCpu({ socketId, ...pagination });
+      const res = await getAllCpu({ ...queryFilter, ...pagination });
       setCpus(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -65,7 +65,7 @@ const GroupCpus = ({
   const AddComponentHandler = (cpu: TypeCpu): void => {
     onAddFilter({
       ...filter,
-      socketId: cpu.socketId,
+      socketIdSet: new Set(filter.socketIdSet.add(cpu.socketId)),
     });
     onAddComponent(cpu);
   };
@@ -97,7 +97,6 @@ const GroupCpus = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      // onChange={onChange}
       onChange={(ev, expanded) => onChangeExpanded(expanded ? 'cpu' : false)}
       TransitionProps={{ unmountOnExit: true }}
     >

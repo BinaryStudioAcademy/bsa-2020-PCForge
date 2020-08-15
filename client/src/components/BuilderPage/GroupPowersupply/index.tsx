@@ -11,13 +11,13 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeFilterBuilder } from '../../../containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
+  filter: TypeFilterBuilder;
   selectedComponent: TypePowersupplies | null;
-  onAddFilter: ({}: TypeFilter) => void;
+  onAddFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypePowersupplies) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
@@ -45,7 +45,6 @@ const GroupPowersupplies = ({
       const res = await getAllPowersupplies({ ...pagination });
       setPowersupplies(res.data);
       setCount(res.meta.countAfterFiltering);
-      // setPowersupplies(newPowersupplies.length > 10 ? newPowersupplies.slice(0, 9) : newPowersupplies); // while the bug is on the server
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -84,7 +83,6 @@ const GroupPowersupplies = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      // onChange={onChange}
       onChange={(ev, expanded) => onChangeExpanded(expanded ? 'powersupply' : false)}
       TransitionProps={{ unmountOnExit: true }}
     >

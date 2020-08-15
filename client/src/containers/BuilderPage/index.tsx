@@ -7,12 +7,7 @@ import GroupGpus from 'components/BuilderPage/GroupGpus';
 import GroupRams from 'components/BuilderPage/GroupRams';
 import GroupMotherboards from 'components/BuilderPage/GroupMotherboards';
 import GroupPowersupplies from 'components/BuilderPage/GroupPowersupply';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
-import { TypeCpu } from 'common/models/typeCpu';
-import { TypeGpu } from 'common/models/typeGpu';
-import { TypeRam } from 'common/models/typeRam';
-import { TypeMotherboard } from 'common/models/typeMotherboard';
-import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { TypeFilterBuilder } from './types';
 import { TypeSetup } from './reducer';
 import {
   addCpuToSetupAction,
@@ -35,20 +30,19 @@ type PropsType = {
   className?: string;
 };
 
-type TypeBuild = {
-  cpu: TypeCpu;
-  gpu: TypeGpu;
-  ram: TypeRam;
-  motherboard: TypeMotherboard;
-  powersupplies: TypePowersupplies;
-};
-
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
-  const [filter, setFilter] = useState({} as TypeFilter);
-  const [expanded, setExpanded] = React.useState(false as string | false);
+  const [expanded, setExpanded] = useState(false as string | false);
+  const [filter, setFilter] = useState<TypeFilterBuilder>({
+    socketIdSet: new Set() as Set<number>,
+    ramTypeIdSet: new Set() as Set<number>,
+  } as TypeFilterBuilder);
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
   const dispatch = useDispatch();
+
+  const resetFilter = () => {
+    setFilter({ socketIdSet: new Set(), ramTypeIdSet: new Set() });
+  };
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
@@ -57,7 +51,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           showResetSetup={Object.values(setup).some((e) => !!e)}
           onResetSetup={() => dispatch(resetSetupAction())}
           showResetFilter={Object.values(filter).some((e) => !!e)}
-          onResetFilter={() => setFilter({})}
+          onResetFilter={resetFilter}
         />
         <Box>
           <GroupCpus
