@@ -8,6 +8,7 @@ import UserPreferences from '../UserPreferences';
 import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from '../../logic/actionTypes';
+import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
 
 enum UserPageTabs {
   Games = 0,
@@ -123,7 +124,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     confirmedPasswordErrorMessage: null,
   };
 
-  const initialAvatar = user.avatar || 'https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg';
+  const initialAvatar = user.avatar || avatartPlaceholder;
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [editableInput, setEditableInput] = useState(false);
