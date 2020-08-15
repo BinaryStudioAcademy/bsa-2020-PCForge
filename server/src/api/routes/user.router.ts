@@ -6,17 +6,23 @@ import {
   PostUserRequest,
   DeleteUserRequest,
   PutUserRequest,
+  UserSchema,
+  CreateUserSchema,
+  UpdateUserSchema,
 } from './user.schema';
+import { GetOneQuery, GetMultipleQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { UserService } = fastify.services;
 
-  fastify.get('/', {}, async (request: GetAllUsersRequest, reply) => {
+  const swaggerGetAllSchema = GetMultipleQuery(UserSchema);
+  fastify.get('/', swaggerGetAllSchema, async (request: GetAllUsersRequest, reply) => {
     const users = await UserService.getUsers();
     reply.send(users);
   });
 
-  fastify.get('/:id', {}, async function (request: GetOneUserRequest, reply) {
+  const swaggerGetOneSchema = GetOneQuery(UserSchema)
+  fastify.get('/:id', swaggerGetOneSchema, async function (request: GetOneUserRequest, reply) {
     const { id } = request.params;
     const user = await UserService.getUser(id);
     if (user) {
@@ -26,15 +32,14 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     }
   });
 
-  fastify.post('/', {}, async (request: PostUserRequest, reply) => {
-    if (typeof request.body === 'string') {
-      request.body = JSON.parse(request.body);
-    }
+  const swaggerCreateSchema = CreateOneQuery(CreateUserSchema, UserSchema)
+  fastify.post('/', swaggerCreateSchema, async (request: PostUserRequest, reply) => {
     const user = await UserService.createUser(request.body);
     reply.send(user);
   });
 
-  fastify.put('/:id', {}, async (request: PutUserRequest, reply) => {
+  const swaggerUpdateSchema = UpdateOneQuery(UpdateUserSchema, UserSchema)
+  fastify.put('/:id', swaggerUpdateSchema, async (request: PutUserRequest, reply) => {
     const { id } = request.params;
     const { body } = request;
     const oldPassword = body.oldPassword || '';
@@ -49,7 +54,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     }
   });
 
-  fastify.delete('/:id', {}, async (request: DeleteUserRequest, reply) => {
+  fastify.delete('/:id', DeleteOneQuery(), async (request: DeleteUserRequest, reply) => {
     const { id } = request.params;
     await UserService.deleteUser(id);
     reply.send({});

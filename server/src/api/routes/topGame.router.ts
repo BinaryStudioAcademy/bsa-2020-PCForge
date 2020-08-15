@@ -6,13 +6,16 @@ import {
   DeleteTopGameRequest,
   GetAllTopGamesRequest,
   GetOneTopGameRequest,
+  CreateTopGameSchema,
 } from './topGame.schema';
+import { CreateOneQuery } from '../../helpers/swagger.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { TopGameService } = fastify.services;
 
   fastify.get('/', {}, async (request: GetAllTopGamesRequest, reply) => {
     const TopGames = await TopGameService.getAllTopGames(request.query);
+    console.log(TopGames);
     reply.send(TopGames);
   });
 
@@ -22,7 +25,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(TopGame);
   });
 
-  fastify.post('/', {}, async (request: PostTopGameRequest, reply) => {
+  const swaggerCreationSchema = CreateOneQuery(CreateTopGameSchema, {});
+  fastify.post('/', swaggerCreationSchema , async (request: PostTopGameRequest, reply) => {
     const TopGame = await TopGameService.createTopGame(request.body);
     reply.send(TopGame);
   });

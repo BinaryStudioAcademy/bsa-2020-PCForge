@@ -1,6 +1,7 @@
 import { FastifyRequest } from 'fastify';
 import { TopGameCreationAttributes } from '../../data/models/topgame';
 import { IFilter } from '../../data/repositories/filters/base.filter';
+import { SwaggerSchema } from '../../data/models/swaggerSchema';
 
 export type GetAllTopGamesRequest = FastifyRequest<{
   Querystring: IFilter;
@@ -22,3 +23,17 @@ export type PutTopGameRequest = FastifyRequest<{
 export type DeleteTopGameRequest = FastifyRequest<{
   Params: { id: string };
 }>;
+
+// it seems this api isn't working yet. Other schemas will be added later
+
+export const CreateTopGameSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    gameId: {
+      example: 1,
+      type: 'integer',
+      nullable: false,
+    },
+  }
+}
+

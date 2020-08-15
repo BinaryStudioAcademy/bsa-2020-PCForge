@@ -1,4 +1,5 @@
 import { FastifyRequest } from 'fastify';
+import { SwaggerSchema } from '../../data/models/swaggerSchema';
 
 export type GetOneUserRequest = FastifyRequest<{
   Params: { id: string };
@@ -29,3 +30,100 @@ export type PutUserRequest = FastifyRequest<{
 export type DeleteUserRequest = FastifyRequest<{
   Params: { id: string };
 }>;
+
+
+export const UserSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    id: {
+      example: 1,
+      type: 'integer',
+      nullable: false
+    },
+    name: {
+      example: 'username',
+      type: 'string',
+      nullable: true,
+      maxLength: 50
+    },
+    email: {
+      example: 'example@example.com',
+      type: 'string',
+      format: 'email',
+      nullable: false,
+      maxLength: 50,
+    },
+    isAdmin: {
+      type: 'boolean',
+      nullable: false,
+    },
+    avatar: {
+      example: 'http://image-hosting.com/name',
+      type: 'string',
+      nullable: true
+    },
+    createdAt: {
+      type: 'string',
+      format: 'date-time',
+      nullable: false,
+    },
+    updatedAt: {
+      type: 'string',
+      format: 'date-time',
+      nullable: false,
+    }
+  }
+}
+
+export const getAllUsersSchema: SwaggerSchema = {
+  type: 'array',
+  items: UserSchema
+}
+
+export const CreateUserSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    email: {
+      type: 'string',
+      format: 'email',
+      nullable: false,
+      maxLength: 50
+    },
+    password: {
+      type: 'string',
+      nullable: false,
+      maxLength: 50
+    }
+  }
+}
+
+export const UpdateUserSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      nullable: true,
+      maxLength: 50
+    },
+    email: {
+      type: 'string',
+      format: 'email',
+      nullable: false,
+      maxLength: 50,
+    },
+    password: {
+      type: 'string',
+      nullable: false,
+      maxLength: 50
+    },
+    oldPassword: {
+      type: 'string',
+      nullable: true,
+      maxLength: 50
+    },
+    avatar: {
+      type: 'string',
+      nullable: true
+    },
+  }
+}
