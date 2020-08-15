@@ -4,13 +4,13 @@ $notification-warning: rgb(204, 123, 30);
 $notification-info: #1d5781;
 
 .notification {
-  position: relative;
+  position: static !important;
+  transform: none !important;
   margin-top: 20px;
 
-  &>div {
+  &> div {
     min-width: 250px;
     font-size: 16px;
-
   }
 }
 
@@ -28,8 +28,4 @@ $notification-info: #1d5781;
 
 .successNotification>div {
   background-color: $notification-success;
-}
-
-.notification+div {
-  margin-top: 20px !important;
 }

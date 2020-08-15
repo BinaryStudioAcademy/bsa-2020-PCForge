@@ -54,14 +54,7 @@ const Message: React.FC<SnackbarProps & INotificationProps> = (props) => {
     onClose();
   };
   return (
-    <Snackbar
-      open={open}
-      className={classes.join(' ')}
-      autoHideDuration={6000}
-      onClose={handleClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-      key={message}
-    >
+    <Snackbar open={open} className={classes.join(' ')} autoHideDuration={6000} onClose={handleClose} key={message}>
       <Alert onClose={handleClose} severity={notificationType} icon={icon ? getIcon(icon) : null}>
         {message}
       </Alert>

@@ -3,6 +3,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
 import { hideNotification } from './logic/actions';
 import Message from './components/Message';
+import styles from './styles.module.scss';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -11,13 +12,15 @@ const Notification = (props: Props) => {
   const { open, message, notificationType, icon, hideNotification: notificationHide } = props;
 
   return (
-    <Message
-      open={open}
-      message={message}
-      notificationType={notificationType}
-      icon={icon}
-      onClose={() => notificationHide()}
-    />
+    <div className={styles.notificationContainer}>
+      <Message
+        open={open}
+        message={message}
+        notificationType={notificationType}
+        icon={icon}
+        onClose={() => notificationHide()}
+      />
+    </div>
   );
 };
 
