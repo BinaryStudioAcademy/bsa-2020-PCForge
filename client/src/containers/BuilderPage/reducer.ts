@@ -19,11 +19,11 @@ import {
 } from './actionTypes';
 
 export type TypeSetup = {
-  cpu: TypeCpu | null;
-  gpu: TypeGpu | null;
-  ram: TypeRam | null;
-  motherboard: TypeMotherboard | null;
-  powersupply: TypePowersupplies | null;
+  cpu?: TypeCpu | null;
+  gpu?: TypeGpu | null;
+  ram?: TypeRam | null;
+  motherboard?: TypeMotherboard | null;
+  powersupply?: TypePowersupplies | null;
 };
 
 const initialState = {
