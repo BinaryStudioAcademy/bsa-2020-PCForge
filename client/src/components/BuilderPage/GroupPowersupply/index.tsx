@@ -11,7 +11,7 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
-import { TypeFilterBuilder } from '../../../containers/BuilderPage/types';
+import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -21,7 +21,7 @@ type PropsType = {
   onAddComponent: ({}: TypePowersupplies) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
-  onChangeExpanded: (expanded: string | false) => void;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
 const GroupPowersupplies = ({
@@ -83,7 +83,7 @@ const GroupPowersupplies = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'powersupply' : false)}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.powersupply : false)}
       TransitionProps={{ unmountOnExit: true }}
     >
       <GroupItemSummary

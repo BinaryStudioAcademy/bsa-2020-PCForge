@@ -12,7 +12,7 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllMotherboard } from 'api/services/motherboardService';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
-import { TypeFilterBuilder } from 'containers/BuilderPage/types';
+import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -22,7 +22,7 @@ type PropsType = {
   onAddComponent: ({}: TypeMotherboard) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
-  onChangeExpanded: (expanded: string | false) => void;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
 const GroupMotherboards = ({
@@ -89,7 +89,7 @@ const GroupMotherboards = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'motherboard' : false)}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.motherboard : false)}
       TransitionProps={{ unmountOnExit: true }}
     >
       <GroupItemSummary

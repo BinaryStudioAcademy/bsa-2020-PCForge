@@ -12,7 +12,7 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllRam } from 'api/services/ramService';
 import { TypeRam } from 'common/models/typeRam';
-import { TypeFilterBuilder } from '../../../containers/BuilderPage/types';
+import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -22,7 +22,7 @@ type PropsType = {
   onAddComponent: ({}: TypeRam) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
-  onChangeExpanded: (expanded: string | false) => void;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
 const GroupRams = ({
@@ -91,7 +91,7 @@ const GroupRams = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'ram' : false)}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.ram : false)}
       TransitionProps={{ unmountOnExit: true }}
     >
       <GroupItemSummary

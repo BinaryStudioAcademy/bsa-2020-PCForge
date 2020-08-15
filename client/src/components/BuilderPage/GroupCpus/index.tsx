@@ -12,7 +12,7 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllCpu } from 'api/services/cpuService';
 import { TypeCpu } from 'common/models/typeCpu';
-import { TypeFilterBuilder } from 'containers/BuilderPage/types';
+import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -22,7 +22,7 @@ type PropsType = {
   onAddComponent: ({}: TypeCpu) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
-  onChangeExpanded: (expanded: string | false) => void;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
 const GroupCpus = ({
@@ -97,7 +97,7 @@ const GroupCpus = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'cpu' : false)}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.cpu : false)}
       TransitionProps={{ unmountOnExit: true }}
     >
       <GroupItemSummary

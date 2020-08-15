@@ -11,7 +11,7 @@ import FilterRange from 'components/BuilderPage/FilterRange';
 import Spinner from 'components/Spinner';
 import { getAllGpu } from 'api/services/gpuService';
 import { TypeGpu } from 'common/models/typeGpu';
-import { TypeFilterBuilder } from 'containers/BuilderPage/types';
+import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -21,7 +21,7 @@ type PropsType = {
   onAddComponent: ({}: TypeGpu) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
-  onChangeExpanded: (expanded: string | false) => void;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
 const GroupGpus = ({
@@ -86,7 +86,7 @@ const GroupGpus = ({
     <Accordion
       className={styles.group}
       expanded={expanded}
-      onChange={(ev, expanded) => onChangeExpanded(expanded ? 'gpu' : false)}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.gpu : false)}
       TransitionProps={{ unmountOnExit: true }}
     >
       <GroupItemSummary
