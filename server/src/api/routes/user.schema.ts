@@ -22,7 +22,6 @@ export type PutUserRequest = FastifyRequest<{
     password: string;
     email: string;
     avatar: string;
-    oldPassword: string;
   };
 }>;
 

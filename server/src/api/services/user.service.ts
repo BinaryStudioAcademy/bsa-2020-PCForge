@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
-const { NotFound, Unauthorized } = require('http-errors');
+const { NotFound } = require('http-errors');
 
 interface UserCreateAttributes {
   name: string;
@@ -54,23 +54,14 @@ export class UserService {
     return user;
   }
 
-  async updateUser(id: string, inputUser: UserCreateAttributes, oldPassword?: string): Promise<UserModel> {
+  async updateUser(id: string, inputUser: UserCreateAttributes): Promise<UserModel> {
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
       throw new NotFound();
     }
-
-    if (inputUser.password || inputUser.email !== oldUser.email) {
-      const passwordsMatch = await bcrypt.compare(oldPassword, oldUser.password);
-      if (!passwordsMatch) {
-        throw new Unauthorized('Invalid password');
-      }
-    }
-
     if (inputUser.password) {
       inputUser.password = this.hash(inputUser.password);
     }
-
     const user = await this.repository.updateById(id, inputUser);
     return user;
   }
