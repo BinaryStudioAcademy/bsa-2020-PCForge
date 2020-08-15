@@ -15,13 +15,11 @@ export class IRateFilter extends IFilter {
       ...IFilter.schema.properties,
       ratebleType: {
         type: 'string',
-        example: 'game',
         enum: ['news', 'game', 'setup'],
         nullable: true,
       },
       ratebleId: {
         type: 'integer',
-        example: 1,
         nullable: true,
       }
     }

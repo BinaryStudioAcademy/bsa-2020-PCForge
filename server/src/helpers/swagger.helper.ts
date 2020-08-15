@@ -66,6 +66,11 @@ export function DeleteOneQuery(schema?: SwaggerSchema) {
           properties: {
 
           }
+        },
+        404: {
+          type: 'string',
+          example: 'Not found',
+          nullable: false
         }
       }
     }
