@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
-import { UserModel, UserCreationAttributes } from '../../data/models/user';
+import { UserModel, UserCreationAttributes, UserAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
+import { deleteUserSecureFields } from '../../helpers/security.helper';
 
 interface UserCreateAttributes {
   name: string;
@@ -27,17 +28,19 @@ export class UserService {
     return user;
   }
 
-  async getUsers(): Promise<UserModel[]> {
+  async getUsers(): Promise<UserAttributes[]> {
     const users = await this.repository.getAllUsers();
-    return users;
+    const usersPublicFields = users.map(deleteUserSecureFields);
+    return usersPublicFields;
   }
 
-  async getUser(id: string): Promise<UserModel> {
+  async getUser(id: string): Promise<UserAttributes> {
     const user = await this.repository.getById(id);
-    return user;
+    const userPublicFields = deleteUserSecureFields(user);
+    return userPublicFields;
   }
 
-  async createUser(inputUser: UserCreateAttributes): Promise<UserModel> {
+  async createUser(inputUser: UserCreateAttributes): Promise<UserAttributes> {
     const userAttributes: UserCreationAttributes = {
       ...inputUser,
       isAdmin: false,
@@ -46,10 +49,11 @@ export class UserService {
       resetPasswordToken: null,
     };
     const user = await this.repository.create(userAttributes);
-    return user;
+    const userPublicFields = deleteUserSecureFields(user);
+    return userPublicFields;
   }
 
-  async updateUser(id: string, inputUser: UserCreateAttributes, oldPassword?: string): Promise<UserModel> {
+  async updateUser(id: string, inputUser: UserCreateAttributes, oldPassword?: string): Promise<UserAttributes> {
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
       throw new Error(`User with id: ${id} does not exist`);
@@ -67,7 +71,8 @@ export class UserService {
     }
 
     const user = await this.repository.updateById(id, inputUser);
-    return user;
+    const userPublicFields = deleteUserSecureFields(user);
+    return userPublicFields;
   }
 
   async deleteUser(id: string): Promise<void> {

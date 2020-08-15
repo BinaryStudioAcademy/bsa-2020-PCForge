@@ -1,8 +1,9 @@
-import { UserAttributes } from "../data/models/user";
+import { UserAttributes, UserModel } from "../data/models/user";
 
-export const deleteUserSecureFields = (user: UserAttributes) => {
-  delete user.password;
-  delete user.verifyEmailToken;
-  delete user.resetPasswordToken;
-  return user;
+export const deleteUserSecureFields = (user: UserModel): UserAttributes => {
+  const userAttr: UserAttributes = user.toJSON() as UserAttributes;
+  delete userAttr.password;
+  delete userAttr.verifyEmailToken;
+  delete userAttr.resetPasswordToken;
+  return userAttr;
 }

@@ -57,19 +57,5 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send({});
   });
 
-  fastify.addHook('preSerialization', (request, reply, payload, done) => {
-    const err = null;
-    let newPayload = payload;
-    if (payload instanceof Array) {
-      newPayload = (payload as UserModel[]).map(user => user.toJSON()).map(deleteUserSecureFields);
-    }
-    else if (payload instanceof Object) {
-      const user = (payload as UserModel).toJSON();
-      newPayload = deleteUserSecureFields(user as UserAttributes);
-    }
-
-    done(err, newPayload)
-  })
-
   next();
 }
