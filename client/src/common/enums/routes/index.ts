@@ -8,6 +8,8 @@ enum Routes {
   SETUPS = '/setups',
   USER = '/user/:id',
   ADMINTOOLS = '/admintools',
+  ADDHARDWARE = '/addharware',
+  ADDGAME = '/addgame',
 }
 
 export { Routes };

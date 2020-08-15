@@ -78,7 +78,7 @@ const listHeader: Array<IListNavigatinBar> = [
   {
     name: 'Admin Tools',
     icon: <AdminToolsIcon />,
-    link: '#',
+    link: Routes.ADMINTOOLS,
   },
 ];
 

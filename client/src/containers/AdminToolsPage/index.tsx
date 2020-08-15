@@ -1,4 +1,5 @@
 import React from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 import PageComponent from 'containers/PageComponent';
 import ListItem from '@material-ui/core/ListItem';
 import { MenuItems } from 'common/enums';
@@ -9,6 +10,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import SportsEsportsOutlinedIcon from '@material-ui/icons/SportsEsportsOutlined';
 import HardwareIcon from 'components/NavigationBar/NavigationIcons/HardwareIcon';
 import SetupIcon from 'components/NavigationBar/NavigationIcons/SetupIcon';
+import { Routes } from 'common/enums';
 import styles from './styles.module.scss';
 
 interface IProps {
@@ -28,7 +30,7 @@ const cardsList: Array<ITotalInfoCard> = [
     icon: <HardwareIcon />,
     createButton: true,
     countOfRequests: 3,
-    onAdd: () => alert('To do for hardware')
+    //() => alert('To do for hardware')
   },
   {
     name: CardsName.Setups,
@@ -46,6 +48,7 @@ const cardsList: Array<ITotalInfoCard> = [
   }
 ];
 
+
 const getValuesOfTotalCards = async () => {
   for(let CardItem in CardsName) {
     const index: number = cardsList.findIndex(card => card.name === CardItem);
@@ -53,8 +56,13 @@ const getValuesOfTotalCards = async () => {
   }
 }
 
-const AdminToolsPage: React.FC<IProps> = (props) => { //: JSX.Element
+//const AdminToolsPage: React.FC<IProps> = (props) => { //: JSX.Element
+const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
   getValuesOfTotalCards();
+
+  const goAddHardware = () => history.push(Routes.ADDHARDWARE);
+  const indexHardware: number = cardsList.findIndex(card => card.name === CardsName.Hardwares);
+  cardsList[indexHardware].onAdd = goAddHardware;
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
