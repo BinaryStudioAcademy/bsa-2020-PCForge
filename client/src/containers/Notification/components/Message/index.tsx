@@ -25,7 +25,6 @@ function Alert(props: AlertProps) {
 
 const Message: React.FC<SnackbarProps & INotificationProps> = (props) => {
   const { open, notificationType, message, icon, className, onClose } = props;
-
   const classes = [styles.notification];
 
   if (className) {
