@@ -8,6 +8,7 @@ import { router as motherboardRouter } from './motherboard.router';
 import { router as gpuRouter } from './gpu.router';
 import { router as cpuRouter } from './cpu.router';
 import { router as userRouter } from './user.router';
+import { router as imageUploadRouter } from './imageUpload.router';
 import { router as setupRouter } from './setup.router';
 import { router as authRouter } from './auth.router';
 import { router as gameRouter } from './game.router';
@@ -32,6 +33,6 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(newsRouter, { prefix: '/news' });
   fastify.register(rateRouter, { prefix: '/rates' });
   fastify.register(commentRouter, { prefix: '/comments' });
-  fastify.register(authRouter);
+  fastify.register(imageUploadRouter, { prefix: '/upload' });
   next();
 };
