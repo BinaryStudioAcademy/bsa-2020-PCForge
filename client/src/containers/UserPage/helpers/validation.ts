@@ -2,7 +2,6 @@ interface IErrorMessage {
   emailErrorMessage: null | string;
   passwordErrorMessage: null | string;
   confirmedPasswordErrorMessage: null | string;
-  oldPasswordErrorMessage: null | string;
   nameErrorMessage: null | string;
 }
 

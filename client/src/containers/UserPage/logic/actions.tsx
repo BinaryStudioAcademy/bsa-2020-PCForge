@@ -20,12 +20,11 @@ export const loadUserSuccess = (data: TypeUser): UserActionTypes => ({
   payload: data,
 });
 
-export const updateUser = (data: TypeUser, avatarData?: Blob, oldPassword?: string): UserActionTypes => ({
+export const updateUser = (data: TypeUser, avatarData?: Blob): UserActionTypes => ({
   type: UPDATE_USER,
   payload: {
     data,
     avatarData,
-    oldPassword,
   },
 });
 

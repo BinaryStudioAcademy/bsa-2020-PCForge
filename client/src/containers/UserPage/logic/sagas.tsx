@@ -34,7 +34,7 @@ function* updateUser(action: updateUserAction) {
     // if (action.payload.avatarData) {
     //   data.avatar = yield call(uploadImage, action.payload.avatarData);
     // }
-    const updatedUser = yield call(updateUserService, data, action.payload.oldPassword);
+    const updatedUser = yield call(updateUserService, data);
     yield put(updateUserSuccess(updatedUser));
   } catch (error) {
     console.log(error);

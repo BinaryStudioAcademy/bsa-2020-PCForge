@@ -24,7 +24,6 @@ export interface updateUser {
   payload: {
     data: TypeUser;
     avatarData?: Blob;
-    oldPassword?: string;
   };
 }
 
