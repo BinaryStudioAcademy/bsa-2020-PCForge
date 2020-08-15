@@ -7,8 +7,6 @@ import {
   DeleteUserRequest,
   PutUserRequest,
 } from './user.schema';
-import { UserModel, UserAttributes } from '../../data/models/user';
-import { deleteUserSecureFields } from '../../helpers/security.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { UserService } = fastify.services;
