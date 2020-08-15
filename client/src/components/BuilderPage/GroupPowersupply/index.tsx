@@ -17,7 +17,7 @@ import styles from 'components/BuilderPage/styles.module.scss';
 type PropsType = {
   filter: TypeFilterBuilder;
   selectedComponent: TypePowersupplies | null;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypePowersupplies) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
@@ -27,7 +27,7 @@ type PropsType = {
 const GroupPowersupplies = ({
   filter,
   selectedComponent,
-  onAddFilter,
+  onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
   expanded,

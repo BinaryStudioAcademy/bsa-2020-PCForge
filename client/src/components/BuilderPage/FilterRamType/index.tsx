@@ -16,10 +16,10 @@ import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilterBuilder;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
 };
 
-const FilterRamTypes = ({ filter, onAddFilter }: PropsType): JSX.Element => {
+const FilterRamTypes = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
   const [ramTypes, setRamTypes] = useState([] as TypeRamType[]);
   const [load, setLoad] = useState(false);
 
@@ -40,7 +40,7 @@ const FilterRamTypes = ({ filter, onAddFilter }: PropsType): JSX.Element => {
   }, []);
 
   const updateRamTypeFilter = (ramTypeIdSet: Set<number>) => {
-    onAddFilter({
+    onUpdateFilter({
       ...filter,
       socketIdSet: new Set(ramTypeIdSet),
     });

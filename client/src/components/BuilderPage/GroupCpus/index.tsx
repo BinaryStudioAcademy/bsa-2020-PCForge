@@ -18,7 +18,7 @@ import styles from 'components/BuilderPage/styles.module.scss';
 type PropsType = {
   filter: TypeFilterBuilder;
   selectedComponent: TypeCpu | null;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeCpu) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
@@ -28,7 +28,7 @@ type PropsType = {
 const GroupCpus = ({
   filter,
   selectedComponent,
-  onAddFilter,
+  onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
   expanded,
@@ -58,12 +58,10 @@ const GroupCpus = ({
     getCpus();
   }, [filter, pagination]);
 
-  useEffect(() => {
-    console.log('selectedComponent: ', selectedComponent);
-  }, [selectedComponent]);
+  useEffect(() => {}, [selectedComponent]);
 
   const AddComponentHandler = (cpu: TypeCpu): void => {
-    onAddFilter({
+    onUpdateFilter({
       ...filter,
       socketIdSet: new Set(filter.socketIdSet.add(cpu.socketId)),
     });
@@ -110,7 +108,7 @@ const GroupCpus = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterSocket filter={filter} onAddFilter={onAddFilter} />
+            <FilterSocket filter={filter} onUpdateFilter={onUpdateFilter} />
             <FilterRange
               title="Processor Frequency"
               min={1000}

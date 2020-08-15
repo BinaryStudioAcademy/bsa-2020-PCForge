@@ -16,10 +16,10 @@ import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilterBuilder;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
 };
 
-const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
+const FilterSocket = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
   const [sockets, setSockets] = useState([] as TypeSocket[]);
   const [load, setLoad] = useState(false);
 
@@ -40,7 +40,7 @@ const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
   }, []);
 
   const updateFilter = (socketIdSet: Set<number>) => {
-    onAddFilter({
+    onUpdateFilter({
       ...filter,
       socketIdSet: new Set(socketIdSet),
     });

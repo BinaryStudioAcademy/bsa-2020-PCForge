@@ -18,7 +18,7 @@ import styles from 'components/BuilderPage/styles.module.scss';
 type PropsType = {
   filter: TypeFilterBuilder;
   selectedComponent: TypeRam | null;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeRam) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
@@ -28,7 +28,7 @@ type PropsType = {
 const GroupRams = ({
   filter,
   selectedComponent,
-  onAddFilter,
+  onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
   expanded,
@@ -59,7 +59,7 @@ const GroupRams = ({
   }, [filter, pagination]);
 
   const AddComponentHandler = (ram: TypeRam): void => {
-    onAddFilter({
+    onUpdateFilter({
       ...filter,
       ramTypeIdSet: new Set(filter.ramTypeIdSet.add(ram.typeId)),
     });
@@ -104,7 +104,7 @@ const GroupRams = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterRamTypes filter={filter} onAddFilter={onAddFilter} />
+            <FilterRamTypes filter={filter} onUpdateFilter={onUpdateFilter} />
             <FilterRange title="Memory size" min={1} max={64} dimension="Gb" onChange={onChangeFilterRange} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>

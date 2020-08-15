@@ -18,7 +18,7 @@ import styles from 'components/BuilderPage/styles.module.scss';
 type PropsType = {
   filter: TypeFilterBuilder;
   selectedComponent: TypeMotherboard | null;
-  onAddFilter: ({}: TypeFilterBuilder) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeMotherboard) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
@@ -28,7 +28,7 @@ type PropsType = {
 const GroupMotherboards = ({
   filter,
   selectedComponent,
-  onAddFilter,
+  onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
   expanded,
@@ -61,7 +61,7 @@ const GroupMotherboards = ({
   }, [filter, pagination]);
 
   const AddComponentHandler = (motherboard: TypeMotherboard): void => {
-    onAddFilter({
+    onUpdateFilter({
       ...filter,
       socketIdSet: new Set(filter.socketIdSet.add(motherboard.socketId)),
       ramTypeIdSet: new Set(filter.ramTypeIdSet.add(motherboard.ramTypeId)),
@@ -102,8 +102,8 @@ const GroupMotherboards = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterSocket filter={filter} onAddFilter={onAddFilter} />
-            <FilterRamTypes filter={filter} onAddFilter={onAddFilter} />
+            <FilterSocket filter={filter} onUpdateFilter={onUpdateFilter} />
+            <FilterRamTypes filter={filter} onUpdateFilter={onUpdateFilter} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listMotherboardElements}

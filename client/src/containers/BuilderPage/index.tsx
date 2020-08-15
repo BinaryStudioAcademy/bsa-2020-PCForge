@@ -57,7 +57,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           <GroupCpus
             filter={filter}
             selectedComponent={setup.cpu}
-            onAddFilter={(filter) => setFilter(filter)}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(cpu) => dispatch(addCpuToSetupAction(cpu.id))}
             onRemoveSelectedComponent={() => dispatch(removeCpuFromSetupAction())}
             expanded={expanded === ComponentGroups.cpu}
@@ -66,7 +66,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           <GroupGpus
             filter={filter}
             selectedComponent={setup.gpu}
-            onAddFilter={(filter) => setFilter(filter)}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(gpu) => dispatch(addGpuToSetupAction(gpu.id))}
             onRemoveSelectedComponent={() => dispatch(removeGpuFromSetupAction())}
             expanded={expanded === ComponentGroups.gpu}
@@ -75,7 +75,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           <GroupRams
             filter={filter}
             selectedComponent={setup.ram}
-            onAddFilter={(filter) => setFilter(filter)}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(ram) => dispatch(addRamToSetupAction(ram.id))}
             onRemoveSelectedComponent={() => dispatch(removeRamFromSetupAction())}
             expanded={expanded === ComponentGroups.ram}
@@ -84,7 +84,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           <GroupMotherboards
             filter={filter}
             selectedComponent={setup.motherboard}
-            onAddFilter={(filter) => setFilter(filter)}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(mb) => dispatch(addMotherboardToSetupAction(mb.id))}
             onRemoveSelectedComponent={() => dispatch(removeMotherboardFromSetupAction())}
             expanded={expanded === ComponentGroups.motherboard}
@@ -93,7 +93,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           <GroupPowersupplies
             filter={filter}
             selectedComponent={setup.powersupply}
-            onAddFilter={(filter) => setFilter(filter)}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(ps) => dispatch(addPowersupplyToSetupAction(ps.id))}
             onRemoveSelectedComponent={() => dispatch(removePowersupplyFromSetupAction())}
             expanded={expanded === ComponentGroups.powersupply}
