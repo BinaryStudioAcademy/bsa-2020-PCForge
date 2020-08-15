@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import SpecificationField from 'components/BuilderPage/SpecificationField';
 import ListComponentsItem from 'components/BuilderPage/ListComponentsItem';
 import GroupItemSummary from 'components/BuilderPage/GroupItemSummary';
 import Paginator from 'components/Paginator';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Spinner from 'components/Spinner';
+import { SpecificationGpu } from 'components/BuilderPage/Specifications';
 import { getAllGpu } from 'api/services/gpuService';
 import { TypeGpu } from 'common/models/typeGpu';
 import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
@@ -60,20 +59,11 @@ const GroupGpus = ({
     onAddComponent(gpu);
   };
 
-  const specifications = (gpu: TypeGpu): JSX.Element => (
-    <Box>
-      <SpecificationField title="Bus interface" value={gpu.interface} />
-      <SpecificationField title="Memory size" value={gpu.memorySize} />
-      <SpecificationField title="OpenGL" value={gpu.opengl} />
-      <SpecificationField title="TDP" value={gpu.tdp} />
-    </Box>
-  );
-
   const listGpuElements = gpus?.map((gpu) => (
     <ListComponentsItem
       key={gpu.id}
       title={gpu.name}
-      specifications={specifications(gpu)}
+      specifications={<SpecificationGpu gpu={gpu} />}
       onAddComponent={() => AddComponentHandler(gpu)}
     />
   ));
@@ -94,6 +84,7 @@ const GroupGpus = ({
         title="GPU"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
+        popupContent={selectedComponent ? <SpecificationGpu gpu={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>

@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import GroupItemSummary from 'components/BuilderPage/GroupItemSummary';
 import ListComponentsItem from 'components/BuilderPage/ListComponentsItem';
-import SpecificationField from 'components/BuilderPage/SpecificationField';
 import FilterSocket from 'components/BuilderPage/FilterSocket';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
+import { SpecificationCpu } from 'components/BuilderPage/Specifications';
 import { getAllCpu } from 'api/services/cpuService';
 import { TypeCpu } from 'common/models/typeCpu';
 import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
@@ -68,21 +67,11 @@ const GroupCpus = ({
     onAddComponent(cpu);
   };
 
-  const specifications = (cpu: TypeCpu): JSX.Element => (
-    <Box>
-      <SpecificationField title="Vertical Segment" value={cpu.class} />
-      <SpecificationField title="Processor Frequency" value={`${cpu.clockspeed / 1000}GHz`} />
-      <SpecificationField title="Count cores" value={cpu.cores} />
-      <SpecificationField title="Socket" value={cpu.socket.name} />
-      <SpecificationField title="TDP" value={cpu.tdp} />
-    </Box>
-  );
-
   const listCpuElements = cpus?.map((cpu) => (
     <ListComponentsItem
       key={cpu.id}
       title={cpu.name}
-      specifications={specifications(cpu)}
+      specifications={<SpecificationCpu cpu={cpu} />}
       onAddComponent={() => AddComponentHandler(cpu)}
     />
   ));
@@ -103,6 +92,7 @@ const GroupCpus = ({
         title="CPU"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
+        popupContent={selectedComponent ? <SpecificationCpu cpu={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>

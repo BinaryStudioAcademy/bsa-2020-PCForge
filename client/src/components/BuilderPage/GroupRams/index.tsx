@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import GroupItemSummary from 'components/BuilderPage/GroupItemSummary';
 import ListComponentsItem from 'components/BuilderPage/ListComponentsItem';
-import SpecificationField from 'components/BuilderPage/SpecificationField';
 import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
+import { SpecificationRam } from 'components/BuilderPage/Specifications';
 import { getAllRam } from 'api/services/ramService';
 import { TypeRam } from 'common/models/typeRam';
 import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
@@ -66,19 +65,11 @@ const GroupRams = ({
     onAddComponent(ram);
   };
 
-  const specifications = (ram: TypeRam): JSX.Element => (
-    <Box>
-      <SpecificationField title="Memory size" value={`${ram.memorySize}Gb`} />
-      <SpecificationField title="Ram Frequency" value={`${ram.frequency}MHz`} />
-      <SpecificationField title="Ram type" value={ram.ramType.name} />
-    </Box>
-  );
-
   const listRamElements = rams?.map((ram) => (
     <ListComponentsItem
       key={ram.id}
       title={ram.name}
-      specifications={specifications(ram)}
+      specifications={<SpecificationRam ram={ram} />}
       onAddComponent={() => AddComponentHandler(ram)}
     />
   ));
@@ -99,6 +90,7 @@ const GroupRams = ({
         title="RAM"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
+        popupContent={selectedComponent ? <SpecificationRam ram={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>
