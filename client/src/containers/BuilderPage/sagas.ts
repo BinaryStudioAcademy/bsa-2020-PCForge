@@ -25,14 +25,14 @@ import { getGpu } from 'api/services/gpuService';
 import { getRam } from 'api/services/ramService';
 import { getMotherboard } from 'api/services/motherboardService';
 import { getPowersupplies } from 'api/services/powersupplyService';
-import { clearLocalSetup, getLocalSetup, updateLocalSetup } from 'helpers/setupHelper';
+import { clearLocalSetup, getLocalSetup, setLocalSetup } from 'helpers/setupHelper';
 
 export function* fetchCpu(action: AnyAction) {
   try {
     const cpu = yield call(getCpu, action.payload);
     yield put({ type: FETCH_CPU_SUCCESS, payload: cpu });
     const setup = yield select((state) => state.setup);
-    yield call(updateLocalSetup, { ...setup, cpu });
+    yield call(setLocalSetup, { ...setup, cpu });
   } catch (error) {
     yield put({ type: FETCH_CPU_FAILURE, payload: error.message });
   }
@@ -47,7 +47,7 @@ export function* fetchGpu(action: AnyAction) {
     const gpu = yield call(getGpu, action.payload);
     yield put({ type: FETCH_GPU_SUCCESS, payload: gpu });
     const setup = yield select((state) => state.setup);
-    yield call(updateLocalSetup, { ...setup, gpu });
+    yield call(setLocalSetup, { ...setup, gpu });
   } catch (error) {
     yield put({ type: FETCH_GPU_FAILURE, payload: error.message });
   }
@@ -62,7 +62,7 @@ export function* fetchRam(action: AnyAction) {
     const ram = yield call(getRam, action.payload);
     yield put({ type: FETCH_RAM_SUCCESS, payload: ram });
     const setup = yield select((state) => state.setup);
-    yield call(updateLocalSetup, { ...setup, ram });
+    yield call(setLocalSetup, { ...setup, ram });
   } catch (error) {
     yield put({ type: FETCH_RAM_FAILURE, payload: error.message });
   }
@@ -77,7 +77,7 @@ export function* fetchMotherboard(action: AnyAction) {
     const motherboard = yield call(getMotherboard, action.payload);
     yield put({ type: FETCH_MOTHERBOARD_SUCCESS, payload: motherboard });
     const setup = yield select((state) => state.setup);
-    yield call(updateLocalSetup, { ...setup, motherboard });
+    yield call(setLocalSetup, { ...setup, motherboard });
   } catch (error) {
     yield put({ type: FETCH_MOTHERBOARD_FAILURE, payload: error.message });
   }
@@ -92,7 +92,7 @@ export function* fetchPowersupply(action: AnyAction) {
     const powersupply = yield call(getPowersupplies, action.payload);
     yield put({ type: FETCH_POWERSUPPLY_SUCCESS, payload: powersupply });
     const setup = yield select((state) => state.setup);
-    yield call(updateLocalSetup, { ...setup, powersupply });
+    yield call(setLocalSetup, { ...setup, powersupply });
   } catch (error) {
     yield put({ type: FETCH_POWERSUPPLY_FAILURE, payload: error.message });
   }
