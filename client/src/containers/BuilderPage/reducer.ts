@@ -16,14 +16,15 @@ import {
   REMOVE_POWERSUPPLY_FROM_SETUP,
   REMOVE_RAM_FROM_SETUP,
   RESET_SETUP,
+  SET_SETUP,
 } from './actionTypes';
 
 export type TypeSetup = {
-  cpu?: TypeCpu | null;
-  gpu?: TypeGpu | null;
-  ram?: TypeRam | null;
-  motherboard?: TypeMotherboard | null;
-  powersupply?: TypePowersupplies | null;
+  cpu: TypeCpu | null;
+  gpu: TypeGpu | null;
+  ram: TypeRam | null;
+  motherboard: TypeMotherboard | null;
+  powersupply: TypePowersupplies | null;
 };
 
 const initialState = {
@@ -104,6 +105,10 @@ export default function (state = initialState, action: AnyAction): TypeSetup {
         ...state,
         powersupply: null,
       };
+    }
+
+    case SET_SETUP: {
+      return action.payload;
     }
 
     case RESET_SETUP: {
