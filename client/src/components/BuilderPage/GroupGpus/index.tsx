@@ -55,16 +55,12 @@ const GroupGpus = ({
     getGpus();
   }, [filter, pagination]);
 
-  const AddComponentHandler = (gpu: TypeGpu): void => {
-    onAddComponent(gpu);
-  };
-
   const listGpuElements = gpus?.map((gpu) => (
     <ListComponentsItem
       key={gpu.id}
       title={gpu.name}
       specifications={<SpecificationGpu gpu={gpu} />}
-      onAddComponent={() => AddComponentHandler(gpu)}
+      onAddComponent={() => onAddComponent(gpu)}
     />
   ));
 

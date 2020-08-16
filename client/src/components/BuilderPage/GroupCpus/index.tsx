@@ -68,10 +68,6 @@ const GroupCpus = ({
     }
   }, [selectedComponent]);
 
-  // const AddComponentHandler = (cpu: TypeCpu): void => {
-  //   onAddComponent(cpu);
-  // };
-
   const listCpuElements = cpus?.map((cpu) => (
     <ListComponentsItem
       key={cpu.id}

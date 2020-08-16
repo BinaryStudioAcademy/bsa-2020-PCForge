@@ -71,10 +71,6 @@ const GroupMotherboards = ({
     }
   }, [selectedComponent]);
 
-  // const AddComponentHandler = (motherboard: TypeMotherboard): void => {
-  //   onAddComponent(motherboard);
-  // };
-
   const listMotherboardElements = motherboards?.map((motherboard) => (
     <ListComponentsItem
       key={motherboard.id}

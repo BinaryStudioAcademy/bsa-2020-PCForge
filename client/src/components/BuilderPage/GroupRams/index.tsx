@@ -68,10 +68,6 @@ const GroupRams = ({
     }
   }, [selectedComponent]);
 
-  // const AddComponentHandler = (ram: TypeRam): void => {
-  //   onAddComponent(ram);
-  // };
-
   const listRamElements = rams?.map((ram) => (
     <ListComponentsItem
       key={ram.id}

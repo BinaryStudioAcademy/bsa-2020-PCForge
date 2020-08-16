@@ -55,16 +55,12 @@ const GroupPowersupplies = ({
     getPowersupplies();
   }, [filter, pagination]);
 
-  const AddComponentHandler = (powersupply: TypePowersupplies): void => {
-    onAddComponent(powersupply);
-  };
-
   const listPowersupplyElements = powersupplies?.map((powersupply) => (
     <ListComponentsItem
       key={powersupply.id}
       title={powersupply.name}
       specifications={<SpecificationPowersupply powersupply={powersupply} />}
-      onAddComponent={() => AddComponentHandler(powersupply)}
+      onAddComponent={() => onAddComponent(powersupply)}
     />
   ));
 

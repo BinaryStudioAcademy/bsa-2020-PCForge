@@ -82,11 +82,6 @@ const FilterRamTypes = ({ filter, show, onUpdateFilter }: PropsType): JSX.Elemen
       </AccordionSummary>
       <AccordionDetails className={styles.details}>
         <FormGroup>
-          {/*<FormControlLabel control={<Checkbox name="all" />} label="All sockets" />*/}
-          {/*<Button className={styles.button} size="small">*/}
-          {/*  Uncheck all*/}
-          {/*</Button>*/}
-          {/*<hr className={styles.hr} />*/}
           {listRamTypeElements}
           <Spinner load={load} />
           <Button disabled={!show} className={styles.button} size="small" onClick={resetRamTypeFilter}>
