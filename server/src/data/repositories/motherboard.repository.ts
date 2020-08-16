@@ -40,13 +40,13 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel, IMot
           {
             model: this.ramTypeModel,
             where: {
-              id: filter.ramType.id,
+              id: filter.ramTypeId,
             },
           },
           {
             model: this.socketModel,
             where: {
-              id: filter.socket.id,
+              id: filter.socketId,
             },
           },
         ],

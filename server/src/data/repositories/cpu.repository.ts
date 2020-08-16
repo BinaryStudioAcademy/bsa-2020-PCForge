@@ -30,7 +30,7 @@ export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
           {
             model: this.socketModel,
             where: {
-              id: filter.socket.id,
+              id: filter.socketId,
             },
           },
         ],

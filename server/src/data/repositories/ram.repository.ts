@@ -37,7 +37,7 @@ export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
           {
             model: this.ramTypeModel,
             where: {
-              id: filter.type.id,
+              id: filter.typeId,
             },
           },
         ],

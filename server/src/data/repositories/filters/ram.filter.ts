@@ -1,12 +1,11 @@
 import { IFilter } from './base.filter';
-import { IRamTypeFilter } from './ramType.filter';
-import { FilterRangeType } from './types';
+import { FilterByIdType, FilterRangeType, notNull } from './types';
 
 export class IRamFilter extends IFilter {
   constructor() {
     super();
   }
-  type: IRamTypeFilter = new IRamTypeFilter();
+  typeId: FilterByIdType = notNull;
   memorySize: FilterRangeType<number> = {
     minValue: 0,
     maxValue: 100,

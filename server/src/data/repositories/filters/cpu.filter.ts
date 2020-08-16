@@ -1,9 +1,9 @@
 import { IFilter } from './base.filter';
-import { ISocketFilter } from './socket.filter';
+import { FilterByIdType, notNull } from './types';
 
 export class ICpuFilter extends IFilter {
   constructor() {
     super();
   }
-  socket: ISocketFilter = new ISocketFilter();
+  socketId: FilterByIdType = notNull;
 }
