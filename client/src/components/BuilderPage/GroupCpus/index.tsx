@@ -11,7 +11,7 @@ import Spinner from 'components/Spinner';
 import { SpecificationCpu } from 'components/BuilderPage/Specifications';
 import { getAllCpu } from 'api/services/cpuService';
 import { TypeCpu } from 'common/models/typeCpu';
-import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
+import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -22,6 +22,7 @@ type PropsType = {
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
   onChangeExpanded: (expanded: ComponentGroups | false) => void;
+  showFilters: TypeShowFilters;
 };
 
 const GroupCpus = ({
@@ -32,6 +33,7 @@ const GroupCpus = ({
   onRemoveSelectedComponent,
   expanded,
   onChangeExpanded,
+  showFilters,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [cpus, setCpus] = useState([] as TypeCpu[]);
@@ -101,7 +103,7 @@ const GroupCpus = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterSocket filter={filter} onUpdateFilter={onUpdateFilter} />
+            <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
             <FilterRange
               title="Processor Frequency"
               min={1000}

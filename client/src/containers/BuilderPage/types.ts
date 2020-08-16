@@ -17,6 +17,11 @@ export type TypeFilterBuilder = {
   ramTypeIdSet: Set<number>;
 };
 
+export type TypeShowFilters = {
+  socket: boolean;
+  ramType: boolean;
+};
+
 export enum ComponentGroups {
   cpu,
   gpu,
