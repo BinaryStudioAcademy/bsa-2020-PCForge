@@ -125,7 +125,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     confirmedPasswordErrorMessage: null,
   };
 
-  const initialAvatar = user.avatar || avatartPlaceholder;
+  const initialAvatar = user.avatar;
 
   const [selectedTab, setSelectedTab] = useState(0);
   const [editableInput, setEditableInput] = useState(false);
@@ -160,6 +160,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           id: user.id,
           name,
           email,
+          avatar,
         } as TypeUser;
 
         if (password) {
@@ -214,12 +215,16 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     }
   };
 
+  const handleDeleteAvatar = (event: React.MouseEvent) => {
+    setAvatar('');
+  };
+
   return (
     <div className={styles.userPageContainer}>
       <div className={styles.userInfo}>
         <div className={styles.userImage}>
           {editableInput && (
-            <>
+            <div className={styles.imageLinksHolder}>
               <input
                 id="userImageInput"
                 name="image"
@@ -232,9 +237,11 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
               <Link className={styles.imageLink} icon="Image" onClick={() => imageInputRef.current?.click()}>
                 Change Image
               </Link>
-            </>
+              <Link className={styles.deleteImageLink} icon="DeleteForever" onClick={handleDeleteAvatar} />
+            </div>
           )}
-          <img src={avatar} alt="" />
+
+          <img src={avatar || avatartPlaceholder} alt="" />
         </div>
         <div className={styles.userData}>
           <Input

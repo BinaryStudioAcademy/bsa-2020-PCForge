@@ -5,6 +5,6 @@ interface IResponse {
 }
 
 export const uploadImage = async (image: Blob): Promise<string> => {
-  const response = (await webApi.image(`/image`, image)) as IResponse;
+  const response = (await webApi.image(`/upload/image`, image)) as IResponse;
   return response.imageUrl;
 };
