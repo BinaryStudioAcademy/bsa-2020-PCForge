@@ -29,7 +29,7 @@ export const RamSchema: SwaggerSchema = {
   type: 'object',
   properties: {
     id: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: false
@@ -58,7 +58,7 @@ export const RamSchema: SwaggerSchema = {
       nullable: false
     },
     typeId: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: false

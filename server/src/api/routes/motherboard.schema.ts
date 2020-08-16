@@ -30,7 +30,7 @@ export const MotherBoardSchema: SwaggerSchema = {
   type: 'object',
   properties: {
     id: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: false
@@ -41,13 +41,13 @@ export const MotherBoardSchema: SwaggerSchema = {
       nullable: false,
     },
     socketId: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: false
     },
     ramTypeId: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: false
@@ -76,13 +76,13 @@ export const CreateMotherBoardSchema: SwaggerSchema = {
       nullable: false,
     },
     socketId: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: false
     },
     ramTypeId: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: false
@@ -99,13 +99,13 @@ export const UpdateMotherBoardSchema: SwaggerSchema = {
       nullable: true,
     },
     socketId: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: true
     },
     ramTypeId: {
-      type: 'number',
+      type: 'integer',
       example: 1,
       minimum: 1,
       nullable: true

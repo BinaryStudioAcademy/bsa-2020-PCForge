@@ -38,7 +38,7 @@ export const GameSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
-      example: 'FirePro 3D V3700',
+      example: 'Minecraft',
       nullable: false,
     },
     year: {

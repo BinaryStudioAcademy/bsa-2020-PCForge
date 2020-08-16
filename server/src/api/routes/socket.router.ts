@@ -19,7 +19,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const getAllSchema = GetMultipleQuery(GetAllSockets, IFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllSocketsRequest, reply) => {
-    console.log(request.query, request.params)
     const sockets = await SocketService.getAllSockets(request.query);
     reply.send(sockets);
   });
