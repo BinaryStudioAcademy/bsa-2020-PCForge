@@ -11,8 +11,10 @@ import { GpuSchema } from "./gpu.schema";
 import { GameSchema } from "./game.schema";
 import { CpuSchema } from "./cpu.schema";
 import { CommentSchema } from "./comment.schema";
+import { FastifyRegisterOptions } from "fastify";
+import { SwaggerOptions } from "fastify-swagger";
 
-const SwaggerMainSchema = {
+const SwaggerMainSchema: FastifyRegisterOptions<SwaggerOptions> = {
   swagger: {
     info: {
       title: 'pcforge',
@@ -34,8 +36,6 @@ const SwaggerMainSchema = {
       Comment: CommentSchema
     }
   },
-  consumes: ['application/json'],
-  produces: ['application/json'],
   exposeRoute: true,
   routePrefix: '/documentation'
 }

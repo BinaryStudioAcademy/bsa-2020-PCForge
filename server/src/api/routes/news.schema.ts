@@ -42,7 +42,7 @@ export const NewsSchema: SwaggerSchema = {
     },
     content: {
       type: 'string',
-      example: 'Long Tet goes here',
+      example: 'Long Text goes here',
       nullable: false
     },
     image: {
