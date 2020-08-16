@@ -16,6 +16,10 @@ export class IGameFilter extends IFilter {
       year: {
         type: 'integer',
         nullable: true
+      },
+      name: {
+        type: 'string',
+        nullable: true
       }
     }
   }

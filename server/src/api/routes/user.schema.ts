@@ -36,8 +36,9 @@ export const UserSchema: SwaggerSchema = {
   type: 'object',
   properties: {
     id: {
-      example: 1,
       type: 'integer',
+      example: 1,
+      minimum: 1,
       nullable: false
     },
     name: {
@@ -58,7 +59,7 @@ export const UserSchema: SwaggerSchema = {
       nullable: false,
     },
     avatar: {
-      example: 'http://image-hosting.com/name',
+      example: 'http://image-server.com/route',
       type: 'string',
       nullable: true
     },
@@ -75,7 +76,7 @@ export const UserSchema: SwaggerSchema = {
   }
 }
 
-export const getAllUsersSchema: SwaggerSchema = {
+export const GetAllUsersSchema: SwaggerSchema = {
   type: 'array',
   items: UserSchema
 }
@@ -91,6 +92,7 @@ export const CreateUserSchema: SwaggerSchema = {
     },
     password: {
       type: 'string',
+      example: '**********',
       nullable: false,
       maxLength: 50
     }

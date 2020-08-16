@@ -33,6 +33,7 @@ export const GameSchema: SwaggerSchema = {
     id: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     name: {
@@ -44,8 +45,8 @@ export const GameSchema: SwaggerSchema = {
       type: 'integer',
       nullable: false,
       example: 2020,
-      maximum: 2050,
-      minimum: 1900
+      maximum: new Date().getFullYear(),
+      minimum: 1920
     },
     image: {
       type: 'string',
@@ -60,32 +61,38 @@ export const GameSchema: SwaggerSchema = {
     minimalRamSize: {
       type: 'integer',
       nullable: false,
-      example: 4
+      example: 4,
+      minimum: 1
     },
     recommendedRamSize: {
       type: 'integer',
       nullable: false,
-      example: 8
+      example: 8,
+      minimum: 1
     },
     minimalCpuId: {
       type: 'integer',
       nullable: false,
-      example: 1
+      example: 1,
+      minimum: 1
     },
     recommendedCpuId: {
       type: 'integer',
       nullable: false,
-      example: 1
+      example: 1,
+      minimum: 1
     },
     minimalGpuId: {
       type: 'integer',
       nullable: false,
-      example: 1
+      example: 1,
+      minimum: 1
     },
     recommendedGpuId: {
       type: 'integer',
       nullable: false,
-      example: 1
+      example: 1,
+      minimum: 1
     },
     minimalCpu: {
       type: 'object',
@@ -136,8 +143,8 @@ export const CreateGameSchema: SwaggerSchema = {
       type: 'integer',
       nullable: false,
       example: 2020,
-      maximum: 2050,
-      minimum: 1900
+      maximum: new Date().getFullYear(),
+      minimum: 1920
     },
     image: {
       type: 'string',
@@ -152,32 +159,38 @@ export const CreateGameSchema: SwaggerSchema = {
     minimalRamSize: {
       type: 'integer',
       nullable: false,
-      example: 4
+      example: 4,
+      minimum: 0,
     },
     recommendedRamSize: {
       type: 'integer',
       nullable: false,
-      example: 8
+      example: 8,
+      minimum: 0,
     },
     minimalCpuId: {
       type: 'integer',
       nullable: false,
-      example: 1
+      example: 1,
+      minimum: 1,
     },
     recommendedCpuId: {
       type: 'integer',
       nullable: false,
-      example: 1
+      example: 1,
+      minimum: 1,
     },
     minimalGpuId: {
       type: 'integer',
       nullable: false,
-      example: 1
+      example: 1,
+      minimum: 1,
     },
     recommendedGpuId: {
       type: 'integer',
       nullable: false,
-      example: 1
+      example: 1,
+      minimum: 1,
     },
   }
 }
@@ -194,8 +207,8 @@ export const updateGameSchema: SwaggerSchema = {
       type: 'integer',
       nullable: true,
       example: 2020,
-      maximum: 2050,
-      minimum: 1900
+      maximum: new Date().getFullYear(),
+      minimum: 1920
     },
     image: {
       type: 'string',
@@ -210,32 +223,38 @@ export const updateGameSchema: SwaggerSchema = {
     minimalRamSize: {
       type: 'integer',
       nullable: true,
-      example: 4
+      example: 4,
+      minimum: 0,
     },
     recommendedRamSize: {
       type: 'integer',
       nullable: true,
-      example: 8
+      example: 8,
+      minimum: 0,
     },
     minimalCpuId: {
       type: 'integer',
       nullable: true,
-      example: 1
+      example: 1,
+      minimum: 1,
     },
     recommendedCpuId: {
       type: 'integer',
       nullable: true,
-      example: 1
+      example: 1,
+      minimum: 1,
     },
     minimalGpuId: {
       type: 'integer',
       nullable: true,
-      example: 1
+      example: 1,
+      minimum: 1,
     },
     recommendedGpuId: {
       type: 'integer',
       nullable: true,
-      example: 1
+      example: 1,
+      minimum: 1,
     },
   }
 }

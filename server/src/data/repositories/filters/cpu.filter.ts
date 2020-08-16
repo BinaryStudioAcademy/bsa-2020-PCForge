@@ -15,6 +15,10 @@ export class ICpuFilter extends IFilter {
       socketId: {
         type: 'integer',
         nullable: true
+      },
+      name: {
+        type: 'string',
+        nullable: true
       }
     }
   }

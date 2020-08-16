@@ -30,6 +30,7 @@ export const RamTypeSchema: SwaggerSchema = {
     id: {
       type: 'number',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     name: {

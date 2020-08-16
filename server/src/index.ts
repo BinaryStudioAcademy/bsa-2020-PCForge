@@ -9,8 +9,7 @@ import googleAuth from './api/plugins/googleAuth';
 import cors from 'fastify-cors';
 import multer from 'fastify-multer';
 import swagger from 'fastify-swagger';
-import { UserSchema } from './api/routes/user.schema';
-import { SocketSchema } from './api/routes/socket.schema';
+import SwaggerMainSchema from './api/routes/swaggerMain.schema';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
 const server = fastify({
@@ -25,20 +24,8 @@ server.register(cors, {
   optionsSuccessStatus: 200,
 });
 
-server.register(swagger, {
-  swagger: {
-    info: {
-      title: 'pcforge',
-      version: '1'
-    },
-    definitions: {
-      User: UserSchema,
-      Socket: SocketSchema
-    }
-  },
-  exposeRoute: true,
-  routePrefix: '/documentation'
-});
+server.register(swagger, SwaggerMainSchema);
+
 server.register(jwtAuth);
 server.register(googleAuth);
 server.register(db);

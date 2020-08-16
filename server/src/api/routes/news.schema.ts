@@ -32,6 +32,7 @@ export const NewsSchema: SwaggerSchema = {
     id: {
       type: 'number',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     title: {

@@ -37,16 +37,16 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(ramType);
   });
 
-  const updateSchema = UpdateOneQuery(UpdateRamTypeSchema, RamTypeSchema);
-  fastify.put('/:id', {}, async (request: PutRamTypeRequest, reply) => {
+  const updateOneSchema = UpdateOneQuery(UpdateRamTypeSchema, RamTypeSchema);
+  fastify.put('/:id', updateOneSchema, async (request: PutRamTypeRequest, reply) => {
     const { id } = request.params;
     const { name } = request.body;
     const newRamType = await RamTypeService.updateRamById({ id, data: { name } });
     reply.send(newRamType);
   });
 
-  const deleteSchema = DeleteOneQuery();
-  fastify.delete('/:id', deleteSchema, async (request: DeleteRamTypeRequest, reply) => {
+  const deleteOneSchema = DeleteOneQuery();
+  fastify.delete('/:id', deleteOneSchema, async (request: DeleteRamTypeRequest, reply) => {
     const { id } = request.params;
     await RamTypeService.deleteRamTypeById(id);
     reply.send({});

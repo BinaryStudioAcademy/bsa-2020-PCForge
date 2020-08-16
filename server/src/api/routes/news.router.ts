@@ -6,34 +6,34 @@ import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOn
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { NewsService } = fastify.services;
 
-  const getAll = GetMultipleQuery(GetAllNewsResponse);
-  fastify.get('/', getAll, async (request, reply) => {
+  const getAllSchema = GetMultipleQuery(GetAllNewsResponse);
+  fastify.get('/', getAllSchema, async (request, reply) => {
     const news = await NewsService.getAllNews();
     reply.send(news);
   });
 
-  const getOne = GetOneQuery(NewsSchema);
-  fastify.get('/:id', getOne, async (request: GetNewsRequest, reply) => {
+  const getOneSchema = GetOneQuery(NewsSchema);
+  fastify.get('/:id', getOneSchema, async (request: GetNewsRequest, reply) => {
     const { id } = request.params;
     const news = await NewsService.getNewsById(id);
     reply.send(news);
   });
 
-  const createOne = CreateOneQuery(CreateNewsSchema, NewsSchema);
-  fastify.post('/', createOne, async (request: PostNewsRequest, reply) => {
+  const createOneSchema = CreateOneQuery(CreateNewsSchema, NewsSchema);
+  fastify.post('/', createOneSchema, async (request: PostNewsRequest, reply) => {
     const news = await NewsService.createNews(request.body);
     reply.send(news);
   });
 
-  const updateOne = UpdateOneQuery(UpdateNewsSchema, NewsSchema);
-  fastify.put('/:id', updateOne, async (request: PutNewsRequest, reply) => {
+  const updateOneSchema = UpdateOneQuery(UpdateNewsSchema, NewsSchema);
+  fastify.put('/:id', updateOneSchema, async (request: PutNewsRequest, reply) => {
     const { id } = request.params;
     const newNews = await NewsService.updateNewsById({ id, data: request.body });
     reply.send(newNews);
   });
 
-  const deleteOne = DeleteOneQuery();
-  fastify.delete('/:id', deleteOne, async (request: DeleteNewsRequest, reply) => {
+  const deleteOneSchema = DeleteOneQuery();
+  fastify.delete('/:id', deleteOneSchema, async (request: DeleteNewsRequest, reply) => {
     const { id } = request.params;
     await NewsService.deleteNewsById({ id });
     reply.send({});

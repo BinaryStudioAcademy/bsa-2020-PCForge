@@ -31,6 +31,7 @@ export const RamSchema: SwaggerSchema = {
     id: {
       type: 'number',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     name: {
@@ -41,21 +42,25 @@ export const RamSchema: SwaggerSchema = {
     memorySize: {
       type: 'integer',
       example: 8,
+      minimum: 0,
       nullable: false,
     },
     frequency: {
       type: 'integer',
       example: 4200,
+      minimum: 0,
       nullable: false,
     },
     power: {
       type: 'number',
       example: 1.35,
+      minimum: 0,
       nullable: false
     },
     typeId: {
       type: 'number',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     ramType: RamTypeSchema,
@@ -83,21 +88,25 @@ export const CreateRamSchema: SwaggerSchema = {
     memorySize: {
       type: 'integer',
       example: 8,
+      minimum: 0,
       nullable: false
     },
     frequency: {
       type: 'integer',
       example: 4200,
+      minimum: 0,
       nullable: false,
     },
     power: {
       type: 'number',
       example: 1.35,
+      minimum: 0,
       nullable: false
     },
     typeId: {
       type: 'number',
       example: 1,
+      minimum: 0,
       nullable: false
     },
   }

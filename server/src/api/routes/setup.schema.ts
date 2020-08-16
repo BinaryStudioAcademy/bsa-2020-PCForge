@@ -180,26 +180,31 @@ export const UpdateSetupSchema: SwaggerSchema = {
     cpuId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: true
     },
     gpuId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: true
     },
     motherboardId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: true
     },
     ramId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: true
     },
     powerSupplyId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: true
     }
   }

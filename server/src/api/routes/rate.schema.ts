@@ -31,6 +31,7 @@ export const RateSchema: SwaggerSchema = {
     id: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     ratebleType: {
@@ -42,16 +43,19 @@ export const RateSchema: SwaggerSchema = {
     userId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     ratebleId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     value: {
       type: 'number',
-      example: 4.2,
+      example: 4.5,
+      minimum: 0,
       nullable: false
     },
     createdAt: {
@@ -102,16 +106,19 @@ export const CreateRateSchema: SwaggerSchema = {
     userId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     ratebleId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     value: {
       type: 'number',
-      example: 4.2,
+      example: 4.5,
+      minimum: 0,
       nullable: false
     },
   }

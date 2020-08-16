@@ -30,6 +30,7 @@ export const PowerSupplySchema: SwaggerSchema = {
     id: {
       type: 'number',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     name: {
@@ -40,6 +41,7 @@ export const PowerSupplySchema: SwaggerSchema = {
     power: {
       type: 'integer',
       example: 750,
+      minimum: 0,
       nullable: false
     },
     createdAt: {
@@ -66,6 +68,7 @@ export const CreatePowerSupplySchema: SwaggerSchema = {
     power: {
       type: 'integer',
       example: 750,
+      minimum: 0,
       nullable: false
     }
   }
@@ -82,6 +85,7 @@ export const UpdatePowerSupplySchema: SwaggerSchema = {
     power: {
       type: 'integer',
       example: 750,
+      minimum: 0,
       nullable: true
     }
   },

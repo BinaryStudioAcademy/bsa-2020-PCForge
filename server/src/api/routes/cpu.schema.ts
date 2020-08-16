@@ -31,6 +31,7 @@ export const CpuSchema: SwaggerSchema = {
     id: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     name: {
@@ -41,6 +42,7 @@ export const CpuSchema: SwaggerSchema = {
     cores: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     class: {
@@ -51,21 +53,25 @@ export const CpuSchema: SwaggerSchema = {
     clockspeed: {
       type: 'integer',
       example: 800,
+      minimum: 0,
       nullable: false
     },
     tdp: {
       type: 'number',
       example: 16.2,
+      minimum: 0,
       nullable: false
     },
     perfomance: {
       type: 'integer',
       example: 160,
+      minimum: 0,
       nullable: false
     },
     socketId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     socket: SocketSchema,
@@ -93,6 +99,7 @@ export const CreateCpuSchema: SwaggerSchema = {
     cores: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     class: {
@@ -103,21 +110,25 @@ export const CreateCpuSchema: SwaggerSchema = {
     clockspeed: {
       type: 'integer',
       example: 800,
+      minimum: 0,
       nullable: false
     },
     tdp: {
       type: 'number',
       example: 16.2,
+      minimum: 0,
       nullable: false
     },
     perfomance: {
       type: 'integer',
       example: 160,
+      minimum: 0,
       nullable: false
     },
     socketId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
   }
@@ -134,6 +145,7 @@ export const UpdateCpuSchema: SwaggerSchema = {
     cores: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     class: {
@@ -144,21 +156,25 @@ export const UpdateCpuSchema: SwaggerSchema = {
     clockspeed: {
       type: 'integer',
       example: 800,
+      minimum: 0,
       nullable: false
     },
     tdp: {
       type: 'number',
       example: 16.2,
+      minimum: 0,
       nullable: false
     },
     perfomance: {
       type: 'integer',
       example: 160,
+      minimum: 0,
       nullable: false
     },
     socketId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
   }

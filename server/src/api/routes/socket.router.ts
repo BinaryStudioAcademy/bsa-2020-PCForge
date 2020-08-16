@@ -7,7 +7,7 @@ import {
   DeleteSocketRequest,
   GetAllSocketsRequest,
   CreateSocketSchema,
-  GetAllSocketsResponse,
+  GetAllSockets,
   SocketSchema,
   UpdateSocketSchema,
 } from './socket.schema';
@@ -17,7 +17,7 @@ import { IFilter } from '../../data/repositories/filters/base.filter';
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { SocketService } = fastify.services;
 
-  const getAllSchema = GetMultipleQuery(GetAllSocketsResponse, IFilter.schema);
+  const getAllSchema = GetMultipleQuery(GetAllSockets, IFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllSocketsRequest, reply) => {
     console.log(request.query, request.params)
     const sockets = await SocketService.getAllSockets(request.query);
@@ -31,21 +31,21 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(socket);
   });
 
-  const swaggerCreationSchema = CreateOneQuery(CreateSocketSchema, {});
-  fastify.post('/', swaggerCreationSchema, async (request: PostSocketRequest, reply) => {
+  const createOneSchema = CreateOneQuery(CreateSocketSchema, {});
+  fastify.post('/', createOneSchema, async (request: PostSocketRequest, reply) => {
     const socket = await SocketService.createSocket(request.body);
     reply.send(socket);
   });
 
-  const swaggerUpdateSchema = UpdateOneQuery(UpdateSocketSchema, SocketSchema);
-  fastify.put('/:id', swaggerUpdateSchema, async (request: PutSocketRequest, reply) => {
+  const updateOneSchema = UpdateOneQuery(UpdateSocketSchema, SocketSchema);
+  fastify.put('/:id', updateOneSchema, async (request: PutSocketRequest, reply) => {
     const { id } = request.params;
     const newSocket = await SocketService.updateSocketById({ id, data: request.body });
     reply.send(newSocket);
   });
 
-  const swaggerDeleteSchema = DeleteOneQuery();
-  fastify.delete('/:id', swaggerDeleteSchema, async (request: DeleteSocketRequest, reply) => {
+  const deleteOneSchema = DeleteOneQuery();
+  fastify.delete('/:id', deleteOneSchema, async (request: DeleteSocketRequest, reply) => {
     const { id } = request.params;
     await SocketService.deleteSocketById(id);
     reply.send({});

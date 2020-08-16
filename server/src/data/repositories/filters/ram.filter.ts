@@ -15,6 +15,10 @@ export class IRamFilter extends IFilter {
       typeId: {
         type: 'number',
         nullable: true
+      },
+      name: {
+        type: 'string',
+        nullable: true
       }
     }
   }

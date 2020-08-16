@@ -30,6 +30,7 @@ export const SocketSchema: SwaggerSchema = {
     id: {
       type: 'number',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     name: {
@@ -50,7 +51,7 @@ export const SocketSchema: SwaggerSchema = {
   }
 }
 
-export const GetAllSocketsResponse: SwaggerSchema = {
+export const GetAllSockets: SwaggerSchema = {
   type: 'object',
   properties: {
     meta: {
