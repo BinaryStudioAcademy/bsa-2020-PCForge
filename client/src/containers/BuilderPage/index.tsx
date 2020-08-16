@@ -20,6 +20,7 @@ import {
   addMotherboardToSetupAction,
   addPowersupplyToSetupAction,
   addRamToSetupAction,
+  initSetupAction,
   removeCpuFromSetupAction,
   removeGpuFromSetupAction,
   removeMotherboardFromSetupAction,
@@ -52,6 +53,10 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const addFilterHandler = (newFilter: TypeFilter) => {
     setFilter(newFilter);
   };
+
+  useEffect(() => {
+    dispatch(initSetupAction());
+  }, []);
 
   // const addCpuHandler = (cpu: TypeCpu) => {
   //   dispatch(addCpuToSetupAction(cpu.id));
