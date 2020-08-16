@@ -57,22 +57,25 @@ const GroupCpus = ({
     getCpus();
   }, [filter, pagination]);
 
-  useEffect(() => {}, [selectedComponent]);
+  useEffect(() => {
+    if (selectedComponent) {
+      onUpdateFilter({
+        ...filter,
+        socketIdSet: new Set(filter.socketIdSet.add(selectedComponent.socketId)),
+      });
+    }
+  }, [selectedComponent]);
 
-  const AddComponentHandler = (cpu: TypeCpu): void => {
-    onUpdateFilter({
-      ...filter,
-      socketIdSet: new Set(filter.socketIdSet.add(cpu.socketId)),
-    });
-    onAddComponent(cpu);
-  };
+  // const AddComponentHandler = (cpu: TypeCpu): void => {
+  //   onAddComponent(cpu);
+  // };
 
   const listCpuElements = cpus?.map((cpu) => (
     <ListComponentsItem
       key={cpu.id}
       title={cpu.name}
       specifications={<SpecificationCpu cpu={cpu} />}
-      onAddComponent={() => AddComponentHandler(cpu)}
+      onAddComponent={() => onAddComponent(cpu)}
     />
   ));
 

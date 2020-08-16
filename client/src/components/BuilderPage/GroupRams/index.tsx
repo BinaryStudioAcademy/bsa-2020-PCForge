@@ -57,20 +57,25 @@ const GroupRams = ({
     getRams();
   }, [filter, pagination]);
 
-  const AddComponentHandler = (ram: TypeRam): void => {
-    onUpdateFilter({
-      ...filter,
-      ramTypeIdSet: new Set(filter.ramTypeIdSet.add(ram.typeId)),
-    });
-    onAddComponent(ram);
-  };
+  useEffect(() => {
+    if (selectedComponent) {
+      onUpdateFilter({
+        ...filter,
+        ramTypeIdSet: new Set(filter.ramTypeIdSet.add(selectedComponent.typeId)),
+      });
+    }
+  }, [selectedComponent]);
+
+  // const AddComponentHandler = (ram: TypeRam): void => {
+  //   onAddComponent(ram);
+  // };
 
   const listRamElements = rams?.map((ram) => (
     <ListComponentsItem
       key={ram.id}
       title={ram.name}
       specifications={<SpecificationRam ram={ram} />}
-      onAddComponent={() => AddComponentHandler(ram)}
+      onAddComponent={() => onAddComponent(ram)}
     />
   ));
 

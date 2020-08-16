@@ -59,21 +59,26 @@ const GroupMotherboards = ({
     getMotherboards();
   }, [filter, pagination]);
 
-  const AddComponentHandler = (motherboard: TypeMotherboard): void => {
-    onUpdateFilter({
-      ...filter,
-      socketIdSet: new Set(filter.socketIdSet.add(motherboard.socketId)),
-      ramTypeIdSet: new Set(filter.ramTypeIdSet.add(motherboard.ramTypeId)),
-    });
-    onAddComponent(motherboard);
-  };
+  useEffect(() => {
+    if (selectedComponent) {
+      onUpdateFilter({
+        ...filter,
+        socketIdSet: new Set(filter.socketIdSet.add(selectedComponent.socketId)),
+        ramTypeIdSet: new Set(filter.ramTypeIdSet.add(selectedComponent.ramTypeId)),
+      });
+    }
+  }, [selectedComponent]);
+
+  // const AddComponentHandler = (motherboard: TypeMotherboard): void => {
+  //   onAddComponent(motherboard);
+  // };
 
   const listMotherboardElements = motherboards?.map((motherboard) => (
     <ListComponentsItem
       key={motherboard.id}
       title={motherboard.name}
       specifications={<SpecificationMotherboard motherboard={motherboard} />}
-      onAddComponent={() => AddComponentHandler(motherboard)}
+      onAddComponent={() => onAddComponent(motherboard)}
     />
   ));
 
