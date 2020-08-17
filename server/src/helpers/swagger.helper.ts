@@ -4,7 +4,7 @@ export function GetOneQuery(schema: SwaggerSchema) {
   return {
     schema: {
       params: {
-        id: { type: 'integer' }
+        id: { type: 'integer', nullable: false, minimum: 1 }
       },
       response: {
         200: schema,
@@ -35,7 +35,8 @@ export function UpdateOneQuery(toUpdate: SwaggerSchema, newData: SwaggerSchema) 
       params: {
         id: {
           type: 'integer',
-          nullable: false
+          nullable: false,
+          minimum: 1,
         }
       },
       body: toUpdate,
@@ -57,7 +58,8 @@ export function DeleteOneQuery(schema?: SwaggerSchema) {
       params: {
         id: {
           type: 'integer',
-          nullable: false
+          nullable: false,
+          minimum: 1
         }
       },
       response: {

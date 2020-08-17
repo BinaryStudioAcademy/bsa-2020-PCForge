@@ -1,6 +1,5 @@
 import { IFilter } from './base.filter';
 import { FilterByNumberType, notNull } from './types';
-import { FilterByIdType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IGameFilter extends IFilter {

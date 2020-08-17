@@ -30,7 +30,7 @@ const ListComponentsItem = ({
         </Typography>
         {specifications}
         <div className={styles.rating}>
-          <RatingBox ratingValue={3} disabled={false} name="Name" />
+          <RatingBox ratingValue={3} disabled={false} name={title} />
         </div>
       </div>
       <ButtonAdd className={styles.btnAdd} onClick={onAddComponent} />

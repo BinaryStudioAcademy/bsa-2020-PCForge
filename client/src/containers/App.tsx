@@ -11,7 +11,9 @@ import Home from './Home';
 import RootComponent from './Root';
 import SetupPage from './SetupsPage';
 import BuilderPage from './BuilderPage';
+import QuickMatcher from 'containers/QuickMatcher';
 import Notification from 'containers/Notification';
+
 export default class App extends Component {
   render(): JSX.Element {
     return (
@@ -25,6 +27,7 @@ export default class App extends Component {
           <Route exact path={Routes.SETUP} component={ViewSetupPage} />
           <Route exact path={Routes.DEFAULT} component={Home} />
           <Route exact path={Routes.SETUPS} component={SetupPage} />
+          <Route exact path={'/builder/quick-matcher'} component={QuickMatcher} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>
         <Notification />

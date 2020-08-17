@@ -18,10 +18,12 @@ export class IRamFilter extends IFilter {
       ...IFilter.schema.properties,
       typeId: {
         type: 'number',
+        minimum: 1,
         nullable: true
       },
       name: {
         type: 'string',
+        minimum: 1,
         nullable: true
       }
     }

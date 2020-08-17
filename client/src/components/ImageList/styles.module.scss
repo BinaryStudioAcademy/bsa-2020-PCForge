@@ -1,0 +1,23 @@
+.root {
+  display: 'flex';
+  flex-wrap: 'wrap';
+  justify-content: 'space-around';
+  overflow: 'hidden';
+  max-height: '100%';
+}
+
+.gridList {
+  flex-wrap: 'nowrap';
+  // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+  overflow: 'auto';
+  cursor: 'drag';
+  transform: 'translateZ(0)';
+}
+
+.gridList::-webkit-scrollbar {
+  display: 'none';
+};
+
+.tile {
+  border-radius: 10,
+}
