@@ -1,0 +1,16 @@
+@import '../../styles/variables.scss';
+
+.userProfileWrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  border: 4px solid $colorBlue;
+  object-fit: cover;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+}

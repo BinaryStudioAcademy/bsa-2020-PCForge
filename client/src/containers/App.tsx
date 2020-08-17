@@ -11,6 +11,7 @@ import Home from './Home';
 import RootComponent from './Root';
 import SetupPage from './SetupsPage';
 import BuilderPage from './BuilderPage';
+import Notification from 'containers/Notification';
 export default class App extends Component {
   render(): JSX.Element {
     return (
@@ -26,6 +27,7 @@ export default class App extends Component {
           <Route exact path={Routes.SETUPS} component={SetupPage} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>
+        <Notification />
       </RootComponent>
     );
   }
