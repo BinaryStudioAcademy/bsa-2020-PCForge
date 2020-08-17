@@ -12,6 +12,7 @@ import { getAllGpu } from 'api/services/gpuService';
 import { TypeGpu } from 'common/models/typeGpu';
 import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
+import Search from 'components/Search';
 
 type PropsType = {
   filter: TypeFilterBuilder;
@@ -44,13 +45,14 @@ const GroupGpus = ({
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [memorySize, setMemorySize] = useState({} as TypeMemorySize);
+  const [name, setName] = useState('');
   const [load, setLoad] = useState(false);
 
   const getGpus = async () => {
     setLoad(true);
     try {
       const querySize = { 'memorySize[minValue]': memorySize.minValue, 'memorySize[maxValue]': memorySize.maxValue };
-      const res = await getAllGpu({ ...pagination, ...querySize });
+      const res = await getAllGpu({ ...pagination, ...querySize, name });
       setGpus(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -62,7 +64,7 @@ const GroupGpus = ({
 
   useEffect(() => {
     getGpus();
-  }, [filter, pagination, memorySize]);
+  }, [filter, pagination, memorySize, name]);
 
   const listGpuElements = gpus?.map((gpu) => (
     <ListComponentsItem
@@ -99,6 +101,7 @@ const GroupGpus = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
+            <Search value={name} onChange={(e) => setName(e.target.value)} />
             <FilterRange
               title="Memory size"
               min={minMemorySize}
