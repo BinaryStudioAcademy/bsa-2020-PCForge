@@ -13,6 +13,7 @@ import { getAllMotherboard } from 'api/services/motherboardService';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
+import Search from 'components/Search';
 
 type PropsType = {
   filter: TypeFilterBuilder;
@@ -39,6 +40,7 @@ const GroupMotherboards = ({
   const [motherboards, setMotherboards] = useState([] as TypeMotherboard[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
+  const [name, setName] = useState('');
   const [load, setLoad] = useState(false);
 
   const getMotherboards = async () => {
@@ -47,7 +49,7 @@ const GroupMotherboards = ({
     const queryFilterRam = filter.ramTypeIdSet.size ? { ramTypeId: [Array.from(filter.ramTypeIdSet)].join(',') } : {};
     const queryFilter = { ...queryFilterSocket, ...queryFilterRam };
     try {
-      const res = await getAllMotherboard({ ...queryFilter, ...pagination });
+      const res = await getAllMotherboard({ ...queryFilter, ...pagination, name });
       setMotherboards(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -59,7 +61,7 @@ const GroupMotherboards = ({
 
   useEffect(() => {
     getMotherboards();
-  }, [filter, pagination]);
+  }, [filter, pagination, name]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -98,6 +100,7 @@ const GroupMotherboards = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
+            <Search value={name} onChange={(e) => setName(e.target.value)} />
             <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
             <FilterRamTypes show={showFilters.ramType} filter={filter} onUpdateFilter={onUpdateFilter} />
           </Grid>
