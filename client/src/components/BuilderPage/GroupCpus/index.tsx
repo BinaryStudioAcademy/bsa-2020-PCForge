@@ -13,6 +13,7 @@ import { getAllCpu } from 'api/services/cpuService';
 import { TypeCpu } from 'common/models/typeCpu';
 import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
+import Search from '../../Search';
 
 type PropsType = {
   filter: TypeFilterBuilder;
@@ -47,6 +48,7 @@ const GroupCpus = ({
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [clockspeed, setClockspeed] = useState({} as TypeClockspeed);
+  const [name, setName] = useState('');
   const [load, setLoad] = useState(false);
 
   const getCpus = async () => {
@@ -57,7 +59,7 @@ const GroupCpus = ({
       'clockspeed[maxValue]': clockspeed.maxValue,
     };
     try {
-      const res = await getAllCpu({ ...queryFilter, ...pagination, ...queryClockspeed });
+      const res = await getAllCpu({ ...queryFilter, ...pagination, ...queryClockspeed, name });
       setCpus(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -69,7 +71,7 @@ const GroupCpus = ({
 
   useEffect(() => {
     getCpus();
-  }, [filter, pagination, clockspeed]);
+  }, [filter, pagination, clockspeed, name]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -115,6 +117,7 @@ const GroupCpus = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
+            <Search className={styles.search} value={name} onChange={(e) => setName(e.target.value)} />
             <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
             <FilterRange
               title="Processor Frequency"
