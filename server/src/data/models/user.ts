@@ -39,7 +39,7 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
     },
     name: {
       allowNull: true,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
     },
     password: {
       allowNull: false,
@@ -54,7 +54,7 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
       type: DataTypes.BOOLEAN,
     },
     avatar: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(200),
     },
     verifyEmailToken: {
       type: DataTypes.STRING(50),

@@ -12,6 +12,7 @@ import RootComponent from './Root';
 import SetupPage from './SetupsPage';
 import BuilderPage from './BuilderPage';
 import QuickMatcher from 'containers/QuickMatcher';
+import Notification from 'containers/Notification';
 
 export default class App extends Component {
   render(): JSX.Element {
@@ -29,6 +30,7 @@ export default class App extends Component {
           <Route exact path={'/builder/quick-matcher'} component={QuickMatcher} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>
+        <Notification />
       </RootComponent>
     );
   }
