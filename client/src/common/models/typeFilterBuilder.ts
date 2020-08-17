@@ -1,7 +1,7 @@
 export type TypeFilter = {
-  typeId?: number;
-  socketId?: number;
-  ramTypeId?: number;
+  typeId?: string;
+  socketId?: string;
+  ramTypeId?: string;
   from?: number;
   count?: number;
 };

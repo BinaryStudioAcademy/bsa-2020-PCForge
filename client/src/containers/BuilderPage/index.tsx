@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
@@ -7,12 +7,7 @@ import GroupGpus from 'components/BuilderPage/GroupGpus';
 import GroupRams from 'components/BuilderPage/GroupRams';
 import GroupMotherboards from 'components/BuilderPage/GroupMotherboards';
 import GroupPowersupplies from 'components/BuilderPage/GroupPowersupply';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
-import { TypeCpu } from 'common/models/typeCpu';
-import { TypeGpu } from 'common/models/typeGpu';
-import { TypeRam } from 'common/models/typeRam';
-import { TypeMotherboard } from 'common/models/typeMotherboard';
-import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { ComponentGroups, TypeFilterBuilder } from './types';
 import { TypeSetup } from './reducer';
 import {
   addCpuToSetupAction,
@@ -35,43 +30,35 @@ type PropsType = {
   className?: string;
 };
 
-type TypeBuild = {
-  cpu: TypeCpu;
-  gpu: TypeGpu;
-  ram: TypeRam;
-  motherboard: TypeMotherboard;
-  powersupplies: TypePowersupplies;
-};
-
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
-  const [filter, setFilter] = useState({} as TypeFilter);
+  const [expanded, setExpanded] = useState<false | ComponentGroups>(false);
+  const [filter, setFilter] = useState<TypeFilterBuilder>({
+    socketIdSet: new Set() as Set<number>,
+    ramTypeIdSet: new Set() as Set<number>,
+  });
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
   const dispatch = useDispatch();
 
-  const addFilterHandler = (newFilter: TypeFilter) => {
-    setFilter(newFilter);
+  const resetFilter = () => {
+    setFilter({ socketIdSet: new Set(), ramTypeIdSet: new Set() });
   };
 
-  // const addCpuHandler = (cpu: TypeCpu) => {
-  //   dispatch(addCpuToSetupAction(cpu.id));
-  // };
-  //
-  // const addGpuHandler = (gpu: TypeGpu) => {
-  //   dispatch(addGpuToSetupAction(gpu.id));
-  // };
-  //
-  // const addRamHandler = (ram: TypeRam) => {
-  //   dispatch(addRamToSetupAction(ram.id));
-  // };
-  //
-  // const addMotherboardHandler = (motherboard: TypeMotherboard) => {
-  //   dispatch(addMotherboardToSetupAction(motherboard.id));
-  // };
-  //
-  // const addPowersuppliesHandler = (powersupplies: TypePowersupplies) => {
-  //   dispatch(addPowersupplyToSetupAction(powersupplies.id));
-  // };
+  const filterForCpu = {
+    ...filter,
+    socketIdSet: setup.motherboard ? new Set([setup.motherboard.socketId]) : filter.socketIdSet,
+  };
+
+  const filterForRam = {
+    ...filter,
+    ramTypeIdSet: setup.motherboard ? new Set([setup.motherboard.ramTypeId]) : filter.ramTypeIdSet,
+  };
+
+  const filterForMotherboard = {
+    ...filter,
+    socketIdSet: setup.cpu ? new Set([setup.cpu.socketId]) : filter.socketIdSet,
+    ramTypeIdSet: setup.ram ? new Set([setup.ram.typeId]) : filter.ramTypeIdSet,
+  };
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
@@ -79,44 +66,57 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
         <BuilderTitle
           showResetSetup={Object.values(setup).some((e) => !!e)}
           onResetSetup={() => dispatch(resetSetupAction())}
-          showResetFilter={Object.values(filter).some((e) => !!e)}
-          onResetFilter={() => setFilter({})}
+          showResetFilter={Object.values(filter).some((e) => !!e.size)}
+          onResetFilter={resetFilter}
         />
         <Box>
           <GroupCpus
-            filter={filter}
+            filter={filterForCpu}
+            showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
             selectedComponent={setup.cpu}
-            onAddFilter={addFilterHandler}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(cpu) => dispatch(addCpuToSetupAction(cpu.id))}
             onRemoveSelectedComponent={() => dispatch(removeCpuFromSetupAction())}
+            expanded={expanded === ComponentGroups.cpu}
+            onChangeExpanded={setExpanded}
           />
           <GroupGpus
             filter={filter}
             selectedComponent={setup.gpu}
-            onAddFilter={addFilterHandler}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(gpu) => dispatch(addGpuToSetupAction(gpu.id))}
             onRemoveSelectedComponent={() => dispatch(removeGpuFromSetupAction())}
+            expanded={expanded === ComponentGroups.gpu}
+            onChangeExpanded={setExpanded}
           />
           <GroupRams
-            filter={filter}
+            filter={filterForRam}
+            showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
             selectedComponent={setup.ram}
-            onAddFilter={addFilterHandler}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(ram) => dispatch(addRamToSetupAction(ram.id))}
             onRemoveSelectedComponent={() => dispatch(removeRamFromSetupAction())}
+            expanded={expanded === ComponentGroups.ram}
+            onChangeExpanded={setExpanded}
           />
           <GroupMotherboards
-            filter={filter}
+            filter={filterForMotherboard}
+            showFilters={{ socket: !setup.cpu, ramType: !setup.ram }}
             selectedComponent={setup.motherboard}
-            onAddFilter={addFilterHandler}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(mb) => dispatch(addMotherboardToSetupAction(mb.id))}
             onRemoveSelectedComponent={() => dispatch(removeMotherboardFromSetupAction())}
+            expanded={expanded === ComponentGroups.motherboard}
+            onChangeExpanded={setExpanded}
           />
           <GroupPowersupplies
             filter={filter}
             selectedComponent={setup.powersupply}
-            onAddFilter={addFilterHandler}
+            onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(ps) => dispatch(addPowersupplyToSetupAction(ps.id))}
             onRemoveSelectedComponent={() => dispatch(removePowersupplyFromSetupAction())}
+            expanded={expanded === ComponentGroups.powersupply}
+            onChangeExpanded={setExpanded}
           />
         </Box>
       </Box>

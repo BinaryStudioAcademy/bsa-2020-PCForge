@@ -4,10 +4,12 @@ import styles from './styles.module.scss';
 import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
+import PasswordInput from 'components/PasswordInput/PasswordInput';
 import UserPreferences from '../UserPreferences';
 import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from '../../logic/actionTypes';
+import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
 
 enum UserPageTabs {
   Games = 0,
@@ -16,7 +18,7 @@ enum UserPageTabs {
 
 interface IUserInfoProps {
   user: TypeUser;
-  updateUser: (data: TypeUser, oldPassword?: string) => UserActionTypes;
+  updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
@@ -116,22 +118,23 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     },
   ];
 
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [editableInput, setEditableInput] = useState(false);
-  const [requireOldPassword, setRequireOldPassword] = useState(false);
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [avatar, setAvatar] = useState('https://i.pinimg.com/originals/6f/6b/d8/6f6bd86caa6488dc3ac3fb8b1f74c0cb.jpg');
-  const [password, setPassword] = useState('');
-  const [confirmedPassword, setConfirmedPassword] = useState('');
-  const [oldPassword, setOldPassword] = useState('');
-  const [errorMessages, setErrorMessages] = useState({
+  const initialErrorMessages = {
     emailErrorMessage: null,
     passwordErrorMessage: null,
     nameErrorMessage: null,
     confirmedPasswordErrorMessage: null,
-    oldPasswordErrorMessage: null,
-  });
+  };
+
+  const initialAvatar = user.avatar;
+
+  const [selectedTab, setSelectedTab] = useState(0);
+  const [editableInput, setEditableInput] = useState(false);
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [avatar, setAvatar] = useState(initialAvatar);
+  const [password, setPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [errorMessages, setErrorMessages] = useState(initialErrorMessages);
 
   const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
@@ -151,26 +154,26 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
       if (
         emailValid(email, errorMessages, setErrorMessages as SetErrorMessages) &&
         passwordValid(password, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages) &&
-        nameValid(name, errorMessages, setErrorMessages as SetErrorMessages) &&
-        (!requireOldPassword || oldPassword)
+        nameValid(name, errorMessages, setErrorMessages as SetErrorMessages)
       ) {
         const dataToUpdate = {
           id: user.id,
           name,
           email,
+          avatar,
         } as TypeUser;
 
         if (password) {
           dataToUpdate.password = password;
         }
 
-        updateUser(dataToUpdate, oldPassword || undefined);
+        const avatarData = (imageInputRef.current?.files && imageInputRef.current?.files[0]) || undefined;
+
+        updateUser(dataToUpdate, avatarData);
 
         setEditableInput(false);
-        setRequireOldPassword(false);
         setPassword('');
         setConfirmedPassword('');
-        setOldPassword('');
       }
     } else {
       setEditableInput(true);
@@ -179,12 +182,13 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
 
   const handleCancel = (event: React.MouseEvent) => {
     setEditableInput(false);
-    setRequireOldPassword(false);
+    setAvatar(initialAvatar);
     setName(user.name);
     setEmail(user.email);
     setPassword('');
-    setOldPassword('');
     setConfirmedPassword('');
+
+    setErrorMessages(initialErrorMessages);
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -193,22 +197,26 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
     emailValid(event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
-    setRequireOldPassword(true);
   };
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-    passwordValid(event.target.value, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages);
-    setRequireOldPassword(true);
+  const handlePasswordChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = event.target as HTMLInputElement;
+    setPassword(target.value);
+    passwordValid(target.value, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages);
   };
-  const handleConfirmedPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmedPassword(event.target.value);
-    passwordValid(password, event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
+  const handleConfirmedPasswordChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = event.target as HTMLInputElement;
+    setConfirmedPassword(target.value);
+    passwordValid(password, target.value, errorMessages, setErrorMessages as SetErrorMessages);
   };
-  const handleOldPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOldPassword(event.target.value);
+
+  const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setAvatar(URL.createObjectURL(event.target.files[0]));
+    }
   };
-  const handleChangeImage = () => {
-    // TODO: Upload image and show
+
+  const handleDeleteAvatar = (event: React.MouseEvent) => {
+    setAvatar('');
   };
 
   return (
@@ -216,7 +224,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
       <div className={styles.userInfo}>
         <div className={styles.userImage}>
           {editableInput && (
-            <>
+            <div className={styles.imageLinksHolder}>
               <input
                 id="userImageInput"
                 name="image"
@@ -229,9 +237,11 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
               <Link className={styles.imageLink} icon="Image" onClick={() => imageInputRef.current?.click()}>
                 Change Image
               </Link>
-            </>
+              <Link className={styles.deleteImageLink} icon="DeleteForever" onClick={handleDeleteAvatar} />
+            </div>
           )}
-          <img src={avatar} alt="" />
+
+          <img src={avatar || avatartPlaceholder} alt="" />
         </div>
         <div className={styles.userData}>
           <Input
@@ -254,41 +264,37 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             helperText={errorMessages.emailErrorMessage || ''}
           />
           {editableInput && (
-            <Input
-              className={editableInput ? styles.autoFocused : ''}
-              icon="VpnKey"
-              type="password"
-              placeholder="New password"
-              value={password}
-              inputType={errorMessages.passwordErrorMessage ? InputType.error : undefined}
-              onChange={handlePasswordChange}
-              helperText={errorMessages.passwordErrorMessage || ''}
-            />
+            <div
+              className={
+                styles.passwordInputHolder + (errorMessages.passwordErrorMessage ? ` ${styles.holderError}` : '')
+              }
+            >
+              <PasswordInput
+                icon="VpnKey"
+                inputHandler={handlePasswordChange}
+                value={password}
+                inputType={errorMessages.passwordErrorMessage ? InputType.error : undefined}
+                helperText={errorMessages.passwordErrorMessage || ''}
+              />
+            </div>
           )}
           {editableInput && (
-            <Input
-              className={editableInput ? styles.autoFocused : ''}
-              icon="VpnKey"
-              type="password"
-              placeholder="Confirm password"
-              value={confirmedPassword}
-              onChange={handleConfirmedPasswordChange}
-              inputType={errorMessages.confirmedPasswordErrorMessage ? InputType.error : undefined}
-              helperText={errorMessages.confirmedPasswordErrorMessage || ''}
-            />
+            <div
+              className={
+                styles.passwordInputHolder +
+                (errorMessages.confirmedPasswordErrorMessage ? ` ${styles.holderError}` : '')
+              }
+            >
+              <PasswordInput
+                icon="VpnKey"
+                placeholder="Confirm password"
+                inputHandler={handleConfirmedPasswordChange}
+                value={confirmedPassword}
+                inputType={errorMessages.confirmedPasswordErrorMessage ? InputType.error : undefined}
+                helperText={errorMessages.confirmedPasswordErrorMessage || ''}
+              />
+            </div>
           )}
-          {requireOldPassword && (
-            <Input
-              className={styles.autoFocused}
-              icon="VpnKey"
-              type="password"
-              placeholder="Old password"
-              value={oldPassword}
-              onChange={handleOldPasswordChange}
-              inputType={oldPassword ? undefined : InputType.warning}
-            />
-          )}
-
           <div className={styles.buttonsContainer}>
             <Button onClick={handleSetEditable} buttonType={ButtonType.primary}>
               {editableInput ? 'Save' : 'Edit'}
