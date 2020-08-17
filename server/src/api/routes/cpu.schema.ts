@@ -32,7 +32,7 @@ export const CpuSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
@@ -43,50 +43,50 @@ export const CpuSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     class: {
       type: 'string',
       example: 'Desktop',
-      nullable: false
+      nullable: false,
     },
     clockspeed: {
       type: 'integer',
       example: 800,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     tdp: {
       type: 'number',
       example: 16.2,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     perfomance: {
       type: 'integer',
       example: 160,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     socketId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     socket: SocketSchema,
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const CreateCpuSchema: SwaggerSchema = {
   type: 'object',
@@ -100,39 +100,39 @@ export const CreateCpuSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     class: {
       type: 'string',
       example: 'Desktop',
-      nullable: false
+      nullable: false,
     },
     clockspeed: {
       type: 'integer',
       example: 800,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     tdp: {
       type: 'number',
       example: 16.2,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     perfomance: {
       type: 'integer',
       example: 160,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     socketId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
-  }
-}
+  },
+};
 
 export const UpdateCpuSchema: SwaggerSchema = {
   type: 'object',
@@ -146,39 +146,39 @@ export const UpdateCpuSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     class: {
       type: 'string',
       example: 'Desktop',
-      nullable: false
+      nullable: false,
     },
     clockspeed: {
       type: 'integer',
       example: 800,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     tdp: {
       type: 'number',
       example: 16.2,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     perfomance: {
       type: 'integer',
       example: 160,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     socketId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
-  }
-}
+  },
+};
 
 export const GetAllCpusResponse: SwaggerSchema = {
   type: 'object',
@@ -188,19 +188,17 @@ export const GetAllCpusResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: CpuSchema
-    }
-  }
-}
-
-
+      items: CpuSchema,
+    },
+  },
+};
