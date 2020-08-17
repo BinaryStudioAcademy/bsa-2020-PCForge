@@ -14,6 +14,7 @@ import { NewsService } from './news.service';
 import { RateService } from './rate.service';
 import { CommentService } from './comment.service';
 import uploadService from './imageUpload.service';
+import { PerformanceService } from './performance.service';
 
 export interface Services {
   RamTypeService: RamTypeService;
@@ -31,6 +32,7 @@ export interface Services {
   RateService: RateService;
   CommentService: CommentService;
   UploadImageService;
+  PerformanceService: PerformanceService;
 }
 
 export const initializeServices = (repositories: Repositories): Services => {
@@ -48,6 +50,7 @@ export const initializeServices = (repositories: Repositories): Services => {
   const newsService = new NewsService(repositories.NewsRepository);
   const rateService = new RateService(repositories.RateRepository);
   const commentService = new CommentService(repositories.CommentRepository);
+  const performanceService = new PerformanceService(repositories.SetupRepository, repositories.GameRepository);
   const services: Services = {
     RamTypeService: ramTypeService,
     RamService: ramService,
@@ -64,6 +67,7 @@ export const initializeServices = (repositories: Repositories): Services => {
     RateService: rateService,
     CommentService: commentService,
     UploadImageService: uploadService,
+    PerformanceService: performanceService,
   };
   return services;
 };
