@@ -4,15 +4,16 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Tooltip from '@material-ui/core/Tooltip';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
-import NavigationLogo from '../../assets/NavigationIcons/NavigationLogo';
-import HomeIcon from '../../assets/NavigationIcons/HomeIcon';
-import BuildSetupIcon from '../../assets/NavigationIcons/BuildSetupIcon';
-import SetupIcon from '../../assets/NavigationIcons/SetupIcon';
-import GameMatcherIcon from '../../assets/NavigationIcons/GameMatcherIcon';
-import HardwareIcon from '../../assets/NavigationIcons/HardwareIcon';
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
-import LogOutIcon from '../../assets/NavigationIcons/LogOutIcon';
+import { ReactComponent as NavigationLogo } from 'assets/icons/navigationLogo.svg';
+import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
+import { ReactComponent as BuildSetupIcon } from 'assets/icons/builderSetup.svg';
+import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
+import { ReactComponent as GameMatcherIcon } from 'assets/icons/gameMatcher.svg';
+import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
+import { ReactComponent as LogOutIcon } from 'assets/icons/logOut.svg';
 
 import { Routes } from 'common/enums';
 
@@ -30,7 +31,7 @@ const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultS
   return (
     <Drawer variant="permanent" anchor="left" className={styles.navigationBar}>
       <List className={styles.listIcons}>
-        <NavigationLogo className={styles.logo} />
+        <SvgIcon component={NavigationLogo} viewBox="0 0 63 63" className={styles.logo} />
         {props.map((item, key) => (
           <Link key={`${key}-link`} to={item.link}>
             <Tooltip title={item.name} key={`${key}-tooltip`} placement="right-start">
@@ -53,27 +54,27 @@ const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultS
 const listHeader: Array<IListNavigatinBar> = [
   {
     name: 'Home',
-    icon: <HomeIcon />,
+    icon: <SvgIcon component={HomeIcon} viewBox="0 0 31 31" />,
     link: Routes.DEFAULT,
   },
   {
     name: 'Build Setup',
-    icon: <BuildSetupIcon />,
+    icon: <SvgIcon component={BuildSetupIcon} />,
     link: Routes.BUILDER,
   },
   {
     name: 'Setup',
-    icon: <SetupIcon />,
+    icon: <SvgIcon component={SetupIcon} viewBox="0 0 31 31" />,
     link: Routes.SETUPS,
   },
   {
     name: 'Game Matcher',
-    icon: <GameMatcherIcon />,
+    icon: <SvgIcon component={GameMatcherIcon} />,
     link: Routes.MATCHER,
   },
   {
     name: 'Hardware',
-    icon: <HardwareIcon />,
+    icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
     link: '#',
   },
   {
@@ -83,7 +84,7 @@ const listHeader: Array<IListNavigatinBar> = [
   },
   {
     name: 'Log out',
-    icon: <LogOutIcon />,
+    icon: <SvgIcon component={LogOutIcon} viewBox="0 0 31 31" />,
     link: '#',
   },
 ];
