@@ -49,7 +49,7 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
     const games = await this.getAll(
       {
         group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
-        where: { year: filter.year },
+        where: where,
         include: [
           {
             model: this.cpuModel,
