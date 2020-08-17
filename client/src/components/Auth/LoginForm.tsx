@@ -7,6 +7,10 @@ import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import PasswordInput from '../PasswordInput/PasswordInput';
+import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { setToken } from 'helpers/tokenHelper';
+import history from 'browserHistory';
+import { Routes } from 'common/enums';
 
 interface ILoginFormProps {
   email: string;
@@ -31,6 +35,13 @@ const LoginForm = ({
   login,
   switchToRegistration,
 }: ILoginFormProps): JSX.Element => {
+  const googleClientId = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!;
+
+  const googleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    setToken((response as GoogleLoginResponse).tokenId);
+    history.push(Routes.DEFAULT);
+  };
+
   return (
     <div className={styles.loginWrapper}>
       <form className={styles.loginForm}>
@@ -65,6 +76,15 @@ const LoginForm = ({
           </Button>
         </div>
       </form>
+      <div>
+        <GoogleLogin
+          clientId={googleClientId}
+          buttonText="Login using Google"
+          onSuccess={googleLoginSuccess}
+          onFailure={(res) => console.log(res)}
+          cookiePolicy={'single_host_origin'}
+        />
+      </div>
       <span className={styles.registerBox}>
         Don't have an account?{' '}
         <span onClick={switchToRegistration} className={[styles.registerLink, 'link'].join(' ')}>
