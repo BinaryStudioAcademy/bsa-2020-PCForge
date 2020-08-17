@@ -26,11 +26,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/:id', getOneSchema, async function (request: GetOneUserRequest, reply) {
     const { id } = request.params;
     const user = await UserService.getUser(id);
-    if (user) {
-      reply.send(user);
-    } else {
-      reply.code(404).type('text/html').send('Not Found');
-    }
+    reply.send(user);
   });
 
   const createSchema = CreateOneQuery(CreateUserSchema, UserSchema)
@@ -43,16 +39,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', updateSchema, async (request: PutUserRequest, reply) => {
     const { id } = request.params;
     const { body } = request;
-    const oldPassword = body.oldPassword || '';
-    try {
-      if (oldPassword) {
-        delete body.oldPassword;
-      }
-      const user = await UserService.updateUser(id, body, oldPassword);
-      reply.send(user);
-    } catch (error) {
-      reply.code(500).type('text/html').send(error.message);
-    }
+    const user = await UserService.updateUser(id, body);
+    reply.send(user);
   });
 
   const deleteOneSchema = DeleteOneQuery();

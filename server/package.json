@@ -31,6 +31,7 @@
     "fastify-static": "^3.2.0",
     "fastify-swagger": "^3.3.0",
     "google-auth-library": "^6.0.6",
+    "http-errors": "^1.8.0",
     "lodash": "^4.17.19",
     "multer-s3": "^2.9.0",
     "path": "^0.12.7",

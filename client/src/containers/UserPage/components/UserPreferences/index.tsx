@@ -21,7 +21,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
       {games ? (
         <>
           <div className={styles.buttonPlacement}>
-            <Button className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add">
+            <Button variant="contained" className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add">
               Add Game
             </Button>
           </div>
