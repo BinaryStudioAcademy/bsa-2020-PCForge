@@ -32,10 +32,7 @@ const getModels = (modelString: string): string[] => {
   const parts = modelString.split('export ');
   const models = [];
   for (const filePart of parts) {
-    if (filePart.includes('Attributes') &&
-      //  !filePart.includes('CreationAttributes') && 
-       !filePart.includes('import')
-    ) {
+    if (filePart.includes('Attributes') && !filePart.includes('import')) {
       const regex = /\Attributes\b/g;
       models.push(filePart.replace(regex, 'Model'));
       if (models.length === 2)
@@ -59,23 +56,23 @@ const getModelTypesString = (modelFiles: Buffer[]): string => {
   return result;
 };
 
-const getModelImportsString = (requestStrings: string[], modelsPath: fs.PathLike): string => {
-  const imports: string[] = [];
-  for (const requestString of requestStrings) {
-    const values = requestString.split(':').filter((val, index) => index % 2 === 1);
-    for (const value of values) {
-      const modelIndex = value.indexOf('Model');
-      if (modelIndex > 0) {
-        const modelName = value.substring(1, value.indexOf(';'));
-        // const modelFile = modelsPath.toString().substring(0, modelsPath.toString().indexOf('.ts'));
-        const modelFile = './api.models'
-        imports.push(`import { ${modelName} } from '${modelFile}';\n`);
-      }
-    }
-  }
-  const uniqueImports = [...new Set(imports)];
-  return uniqueImports.join('\n');
-}
+// const getModelImportsString = (model): string => {
+//   const imports: string[] = [];
+//   for (const requestString of requestStrings) {
+//     const values = requestString.split(':').filter((val, index) => index % 2 === 1);
+//     for (const value of values) {
+//       const modelIndex = value.indexOf('Model');
+//       if (modelIndex > 0) {
+//         const modelName = value.substring(1, value.indexOf(';'));
+//         // const modelFile = modelsPath.toString().substring(0, modelsPath.toString().indexOf('.ts'));
+//         const modelFile = './api.models'
+//         imports.push(`import { ${modelName} } from '${modelFile}';\n`);
+//       }
+//     }
+//   }
+//   const uniqueImports = [...new Set(imports)];
+//   return uniqueImports.join('\n');
+// }
 
 const getRequests = (schemaString: string): string[] => {
   const requestStrings: string[] = [];
@@ -94,27 +91,59 @@ const getRequests = (schemaString: string): string[] => {
   return requestStrings;
 }
 
-const getRequestsString = (schemaFiles: Buffer[],  modelsPath: fs.PathLike): string => {
-  let result = '';
-  for (const schemaFile of schemaFiles) {
-    const requests = getRequests(schemaFile.toString());
-    const imports = getModelImportsString(requests, modelsPath);
-    result += imports;
-    if (requests) {
-      for (const request of requests) {
-        result += request;
-      }
-    }
-  }
-  return result;
+const getPosition = (string: string, subString: string, index: number): number => {
+  return string.split(subString, index).join(subString).length;
 }
 
-const bannedWords = [
-  'mergeFilters',
-  '[Op.ne]'
-]
+const getRequestsString = (
+  requestFiles: Buffer[],
+  filtersString: string,
+  filtersPath: fs.PathLike,
+  modelsString: string,
+  modelsPath: fs.PathLike
+): string => {
+  const filterImports = filtersString.split('export ')
+                                     .map(filter => {
+                                        const nameStart = getPosition(filter, ' ', 1) + 1;
+                                        const nameEnd = getPosition(filter, ' ', 2);
+                                        const name = filter.substring(nameStart, nameEnd);
+                                        console.log(name);
+                                        return name;
+                                     })
+                                     .map(filterName => {
+                                       const bannedRegex = /<T>/g;
+                                       return filterName.replace(bannedRegex, '').replace('\\', '/');
+                                     })
+                                     .map(filterName => `import { ${filterName} } from '${filtersPath.toString().replace(/\.ts\b/g, '')}'`)
+                                     .join(';\n');
+  const modelImports = modelsString.split('export ')
+                                   .map(model => {
+                                      const nameStart = model.indexOf(' ');
+                                      const nameEnd = model.indexOf('=');
+                                      const name = model.substring(nameStart, nameEnd);
+                                      return name;
+                                   })
+                                   .map(modelName => `import { ${modelName} } from '${modelsPath}'`)
+                                  .join('\n');
+  // const _imports: string[] = [];
+  // const _requests: string[] = [];
+  // for (const schemaFile of schemaFiles) {
+  //   const requests = getRequests(schemaFile.toString());
+  //   const imports = getModelImportsString(requests, modelsPath);
+  //   _imports.push(imports)
+  //   if (requests) {
+  //     _requests.push(...requests);
+  //   }
+  // }
+  // return _imports.join('') + _requests.join('\n');
+  return filterImports + '\n' + modelImports;
+}
 
-const containBannedWord = (str: string): boolean => {
+const removeStringFromCenter = (str: string, index1: number, index2: number) => {
+  return str.substring(0, index1) + str.substring(index2, str.length);
+}
+
+const containBannedWord = (str: string, bannedWords: string[]): boolean => {
   for (const bannedWord of bannedWords) {
     if (str.includes(bannedWord))
       return true;
@@ -122,49 +151,53 @@ const containBannedWord = (str: string): boolean => {
   return false
 }
 
-const removeStringFromCenter = (str: string, index1: number, index2: number) => {
-  return str.substring(0, index1) + str.substring(index2, str.length - 1);
+const getFilters = (filterString: string): string => {
+  const bannedWords = [
+    'import',
+    'eslint'
+  ]
+  const filters = filterString.split('export ')
+                              .filter(filter => !containBannedWord(filter, bannedWords))
+                              .map(filter => filter.replace(/class\b/g, 'interface'))
+                              .map(filter => {
+                                const constructorStart = filter.indexOf('constructor');
+                                const constructorEnd = filter.indexOf('}') + 4;
+                                return removeStringFromCenter(filter, constructorStart, constructorEnd);
+                              })
+                              .map(filter => {
+                                while (true) {
+                                  const typeStart = filter.indexOf('=') - 1;
+                                  const typeEnd = filter.substring(typeStart, filter.length).indexOf(';') + typeStart;
+                                  if (typeStart < 0 || typeEnd < 0)
+                                    break;
+                                  filter = removeStringFromCenter(filter, typeStart, typeEnd);
+                                }
+                                return `export ${filter}`;
+                              })
+                              .join('')
+  return filters;
 }
 
-const getFilter = (_filterString: string): string => {
-  let filterString = _filterString;
-  if (filterString.includes('class')) {
-    console.log('AAA');
-    const classRegex = /\class\b/g;
-    filterString = filterString.replace(classRegex, 'interface');
-    const extendsRegex = /\extends\b/g;
-    filterString = filterString.replace(extendsRegex, 'implements');
-    const constructorStart = filterString.indexOf('constructor');
-    const constructorEnd = filterString.indexOf('}');
-    filterString = removeStringFromCenter(filterString, constructorStart, constructorEnd);
-    // console.log(filterString);
-    while (true) {
-      const typeStart = filterString.indexOf('=');
-      const typeEnd = filterString.indexOf(';');
-      // console.log(typeStart, typeEnd);
-      if (typeStart < 0 || typeEnd < 0)
-        break;
-      // console.log(removeStringFromCenter(filterString, typeStart, typeEnd));
-      filterString = removeStringFromCenter(filterString, typeStart, typeEnd);
-    }
-    console.log(filterString);
-    return filterString;
-  }
+const getFilterTypesString = (typeString: string): string => {
+  const bannedWords = [
+    'import',
+    '[Op.ne]',
+    'eslint'
+  ]
+
+  const types = typeString.split('export ')
+                          .filter(type => !containBannedWord(type, bannedWords))
+                          .map(type => `export ${type}`)
+                          .join('');
+  return types;
 }
 
-const getFiltersString = (filterFiles: Buffer[]): string => {
-  let result = '';
-  for (const filterFile of filterFiles) {
-    const filterString = filterFile.toString();
-    const filtersContent = filterString.split('export ');
-    for (let i = 1; i < filtersContent.length; i++) {
-      const filterContent = filtersContent[i];
-      if (containBannedWord(filterContent))
-        continue;
-      result += getFilter(filterContent);
-    }
-  }
-  return result;
+const getFiltersString = (filterFiles: Buffer[], typeFiles: Buffer[]): string => {
+  const filters = getFilterTypesString(typeFiles.toString())
+                 .concat(
+                   ...filterFiles.map(filterFile => getFilters(filterFile.toString()))
+                 )
+  return filters;
 }
 
 const modelsPath = path.join(__dirname, '..', 'data', 'models');
@@ -173,11 +206,18 @@ const modelResultPath = path.join(__dirname, 'api.models.ts');
 fs.writeFileSync(modelResultPath, getModelTypesString(modelFiles));
 
 const filtersPath = path.join(__dirname, '..', 'data', 'repositories', 'filters');
-const filterFiles = getAllFilesInDirWithExtension(filtersPath, 'ts');
+const filterFiles = getAllFilesInDirWithExtension(filtersPath, 'filter.ts');
+const filterTypeFiles = getAllFilesInDirWithExtension(filtersPath, 'types.ts');
 const filtersResultPath = path.join(__dirname, 'api.filters.ts');
-fs.writeFileSync(filtersResultPath, getFiltersString(filterFiles));
+fs.writeFileSync(filtersResultPath, getFiltersString(filterFiles, filterTypeFiles));
 
 const schemasPath = path.join(__dirname, '..', 'api', 'routes');
 const schemaFiles = getAllFilesInDirWithExtension(schemasPath, 'schema.ts');
 const requestResultPath = path.join(__dirname, 'api.requests.ts');
-fs.writeFileSync(requestResultPath, getRequestsString(schemaFiles, modelResultPath));
+fs.writeFileSync(requestResultPath, getRequestsString(
+  schemaFiles,
+  fs.readFileSync(filtersResultPath).toString(),
+  filtersResultPath,
+  fs.readFileSync(modelResultPath).toString(),
+  modelResultPath
+));
