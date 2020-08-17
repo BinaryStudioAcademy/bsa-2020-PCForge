@@ -9,7 +9,7 @@ export enum InputType {
   error = 'error',
 }
 
-interface IInputProps {
+export interface IInputProps {
   inputType?: InputType;
   icon?: string;
   value?: unknown;
@@ -26,11 +26,11 @@ const Input: React.FC<TextFieldProps & IInputProps> = (props) => {
 
   switch (inputType) {
     case InputType.warning:
-      classes.push(styles['inputWarning']);
+      classes.push(styles.inputWarning);
       inputIcon = 'Warning';
       break;
     case InputType.error:
-      classes.push(styles['inputError']);
+      classes.push(styles.inputError);
       inputIcon = 'Error';
   }
 

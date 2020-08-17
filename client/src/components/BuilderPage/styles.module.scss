@@ -1,0 +1,21 @@
+@import '../../styles/variables';
+
+.group,
+.group .details,
+.group .summary {
+  background-color: $colorDarkGray;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.details .hr {
+  width: 100%;
+  border-color: $colorGray;
+}
+
+.details .button {
+  text-transform: none;
+}

@@ -4,6 +4,9 @@ import Alert, { AlertType } from '../BasicComponents/Alert';
 import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
 import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import PasswordInput from '../PasswordInput/PasswordInput';
 
 interface ILoginFormProps {
   email: string;
@@ -46,14 +49,7 @@ const LoginForm = ({
           type="text"
           required
         />
-        <Input
-          name="Password"
-          className={styles.passwordInput}
-          onChange={handleChangePassword}
-          placeholder="Password"
-          type="password"
-          required
-        />
+        <PasswordInput inputHandler={handleChangePassword} />
         <span className={[styles.forgotPassword, 'link'].join(' ')}>Forgot password?</span>
         <div className={styles.loginButtonBox}>
           <Checkbox

@@ -1,11 +1,13 @@
-import { RamDataAttributes, RamModel, RamStatic } from '../models/ram';
+import { Op } from 'sequelize';
+import { RamCreationAttributes, RamModel, RamStatic } from '../models/ram';
 import { RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IRamFilter, RamFilterDefaults } from './repositoriesFilterInterfaces';
+import { IRamFilter } from './filters/ram.filter';
+import { mergeFilters } from './filters/helper';
 
-export class RamRepository extends BaseRepository<RamModel> {
+export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
   constructor(private model: RamStatic, private ramTypeModel: RamTypeStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IRamFilter);
   }
 
   async getRamById(id: string): Promise<RamModel> {
@@ -15,38 +17,43 @@ export class RamRepository extends BaseRepository<RamModel> {
       include: [
         {
           model: this.ramTypeModel,
-          attributes: ['id', 'name'],
         },
       ],
     });
     return ram;
   }
 
-  async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
-    const { typeId, from: offset, count: limit } = { ...RamFilterDefaults, ...filter };
-    const rams = await this.getAll({
-      group: ['ram.id', 'ramType.id'],
-      where: { typeId },
-      include: [
-        {
-          model: this.ramTypeModel,
-          attributes: ['id', 'name'],
+  async getAllRams(inputFilter: IRamFilter): Promise<IWithMeta<RamModel>> {
+    const filter = mergeFilters<IRamFilter>(new IRamFilter(), inputFilter);
+    const rams = await this.getAll(
+      {
+        group: ['ram.id', 'ramType.id'],
+        where: {
+          memorySize: {
+            [Op.between]: [filter.memorySize.minValue, filter.memorySize.maxValue],
+          },
         },
-      ],
-      order: [['id', 'ASC']],
-      offset: offset,
-      limit: limit,
-    });
+        include: [
+          {
+            model: this.ramTypeModel,
+            where: {
+              id: filter.type.id,
+            },
+          },
+        ],
+      },
+      filter
+    );
     return rams;
   }
 
-  async createRam(inputRam: RamDataAttributes): Promise<RamModel> {
+  async createRam(inputRam: RamCreationAttributes): Promise<RamModel> {
     const { id } = await this.model.create(inputRam);
     const ram = this.getRamById(id.toString());
     return ram;
   }
 
-  async updateRamById(id: string, inputRam: RamDataAttributes): Promise<RamModel> {
+  async updateRamById(id: string, inputRam: RamCreationAttributes): Promise<RamModel> {
     const ram = await this.updateById(id, inputRam);
     return ram;
   }

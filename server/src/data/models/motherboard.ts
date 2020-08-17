@@ -1,13 +1,17 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
+import { RamTypeAttributes } from './ramtype';
+import { SocketAttributes } from './socket';
 
 export interface MotherboardAttributes {
   id: number;
   name: string;
+  socket: SocketAttributes;
+  ramType: RamTypeAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface MotherboardDataAttributes {
+export interface MotherboardCreationAttributes {
   name: string;
   socketId: number;
   ramTypeId: number;
@@ -29,7 +33,7 @@ export function MotherboardFactory(sequelize: Sequelize): MotherboardStatic {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
     },
     createdAt: {
       type: DataTypes.DATE,

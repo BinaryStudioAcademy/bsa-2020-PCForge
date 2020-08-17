@@ -6,34 +6,45 @@ import {
   PostUserRequest,
   DeleteUserRequest,
   PutUserRequest,
+  UserSchema,
+  CreateUserSchema,
+  UpdateUserSchema,
+  GetAllUsersSchema,
 } from './user.schema';
+import { GetOneQuery, GetMultipleQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { UserService } = fastify.services;
 
-  fastify.get('/', {}, async (request: GetAllUsersRequest, reply) => {
+  const getAllSchema = GetMultipleQuery(GetAllUsersSchema);
+  fastify.get('/', getAllSchema, async (request: GetAllUsersRequest, reply) => {
     const users = await UserService.getUsers();
     reply.send(users);
   });
 
-  fastify.get('/:id', {}, async function (request: GetOneUserRequest) {
+  const getOneSchema = GetOneQuery(UserSchema)
+  fastify.get('/:id', getOneSchema, async function (request: GetOneUserRequest, reply) {
     const { id } = request.params;
-    const user = UserService.getUser(id);
-    return user;
+    const user = await UserService.getUser(id);
+    reply.send(user);
   });
 
-  fastify.post('/', {}, async (request: PostUserRequest, reply) => {
+  const createSchema = CreateOneQuery(CreateUserSchema, UserSchema)
+  fastify.post('/', createSchema, async (request: PostUserRequest, reply) => {
     const user = await UserService.createUser(request.body);
     reply.send(user);
   });
 
-  fastify.put('/:id', {}, async (request: PutUserRequest, reply) => {
+  const updateSchema = UpdateOneQuery(UpdateUserSchema, UserSchema)
+  fastify.put('/:id', updateSchema, async (request: PutUserRequest, reply) => {
     const { id } = request.params;
-    const user = await UserService.updateUser(id, request.body);
+    const { body } = request;
+    const user = await UserService.updateUser(id, body);
     reply.send(user);
   });
 
-  fastify.delete('/:id', {}, async (request: DeleteUserRequest, reply) => {
+  const deleteOneSchema = DeleteOneQuery();
+  fastify.delete('/:id', deleteOneSchema, async (request: DeleteUserRequest, reply) => {
     const { id } = request.params;
     await UserService.deleteUser(id);
     reply.send({});

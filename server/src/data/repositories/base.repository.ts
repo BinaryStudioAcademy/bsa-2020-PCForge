@@ -1,4 +1,6 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
+import { IFilter } from './filters/base.filter';
+import { mergeFilters } from './filters/helper';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
@@ -6,6 +8,7 @@ export type RichModel = typeof Model & {
 
 export interface IMeta {
   globalCount: number;
+  countAfterFiltering: number;
 }
 
 export interface IWithMeta<M extends Model> {
@@ -13,20 +16,33 @@ export interface IWithMeta<M extends Model> {
   data: M[];
 }
 
-export abstract class BaseRepository<M extends Model> {
-  constructor(private _model: RichModel) {}
+export abstract class BaseRepository<M extends Model, F extends IFilter = IFilter> {
+  constructor(private _model: RichModel, private filterFactory: new () => F) {}
 
-  async getAll(params?: FindOptions): Promise<IWithMeta<M>> {
-    let result = [];
-    if (params) {
-      result = await this._model.findAll(params);
-    } else {
-      result = await this._model.findAll();
-    }
-    const globalCount = await this._model.count();
+  private async getCount(where?: Record<string, unknown>): Promise<number> {
+    const count = await this._model.count({ where });
+    return count;
+  }
+
+  async getAll(params?: FindOptions, inputFilter?: F): Promise<IWithMeta<M>> {
+    const filter = mergeFilters<F>(new this.filterFactory(), inputFilter);
+    const { from: offset, count: limit } = filter;
+
+    const result = await this._model.findAndCountAll({
+      order: [['id', 'ASC']],
+      offset: offset,
+      limit: limit,
+      ...params,
+    });
+
+    const globalCount = await this.getCount();
+    // here is a bug in sequelize: it returns array instead of number, so we use length
+    // https://github.com/sequelize/sequelize/issues/9109
+    const countAfterFiltering = ((result.count as unknown) as Record<string, unknown>[]).length;
+
     return {
-      meta: { globalCount },
-      data: result as M[],
+      meta: { globalCount, countAfterFiltering },
+      data: result.rows as M[],
     };
   }
 

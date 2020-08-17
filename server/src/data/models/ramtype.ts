@@ -7,7 +7,7 @@ export interface RamTypeAttributes {
   updatedAt: Date;
 }
 
-export interface RamTypeDataAttributes {
+export interface RamTypeCreationAttributes {
   name: string;
 }
 
@@ -27,7 +27,7 @@ export function RamTypeFactory(sequelize: Sequelize): RamTypeStatic {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
     },
     createdAt: {
       type: DataTypes.DATE,

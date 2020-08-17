@@ -5,9 +5,18 @@ export interface SetupAttributes {
   title: string;
   description: string;
   image: string;
+  authorId: number;
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface SetupCreationAttributes {
+  title: string;
+  description: string;
+  image: string;
+  authorId: number;
+}
+
 export interface SetupModel extends Model<SetupAttributes>, SetupAttributes {}
 export class Setup extends Model<SetupModel, SetupAttributes> {}
 
@@ -24,15 +33,15 @@ export function SetupFactory(sequelize: Sequelize): SetupStatic {
     },
     title: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(200),
     },
     description: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(500),
     },
     image: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(200),
     },
     createdAt: {
       type: DataTypes.DATE,

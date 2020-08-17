@@ -20,8 +20,7 @@ const GameMatcherPerformanceReport = (): JSX.Element => {
   }
   const recommendedRequirements = [
     { id: 1, title: 'Recommended requirement' },
-    { id: 2, title: 'Recommended requirement' },
-    { id: 3, title: 'Recommended requirement' },
+    { id: 2, title: 'Minimal requirement' },
   ];
 
   const performanceIndicators = [

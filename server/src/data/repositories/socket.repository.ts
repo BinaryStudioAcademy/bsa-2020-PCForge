@@ -1,9 +1,12 @@
-import { SocketDataAttributes, SocketModel, SocketStatic } from '../models/socket';
-import { BaseRepository, RichModel } from './base.repository';
+import { SocketCreationAttributes, SocketModel, SocketStatic } from '../models/socket';
+import { BaseRepository, IWithMeta, RichModel } from './base.repository';
+import { IFilter } from './filters/base.filter';
+import { mergeFilters } from './filters/helper';
+import { ISocketFilter } from './filters/socket.filter';
 
-export class SocketRepository extends BaseRepository<SocketModel> {
+export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
   constructor(private model: SocketStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IFilter);
   }
 
   async getSocketById(id: string): Promise<SocketModel> {
@@ -11,17 +14,26 @@ export class SocketRepository extends BaseRepository<SocketModel> {
     return socket;
   }
 
-  async getAllSockets(): Promise<SocketModel[]> {
-    const sockets = await this.getAll();
-    return sockets.data;
+  async getAllSockets(inputFilter: ISocketFilter): Promise<IWithMeta<SocketModel>> {
+    const filter = mergeFilters<ISocketFilter>(new ISocketFilter(), inputFilter);
+    const sockets = await this.getAll(
+      {
+        group: ['socket.id'],
+        where: {
+          id: filter.id,
+        },
+      },
+      filter
+    );
+    return sockets;
   }
 
-  async createSocket(inputSocket: SocketDataAttributes): Promise<SocketModel> {
+  async createSocket(inputSocket: SocketCreationAttributes): Promise<SocketModel> {
     const socket = await this.model.create(inputSocket);
     return socket;
   }
 
-  async updateSocketById(id: string, inputSocket: SocketDataAttributes): Promise<SocketModel> {
+  async updateSocketById(id: string, inputSocket: SocketCreationAttributes): Promise<SocketModel> {
     const socket = await this.updateById(id, inputSocket);
     return socket;
   }

@@ -21,3 +21,14 @@ export interface IAuthState {
   isLoading: boolean;
   errorMessage: string;
 }
+
+export interface IAuthPayload {
+  email: string;
+  password: string;
+  keepSignedIn: boolean;
+}
+
+export interface IRegPayload {
+  email: string;
+  password: string;
+}

@@ -1,0 +1,30 @@
+.passwordBox {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+svg.passwordPreviewIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 25px;
+  color: #c5c5c5;
+  cursor: pointer;
+  transition: color .2s;
+}
+
+svg.passwordPreviewIcon:hover {
+  color: #e7e7e7;
+}
+
+svg.passwordPreviewIcon:active {
+  color: #b3b3b3;
+}
+
+.passwordInput {
+  width: 100%;
+  input {
+    width: calc(100% - 40px);
+  }
+}

@@ -1,10 +1,11 @@
-import { UserModel, UserStatic, UserDataAttributes } from '../models/user';
+import { UserModel, UserStatic, UserCreationAttributes } from '../models/user';
 import { BaseRepository, RichModel } from './base.repository';
 import { Op } from 'sequelize';
+import { IFilter } from './filters/base.filter';
 
-export class UserRepository extends BaseRepository<UserModel> {
+export class UserRepository extends BaseRepository<UserModel, IFilter> {
   constructor(private model: UserStatic) {
-    super(<RichModel>model);
+    super(<RichModel>model, IFilter);
   }
 
   async getAllUsers(): Promise<UserModel[]> {
@@ -12,7 +13,7 @@ export class UserRepository extends BaseRepository<UserModel> {
     return user.data;
   }
 
-  async create(attributes: UserDataAttributes): Promise<UserModel> {
+  async create(attributes: UserCreationAttributes): Promise<UserModel> {
     const user = await this.model.create(attributes);
     return user;
   }

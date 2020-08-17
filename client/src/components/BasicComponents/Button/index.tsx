@@ -16,7 +16,7 @@ interface IButtonProps {
 }
 
 const Button: React.FC<ButtonProps & IButtonProps> = (props) => {
-  const { buttonType, icon, children, className, ...restProps } = props;
+  const { buttonType, icon, children, variant, className, ...restProps } = props;
   const classes = [styles.btn];
   let buttonIcon = icon;
 
@@ -43,7 +43,7 @@ const Button: React.FC<ButtonProps & IButtonProps> = (props) => {
 
   return (
     <MButton
-      variant="outlined"
+      variant={variant || 'outlined'}
       startIcon={buttonIcon ? getIcon(buttonIcon) : null}
       className={classes.join(' ')}
       {...restProps}

@@ -8,7 +8,7 @@ export interface PowerSupplyAttributes {
   updatedAt: Date;
 }
 
-export interface PowerSupplyDataAttributes {
+export interface PowerSupplyCreationAttributes {
   name: string;
   power: number;
 }
@@ -29,7 +29,7 @@ export function PowerSupplyFactory(sequelize: Sequelize): PowerSupplyStatic {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
     },
     power: {
       allowNull: false,

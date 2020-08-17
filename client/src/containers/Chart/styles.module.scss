@@ -1,7 +1,6 @@
 @import '../../styles//variables.scss';
 
 .gameMatcherRoot {
-  background: $colorBlack;
   display: flex;
   padding: 2rem;
 }
@@ -13,7 +12,6 @@
 .asideItems {
   margin-left: 6rem;
 }
-
 
 @media (max-width: 1200px) {
   .gameMatcherContentWrapper {

@@ -1,0 +1,53 @@
+.rootComponent {
+  padding-left: 81px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .contentWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .contentBody {
+    margin: 40px 60px;
+  }
+
+  .mainContent {
+    margin-top: 60px;
+    display: flex;
+    justify-content: space-between;
+
+    .leftContent {
+      width: 75%;
+    }
+    .rightContent {
+      margin-left: 40px;
+      width: 25%;
+    }
+  }
+}
+
+.spinnerWrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 1400px) {
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    .leftContent {
+      width: 100%;
+    }
+    .rightContent {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+}

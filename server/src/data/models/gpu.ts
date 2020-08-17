@@ -13,7 +13,7 @@ export interface GpuAttributes {
   updatedAt: Date;
 }
 
-export interface GpuDataAttributes {
+export interface GpuCreationAttributes {
   name: string;
   interface: string;
   memorySize: number;
@@ -39,11 +39,11 @@ export function GpuFactory(sequelize: Sequelize): GpuStatic {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
     },
     interface: {
-      allowNull: false,
-      type: DataTypes.STRING(50),
+      allowNull: true,
+      type: DataTypes.STRING(150),
     },
     memorySize: {
       allowNull: false,
@@ -54,8 +54,8 @@ export function GpuFactory(sequelize: Sequelize): GpuStatic {
       type: DataTypes.INTEGER,
     },
     opengl: {
-      allowNull: false,
-      type: DataTypes.STRING(50),
+      allowNull: true,
+      type: DataTypes.STRING(150),
     },
     tdp: {
       allowNull: false,
