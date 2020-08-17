@@ -16,10 +16,11 @@ import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilterBuilder;
+  show: boolean;
   onUpdateFilter: ({}: TypeFilterBuilder) => void;
 };
 
-const FilterSocket = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
+const FilterSocket = ({ filter, show, onUpdateFilter }: PropsType): JSX.Element => {
   const [sockets, setSockets] = useState([] as TypeSocket[]);
   const [load, setLoad] = useState(false);
 
@@ -63,7 +64,12 @@ const FilterSocket = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
     <FormControlLabel
       key={socket.id}
       control={
-        <Checkbox name={socket.id.toString()} checked={filter.socketIdSet.has(socket.id)} onChange={onChangeHandler} />
+        <Checkbox
+          disabled={!show}
+          name={socket.id.toString()}
+          checked={filter.socketIdSet.has(socket.id)}
+          onChange={onChangeHandler}
+        />
       }
       label={socket.name}
     />
@@ -76,14 +82,9 @@ const FilterSocket = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
       </AccordionSummary>
       <AccordionDetails className={styles.details}>
         <FormGroup>
-          {/*<FormControlLabel control={<Checkbox name="all" />} label="All sockets" />*/}
-          {/*<Button className={styles.button} size="small">*/}
-          {/*  Uncheck all*/}
-          {/*</Button>*/}
-          {/*<hr className={styles.hr} />*/}
           {listSocketElements}
           <Spinner load={load} />
-          <Button className={styles.button} size="small" onClick={resetSocketFilter}>
+          <Button disabled={!show} className={styles.button} size="small" onClick={resetSocketFilter}>
             Uncheck all
           </Button>
         </FormGroup>

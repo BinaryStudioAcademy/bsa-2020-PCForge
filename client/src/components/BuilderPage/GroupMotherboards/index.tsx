@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import GroupItemSummary from 'components/BuilderPage/GroupItemSummary';
 import ListComponentsItem from 'components/BuilderPage/ListComponentsItem';
-import SpecificationField from 'components/BuilderPage/SpecificationField';
 import FilterSocket from 'components/BuilderPage/FilterSocket';
 import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
+import { SpecificationMotherboard } from 'components/BuilderPage/Specifications';
 import { getAllMotherboard } from 'api/services/motherboardService';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
-import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
+import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -23,6 +22,7 @@ type PropsType = {
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
   onChangeExpanded: (expanded: ComponentGroups | false) => void;
+  showFilters: TypeShowFilters;
 };
 
 const GroupMotherboards = ({
@@ -33,6 +33,7 @@ const GroupMotherboards = ({
   onRemoveSelectedComponent,
   expanded,
   onChangeExpanded,
+  showFilters,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [motherboards, setMotherboards] = useState([] as TypeMotherboard[]);
@@ -60,28 +61,22 @@ const GroupMotherboards = ({
     getMotherboards();
   }, [filter, pagination]);
 
-  const AddComponentHandler = (motherboard: TypeMotherboard): void => {
-    onUpdateFilter({
-      ...filter,
-      socketIdSet: new Set(filter.socketIdSet.add(motherboard.socketId)),
-      ramTypeIdSet: new Set(filter.ramTypeIdSet.add(motherboard.ramTypeId)),
-    });
-    onAddComponent(motherboard);
-  };
-
-  const specifications = (motherboard: TypeMotherboard): JSX.Element => (
-    <Box>
-      <SpecificationField title="Socket" value={motherboard.socket.name} />
-      <SpecificationField title="Ram type" value={motherboard.ramType.name} />
-    </Box>
-  );
+  useEffect(() => {
+    if (selectedComponent) {
+      onUpdateFilter({
+        ...filter,
+        socketIdSet: new Set(filter.socketIdSet.add(selectedComponent.socketId)),
+        ramTypeIdSet: new Set(filter.ramTypeIdSet.add(selectedComponent.ramTypeId)),
+      });
+    }
+  }, [selectedComponent]);
 
   const listMotherboardElements = motherboards?.map((motherboard) => (
     <ListComponentsItem
       key={motherboard.id}
       title={motherboard.name}
-      specifications={specifications(motherboard)}
-      onAddComponent={() => AddComponentHandler(motherboard)}
+      specifications={<SpecificationMotherboard motherboard={motherboard} />}
+      onAddComponent={() => onAddComponent(motherboard)}
     />
   ));
 
@@ -97,13 +92,14 @@ const GroupMotherboards = ({
         title="Motherboard"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
+        popupContent={selectedComponent ? <SpecificationMotherboard motherboard={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterSocket filter={filter} onUpdateFilter={onUpdateFilter} />
-            <FilterRamTypes filter={filter} onUpdateFilter={onUpdateFilter} />
+            <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
+            <FilterRamTypes show={showFilters.ramType} filter={filter} onUpdateFilter={onUpdateFilter} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listMotherboardElements}

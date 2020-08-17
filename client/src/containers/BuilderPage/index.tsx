@@ -44,18 +44,35 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     setFilter({ socketIdSet: new Set(), ramTypeIdSet: new Set() });
   };
 
+  const filterForCpu = {
+    ...filter,
+    socketIdSet: setup.motherboard ? new Set([setup.motherboard.socketId]) : filter.socketIdSet,
+  };
+
+  const filterForRam = {
+    ...filter,
+    ramTypeIdSet: setup.motherboard ? new Set([setup.motherboard.ramTypeId]) : filter.ramTypeIdSet,
+  };
+
+  const filterForMotherboard = {
+    ...filter,
+    socketIdSet: setup.cpu ? new Set([setup.cpu.socketId]) : filter.socketIdSet,
+    ramTypeIdSet: setup.ram ? new Set([setup.ram.typeId]) : filter.ramTypeIdSet,
+  };
+
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
       <Box className={styles.builderWrapper}>
         <BuilderTitle
           showResetSetup={Object.values(setup).some((e) => !!e)}
           onResetSetup={() => dispatch(resetSetupAction())}
-          showResetFilter={Object.values(filter).some((e) => !!e)}
+          showResetFilter={Object.values(filter).some((e) => !!e.size)}
           onResetFilter={resetFilter}
         />
         <Box>
           <GroupCpus
-            filter={filter}
+            filter={filterForCpu}
+            showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
             selectedComponent={setup.cpu}
             onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(cpu) => dispatch(addCpuToSetupAction(cpu.id))}
@@ -73,7 +90,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             onChangeExpanded={setExpanded}
           />
           <GroupRams
-            filter={filter}
+            filter={filterForRam}
+            showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
             selectedComponent={setup.ram}
             onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(ram) => dispatch(addRamToSetupAction(ram.id))}
@@ -82,7 +100,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             onChangeExpanded={setExpanded}
           />
           <GroupMotherboards
-            filter={filter}
+            filter={filterForMotherboard}
+            showFilters={{ socket: !setup.cpu, ramType: !setup.ram }}
             selectedComponent={setup.motherboard}
             onUpdateFilter={(filter) => setFilter(filter)}
             onAddComponent={(mb) => dispatch(addMotherboardToSetupAction(mb.id))}

@@ -16,10 +16,11 @@ import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
   filter: TypeFilterBuilder;
+  show: boolean;
   onUpdateFilter: ({}: TypeFilterBuilder) => void;
 };
 
-const FilterRamTypes = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
+const FilterRamTypes = ({ filter, show, onUpdateFilter }: PropsType): JSX.Element => {
   const [ramTypes, setRamTypes] = useState([] as TypeRamType[]);
   const [load, setLoad] = useState(false);
 
@@ -64,6 +65,7 @@ const FilterRamTypes = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
       key={ramType.id}
       control={
         <Checkbox
+          disabled={!show}
           name={ramType.id.toString()}
           checked={filter.ramTypeIdSet.has(ramType.id)}
           onChange={onChangeHandler}
@@ -80,14 +82,9 @@ const FilterRamTypes = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
       </AccordionSummary>
       <AccordionDetails className={styles.details}>
         <FormGroup>
-          {/*<FormControlLabel control={<Checkbox name="all" />} label="All sockets" />*/}
-          {/*<Button className={styles.button} size="small">*/}
-          {/*  Uncheck all*/}
-          {/*</Button>*/}
-          {/*<hr className={styles.hr} />*/}
           {listRamTypeElements}
           <Spinner load={load} />
-          <Button className={styles.button} size="small" onClick={resetRamTypeFilter}>
+          <Button disabled={!show} className={styles.button} size="small" onClick={resetRamTypeFilter}>
             Uncheck all
           </Button>
         </FormGroup>
