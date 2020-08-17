@@ -25,7 +25,7 @@ export abstract class BaseRepository<M extends Model, F extends IFilter = IFilte
   }
 
   async getAll(params?: FindOptions, filter?: F): Promise<IWithMeta<M>> {
-    const { from: offset, count: limit } = filter;
+    const { from: offset, count: limit } = filter || {};
 
     const result = await this._model.findAndCountAll({
       order: [['id', 'ASC']],
