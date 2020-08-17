@@ -7,7 +7,7 @@ export class ICpuFilter extends IFilter {
     super();
   }
   socketId: FilterByIdType = notNull;
-  name: FilterByNameType = null;
+  name: FilterByNameType = '';
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -16,12 +16,12 @@ export class ICpuFilter extends IFilter {
       socketId: {
         type: 'integer',
         minimum: 1,
-        nullable: true
+        nullable: true,
       },
       name: {
         type: 'string',
-        nullable: true
-      }
-    }
-  }
+        nullable: true,
+      },
+    },
+  };
 }

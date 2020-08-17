@@ -24,21 +24,18 @@ export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
 
   async getAllCpus(inputFilter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
     const filter = mergeFilters<ICpuFilter>(new ICpuFilter(), inputFilter);
-    const where = {id: filter.socketId};
-    if (inputFilter.name) {
-      Object.assign(where, {
-        name: {
-          [Op.iLike]: '%' + inputFilter.name + '%'
-        }
-      });
-    }
     const cpus = await this.getAll(
       {
         group: ['cpu.id', 'socket.id'],
+        where: {
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+        },
         include: [
           {
             model: this.socketModel,
-            where: where,
+            where: {
+              id: filter.socketId,
+            },
           },
         ],
       },

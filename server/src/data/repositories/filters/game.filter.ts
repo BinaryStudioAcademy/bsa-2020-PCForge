@@ -15,12 +15,12 @@ export class IGameFilter extends IFilter {
       ...IFilter.schema.properties,
       year: {
         type: 'integer',
-        nullable: true
+        nullable: true,
       },
       name: {
         type: 'string',
-        nullable: true
-      }
-    }
-  }
+        nullable: true,
+      },
+    },
+  };
 }

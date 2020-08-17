@@ -8,8 +8,8 @@ export class IMotherboardFilter extends IFilter {
   constructor() {
     super();
   }
-  ramTypeId: FilterByIdType = notNull;
   socketId: FilterByIdType = notNull;
+  ramTypeId: FilterByIdType = notNull;
 
   static schema: SwaggerSchema = {
     type: 'object',
