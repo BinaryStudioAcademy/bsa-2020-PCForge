@@ -15,10 +15,12 @@ export class IMotherboardFilter extends IFilter {
       ...IFilter.schema.properties,
       ramTypeId: {
         type: 'integer',
+        minimum: 1,
         nullable: true,
       },
       socketId: {
         type: 'integer',
+        minimum: 1,
         nullable: true
       }
     }
