@@ -1,6 +1,7 @@
 import { CommentCreationAttributes, CommentModel, CommentStatic } from '../models/comment';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { ICommentFilter } from './filters/comment.filter';
+import { mergeFilters } from './filters/helper';
 
 export class CommentRepository extends BaseRepository<CommentModel, ICommentFilter> {
   constructor(private model: CommentStatic) {
@@ -11,10 +12,18 @@ export class CommentRepository extends BaseRepository<CommentModel, ICommentFilt
     return await this.getById(id);
   }
 
-  async getAllComments(filter: ICommentFilter): Promise<IWithMeta<CommentModel>> {
-    return await this.getAll(filter, {
-      group: ['comment.id'],
-    });
+  async getAllComments(inputFilter: ICommentFilter): Promise<IWithMeta<CommentModel>> {
+    const filter = new ICommentFilter(inputFilter);
+    return await this.getAll(
+      {
+        group: ['comment.id'],
+        where: {
+          commentableId: filter.commentableId,
+          commentableType: filter.commentableType,
+        },
+      },
+      filter
+    );
   }
 
   async createComment(inputComment: CommentCreationAttributes): Promise<CommentModel> {

@@ -36,7 +36,7 @@ export function RamFactory(sequelize: Sequelize): RamStatic {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
     },
     memorySize: {
       allowNull: false,

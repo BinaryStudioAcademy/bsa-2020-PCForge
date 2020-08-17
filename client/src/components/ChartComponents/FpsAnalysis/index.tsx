@@ -27,13 +27,27 @@ const GameMatcherFpsAnalysis = (): JSX.Element => {
 
   const firstColumn = resolutions.slice(0, resolutions.length / 2);
   const secondColumn = resolutions.slice(resolutions.length / 2);
+  const mainFpsCounter = 60;
 
-  const progressColumns = [
-    { name: 'Low', value: 92 },
-    { name: 'Medium', value: 70 },
-    { name: 'Hight', value: 46 },
-    { name: 'Ultra', value: 21 },
+  const progressColumns: Progress[] = [
+    { name: 'Low', value: 40 },
+    { name: 'Medium', value: 40 },
+    { name: 'Hight', value: 76 },
+    { name: 'Ultra', value: 11 },
   ];
+
+  const computePositionPercent = (value: number): number => {
+    const progressColumnValues = progressColumns.map((column) => column.value);
+    const max = Math.max(...progressColumnValues, mainFpsCounter);
+    const percent = (value / max) * 100;
+    if (percent > 100) {
+      return 100;
+    }
+    if (percent < 0 || !percent) {
+      return 0;
+    }
+    return percent;
+  };
 
   const ResolutionItem = (resolution: Resolution): JSX.Element => {
     const isActive: boolean = resolution.id === selectedResolution;
@@ -46,8 +60,13 @@ const GameMatcherFpsAnalysis = (): JSX.Element => {
   };
 
   const ProgressColumn = (progress: Progress) => (
-    <div className={styles.progressColumn} key={progress.name}>
-      <div style={{ height: progress.value + '%' }} className={styles.progress}></div>
+    <div
+      style={{ height: computePositionPercent(progress.value) + '%' }}
+      className={styles.progressColumn}
+      key={progress.name}
+    >
+      <p className={styles.fpsCountHeader}>{progress.value} FPS</p>
+      <div className={styles.progress}></div>
       <p className={styles.progressCaption}>{progress.name}</p>
     </div>
   );
@@ -62,11 +81,11 @@ const GameMatcherFpsAnalysis = (): JSX.Element => {
         </div>
         <div className={styles.fpsTest}>
           <div className={styles.fpsGraph}>
-            <div className={styles.gameLine}>
-              <span className={styles.gameLineText}>Game Line</span>
+            <div className={styles.gameLine} style={{ bottom: computePositionPercent(mainFpsCounter) + '%' }}>
+              <p className={styles.gameLineText}>{mainFpsCounter} FPS</p>
             </div>
           </div>
-          {progressColumns.map(ProgressColumn)}
+          <div className={styles.progressColumnsContainer}>{progressColumns.map(ProgressColumn)}</div>
         </div>
       </div>
     </section>

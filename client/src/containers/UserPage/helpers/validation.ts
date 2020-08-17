@@ -2,7 +2,6 @@ interface IErrorMessage {
   emailErrorMessage: null | string;
   passwordErrorMessage: null | string;
   confirmedPasswordErrorMessage: null | string;
-  oldPasswordErrorMessage: null | string;
   nameErrorMessage: null | string;
 }
 
@@ -35,6 +34,9 @@ export const passwordValid = (
   let passwordMessage = null;
   let confirmedMessage = null;
   const regex = /^[a-zA-Z0-9@\-%$_.+]{5,30}$/;
+  if (password == '' && confirmedPassword) {
+    confirmedMessage = 'Enter your new password to confirm';
+  }
   if (password !== '') {
     if (!regex.test(password)) {
       passwordMessage = 'Wrong password format';

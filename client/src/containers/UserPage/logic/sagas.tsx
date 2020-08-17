@@ -1,5 +1,6 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
 import { getUser, updateUser as updateUserService } from 'api/services/userService';
+import { uploadImage } from 'api/services/imageService';
 import { loadUser as loadUserAction, updateUser as updateUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
 import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess } from './actions';
 
@@ -29,7 +30,11 @@ function* watchUpdateUser() {
 function* updateUser(action: updateUserAction) {
   yield put(showSpinner());
   try {
-    const updatedUser = yield call(updateUserService, action.payload.data, action.payload.oldPassword);
+    const data = action.payload.data;
+    if (action.payload.avatarData) {
+      data.avatar = yield call(uploadImage, action.payload.avatarData);
+    }
+    const updatedUser = yield call(updateUserService, data);
     yield put(updateUserSuccess(updatedUser));
   } catch (error) {
     console.log(error);

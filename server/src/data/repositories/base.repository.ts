@@ -1,6 +1,6 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
-import { reduceTo } from '../../helpers/filter.helper';
 import { IFilter } from './filters/base.filter';
+import { mergeFilters } from './filters/helper';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
@@ -24,23 +24,26 @@ export abstract class BaseRepository<M extends Model, F extends IFilter = IFilte
     return count;
   }
 
-  async getAll(filter?: F, params?: FindOptions): Promise<IWithMeta<M>> {
-    const { from: offset, count: limit, ...uniqueFilters } = reduceTo<F>(filter, this.filterFactory);
+  async getAll(params?: FindOptions, filter?: F): Promise<IWithMeta<M>> {
+    const { from: offset, count: limit, ...rest } = filter;
+    console.log(rest, 'this is rest')
 
-    const result = await this._model.findAll({
+    const result = await this._model.findAndCountAll({
       order: [['id', 'ASC']],
-      where: uniqueFilters,
       offset: offset,
       limit: limit,
+      where: rest,
       ...params,
     });
 
     const globalCount = await this.getCount();
-    const countAfterFiltering = await this.getCount({ ...uniqueFilters });
+    // here is a bug in sequelize: it returns array instead of number, so we use length
+    // https://github.com/sequelize/sequelize/issues/9109
+    const countAfterFiltering = ((result.count as unknown) as Record<string, unknown>[]).length;
 
     return {
       meta: { globalCount, countAfterFiltering },
-      data: result as M[],
+      data: result.rows as M[],
     };
   }
 

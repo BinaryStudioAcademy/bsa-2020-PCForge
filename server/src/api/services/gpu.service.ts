@@ -14,9 +14,6 @@ export class GpuService {
   }
 
   async getAllGpus(filter: IGpuFilter): Promise<IWithMeta<GpuModel>> {
-    if (filter.name) {
-      filter.name = {[Op.iLike]: '%' + filter.name + '%'};
-    }
     const gpus = await this.repository.getAllGpus(filter);
     return gpus;
   }
