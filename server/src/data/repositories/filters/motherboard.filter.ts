@@ -5,16 +5,8 @@ import { FilterByIdType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IMotherboardFilter extends IFilter {
-  constructor(primal?: IMotherboardFilter) {
-    super(primal);
-    if (!primal) return;
-
-    if (primal.ramTypeId) {
-      this.ramTypeId = primal.ramTypeId;
-    }
-    if (primal.socketId) {
-      this.socketId = primal.socketId;
-    }
+  constructor() {
+    super();
   }
   ramTypeId: FilterByIdType = notNull;
   socketId: FilterByIdType = notNull;

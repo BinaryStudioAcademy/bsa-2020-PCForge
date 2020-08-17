@@ -13,9 +13,6 @@ export class GameService {
   }
 
   async getAllGames(filter: IGameFilter): Promise<IWithMeta<GameModel>> {
-    if (filter.name) {
-      filter.name = {[Op.iLike]: '%' + filter.name + '%'};
-    }
     const games = await this.repository.getAllGames(filter);
     return games;
   }

@@ -13,9 +13,6 @@ export class CpuService {
   }
 
   async getAllCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
-    if (filter.name) {
-      filter.name = {[Op.iLike]: '%' + filter.name + '%'};
-    }
     const cpus = await this.repository.getAllCpus(filter);
     return cpus;
   }

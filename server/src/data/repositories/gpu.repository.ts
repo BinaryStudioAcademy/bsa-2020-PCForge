@@ -16,9 +16,14 @@ export class GpuRepository extends BaseRepository<GpuModel, IFilter> {
   }
 
   async getAllGpus(inputFilter: IGpuFilter): Promise<IWithMeta<GpuModel>> {
-    const filter = new IGpuFilter(inputFilter);
+    const filter = mergeFilters(new IGpuFilter(), inputFilter);
+    const where = {};
+    if (inputFilter.name) {
+      Object.assign(where, {name: {[Op.iLike]: '%' + inputFilter.name + '%'}})
+    }
     const gpus = await this.getAll(
       {
+        where: where,
         group: ['gpu.id'],
       },
       filter

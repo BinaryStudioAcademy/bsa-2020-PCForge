@@ -1,15 +1,8 @@
 import { SwaggerSchema } from "../../models/swaggerSchema";
 
 export class IFilter {
-  constructor(primal?: IFilter) {
-    if (!primal) return;
-
-    if (primal.count) {
-      this.count = primal.count;
-    }
-    if (primal.from) {
-      this.from = primal.from;
-    }
+  constructor() {
+    // do nothing
   }
   from = 0;
   count = 50;

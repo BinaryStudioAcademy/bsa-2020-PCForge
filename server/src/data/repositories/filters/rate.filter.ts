@@ -1,21 +1,11 @@
 import { IFilter } from './base.filter';
 import { FilterByIdType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
-import { Op } from 'sequelize';
 
 export class IRateFilter extends IFilter {
-  constructor(primal?: IRateFilter) {
-    super(primal);
-    if (!primal) return;
-
-    if (primal.ratebleId) {
-      this.ratebleId = { [Op.eq]: primal.ratebleId }
-    }
-    if (primal.ratebleType) {
-      this.ratebleType = { [Op.eq]: primal.ratebleType }
-    }
+  constructor() {
+    super();
   }
-
   ratebleType: FilterByIdType = notNull;
   ratebleId: FilterByIdType = notNull;
 

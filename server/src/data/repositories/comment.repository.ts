@@ -13,7 +13,7 @@ export class CommentRepository extends BaseRepository<CommentModel, ICommentFilt
   }
 
   async getAllComments(inputFilter: ICommentFilter): Promise<IWithMeta<CommentModel>> {
-    const filter = new ICommentFilter(inputFilter);
+    const filter = mergeFilters<ICommentFilter>(new ICommentFilter(), inputFilter);
     return await this.getAll(
       {
         group: ['comment.id'],

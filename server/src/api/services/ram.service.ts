@@ -13,9 +13,6 @@ export class RamService {
   }
 
   async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
-    if (filter.name) {
-      filter.name = {[Op.iLike]: '%' + filter.name + '%'};
-    }
     const rams = await this.repository.getAllRams(filter);
     return rams;
   }
