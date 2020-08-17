@@ -13,7 +13,7 @@ import { getAllCpu } from 'api/services/cpuService';
 import { TypeCpu } from 'common/models/typeCpu';
 import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
-import Search from '../../Search';
+import Search from 'components/Search';
 
 type PropsType = {
   filter: TypeFilterBuilder;
