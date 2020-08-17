@@ -3,6 +3,7 @@ import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { ICpuFilter } from './filters/cpu.filter';
 import { mergeFilters } from './filters/helper';
+import { Op } from 'sequelize';
 
 export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
   constructor(private model: CpuStatic, private socketModel: SocketStatic) {
@@ -26,6 +27,9 @@ export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
     const cpus = await this.getAll(
       {
         group: ['cpu.id', 'socket.id'],
+        where: {
+          name: [Op.iLike]: '%' + inputFilter.name + '%',
+        },
         include: [
           {
             model: this.socketModel,

@@ -1,11 +1,12 @@
 import { IFilter } from './base.filter';
-import { FilterByNumberType, notNull } from './types';
+import { FilterByNumberType, FilterByNameType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IGameFilter extends IFilter {
   constructor() {
     super();
   }
+  name: FilterByNameType = null;
   year: FilterByNumberType = notNull;
 
   static schema: SwaggerSchema = {

@@ -9,6 +9,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const getAllSchema = GetMultipleQuery(GetAllCpusResponse, ICpuFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllCpusRequest, reply) => {
+    console.log('id');
     const cpus = await CpuService.getAllCpus(request.query);
     reply.send(cpus);
   });

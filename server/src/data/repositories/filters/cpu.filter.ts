@@ -1,5 +1,5 @@
+import { FilterByIdType, notNull, FilterByNameType } from './types';
 import { IFilter } from './base.filter';
-import { FilterByIdType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class ICpuFilter extends IFilter {
@@ -7,6 +7,7 @@ export class ICpuFilter extends IFilter {
     super();
   }
   socketId: FilterByIdType = notNull;
+  name: FilterByNameType = null;
 
   static schema: SwaggerSchema = {
     type: 'object',
