@@ -20,6 +20,7 @@ export class IRateFilter extends IFilter {
       },
       ratebleId: {
         type: 'integer',
+        minimum: 1,
         nullable: true,
       }
     }

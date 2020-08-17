@@ -12,10 +12,12 @@ export class IFilter {
     properties: {
       from: {
         type: 'integer',
+        minimum: 0,
         default: 0
       },
       count: {
         type: 'integer',
+        maximum: 100,
         default: 50
       }
     }

@@ -14,6 +14,7 @@ export class ICpuFilter extends IFilter {
       ...IFilter.schema.properties,
       socketId: {
         type: 'integer',
+        minimum: 1,
         nullable: true
       },
       name: {

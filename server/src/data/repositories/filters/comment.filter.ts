@@ -20,6 +20,7 @@ export class ICommentFilter extends IFilter {
       },
       commentableId: {
         type: 'integer',
+        minimum: 1,
         nullable: true,
       }
     }
