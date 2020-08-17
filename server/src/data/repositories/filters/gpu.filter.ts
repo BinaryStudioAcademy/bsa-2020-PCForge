@@ -1,25 +1,20 @@
-import { FilterByIdType, notNull, FilterByNameType } from './types';
 import { IFilter } from './base.filter';
+import { FilterByNameType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
-export class ICpuFilter extends IFilter {
+export class IGpuFilter extends IFilter {
   constructor() {
     super();
   }
-  socketId: FilterByIdType = notNull;
   name: FilterByNameType = null;
 
   static schema: SwaggerSchema = {
     type: 'object',
     properties: {
       ...IFilter.schema.properties,
-      socketId: {
-        type: 'integer',
-        minimum: 1,
-        nullable: true
-      },
       name: {
         type: 'string',
+        minimum: 1,
         nullable: true
       }
     }

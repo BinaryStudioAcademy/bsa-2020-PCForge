@@ -32,7 +32,6 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel, IMot
 
   async getAllMotherboards(inputFilter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
     const filter = mergeFilters<IMotherboardFilter>(new IMotherboardFilter(), inputFilter);
-    console.log(filter);
     const motherboards = await this.getAll(
       {
         group: ['motherboard.id', 'socket.id', 'ramType.id'],
@@ -40,13 +39,13 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel, IMot
           {
             model: this.ramTypeModel,
             where: {
-              id: filter.ramType.id,
+              id: filter.ramTypeId,
             },
           },
           {
             model: this.socketModel,
             where: {
-              id: filter.socket.id,
+              id: filter.socketId,
             },
           },
         ],

@@ -25,19 +25,24 @@ export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
 
   async getAllRams(inputFilter: IRamFilter): Promise<IWithMeta<RamModel>> {
     const filter = mergeFilters<IRamFilter>(new IRamFilter(), inputFilter);
+    const where = {
+      memorySize: {
+        [Op.between]: [filter.memorySize.minValue, filter.memorySize.maxValue]
+      }
+    };
+
+    if (inputFilter.name) {
+      Object.assign(where, {name:{[Op.iLike]: '%' + inputFilter.name + '%'}})
+    }
     const rams = await this.getAll(
       {
         group: ['ram.id', 'ramType.id'],
-        where: {
-          memorySize: {
-            [Op.between]: [filter.memorySize.minValue, filter.memorySize.maxValue],
-          },
-        },
+        where: where,
         include: [
           {
             model: this.ramTypeModel,
             where: {
-              id: filter.type.id,
+              id: filter.typeId,
             },
           },
         ],

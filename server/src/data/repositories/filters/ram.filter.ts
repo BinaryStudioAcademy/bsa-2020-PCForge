@@ -1,6 +1,6 @@
 import { IFilter } from './base.filter';
 import { IRamTypeFilter } from './ramType.filter';
-import { FilterByIdType, FilterRangeType, notNull } from './types';
+import { FilterByIdType, FilterRangeType, FilterByNameType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IRamFilter extends IFilter {
@@ -12,6 +12,7 @@ export class IRamFilter extends IFilter {
     maxValue: 100,
   };
   typeId: FilterByIdType = notNull;
+  name: FilterByNameType = null;
 
   static schema: SwaggerSchema = {
     type: 'object',
