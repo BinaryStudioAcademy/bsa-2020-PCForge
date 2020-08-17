@@ -23,6 +23,11 @@ type PropsType = {
   onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
+type TypeMemorySize = {
+  minValue: number;
+  maxValue: number;
+};
+
 const GroupGpus = ({
   filter,
   selectedComponent,
@@ -33,15 +38,19 @@ const GroupGpus = ({
   onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
+  const minMemorySize = 32;
+  const maxMemorySize = 8192;
   const [gpus, setGpus] = useState([] as TypeGpu[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
+  const [memorySize, setMemorySize] = useState({} as TypeMemorySize);
   const [load, setLoad] = useState(false);
 
   const getGpus = async () => {
     setLoad(true);
     try {
-      const res = await getAllGpu({ ...pagination });
+      const querySize = { 'memorySize[minValue]': memorySize.minValue, 'memorySize[maxValue]': memorySize.maxValue };
+      const res = await getAllGpu({ ...pagination, ...querySize });
       setGpus(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -53,7 +62,7 @@ const GroupGpus = ({
 
   useEffect(() => {
     getGpus();
-  }, [filter, pagination]);
+  }, [filter, pagination, memorySize]);
 
   const listGpuElements = gpus?.map((gpu) => (
     <ListComponentsItem
@@ -64,8 +73,12 @@ const GroupGpus = ({
     />
   ));
 
-  function onChangeFilterRange() {
-    // do nothing.
+  function onChangeFilterRange([minValue, maxValue]: number[]): void {
+    setMemorySize({
+      ...memorySize,
+      minValue,
+      maxValue,
+    });
   }
 
   return (
@@ -86,7 +99,14 @@ const GroupGpus = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterRange title="Memory size" min={32} max={2048} dimension="Mb" onChange={onChangeFilterRange} />
+            <FilterRange
+              title="Memory size"
+              min={minMemorySize}
+              max={maxMemorySize}
+              step={32}
+              dimension="Mb"
+              onChange={onChangeFilterRange}
+            />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listGpuElements}
