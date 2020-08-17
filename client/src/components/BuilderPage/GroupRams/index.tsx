@@ -13,6 +13,7 @@ import { getAllRam } from 'api/services/ramService';
 import { TypeRam } from 'common/models/typeRam';
 import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
+import Search from 'components/Search';
 
 type PropsType = {
   filter: TypeFilterBuilder;
@@ -47,6 +48,7 @@ const GroupRams = ({
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [memorySize, setMemorySize] = useState({} as TypeMemorySize);
+  const [name, setName] = useState('');
   const [load, setLoad] = useState(false);
 
   const getRams = async () => {
@@ -54,7 +56,7 @@ const GroupRams = ({
     const queryFilter = filter.ramTypeIdSet.size ? { typeId: [Array.from(filter.ramTypeIdSet)].join(',') } : {};
     const querySize = { 'memorySize[minValue]': memorySize.minValue, 'memorySize[maxValue]': memorySize.maxValue };
     try {
-      const res = await getAllRam({ ...queryFilter, ...pagination, ...querySize });
+      const res = await getAllRam({ ...queryFilter, ...pagination, ...querySize, name });
       setRams(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -66,7 +68,7 @@ const GroupRams = ({
 
   useEffect(() => {
     getRams();
-  }, [filter, pagination, memorySize]);
+  }, [filter, pagination, memorySize, name]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -112,6 +114,7 @@ const GroupRams = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
+            <Search value={name} onChange={(e) => setName(e.target.value)} />
             <FilterRamTypes show={showFilters.ramType} filter={filter} onUpdateFilter={onUpdateFilter} />
             <FilterRange
               title="Memory size"
