@@ -1,11 +1,16 @@
 import { IFilter } from './base.filter';
-import { FilterByIdType, notNull } from './types';
+import { IRamTypeFilter } from './ramType.filter';
+import { FilterByIdType, FilterRangeType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IRamFilter extends IFilter {
   constructor() {
     super();
   }
+  memorySize: FilterRangeType<number> = {
+    minValue: 0,
+    maxValue: 100,
+  };
   typeId: FilterByIdType = notNull;
 
   static schema: SwaggerSchema = {

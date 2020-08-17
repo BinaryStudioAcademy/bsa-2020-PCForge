@@ -1,4 +1,6 @@
 import { IFilter } from './base.filter';
+import { IRamTypeFilter } from './ramType.filter';
+import { ISocketFilter } from './socket.filter';
 import { FilterByIdType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 

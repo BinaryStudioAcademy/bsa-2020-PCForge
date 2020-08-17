@@ -1,5 +1,5 @@
-import { FilterByIdType, notNull } from './types';
 import { IFilter } from './base.filter';
+import { ISocketFilter } from './socket.filter';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class ICpuFilter extends IFilter {

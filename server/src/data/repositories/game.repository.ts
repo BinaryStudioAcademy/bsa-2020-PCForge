@@ -3,6 +3,7 @@ import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { CpuStatic } from '../models/cpu';
 import { GpuStatic } from '../models/gpu';
 import { IGameFilter } from './filters/game.filter';
+import { mergeFilters } from './filters/helper';
 
 export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
   constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
@@ -34,28 +35,33 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
     return game;
   }
 
-  async getAllGames(filter: IGameFilter): Promise<IWithMeta<GameModel>> {
-    const games = await this.getAll(filter, {
-      group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
-      include: [
-        {
-          model: this.cpuModel,
-          as: 'recommendedCpu',
-        },
-        {
-          model: this.cpuModel,
-          as: 'minimalCpu',
-        },
-        {
-          model: this.gpuModel,
-          as: 'recommendedGpu',
-        },
-        {
-          model: this.gpuModel,
-          as: 'minimalGpu',
-        },
-      ],
-    });
+  async getAllGames(inputFilter: IGameFilter): Promise<IWithMeta<GameModel>> {
+    const filter = mergeFilters<IGameFilter>(new IGameFilter(), inputFilter);
+    const games = await this.getAll(
+      {
+        group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
+        where: { year: filter.year },
+        include: [
+          {
+            model: this.cpuModel,
+            as: 'recommendedCpu',
+          },
+          {
+            model: this.cpuModel,
+            as: 'minimalCpu',
+          },
+          {
+            model: this.gpuModel,
+            as: 'recommendedGpu',
+          },
+          {
+            model: this.gpuModel,
+            as: 'minimalGpu',
+          },
+        ],
+      },
+      filter
+    );
     return games;
   }
 
