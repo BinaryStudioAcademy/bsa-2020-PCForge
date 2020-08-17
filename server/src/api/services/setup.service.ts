@@ -1,17 +1,18 @@
 import { SetupCreationAttributes, SetupModel } from '../../data/models/setup';
 import { SetupRepository } from '../../data/repositories/setup.repository';
 import { IWithMeta } from '../../data/repositories/base.repository';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 
 export class SetupService {
   constructor(private repository: SetupRepository) {}
 
   async getSetupById(id: string): Promise<SetupModel> {
-    const setup = await this.repository.getById(id);
+    const setup = await this.repository.getSetupById(id);
     return setup;
   }
 
   async getAllSetups(): Promise<IWithMeta<SetupModel>> {
-    const setups = await this.repository.getAll();
+    const setups = await this.repository.getAllSetups(new IFilter());
     return setups;
   }
 

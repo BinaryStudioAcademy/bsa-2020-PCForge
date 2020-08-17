@@ -1,6 +1,9 @@
 import { FastifyRequest } from 'fastify';
 import { SetupCreationAttributes } from '../../data/models/setup';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { CpuSchema } from './cpu.schema';
+import { GpuSchema } from './gpu.schema';
+import { RamSchema } from './ram.schema';
 
 export type GetSetupsRequest = FastifyRequest;
 
@@ -27,7 +30,7 @@ export const SetupSchema: SwaggerSchema = {
     id: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
     title: {
       type: 'string',
@@ -37,51 +40,54 @@ export const SetupSchema: SwaggerSchema = {
     description: {
       type: 'string',
       example: 'Setup description',
-      nullable: false
+      nullable: false,
     },
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 50,
-      nullable: true
+      nullable: true,
     },
     cpuId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
+    cpu: CpuSchema,
     gpuId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
+    gpu: GpuSchema,
     motherboardId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
     ramId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
+    ram: RamSchema,
     powerSupplyId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const GetAllSetupsResponse: SwaggerSchema = {
   type: 'object',
@@ -91,20 +97,20 @@ export const GetAllSetupsResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: SetupSchema
-    }
-  }
-}
+      items: SetupSchema,
+    },
+  },
+};
 
 export const CreateSetupSchema: SwaggerSchema = {
   type: 'object',
@@ -117,46 +123,46 @@ export const CreateSetupSchema: SwaggerSchema = {
     description: {
       type: 'string',
       example: 'Setup description',
-      nullable: false
+      nullable: false,
     },
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 50,
-      nullable: true
+      nullable: true,
     },
     authorId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
     cpuId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
     gpuId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
     motherboardId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
     ramId: {
       type: 'integer',
       example: 1,
-      nullable: false
+      nullable: false,
     },
     powerSupplyId: {
       type: 'integer',
       example: 1,
-      nullable: false
-    }
-  }
-}
+      nullable: false,
+    },
+  },
+};
 
 export const UpdateSetupSchema: SwaggerSchema = {
   type: 'object',
@@ -169,43 +175,43 @@ export const UpdateSetupSchema: SwaggerSchema = {
     description: {
       type: 'string',
       example: 'Setup description',
-      nullable: true
+      nullable: true,
     },
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 50,
-      nullable: true
+      nullable: true,
     },
     cpuId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     gpuId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     motherboardId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     ramId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     powerSupplyId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
-    }
-  }
-}
+      nullable: true,
+    },
+  },
+};
