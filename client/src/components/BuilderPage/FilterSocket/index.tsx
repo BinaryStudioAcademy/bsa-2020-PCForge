@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
-import FormControl from '@material-ui/core/FormControl';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
+import Checkbox from 'components/BasicComponents/Checkbox';
 import Spinner from 'components/Spinner';
-import { getAllSocket } from 'api/services/socketService';
 import { TypeSocket } from 'common/models/typeSocket';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { TypeFilterBuilder } from 'containers/BuilderPage/types';
+import { getAllSocket } from 'api/services/socketService';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
-  onAddFilter: ({}: TypeFilter) => void;
+  filter: TypeFilterBuilder;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
 };
 
-const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
+const FilterSocket = ({ filter, onUpdateFilter }: PropsType): JSX.Element => {
   const [sockets, setSockets] = useState([] as TypeSocket[]);
-  const [value, setValue] = useState('');
   const [load, setLoad] = useState(false);
 
   const getSockets = async () => {
@@ -40,21 +39,34 @@ const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
     getSockets();
   }, []);
 
-  useEffect(() => {
-    setValue(sockets.find((s) => s.id === filter.socketId)?.name as string);
-  }, [sockets, filter]);
-
-  const onChangeHandler = (ev: { target: { value: string } }) => {
-    const name = ev.target.value;
-    const id = sockets.find((s) => s.name === name)?.id as number;
-    onAddFilter({
+  const updateFilter = (socketIdSet: Set<number>) => {
+    onUpdateFilter({
       ...filter,
-      socketId: id,
+      socketIdSet: new Set(socketIdSet),
     });
   };
 
+  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
+    const id = event.target.name;
+    const socketIdSet = filter.socketIdSet;
+    checked ? socketIdSet.add(+id) : socketIdSet.delete(+id);
+    updateFilter(socketIdSet);
+  };
+
+  const resetSocketFilter = () => {
+    const socketIdSet = filter.socketIdSet;
+    socketIdSet.clear();
+    updateFilter(socketIdSet);
+  };
+
   const listSocketElements = sockets.map((socket) => (
-    <FormControlLabel key={socket.id} value={socket.name} control={<Radio />} label={socket.name} />
+    <FormControlLabel
+      key={socket.id}
+      control={
+        <Checkbox name={socket.id.toString()} checked={filter.socketIdSet.has(socket.id)} onChange={onChangeHandler} />
+      }
+      label={socket.name}
+    />
   ));
 
   return (
@@ -63,12 +75,18 @@ const FilterSocket = ({ filter, onAddFilter }: PropsType): JSX.Element => {
         <Typography>Socket</Typography>
       </AccordionSummary>
       <AccordionDetails className={styles.details}>
-        <FormControl component="fieldset">
-          <RadioGroup aria-label="socket" name="socket" value={value} onChange={onChangeHandler}>
-            {listSocketElements}
-            <Spinner load={load} />
-          </RadioGroup>
-        </FormControl>
+        <FormGroup>
+          {/*<FormControlLabel control={<Checkbox name="all" />} label="All sockets" />*/}
+          {/*<Button className={styles.button} size="small">*/}
+          {/*  Uncheck all*/}
+          {/*</Button>*/}
+          {/*<hr className={styles.hr} />*/}
+          {listSocketElements}
+          <Spinner load={load} />
+          <Button className={styles.button} size="small" onClick={resetSocketFilter}>
+            Uncheck all
+          </Button>
+        </FormGroup>
       </AccordionDetails>
     </Accordion>
   );

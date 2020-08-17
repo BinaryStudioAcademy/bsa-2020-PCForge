@@ -12,23 +12,27 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllMotherboard } from 'api/services/motherboardService';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
+  filter: TypeFilterBuilder;
   selectedComponent: TypeMotherboard | null;
-  onAddFilter: ({}: TypeFilter) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeMotherboard) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
 const GroupMotherboards = ({
   filter,
   selectedComponent,
-  onAddFilter,
+  onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [motherboards, setMotherboards] = useState([] as TypeMotherboard[]);
@@ -38,9 +42,11 @@ const GroupMotherboards = ({
 
   const getMotherboards = async () => {
     setLoad(true);
-    const { socketId, ramTypeId } = filter;
+    const queryFilterSocket = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
+    const queryFilterRam = filter.ramTypeIdSet.size ? { ramTypeId: [Array.from(filter.ramTypeIdSet)].join(',') } : {};
+    const queryFilter = { ...queryFilterSocket, ...queryFilterRam };
     try {
-      const res = await getAllMotherboard({ socketId, ramTypeId, ...pagination });
+      const res = await getAllMotherboard({ ...queryFilter, ...pagination });
       setMotherboards(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -55,10 +61,10 @@ const GroupMotherboards = ({
   }, [filter, pagination]);
 
   const AddComponentHandler = (motherboard: TypeMotherboard): void => {
-    onAddFilter({
+    onUpdateFilter({
       ...filter,
-      socketId: motherboard.socketId,
-      ramTypeId: motherboard.ramTypeId,
+      socketIdSet: new Set(filter.socketIdSet.add(motherboard.socketId)),
+      ramTypeIdSet: new Set(filter.ramTypeIdSet.add(motherboard.ramTypeId)),
     });
     onAddComponent(motherboard);
   };
@@ -80,7 +86,12 @@ const GroupMotherboards = ({
   ));
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.motherboard : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="Motherboard"
         title="Motherboard"
@@ -91,8 +102,8 @@ const GroupMotherboards = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterSocket filter={filter} onAddFilter={onAddFilter} />
-            <FilterRamTypes filter={filter} onAddFilter={onAddFilter} />
+            <FilterSocket filter={filter} onUpdateFilter={onUpdateFilter} />
+            <FilterRamTypes filter={filter} onUpdateFilter={onUpdateFilter} />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listMotherboardElements}

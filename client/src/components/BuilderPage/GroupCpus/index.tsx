@@ -12,23 +12,27 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { getAllCpu } from 'api/services/cpuService';
 import { TypeCpu } from 'common/models/typeCpu';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
+  filter: TypeFilterBuilder;
   selectedComponent: TypeCpu | null;
-  onAddFilter: ({}: TypeFilter) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeCpu) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
 const GroupCpus = ({
   filter,
   selectedComponent,
-  onAddFilter,
+  onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [cpus, setCpus] = useState([] as TypeCpu[]);
@@ -38,9 +42,9 @@ const GroupCpus = ({
 
   const getCpus = async () => {
     setLoad(true);
-    const { socketId } = filter;
+    const queryFilter = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
     try {
-      const res = await getAllCpu({ socketId, ...pagination });
+      const res = await getAllCpu({ ...queryFilter, ...pagination });
       setCpus(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -54,14 +58,12 @@ const GroupCpus = ({
     getCpus();
   }, [filter, pagination]);
 
-  useEffect(() => {
-    console.log('selectedComponent: ', selectedComponent);
-  }, [selectedComponent]);
+  useEffect(() => {}, [selectedComponent]);
 
   const AddComponentHandler = (cpu: TypeCpu): void => {
-    onAddFilter({
+    onUpdateFilter({
       ...filter,
-      socketId: cpu.socketId,
+      socketIdSet: new Set(filter.socketIdSet.add(cpu.socketId)),
     });
     onAddComponent(cpu);
   };
@@ -90,7 +92,12 @@ const GroupCpus = ({
   }
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.cpu : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="CPU"
         title="CPU"
@@ -101,7 +108,7 @@ const GroupCpus = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterSocket filter={filter} onAddFilter={onAddFilter} />
+            <FilterSocket filter={filter} onUpdateFilter={onUpdateFilter} />
             <FilterRange
               title="Processor Frequency"
               min={1000}

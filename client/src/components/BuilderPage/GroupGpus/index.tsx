@@ -11,23 +11,27 @@ import FilterRange from 'components/BuilderPage/FilterRange';
 import Spinner from 'components/Spinner';
 import { getAllGpu } from 'api/services/gpuService';
 import { TypeGpu } from 'common/models/typeGpu';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
+  filter: TypeFilterBuilder;
   selectedComponent: TypeGpu | null;
-  onAddFilter: ({}: TypeFilter) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeGpu) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
 const GroupGpus = ({
   filter,
   selectedComponent,
-  onAddFilter,
+  onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [gpus, setGpus] = useState([] as TypeGpu[]);
@@ -41,7 +45,6 @@ const GroupGpus = ({
       const res = await getAllGpu({ ...pagination });
       setGpus(res.data);
       setCount(res.meta.countAfterFiltering);
-      // setGpus(newGpus.length > 10 ? newGpus.slice(0, 9) : newGpus); // while the bug is on the server
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -80,7 +83,12 @@ const GroupGpus = ({
   }
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.gpu : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="GPU"
         title="GPU"
