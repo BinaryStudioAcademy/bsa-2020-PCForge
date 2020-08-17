@@ -28,7 +28,7 @@ export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
       {
         group: ['cpu.id', 'socket.id'],
         where: {
-          name: [Op.iLike]: '%' + inputFilter.name + '%',
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
         },
         include: [
           {

@@ -1,8 +1,7 @@
 import { RamTypeCreationAttributes, RamTypeModel } from '../../data/models/ramtype';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { IFilter } from '../../data/repositories/filters/base.filter';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
-import { IRamTypeFilter } from '../../data/repositories/filters/ramType.filter';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 
 export class RamTypeService {
   constructor(private repository: RamTypeRepository) {}
@@ -12,7 +11,7 @@ export class RamTypeService {
     return ramType;
   }
 
-  async getAllRamTypes(filter: IRamTypeFilter): Promise<IWithMeta<RamTypeModel>> {
+  async getAllRamTypes(filter: IFilter): Promise<IWithMeta<RamTypeModel>> {
     const ramTypes = await this.repository.getAllRamTypes(filter);
     return ramTypes;
   }
