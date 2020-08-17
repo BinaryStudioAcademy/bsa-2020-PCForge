@@ -1,4 +1,4 @@
-import { User } from '../../common/models/user';
+import { User } from 'common/models/user';
 export const AUTH_CHANGE_EMAIL = 'AUTH_CHANGE_EMAIL';
 export const AUTH_CHANGE_PASSWORD = 'AUTH_CHANGE_PASSWORD';
 export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
@@ -72,8 +72,7 @@ interface switchAuthPage {
 export interface registrationSuccess {
   type: typeof AUTH_REGISTRATION_SUCCESS;
   payload: {
-    user: User;
-    isRegistered: boolean;
+    isRegistration: boolean;
   };
 }
 

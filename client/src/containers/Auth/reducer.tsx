@@ -13,7 +13,6 @@ import {
 
 const initialState: IAuthState = {
   user: null,
-  isRegistered: false,
   email: '',
   password: '',
   errorMessage: '',

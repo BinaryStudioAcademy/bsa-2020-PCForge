@@ -7,7 +7,7 @@ import * as AuthActions from 'containers/Auth/actions';
 import LoginForm from 'components/Auth/LoginForm';
 import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from './interfaces';
-import Spinner from '../../components/Spinner';
+import Spinner from 'components/Spinner';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
@@ -69,10 +69,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-    if (state.user && state.isRegistered) {
-      state.isRegistration = false; //should change to registration after registration and login
-      state.isRegistered = false;
-    }
 
     return (
       <React.Fragment>

@@ -1,5 +1,5 @@
 import { AuthActionTypes } from 'containers/Auth/actionTypes';
-import { User } from '../../common/models/user';
+import { User } from 'common/models/user';
 
 export interface IAuthProps {
   authState: IAuthState;
@@ -14,7 +14,6 @@ export interface IAuthProps {
 
 export interface IAuthState {
   user: User | null;
-  isRegistered: boolean;
   email: string;
   password: string;
   keepSignedIn: boolean;
