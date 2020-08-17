@@ -1,7 +1,10 @@
 import { GpuCreationAttributes, GpuModel, GpuStatic } from '../models/gpu';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
+import { IGpuFilter } from './filters/gpu.filter';
 import { mergeFilters } from './filters/helper';
+import { Op } from 'sequelize';
+import { Literal } from 'sequelize/types/lib/utils';
 
 export class GpuRepository extends BaseRepository<GpuModel, IFilter> {
   constructor(private model: GpuStatic) {
@@ -13,11 +16,14 @@ export class GpuRepository extends BaseRepository<GpuModel, IFilter> {
     return gpu;
   }
 
-  async getAllGpus(inputFilter: IFilter): Promise<IWithMeta<GpuModel>> {
-    const filter = mergeFilters<IFilter>(new IFilter(), inputFilter);
+  async getAllGpus(inputFilter: IGpuFilter): Promise<IWithMeta<GpuModel>> {
+    const filter = mergeFilters(new IGpuFilter(), inputFilter);
     const gpus = await this.getAll(
       {
         group: ['gpu.id'],
+        where: {
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+        },
       },
       filter
     );

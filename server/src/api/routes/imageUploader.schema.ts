@@ -1,9 +1,12 @@
-//import { FastifyRequest } from "fastify";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 
-// const UploadImageRequest: SwaggerSchema = {
-
-// };
+export type UploadImageRequest = FastifyRequest<{
+  Body: {
+    file: any;
+  };
+}>;
 
 const UploadImageResponse: SwaggerSchema = {
   type: 'object',
@@ -18,7 +21,7 @@ const UploadImageResponse: SwaggerSchema = {
 
 export const UploadImageSchema = {
   schema: {
-    // body: UploadImageRequest,
+    body: {},
     response: {
       200: UploadImageResponse,
     },

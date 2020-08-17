@@ -29,6 +29,7 @@ export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
       {
         group: ['ram.id', 'ramType.id'],
         where: {
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
           memorySize: {
             [Op.between]: [filter.memorySize.minValue, filter.memorySize.maxValue],
           },
@@ -37,7 +38,7 @@ export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
           {
             model: this.ramTypeModel,
             where: {
-              id: filter.type.id,
+              id: filter.typeId,
             },
           },
         ],

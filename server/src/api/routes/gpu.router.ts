@@ -18,11 +18,12 @@ import {
   UpdateOneQuery,
   DeleteOneQuery,
 } from '../../helpers/swagger.helper';
+import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { GpuService } = fastify.services;
 
-  const getAllSchema = GetMultipleQuery(GetAllGpusResponse);
+  const getAllSchema = GetMultipleQuery(GetAllGpusResponse, IGpuFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllGpusRequest, reply) => {
     const gpus = await GpuService.getAllGpus(request.query);
     reply.send(gpus);

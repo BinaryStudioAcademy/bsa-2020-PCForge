@@ -4,6 +4,7 @@ import { CpuStatic } from '../models/cpu';
 import { GpuStatic } from '../models/gpu';
 import { IGameFilter } from './filters/game.filter';
 import { mergeFilters } from './filters/helper';
+import { Op } from 'sequelize';
 
 export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
   constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
@@ -40,7 +41,10 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
     const games = await this.getAll(
       {
         group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
-        where: { year: filter.year },
+        where: {
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+          ...(filter.year && { year: filter.year }),
+        },
         include: [
           {
             model: this.cpuModel,
