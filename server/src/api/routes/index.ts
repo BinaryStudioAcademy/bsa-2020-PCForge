@@ -16,6 +16,7 @@ import { router as topGameRouter } from './topGame.router';
 import { router as newsRouter } from './news.router';
 import { router as rateRouter } from './rate.router';
 import { router as commentRouter } from './comment.router';
+import { router as performanceRouter } from './performance.router';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
   fastify.register(ramTypeRouter, { prefix: '/ramTypes' });
@@ -34,5 +35,6 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(rateRouter, { prefix: '/rates' });
   fastify.register(commentRouter, { prefix: '/comments' });
   fastify.register(imageUploadRouter, { prefix: '/upload' });
+  fastify.register(performanceRouter, { prefix: '/performances' });
   next();
 };
