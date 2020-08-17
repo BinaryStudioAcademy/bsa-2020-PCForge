@@ -1,21 +1,30 @@
-import { SwaggerSchema } from "../data/models/swaggerSchema"
+import { SwaggerSchema } from '../data/models/swaggerSchema';
 
-export function GetOneQuery(schema: SwaggerSchema) {
+interface ISwaggerParams {
+  [key: string]: {
+    type: string;
+    nullable: boolean;
+    minimum: number;
+  };
+}
+
+export function GetOneQuery(schema: SwaggerSchema, additionalParams?: ISwaggerParams[]) {
   return {
     schema: {
       params: {
-        id: { type: 'integer', nullable: false, minimum: 1 }
+        id: { type: 'integer', nullable: false, minimum: 1 },
+        ...additionalParams,
       },
       response: {
         200: schema,
         404: {
           type: 'string',
           example: 'Not found',
-          nullable: false
-        }
-      }
-    }
-  }
+          nullable: false,
+        },
+      },
+    },
+  };
 }
 
 export function CreateOneQuery(request: SwaggerSchema, response: SwaggerSchema) {
@@ -23,10 +32,10 @@ export function CreateOneQuery(request: SwaggerSchema, response: SwaggerSchema) 
     schema: {
       body: request,
       response: {
-        200: response
-      }
-    }
-  }
+        200: response,
+      },
+    },
+  };
 }
 
 export function UpdateOneQuery(toUpdate: SwaggerSchema, newData: SwaggerSchema) {
@@ -37,7 +46,7 @@ export function UpdateOneQuery(toUpdate: SwaggerSchema, newData: SwaggerSchema) 
           type: 'integer',
           nullable: false,
           minimum: 1,
-        }
+        },
       },
       body: toUpdate,
       response: {
@@ -45,11 +54,11 @@ export function UpdateOneQuery(toUpdate: SwaggerSchema, newData: SwaggerSchema) 
         404: {
           type: 'string',
           example: 'Not found',
-          nullable: false
-        }
-      }
-    }
-  }
+          nullable: false,
+        },
+      },
+    },
+  };
 }
 
 export function DeleteOneQuery(schema?: SwaggerSchema) {
@@ -59,24 +68,22 @@ export function DeleteOneQuery(schema?: SwaggerSchema) {
         id: {
           type: 'integer',
           nullable: false,
-          minimum: 1
-        }
+          minimum: 1,
+        },
       },
       response: {
         200: {
           type: 'object',
-          properties: {
-
-          }
+          properties: {},
         },
         404: {
           type: 'string',
           example: 'Not found',
-          nullable: false
-        }
-      }
-    }
-  }
+          nullable: false,
+        },
+      },
+    },
+  };
 }
 
 export function GetMultipleQuery(schema: SwaggerSchema, querystring?: SwaggerSchema) {
@@ -84,8 +91,8 @@ export function GetMultipleQuery(schema: SwaggerSchema, querystring?: SwaggerSch
     schema: {
       querystring,
       response: {
-        200: schema
-      }
-    }
-  }
+        200: schema,
+      },
+    },
+  };
 }
