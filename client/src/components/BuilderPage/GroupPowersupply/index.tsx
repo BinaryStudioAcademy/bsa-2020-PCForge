@@ -23,6 +23,11 @@ type PropsType = {
   onChangeExpanded: (expanded: ComponentGroups | false) => void;
 };
 
+type TypePower = {
+  minValue: number;
+  maxValue: number;
+};
+
 const GroupPowersupplies = ({
   filter,
   selectedComponent,
@@ -33,15 +38,22 @@ const GroupPowersupplies = ({
   onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
+  const minPower = 100;
+  const maxPower = 2000;
   const [powersupplies, setPowersupplies] = useState([] as TypePowersupplies[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
+  const [power, setPower] = useState({} as TypePower);
   const [load, setLoad] = useState(false);
 
   const getPowersupplies = async () => {
     setLoad(true);
     try {
-      const res = await getAllPowersupplies({ ...pagination });
+      const queryClockspeed = {
+        'power[minValue]': power.minValue,
+        'power[maxValue]': power.maxValue,
+      };
+      const res = await getAllPowersupplies({ ...pagination, ...queryClockspeed });
       setPowersupplies(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -53,7 +65,7 @@ const GroupPowersupplies = ({
 
   useEffect(() => {
     getPowersupplies();
-  }, [filter, pagination]);
+  }, [filter, pagination, power]);
 
   const listPowersupplyElements = powersupplies?.map((powersupply) => (
     <ListComponentsItem
@@ -64,8 +76,12 @@ const GroupPowersupplies = ({
     />
   ));
 
-  function onChangeFilterRange() {
-    // do nothing.
+  function onChangeFilterRange([minValue, maxValue]: number[]): void {
+    setPower({
+      ...power,
+      minValue,
+      maxValue,
+    });
   }
 
   return (
@@ -86,7 +102,14 @@ const GroupPowersupplies = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterRange title="Power" min={200} max={800} dimension="W" onChange={onChangeFilterRange} />
+            <FilterRange
+              title="Power"
+              min={minPower}
+              max={maxPower}
+              step={100}
+              dimension="W"
+              onChange={onChangeFilterRange}
+            />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listPowersupplyElements}
