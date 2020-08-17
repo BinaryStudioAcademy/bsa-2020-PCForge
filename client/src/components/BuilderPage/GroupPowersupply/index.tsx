@@ -12,6 +12,7 @@ import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
+import Search from 'components/Search';
 
 type PropsType = {
   filter: TypeFilterBuilder;
@@ -44,6 +45,7 @@ const GroupPowersupplies = ({
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [power, setPower] = useState({} as TypePower);
+  const [name, setName] = useState('');
   const [load, setLoad] = useState(false);
 
   const getPowersupplies = async () => {
@@ -53,7 +55,7 @@ const GroupPowersupplies = ({
         'power[minValue]': power.minValue,
         'power[maxValue]': power.maxValue,
       };
-      const res = await getAllPowersupplies({ ...pagination, ...queryClockspeed });
+      const res = await getAllPowersupplies({ ...pagination, ...queryClockspeed, name });
       setPowersupplies(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -65,7 +67,7 @@ const GroupPowersupplies = ({
 
   useEffect(() => {
     getPowersupplies();
-  }, [filter, pagination, power]);
+  }, [filter, pagination, power, name]);
 
   const listPowersupplyElements = powersupplies?.map((powersupply) => (
     <ListComponentsItem
@@ -102,6 +104,7 @@ const GroupPowersupplies = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
+            <Search value={name} onChange={(e) => setName(e.target.value)} />
             <FilterRange
               title="Power"
               min={minPower}
