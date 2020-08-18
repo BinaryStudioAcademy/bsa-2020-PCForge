@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
@@ -54,13 +54,13 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     ...filter,
     ramTypeIdSet: setup.motherboard ? new Set([setup.motherboard.ramTypeId]) : filter.ramTypeIdSet,
   };
-  
+
   const filterForMotherboard = {
     ...filter,
     socketIdSet: setup.cpu ? new Set([setup.cpu.socketId]) : filter.socketIdSet,
     ramTypeIdSet: setup.ram ? new Set([setup.ram.typeId]) : filter.ramTypeIdSet,
   };
-  
+
   useEffect(() => {
     dispatch(initSetupAction());
   }, []);
