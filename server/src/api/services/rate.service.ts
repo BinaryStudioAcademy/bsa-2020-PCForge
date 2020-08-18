@@ -20,6 +20,11 @@ export class RateService {
     return await this.repository.createRate(inputRate);
   }
 
+  // async getRatesAverage(input: IRateFilter): Promise<{average: string}> {
+  //   // const rates: RateModel[] = this.repository.getAllRates(input);
+  //   // rates.
+  // }
+
   async updateRateById(
     inputRate: { id: string; data: RateCreationAttributes },
     rateMiddleware: IRateMiddleware

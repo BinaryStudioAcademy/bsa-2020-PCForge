@@ -6,7 +6,7 @@ export class SetupService {
   constructor(private repository: SetupRepository) {}
 
   async getSetupById(id: string): Promise<SetupModel> {
-    const setup = await this.repository.getById(id);
+    const setup = await this.repository.getOneSetup(id);
     return setup;
   }
 

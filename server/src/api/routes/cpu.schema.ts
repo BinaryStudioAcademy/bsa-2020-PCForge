@@ -88,6 +88,15 @@ export const CpuSchema: SwaggerSchema = {
   }
 }
 
+const createDetailedCpuSchema = (): SwaggerSchema => {
+  const schema: SwaggerSchema = JSON.parse(JSON.stringify(CpuSchema));
+  schema.properties.socket = SocketSchema;
+
+  return schema;
+}
+
+export const DetailedCpuSchema: SwaggerSchema = createDetailedCpuSchema();
+
 export const CreateCpuSchema: SwaggerSchema = {
   type: 'object',
   properties: {
@@ -198,7 +207,7 @@ export const GetAllCpusResponse: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: CpuSchema
+      items: DetailedCpuSchema
     }
   }
 }

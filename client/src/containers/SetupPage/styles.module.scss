@@ -3,6 +3,8 @@
 .setupPageRoot {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  align-items: stretch;
   padding: 2rem;
 }
 

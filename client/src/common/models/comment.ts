@@ -1,8 +1,9 @@
+import { User } from './user';
+
 export interface SetupComment {
   id: number;
   authorId: number;
-  author: string;
+  user: User;
   createdAt: Date;
-  body: string;
-  rating: number;
+  value: string;
 }

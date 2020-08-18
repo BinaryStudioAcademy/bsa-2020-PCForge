@@ -2,6 +2,7 @@ import { FastifyRequest } from 'fastify';
 import { CommentCreationAttributes } from '../../data/models/comment';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserSchema } from './user.schema';
 
 export type GetAllCommentsRequest = FastifyRequest<{
   Params: { id: string };
@@ -46,6 +47,7 @@ export const CommentSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false
     },
+    user: UserSchema,
     commentableId: {
       type: 'integer',
       example: 1,

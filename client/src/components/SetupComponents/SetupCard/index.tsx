@@ -11,18 +11,22 @@ interface Props {
 }
 
 const SetupCard: React.FC<Props> = (props): JSX.Element => {
-  const { title, description, image, rating } = props.setup;
+  const { title, description } = props.setup;
   return (
     <div className={styles.card}>
       <div className={styles.imageWrapper}>
-        <ZoomImage src={image} alt={title} rootClassName={styles.setupImage} />
+        <ZoomImage
+          src={'https://crossout.net/i/worldHistory/img-splash-game-world.png'}
+          alt={title}
+          rootClassName={styles.setupImage}
+        />
       </div>
       <div className={styles.cardContentWrapper}>
         <CardHeader title={title} className={styles.contentHeader} />
         <div className={styles.cardContent}>
           <Typography className={styles.cardText}>{description}</Typography>
           <div className={styles.ratingBoxWrapper}>
-            <RatingBox name="setup-card" ratingValue={rating} disabled />
+            <RatingBox name={title} ratingValue={1} disabled />
           </div>
         </div>
       </div>

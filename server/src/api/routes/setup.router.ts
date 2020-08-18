@@ -10,6 +10,7 @@ import {
   CreateSetupSchema,
   UpdateSetupSchema,
   GetAllSetupsResponse,
+  DetailedSetupSchema,
 } from './setup.schema';
 import { CreateOneQuery, UpdateOneQuery, GetOneQuery, GetMultipleQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
 
@@ -22,10 +23,10 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(setups);
   });
 
-  const getOneSchema = GetOneQuery(SetupSchema);
+  const getOneSchema = GetOneQuery(DetailedSetupSchema);
   fastify.get('/:id', getOneSchema, async function (request: GetSetupRequest) {
     const { id } = request.params;
-    const setup = SetupService.getSetupById(id);
+    const setup = await SetupService.getSetupById(id);
     return setup;
   });
 

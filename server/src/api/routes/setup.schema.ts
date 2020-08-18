@@ -1,6 +1,12 @@
 import { FastifyRequest } from 'fastify';
 import { SetupCreationAttributes } from '../../data/models/setup';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { CpuSchema } from './cpu.schema';
+import { GpuSchema } from './gpu.schema';
+import { RamSchema } from './ram.schema';
+import { PowerSupplySchema } from './powerSupply.schema';
+import { MotherBoardSchema } from './motherboard.schema';
+import { CommentSchema } from './comment.schema';
 
 export type GetSetupsRequest = FastifyRequest;
 
@@ -82,6 +88,17 @@ export const SetupSchema: SwaggerSchema = {
     }
   }
 }
+
+const getDetailedSetupSchema = (): SwaggerSchema => {
+  const schema: SwaggerSchema = JSON.parse(JSON.stringify(SetupSchema));
+  schema.properties.cpu = CpuSchema;
+  schema.properties.gpu = GpuSchema;
+  schema.properties.ram = RamSchema;
+  schema.properties.motherboard = MotherBoardSchema;
+  schema.properties.powerSupply = PowerSupplySchema;
+  return schema;
+}
+export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
 
 export const GetAllSetupsResponse: SwaggerSchema = {
   type: 'object',
