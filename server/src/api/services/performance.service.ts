@@ -1,4 +1,5 @@
-import { SetupAttributes } from '../../data/models/setup';
+import { GameModel } from '../../data/models/game';
+import { SetupAttributes, SetupModel } from '../../data/models/setup';
 import { GameRepository } from '../../data/repositories/game.repository';
 import { SetupRepository } from '../../data/repositories/setup.repository';
 
@@ -21,11 +22,22 @@ interface IFpsAnalysis {
   ultra: number;
 }
 
+interface IReport {
+  minimal: {
+    cpu: number;
+    gpu: number;
+    ram: number;
+  };
+  recommended: {
+    cpu: number;
+    gpu: number;
+    ram: number;
+  };
+}
+
 export interface ISetupPerformance {
   setup: SetupAttributes;
-  overallCpu: number;
-  overallGpu: number;
-  overallRam: number;
+  report: IReport;
   fpsAnalysis: [IResolution, IFpsAnalysis][];
 }
 
@@ -43,6 +55,8 @@ export class PerformanceService {
   ];
   private DEFAULT_RESOLUTION: Resolution = new Resolution(1920, 1080);
   private DEFAULT_FPS = 60;
+  private setup: SetupModel;
+  private game: GameModel;
 
   private getOverallPerformance(minimal: number, recommended: number, currentPerformance: number): number {
     if (currentPerformance <= minimal) return this.MINIMAL_PERFORMANCE;
@@ -77,21 +91,19 @@ export class PerformanceService {
     return analysis;
   }
 
+  private getReport(needed: number, current: number): number {
+    return Math.ceil((current / needed) * 100);
+  }
+
   async getSetupPerformanceById(
     id: string,
     gameId: string,
     resolutions: IResolution[] = this.resolutions.map((r) => r.getIResolution())
   ): Promise<ISetupPerformance> {
-    const setup = await this.setupRepository.getSetupById(id);
-    const { cpu, gpu, ram } = setup;
-    const {
-      minimalCpu,
-      recommendedCpu,
-      minimalGpu,
-      recommendedGpu,
-      minimalRamSize,
-      recommendedRamSize,
-    } = await this.gameRepository.getGameById(gameId);
+    this.setup = await this.setupRepository.getSetupById(id);
+    this.game = await this.gameRepository.getGameById(gameId);
+    const { cpu, gpu, ram } = this.setup;
+    const { minimalCpu, recommendedCpu, minimalGpu, recommendedGpu, minimalRamSize, recommendedRamSize } = this.game;
     const fpsAnalysis: [IResolution, IFpsAnalysis][] = resolutions.map((resolution) => [
       resolution,
       this.getFpsAnalysis(
@@ -102,11 +114,20 @@ export class PerformanceService {
       ),
     ]);
     const performance: ISetupPerformance = {
-      setup,
-      overallCpu: this.getOverallPerformance(minimalCpu.performance, recommendedCpu.performance, cpu.performance),
-      overallGpu: this.getOverallPerformance(minimalGpu.performance, recommendedGpu.performance, gpu.performance),
-      overallRam: this.getOverallPerformance(minimalRamSize, recommendedRamSize, ram.memorySize),
+      setup: this.setup,
       fpsAnalysis,
+      report: {
+        minimal: {
+          cpu: this.getReport(minimalCpu.performance, cpu.performance),
+          gpu: this.getReport(minimalGpu.performance, gpu.performance),
+          ram: this.getReport(minimalRamSize, ram.memorySize),
+        },
+        recommended: {
+          cpu: this.getReport(recommendedCpu.performance, cpu.performance),
+          gpu: this.getReport(recommendedGpu.performance, gpu.performance),
+          ram: this.getReport(recommendedRamSize, ram.memorySize),
+        },
+      },
     };
     return performance;
   }

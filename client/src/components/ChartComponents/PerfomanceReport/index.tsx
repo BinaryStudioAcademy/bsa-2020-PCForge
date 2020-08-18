@@ -1,3 +1,5 @@
+import { Setup } from 'common/models/setup';
+import { IReport } from 'common/models/setupPerformance';
 import React, { useState } from 'react';
 import sharedStyles from '../styles.module.scss';
 import styles from './styles.module.scss';
@@ -12,10 +14,15 @@ interface PerformanceIndicatorItem {
   value: number;
 }
 
-const GameMatcherPerformanceReport = (): JSX.Element => {
+interface Props {
+  setup: Setup;
+  report: IReport;
+}
+
+const GameMatcherPerformanceReport: React.FC<Props> = ({ setup, report }): JSX.Element => {
   const [selectedRequirement, setSelectedRequirement] = useState<number>(1);
   const values = [];
-  for (let i = 0; i <= 55000; i += 5000) {
+  for (let i = 0; i <= 250; i += 25) {
     values.push(i);
   }
   const recommendedRequirements = [
@@ -30,9 +37,9 @@ const GameMatcherPerformanceReport = (): JSX.Element => {
   ];
 
   const componentItems = [
-    { title: 'Processor', description: 'Intel Pentium II, AMD Athlon MP' },
-    { title: 'Graphics', description: 'Nvidia GeForce 6200 LE, AMD Radeon Xpress 1200 Series' },
-    { title: 'RAM', description: '32MB' },
+    { title: 'Processor', description: setup.cpu.name },
+    { title: 'Graphics', description: setup.gpu.name },
+    { title: 'RAM', description: `${setup.ram.memorySize}GB` },
   ];
 
   const RecommendedRequirement = (req: RecommendedRequirement) => {
