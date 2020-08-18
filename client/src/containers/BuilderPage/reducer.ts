@@ -4,7 +4,12 @@ import { TypeGpu } from 'common/models/typeGpu';
 import { TypeRam } from 'common/models/typeRam';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
-import { FETCH_COMPONENT_SUCCESS, REMOVE_COMPONENT_FROM_SETUP, RESET_SETUP, SET_SETUP } from './actionTypes';
+import {
+  FETCH_COMPONENT_SUCCESS,
+  REMOVE_COMPONENT_FROM_SETUP,
+  BUILDER_RESET_SETUP,
+  BUILDER_SET_SETUP,
+} from './actionTypes';
 
 export type TypeSetup = {
   cpu: TypeCpu | null;
@@ -38,11 +43,11 @@ export default function (state = initialState, action: AnyAction): TypeSetup {
       };
     }
 
-    case SET_SETUP: {
+    case BUILDER_SET_SETUP: {
       return action.payload;
     }
 
-    case RESET_SETUP: {
+    case BUILDER_RESET_SETUP: {
       return initialState;
     }
 

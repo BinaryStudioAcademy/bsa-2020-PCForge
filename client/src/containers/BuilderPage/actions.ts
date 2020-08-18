@@ -1,5 +1,10 @@
 import { AnyAction } from 'redux';
-import { ADD_COMPONENT_TO_SETUP, INIT_SETUP, REMOVE_COMPONENT_FROM_SETUP, RESET_SETUP } from './actionTypes';
+import {
+  ADD_COMPONENT_TO_SETUP,
+  BUILDER_INIT_SETUP,
+  REMOVE_COMPONENT_FROM_SETUP,
+  BUILDER_RESET_SETUP,
+} from './actionTypes';
 import { Group } from './config';
 
 export const addComponentToSetupAction = (props: { id: number; group: Group }): AnyAction => ({
@@ -13,9 +18,9 @@ export const removeComponentFromSetupAction = (props: { group: Group }): AnyActi
 });
 
 export const initSetupAction = (): AnyAction => ({
-  type: INIT_SETUP,
+  type: BUILDER_INIT_SETUP,
 });
 
 export const resetSetupAction = (): AnyAction => ({
-  type: RESET_SETUP,
+  type: BUILDER_RESET_SETUP,
 });

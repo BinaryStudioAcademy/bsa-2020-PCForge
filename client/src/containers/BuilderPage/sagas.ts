@@ -4,9 +4,9 @@ import {
   ADD_COMPONENT_TO_SETUP,
   FETCH_COMPONENT_SUCCESS,
   FETCH_COMPONENT_FAILURE,
-  INIT_SETUP,
-  RESET_SETUP,
-  SET_SETUP,
+  BUILDER_INIT_SETUP,
+  BUILDER_RESET_SETUP,
+  BUILDER_SET_SETUP,
 } from './actionTypes';
 import { getCpu } from 'api/services/cpuService';
 import { getGpu } from 'api/services/gpuService';
@@ -42,7 +42,7 @@ function* watchAddComponent() {
 export function* initSetup(action: AnyAction) {
   try {
     const setup = yield call(getLocalSetup);
-    yield put({ type: SET_SETUP, payload: setup });
+    yield put({ type: BUILDER_SET_SETUP, payload: setup });
     for (const group in setup) {
       if (setup[group]) yield put({ type: ADD_COMPONENT_TO_SETUP, payload: { group, id: setup[group].id } });
     }
@@ -53,7 +53,7 @@ export function* initSetup(action: AnyAction) {
 }
 
 function* watchInitSetup() {
-  yield takeEvery(INIT_SETUP, initSetup);
+  yield takeEvery(BUILDER_INIT_SETUP, initSetup);
 }
 
 export function* resetSetup(action: AnyAction) {
@@ -66,7 +66,7 @@ export function* resetSetup(action: AnyAction) {
 }
 
 function* watchResetSetup() {
-  yield takeEvery(RESET_SETUP, resetSetup);
+  yield takeEvery(BUILDER_RESET_SETUP, resetSetup);
 }
 
 export default function* builderSagas() {
