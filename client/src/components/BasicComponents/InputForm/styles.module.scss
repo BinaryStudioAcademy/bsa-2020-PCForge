@@ -5,6 +5,10 @@
   width: 100% !important;
   border: none;
 
+  input[type=text], input[type=number] {
+    padding: 10px;
+  }
+
   & div {
     background-color: white;
     border-radius: 5px;
