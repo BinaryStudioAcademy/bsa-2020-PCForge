@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { fetchTopGames, fetchPerformanceAnalysis } from 'containers/Chart/actions';
+import { fetchTopGames, fetchPerformanceAnalysis, fetchSetup } from 'containers/Chart/actions';
 
 import React from 'react';
 import GameMatcherSystemRequirements from 'components/ChartComponents/SystemRequirements';
@@ -15,9 +15,16 @@ import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
 import { Game } from 'common/models/game';
 
-const GameMatcherResult: React.FC<Props> = ({ fetchTopGames, fetchPerformanceAnalysis, performance, topGames }) => {
+const GameMatcherResult: React.FC<Props> = ({
+  fetchTopGames,
+  fetchPerformanceAnalysis,
+  performance,
+  topGames,
+  setup,
+}) => {
   const DEFAULT_SETUP_ID = 5;
   React.useEffect(() => {
+    fetchSetup(DEFAULT_SETUP_ID);
     fetchTopGames();
   }, []);
 
@@ -37,7 +44,7 @@ const GameMatcherResult: React.FC<Props> = ({ fetchTopGames, fetchPerformanceAna
           <div className={styles.gameMatcherContentWrapper}>
             <main>
               <GameMatcherSystemRequirements />
-              <GameMatcherPerformanceReport />
+              <GameMatcherPerformanceReport setup={setup} report={performance.report} />
               <GameMatcherFpsAnalysis fpsAnalysis={performance.fpsAnalysis} />
             </main>
 
@@ -60,11 +67,13 @@ const GameMatcherResult: React.FC<Props> = ({ fetchTopGames, fetchPerformanceAna
 const mapState = (state: RootState) => ({
   topGames: state.setupChart.topGames,
   performance: state.setupChart.performance,
+  setup: state.setupChart.setup,
 });
 
 const mapDispatch = {
   fetchTopGames,
   fetchPerformanceAnalysis,
+  fetchSetup,
 };
 
 const connector = connect(mapState, mapDispatch);
