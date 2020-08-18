@@ -9,7 +9,7 @@ export enum InputType {
   error = 'error',
 }
 
-interface IInputProps {
+export interface IInputProps {
   inputType?: InputType;
   icon?: string;
   value?: unknown;

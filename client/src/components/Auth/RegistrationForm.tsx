@@ -3,6 +3,7 @@ import styles from 'containers/Auth/styles.module.scss';
 import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
 import Alert, { AlertType } from '../BasicComponents/Alert';
+import PasswordInput from '../PasswordInput/PasswordInput';
 
 interface IRegistrationFormProps {
   email: string;
@@ -41,14 +42,7 @@ const LoginForm = ({
           type="text"
           required
         />
-        <Input
-          name="Password"
-          className={styles.passwordInput}
-          onChange={handleChangePassword}
-          placeholder="Password"
-          type="password"
-          required
-        />
+        <PasswordInput inputHandler={handleChangePassword} />
         <div className={styles.registerButtonBox}>
           <Button type="submit" onClick={register} disabled={isLoading}>
             Register
