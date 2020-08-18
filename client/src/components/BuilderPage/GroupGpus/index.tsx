@@ -16,8 +16,8 @@ import styles from 'components/BuilderPage/styles.module.scss';
 type PropsType = {
   filter: TypeFilterBuilder;
   selectedComponent: TypeGpu | null;
-  onUpdateFilter: ({}: TypeFilterBuilder) => void;
-  onAddComponent: ({}: TypeGpu) => void;
+  onUpdateFilter: (filter: TypeFilterBuilder) => void;
+  onAddComponent: (gpu: TypeGpu) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
   onChangeExpanded: (expanded: ComponentGroups | false) => void;

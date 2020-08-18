@@ -1,8 +1,7 @@
-export interface SetupComment {
+export interface Comment {
   id: number;
   authorId: number;
   author: string;
   createdAt: Date;
-  body: string;
-  rating: number;
+  value: string;
 }

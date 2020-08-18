@@ -7,9 +7,8 @@ import styles from 'containers/Auth/styles.module.scss';
 import * as AuthActions from 'containers/Auth/actions';
 import LoginForm from 'components/Auth/LoginForm';
 import RegistrationForm from 'components/Auth/RegistrationForm';
-import { IAuthProps, IAuthState } from './interfaces';
+import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
-import { Routes } from 'common/enums';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
