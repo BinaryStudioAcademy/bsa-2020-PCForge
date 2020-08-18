@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
@@ -15,6 +15,7 @@ import {
   addMotherboardToSetupAction,
   addPowersupplyToSetupAction,
   addRamToSetupAction,
+  initSetupAction,
   removeCpuFromSetupAction,
   removeGpuFromSetupAction,
   removeMotherboardFromSetupAction,
@@ -59,6 +60,10 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     socketIdSet: setup.cpu ? new Set([setup.cpu.socketId]) : filter.socketIdSet,
     ramTypeIdSet: setup.ram ? new Set([setup.ram.typeId]) : filter.ramTypeIdSet,
   };
+
+  useEffect(() => {
+    dispatch(initSetupAction());
+  }, []);
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>

@@ -5,6 +5,7 @@ import {
   ADD_MOTHERBOARD_TO_SETUP,
   ADD_POWERSUPPLY_TO_SETUP,
   ADD_RAM_TO_SETUP,
+  INIT_SETUP,
   REMOVE_CPU_FROM_SETUP,
   REMOVE_GPU_FROM_SETUP,
   REMOVE_MOTHERBOARD_FROM_SETUP,
@@ -56,6 +57,10 @@ export const removeMotherboardFromSetupAction = (): AnyAction => ({
 
 export const removePowersupplyFromSetupAction = (): AnyAction => ({
   type: REMOVE_POWERSUPPLY_FROM_SETUP,
+});
+
+export const initSetupAction = (): AnyAction => ({
+  type: INIT_SETUP,
 });
 
 export const resetSetupAction = (): AnyAction => ({

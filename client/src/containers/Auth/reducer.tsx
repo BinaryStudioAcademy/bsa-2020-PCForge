@@ -7,6 +7,8 @@ import {
   AUTH_KEEP_SIGN_IN,
   AUTH_LOADING_STATUS,
   AUTH_SWITCH_AUTH_PAGE,
+  AUTH_REGISTRATION_SUCCESS,
+  AUTH_REGISTRATION_ERROR,
   loginRequestSuccess,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
@@ -63,6 +65,16 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         ...action.payload,
       };
     case AUTH_LOGIN_FAILURE:
+      return {
+        ...state,
+        errorMessage: action.payload.message,
+      };
+    case AUTH_REGISTRATION_SUCCESS:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case AUTH_REGISTRATION_ERROR:
       return {
         ...state,
         errorMessage: action.payload.message,

@@ -8,6 +8,7 @@ import * as AuthActions from 'containers/Auth/actions';
 import LoginForm from 'components/Auth/LoginForm';
 import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from './interfaces';
+import Spinner from 'components/Spinner';
 import { Routes } from 'common/enums';
 
 class Auth extends Component<IAuthProps, IAuthState> {
@@ -70,7 +71,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-
     if (state.user) {
       return <Redirect to={'/'} />;
     }
@@ -88,15 +88,19 @@ class Auth extends Component<IAuthProps, IAuthState> {
             </Grid>
             <Grid item md>
               {state.isRegistration ? (
-                <RegistrationForm
-                  email={state.email}
-                  errorMessage={state.errorMessage}
-                  isLoading={state.isLoading}
-                  handleChangeEmail={this.handleChangeEmail}
-                  handleChangePassword={this.handleChangePassword}
-                  register={this.sendData}
-                  switchToLogin={this.switchToLogin}
-                />
+                state.isLoading ? (
+                  <Spinner load={true} />
+                ) : (
+                  <RegistrationForm
+                    email={state.email}
+                    errorMessage={state.errorMessage}
+                    isLoading={state.isLoading}
+                    handleChangeEmail={this.handleChangeEmail}
+                    handleChangePassword={this.handleChangePassword}
+                    register={this.sendData}
+                    switchToLogin={this.switchToLogin}
+                  />
+                )
               ) : (
                 <LoginForm
                   email={state.email}
