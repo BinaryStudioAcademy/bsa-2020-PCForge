@@ -30,6 +30,13 @@ export function SetupChartReducer(state = initialState, action: SetupChartAction
       };
     }
 
+    case SetupChartTypes.FETCH_PERFORMANCE_SUCCESS: {
+      return {
+        ...state,
+        performance: action.payload.performance,
+      };
+    }
+
     default:
       return state;
   }
