@@ -70,9 +70,5 @@ function* watchResetSetup() {
 }
 
 export default function* builderSagas() {
-  yield all([
-    watchAddComponent(),
-    watchInitSetup(),
-    watchResetSetup(),
-  ]);
+  yield all([watchAddComponent(), watchInitSetup(), watchResetSetup()]);
 }
