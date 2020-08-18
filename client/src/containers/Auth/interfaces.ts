@@ -13,17 +13,22 @@ export interface IAuthProps {
 }
 
 export interface IAuthState {
+  user: User | null;
   email: string;
   password: string;
   keepSignedIn: boolean;
   isRegistration: boolean;
   isLoading: boolean;
   errorMessage: string;
-  user: null | User;
 }
 
 export interface IAuthPayload {
   email: string;
   password: string;
   keepSignedIn: boolean;
+}
+
+export interface IRegPayload {
+  email: string;
+  password: string;
 }
