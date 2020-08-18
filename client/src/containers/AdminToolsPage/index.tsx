@@ -1,11 +1,11 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-//import { Redirect } from 'react-router-dom';
 import PageComponent from 'containers/PageComponent';
 import ListItem from '@material-ui/core/ListItem';
 import { MenuItems } from 'common/enums';
 import Title from 'components/Title';
 import { TotalInfoCard, ITotalInfoCard } from 'components/TotalInfoCard';
+import RequestContaner from './RequestContainer';
 import { CardsName } from 'common/enums/AdminTools/CardsName';
 import PeopleIcon from '@material-ui/icons/People';
 import SportsEsportsOutlinedIcon from '@material-ui/icons/SportsEsportsOutlined';
@@ -26,7 +26,7 @@ const cardsList: Array<ITotalInfoCard> = [
     count: 0,
     icon: <HardwareIcon />,
     createButton: true,
-    countOfRequests: 3,
+    countOfRequests: 2,
     //() => alert('To do for hardware')
   },
   {
@@ -40,7 +40,7 @@ const cardsList: Array<ITotalInfoCard> = [
     count: 0,
     icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
     createButton: true,
-    countOfRequests: 2,
+    countOfRequests: 1,
     //onAdd: () => alert('To do for game'),
   },
 ];
@@ -56,11 +56,11 @@ const getValuesOfTotalCards = async () => {
 const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
   getValuesOfTotalCards();
 
-  const goAddHardware = () => history.push(`${Routes.ADDITEM}/hardwares`); //<Redirect to={Routes.ADDITEM} /> //history.push(Routes.ADDHARDWARE);
+  const goAddHardware = () => history.push(`${Routes.ADDITEM}/hardwares`);
   const indexHardware: number = cardsList.findIndex((card) => card.name === CardsName.Hardwares);
   cardsList[indexHardware].onAdd = goAddHardware;
 
-  const goAddGame = () => history.push(`${Routes.ADDITEM}/games`); //<Redirect to={Routes.ADDITEM} /> //history.push(Routes.ADDHARDWARE);
+  const goAddGame = () => history.push(`${Routes.ADDITEM}/games`);
   const indexGames: number = cardsList.findIndex((card) => card.name === CardsName.Games);
   cardsList[indexGames].onAdd = goAddGame;
 
@@ -73,7 +73,7 @@ const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
         <div className={styles.contentMain}>
           <div className={styles.totalBlockContainer}>
             {cardsList.map((item: ITotalInfoCard, key) => (
-              <ListItem key={`${key}-total-info-card`}>
+              <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
                 <TotalInfoCard
                   name={item.name}
                   count={item.count}
@@ -86,7 +86,9 @@ const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
             ))}
           </div>
           <div className={styles.chartContainer}></div> {/*TO DO*/}
-          <div className={styles.notificationsContainer}></div> {/*TO DO*/}
+          <div className={styles.notificationsContainer}>
+            <RequestContaner />
+          </div>
         </div>
       </div>
     </PageComponent>

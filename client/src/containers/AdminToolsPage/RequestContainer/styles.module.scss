@@ -1,0 +1,74 @@
+@import 'styles/variables.scss';
+
+.requestHeader {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  color: $colorTextWhite;
+}
+.requestContaner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $colorBackgroundGray;
+  flex-grow: 1;
+  border-radius: 7px;
+  border: 1px solid $colorLightGray;
+  padding: 3rem 1em;
+
+  .listItem {
+    border-bottom: 1px solid $colorLightGray;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+
+  .requestItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    width: 100%;
+
+    .requestTitle {
+      font-weight: bolder;
+      max-width: 7em;
+      width: 7em;
+    }
+    .requestInfo, .requestExtraInfoContainer{
+      max-width: 7em;
+      width: 7em;
+    }
+    .requestExtraInfoItem {
+      text-align: center;
+    }
+
+    .requestExtraInfoContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: $colorTextGray;
+    }
+
+    .buttonRequest {
+      align-self: flex-end;
+      margin: 0 1em;
+      padding: 0 1.5em;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
+
+      .buttonRequest {
+        margin: 0.3em 0;
+        width: 100%;
+      }
+    }
+  }
+}
+
