@@ -1,5 +1,9 @@
 @import 'styles/variables.scss';
 
+.inputItem {
+  margin-top: 10px;
+}
+
 .selectItem {
   display: flex;
   flex-direction: column;
@@ -29,19 +33,17 @@
   }
 }
 
-.inputItem {
-  margin-top: 10px;
-}
 
 @media (max-width: 960px) {
   .additionalFieldsContainer, .contentMain {
     flex-direction: column;
 
-    .additionalFieldLeft {
+    .additionalFieldLeft, .inputItem {
       width: 100%;
     }
     .additionalFieldRight {
       width: 100%;
     }
   }
+
 }

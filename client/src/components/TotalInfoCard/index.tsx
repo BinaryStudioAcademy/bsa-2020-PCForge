@@ -9,7 +9,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Badge from '@material-ui/core/Badge';
 import Tooltip from '@material-ui/core/Tooltip';
 import ButtonAdd from 'components/BuilderPage/ButtonAdd';
-import { CardsName } from 'common/enums/AdminToolsTotalCard';
+import { CardsName } from 'common/enums/AdminTools/CardsName';
 import { theme } from 'assets/jss/theme';
 import styles from './styles.module.scss';
 //import { Title } from '@material-ui/icons';

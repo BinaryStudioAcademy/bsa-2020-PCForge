@@ -6,7 +6,7 @@ import ListItem from '@material-ui/core/ListItem';
 import { MenuItems } from 'common/enums';
 import Title from 'components/Title';
 import { TotalInfoCard, ITotalInfoCard } from 'components/TotalInfoCard';
-import { CardsName } from 'common/enums/AdminToolsTotalCard';
+import { CardsName } from 'common/enums/AdminTools/CardsName';
 import PeopleIcon from '@material-ui/icons/People';
 import SportsEsportsOutlinedIcon from '@material-ui/icons/SportsEsportsOutlined';
 import HardwareIcon from 'components/NavigationBar/NavigationIcons/HardwareIcon';
@@ -41,7 +41,7 @@ const cardsList: Array<ITotalInfoCard> = [
     icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
     createButton: true,
     countOfRequests: 2,
-    onAdd: () => alert('To do for game'),
+    //onAdd: () => alert('To do for game'),
   },
 ];
 
@@ -59,6 +59,10 @@ const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
   const goAddHardware = () => history.push(`${Routes.ADDITEM}/hardwares`); //<Redirect to={Routes.ADDITEM} /> //history.push(Routes.ADDHARDWARE);
   const indexHardware: number = cardsList.findIndex((card) => card.name === CardsName.Hardwares);
   cardsList[indexHardware].onAdd = goAddHardware;
+
+  const goAddGame = () => history.push(`${Routes.ADDITEM}/games`); //<Redirect to={Routes.ADDITEM} /> //history.push(Routes.ADDHARDWARE);
+  const indexGames: number = cardsList.findIndex((card) => card.name === CardsName.Games);
+  cardsList[indexGames].onAdd = goAddGame;
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>

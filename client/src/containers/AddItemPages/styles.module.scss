@@ -1,18 +1,5 @@
 @import '../../styles/variables.scss';
 
-/*.contentMain {
-  margin-top: 40px;
-  display: flex;
-  justify-content: space-between;
-
-  .leftContent {
-    width: 75%;
-  }
-  .rightContent {
-    margin-left: 40px;
-    width: 25%;
-  }
-}*/
 .contentPage {
   display: flex;
   flex-direction: column;
@@ -53,9 +40,6 @@
   flex-direction: column;
   justify-content: space-between;
 
-  .formFields {
-
-  }
   .buttonContainer {
     align-self: center;
     display: flex;
@@ -71,41 +55,6 @@
   padding: 3em;
 }
 
-
-
-.selectItem {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.selectItemHeader {
-  color: $colorTextGray;
-  margin: 10px 0 0 0;
-  font-size: 10px;
-  line-height: 18px;
-  text-transform: uppercase;
-}
-
-.selectPlaceholder {
-}
-
-.additionalFieldsContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-
-  .additionalFieldLeft {
-    margin-right: 1em;
-    width: 50%;
-  }
-  .additionalFieldRight {
-    width: 50%;
-  }
-}
-
-
 @media (max-width: 960px) {
   .additionalFieldsContainer, .contentMain {
     flex-direction: column;
@@ -116,16 +65,15 @@
   .additionalFieldRight {
     width: 100%;
   }
+  .rightContent {
+    order: 1;
+    width: 100%;
+    padding: 3em;
+  }
+  .leftContent {
+    order: 2;
+    width: 100%;
+    padding: 3em;
+  }
 
 }
-
-/*.inputTextField {
-  border: 0;
-    margin: 0;
-    display: inline-flex;
-    padding: 0;
-    position: relative;
-    min-width: 0;
-    flex-direction: column;
-    vertical-align: top;
-}*/

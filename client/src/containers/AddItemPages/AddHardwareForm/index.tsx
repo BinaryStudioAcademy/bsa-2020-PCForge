@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { HardwareTypes } from 'common/enums/HardwareTypes/hardwareTypes';
-import { HardwareFields } from 'common/enums/HardwareTypes/fields';
+import { HardwareTypes } from 'common/enums/AdminTools/HardwareTypes';
+import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
 //import Title from 'components/Title';
 //import Button, { ButtonType } from 'components/BasicComponents/Button';
 //import Input from 'components/BasicComponents/Input';
@@ -52,10 +52,6 @@ const AddHardwareForm = (): JSX.Element => {
   const [power, setPower] = useState('');
   const [frequency, setFrequency] = useState('');
   const [typeRam, setTypeRam] = useState('');
-
-  //const [image, setImage] = useState('https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg');
-  //const inputRef = React.createRef<HTMLInputElement>();
-  //const imageInputRef = React.createRef<HTMLInputElement>();
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -116,7 +112,6 @@ const AddHardwareForm = (): JSX.Element => {
   }
   console.log(fieldsMap);
 
-  //console.log("typeHardWare = " + typeHardWare);
   fieldsMap.forEach((value, key) => {
     fieldsMap.set(key, false);
   });
@@ -204,36 +199,45 @@ const AddHardwareForm = (): JSX.Element => {
         />
       </div>
       {fieldsMap.get(HardwareFields.power) && typeHardWare === HardwareTypes.PowerSupply ? (
-        <InputForm
-          name={HardwareFields.power}
-          inputLabel={HardwareFields.power}
-          type="text"
-          placeholder="Input a Power"
-          onChange={handleChangePower}
-          value={power}
-        />
+        <div className={styles.inputItem}>
+          <InputForm
+            name={HardwareFields.power}
+            inputLabel={HardwareFields.power}
+            type="number"
+            placeholder="Input a Power"
+            onChange={handleChangePower}
+            value={power}
+            InputProps={{ inputProps: { min: 1 } }}
+          />
+        </div>
       ) : null}
       <div className={styles.additionalFieldsContainer}>
         <div className={styles.additionalFieldLeft}>
           {fieldsMap.get(HardwareFields.frequency) ? (
-            <InputForm
-              name={HardwareFields.frequency}
-              inputLabel={HardwareFields.frequency}
-              type="text"
-              placeholder="Input a Frequency"
-              onChange={handleChangeFrequency}
-              value={frequency}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.frequency}
+                inputLabel={HardwareFields.frequency}
+                type="number"
+                placeholder="Input a Frequency"
+                onChange={handleChangeFrequency}
+                value={frequency}
+                InputProps={{ inputProps: { min: 1 } }}
+              />
+            </div>
           ) : null}
           {fieldsMap.get(HardwareFields.perfomance) ? (
-            <InputForm
-              name={HardwareFields.perfomance}
-              inputLabel={HardwareFields.perfomance}
-              type="text"
-              placeholder="Input a Performance"
-              onChange={handleChangePerformance}
-              value={performance}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.perfomance}
+                inputLabel={HardwareFields.perfomance}
+                type="number"
+                placeholder="Input a Performance"
+                onChange={handleChangePerformance}
+                value={performance}
+                InputProps={{ inputProps: { min: 1 } }}
+              />
+            </div>
           ) : null}
           {fieldsMap.get(HardwareFields.memorySize) && typeHardWare === HardwareTypes.GPU ? (
             <div className={styles.selectItem}>
@@ -249,34 +253,42 @@ const AddHardwareForm = (): JSX.Element => {
             </div>
           ) : null}
           {fieldsMap.get(HardwareFields.tdp) ? (
-            <InputForm
-              name={HardwareFields.tdp}
-              inputLabel={HardwareFields.tdp}
-              type="text"
-              placeholder="Input a TDP"
-              onChange={handleChangeTdp}
-              value={tdp}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.tdp}
+                inputLabel={HardwareFields.tdp}
+                type="number"
+                placeholder="Input a TDP"
+                onChange={handleChangeTdp}
+                value={tdp}
+                InputProps={{ inputProps: { min: 1 } }}
+              />
+            </div>
           ) : null}
           {fieldsMap.get(HardwareFields.openGL) ? (
-            <InputForm
-              name={HardwareFields.openGL}
-              inputLabel={HardwareFields.openGL}
-              type="text"
-              placeholder="Input an OpenGL"
-              onChange={handleChangeOpenGl}
-              value={openGl}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.openGL}
+                inputLabel={HardwareFields.openGL}
+                type="text" // number?
+                placeholder="Input an OpenGL"
+                onChange={handleChangeOpenGl}
+                value={openGl}
+              />
+            </div>
           ) : null}
           {fieldsMap.get(HardwareFields.cores) ? (
-            <InputForm
-              name={HardwareFields.cores}
-              inputLabel={HardwareFields.cores}
-              type="text"
-              placeholder="Input a Cores"
-              onChange={handleChangeCores}
-              value={cores}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.cores}
+                inputLabel={HardwareFields.cores}
+                type="number"
+                placeholder="Input a Cores"
+                onChange={handleChangeCores}
+                value={cores}
+                InputProps={{ inputProps: { min: 1 } }}
+              />
+            </div>
           ) : null}
           {/* { selectType }
           { select socket } */}
@@ -309,44 +321,54 @@ const AddHardwareForm = (): JSX.Element => {
         </div>
         <div className={styles.additionalFieldRight}>
           {fieldsMap.get(HardwareFields.power) && typeHardWare !== HardwareTypes.PowerSupply ? (
-            <InputForm
-              name={HardwareFields.power}
-              inputLabel={HardwareFields.power}
-              type="text"
-              placeholder="Input a Power"
-              onChange={handleChangePower}
-              value={power}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.power}
+                inputLabel={HardwareFields.power}
+                type="number"
+                placeholder="Input a Power"
+                onChange={handleChangePower}
+                value={power}
+                InputProps={{ inputProps: { min: 1 } }}
+              />
+            </div>
           ) : null}
           {fieldsMap.get(HardwareFields.interfaceGpu) ? (
-            <InputForm
-              name={HardwareFields.interfaceGpu}
-              inputLabel={HardwareFields.interfaceGpu}
-              type="text"
-              placeholder="Input an Interface"
-              onChange={handleChangeInterfaceGpu}
-              value={interfaceGpu}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.interfaceGpu}
+                inputLabel={HardwareFields.interfaceGpu}
+                type="text"
+                placeholder="Input an Interface"
+                onChange={handleChangeInterfaceGpu}
+                value={interfaceGpu}
+              />
+            </div>
           ) : null}
           {fieldsMap.get(HardwareFields.coreClocks) ? (
-            <InputForm
-              name={HardwareFields.coreClocks}
-              inputLabel={HardwareFields.coreClocks}
-              type="text"
-              placeholder="Input a Core Clocks"
-              onChange={handleChangeCoreClocks}
-              value={coreClocks}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.coreClocks}
+                inputLabel={HardwareFields.coreClocks}
+                type="number"
+                placeholder="Input a Core Clocks"
+                onChange={handleChangeCoreClocks}
+                value={coreClocks}
+                InputProps={{ inputProps: { min: 1 } }}
+              />
+            </div>
           ) : null}
           {fieldsMap.get(HardwareFields.directX) ? (
-            <InputForm
-              name={HardwareFields.directX}
-              inputLabel={HardwareFields.directX}
-              type="text"
-              placeholder="Input a DirectX"
-              onChange={handleChangeDirectX}
-              value={directX}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.directX}
+                inputLabel={HardwareFields.directX}
+                type="text"
+                placeholder="Input a DirectX"
+                onChange={handleChangeDirectX}
+                value={directX}
+              />
+            </div>
           ) : null}
           {/* { select memorySize for RAM }
           { select ram}
@@ -391,14 +413,17 @@ const AddHardwareForm = (): JSX.Element => {
             </div>
           ) : null}
           {fieldsMap.get(HardwareFields.clockSpeed) ? (
-            <InputForm
-              name={HardwareFields.clockSpeed}
-              inputLabel={HardwareFields.clockSpeed}
-              type="text"
-              placeholder="Input a Clock Speed"
-              onChange={handleChangeClockSpeed}
-              value={clockSpeed}
-            />
+            <div className={styles.inputItem}>
+              <InputForm
+                name={HardwareFields.clockSpeed}
+                inputLabel={HardwareFields.clockSpeed}
+                type="number"
+                placeholder="Input a Clock Speed"
+                onChange={handleChangeClockSpeed}
+                value={clockSpeed}
+                InputProps={{ inputProps: { min: 1 } }}
+              />
+            </div>
           ) : null}
           {/* { select class} */}
           {fieldsMap.get(HardwareFields.classCpu) ? (

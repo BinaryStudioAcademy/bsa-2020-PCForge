@@ -18,8 +18,7 @@
     border: none;
   }
 
-  & div select {
-    padding: 10px;
+  & div select{
     filter: none;
 
     &:-webkit-autofill,
@@ -36,15 +35,10 @@
   }
 }
 
-.inputLabel {
-  display: block;
-  margin:8px 0;
-  color: white;
-}
-
 .labelInput {
   color: $colorTextGray;
-  margin: 10px 0 0 0;
+  margin-top: 10px;
+  //padding: 10px;
   font-size: 10px;
   line-height: 18px;
   text-transform: uppercase;

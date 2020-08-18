@@ -2,7 +2,7 @@ import React, { useState } from 'react'; //ReactElement
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
-import { CardsName } from 'common/enums/AdminToolsTotalCard';
+import { CardsName } from 'common/enums/AdminTools/CardsName';
 //import { HardwareFields } from 'common/enums/HardwareTypes/fields';
 import Title from 'components/Title';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
@@ -10,6 +10,7 @@ import styles from './styles.module.scss';
 //import { Routes } from 'common/enums';
 import { useParams, useHistory, Redirect } from 'react-router-dom'; //RouteComponentProps,
 import AddHardwareForm from './AddHardwareForm';
+import AddGameForm from './AddGameForm';
 //import createTypography from '@material-ui/core/styles/createTypography';
 
 interface IinputOptions {
@@ -53,7 +54,7 @@ const AddItemPage = (): JSX.Element => {
   };
   const handleCancelButton = () => history.goBack(); //history.push(Routes.ADMINTOOLS); // go to previous page
 
-  return renderForm ? (
+  return !renderForm ? (
     <Redirect to="/404" />
   ) : (
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
@@ -65,10 +66,7 @@ const AddItemPage = (): JSX.Element => {
           <div className={styles.contentMain}>
             <div className={styles.leftContent}>
               {addItemType === CardsName.Hardwares ? <AddHardwareForm /> : null}
-              {/* { addItemType === CardsName.Games
-                  ? <AddHardwareForm /> //<AddGameForm />
-                  : null
-              } */}
+              {addItemType === CardsName.Games ? <AddGameForm /> : null}
               <div className={styles.buttonContainer}>
                 <div className={styles.buttonWrapper}>
                   <Button buttonType={ButtonType.primary} onClick={handleSendDataButton}>
