@@ -8,7 +8,7 @@ import Spinner from 'components/Spinner';
 import TopBar from 'containers/TopBar';
 
 interface IProps {
-  selectedMenuItemNumber: MenuItems;
+  selectedMenuItemNumber?: MenuItems;
   children: React.ReactElement;
 }
 

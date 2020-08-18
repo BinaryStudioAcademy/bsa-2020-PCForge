@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import PageComponent from 'containers/PageComponent';
-import { MenuItems } from 'common/enums';
 import { Redirect } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
@@ -31,7 +30,7 @@ const UserPage = (props: Props) => {
     }
   };
 
-  return <PageComponent selectedMenuItemNumber={-1}>{renderContent()}</PageComponent>;
+  return <PageComponent>{renderContent()}</PageComponent>;
 };
 
 const mapState = (state: RootState) => ({
