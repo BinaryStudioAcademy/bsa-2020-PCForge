@@ -13,6 +13,7 @@ import SetupPage from './SetupsPage';
 import BuilderPage from './BuilderPage';
 import AdminToolsPage from './AdminToolsPage';
 import AddHardwarePage from 'containers/AddHardwarePage';
+import AddItemPages from 'containers/AddItemPages';
 export default class App extends Component {
   render(): JSX.Element {
     return (
@@ -27,7 +28,8 @@ export default class App extends Component {
           <Route exact path={Routes.DEFAULT} component={Home} />
           <Route exact path={Routes.SETUPS} component={SetupPage} />
           <Route exact path={Routes.ADMINTOOLS} component={AdminToolsPage} />
-          <Route exact path={Routes.ADDHARDWARE} component={AddHardwarePage} />
+          {/* <Route exact path={Routes.ADDHARDWARE} component={AddHardwarePage} /> */}
+          <Route exact path={`${Routes.ADDITEM}/:item`} component={AddItemPages} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>
       </RootComponent>

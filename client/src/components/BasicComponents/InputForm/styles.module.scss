@@ -1,0 +1,51 @@
+@import 'styles/variables.scss';
+
+.formControl {
+  min-width: 200px !important;
+  width: 100% !important;
+  border: none;
+
+  & div {
+    background-color: white;
+    border-radius: 5px;
+  }
+
+  legend {
+    display: none;
+  }
+
+  fieldset {
+    border: none;
+  }
+
+  & div select {
+    padding: 10px;
+    filter: none;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-internal-autofill-selected,
+    &:-internal-autofill-selected:hover,
+    &:-internal-autofill-selected:focus {
+      font-family: Lato, Arial, sans-serif;
+      -webkit-text-fill-color: white;
+      background-image: none;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  }
+}
+
+.inputLabel {
+  display: block;
+  margin:8px 0;
+  color: white;
+}
+
+.labelInput {
+  color: $colorTextGray;
+  margin: 10px 0 0 0;
+  font-size: 10px;
+  line-height: 18px;
+  text-transform: uppercase;
+}

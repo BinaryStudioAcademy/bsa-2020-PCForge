@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PageComponent from 'containers/PageComponent';
 import ListItem from '@material-ui/core/ListItem';
 import { MenuItems } from 'common/enums';
@@ -60,7 +61,7 @@ const getValuesOfTotalCards = async () => {
 const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
   getValuesOfTotalCards();
 
-  const goAddHardware = () => history.push(Routes.ADDHARDWARE);
+  const goAddHardware = () => history.push(`${Routes.ADDITEM}/hardwares`);//<Redirect to={Routes.ADDITEM} /> //history.push(Routes.ADDHARDWARE);
   const indexHardware: number = cardsList.findIndex(card => card.name === CardsName.Hardwares);
   cardsList[indexHardware].onAdd = goAddHardware;
 
