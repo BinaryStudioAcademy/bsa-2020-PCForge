@@ -7,6 +7,9 @@ class Resolution {
   getAbsoluteResolution(): number {
     return this.height * this.width;
   }
+  getIResolution(): IResolution {
+    return [this.width, this.height];
+  }
 }
 
 type IResolution = [number, number];
@@ -51,8 +54,8 @@ export class PerformanceService {
 
   /**
    * pts - performance measure
-   * Example: minimal - 100pts, current - 1000fps, resolution === DEFAULT_RESOLUTION, DEFAULT_FPS = 60
-   * Result: low: 1000 / 10 / 1 * 60 === 600 FPS
+   * Example: minimal - 100pts, current - 1000fps, resolution = 4K, DEFAULT_RESOLUTION = 1920, DEFAULT_FPS = 60
+   * Result: low: 1000 / 10 / 4 * 60 === 1500 FPS
    */
   private getFpsAnalysis(
     minimal: number,
@@ -60,16 +63,16 @@ export class PerformanceService {
     currentPerformance: number,
     resolution: Resolution
   ): IFpsAnalysis {
-    const ratio = this.DEFAULT_RESOLUTION.getAbsoluteResolution() / resolution.getAbsoluteResolution();
+    const ratio = resolution.getAbsoluteResolution() / this.DEFAULT_RESOLUTION.getAbsoluteResolution();
     const low = (currentPerformance / minimal / ratio) * this.DEFAULT_FPS;
     const high = (currentPerformance / recommended / ratio) * this.DEFAULT_FPS;
     const medium = (low + high) / 2;
     const ultra = 2 * high - medium; // because high = (medium + ultra) / 2 (like we calculate medium);
     const analysis: IFpsAnalysis = {
-      low,
-      medium,
-      high,
-      ultra,
+      low: Math.ceil(low),
+      medium: Math.ceil(medium),
+      high: Math.ceil(high),
+      ultra: Math.ceil(ultra),
     };
     return analysis;
   }
@@ -77,7 +80,7 @@ export class PerformanceService {
   async getSetupPerformanceById(
     id: string,
     gameId: string,
-    resolutions: IResolution[] = (this.resolutions as unknown) as IResolution[]
+    resolutions: IResolution[] = this.resolutions.map((r) => r.getIResolution())
   ): Promise<ISetupPerformance> {
     const setup = await this.setupRepository.getSetupById(id);
     const { cpu, gpu, ram } = setup;
@@ -105,7 +108,6 @@ export class PerformanceService {
       overallRam: this.getOverallPerformance(minimalRamSize, recommendedRamSize, ram.memorySize),
       fpsAnalysis,
     };
-    console.log(performance);
     return performance;
   }
 }
