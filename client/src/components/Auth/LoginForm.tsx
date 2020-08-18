@@ -11,6 +11,7 @@ import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 're
 import { setToken } from 'helpers/tokenHelper';
 import history from 'browserHistory';
 import { Routes } from 'common/enums';
+import gLogo from 'assets/images/g-logo.png';
 
 interface ILoginFormProps {
   email: string;
@@ -75,16 +76,22 @@ const LoginForm = ({
             Login
           </Button>
         </div>
+        <div className={styles.googleBtnHolder}>
+          <div className={styles.separator}>or</div>
+          <GoogleLogin
+            clientId={googleClientId}
+            render={(renderProps) => (
+              <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                <img src={gLogo}></img>Sign in with Google
+              </Button>
+            )}
+            onSuccess={googleLoginSuccess}
+            onFailure={(res) => console.log(res)}
+            cookiePolicy={'single_host_origin'}
+          />
+        </div>
       </form>
-      <div>
-        <GoogleLogin
-          clientId={googleClientId}
-          buttonText="Login using Google"
-          onSuccess={googleLoginSuccess}
-          onFailure={(res) => console.log(res)}
-          cookiePolicy={'single_host_origin'}
-        />
-      </div>
+
       <span className={styles.registerBox}>
         Don't have an account?{' '}
         <span onClick={switchToRegistration} className={[styles.registerLink, 'link'].join(' ')}>

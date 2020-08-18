@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import { MenuItems, Routes } from 'common/enums';
 import Spinner from 'components/Spinner';
 import TopBar from 'containers/TopBar';
+import { getToken, clearToken } from 'helpers/tokenHelper';
 
 interface IProps {
   selectedMenuItemNumber: MenuItems;
@@ -21,7 +22,7 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
   }, []);
 
   const checkIsUserAuthenticated = async () => {
-    const currentToken: string = localStorage.getItem('token') || '';
+    const currentToken: string = (await getToken()) || '';
     console.log('checkIsUserAuthenticated -> currentToken', currentToken);
     if (currentToken) {
       const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
@@ -37,7 +38,7 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
       const isAuthenticated = await response.json();
       console.log('checkIsUserAuthenticated -> isAuthenticated', isAuthenticated);
       if (!isAuthenticated.logged_in) {
-        localStorage.removeItem('token');
+        clearToken();
       }
       setIsAuthenticated(isAuthenticated.logged_in);
     }
@@ -48,7 +49,7 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
     <div className={classes.spinnerWrapper}>
       <Spinner />
     </div>
-  ) : isAuthenticated ? (
+  ) : !isAuthenticated ? (
     <Redirect to={Routes.LOGIN} />
   ) : (
     <div className={classes.rootComponent}>
