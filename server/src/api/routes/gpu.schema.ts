@@ -66,7 +66,7 @@ export const GpuSchema: SwaggerSchema = {
       minimum: 0,
       nullable: false,
     },
-    perfomance: {
+    performance: {
       type: 'integer',
       example: 160,
       minimum: 0,
@@ -121,7 +121,7 @@ export const CreateGpuSchema: SwaggerSchema = {
       minimum: 0,
       nullable: false,
     },
-    perfomance: {
+    performance: {
       type: 'integer',
       example: 160,
       minimum: 0,
@@ -166,7 +166,7 @@ export const UpdateGpuSchema: SwaggerSchema = {
       minimum: 0,
       nullable: true,
     },
-    perfomance: {
+    performance: {
       type: 'integer',
       example: 160,
       minimum: 0,

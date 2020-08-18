@@ -13,6 +13,7 @@ import { CpuSchema } from './cpu.schema';
 import { CommentSchema } from './comment.schema';
 import { FastifyRegisterOptions } from 'fastify';
 import { SwaggerOptions } from 'fastify-swagger';
+import { AddRequestSchema } from './addRequest.schema';
 
 const SwaggerMainSchema: FastifyRegisterOptions<SwaggerOptions> = {
   swagger: {
@@ -34,6 +35,7 @@ const SwaggerMainSchema: FastifyRegisterOptions<SwaggerOptions> = {
       Game: GameSchema,
       Cpu: CpuSchema,
       Comment: CommentSchema,
+      AddRequest: AddRequestSchema,
     },
   },
   exposeRoute: true,
