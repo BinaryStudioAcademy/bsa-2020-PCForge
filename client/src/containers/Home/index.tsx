@@ -5,16 +5,11 @@ import Title from './components/Title';
 import CardDisplay from './components/CardsDisplay';
 
 const Home = (): JSX.Element => {
-
-
-  const renderContent = () => {
-  
-  }
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.Home}>
       <>
-      <Title />
-      <CardDisplay />
+        <Title />
+        <CardDisplay />
       </>
     </PageComponent>
   );

@@ -2,7 +2,6 @@ import React from 'react';
 import SetupCard from './../SetupCard';
 import styles from './styles.module.scss';
 
-
 const CardDisplay: React.FC = () => {
   return (
     <div className={styles.cardDisplay}>
