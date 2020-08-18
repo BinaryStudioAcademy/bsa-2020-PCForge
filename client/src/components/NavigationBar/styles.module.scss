@@ -18,7 +18,7 @@
     }
 
     .listItem {
-      margin: 15px 0;
+      margin: 10px 0;
       width: 40px;
       height: 40px;
       border: 1px solid $colorBlack;
@@ -30,14 +30,14 @@
       &:hover {
         border: 1px solid $colorRed;
       }
-
-      &:last-of-type {
-        margin-top: auto;
-      }
     }
 
     .selectedButon {
       background-color: $colorRed;
+    }
+
+    a:last-of-type {
+      margin-top: auto;
     }
   }
 }
