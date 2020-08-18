@@ -16,6 +16,7 @@ import {
   REMOVE_POWERSUPPLY_FROM_SETUP,
   REMOVE_RAM_FROM_SETUP,
   RESET_SETUP,
+  SET_SETUP,
 } from './actionTypes';
 
 export type TypeSetup = {
@@ -104,6 +105,10 @@ export default function (state = initialState, action: AnyAction): TypeSetup {
         ...state,
         powersupply: null,
       };
+    }
+
+    case SET_SETUP: {
+      return action.payload;
     }
 
     case RESET_SETUP: {

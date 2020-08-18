@@ -15,6 +15,7 @@ import {
   addMotherboardToSetupAction,
   addPowersupplyToSetupAction,
   addRamToSetupAction,
+  initSetupAction,
   removeCpuFromSetupAction,
   removeGpuFromSetupAction,
   removeMotherboardFromSetupAction,
@@ -53,12 +54,16 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     ...filter,
     ramTypeIdSet: setup.motherboard ? new Set([setup.motherboard.ramTypeId]) : filter.ramTypeIdSet,
   };
-
+  
   const filterForMotherboard = {
     ...filter,
     socketIdSet: setup.cpu ? new Set([setup.cpu.socketId]) : filter.socketIdSet,
     ramTypeIdSet: setup.ram ? new Set([setup.ram.typeId]) : filter.ramTypeIdSet,
   };
+  
+  useEffect(() => {
+    dispatch(initSetupAction());
+  }, []);
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
