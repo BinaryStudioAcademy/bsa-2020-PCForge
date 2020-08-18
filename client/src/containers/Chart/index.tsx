@@ -13,15 +13,17 @@ import TestDifferentGame from 'components/ChartComponents/TestDifferentGame';
 import TestDifferentSystem from 'components/ChartComponents/TestDifferentSystem';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
+import { Game } from 'common/models/game';
 
 const GameMatcherResult: React.FC<Props> = ({ fetchTopGames, fetchPerformanceAnalysis, performance, topGames }) => {
+  const DEFAULT_SETUP_ID = 5;
   React.useEffect(() => {
     fetchTopGames();
   }, []);
 
   React.useEffect(() => {
     if (topGames.length > 0) {
-      fetchPerformanceAnalysis(5, topGames[0].id);
+      fetchPerformanceAnalysis(DEFAULT_SETUP_ID, topGames[0].id);
     }
   }, [topGames]);
 
@@ -40,7 +42,11 @@ const GameMatcherResult: React.FC<Props> = ({ fetchTopGames, fetchPerformanceAna
             </main>
 
             <div className={styles.asideItems}>
-              <TopGames games={topGames.map((topGame) => topGame.game)} defaultSelected={0} />
+              <TopGames
+                games={topGames.map((topGame) => topGame.game)}
+                defaultSelected={0}
+                onGameSelected={(game: Game) => fetchPerformanceAnalysis(DEFAULT_SETUP_ID, game.id)}
+              />
               <TestDifferentGame />
               <TestDifferentSystem />
             </div>
