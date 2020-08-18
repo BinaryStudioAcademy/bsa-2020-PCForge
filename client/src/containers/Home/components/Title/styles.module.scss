@@ -1,0 +1,14 @@
+.titleContainer {
+    justify-self: flex-end;
+    align-self: flex-start;
+    position: relative;
+    bottom: 80px;
+    left: 3rem;
+
+    h1 {
+        margin-bottom: 0;
+    }
+    h3 {
+        margin-top: 0;
+    }
+}
