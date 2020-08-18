@@ -1,7 +1,9 @@
+import { Op } from 'sequelize';
 import { RamCreationAttributes, RamModel, RamStatic } from '../models/ram';
 import { RamTypeStatic } from '../models/ramtype';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IRamFilter } from './filters/ram.filter';
+import { mergeFilters } from './filters/helper';
 
 export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
   constructor(private model: RamStatic, private ramTypeModel: RamTypeStatic) {
@@ -21,15 +23,28 @@ export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
     return ram;
   }
 
-  async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
-    const rams = await this.getAll(filter, {
-      group: ['ram.id', 'ramType.id'],
-      include: [
-        {
-          model: this.ramTypeModel,
+  async getAllRams(inputFilter: IRamFilter): Promise<IWithMeta<RamModel>> {
+    const filter = mergeFilters<IRamFilter>(new IRamFilter(), inputFilter);
+    const rams = await this.getAll(
+      {
+        group: ['ram.id', 'ramType.id'],
+        where: {
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+          memorySize: {
+            [Op.between]: [filter.memorySize.minValue, filter.memorySize.maxValue],
+          },
         },
-      ],
-    });
+        include: [
+          {
+            model: this.ramTypeModel,
+            where: {
+              id: filter.typeId,
+            },
+          },
+        ],
+      },
+      filter
+    );
     return rams;
   }
 

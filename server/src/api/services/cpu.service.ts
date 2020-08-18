@@ -2,6 +2,7 @@ import { CpuCreationAttributes, CpuModel } from '../../data/models/cpu';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { CpuRepository } from '../../data/repositories/cpu.repository';
 import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
+import { Op } from 'sequelize';
 
 export class CpuService {
   constructor(private repository: CpuRepository) {}

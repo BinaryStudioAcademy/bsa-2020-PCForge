@@ -2,6 +2,7 @@ import { RamCreationAttributes, RamModel } from '../../data/models/ram';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 import { RamRepository } from '../../data/repositories/ram.repository';
+import { Op } from 'sequelize';
 
 export class RamService {
   constructor(private repository: RamRepository) {}

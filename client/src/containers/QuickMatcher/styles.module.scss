@@ -1,0 +1,33 @@
+@import '../../styles/variables';
+
+.quickMatcher {
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 25px;
+  overflow: 'hidden';
+  margin: 0 auto;
+  border: 2px solid $colorDarkGray;
+  border-radius: 20px;
+}
+
+.search {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.tachometer {
+  max-width: 25%;
+  max-height: 25%;
+}
+
+.results {
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+}
+
+.text {
+  margin-left: 25px;
+}

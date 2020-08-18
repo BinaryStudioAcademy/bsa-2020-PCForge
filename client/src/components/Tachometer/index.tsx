@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 type PropsType = {
   value: number;
   maxValue?: number;
-  type: 'CPU' | 'GPU' | 'RAM';
+  type: 'CPU' | 'GPU' | 'RAM' | string;
   className?: string;
 };
 

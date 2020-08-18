@@ -20,8 +20,10 @@ import { initializeModels } from '../models/index';
 import { initializeRepositories, Repositories } from '../repositories';
 import { initializeServices, Services } from '../../api/services';
 import { TopGameStatic } from '../models/topgame';
+import { AddRequestStatic } from '../models/addRequest';
 
 export interface Models {
+  AddRequest: AddRequestStatic;
   Comment: CommentStatic;
   Cpu: CpuStatic;
   Game: GameStatic;

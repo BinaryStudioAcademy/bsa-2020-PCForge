@@ -4,11 +4,12 @@ $bg-color-text: rgb(199, 195, 195);
 $bg-color-input: #575858;
 
 .input {
-  & > div {
+  &>div {
     background-color: $bg-color-input;
     border-radius: 20px;
 
-    &::before, &::after {
+    &::before,
+    &::after {
       border: none !important;
     }
   }
@@ -17,22 +18,22 @@ $bg-color-input: #575858;
     margin-left: 10px !important;
   }
 
-  & > div path {
+  &>div path {
     color: $bg-color-text;
   }
 
-  & > p {
+  &>p {
     font-size: 14px !important;
     margin-top: 0;
     margin-left: 15px;
   }
 
-  & > div > fieldset {
+  &>div>fieldset {
     border-radius: 40px;
     border-color: rgba(0, 0, 0, 0.23) !important;
   }
 
-  & > div > input {
+  &>div>input {
     padding: 8px 10px;
     color: $bg-color-text;
     filter: none;
@@ -51,7 +52,7 @@ $bg-color-input: #575858;
   }
 
   &.inputWarning {
-    & > div path {
+    &>div path {
       color: $input-warning;
     }
 
@@ -59,11 +60,11 @@ $bg-color-input: #575858;
       color: $input-warning;
     }
 
-    & > div {
-      border:2px solid $input-warning;
+    &>div {
+      border: 2px solid $input-warning;
     }
 
-    & > div > input {
+    &>div>input {
       color: $input-warning;
 
       &:-webkit-autofill,
@@ -78,7 +79,7 @@ $bg-color-input: #575858;
   }
 
   &.inputError {
-    & > div path {
+    &>div path {
       color: $input-error;
     }
 
@@ -86,12 +87,15 @@ $bg-color-input: #575858;
       color: $input-error;
     }
 
-    & > div {
-      border:2px solid $input-error;
-
+    &>div {
+      border: 2px solid $input-error;
     }
 
-    & > div > input {
+    &>svg {
+      color: $input-error;
+    }
+
+    &>div>input {
       color: $input-error;
 
       &:-webkit-autofill,

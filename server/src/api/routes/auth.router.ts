@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostAuthRequest, IsUserAuthenticated } from './auth.schema';
+import { PostAuthRequest, IsUserAuthenticated, LoginSchema, GoogleAuthSchema, IsAuthenticatedSchema } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -11,10 +11,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     'http://localhost:5001/api/auth/google/callback'
   );
 
-  fastify.post('/login', {}, async (request: PostAuthRequest, response) => {
-    if (typeof request.body === 'string') {
-      request.body = JSON.parse(request.body);
-    }
+
+  fastify.post('/login', LoginSchema, async (request: PostAuthRequest, response) => {
     const { email, password } = request.body || {};
     try {
       //return user
@@ -23,21 +21,18 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
       response.send({token, user});
     } catch (error) {
       throw {
-        error: `User not found`,
+        error: `User with given credentials does not exist`,
         status: 401,
       };
     }
   });
 
-  fastify.get('/google/callback', {}, async function (request, response) {
+  fastify.get('/google/callback', GoogleAuthSchema, async function (request, response) {
     const token = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
     response.send({ token: token.access_token });
   });
 
-  fastify.post('/logged_in', {}, async function (request: IsUserAuthenticated, response) {
-    if (typeof request.body === 'string') {
-      request.body = JSON.parse(request.body);
-    }
+  fastify.post('/logged_in', IsAuthenticatedSchema, async function (request: IsUserAuthenticated, response) {
     const body = request.body;
     const token = body.token;
     fastify.jwt.verify(token, async (err, decoded) => {

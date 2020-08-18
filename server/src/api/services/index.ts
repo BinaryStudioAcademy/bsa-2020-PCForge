@@ -13,6 +13,8 @@ import { TopGameService } from './topGame.service';
 import { NewsService } from './news.service';
 import { RateService } from './rate.service';
 import { CommentService } from './comment.service';
+import { AddRequestService } from './addRequest.service';
+import uploadService from './imageUpload.service';
 
 export interface Services {
   RamTypeService: RamTypeService;
@@ -23,20 +25,20 @@ export interface Services {
   GpuService: GpuService;
   CpuService: CpuService;
   UserService: UserService;
-
   GameService: GameService;
   TopGameService: TopGameService;
   NewsService: NewsService;
   SetupService: SetupService;
   RateService: RateService;
   CommentService: CommentService;
+  AddRequestService: AddRequestService;
+  UploadImageService;
 }
 
 export const initializeServices = (repositories: Repositories): Services => {
   const ramTypeService = new RamTypeService(repositories.RamTypeRepository);
   const usersService = new UserService(repositories.UserRepository);
   const setupService = new SetupService(repositories.SetupRepository);
-
   const ramService = new RamService(repositories.RamRepository);
   const powerSupplyService = new PowerSupplyService(repositories.PowerSupplyRepository);
   const socketService = new SocketService(repositories.SocketRepository);
@@ -48,7 +50,9 @@ export const initializeServices = (repositories: Repositories): Services => {
   const newsService = new NewsService(repositories.NewsRepository);
   const rateService = new RateService(repositories.RateRepository);
   const commentService = new CommentService(repositories.CommentRepository);
+  const addRequestService = new AddRequestService(repositories.AddRequestRepository);
   const services: Services = {
+    AddRequestService: addRequestService,
     RamTypeService: ramTypeService,
     RamService: ramService,
     PowerSupplyService: powerSupplyService,
@@ -63,6 +67,7 @@ export const initializeServices = (repositories: Repositories): Services => {
     NewsService: newsService,
     RateService: rateService,
     CommentService: commentService,
+    UploadImageService: uploadService,
   };
   return services;
 };

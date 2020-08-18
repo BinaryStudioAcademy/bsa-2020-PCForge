@@ -5,6 +5,7 @@ import classes from './styles.module.scss';
 import { Redirect } from 'react-router-dom';
 import { MenuItems, Routes } from 'common/enums';
 import Spinner from 'components/Spinner';
+import TopBar from 'containers/TopBar';
 
 interface IProps {
   selectedMenuItemNumber: MenuItems;
@@ -51,6 +52,7 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
     <Redirect to={Routes.LOGIN} />
   ) : (
     <div className={classes.rootComponent}>
+      <TopBar />
       <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} />
       <div className={classes.contentWrapper}>
         {children}

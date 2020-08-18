@@ -31,7 +31,7 @@ export function NewsFactory(sequelize: Sequelize): NewsStatic {
     },
     title: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(200),
     },
     content: {
       allowNull: false,
@@ -39,7 +39,7 @@ export function NewsFactory(sequelize: Sequelize): NewsStatic {
     },
     image: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(200),
     },
     createdAt: {
       type: DataTypes.DATE,

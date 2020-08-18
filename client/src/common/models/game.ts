@@ -1,5 +1,5 @@
-import { TypeCpu } from './typeCpu';
-import { TypeGpu } from './typeGpu';
+import { Cpu } from './cpu';
+import { Gpu } from './gpu';
 
 export interface Game {
   id: number;
@@ -9,14 +9,10 @@ export interface Game {
   description: string;
   recommendedRamSize: number;
   minimalRamSize: number;
-  createdAt: string;
-  updatedAt: string;
-  minimalCpuId: number;
-  recommendedCpuId: number;
-  minimalGpuId: number;
-  recommendedGpuId: number;
-  recommendedCpu: TypeCpu;
-  minimalCpu: TypeCpu;
-  recommendedGpu: TypeGpu;
-  minimalGpu: TypeGpu;
+  createdAt: Date;
+  updatedAt: Date;
+  recommendedCpu: Cpu;
+  minimalCpu: Cpu;
+  recommendedGpu: Gpu;
+  minimalGpu: Gpu;
 }

@@ -46,7 +46,7 @@ export function GameFactory(sequelize: Sequelize): GameStatic {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(120),
+      type: DataTypes.STRING(150),
     },
     year: {
       allowNull: false,
@@ -54,7 +54,7 @@ export function GameFactory(sequelize: Sequelize): GameStatic {
     },
     image: {
       allowNull: false,
-      type: DataTypes.STRING(120),
+      type: DataTypes.STRING(200),
     },
     description: {
       allowNull: false,

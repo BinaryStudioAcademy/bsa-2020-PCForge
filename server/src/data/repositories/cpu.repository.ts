@@ -2,6 +2,8 @@ import { CpuCreationAttributes, CpuModel, CpuStatic } from '../models/cpu';
 import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { ICpuFilter } from './filters/cpu.filter';
+import { mergeFilters } from './filters/helper';
+import { Op } from 'sequelize';
 
 export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
   constructor(private model: CpuStatic, private socketModel: SocketStatic) {
@@ -20,15 +22,25 @@ export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
     return cpu;
   }
 
-  async getAllCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
-    const cpus = await this.getAll(filter, {
-      group: ['cpu.id', 'socket.id'],
-      include: [
-        {
-          model: this.socketModel,
+  async getAllCpus(inputFilter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
+    const filter = mergeFilters<ICpuFilter>(new ICpuFilter(), inputFilter);
+    const cpus = await this.getAll(
+      {
+        group: ['cpu.id', 'socket.id'],
+        where: {
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
         },
-      ],
-    });
+        include: [
+          {
+            model: this.socketModel,
+            where: {
+              id: filter.socketId,
+            },
+          },
+        ],
+      },
+      filter
+    );
     return cpus;
   }
 

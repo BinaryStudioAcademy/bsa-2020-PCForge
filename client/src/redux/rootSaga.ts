@@ -5,5 +5,5 @@ import authSagas from 'containers/Auth/sagas';
 import matcherSagas from 'containers/GameMatcher/sagas';
 
 export default function* rootSaga() {
-  yield all([authSagas(), userSagas(), builderSagas(), matcherSagas()]);
+  yield all([authSagas(), userSagas(), builderSagas(), matcherSagas(), quickMatcherSagas()]);
 }
