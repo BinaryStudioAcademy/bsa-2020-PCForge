@@ -7,6 +7,7 @@ import { Ram } from 'common/models/ram';
 import { TypeResponseAllRams } from 'api/services/ramService';
 import { TypeResponseAllGames } from 'api/services/gamesService';
 import { Game } from 'common/models/game';
+import { AlertType } from 'components/BasicComponents/Alert';
 
 export const SET_GAMES = 'SET_GAMES';
 export const GET_GAMES = 'GET_GAMES';
@@ -24,6 +25,7 @@ export const SET_RAMS = 'SET_RAMS';
 export const GET_RAMS = 'GET_RAMS';
 export const GET_RAMS_SUCCESS = 'GET_RAMS_SUCCESS';
 export const GET_RAMS_FAILURE = 'GET_RAMS_FAILURE';
+export const SET_ALERT_MESSAGE = 'SET_ALERT_MESSAGE';
 
 export interface ISetGames {
   type: typeof SET_GAMES;
@@ -113,6 +115,14 @@ export interface IGetRamsFailure {
   };
 }
 
+export interface ISetMessage {
+  type: typeof SET_ALERT_MESSAGE;
+  payload: {
+    message: string;
+    type: AlertType;
+  };
+}
+
 export type MatcherActionTypes =
   | ISetGames
   | IGetGames
@@ -129,4 +139,5 @@ export type MatcherActionTypes =
   | ISetRams
   | IGetRams
   | IGetRamsSuccess
-  | IGetRamsFailure;
+  | IGetRamsFailure
+  | ISetMessage;

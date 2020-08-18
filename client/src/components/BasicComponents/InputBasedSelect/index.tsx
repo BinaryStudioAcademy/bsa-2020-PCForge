@@ -1,123 +1,145 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { ChangeEvent } from 'react';
 import Input from '@material-ui/core/Input';
 import styles from './styles.module.scss';
 import InputLabel from '@material-ui/core/InputLabel';
 import ErrorIcon from '@material-ui/icons/Error';
+import { debounce } from 'lodash-es';
 
 export interface SelectOption {
   value: number;
   label: string;
 }
+
 interface Props {
   onInputChange: (data: string) => void;
   onSelect: (value: number) => void;
-  onSeeMoreClick: ({ itemsCount }: { itemsCount: number }) => void;
+  onSeeMoreClick: ({ itemsCount }: { itemsCount: number; name: string }) => void;
   options: SelectOption[];
   placeholder: string;
   errorMessage?: string | boolean;
+  debounceTime?: number;
   inputId: string;
   label: string;
   labelClassName?: string;
 }
 
-const InputBasedSelect = (props: Props) => {
-  const {
-    placeholder,
-    inputId,
-    label,
-    labelClassName,
-    options,
-    errorMessage,
-    onSelect,
-    onInputChange,
-    onSeeMoreClick,
-  } = props;
-  const [inputValue, setInputValue] = useState('');
-  const [selectVisible, setSelectVisible] = useState(false);
+interface State {
+  inputValue: string;
+  selectVisible: boolean;
+}
 
-  const onInputValueChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value || '');
-    onInputChange(inputValue);
-  };
+class InputBasedSelect extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
 
-  let timeOutId: number | null = null;
-  const onBlur = () => {
-    timeOutId = setTimeout(() => {
-      setSelectVisible(false);
-    });
-  };
-  const onFocus = () => {
-    setSelectVisible(true);
-    if (timeOutId) {
-      clearTimeout(timeOutId);
-    }
-  };
-
-  const enterKeyCode = 13;
-  const SelectOption = (props: { option: SelectOption }) => {
-    const {
-      option: { value, label },
-    } = props;
-    const onOptionSelect = () => {
-      onSelect(value);
-      setInputValue(label);
-      setSelectVisible(false);
+    this.state = {
+      inputValue: '',
+      selectVisible: false,
     };
+
+    let original = props.onInputChange;
+    if (props.debounceTime) {
+      original = debounce(original, props.debounceTime);
+    }
+
+    this.onInputValueChange = function (value: string) {
+      this.setState({
+        inputValue: value,
+      });
+      original(value);
+    };
+
+    this.onBlur = this.onBlur.bind(this);
+    this.onFocus = this.onFocus.bind(this);
+    this.onOptionSelect = this.onOptionSelect.bind(this);
+    this.onInputValueChange = this.onInputValueChange.bind(this);
+  }
+
+  private timeoutId: number | null = null;
+
+  private onBlur() {
+    this.timeoutId = setTimeout(() => {
+      this.setState({ selectVisible: false });
+    });
+  }
+
+  private onFocus() {
+    this.setState({ selectVisible: true });
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+  }
+
+  private onOptionSelect(value: number, label: string) {
+    this.setState({
+      selectVisible: false,
+      inputValue: label,
+    });
+
+    this.props.onSelect(value);
+  }
+
+  private onInputValueChange: (value: string) => void = null!;
+
+  public render(): JSX.Element {
+    const { placeholder, inputId, label, labelClassName, options, errorMessage } = this.props;
+
+    const { onSeeMoreClick } = this.props;
 
     return (
       <div
-        className={styles.selectOption}
+        className={styles.selectRoot}
         tabIndex={0}
-        onClick={onOptionSelect}
-        onKeyUp={(e) => e.keyCode === enterKeyCode && onOptionSelect()}
+        onBlur={this.onBlur}
+        onFocus={this.onFocus}
+        aria-haspopup="true"
+        aria-expanded={this.state.selectVisible}
       >
-        {label}
+        <InputLabel className={labelClassName} htmlFor={inputId}>
+          {label}
+        </InputLabel>
+        <Input
+          className={styles.inputContainer}
+          placeholder={placeholder}
+          id={inputId}
+          classes={{ input: styles.input }}
+          onInput={(e: ChangeEvent<HTMLInputElement>) => this.onInputValueChange(e.target.value)}
+          value={this.state.inputValue}
+        />
+        {this.state.selectVisible && (
+          <div className={styles.selectOptionsContainer}>
+            {options.map((option, i) => (
+              <div
+                className={styles.selectOption}
+                tabIndex={0}
+                key={option.value}
+                onClick={() => this.onOptionSelect(option.value, option.label)}
+                onKeyUp={(e) => e.keyCode === 13 && this.onOptionSelect(option.value, option.label)}
+              >
+                {option.label}
+              </div>
+            ))}
+            <div
+              className={styles.seeMore}
+              onClick={() => onSeeMoreClick({ itemsCount: options.length, name: this.state.inputValue })}
+              tabIndex={0}
+              onKeyUp={(e) =>
+                e.keyCode === 13 && onSeeMoreClick({ itemsCount: options.length, name: this.state.inputValue })
+              }
+            >
+              See More
+            </div>
+            {errorMessage && (
+              <div className={styles.errorMessage}>
+                <ErrorIcon />{' '}
+                <span>{errorMessage !== true ? errorMessage : 'An error occurred. Please try later'}</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
-  };
-
-  return (
-    <div
-      className={styles.selectRoot}
-      tabIndex={0}
-      onBlur={onBlur}
-      onFocus={onFocus}
-      aria-haspopup="true"
-      aria-expanded={selectVisible}
-    >
-      <InputLabel className={labelClassName} htmlFor={inputId}>
-        {label}
-      </InputLabel>
-      <Input
-        className={styles.inputContainer}
-        placeholder={placeholder}
-        id={inputId}
-        classes={{ input: styles.input }}
-        onInput={onInputValueChange}
-        value={inputValue}
-      />
-      {selectVisible && (
-        <div className={styles.selectOptionsContainer}>
-          {options.map((option, i) => (
-            <SelectOption option={option} key={option.value} />
-          ))}
-          <div
-            className={styles.seeMore}
-            onClick={() => onSeeMoreClick({ itemsCount: options.length })}
-            tabIndex={0}
-            onKeyUp={(e) => e.keyCode === enterKeyCode && onSeeMoreClick({ itemsCount: options.length })}
-          >
-            See More
-          </div>
-          {errorMessage && (
-            <div className={styles.errorMessage}>
-              <ErrorIcon /> <span>{errorMessage !== true ? errorMessage : 'An error occurred. Please try later'}</span>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
+  }
+}
 
 export default InputBasedSelect;

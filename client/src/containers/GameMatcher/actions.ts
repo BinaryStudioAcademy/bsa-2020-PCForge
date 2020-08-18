@@ -15,49 +15,57 @@ import {
   SET_GAMES,
   IGetGames,
   GET_GAMES,
+  SET_ALERT_MESSAGE,
+  ISetMessage,
 } from './actionTypes';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
 import { Ram } from 'common/models/ram';
 import { Game } from 'common/models/game';
+import { FilterModel } from 'common/models/filter.model';
+import { AlertType } from 'components/BasicComponents/Alert';
 
-export const setGames = (games: Game[]): ISetGames => ({
+export const setGames = (payload: Game[]): ISetGames => ({
   type: SET_GAMES,
-  payload: games,
+  payload,
 });
 
-export const getGames = (filters: TypeFilter): IGetGames => ({
+export const getGames = (payload: FilterModel): IGetGames => ({
   type: GET_GAMES,
-  payload: filters,
+  payload,
 });
 
-export const setCPUS = (cpu: Cpu[]): ISetCpus => ({
+export const setCPUS = (payload: Cpu[]): ISetCpus => ({
   type: SET_CPUS,
-  payload: cpu,
+  payload,
 });
 
-export const getCPUS = (filters: TypeFilter): IGetCpus => ({
+export const getCPUS = (payload: FilterModel): IGetCpus => ({
   type: GET_CPUS,
-  payload: filters,
+  payload,
 });
 
-export const setGPUS = (gpu: Gpu[]): ISetGpus => ({
+export const setGPUS = (payload: Gpu[]): ISetGpus => ({
   type: SET_GPUS,
-  payload: gpu,
+  payload,
 });
 
-export const getGPUS = (filters: TypeFilter): IGetGpus => ({
+export const getGPUS = (payload: FilterModel): IGetGpus => ({
   type: GET_GPUS,
-  payload: filters,
+  payload,
 });
 
-export const setRAMS = (rams: Ram[]): ISetRams => ({
+export const setRAMS = (payload: Ram[]): ISetRams => ({
   type: SET_RAMS,
-  payload: rams,
+  payload,
 });
 
-export const getRAMS = (filters: TypeFilter): IGetRams => ({
+export const getRAMS = (payload: FilterModel): IGetRams => ({
   type: GET_RAMS,
-  payload: filters,
+  payload,
+});
+
+export const setAlertValue = (payload: { message: string; type: AlertType }): ISetMessage => ({
+  type: SET_ALERT_MESSAGE,
+  payload,
 });

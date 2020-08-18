@@ -13,6 +13,7 @@ import {
   GET_CPUS_FAILURE,
   GET_RAMS_FAILURE,
   GET_GPUS_FAILURE,
+  SET_ALERT_MESSAGE,
 } from './actionTypes';
 
 const initialState: GameMatcherState = {
@@ -24,6 +25,8 @@ const initialState: GameMatcherState = {
   cpusErrorMessage: false,
   gpusErrorMessage: false,
   ramsErrorMessage: false,
+  alertMessageType: undefined,
+  alertMessage: undefined,
 };
 
 export function MatcherReducer(state: GameMatcherState = initialState, action: MatcherActionTypes): GameMatcherState {
@@ -91,6 +94,12 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
       return {
         ...state,
         ramsErrorMessage: true,
+      };
+    case SET_ALERT_MESSAGE:
+      return {
+        ...state,
+        alertMessage: action.payload.message,
+        alertMessageType: action.payload.type,
       };
     default:
       return state;
