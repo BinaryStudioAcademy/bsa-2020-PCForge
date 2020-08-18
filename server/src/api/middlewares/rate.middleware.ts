@@ -3,6 +3,7 @@ import { RateCreationAttributes } from '../../data/models/rate';
 import { NewsModel } from '../../data/models/news';
 import { GameModel } from '../../data/models/game';
 import { SetupModel } from '../../data/models/setup';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export type IRateMiddleware = (inputRate: RateCreationAttributes) => void;
 export type IInstance = NewsModel | GameModel | SetupModel;
@@ -32,7 +33,7 @@ export const RateMiddleware = (fastify: FastifyInstance): IRateMiddleware => {
         break;
     }
     if (!instance) {
-      throw Error(`There's no instance from table: ${ratebleType} and with id: ${ratebleId}`);
+      triggerServerError(`There's no instance from table: ${ratebleType} and with id: ${ratebleId}`, 404);
     }
   };
 };

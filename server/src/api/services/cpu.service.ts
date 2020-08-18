@@ -3,12 +3,16 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { CpuRepository } from '../../data/repositories/cpu.repository';
 import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { Op } from 'sequelize';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class CpuService {
   constructor(private repository: CpuRepository) {}
 
   async getCpuById(id: string): Promise<CpuModel> {
     const cpu = await this.repository.getCpuById(id);
+    if (!cpu) {
+      triggerServerError(`Cpu with id: ${id} does not exists`, 404);
+    }
     return cpu;
   }
 
@@ -26,7 +30,7 @@ export class CpuService {
     const { id, data } = inputCpu;
     const oldCpu = await this.repository.getCpuById(id);
     if (!oldCpu) {
-      throw new Error(`Cpu with id: ${id} does not exists`);
+      triggerServerError(`Cpu with id: ${id} does not exists`, 404);
     }
     const cpu = await this.repository.updateCpuById(id, data);
     return cpu;
