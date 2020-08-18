@@ -8,26 +8,46 @@ import FilterSocket from 'components/BuilderPage/FilterSocket';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { SpecificationCpu } from 'components/BuilderPage/Specifications';
+import { SpecificationComponent, SpecificationCpu } from 'components/BuilderPage/Specifications';
 import { getAllCpu } from 'api/services/cpuService';
 import { TypeCpu } from 'common/models/typeCpu';
 import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
+import { Group } from '../../../containers/BuilderPage/config';
+import { getAllGpu } from '../../../api/services/gpuService';
+import { getAllRam } from '../../../api/services/ramService';
+import { getAllMotherboard } from '../../../api/services/motherboardService';
+import { getAllPowersupplies } from '../../../api/services/powersupplyService';
+import { TypeSetup } from '../../../containers/BuilderPage/reducer';
+
+const servicesGetAll = {
+  [Group.cpu]: getAllCpu,
+  [Group.gpu]: getAllGpu,
+  [Group.ram]: getAllRam,
+  [Group.motherboard]: getAllMotherboard,
+  [Group.powersupply]: getAllPowersupplies,
+};
 
 type PropsType = {
+  group: {
+    name: Group;
+  };
+  setup: TypeSetup;
   filter: TypeFilterBuilder;
-  selectedComponent: TypeCpu | null;
+  // selectedComponent: TypeCpu | null;
   onUpdateFilter: ({}: TypeFilterBuilder) => void;
-  onAddComponent: ({}: TypeCpu) => void;
-  onRemoveSelectedComponent: () => void;
-  expanded: boolean;
-  onChangeExpanded: (expanded: ComponentGroups | false) => void;
+  onAddComponent: (group: Group, id: number) => void;
+  onRemoveSelectedComponent: (group: Group) => void;
+  expanded: Group | false | ComponentGroups; // todo: del ComponentGroups
+  onChangeExpanded: (expanded: Group | ComponentGroups | false) => void; // todo: del ComponentGroups
   showFilters: TypeShowFilters;
 };
 
-const GroupCpus = ({
+const GroupComponent = ({
+  group,
+  setup,
   filter,
-  selectedComponent,
+  // selectedComponent,
   onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
@@ -36,17 +56,20 @@ const GroupCpus = ({
   showFilters,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
-  const [cpus, setCpus] = useState([] as TypeCpu[]);
+  const [components, setComponents] = useState([] as any[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
 
-  const getCpus = async () => {
+  const selectedComponent = setup[group.name];
+
+  const getComponents = async () => {
     setLoad(true);
-    const queryFilter = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
+    // const queryFilter = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
     try {
-      const res = await getAllCpu({ ...queryFilter, ...pagination });
-      setCpus(res.data);
+      // const res = await getAllCpu({ ...queryFilter, ...pagination });
+      const res = await servicesGetAll[group.name]({ ...pagination });
+      setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
       console.log(err); // add notification
@@ -56,24 +79,24 @@ const GroupCpus = ({
   };
 
   useEffect(() => {
-    getCpus();
+    getComponents();
   }, [filter, pagination]);
 
-  useEffect(() => {
-    if (selectedComponent) {
-      onUpdateFilter({
-        ...filter,
-        socketIdSet: new Set(filter.socketIdSet.add(selectedComponent.socketId)),
-      });
-    }
-  }, [selectedComponent]);
+  // useEffect(() => {
+  //   if (selectedComponent) {
+  //     onUpdateFilter({
+  //       ...filter,
+  //       socketIdSet: new Set(filter.socketIdSet.add(selectedComponent.socketId)),
+  //     });
+  //   }
+  // }, [selectedComponent]);
 
-  const listCpuElements = cpus?.map((cpu) => (
+  const listComponentElements = components?.map((component) => (
     <ListComponentsItem
-      key={cpu.id}
-      title={cpu.name}
-      specifications={<SpecificationCpu component={cpu} />}
-      onAddComponent={() => onAddComponent(cpu)}
+      key={component.id}
+      title={component.name}
+      specifications={SpecificationComponent[group.name]({ component })}
+      onAddComponent={() => onAddComponent(group.name, component.id)}
     />
   ));
 
@@ -84,17 +107,18 @@ const GroupCpus = ({
   return (
     <Accordion
       className={styles.group}
-      expanded={expanded}
+      expanded={expanded === group.name}
       onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.cpu : false)}
       TransitionProps={{ unmountOnExit: true }}
     >
       <GroupItemSummary
-        id="CPU"
-        title="CPU"
+        id={group.name}
+        title={group.name}
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
-        popupContent={selectedComponent ? <SpecificationCpu component={selectedComponent} /> : false}
-        onClear={onRemoveSelectedComponent}
+        // @ts-ignore
+        popupContent={selectedComponent ? SpecificationComponent[group.name]({ component: selectedComponent }) : false}
+        onClear={() => onRemoveSelectedComponent(group.name)}
       />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
@@ -109,7 +133,7 @@ const GroupCpus = ({
             />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
-            {listCpuElements}
+            {listComponentElements}
             <Spinner load={load} />
             <Paginator
               countComponents={count}
@@ -123,4 +147,4 @@ const GroupCpus = ({
   );
 };
 
-export default GroupCpus;
+export default GroupComponent;

@@ -59,7 +59,7 @@ const GroupGpus = ({
     <ListComponentsItem
       key={gpu.id}
       title={gpu.name}
-      specifications={<SpecificationGpu gpu={gpu} />}
+      specifications={<SpecificationGpu component={gpu} />}
       onAddComponent={() => onAddComponent(gpu)}
     />
   ));
@@ -80,7 +80,7 @@ const GroupGpus = ({
         title="GPU"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
-        popupContent={selectedComponent ? <SpecificationGpu gpu={selectedComponent} /> : false}
+        popupContent={selectedComponent ? <SpecificationGpu component={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>

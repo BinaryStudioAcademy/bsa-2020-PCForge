@@ -59,7 +59,7 @@ const GroupPowersupplies = ({
     <ListComponentsItem
       key={powersupply.id}
       title={powersupply.name}
-      specifications={<SpecificationPowersupply powersupply={powersupply} />}
+      specifications={<SpecificationPowersupply component={powersupply} />}
       onAddComponent={() => onAddComponent(powersupply)}
     />
   ));
@@ -80,7 +80,7 @@ const GroupPowersupplies = ({
         title="Power supply"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
-        popupContent={selectedComponent ? <SpecificationPowersupply powersupply={selectedComponent} /> : false}
+        popupContent={selectedComponent ? <SpecificationPowersupply component={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>

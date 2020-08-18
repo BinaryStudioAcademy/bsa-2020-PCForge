@@ -75,7 +75,7 @@ const GroupMotherboards = ({
     <ListComponentsItem
       key={motherboard.id}
       title={motherboard.name}
-      specifications={<SpecificationMotherboard motherboard={motherboard} />}
+      specifications={<SpecificationMotherboard component={motherboard} />}
       onAddComponent={() => onAddComponent(motherboard)}
     />
   ));
@@ -92,7 +92,7 @@ const GroupMotherboards = ({
         title="Motherboard"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
-        popupContent={selectedComponent ? <SpecificationMotherboard motherboard={selectedComponent} /> : false}
+        popupContent={selectedComponent ? <SpecificationMotherboard component={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>

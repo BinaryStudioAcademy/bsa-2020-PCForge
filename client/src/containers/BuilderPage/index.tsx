@@ -19,13 +19,14 @@ import { MenuItems } from '../../common/enums/MenuItems';
 import PageComponent from '../PageComponent';
 import styles from './styles.module.scss';
 import { Group } from './config';
+import GroupComponent from '../../components/BuilderPage/GroupComponent';
 
 type PropsType = {
   className?: string;
 };
 
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
-  const [expanded, setExpanded] = useState<false | ComponentGroups>(false);
+  const [expanded, setExpanded] = useState<false | ComponentGroups | Group>(false);  // todo: del ComponentGroups
   const [filter, setFilter] = useState<TypeFilterBuilder>({
     socketIdSet: new Set() as Set<number>,
     ramTypeIdSet: new Set() as Set<number>,
@@ -58,6 +59,10 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     dispatch(initSetupAction());
   }, []);
 
+  const testGroup = {
+    name: Group.cpu,
+  };
+
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
       <Box className={styles.builderWrapper}>
@@ -68,6 +73,18 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           onResetFilter={resetFilter}
         />
         <Box>
+          <GroupComponent
+            group={testGroup}
+            setup={setup}
+            filter={filterForCpu}
+            showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
+            // selectedComponent={setup.cpu}
+            onUpdateFilter={(filter) => setFilter(filter)}
+            onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
+            onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
+            expanded={expanded}
+            onChangeExpanded={setExpanded}
+          />
           <GroupCpus
             filter={filterForCpu}
             showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}

@@ -72,7 +72,7 @@ const GroupRams = ({
     <ListComponentsItem
       key={ram.id}
       title={ram.name}
-      specifications={<SpecificationRam ram={ram} />}
+      specifications={<SpecificationRam component={ram} />}
       onAddComponent={() => onAddComponent(ram)}
     />
   ));
@@ -93,7 +93,7 @@ const GroupRams = ({
         title="RAM"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
-        popupContent={selectedComponent ? <SpecificationRam ram={selectedComponent} /> : false}
+        popupContent={selectedComponent ? <SpecificationRam component={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>

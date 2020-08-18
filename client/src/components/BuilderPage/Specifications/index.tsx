@@ -6,43 +6,52 @@ import { TypeGpu } from 'common/models/typeGpu';
 import { TypeRam } from 'common/models/typeRam';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { Group } from 'containers/BuilderPage/config';
 
-export const SpecificationCpu = ({ cpu }: { cpu: TypeCpu }): JSX.Element => (
+export const SpecificationCpu = ({ component }: { component: TypeCpu }): JSX.Element => (
   <Box>
-    <SpecificationField title="Vertical Segment" value={cpu.class} />
-    <SpecificationField title="Processor Frequency" value={`${cpu.clockspeed / 1000}GHz`} />
-    <SpecificationField title="Count cores" value={cpu.cores} />
-    <SpecificationField title="Socket" value={cpu.socket.name} />
-    <SpecificationField title="TDP" value={cpu.tdp} />
+    <SpecificationField title="Vertical Segment" value={component.class} />
+    <SpecificationField title="Processor Frequency" value={`${component.clockspeed / 1000}GHz`} />
+    <SpecificationField title="Count cores" value={component.cores} />
+    <SpecificationField title="Socket" value={component.socket.name} />
+    <SpecificationField title="TDP" value={component.tdp} />
   </Box>
 );
 
-export const SpecificationGpu = ({ gpu }: { gpu: TypeGpu }): JSX.Element => (
+export const SpecificationGpu = ({ component }: { component: TypeGpu }): JSX.Element => (
   <Box>
-    <SpecificationField title="Bus interface" value={gpu.interface} />
-    <SpecificationField title="Memory size" value={gpu.memorySize} />
-    <SpecificationField title="OpenGL" value={gpu.opengl} />
-    <SpecificationField title="TDP" value={gpu.tdp} />
+    <SpecificationField title="Bus interface" value={component.interface} />
+    <SpecificationField title="Memory size" value={component.memorySize} />
+    <SpecificationField title="OpenGL" value={component.opengl} />
+    <SpecificationField title="TDP" value={component.tdp} />
   </Box>
 );
 
-export const SpecificationRam = ({ ram }: { ram: TypeRam }): JSX.Element => (
+export const SpecificationRam = ({ component }: { component: TypeRam }): JSX.Element => (
   <Box>
-    <SpecificationField title="Memory size" value={`${ram.memorySize}Gb`} />
-    <SpecificationField title="Ram Frequency" value={`${ram.frequency}MHz`} />
-    <SpecificationField title="Ram type" value={ram.ramType.name} />
+    <SpecificationField title="Memory size" value={`${component.memorySize}Gb`} />
+    <SpecificationField title="Ram Frequency" value={`${component.frequency}MHz`} />
+    <SpecificationField title="Ram type" value={component.ramType.name} />
   </Box>
 );
 
-export const SpecificationMotherboard = ({ motherboard }: { motherboard: TypeMotherboard }): JSX.Element => (
+export const SpecificationMotherboard = ({ component }: { component: TypeMotherboard }): JSX.Element => (
   <Box>
-    <SpecificationField title="Socket" value={motherboard.socket.name} />
-    <SpecificationField title="Ram type" value={motherboard.ramType.name} />
+    <SpecificationField title="Socket" value={component.socket.name} />
+    <SpecificationField title="Ram type" value={component.ramType.name} />
   </Box>
 );
 
-export const SpecificationPowersupply = ({ powersupply }: { powersupply: TypePowersupplies }): JSX.Element => (
+export const SpecificationPowersupply = ({ component }: { component: TypePowersupplies }): JSX.Element => (
   <Box>
-    <SpecificationField title="Power" value={`${powersupply.power}W`} />
+    <SpecificationField title="Power" value={`${component.power}W`} />
   </Box>
 );
+
+export const SpecificationComponent = {
+  [Group.cpu]: SpecificationCpu,
+  [Group.gpu]: SpecificationGpu,
+  [Group.ram]: SpecificationRam,
+  [Group.motherboard]: SpecificationMotherboard,
+  [Group.powersupply]: SpecificationPowersupply,
+};
