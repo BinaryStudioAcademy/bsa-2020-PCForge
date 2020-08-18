@@ -1,22 +1,24 @@
+import { defaultSetup } from 'common/models/defaults';
 import { SetupChartActions, SetupChartState, SetupChartTypes } from './actionTypes';
 
 const initialState: SetupChartState = {
   searchedGames: [],
   topGames: [],
+  setup: defaultSetup,
   performance: {
-    setup: {
-      id: 0,
-      rating: 0,
-      title: '',
-      image: '',
-      description: '',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    },
-    overallCpu: 0,
-    overallGpu: 0,
-    overallRam: 0,
     fpsAnalysis: [],
+    report: {
+      minimal: {
+        cpu: 100,
+        gpu: 100,
+        ram: 100,
+      },
+      recommended: {
+        cpu: 100,
+        gpu: 100,
+        ram: 100,
+      },
+    },
   },
   error: '',
 };
@@ -34,6 +36,13 @@ export function SetupChartReducer(state = initialState, action: SetupChartAction
       return {
         ...state,
         performance: action.payload.performance,
+      };
+    }
+
+    case SetupChartTypes.FETCH_SETUP_SUCCESS: {
+      return {
+        ...state,
+        setup: action.payload.setup,
       };
     }
 

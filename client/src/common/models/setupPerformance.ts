@@ -1,18 +1,26 @@
-import { Setup } from './setup';
+type IResolution = [number, number];
 
-export type IResolution = [number, number];
-
-export interface IFpsAnalysis {
+interface IFpsAnalysis {
   low: number;
   medium: number;
   high: number;
   ultra: number;
 }
 
+export interface IReport {
+  minimal: {
+    cpu: number;
+    gpu: number;
+    ram: number;
+  };
+  recommended: {
+    cpu: number;
+    gpu: number;
+    ram: number;
+  };
+}
+
 export interface SetupPerformance {
-  setup: Setup;
-  overallCpu: number;
-  overallGpu: number;
-  overallRam: number;
+  report: IReport;
   fpsAnalysis: [IResolution, IFpsAnalysis][];
 }

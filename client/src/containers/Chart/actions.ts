@@ -1,4 +1,5 @@
 import { Game } from 'common/models/game';
+import { Setup } from 'common/models/setup';
 import { SetupPerformance } from 'common/models/setupPerformance';
 import { TopGame } from 'common/models/topGame';
 import { SetupChartActions, SetupChartTypes } from './actionTypes';
@@ -18,6 +19,13 @@ export const fetchTopGames = (): SetupChartActions => ({
   },
 });
 
+export const fetchSetup = (id: number): SetupChartActions => ({
+  type: SetupChartTypes.FETCH_SETUP_REQUEST,
+  payload: {
+    id,
+  },
+});
+
 export const fetchPerformanceAnalysis = (setupId: number, gameId: number): SetupChartActions => ({
   type: SetupChartTypes.FETCH_PERFORMANCE_REQUEST,
   payload: {
@@ -30,6 +38,13 @@ export const setGames = (games: Game[]): SetupChartActions => ({
   type: SetupChartTypes.FETCH_GAMES_SUCCESS,
   payload: {
     games,
+  },
+});
+
+export const setSetup = (setup: Setup): SetupChartActions => ({
+  type: SetupChartTypes.FETCH_SETUP_SUCCESS,
+  payload: {
+    setup,
   },
 });
 
