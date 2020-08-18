@@ -1,11 +1,15 @@
+import { isEqual } from 'common/helpers/array.helper';
 import React, { useState } from 'react';
 import sharedStyles from '../styles.module.scss';
 import styles from './styles.module.scss';
 
-interface Resolution {
-  value: string;
-  id: number;
-  selected: boolean;
+type IResolution = [number, number];
+
+interface IFpsAnalysis {
+  low: number;
+  medium: number;
+  high: number;
+  ultra: number;
 }
 
 interface Progress {
@@ -13,28 +17,56 @@ interface Progress {
   value: number;
 }
 
-const GameMatcherFpsAnalysis = (): JSX.Element => {
-  const [selectedResolution, setSelectedResolution] = useState<number>(0);
+interface Props {
+  fpsAnalysis: [IResolution, IFpsAnalysis][];
+}
 
-  const resolutions = [
-    '1280 x 720',
-    '1366 x 768',
-    '1600 x 900',
-    '1920 x 1080',
-    '2560 x 1440',
-    '3840 x 2160',
-  ].map((value, id) => ({ value, id, selected: id === 0 }));
+const GameMatcherFpsAnalysis: React.FC<Props> = ({ fpsAnalysis }) => {
+  const [selectedResolution, setSelectedResolution] = useState<IResolution>([1920, 1080]);
+
+  const resolutions = fpsAnalysis.map((value) => value[0]);
+  // .map((value) => {
+  //   const [resolution] = value;
+  //   const [width, height] = resolution;
+  //   return `${width} x ${height}`;
+  // })
+  // .map((value, id) => ({ value, id, selected: id === 0 }));
 
   const firstColumn = resolutions.slice(0, resolutions.length / 2);
   const secondColumn = resolutions.slice(resolutions.length / 2);
   const mainFpsCounter = 60;
 
-  const progressColumns: Progress[] = [
-    { name: 'Low', value: 40 },
-    { name: 'Medium', value: 40 },
-    { name: 'Hight', value: 76 },
-    { name: 'Ultra', value: 11 },
-  ];
+  const findFpsForResolution = (_resolution: IResolution): IFpsAnalysis => {
+    for (const analysis of fpsAnalysis) {
+      const [resolution, fps] = analysis;
+      if (isEqual<number>(resolution, _resolution)) {
+        return fps;
+      }
+    }
+    return {
+      low: 0,
+      medium: 0,
+      high: 0,
+      ultra: 0,
+    };
+  };
+
+  const getResolutionString = (resolution: IResolution): string => {
+    const [width, height] = resolution;
+    return `${width} x ${height}`;
+  };
+
+  const getProgressColumns = (): Progress[] => {
+    const analysis = findFpsForResolution(selectedResolution);
+    return [
+      { name: 'Low', value: analysis.low },
+      { name: 'Medium', value: analysis.medium },
+      { name: 'Hight', value: analysis.high },
+      { name: 'Ultra', value: analysis.ultra },
+    ];
+  };
+
+  const progressColumns: Progress[] = getProgressColumns();
 
   const computePositionPercent = (value: number): number => {
     const progressColumnValues = progressColumns.map((column) => column.value);
@@ -49,12 +81,16 @@ const GameMatcherFpsAnalysis = (): JSX.Element => {
     return percent;
   };
 
-  const ResolutionItem = (resolution: Resolution): JSX.Element => {
-    const isActive: boolean = resolution.id === selectedResolution;
+  const ResolutionItem = (resolution: IResolution): JSX.Element => {
+    const isActive: boolean = isEqual<number>(resolution, selectedResolution);
     return (
-      <div className={styles.resolutionItem} key={resolution.id} onClick={() => setSelectedResolution(resolution.id)}>
+      <div
+        className={styles.resolutionItem}
+        key={getResolutionString(resolution)}
+        onClick={() => setSelectedResolution(resolution)}
+      >
         <div className={[sharedStyles.circle, isActive ? sharedStyles.activeCircle : ''].join(' ')}></div>
-        <span className={styles.resolutionItemText}>{resolution.value}</span>
+        <span className={styles.resolutionItemText}>{getResolutionString(resolution)}</span>
       </div>
     );
   };

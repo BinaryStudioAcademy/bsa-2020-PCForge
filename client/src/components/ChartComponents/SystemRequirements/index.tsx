@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import CircularProgress from 'components/CircularProgress';
 import { Container } from '@material-ui/core';
 
-const GameMatcherSystemRequirements = (): JSX.Element => {
+const GameMatcherSystemRequirements: React.FC = (): JSX.Element => {
   return (
     <Container component="section">
       <div className={styles.performanceResultWrapper}>
