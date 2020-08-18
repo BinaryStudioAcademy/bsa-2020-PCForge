@@ -29,8 +29,8 @@ const servicesGetAll = {
 };
 
 type PropsType = {
-  group: {
-    name: Group;
+  cfg: {
+    group: Group;
   };
   setup: TypeSetup;
   filter: TypeFilterBuilder;
@@ -44,7 +44,7 @@ type PropsType = {
 };
 
 const GroupComponent = ({
-  group,
+  cfg,
   setup,
   filter,
   // selectedComponent,
@@ -61,14 +61,14 @@ const GroupComponent = ({
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
 
-  const selectedComponent = setup[group.name];
+  const selectedComponent = setup[cfg.group];
 
   const getComponents = async () => {
     setLoad(true);
     // const queryFilter = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
     try {
       // const res = await getAllCpu({ ...queryFilter, ...pagination });
-      const res = await servicesGetAll[group.name]({ ...pagination });
+      const res = await servicesGetAll[cfg.group]({ ...pagination });
       setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -95,8 +95,8 @@ const GroupComponent = ({
     <ListComponentsItem
       key={component.id}
       title={component.name}
-      specifications={SpecificationComponent[group.name]({ component })}
-      onAddComponent={() => onAddComponent(group.name, component.id)}
+      specifications={SpecificationComponent[cfg.group]({ component })}
+      onAddComponent={() => onAddComponent(cfg.group, component.id)}
     />
   ));
 
@@ -107,18 +107,18 @@ const GroupComponent = ({
   return (
     <Accordion
       className={styles.group}
-      expanded={expanded === group.name}
-      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.cpu : false)}
+      expanded={expanded === cfg.group}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? cfg.group : false)}
       TransitionProps={{ unmountOnExit: true }}
     >
       <GroupItemSummary
-        id={group.name}
-        title={group.name}
+        id={cfg.group}
+        title={cfg.group}
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
         // @ts-ignore
-        popupContent={selectedComponent ? SpecificationComponent[group.name]({ component: selectedComponent }) : false}
-        onClear={() => onRemoveSelectedComponent(group.name)}
+        popupContent={selectedComponent ? SpecificationComponent[cfg.group]({ component: selectedComponent }) : false}
+        onClear={() => onRemoveSelectedComponent(cfg.group)}
       />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>

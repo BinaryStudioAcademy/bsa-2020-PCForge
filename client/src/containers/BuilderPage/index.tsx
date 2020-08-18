@@ -26,7 +26,7 @@ type PropsType = {
 };
 
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
-  const [expanded, setExpanded] = useState<false | ComponentGroups | Group>(false);  // todo: del ComponentGroups
+  const [expanded, setExpanded] = useState<false | ComponentGroups | Group>(false); // todo: del ComponentGroups
   const [filter, setFilter] = useState<TypeFilterBuilder>({
     socketIdSet: new Set() as Set<number>,
     ramTypeIdSet: new Set() as Set<number>,
@@ -60,7 +60,12 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   }, []);
 
   const testGroup = {
-    name: Group.cpu,
+    group: Group.cpu,
+    filters: [
+      {
+        type:
+      }
+    ]
   };
 
   return (
@@ -74,7 +79,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
         />
         <Box>
           <GroupComponent
-            group={testGroup}
+            cfg={testGroup}
             setup={setup}
             filter={filterForCpu}
             showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
