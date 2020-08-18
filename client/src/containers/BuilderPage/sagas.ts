@@ -42,9 +42,11 @@ function* watchAddComponent() {
 export function* initSetup(action: AnyAction) {
   try {
     const setup = yield call(getLocalSetup);
-    yield put({ type: BUILDER_SET_SETUP, payload: setup });
-    for (const group in setup) {
-      if (setup[group]) yield put({ type: ADD_COMPONENT_TO_SETUP, payload: { group, id: setup[group].id } });
+    if (setup) {
+      yield put({ type: BUILDER_SET_SETUP, payload: setup });
+      for (const group in setup) {
+        if (setup[group]) yield put({ type: ADD_COMPONENT_TO_SETUP, payload: { group, id: setup[group].id } });
+      }
     }
   } catch (error) {
     // error message
