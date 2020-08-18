@@ -25,12 +25,6 @@ const GameMatcherFpsAnalysis: React.FC<Props> = ({ fpsAnalysis }) => {
   const [selectedResolution, setSelectedResolution] = useState<IResolution>([1920, 1080]);
 
   const resolutions = fpsAnalysis.map((value) => value[0]);
-  // .map((value) => {
-  //   const [resolution] = value;
-  //   const [width, height] = resolution;
-  //   return `${width} x ${height}`;
-  // })
-  // .map((value, id) => ({ value, id, selected: id === 0 }));
 
   const firstColumn = resolutions.slice(0, resolutions.length / 2);
   const secondColumn = resolutions.slice(resolutions.length / 2);

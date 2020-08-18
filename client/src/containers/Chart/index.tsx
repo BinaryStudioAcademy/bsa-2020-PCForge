@@ -17,8 +17,13 @@ import { MenuItems } from 'common/enums';
 const GameMatcherResult: React.FC<Props> = ({ fetchTopGames, fetchPerformanceAnalysis, performance, topGames }) => {
   React.useEffect(() => {
     fetchTopGames();
-    fetchPerformanceAnalysis('5', '1');
   }, []);
+
+  React.useEffect(() => {
+    if (topGames.length > 0) {
+      fetchPerformanceAnalysis(5, topGames[0].id);
+    }
+  }, [topGames]);
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
@@ -35,7 +40,7 @@ const GameMatcherResult: React.FC<Props> = ({ fetchTopGames, fetchPerformanceAna
             </main>
 
             <div className={styles.asideItems}>
-              <TopGames games={topGames.map((topGame) => topGame.game)} />
+              <TopGames games={topGames.map((topGame) => topGame.game)} defaultSelected={0} />
               <TestDifferentGame />
               <TestDifferentSystem />
             </div>

@@ -18,7 +18,7 @@ export const fetchTopGames = (): SetupChartActions => ({
   },
 });
 
-export const fetchPerformanceAnalysis = (setupId: string, gameId: string): SetupChartActions => ({
+export const fetchPerformanceAnalysis = (setupId: number, gameId: number): SetupChartActions => ({
   type: SetupChartTypes.FETCH_PERFORMANCE_REQUEST,
   payload: {
     setupId,

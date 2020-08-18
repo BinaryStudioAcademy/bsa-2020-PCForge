@@ -15,8 +15,8 @@ export enum SetupChartTypes {
 export interface IFetchPerformanceRequestAction {
   type: SetupChartTypes.FETCH_PERFORMANCE_REQUEST;
   payload: {
-    setupId: string;
-    gameId: string;
+    setupId: number;
+    gameId: number;
   };
 }
 
