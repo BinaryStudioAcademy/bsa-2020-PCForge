@@ -25,6 +25,11 @@ type PropsType = {
   showFilters: TypeShowFilters;
 };
 
+type TypeClockspeed = {
+  minValue: number;
+  maxValue: number;
+};
+
 const GroupCpus = ({
   filter,
   selectedComponent,
@@ -36,16 +41,23 @@ const GroupCpus = ({
   showFilters,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
+  const minClockspeed = 1000;
+  const maxClockspeed = 5000;
   const [cpus, setCpus] = useState([] as TypeCpu[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
+  const [clockspeed, setClockspeed] = useState({} as TypeClockspeed);
   const [load, setLoad] = useState(false);
 
   const getCpus = async () => {
     setLoad(true);
     const queryFilter = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
+    const queryClockspeed = {
+      'clockspeed[minValue]': clockspeed.minValue,
+      'clockspeed[maxValue]': clockspeed.maxValue,
+    };
     try {
-      const res = await getAllCpu({ ...queryFilter, ...pagination });
+      const res = await getAllCpu({ ...queryFilter, ...pagination, ...queryClockspeed });
       setCpus(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -57,7 +69,7 @@ const GroupCpus = ({
 
   useEffect(() => {
     getCpus();
-  }, [filter, pagination]);
+  }, [filter, pagination, clockspeed]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -77,8 +89,12 @@ const GroupCpus = ({
     />
   ));
 
-  function onChangeFilterRange() {
-    // do nothing.
+  function onChangeFilterRange([minValue, maxValue]: number[]): void {
+    setClockspeed({
+      ...clockspeed,
+      minValue,
+      maxValue,
+    });
   }
 
   return (
@@ -102,8 +118,9 @@ const GroupCpus = ({
             <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
             <FilterRange
               title="Processor Frequency"
-              min={1000}
-              max={3000}
+              min={minClockspeed}
+              max={maxClockspeed}
+              step={100}
               dimension="MHz"
               onChange={onChangeFilterRange}
             />
