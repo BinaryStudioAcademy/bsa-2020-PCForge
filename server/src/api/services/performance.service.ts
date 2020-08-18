@@ -36,7 +36,6 @@ interface IReport {
 }
 
 export interface ISetupPerformance {
-  setup: SetupAttributes;
   report: IReport;
   fpsAnalysis: [IResolution, IFpsAnalysis][];
 }
@@ -114,7 +113,6 @@ export class PerformanceService {
       ),
     ]);
     const performance: ISetupPerformance = {
-      setup: this.setup,
       fpsAnalysis,
       report: {
         minimal: {

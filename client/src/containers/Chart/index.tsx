@@ -18,6 +18,7 @@ import { Game } from 'common/models/game';
 const GameMatcherResult: React.FC<Props> = ({
   fetchTopGames,
   fetchPerformanceAnalysis,
+  fetchSetup,
   performance,
   topGames,
   setup,
