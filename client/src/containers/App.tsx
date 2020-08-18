@@ -12,7 +12,7 @@ import RootComponent from './Root';
 import SetupPage from './SetupsPage';
 import BuilderPage from './BuilderPage';
 import AdminToolsPage from './AdminToolsPage';
-import AddHardwarePage from 'containers/AddHardwarePage';
+//import AddHardwarePage from 'containers/AddHardwarePage';
 import AddItemPages from 'containers/AddItemPages';
 export default class App extends Component {
   render(): JSX.Element {

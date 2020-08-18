@@ -5,13 +5,5 @@ enum HardwareTypes {
   RAM = 'RAM',
   GPU = 'GPU',
 }
-/*
-const HardwareTypes: Array<string> = [
-  'Power supply',
-  'Motherboard',
-  'CPU',
-  'RAM',
-  'GPU',
-]*/
 
 export { HardwareTypes };

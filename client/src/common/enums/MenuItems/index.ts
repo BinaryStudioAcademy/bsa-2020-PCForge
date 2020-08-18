@@ -5,7 +5,7 @@ enum MenuItems {
   GameMatcher,
   Hardware,
   AdminTools,
-  User
+  User,
 }
 
 export { MenuItems };

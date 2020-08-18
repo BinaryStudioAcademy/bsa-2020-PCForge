@@ -13,7 +13,7 @@ enum HardwareFields {
   ram = 'RAM',
   power = 'Power',
   frequency = 'Frequency',
-  typeRam = 'Type'
+  typeRam = 'Type',
 }
 
 export { HardwareFields };
