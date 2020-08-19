@@ -1,81 +1,52 @@
 import { call, put, all, takeLeading } from 'redux-saga/effects';
 import { getAllCpu, TypeResponseAllCpus } from 'api/services/cpuService';
-import {
-  GET_CPUS,
-  IGetCpus,
-  GET_CPUS_SUCCESS,
-  GET_CPUS_FAILURE,
-  IGetGpus,
-  GET_GPUS_SUCCESS,
-  GET_GPUS_FAILURE,
-  GET_GPUS,
-  IGetRams,
-  GET_RAMS_SUCCESS,
-  GET_RAMS_FAILURE,
-  GET_RAMS,
-  IGetGames,
-  GET_GAMES_SUCCESS,
-  GET_GAMES_FAILURE,
-  GET_GAMES,
-} from './actionTypes';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { MATCHER_GET_DATA, IMatcherGetData, MATCHER_GET_DATA_FAILURE } from './actionTypes';
 import { getAllGpu, TypeResponseAllGpus } from 'api/services/gpuService';
 import { getAllRam, TypeResponseAllRams } from 'api/services/ramService';
-import { Game } from 'common/models/game';
-import { getAllGames } from 'api/services/gamesService';
+import { getAllGames, TypeResponseAllGames } from 'api/services/gamesService';
+import { FilterModel } from 'common/models/filter.model';
+import { AlertType } from 'components/BasicComponents/Alert';
 
-export function* getGames(action: IGetGames) {
+export function* getMatcherData(action: IMatcherGetData) {
   try {
-    const response: Game[] = yield call<(data: TypeFilter) => void>(getAllGames, action.payload);
-    yield put({ type: GET_GAMES_SUCCESS, payload: response });
+    const { variant, type } = action.payload;
+    const filter: FilterModel = {
+      name: action.payload.name,
+      count: 20,
+      from: action.payload.offset,
+    };
+
+    let response: TypeResponseAllCpus | TypeResponseAllGpus | TypeResponseAllGames | TypeResponseAllRams = null!;
+
+    if (variant === 'cpus') {
+      response = yield call(getAllCpu, filter);
+    }
+    if (variant === 'gpus') {
+      response = yield call(getAllGpu, filter);
+    }
+    if (variant === 'games') {
+      response = yield call(getAllGames, filter);
+    }
+    if (variant === 'rams') {
+      response = yield call(getAllRam, filter);
+    }
+
+    yield put({ type, payload: response.data });
   } catch (e) {
-    yield put({ type: GET_GAMES_FAILURE, payload: e.message });
+    yield put({
+      type: MATCHER_GET_DATA_FAILURE,
+      payload: {
+        message: 'Failed to fetch',
+        type: AlertType.error,
+      },
+    });
   }
 }
 
-export function* watchGetGames() {
-  yield takeLeading(GET_GAMES, getGames);
-}
-
-export function* getCpus(action: IGetCpus) {
-  try {
-    const response: TypeResponseAllCpus = yield call<(data: TypeFilter) => void>(getAllCpu, action.payload);
-    yield put({ type: GET_CPUS_SUCCESS, payload: response });
-  } catch (e) {
-    yield put({ type: GET_CPUS_FAILURE, payload: e.message });
-  }
-}
-
-export function* watchGetCpus() {
-  yield takeLeading(GET_CPUS, getCpus);
-}
-
-export function* getGpus(action: IGetGpus) {
-  try {
-    const response: TypeResponseAllGpus = yield call<(data: TypeFilter) => void>(getAllGpu, action.payload);
-    yield put({ type: GET_GPUS_SUCCESS, payload: response });
-  } catch (e) {
-    yield put({ type: GET_GPUS_FAILURE, payload: e.message });
-  }
-}
-
-export function* watchGetGpus() {
-  yield takeLeading(GET_GPUS, getGpus);
-}
-
-export function* getRams(action: IGetRams) {
-  try {
-    const response: TypeResponseAllRams = yield call<(data: TypeFilter) => void>(getAllRam, action.payload);
-    yield put({ type: GET_RAMS_SUCCESS, payload: response });
-  } catch (e) {
-    yield put({ type: GET_RAMS_FAILURE, payload: e.message });
-  }
-}
-
-export function* watchGetRams() {
-  yield takeLeading(GET_RAMS, getRams);
+function* watchGetMatcherData() {
+  yield takeLeading(MATCHER_GET_DATA, getMatcherData);
 }
 
 export default function* cpuSagas() {
-  yield all([watchGetGames(), watchGetCpus(), watchGetGpus(), watchGetRams()]);
+  yield all([watchGetMatcherData()]);
 }

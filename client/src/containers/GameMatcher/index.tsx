@@ -11,9 +11,10 @@ import * as actions from './actions';
 import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
+import { MatcherSettableVariants, MatcherServerActions } from './actionTypes';
 
 const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
-  const { setAlertValue, setGames, getGames, setCPUS, getCPUS, setGPUS, getGPUS, setRAMS, getRAMS } = props;
+  const { setAlertValue, getMatcherData } = props;
 
   const {
     gamesErrorMessage,
@@ -35,23 +36,22 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
   const gpuOptions = props.state.gpus.map((gpu) => ({ label: gpu.name, value: gpu.id }));
 
   const onTestGame = async () => {
-    if (!selectedRam) {
-      setAlertValue({ type: AlertType.error, message: 'Error: Please choose a ram' });
-      return;
-    }
-    if (!selectedCpu) {
-      setAlertValue({ type: AlertType.error, message: 'Error: Please choose a processor' });
-      return;
-    }
-    if (!selectedGpu) {
-      setAlertValue({ type: AlertType.error, message: 'Error: Please choose a graphics' });
-      return;
-    }
-    if (!selectedGame) {
-      setAlertValue({ type: AlertType.error, message: 'Error: Please choose a game' });
+    if (!selectedRam || !selectedCpu || !selectedGpu || !selectedGame) {
+      setAlertValue({ type: AlertType.error, message: 'Error: Please choose hardware components' });
       return;
     }
     setAlertValue({ type: AlertType.success, message: 'Success' });
+  };
+
+  const createHardwareGetter = (variant: MatcherSettableVariants, type: string) => {
+    return function ({ value, itemsCount = 0 }: { value: string; itemsCount?: number }) {
+      getMatcherData({
+        offset: itemsCount,
+        name: value,
+        variant,
+        type,
+      });
+    };
   };
 
   return (
@@ -73,9 +73,9 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     errorMessage={gamesErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     debounceTime={300}
-                    onInputChange={(value: string) => setGames([]) && getGames({ count: 20, name: value })}
                     onSelect={(id: number) => setSelectedGame(id)}
-                    onSeeMoreClick={({ itemsCount, name }) => getGames({ count: 20, from: itemsCount, name })}
+                    onInputChange={createHardwareGetter('games', MatcherServerActions.MATCHER_REPLACE_GAMES)}
+                    onSeeMoreClick={createHardwareGetter('games', MatcherServerActions.MATCHER_ADD_GAMES)}
                   />
                 </div>
               </section>
@@ -90,9 +90,9 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     errorMessage={ramsErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     debounceTime={300}
-                    onInputChange={(value: string) => setRAMS([]) && getRAMS({ count: 20, name: value })}
                     onSelect={(id: number) => setSelectedRam(id)}
-                    onSeeMoreClick={({ itemsCount, name }) => getRAMS({ count: 20, from: itemsCount, name })}
+                    onInputChange={createHardwareGetter('rams', MatcherServerActions.MATCHER_REPLACE_RAMS)}
+                    onSeeMoreClick={createHardwareGetter('rams', MatcherServerActions.MATCHER_ADD_RAMS)}
                   />
                 </div>
                 <div className={styles.selectItem}>
@@ -104,9 +104,9 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     errorMessage={cpusErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     debounceTime={300}
-                    onInputChange={(value: string) => setCPUS([]) && getCPUS({ count: 20, name: value })}
                     onSelect={(id: number) => setSelectedCpu(id)}
-                    onSeeMoreClick={({ itemsCount, name }) => getCPUS({ count: 20, from: itemsCount, name })}
+                    onInputChange={createHardwareGetter('cpus', MatcherServerActions.MATCHER_REPLACE_CPUS)}
+                    onSeeMoreClick={createHardwareGetter('cpus', MatcherServerActions.MATCHER_ADD_CPUS)}
                   />
                 </div>
                 <div className={styles.selectItem}>
@@ -118,9 +118,9 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     errorMessage={gpusErrorMessage}
                     debounceTime={300}
                     labelClassName={styles.selectItemHeader}
-                    onInputChange={(value: string) => setGPUS([]) && getGPUS({ count: 20, name: value })}
                     onSelect={(id: number) => setSelectedGpu(id)}
-                    onSeeMoreClick={({ itemsCount, name }) => getGPUS({ count: 20, from: itemsCount, name })}
+                    onInputChange={createHardwareGetter('gpus', MatcherServerActions.MATCHER_REPLACE_GPUS)}
+                    onSeeMoreClick={createHardwareGetter('gpus', MatcherServerActions.MATCHER_ADD_GPUS)}
                   />
                 </div>
               </section>
@@ -128,7 +128,7 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                 buttonType={ButtonType.primary}
                 className={styles.pageButton}
                 classes={{ label: styles.buttonLabel }}
-                onClick={() => onTestGame()}
+                onClick={onTestGame}
               >
                 Can I Run It
               </Button>

@@ -11,9 +11,9 @@ export interface SelectOption {
 }
 
 interface Props {
-  onInputChange: (data: string) => void;
+  onInputChange: ({ value }: { value: string }) => void;
   onSelect: (value: number) => void;
-  onSeeMoreClick: ({ itemsCount }: { itemsCount: number; name: string }) => void;
+  onSeeMoreClick: ({ itemsCount, value }: { itemsCount: number; value: string }) => void;
   options: SelectOption[];
   placeholder: string;
   errorMessage?: string | boolean;
@@ -46,7 +46,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
       this.setState({
         inputValue: value,
       });
-      original(value);
+      original({ value });
     };
 
     this.onBlur = this.onBlur.bind(this);
@@ -121,10 +121,10 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
             ))}
             <div
               className={styles.seeMore}
-              onClick={() => onSeeMoreClick({ itemsCount: options.length, name: this.state.inputValue })}
+              onClick={() => onSeeMoreClick({ itemsCount: options.length, value: this.state.inputValue })}
               tabIndex={0}
               onKeyUp={(e) =>
-                e.keyCode === 13 && onSeeMoreClick({ itemsCount: options.length, name: this.state.inputValue })
+                e.keyCode === 13 && onSeeMoreClick({ itemsCount: options.length, value: this.state.inputValue })
               }
             >
               See More

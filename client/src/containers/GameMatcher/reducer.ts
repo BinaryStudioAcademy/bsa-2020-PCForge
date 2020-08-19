@@ -1,18 +1,14 @@
 import { GameMatcherState } from './interfaces';
 import {
   MatcherActionTypes,
-  GET_CPUS_SUCCESS,
-  SET_CPUS,
-  SET_GPUS,
-  GET_GPUS_SUCCESS,
-  SET_RAMS,
-  GET_RAMS_SUCCESS,
-  GET_GAMES_SUCCESS,
-  SET_GAMES,
-  GET_GAMES_FAILURE,
-  GET_CPUS_FAILURE,
-  GET_RAMS_FAILURE,
-  GET_GPUS_FAILURE,
+  MATCHER_ADD_CPUS,
+  MATCHER_ADD_GPUS,
+  MATCHER_ADD_RAMS,
+  MATCHER_ADD_GAMES,
+  MATCHER_REPLACE_CPUS,
+  MATCHER_REPLACE_GPUS,
+  MATCHER_REPLACE_GAMES,
+  MATCHER_REPLACE_RAMS,
   SET_ALERT_MESSAGE,
 } from './actionTypes';
 
@@ -31,69 +27,45 @@ const initialState: GameMatcherState = {
 
 export function MatcherReducer(state: GameMatcherState = initialState, action: MatcherActionTypes): GameMatcherState {
   switch (action.type) {
-    case SET_GAMES:
+    case MATCHER_ADD_CPUS:
       return {
         ...state,
-        games: action.payload,
+        cpus: [...state.cpus, ...action.payload],
       };
-    case GET_GAMES_SUCCESS:
+    case MATCHER_ADD_GPUS:
       return {
         ...state,
-        gamesErrorMessage: false,
-        games: [...state.games, ...action.payload.data],
+        gpus: [...state.gpus, ...action.payload],
       };
-    case GET_GAMES_FAILURE:
+    case MATCHER_ADD_RAMS:
       return {
         ...state,
-        gamesErrorMessage: true,
+        rams: [...state.rams, ...action.payload],
       };
-    case SET_CPUS:
+    case MATCHER_ADD_GAMES:
+      return {
+        ...state,
+        games: [...state.games, ...action.payload],
+      };
+    case MATCHER_REPLACE_CPUS:
       return {
         ...state,
         cpus: action.payload,
       };
-    case GET_CPUS_SUCCESS:
-      return {
-        ...state,
-        cpusErrorMessage: false,
-        cpus: [...state.cpus, ...action.payload.data],
-      };
-    case GET_CPUS_FAILURE:
-      return {
-        ...state,
-        cpusErrorMessage: true,
-      };
-    case SET_GPUS:
+    case MATCHER_REPLACE_GPUS:
       return {
         ...state,
         gpus: action.payload,
       };
-    case GET_GPUS_SUCCESS:
-      return {
-        ...state,
-        gpusErrorMessage: false,
-        gpus: [...state.gpus, ...action.payload.data],
-      };
-    case GET_GPUS_FAILURE:
-      return {
-        ...state,
-        gpusErrorMessage: true,
-      };
-    case SET_RAMS:
+    case MATCHER_REPLACE_RAMS:
       return {
         ...state,
         rams: action.payload,
       };
-    case GET_RAMS_SUCCESS:
+    case MATCHER_REPLACE_GAMES:
       return {
         ...state,
-        ramsErrorMessage: false,
-        rams: [...state.rams, ...action.payload.data],
-      };
-    case GET_RAMS_FAILURE:
-      return {
-        ...state,
-        ramsErrorMessage: true,
+        games: action.payload,
       };
     case SET_ALERT_MESSAGE:
       return {

@@ -2,7 +2,7 @@ import { Game } from 'common/models/game';
 import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
 import { Ram } from 'common/models/ram';
-import { MatcherActionTypes } from './actionTypes';
+import { MatcherActionTypes, MatcherSettableVariants, MatcherServerActions } from './actionTypes';
 import { FilterModel } from 'common/models/filter.model';
 import { AlertType } from 'components/BasicComponents/Alert';
 
@@ -21,20 +21,16 @@ export interface GameMatcherState {
   ramsErrorMessage?: string | boolean;
 }
 
+export interface GameMatcherFilter {
+  variant: MatcherSettableVariants;
+  name: string;
+  offset: number;
+  type: string;
+}
+
 export interface GameMatcherProps {
   state: GameMatcherState;
 
-  setGames: (games: Game[]) => MatcherActionTypes;
-  getGames: (filter: FilterModel) => MatcherActionTypes;
-
-  setCPUS: (cpus: Cpu[]) => MatcherActionTypes;
-  getCPUS: (filter: FilterModel) => MatcherActionTypes;
-
-  setGPUS: (gpus: Gpu[]) => MatcherActionTypes;
-  getGPUS: (filter: FilterModel) => MatcherActionTypes;
-
-  setRAMS: (rams: Ram[]) => MatcherActionTypes;
-  getRAMS: (filter: FilterModel) => MatcherActionTypes;
-
+  getMatcherData: (payload: GameMatcherFilter) => MatcherActionTypes;
   setAlertValue: (payload: { message: string; type: AlertType }) => MatcherActionTypes;
 }
