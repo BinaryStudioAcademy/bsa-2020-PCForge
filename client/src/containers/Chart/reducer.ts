@@ -37,6 +37,13 @@ export function SetupChartReducer(state = initialState, action: SetupChartAction
       };
     }
 
+    case SetupChartTypes.FETCH_GAMES_SUCCESS: {
+      return {
+        ...state,
+        searchedGames: action.payload.games,
+      };
+    }
+
     case SetupChartTypes.FETCH_PERFORMANCE_SUCCESS: {
       return {
         ...state,

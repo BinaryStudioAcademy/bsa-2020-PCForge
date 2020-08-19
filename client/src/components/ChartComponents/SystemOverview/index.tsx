@@ -12,6 +12,20 @@ interface Props {
 }
 
 const GameMatcherSystemOverview: React.FC<Props> = ({ setup, overall }): JSX.Element => {
+  const getVerdict = (): string => {
+    const minimumOverallRate = Math.min(overall.cpu, overall.gpu, overall.ram);
+    if (minimumOverallRate <= 3.0) return 'BAD';
+    if (minimumOverallRate <= 6.0) return 'NOT BAD';
+    if (minimumOverallRate <= 9.0) return 'GOOD';
+    return 'EXCELLENT';
+  };
+
+  const getSummary = (): string => {
+    const TOTAL_GAME_NUMBER = 100;
+    const POSSIBLE_GAME_NUMBER = Math.ceil((Math.min(overall.cpu, overall.gpu, overall.ram) / 10) * TOTAL_GAME_NUMBER);
+    return `In summary, among ${TOTAL_GAME_NUMBER} most demanding games this setup can meet ${POSSIBLE_GAME_NUMBER} recommended requirements`;
+  };
+
   return (
     <Container component="section">
       <div className={styles.performanceResultWrapper}>
@@ -35,20 +49,10 @@ const GameMatcherSystemOverview: React.FC<Props> = ({ setup, overall }): JSX.Ele
           </div>
         </div>
         <div className={styles.summary}>
-          <h2 className={styles.summaryHeader}>Graphic Setting: Hight</h2>
-
+          <h2 className={styles.summaryHeader}>Verdict: {getVerdict()}</h2>
           <section className={styles.summarySection}>
-            <span className={styles.summaryItemHeader}>GPU PERFORMANCE</span>
-            <span className={styles.summaryItemBody}>
-              In summary, the Radeon RX 590 Sapphire Nitro+ AMD 50 Gold Edition 8GB is clearly
-            </span>
-          </section>
-
-          <section className={styles.summarySection}>
-            <span className={styles.summaryItemHeader}>SYSTEM SUMMARY</span>
-            <span className={styles.summaryItemBody}>
-              Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-            </span>
+            <span className={styles.summaryItemHeader}>SETUP PERFORMANCE</span>
+            <span className={styles.summaryItemBody}>{getSummary()}</span>
           </section>
         </div>
       </div>
