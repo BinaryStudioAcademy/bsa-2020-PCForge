@@ -23,8 +23,8 @@ interface Props {
 }
 
 const GameMatcherPerformanceReport: React.FC<Props> = ({ setup, report }): JSX.Element => {
-  const RECOMMENDED_REQUIREMENT_ID = 1;
-  const MINIMAL_REQUIREMENT_ID = 2;
+  const RECOMMENDED_REQUIREMENT_ID = 2;
+  const MINIMAL_REQUIREMENT_ID = 1;
   const MAXIMUM_REPORT_VALUE = Math.max(
     roundToNearest(report.minimal.cpu, 100),
     roundToNearest(report.minimal.gpu, 100),
@@ -40,8 +40,8 @@ const GameMatcherPerformanceReport: React.FC<Props> = ({ setup, report }): JSX.E
     values.push(i);
   }
   const requirements: UIRequirement[] = [
-    { id: RECOMMENDED_REQUIREMENT_ID, title: 'Recommended requirement' },
     { id: MINIMAL_REQUIREMENT_ID, title: 'Minimal requirement' },
+    { id: RECOMMENDED_REQUIREMENT_ID, title: 'Recommended requirement' },
   ];
 
   const componentItems = [
