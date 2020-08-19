@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
-const { NotFound } = require('http-errors');
+import { triggerServerError } from '../../helpers/global.helper';
 
 interface UserCreateAttributes {
   name: string;
@@ -35,11 +35,10 @@ export class UserService {
 
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getById(id);
-    if (user) {
-      return user;
-    } else {
-      throw new NotFound();
+    if (!user) {
+      triggerServerError('User with id: ${id} does not exists', 404);
     }
+    return user;
   }
 
   async createUser(inputUser: UserCreateAttributes): Promise<UserModel> {
@@ -57,7 +56,7 @@ export class UserService {
   async updateUser(id: string, inputUser: UserCreateAttributes): Promise<UserModel> {
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
-      throw new NotFound();
+      triggerServerError('User with id: ${id} does not exists', 404);
     }
     if (inputUser.password) {
       inputUser.password = this.hash(inputUser.password);

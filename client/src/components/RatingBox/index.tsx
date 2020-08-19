@@ -50,7 +50,7 @@ const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name }) => {
           value={value}
           disabled={disabled}
           precision={disabled ? 0.1 : 0.5}
-          icon={<RatingIcon />}
+          icon={<RatingIcon viewBox="0 0 24 10" />}
           size="small"
           onChange={(event: React.ChangeEvent<Record<string, unknown>>, newValue: number | null) => {
             if (newValue) {

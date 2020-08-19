@@ -2,13 +2,16 @@ import { RamCreationAttributes, RamModel } from '../../data/models/ram';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 import { RamRepository } from '../../data/repositories/ram.repository';
-import { Op } from 'sequelize';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class RamService {
   constructor(private repository: RamRepository) {}
 
   async getRamById(id: string): Promise<RamModel> {
     const ram = await this.repository.getRamById(id);
+    if (!ram) {
+      triggerServerError(`Ram with id: ${id} does not exists`, 404);
+    }
     return ram;
   }
 
@@ -26,7 +29,7 @@ export class RamService {
     const { id, data } = inputRam;
     const oldRam = await this.repository.getRamById(id);
     if (!oldRam) {
-      throw new Error(`Ram with id: ${id} does not exists`);
+      triggerServerError(`Ram with id: ${id} does not exists`, 404);
     }
     const ram = await this.repository.updateRamById(id, data);
     return ram;

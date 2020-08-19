@@ -1,0 +1,78 @@
+@import 'styles/variables';
+
+div.mainWrapper {
+  padding: 3rem;
+
+  .contentWrapper {
+    background-color: $colorDarkGray;
+    padding: 3rem;
+    border-radius: 7px;
+    box-shadow: 20px 20px 20px 30px rgba(0, 0, 0, 0.1);
+
+    hr.divider {
+      margin: 3rem 0;
+      background-color: #a4a6a7;
+    }
+
+    .gameWrapper {
+      flex-wrap: nowrap;
+      margin-bottom: 1rem;
+
+      .infoWrapper {
+        width: 100%;
+        flex-grow: 1;
+        margin-right: 3rem;
+        font-size: 14px;
+
+        .fieldName {
+          font-style: italic;
+          font-weight: 600;
+          font-size: 1.3em;
+        }
+
+        .titleWrapper {
+
+          .gameTitle {
+            font-size: 36px;
+            line-height: 40px;
+            margin: 0 16px 0 0;
+          }
+
+          .ratingBox {
+            line-height: .8;
+          }
+        }
+
+        .gameRelease {
+          width: 100%;
+          margin: 5px 0;
+        }
+
+        .gameDescription {
+          width: 100%;
+        }
+      }
+
+      .imageWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 30%;
+
+        .imageItem {
+          width: 100%;
+          margin-bottom: 15px;
+        }
+      }
+    }
+
+    .requirementsWrapper {
+      td {
+        border-color: #7f8489;
+      }
+    }
+  }
+}
+
+
