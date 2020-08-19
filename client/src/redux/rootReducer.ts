@@ -4,12 +4,14 @@ import NotificationReducer from 'containers/Notification/logic/reducer';
 import HomePageReducer from 'containers/Home/logic/reducer';
 import UserReducer from 'containers/UserPage/logic/reducer';
 import builderReducer from 'containers/BuilderPage/reducer';
+import { MatcherReducer } from 'containers/GameMatcher/reducer';
 import { QuickMatcherReducer } from 'containers/QuickMatcher/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
   homePage: HomePageReducer,
   user: UserReducer,
+  matcher: MatcherReducer,
   setup: builderReducer,
   quickMatcher: QuickMatcherReducer,
   notification: NotificationReducer,
