@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from 'containers/Auth/styles.module.scss';
-import Alert, { AlertType } from '../BasicComponents/Alert';
+import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
 import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
+import PasswordInput from 'components/PasswordInput/PasswordInput';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import PasswordInput from '../PasswordInput/PasswordInput';
