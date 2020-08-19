@@ -38,17 +38,17 @@ $space-width: 30px;
   height: 4rem;
 }
 
-.performanceGraphItem:nth-of-type(1) {
+.performanceGraphItem:nth-of-type(2) {
   border-top-width: $border-width;
   border-bottom: $border-width / 2;
 }
 
-.performanceGraphItem:nth-of-type(2) {
+.performanceGraphItem:nth-of-type(3) {
   border-top-width: $border-width / 2;
   border-bottom: $border-width / 2;
 }
 
-.performanceGraphItem:nth-of-type(3) {
+.performanceGraphItem:nth-of-type(4) {
   border-top-width: $border-width / 2;
   border-bottom-width: $border-width;
 }
@@ -130,6 +130,7 @@ $space-width: 30px;
   margin-top: -30px;
   top: 0;
   bottom: 0;
+  z-index: 1;
 }
 
 .normalLineText {
