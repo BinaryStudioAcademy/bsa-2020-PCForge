@@ -4,7 +4,7 @@ import { fetchTopGames, fetchPerformanceAnalysis, fetchSetup } from 'containers/
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import GameMatcherSystemRequirements from 'components/ChartComponents/SystemRequirements';
+import GameMatcherSystemOverview from 'components/ChartComponents/SystemOverview';
 import GameMatcherFpsAnalysis from 'components/ChartComponents/FpsAnalysis';
 import GameMatcherPerformanceReport from 'components/ChartComponents/PerfomanceReport';
 import sharedStyles from '../../components/ChartComponents/styles.module.scss';
@@ -42,12 +42,10 @@ const GameMatcherResult: React.FC<Props> = ({
     <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
       <div className={styles.gameMatcherRoot}>
         <div className={styles.content}>
-          <h1 className={[sharedStyles.mainHeader, styles.pageHeader].join(' ')}>
-            3 Skulls of Toltecs System Requirements
-          </h1>
+          <h1 className={[sharedStyles.mainHeader, styles.pageHeader].join(' ')}>System overview</h1>
           <div className={styles.gameMatcherContentWrapper}>
             <main>
-              <GameMatcherSystemRequirements />
+              <GameMatcherSystemOverview setup={setup} overall={performance.overall} />
               <GameMatcherPerformanceReport setup={setup} report={performance.report} />
               <GameMatcherFpsAnalysis fpsAnalysis={performance.fpsAnalysis} />
             </main>

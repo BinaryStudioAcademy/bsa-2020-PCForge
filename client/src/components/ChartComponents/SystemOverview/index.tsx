@@ -1,29 +1,37 @@
+import { IHardwareReport } from 'common/models/setupPerformance';
+import { Setup } from 'common/models/setup';
+
 import React from 'react';
 import styles from './styles.module.scss';
 import CircularProgress from 'components/CircularProgress';
 import { Container } from '@material-ui/core';
 
-const GameMatcherSystemRequirements: React.FC = (): JSX.Element => {
+interface Props {
+  setup: Setup;
+  overall: IHardwareReport;
+}
+
+const GameMatcherSystemOverview: React.FC<Props> = ({ setup, overall }): JSX.Element => {
   return (
     <Container component="section">
       <div className={styles.performanceResultWrapper}>
         <div className={styles.requirements}>
           <div className={styles.requirement}>
-            <CircularProgress progressValue={3.2} />
+            <CircularProgress progressValue={overall.cpu} />
             <h3 className={styles.requirementHeader}>Processor</h3>
-            <p className={styles.requirementDetail}>Anthlon 64 X2 Dual Core</p>
+            <p className={styles.requirementDetail}>{setup.cpu.name}</p>
           </div>
 
           <div className={styles.requirement}>
-            <CircularProgress progressValue={10} />
-            <h3 className={styles.requirementHeader}>Graphics [1920 x 1080]</h3>
-            <p className={styles.requirementDetail}>Radeon RX 590 Sapphire Nitro+ AMD 50 Gold Edition</p>
+            <CircularProgress progressValue={overall.gpu} />
+            <h3 className={styles.requirementHeader}>Graphics</h3>
+            <p className={styles.requirementDetail}>{setup.gpu.name}</p>
           </div>
 
           <div className={styles.requirement}>
-            <CircularProgress progressValue={8} />
+            <CircularProgress progressValue={overall.ram} />
             <h3 className={styles.requirementHeader}>RAM</h3>
-            <p className={styles.requirementDetail}>64GB</p>
+            <p className={styles.requirementDetail}>{setup.ram.memorySize}GB</p>
           </div>
         </div>
         <div className={styles.summary}>
@@ -48,4 +56,4 @@ const GameMatcherSystemRequirements: React.FC = (): JSX.Element => {
   );
 };
 
-export default GameMatcherSystemRequirements;
+export default GameMatcherSystemOverview;

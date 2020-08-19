@@ -17,11 +17,6 @@ interface UIRequirement {
   title: string;
 }
 
-interface PerformanceIndicatorItem {
-  name: string;
-  value: number;
-}
-
 interface Props {
   setup: Setup;
   report: IReport;
