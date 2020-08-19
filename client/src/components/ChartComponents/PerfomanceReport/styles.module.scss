@@ -31,7 +31,6 @@ $space-width: 30px;
   display: flex;
   align-items: center;
   position: relative;
-  margin-left: $space-width;
   border-top-color: $colorGray;
   border-top-style: solid;
   border-bottom-color: $colorGray;
@@ -88,12 +87,13 @@ $space-width: 30px;
 .indicatorValues {
   display: flex;
   justify-content: space-between;
-  margin-left: $space-width;
-  margin-right: 2rem;
+  margin-left: $space-width - 10px;
+  margin-right: $space-width - 10px;
   margin-top: 1rem;
 }
 
 .indicatorValue {
+  width: 25px;
   font-size: 10px;
   line-height: 12px;
   text-align: center;
@@ -122,4 +122,31 @@ $space-width: 30px;
   padding-bottom: .5rem;
   line-height: 22px;
   color: $colorTextGray;
+}
+
+.normalLine {
+  border-left: 1px solid $colorRed;
+  position: absolute;
+  margin-top: -30px;
+  top: 0;
+  bottom: 0;
+}
+
+.normalLineText {
+  text-transform: uppercase;
+  padding-top: 5px;
+  color: $colorTextGray;
+  position: relative;
+  margin-left: 5px;
+  font-size: 10px;
+  line-height: 12px;
+}
+
+.graphWrapper {
+  position: relative;
+}
+
+.indicatorsWrapper {
+  margin-left: $space-width;
+  padding-right: $space-width;
 }

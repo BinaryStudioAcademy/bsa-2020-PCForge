@@ -81,12 +81,21 @@ const GameMatcherPerformanceReport: React.FC<Props> = ({ setup, report }): JSX.E
   );
 
   const getPerformanceIndicators = (req: IRequirement) => {
-    console.log(req.cpu);
+    const percents = (100 / MAXIMUM_REPORT_VALUE) * 100;
+    let additionalPixels = '+ 0px';
+    // we must add or remove pixels because we have margins. So, with margins left: 0% move orl line out of the graph. The same with left: 100%
+    if (percents < 50) additionalPixels = '+ 30px';
+    if (percents > 50) additionalPixels = '- 30px';
     return (
-      <>
-        {getPerformanceIndicator('CPU', req.cpu)}
-        {getPerformanceIndicator('GPU', req.gpu)} {getPerformanceIndicator('RAM', req.ram)}
-      </>
+      <div className={styles.graphWrapper}>
+        <div className={styles.indicatorsWrapper}>
+          <div className={styles.normalLine} style={{ left: `calc(${percents}% ${additionalPixels})` }}>
+            <div className={styles.normalLineText}>100%</div>
+          </div>
+          {getPerformanceIndicator('CPU', req.cpu)}
+          {getPerformanceIndicator('GPU', req.gpu)} {getPerformanceIndicator('RAM', req.ram)}
+        </div>
+      </div>
     );
   };
 
