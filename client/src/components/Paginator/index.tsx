@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 type PropsType = {
   countComponents: number;
   countComponentsOnPage: number;
-  setPagination: ({}: { from: number; count: number }) => void;
+  setPagination: (params: { from: number; count: number }) => void;
 };
 
 const Paginator = ({ countComponents, countComponentsOnPage, setPagination }: PropsType): JSX.Element => {

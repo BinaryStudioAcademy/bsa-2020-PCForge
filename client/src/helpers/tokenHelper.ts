@@ -7,3 +7,7 @@ export const getToken = async (): Promise<string | null> => {
 export const setToken = async (token: string): Promise<void> => {
   window.localStorage.setItem(keyToken, token);
 };
+
+export const clearToken = async (): Promise<void> => {
+  window.localStorage.removeItem(keyToken);
+};

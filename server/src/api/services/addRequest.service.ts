@@ -3,12 +3,17 @@ import { AddRequestModel, AddRequestCreationAttributes } from "../../data/models
 import { IWithMeta } from "../../data/repositories/base.repository";
 import { IAddRequestFilter } from "../../data/repositories/filters/addRequest.filter";
 import { IAddRequestMiddleware } from "../middlewares/addRequest.middleware";
+import { triggerServerError } from "../../helpers/global.helper";
 
 export class AddRequestService {
   constructor(private repository: AddRequestRepository) {}
 
   async getAddRequestById(id: string): Promise<AddRequestModel> {
-    return await this.repository.getAddRequestById(id);
+    const addRequest = await this.repository.getAddRequestById(id);
+    if (!addRequest) {
+      triggerServerError(`Add request with id: ${id} does not exists`, 404);
+    }
+    return addRequest;
   }
 
   async getAllAddRequests(filter: IAddRequestFilter): Promise<IWithMeta<AddRequestModel>> {
@@ -31,10 +36,7 @@ export class AddRequestService {
     const { id, data } = inputAddRequest;
     const oldAddRequest = await this.repository.getAddRequestById(id);
     if (!oldAddRequest) {
-      throw {
-        error: `Add request with id: ${id} does not exists`,
-        status: 404
-      }
+      triggerServerError(`Add request with id: ${id} does not exists`, 404);
     }
     return await this.repository.updateAddRequest(id, data);
   }

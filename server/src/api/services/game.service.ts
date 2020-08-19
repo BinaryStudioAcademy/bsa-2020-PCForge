@@ -3,12 +3,16 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { GameRepository } from '../../data/repositories/game.repository';
 import { Op } from 'sequelize';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class GameService {
   constructor(private repository: GameRepository) {}
 
   async getGameById(id: string): Promise<GameModel> {
     const game = await this.repository.getGameById(id);
+    if (!game) {
+      triggerServerError(`Game with id: ${id} does not exists`, 404);
+    }
     return game;
   }
 
@@ -26,7 +30,7 @@ export class GameService {
     const { id, data } = inputGame;
     const oldGame = await this.repository.getGameById(id);
     if (!oldGame) {
-      throw new Error(`Game with id: ${id} does not exists`);
+      triggerServerError(`Game with id: ${id} does not exists`, 404);
     }
     const game = await this.repository.updateGameById(id, data);
     return game;

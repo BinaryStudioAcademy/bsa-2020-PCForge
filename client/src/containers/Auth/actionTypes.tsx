@@ -10,6 +10,8 @@ export const AUTH_VALIDATION_ERROR = 'AUTH_VALIDATION_ERROR';
 export const AUTH_KEEP_SIGN_IN = 'AUTH_KEEP_SIGN_IN';
 export const AUTH_LOADING_STATUS = 'AUTH_LOADING_STATUS';
 export const AUTH_SWITCH_AUTH_PAGE = 'AUTH_SWITCH_AUTH_PAGE';
+export const AUTH_REGISTRATION_SUCCESS = 'AUTH_REGISTRATION_SUCCESS';
+export const AUTH_REGISTRATION_ERROR = 'AUTH_REGISTRATION_ERROR';
 
 interface changeEmailAction {
   type: typeof AUTH_CHANGE_EMAIL;
@@ -48,7 +50,7 @@ export interface loginRequestFailure {
   };
 }
 
-interface registerRequestAction {
+export interface registerRequestAction {
   type: typeof AUTH_REGISTER_REQUEST;
   payload: {
     email: string;
@@ -84,6 +86,20 @@ interface switchAuthPage {
   };
 }
 
+export interface registrationSuccess {
+  type: typeof AUTH_REGISTRATION_SUCCESS;
+  payload: {
+    isRegistration: boolean;
+  };
+}
+
+export interface registrationError {
+  type: typeof AUTH_REGISTRATION_ERROR;
+  payload: {
+    message: string;
+  };
+}
+
 export type AuthActionTypes =
   | changeEmailAction
   | changePasswordAction
@@ -94,4 +110,6 @@ export type AuthActionTypes =
   | validationErrorAction
   | keepSignedInAction
   | changeLoadingStatusAction
-  | switchAuthPage;
+  | switchAuthPage
+  | registrationSuccess
+  | registrationError;
