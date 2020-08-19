@@ -5,6 +5,14 @@ import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
 import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import PasswordInput from '../PasswordInput/PasswordInput';
+import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import { setToken } from 'helpers/tokenHelper';
+import history from 'browserHistory';
+import { Routes } from 'common/enums';
+import gLogo from 'assets/images/g-logo.png';
 
 interface ILoginFormProps {
   email: string;
@@ -29,6 +37,13 @@ const LoginForm = ({
   login,
   switchToRegistration,
 }: ILoginFormProps): JSX.Element => {
+  const googleClientId = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!;
+
+  const googleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    setToken((response as GoogleLoginResponse).tokenId);
+    history.push(Routes.DEFAULT);
+  };
+
   return (
     <div className={styles.loginWrapper}>
       <form className={styles.loginForm}>
@@ -62,7 +77,22 @@ const LoginForm = ({
             Login
           </Button>
         </div>
+        <div className={styles.googleBtnHolder}>
+          <div className={styles.separator}>or</div>
+          <GoogleLogin
+            clientId={googleClientId}
+            render={(renderProps) => (
+              <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                <img src={gLogo}></img>Sign in with Google
+              </Button>
+            )}
+            onSuccess={googleLoginSuccess}
+            onFailure={(res) => console.log(res)}
+            cookiePolicy={'single_host_origin'}
+          />
+        </div>
       </form>
+
       <span className={styles.registerBox}>
         Don't have an account?{' '}
         <span onClick={switchToRegistration} className={[styles.registerLink, 'link'].join(' ')}>

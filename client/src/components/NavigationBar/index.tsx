@@ -25,8 +25,8 @@ interface IListNavigatinBar {
   link: string;
 }
 
-const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultSelected: number) => {
-  const [selected, setSelected] = React.useState<number>(defaultSelected ? defaultSelected : 0);
+const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultSelected: number | undefined) => {
+  const [selected, setSelected] = React.useState<number | undefined>(defaultSelected);
 
   return (
     <Drawer variant="permanent" anchor="left" className={styles.navigationBar}>
@@ -90,11 +90,14 @@ const listHeader: Array<IListNavigatinBar> = [
 ];
 
 interface selectedMenuProps {
-  selectedMenuItemNumber: number;
+  selectedMenuItemNumber?: number;
 }
 
 const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber }) => {
-  const selectedMenuItem = selectedMenuItemNumber < listHeader.length ? selectedMenuItemNumber : 0;
+  let selectedMenuItem = undefined;
+  if (selectedMenuItemNumber !== undefined) {
+    selectedMenuItem = selectedMenuItemNumber < listHeader.length ? selectedMenuItemNumber : 0;
+  }
   return NavigationBarRender(listHeader, selectedMenuItem);
 };
 export default NavigationBar;
