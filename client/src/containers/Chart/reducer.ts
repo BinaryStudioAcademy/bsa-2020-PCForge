@@ -19,6 +19,11 @@ const initialState: SetupChartState = {
         ram: 100,
       },
     },
+    overall: {
+      cpu: 0,
+      gpu: 0,
+      ram: 0,
+    },
   },
   error: '',
 };

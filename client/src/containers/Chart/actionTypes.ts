@@ -1,6 +1,6 @@
 import { Game } from 'common/models/game';
 import { Setup } from 'common/models/setup';
-import { SetupPerformance } from 'common/models/setupPerformance';
+import { ISetupPerformance } from 'common/models/setupPerformance';
 import { TopGame } from 'common/models/topGame';
 
 export enum SetupChartTypes {
@@ -48,7 +48,7 @@ export interface IFetchGamesRequestAction {
 interface IFetchPerformanceAction {
   type: SetupChartTypes.FETCH_PERFORMANCE_SUCCESS;
   payload: {
-    performance: SetupPerformance;
+    performance: ISetupPerformance;
   };
 }
 
@@ -95,7 +95,7 @@ export type SetupChartActions = SetupChartRequests | SetupChartSuccess | SetupCh
 export interface SetupChartState {
   topGames: TopGame[];
   searchedGames: Game[];
-  performance: SetupPerformance;
+  performance: ISetupPerformance;
   setup: Setup;
   error: string;
 }

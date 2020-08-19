@@ -1,7 +1,7 @@
 import webApi from 'api/webApiHelper';
-import { SetupPerformance } from 'common/models/setupPerformance';
+import { ISetupPerformance } from 'common/models/setupPerformance';
 
-export type TypeResponseAll = SetupPerformance;
+export type TypeResponseOne = ISetupPerformance;
 
 export interface IFilter {
   from: number;
@@ -10,7 +10,7 @@ export interface IFilter {
 
 const endpoint = '/performances/setup';
 
-export const getPerformance = async (setupId: number, gameId: number): Promise<TypeResponseAll> => {
+export const getPerformance = async (setupId: number, gameId: number): Promise<TypeResponseOne> => {
   const url = `${endpoint}/${setupId}`;
   return await webApi.get(url, { gameId });
 };
