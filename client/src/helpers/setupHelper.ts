@@ -1,10 +1,33 @@
-import { TypeSetup } from 'containers/BuilderPage/reducer';
+import { TypeSetup, TypeSetupForPost } from 'containers/BuilderPage/reducer';
 
 const keySetup = 'setup';
 
 export const getLocalSetup = async (): Promise<TypeSetup | null> => {
   const setupString = window.localStorage.getItem(keySetup);
   return setupString ? JSON.parse(setupString) : setupString;
+};
+
+export const getLocalSetupObjectForSave = () => {
+  const setupString = window.localStorage.getItem(keySetup);
+  const setup = setupString ? JSON.parse(setupString) : setupString;
+  const [cpuId, gpuId, motherboardId, ramId, powerSupplyId] = [
+    setup?.cpu?.id,
+    setup?.gpu?.id,
+    setup?.motherboard?.id,
+    setup?.ram?.id,
+    setup?.powersupply?.id,
+  ];
+  if (cpuId && gpuId && motherboardId && ramId && powerSupplyId) {
+    const setupForSave: TypeSetupForPost = {
+      cpuId,
+      gpuId,
+      motherboardId,
+      ramId,
+      powerSupplyId,
+    };
+    return setupForSave;
+  }
+  return null;
 };
 
 export const setLocalSetup = async (setup: TypeSetup): Promise<void> => {
