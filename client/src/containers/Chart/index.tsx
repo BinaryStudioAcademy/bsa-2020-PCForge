@@ -3,6 +3,7 @@ import { RootState } from 'redux/rootReducer';
 import { fetchTopGames, fetchPerformanceAnalysis, fetchSetup } from 'containers/Chart/actions';
 
 import React from 'react';
+import { RouteComponentProps } from 'react-router';
 import GameMatcherSystemRequirements from 'components/ChartComponents/SystemRequirements';
 import GameMatcherFpsAnalysis from 'components/ChartComponents/FpsAnalysis';
 import GameMatcherPerformanceReport from 'components/ChartComponents/PerfomanceReport';
@@ -22,16 +23,18 @@ const GameMatcherResult: React.FC<Props> = ({
   performance,
   topGames,
   setup,
+  match,
 }) => {
-  const DEFAULT_SETUP_ID = 5;
+  const setupId = parseInt(match.params.id, 10);
+  console.log(setupId);
   React.useEffect(() => {
-    fetchSetup(DEFAULT_SETUP_ID);
+    fetchSetup(setupId);
     fetchTopGames();
   }, []);
 
   React.useEffect(() => {
     if (topGames.length > 0) {
-      fetchPerformanceAnalysis(DEFAULT_SETUP_ID, topGames[0].id);
+      fetchPerformanceAnalysis(setupId, topGames[0].id);
     }
   }, [topGames]);
 
@@ -53,7 +56,7 @@ const GameMatcherResult: React.FC<Props> = ({
               <TopGames
                 games={topGames.map((topGame) => topGame.game)}
                 defaultSelected={0}
-                onGameSelected={(game: Game) => fetchPerformanceAnalysis(DEFAULT_SETUP_ID, game.id)}
+                onGameSelected={(game: Game) => fetchPerformanceAnalysis(setupId, game.id)}
               />
               <TestDifferentGame />
               <TestDifferentSystem />
@@ -64,6 +67,10 @@ const GameMatcherResult: React.FC<Props> = ({
     </PageComponent>
   );
 };
+
+interface MatchParams {
+  id: string;
+}
 
 const mapState = (state: RootState) => ({
   topGames: state.setupChart.topGames,
@@ -79,6 +86,6 @@ const mapDispatch = {
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux;
+type Props = PropsFromRedux & RouteComponentProps<MatchParams>;
 
 export default connector(GameMatcherResult);
