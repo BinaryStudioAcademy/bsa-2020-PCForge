@@ -1,41 +1,49 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
 import Title from './components/Title';
 import CardDisplay from './components/CardsDisplay';
+import { RootState } from 'redux/rootReducer';
+import { loadTopSetups } from './logic/actions';
+import { showSpinner } from 'containers/UserPage/logic/actions';
+import Spinner from 'components/Spinner';
 
-const Home = (): JSX.Element => {
-  const setups = [{
-    title: 'My game Setup',
-    image: "https://tecngoodness.files.wordpress.com/2016/09/prose.png?w=405",
-    description: "a lot of thigns here",
-  },
-  {
-    title: 'My game Setup 2',
-    image: "https://tecngoodness.files.wordpress.com/2016/09/prose.png?w=405",
-    description: "a lot of thigns here",
-  },
-  {
-    title: 'My game Setup 3',
-    image: "https://tecngoodness.files.wordpress.com/2016/09/prose.png?w=405",
-    description: "a lot of thigns here",
-  },
-  {
-    title: 'My game Setup 4',
-    image: "https://tecngoodness.files.wordpress.com/2016/09/prose.png?w=405",
-    description: "a lot of thigns here",
-  },
- ]
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux;
 
-  
-  return (
-    <PageComponent selectedMenuItemNumber={MenuItems.Home}>
-      <>
-        <Title />
-        <CardDisplay setups={setups}/>
-      </>
-    </PageComponent>
-  );
+const Home = (props: Props): JSX.Element => {
+  const { setups, loadTopSetups: topSetupsLoad, showSpinner } = props;
+
+  useEffect(() => {
+    topSetupsLoad();
+  }, []);
+
+  const renderContent = () => {
+    if (showSpinner) {
+      return <Spinner load />;
+    } else {
+      return (
+        <>
+          <Title />
+          {setups && setups.length && <CardDisplay setups={setups} />}
+        </>
+      );
+    }
+  };
+
+  return <PageComponent selectedMenuItemNumber={MenuItems.Home}>{renderContent()}</PageComponent>;
 };
 
-export default Home;
+const mapState = (state: RootState) => ({
+  setups: state.homePage.setups,
+  showSpinner: state.homePage.showSpinner,
+});
+
+const mapDispatch = {
+  loadTopSetups,
+};
+
+const connector = connect(mapState, mapDispatch);
+
+export default connector(Home);

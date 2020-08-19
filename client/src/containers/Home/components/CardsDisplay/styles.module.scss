@@ -18,17 +18,14 @@ $cardButtonColor: #EB3D55;
   display: flex;
   margin: 10px;
 
-
-  justify-content: space-between;
-
   .topSetup {
-    width: 40%;
+    width: 35%;
     height: 100%;
-    margin-right: 30px;
+    margin-right: 80px;
   }
 
   .smallerCards {
-    width: 60%;
+    width: 40%;
     height: 690px;
     display: flex;
     flex-wrap: wrap;
