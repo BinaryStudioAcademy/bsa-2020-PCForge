@@ -52,23 +52,28 @@ export const SetupPerformanceSchema: SwaggerSchema = {
   type: 'object',
   properties: {
     setup: SetupSchema,
-    overallCpu: {
-      type: 'number',
-      example: 1,
-      minimum: 1,
-      nullable: false,
-    },
-    overallGpu: {
-      type: 'number',
-      example: 1,
-      minimum: 1,
-      nullable: false,
-    },
-    overallRam: {
-      type: 'number',
-      example: 1,
-      minimum: 1,
-      nullable: false,
+    overall: {
+      type: 'object',
+      properties: {
+        cpu: {
+          type: 'number',
+          example: 5.5,
+          minimum: 0,
+          nullable: false,
+        },
+        gpu: {
+          type: 'number',
+          example: 5.5,
+          minimum: 0,
+          nullable: false,
+        },
+        ram: {
+          type: 'number',
+          example: 5.5,
+          minimum: 0,
+          nullable: false,
+        },
+      },
     },
     fpsAnalysis: {
       type: 'array',

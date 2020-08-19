@@ -1,5 +1,4 @@
-import { GameModel } from '../../data/models/game';
-import { SetupAttributes, SetupModel } from '../../data/models/setup';
+import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { GameRepository } from '../../data/repositories/game.repository';
 import { SetupRepository } from '../../data/repositories/setup.repository';
 
@@ -22,22 +21,21 @@ interface IFpsAnalysis {
   ultra: number;
 }
 
+interface IHardwareReport {
+  cpu: number;
+  gpu: number;
+  ram: number;
+}
+
 interface IReport {
-  minimal: {
-    cpu: number;
-    gpu: number;
-    ram: number;
-  };
-  recommended: {
-    cpu: number;
-    gpu: number;
-    ram: number;
-  };
+  minimal: IHardwareReport;
+  recommended: IHardwareReport;
 }
 
 export interface ISetupPerformance {
   report: IReport;
   fpsAnalysis: [IResolution, IFpsAnalysis][];
+  overall: IHardwareReport;
 }
 
 export class PerformanceService {
@@ -54,15 +52,25 @@ export class PerformanceService {
   ];
   private DEFAULT_RESOLUTION: Resolution = new Resolution(1920, 1080);
   private DEFAULT_FPS = 60;
-  private setup: SetupModel;
-  private game: GameModel;
 
-  private getOverallPerformance(minimal: number, recommended: number, currentPerformance: number): number {
-    if (currentPerformance <= minimal) return this.MINIMAL_PERFORMANCE;
-    if (currentPerformance >= recommended) return this.MAXIMUM_PERFORMANCE;
-    const performancePerRate = (recommended - minimal) / (this.MAXIMUM_PERFORMANCE - this.MINIMAL_PERFORMANCE);
-    const difference = currentPerformance - minimal;
-    return difference / performancePerRate;
+  private async getOverallPerformance(type: 'ram' | 'cpu' | 'gpu', currentValue: number): Promise<number> {
+    const { data: games } = await this.gameRepository.getAllGames(({
+      from: 0,
+      count: 100,
+      orderBy: { [type]: { recommended: 'DESC' } },
+    } as unknown) as IGameFilter);
+    const availableGames = games.filter((game) => {
+      switch (type) {
+        case 'ram':
+          return game.recommendedRamSize >= currentValue;
+        case 'cpu':
+          return game.recommendedCpu.performance >= currentValue;
+        case 'gpu':
+          return game.recommendedGpu.performance >= currentValue;
+      }
+    });
+    const result = (availableGames.length / games.length) * 10;
+    return Math.round(result * 10) / 10;
   }
 
   /**
@@ -99,10 +107,16 @@ export class PerformanceService {
     gameId: string,
     resolutions: IResolution[] = this.resolutions.map((r) => r.getIResolution())
   ): Promise<ISetupPerformance> {
-    this.setup = await this.setupRepository.getSetupById(id);
-    this.game = await this.gameRepository.getGameById(gameId);
-    const { cpu, gpu, ram } = this.setup;
-    const { minimalCpu, recommendedCpu, minimalGpu, recommendedGpu, minimalRamSize, recommendedRamSize } = this.game;
+    const { cpu, gpu, ram } = await this.setupRepository.getSetupById(id);
+    const {
+      minimalCpu,
+      recommendedCpu,
+      minimalGpu,
+      recommendedGpu,
+      minimalRamSize,
+      recommendedRamSize,
+    } = await this.gameRepository.getGameById(gameId);
+
     const fpsAnalysis: [IResolution, IFpsAnalysis][] = resolutions.map((resolution) => [
       resolution,
       this.getFpsAnalysis(
@@ -125,6 +139,11 @@ export class PerformanceService {
           gpu: this.getReport(recommendedGpu.performance, gpu.performance),
           ram: this.getReport(recommendedRamSize, ram.memorySize),
         },
+      },
+      overall: {
+        cpu: await this.getOverallPerformance('cpu', cpu.performance),
+        gpu: await this.getOverallPerformance('gpu', gpu.performance),
+        ram: await this.getOverallPerformance('ram', ram.memorySize),
       },
     };
     return performance;
