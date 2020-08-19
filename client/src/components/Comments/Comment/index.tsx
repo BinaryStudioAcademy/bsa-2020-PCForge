@@ -1,10 +1,9 @@
 import React from 'react';
-import { SetupComment } from 'common/models/comment';
+import { Comment } from 'common/models/comment';
 import styles from './styles.module.scss';
-import RatingBox from 'components/RatingBox';
 
 interface Props {
-  comment: SetupComment;
+  comment: Comment;
 }
 
 const CommentComponent: React.FC<Props> = (props): JSX.Element => {
@@ -15,10 +14,7 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
         <div className={styles.commentMeta}>
           <span className={styles.commentAuthor}>{comment.author}</span>
         </div>
-        <p className={styles.commentBody}>{comment.body}</p>
-        <div className={styles.ratingBoxWrapper}>
-          <RatingBox name={comment.id.toString()} disabled ratingValue={comment.rating} />
-        </div>
+        <p className={styles.commentBody}>{comment.value}</p>
       </div>
     </li>
   );

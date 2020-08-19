@@ -16,21 +16,21 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(comments);
   });
 
-  const getCommentSchema = GetOneQuery(AddRequestSchema);
-  fastify.get('/:id', getCommentSchema, async (request: GetOneAddRequest, reply) => {
+  const getOneSchema = GetOneQuery(AddRequestSchema);
+  fastify.get('/:id', getOneSchema, async (request: GetOneAddRequest, reply) => {
     const { id } = request.params;
     const comment = await AddRequestService.getAddRequestById(id);
     reply.send(comment);
   });
 
-  const createCommentSchema = CreateOneQuery(CreateAddRequestSchema, AddRequestSchema);
-  fastify.post('/', createCommentSchema, async (request: PostAddRequestRequest, reply) => {
+  const createOneSchema = CreateOneQuery(CreateAddRequestSchema, AddRequestSchema);
+  fastify.post('/', createOneSchema, async (request: PostAddRequestRequest, reply) => {
     const comment = await AddRequestService.createAddRequest(request.body, addRequestMiddleware);
     reply.send(comment);
   });
 
-  const updateCommentSchema = UpdateOneQuery(UpdateAddRequestSchema, AddRequestSchema);
-  fastify.put('/:id', updateCommentSchema, async (request: PutAddRequestRequest, reply) => {
+  const deleteOneSchema = UpdateOneQuery(UpdateAddRequestSchema, AddRequestSchema);
+  fastify.put('/:id', deleteOneSchema, async (request: PutAddRequestRequest, reply) => {
     const { id } = request.params;
     const newComment = await AddRequestService.updateAddRequestById({ id, data: request.body }, addRequestMiddleware);
     reply.send(newComment);

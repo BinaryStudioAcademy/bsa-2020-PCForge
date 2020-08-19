@@ -25,28 +25,28 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(comments);
   });
 
-  const getCommentSchema = GetOneQuery(CommentSchema);
-  fastify.get('/:id', getCommentSchema, async (request: GetOneCommentRequest, reply) => {
+  const getOneSchema = GetOneQuery(CommentSchema);
+  fastify.get('/:id', getOneSchema, async (request: GetOneCommentRequest, reply) => {
     const { id } = request.params;
     const comment = await CommentService.getCommentById(id);
     reply.send(comment);
   });
 
-  const createCommentSchema = CreateOneQuery(UpdateCommentSchema, CommentSchema);
-  fastify.post('/', createCommentSchema, async (request: PostCommentRequest, reply) => {
+  const createOneSchema = CreateOneQuery(UpdateCommentSchema, CommentSchema);
+  fastify.post('/', createOneSchema, async (request: PostCommentRequest, reply) => {
     const comment = await CommentService.createComment(request.body, commentMiddleware);
     reply.send(comment);
   });
 
-  const updateCommentSchema = UpdateOneQuery(UpdateCommentSchema, CommentSchema);
-  fastify.put('/:id', updateCommentSchema, async (request: PutCommentRequest, reply) => {
+  const updateOneSchema = UpdateOneQuery(UpdateCommentSchema, CommentSchema);
+  fastify.put('/:id', updateOneSchema, async (request: PutCommentRequest, reply) => {
     const { id } = request.params;
     const newComment = await CommentService.updateCommentById({ id, data: request.body }, commentMiddleware);
     reply.send(newComment);
   });
 
-  const deleteCommentSchema = DeleteOneQuery();
-  fastify.delete('/:id', deleteCommentSchema, async (request: DeleteCommentRequest, reply) => {
+  const deleteOneSchema = DeleteOneQuery();
+  fastify.delete('/:id', deleteOneSchema, async (request: DeleteCommentRequest, reply) => {
     const { id } = request.params;
     await CommentService.deleteCommentById(id);
     reply.send({});

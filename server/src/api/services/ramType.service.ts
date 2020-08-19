@@ -2,12 +2,16 @@ import { RamTypeCreationAttributes, RamTypeModel } from '../../data/models/ramty
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
 import { IFilter } from '../../data/repositories/filters/base.filter';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class RamTypeService {
   constructor(private repository: RamTypeRepository) {}
 
   async getRamTypeById(id: string): Promise<RamTypeModel> {
     const ramType = await this.repository.getRamTypeById(id);
+    if (!ramType) {
+      triggerServerError(`Ram type with id: ${id} does not exists`, 404);
+    }
     return ramType;
   }
 
@@ -25,7 +29,7 @@ export class RamTypeService {
     const { id, data } = inputRamType;
     const oldRamType = await this.repository.getRamTypeById(id);
     if (!oldRamType) {
-      throw new Error(`RamType with id: ${id} does not exists`);
+      triggerServerError(`Ram type with id: ${id} does not exists`, 404);
     }
     const ramType = await this.repository.updateRamTypeById(id, data);
     return ramType;
