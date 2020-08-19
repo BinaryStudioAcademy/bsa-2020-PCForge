@@ -61,11 +61,14 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
 
   const testGroup = {
     group: Group.cpu,
-    filters: [
-      {
-        type:
-      }
-    ]
+    filterRange: {
+      title: 'Processor Frequency',
+      min: 1000,
+      max: 5000,
+      step: 100,
+      dimension: 'MHz',
+      key: 'clockspeed',
+    },
   };
 
   return (

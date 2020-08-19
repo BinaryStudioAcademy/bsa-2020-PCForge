@@ -31,6 +31,14 @@ const servicesGetAll = {
 type PropsType = {
   cfg: {
     group: Group;
+    filterRange: {
+      title: string;
+      min: number;
+      max: number;
+      step: number;
+      dimension: string;
+      key: string;
+    } | null;
   };
   setup: TypeSetup;
   filter: TypeFilterBuilder;
@@ -41,6 +49,11 @@ type PropsType = {
   expanded: Group | false | ComponentGroups; // todo: del ComponentGroups
   onChangeExpanded: (expanded: Group | ComponentGroups | false) => void; // todo: del ComponentGroups
   showFilters: TypeShowFilters;
+};
+
+type TypeRange = {
+  minValue: number;
+  maxValue: number;
 };
 
 const GroupComponent = ({
@@ -60,15 +73,23 @@ const GroupComponent = ({
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
+  const [range, setRange] = useState({} as TypeRange);
 
   const selectedComponent = setup[cfg.group];
 
   const getComponents = async () => {
     setLoad(true);
     // const queryFilter = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
+    let queryRange = {};
+    if (cfg.filterRange) {
+      queryRange = {
+        [`${cfg.filterRange.key}[minValue]`]: range.minValue,
+        [`${cfg.filterRange.key}[maxValue]`]: range.maxValue,
+      };
+    }
+
     try {
-      // const res = await getAllCpu({ ...queryFilter, ...pagination });
-      const res = await servicesGetAll[cfg.group]({ ...pagination });
+      const res = await servicesGetAll[cfg.group]({ ...pagination, ...queryRange });
       setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -100,8 +121,12 @@ const GroupComponent = ({
     />
   ));
 
-  function onChangeFilterRange() {
-    // do nothing.
+  function onChangeFilterRange([minValue, maxValue]: number[]): void {
+    setRange({
+      ...range,
+      minValue,
+      maxValue,
+    });
   }
 
   return (
@@ -124,13 +149,15 @@ const GroupComponent = ({
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
             <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
-            <FilterRange
-              title="Processor Frequency"
-              min={1000}
-              max={3000}
-              dimension="MHz"
-              onChange={onChangeFilterRange}
-            />
+            {cfg.filterRange && (
+              <FilterRange
+                title={cfg.filterRange.title}
+                min={cfg.filterRange.min}
+                max={cfg.filterRange.max}
+                dimension={cfg.filterRange.dimension}
+                onChange={onChangeFilterRange}
+              />
+            )}
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listComponentElements}
