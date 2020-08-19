@@ -1,5 +1,5 @@
 import { User } from 'common/models/user';
-import { IAuthPayload } from 'containers/Auth/interfaces';
+import { IAuthPayload, IRegPayload } from 'containers/Auth/interfaces';
 import { setToken } from 'helpers/tokenHelper';
 import api from 'api/webApiHelper';
 
@@ -16,6 +16,12 @@ export class AuthService {
   async createUser(data: IAuthPayload): Promise<User> {
     const apiRoute = '/users';
     const response = await api.post(apiRoute, data);
+    return response;
+  }
+
+  async register(request: IRegPayload): Promise<User> {
+    const apiRoute = '/users';
+    const response = await api.post(apiRoute, request);
     return response;
   }
 }

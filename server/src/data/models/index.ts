@@ -14,6 +14,7 @@ import { SocketFactory } from './socket';
 import { TopGameFactory } from './topgame';
 import { UserFactory } from './user';
 import { UserGameFactory } from './usergame';
+import { AddRequestFactory } from './addRequest';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const initializeModels = (orm: Sequelize) => {
@@ -32,6 +33,7 @@ export const initializeModels = (orm: Sequelize) => {
   const UserModel = UserFactory(orm);
   const UserGameModel = UserGameFactory(orm);
   const TopGameModel = TopGameFactory(orm);
+  const AddRequestModel = AddRequestFactory(orm);
 
   CommentModel.belongsTo(UserModel);
   CommentModel.belongsTo(SetupModel, { foreignKey: 'commentableId', constraints: false });
@@ -96,8 +98,11 @@ export const initializeModels = (orm: Sequelize) => {
   TopGameModel.belongsTo(GameModel);
   GameModel.hasOne(TopGameModel);
 
+  AddRequestModel.belongsTo(UserModel);
+
   // eslint-disable-next-line prettier/prettier
   return {
+    AddRequest: AddRequestModel,
     Comment: CommentModel,
     Cpu: CpuModel,
     Game: GameModel,

@@ -3,12 +3,17 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { RateRepository } from '../../data/repositories/rate.repository';
 import { IRateMiddleware } from '../middlewares/rate.middleware';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class RateService {
   constructor(private repository: RateRepository) {}
 
   async getRateById(id: string): Promise<RateModel> {
-    return await this.repository.getRateById(id);
+    const rate = await this.repository.getRateById(id);
+    if (!rate) {
+      triggerServerError(`Rate with id: ${id} does not exists`, 404);
+    }
+    return rate;
   }
 
   async getAllRates(filter: IRateFilter): Promise<IWithMeta<RateModel>> {
@@ -26,9 +31,10 @@ export class RateService {
   ): Promise<RateModel> {
     const { id, data } = inputRate;
     await rateMiddleware(data);
+
     const oldRate = await this.repository.getRateById(id);
     if (!oldRate) {
-      throw new Error(`Rate with id: ${id} does not exists`);
+      triggerServerError(`Rate with id: ${id} does not exists`, 404);
     }
     return await this.repository.updateRateById(id, data);
   }
