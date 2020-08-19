@@ -65,7 +65,7 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
           },
         ],
         order: [
-          ...((inputFilter.orderBy.cpu
+          ...((inputFilter?.orderBy?.cpu
             ? [
                 [
                   {
@@ -77,7 +77,7 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
                 ],
               ]
             : []) as any),
-          ...((inputFilter.orderBy.gpu
+          ...((inputFilter?.orderBy?.gpu
             ? [
                 [
                   {
@@ -89,7 +89,7 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
                 ],
               ]
             : []) as any),
-          ...((inputFilter.orderBy.ram ? [['recommendedRamSize', inputFilter.orderBy.ram.recommended]] : []) as any),
+          ...((inputFilter?.orderBy?.ram ? [['recommendedRamSize', inputFilter.orderBy.ram.recommended]] : []) as any),
           ['id', 'ASC'],
         ],
       },
