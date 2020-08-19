@@ -1,0 +1,74 @@
+@import '../../../styles/variables.scss';
+
+.modalTitle {
+  margin-top: 0;
+}
+
+.formItem {
+  margin-bottom: 20px;
+}
+
+.textArea {
+  width: 500px;
+  max-width: 100%;
+
+  resize: none;
+  font-weight: normal;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 20px;
+  outline: none;
+  background-color: #575858;
+  border: none;
+  color: #c7c3c3;
+  height: 200px;
+  font-family: Lato;
+}
+
+.inputTitle {
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+
+.titleInput {
+  width: 100%;
+}
+
+.buttonsBox {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  .button {
+    margin-right: 10px;
+  }
+}
+
+.fileInputBox {
+  margin-bottom: 20px;
+  display: flex;
+  max-width: 500px;
+  align-items: center;
+
+  .fileInputButton {
+    margin-right: 10px;
+    width: 200px;
+  }
+
+  .fileInputField {
+    display: none;
+  }
+
+  .fileInputLabel {
+    display: inline-block;
+    z-index: 100;
+  }
+}
+
+.fileName {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.saveButton:disabled {
+  opacity: 0.4;
+}
