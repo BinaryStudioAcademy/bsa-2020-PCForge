@@ -17,12 +17,17 @@ import styles from 'components/BuilderPage/styles.module.scss';
 type PropsType = {
   filter: TypeFilterBuilder;
   selectedComponent: TypeRam | null;
-  onUpdateFilter: ({}: TypeFilterBuilder) => void;
-  onAddComponent: ({}: TypeRam) => void;
+  onUpdateFilter: (filter: TypeFilterBuilder) => void;
+  onAddComponent: (ram: TypeRam) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
   onChangeExpanded: (expanded: ComponentGroups | false) => void;
   showFilters: TypeShowFilters;
+};
+
+type TypeMemorySize = {
+  minValue: number;
+  maxValue: number;
 };
 
 const GroupRams = ({
@@ -36,16 +41,20 @@ const GroupRams = ({
   showFilters,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
+  const minMemorySize = 1;
+  const maxMemorySize = 64;
   const [rams, setRams] = useState([] as TypeRam[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
+  const [memorySize, setMemorySize] = useState({} as TypeMemorySize);
   const [load, setLoad] = useState(false);
 
   const getRams = async () => {
     setLoad(true);
     const queryFilter = filter.ramTypeIdSet.size ? { typeId: [Array.from(filter.ramTypeIdSet)].join(',') } : {};
+    const querySize = { 'memorySize[minValue]': memorySize.minValue, 'memorySize[maxValue]': memorySize.maxValue };
     try {
-      const res = await getAllRam({ ...queryFilter, ...pagination });
+      const res = await getAllRam({ ...queryFilter, ...pagination, ...querySize });
       setRams(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -57,7 +66,7 @@ const GroupRams = ({
 
   useEffect(() => {
     getRams();
-  }, [filter, pagination]);
+  }, [filter, pagination, memorySize]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -77,8 +86,12 @@ const GroupRams = ({
     />
   ));
 
-  function onChangeFilterRange() {
-    // do nothing.
+  function onChangeFilterRange([minValue, maxValue]: number[]): void {
+    setMemorySize({
+      ...memorySize,
+      minValue,
+      maxValue,
+    });
   }
 
   return (
@@ -100,7 +113,13 @@ const GroupRams = ({
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
             <FilterRamTypes show={showFilters.ramType} filter={filter} onUpdateFilter={onUpdateFilter} />
-            <FilterRange title="Memory size" min={1} max={64} dimension="Gb" onChange={onChangeFilterRange} />
+            <FilterRange
+              title="Memory size"
+              min={minMemorySize}
+              max={maxMemorySize}
+              dimension="Gb"
+              onChange={onChangeFilterRange}
+            />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listRamElements}

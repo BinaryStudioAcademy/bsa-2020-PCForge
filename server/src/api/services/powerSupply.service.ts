@@ -2,12 +2,16 @@ import { PowerSupplyCreationAttributes, PowerSupplyModel } from '../../data/mode
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { PowerSupplyRepository } from '../../data/repositories/powerSupply.repository';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class PowerSupplyService {
   constructor(private repository: PowerSupplyRepository) {}
 
   async getPowerSupplyById(id: string): Promise<PowerSupplyModel> {
     const powerSupply = await this.repository.getPowerSupplyById(id);
+    if (!powerSupply) {
+      triggerServerError(`PowerSupply with id: ${id} does not exists`, 404);
+    }
     return powerSupply;
   }
 
@@ -28,7 +32,7 @@ export class PowerSupplyService {
     const { id, data } = inputPowerSupply;
     const oldPowerSupply = await this.repository.getPowerSupplyById(id);
     if (!oldPowerSupply) {
-      throw new Error(`PowerSupply with id: ${id} does not exists`);
+      triggerServerError(`PowerSupply with id: ${id} does not exists`, 404);
     }
     const PowerSupply = await this.repository.updatePowerSupplyById(id, data);
     return PowerSupply;

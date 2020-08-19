@@ -2,12 +2,16 @@ import { SocketCreationAttributes, SocketModel } from '../../data/models/socket'
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SocketRepository } from '../../data/repositories/socket.repository';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class SocketService {
   constructor(private repository: SocketRepository) {}
 
   async getSocketById(id: string): Promise<SocketModel> {
     const socket = await this.repository.getSocketById(id);
+    if (!socket) {
+      triggerServerError(`Socket with id: ${id} does not exists`, 404);
+    }
     return socket;
   }
 
@@ -25,7 +29,7 @@ export class SocketService {
     const { id, data } = inputSocket;
     const oldSocket = await this.repository.getSocketById(id);
     if (!oldSocket) {
-      throw new Error(`Socket with id: ${id} does not exists`);
+      triggerServerError(`Socket with id: ${id} does not exists`, 404);
     }
     const socket = await this.repository.updateSocketById(id, data);
     return socket;

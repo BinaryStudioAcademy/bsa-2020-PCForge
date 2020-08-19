@@ -17,8 +17,8 @@ import styles from 'components/BuilderPage/styles.module.scss';
 type PropsType = {
   filter: TypeFilterBuilder;
   selectedComponent: TypeMotherboard | null;
-  onUpdateFilter: ({}: TypeFilterBuilder) => void;
-  onAddComponent: ({}: TypeMotherboard) => void;
+  onUpdateFilter: (filter: TypeFilterBuilder) => void;
+  onAddComponent: (motherboard: TypeMotherboard) => void;
   onRemoveSelectedComponent: () => void;
   expanded: boolean;
   onChangeExpanded: (expanded: ComponentGroups | false) => void;
