@@ -45,10 +45,8 @@ export class SetupRepository extends BaseRepository<SetupModel> {
       limit: filter.count,
     });
 
-    const globalCount = await this.model.count();
-    // here is a bug in sequelize: it returns array instead of number, so we use length
-    // https://github.com/sequelize/sequelize/issues/9109
-    const countAfterFiltering = ((result.count as unknown) as Record<string, unknown>[]).length;
+    const globalCount = result.count;
+    const countAfterFiltering = result.rows.length;
 
     return {
       meta: { globalCount, countAfterFiltering },
