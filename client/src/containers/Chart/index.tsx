@@ -43,7 +43,6 @@ const GameMatcherResult: React.FC<Props> = ({
   const onGameSelected = (game: Game) => {
     fetchPerformanceAnalysis(setupId, game.id);
     const index = topGames.findIndex((topGame) => topGame.id === game.id);
-    console.log(index);
     setTopGameSelected(index);
   };
 

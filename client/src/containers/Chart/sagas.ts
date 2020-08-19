@@ -27,7 +27,7 @@ function* watchFetchTopGames() {
 
 function* fetchGames(action: IFetchGamesRequestAction) {
   try {
-    const { data: games } = yield call(getAllGames, action.payload);
+    const { data: games } = yield call(getAllGames, { name: action.payload.name, from: 0, count: 150 });
     yield put(setGames(games));
   } catch (error) {
     yield put(setError(error));

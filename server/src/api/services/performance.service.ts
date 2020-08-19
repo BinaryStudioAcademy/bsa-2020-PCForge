@@ -69,7 +69,7 @@ export class PerformanceService {
           return game.recommendedGpu.performance >= currentValue;
       }
     });
-    const result = (availableGames.length / games.length) * 10;
+    const result = 10 - (availableGames.length / games.length) * 10;
     return Math.round(result * 10) / 10;
   }
 
