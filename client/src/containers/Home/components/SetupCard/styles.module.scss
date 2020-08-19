@@ -1,20 +1,28 @@
+@import 'styles/index';
+
 .setupCard {
-  height: 250px;
-  width: 250px;
-  background-color: rgb(21, 22, 15);
+  height: 335px;
+  width: 335px;
+  background-color:$colorBackgroundGray;
   margin: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-//   align-items: center;
-  padding: 15px;
+  padding: 45px 30px;
   border-radius: 6px;
+  position: relative;
+  transition: all 0.5s;
+
 
   &.bigCard {
     height: 100%;
-    width: 40%;
-    background-color: rgb(131, 97, 97);
-    margin: 10px;
+    width: 100%;
+    padding:45px 35px;
+    margin:0;
+
+    .setupTitle {
+      font-size: 36px;
+    }
   }
 
   .setupImage {
@@ -31,8 +39,34 @@
 
   .setupTitle {
       margin-bottom: 7px;
+      font-size: 20px;
   }
+
   .setupBack {
     display: none;
   }
+
+
+  &:hover {
+cursor: pointer;
+
+    .setupBack {
+      display: block;
+      position: absolute;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      z-index: 100;
+      background-color:$colorBackgroundGray;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      
+    }
+  }
+  
+  
 }
+

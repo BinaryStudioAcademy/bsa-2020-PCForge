@@ -26,11 +26,11 @@ const SetupCard: React.FC<SetupCardProps> = ({ image, title, description, big, c
         <img src={image} alt="" />
       </div>
       <div className={styles.setupTitle}>{title}</div>
-      <RatingBox ratingValue={3.4} disabled={false} name={title} />
+      <RatingBox ratingValue={5} disabled={false} name={title} />
 
       <div className={styles.setupBack}>
         <div className={styles.setupDescription}>{description}</div>
-        <Button icon="Build" buttonType={ButtonType.primary}>
+        <Button icon="ArrowForward" buttonType={ButtonType.primary}>
           Find Out More
         </Button>
       </div>
