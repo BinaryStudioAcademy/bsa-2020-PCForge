@@ -50,12 +50,16 @@ const GroupComponent = ({
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
   const [range, setRange] = useState({} as TypeRange);
+  const [marks, setMarks] = useState([] as { value: number }[]);
+  const [rangeLimits, setrangeLimits] = useState({ min: null, max: null } as {
+    min: number | null;
+    max: number | null;
+  });
 
   const filter = cfg.filter;
   // const selectedComponent = setup[cfg.group];
 
-  const getComponents = async () => {
-    setLoad(true);
+  const getFilters = () => {
     const keyRamType = cfg.group === GroupName.ram ? 'typeId' : 'ramTypeId';
     const querySocketId = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
     const queryRamTypeId = filter.ramTypeIdSet.size
@@ -76,6 +80,13 @@ const GroupComponent = ({
         [`${filterRangeInfo[cfg.group].key}[maxValue]`]: range.maxValue,
       };
     }
+    return { pagination, queryFilter, queryRange };
+  };
+
+  const getComponents = async () => {
+    setLoad(true);
+
+    const { pagination, queryFilter, queryRange } = getFilters();
 
     try {
       const res = await servicesGetAll[cfg.group]({ ...pagination, ...queryFilter, ...queryRange });
@@ -89,10 +100,32 @@ const GroupComponent = ({
     }
   };
 
+  const getAllComponents = async () => {
+    const { queryFilter, queryRange } = getFilters();
+    try {
+      const res = await servicesGetAll[cfg.group]({ ...queryFilter, ...queryRange });
+      if (filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key')) {
+        const values = (res.data as []).map((component) => component[filterRangeInfo[cfg.group].key as string]);
+        const valuesSort = Array.from(new Set(values)).sort((a, b) => a - b);
+        const marksSort = valuesSort.map((mk) => ({ value: mk }));
+        setMarks(marksSort);
+        setrangeLimits({ min: Math.min(...valuesSort), max: Math.max(...valuesSort) });
+      }
+
+      setComponents(res.data);
+      setCount(res.meta.countAfterFiltering);
+    } catch (err) {
+      console.log(err); // add notification
+    }
+  };
+
   useEffect(() => {
-    console.log('filter: ', filter);
     getComponents();
   }, [filter, pagination]);
+
+  useEffect(() => {
+    getAllComponents();
+  }, [filter]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -165,8 +198,9 @@ const GroupComponent = ({
             {filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key') && (
               <FilterRange
                 title={filterRangeInfo[cfg.group].title ?? ''}
-                min={filterRangeInfo[cfg.group].min ?? 0}
-                max={filterRangeInfo[cfg.group].max ?? 10}
+                min={filterRangeInfo[cfg.group].min ?? rangeLimits.min ?? 0}
+                max={filterRangeInfo[cfg.group].max ?? rangeLimits.max ?? 10}
+                marks={marks}
                 dimension={filterRangeInfo[cfg.group].unit ?? ''}
                 onChange={onChangeFilterRange}
               />

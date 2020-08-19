@@ -35,17 +35,17 @@ export const filterRangeInfo: TypeFilterRangeInfo = {
   [GroupName.gpu]: {
     title: 'Memory size',
     unit: 'Mb',
-    key: 'clockspeed',
+    key: 'memorySize',
   },
   [GroupName.ram]: {
     title: 'Memory size',
     unit: 'Gb',
-    key: 'clockspeed',
+    key: 'memorySize',
   },
   // [GroupName.motherboard]: {},
   [GroupName.powersupply]: {
     title: 'Power',
     unit: 'W',
-    key: 'clockspeed',
+    key: 'power',
   },
 };

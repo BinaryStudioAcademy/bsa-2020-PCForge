@@ -12,11 +12,12 @@ type PropsType = {
   min: number;
   max: number;
   dimension?: string;
-  step?: number;
+  marks?: { value: number }[];
+  step?: number | null;
   onChange: (range: number[]) => void;
 };
 
-const FilterRange = ({ title, min, max, onChange, dimension = '', step = 1 }: PropsType): JSX.Element => {
+const FilterRange = ({ title, min, max, onChange, marks = [], dimension = '', step = 1 }: PropsType): JSX.Element => {
   const [value, setValue] = useState([min, max]);
 
   const onChangeHandler = (ev: React.ChangeEvent<Record<string, unknown>>, value: number | number[]) => {
@@ -40,8 +41,9 @@ const FilterRange = ({ title, min, max, onChange, dimension = '', step = 1 }: Pr
         <Slider
           value={value}
           min={min}
-          step={step}
+          step={marks.length ? null : step}
           max={max}
+          marks={marks}
           onChange={onChangeHandler}
           valueLabelDisplay="auto"
           aria-labelledby="range-slider"
