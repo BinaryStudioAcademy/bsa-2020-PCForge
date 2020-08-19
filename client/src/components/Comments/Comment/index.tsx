@@ -1,10 +1,9 @@
 import React from 'react';
-import { SetupComment } from 'common/models/comment';
+import { Comment } from 'common/models/comment';
 import styles from './styles.module.scss';
-import RatingBox from 'components/RatingBox';
 
 interface Props {
-  comment: SetupComment;
+  comment: Comment;
 }
 
 const CommentComponent: React.FC<Props> = (props): JSX.Element => {

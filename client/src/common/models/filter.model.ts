@@ -4,3 +4,9 @@ export type CommentFilter = {
   commentableType: 'game' | 'setup' | '';
   commentableId: number;
 };
+
+export type FilterModel = {
+  name?: string;
+  from?: number;
+  count?: number;
+};

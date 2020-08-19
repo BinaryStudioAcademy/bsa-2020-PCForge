@@ -1,6 +1,6 @@
 import { User } from './user';
 
-export interface SetupComment {
+export interface Comment {
   id: number;
   authorId: number;
   user: User;

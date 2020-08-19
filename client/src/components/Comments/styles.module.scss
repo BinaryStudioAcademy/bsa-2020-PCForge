@@ -1,0 +1,45 @@
+@import 'styles/variables';
+.commentsRoot {
+  .reviewHeader {
+    margin-top: 0;
+    font-size: 24px;
+    line-height: 28px;
+    color: $colorTextWhite;
+  }
+
+  .userReviewRoot {
+    display: flex;
+    flex-direction: column;
+
+    .userReviewInput.userReviewInput {
+      padding: 0.5rem 1rem;
+    }
+
+    .userReviewBlock {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      flex-grow: 1;
+      justify-content: flex-end;
+      padding: 0 5px;
+
+      .addCommentButton {
+        width: 160px;
+      }
+    }
+  }
+
+  .commentsList {
+    padding: 0;
+
+    li:last-of-type {
+      border: none;
+    }
+  }
+}
+
+@media (max-width: 586px) {
+  .userReviewBlock {
+    flex-direction: column;
+  }
+}

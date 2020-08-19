@@ -3,16 +3,17 @@ import { Switch, Route } from 'react-router-dom';
 import { Routes } from 'common/enums';
 import UserPage from 'containers/UserPage';
 import Chart from 'containers/Chart';
-import GameMatcherPage from './GameMatcher';
+import GameMatcherPage from 'containers/GameMatcher';
 import Login from 'containers/Auth';
 import NotFound from 'containers/NotFound';
-import ViewSetupPage from './SetupPage';
-import Home from './Home';
-import RootComponent from './Root';
-import SetupPage from './SetupsPage';
-import BuilderPage from './BuilderPage';
+import ViewSetupPage from 'containers/SetupPage';
+import Home from 'containers/Home';
+import RootComponent from 'containers/Root';
+import SetupPage from 'containers/SetupsPage';
+import BuilderPage from 'containers/BuilderPage';
 import QuickMatcher from 'containers/QuickMatcher';
 import Notification from 'containers/Notification';
+import GamePage from 'containers/GamePage';
 
 export default class App extends Component {
   render(): JSX.Element {
@@ -27,6 +28,7 @@ export default class App extends Component {
           <Route exact path={Routes.SETUP} component={ViewSetupPage} />
           <Route exact path={Routes.DEFAULT} component={Home} />
           <Route exact path={Routes.SETUPS} component={SetupPage} />
+          <Route exact path={Routes.GAME} component={GamePage} />
           <Route exact path={'/builder/quick-matcher'} component={QuickMatcher} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>

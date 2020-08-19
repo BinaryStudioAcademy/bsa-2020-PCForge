@@ -8,6 +8,7 @@ import {
   AUTH_REGISTER_REQUEST,
   AUTH_SWITCH_AUTH_PAGE,
   AUTH_VALIDATION_ERROR,
+  AUTH_REGISTRATION_SUCCESS,
 } from 'containers/Auth/actionTypes';
 
 export const changeEmail = (value: string): AuthActionTypes => ({
@@ -38,6 +39,13 @@ export const registerRequest = (email: string, password: string): AuthActionType
   payload: {
     email,
     password,
+  },
+});
+
+export const registered = (isRegistration: boolean): AuthActionTypes => ({
+  type: AUTH_REGISTRATION_SUCCESS,
+  payload: {
+    isRegistration,
   },
 });
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './styles.module.scss';
+import styles from 'containers/SetupPage/styles.module.scss';
 import { PCSetup } from 'common/models/setup';
 import PcComponentView from 'components/SetupComponents/PcComponentView';
 import SetupCard from 'components/SetupComponents/SetupCard';
 import Container from '@material-ui/core/Container';
-import SetupPageComments from 'components/SetupComponents/Comments';
+import Comments from 'components/Comments';
 import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
@@ -73,7 +73,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
               <PcComponentView title="Motherboard" pcComponent={motherboard} neededProperties={{ name: 'Name' }} />
               <PcComponentView title="Power Supply" pcComponent={powerSupply} neededProperties={{ name: 'Name' }} />
               <div className={styles.underline}></div>
-              {this.props.state?.comments && <SetupPageComments comments={this.props.state.comments} />}
+              {this.props.state?.comments && <Comments comments={this.props.state.comments} />}
             </Container>
             <div className={styles.asideItems}>
               <TopGames games={[]} />
