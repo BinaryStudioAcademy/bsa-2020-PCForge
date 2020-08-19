@@ -14,19 +14,19 @@ import { getRam } from 'api/services/ramService';
 import { getMotherboard } from 'api/services/motherboardService';
 import { getPowersupplies } from 'api/services/powersupplyService';
 import { clearLocalSetup, getLocalSetup, setLocalSetup } from 'helpers/setupHelper';
-import { Group } from './config';
+import { GroupName } from './config';
 
 const servicesGet = {
-  [Group.cpu]: getCpu,
-  [Group.gpu]: getGpu,
-  [Group.ram]: getRam,
-  [Group.motherboard]: getMotherboard,
-  [Group.powersupply]: getPowersupplies,
+  [GroupName.cpu]: getCpu,
+  [GroupName.gpu]: getGpu,
+  [GroupName.ram]: getRam,
+  [GroupName.motherboard]: getMotherboard,
+  [GroupName.powersupply]: getPowersupplies,
 };
 
 export function* fetchComponent(action: AnyAction) {
   try {
-    const component = yield call(servicesGet[action.payload.group as Group], action.payload.id);
+    const component = yield call(servicesGet[action.payload.group as GroupName], action.payload.id);
     yield put({ type: FETCH_COMPONENT_SUCCESS, payload: { group: action.payload.group, component } });
     const setup = yield select((state) => state.setup);
     yield call(setLocalSetup, { ...setup, [action.payload.group]: component });

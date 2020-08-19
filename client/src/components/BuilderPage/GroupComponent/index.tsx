@@ -8,47 +8,23 @@ import FilterSocket from 'components/BuilderPage/FilterSocket';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
-import { SpecificationComponent, SpecificationCpu } from 'components/BuilderPage/Specifications';
-import { getAllCpu } from 'api/services/cpuService';
-import { TypeCpu } from 'common/models/typeCpu';
-import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
+import { SpecificationComponent } from 'components/BuilderPage/Specifications';
+import { ComponentGroups, TypeFilterBuilder, TypeGroupConfig } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
-import { Group } from '../../../containers/BuilderPage/config';
-import { getAllGpu } from '../../../api/services/gpuService';
-import { getAllRam } from '../../../api/services/ramService';
-import { getAllMotherboard } from '../../../api/services/motherboardService';
-import { getAllPowersupplies } from '../../../api/services/powersupplyService';
-import { TypeSetup } from '../../../containers/BuilderPage/reducer';
-
-const servicesGetAll = {
-  [Group.cpu]: getAllCpu,
-  [Group.gpu]: getAllGpu,
-  [Group.ram]: getAllRam,
-  [Group.motherboard]: getAllMotherboard,
-  [Group.powersupply]: getAllPowersupplies,
-};
+import { FilterName, filterRangeInfo, GroupName, servicesGetAll } from 'containers/BuilderPage/config';
+import FilterRamTypes from '../FilterRamType';
 
 type PropsType = {
-  cfg: {
-    group: Group;
-    filterRange: {
-      title: string;
-      min: number;
-      max: number;
-      step: number;
-      dimension: string;
-      key: string;
-    } | null;
-  };
-  setup: TypeSetup;
-  filter: TypeFilterBuilder;
-  // selectedComponent: TypeCpu | null;
+  cfg: TypeGroupConfig;
+  // setup: TypeSetup;
+  // filter: TypeFilterBuilder;
+  selectedComponent: any | null;
   onUpdateFilter: ({}: TypeFilterBuilder) => void;
-  onAddComponent: (group: Group, id: number) => void;
-  onRemoveSelectedComponent: (group: Group) => void;
-  expanded: Group | false | ComponentGroups; // todo: del ComponentGroups
-  onChangeExpanded: (expanded: Group | ComponentGroups | false) => void; // todo: del ComponentGroups
-  showFilters: TypeShowFilters;
+  onAddComponent: (group: GroupName, id: number) => void;
+  onRemoveSelectedComponent: (group: GroupName) => void;
+  expanded: GroupName | false | ComponentGroups; // todo: del ComponentGroups
+  onChangeExpanded: (expanded: GroupName | ComponentGroups | false) => void; // todo: del ComponentGroups
+  // showFilters: TypeShowFilters;
 };
 
 type TypeRange = {
@@ -58,15 +34,15 @@ type TypeRange = {
 
 const GroupComponent = ({
   cfg,
-  setup,
-  filter,
-  // selectedComponent,
+  // setup,
+  // filter,
+  selectedComponent,
   onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
   expanded,
+  // showFilters,
   onChangeExpanded,
-  showFilters,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [components, setComponents] = useState([] as any[]);
@@ -75,21 +51,35 @@ const GroupComponent = ({
   const [load, setLoad] = useState(false);
   const [range, setRange] = useState({} as TypeRange);
 
-  const selectedComponent = setup[cfg.group];
+  const filter = cfg.filter;
+  // const selectedComponent = setup[cfg.group];
 
   const getComponents = async () => {
     setLoad(true);
-    // const queryFilter = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
+    const keyRamType = cfg.group === GroupName.ram ? 'typeId' : 'ramTypeId';
+    const querySocketId = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
+    const queryRamTypeId = filter.ramTypeIdSet.size
+      ? { [keyRamType]: [Array.from(filter.ramTypeIdSet)].join(',') }
+      : {};
+    const queryFilter = {
+      ...querySocketId,
+      ...queryRamTypeId,
+    };
+    // const queryFilter = {
+    //   socketId: filter.socketIdSet.size ? [Array.from(filter.socketIdSet)].join(',') : '',
+    //   ramTypeId: filter.ramTypeIdSet.size ? [Array.from(filter.ramTypeIdSet)].join(',') : '',
+    // };
     let queryRange = {};
-    if (cfg.filterRange) {
+    if (filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key')) {
       queryRange = {
-        [`${cfg.filterRange.key}[minValue]`]: range.minValue,
-        [`${cfg.filterRange.key}[maxValue]`]: range.maxValue,
+        [`${filterRangeInfo[cfg.group].key}[minValue]`]: range.minValue,
+        [`${filterRangeInfo[cfg.group].key}[maxValue]`]: range.maxValue,
       };
     }
 
     try {
-      const res = await servicesGetAll[cfg.group]({ ...pagination, ...queryRange });
+      const res = await servicesGetAll[cfg.group]({ ...pagination, ...queryFilter, ...queryRange });
+      console.log('res', res);
       setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -100,17 +90,25 @@ const GroupComponent = ({
   };
 
   useEffect(() => {
+    console.log('filter: ', filter);
     getComponents();
   }, [filter, pagination]);
 
-  // useEffect(() => {
-  //   if (selectedComponent) {
-  //     onUpdateFilter({
-  //       ...filter,
-  //       socketIdSet: new Set(filter.socketIdSet.add(selectedComponent.socketId)),
-  //     });
-  //   }
-  // }, [selectedComponent]);
+  useEffect(() => {
+    if (selectedComponent) {
+      const socketIdSet = selectedComponent.hasOwnProperty('socketId')
+        ? new Set(filter.socketIdSet.add((selectedComponent as { socketId: number })?.socketId))
+        : filter.socketIdSet;
+      const ramTypeIdSet = selectedComponent.hasOwnProperty('ramTypeId')
+        ? new Set(filter.ramTypeIdSet.add((selectedComponent as { ramTypeId: number })?.ramTypeId))
+        : filter.ramTypeIdSet;
+      onUpdateFilter({
+        ...filter,
+        socketIdSet,
+        ramTypeIdSet,
+      });
+    }
+  }, [selectedComponent]);
 
   const listComponentElements = components?.map((component) => (
     <ListComponentsItem
@@ -148,13 +146,28 @@ const GroupComponent = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
-            {cfg.filterRange && (
+            {cfg.filters[FilterName.socket] && (
+              // <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
+              <FilterSocket
+                show={cfg.filters[FilterName.socket].enable}
+                filter={filter}
+                onUpdateFilter={onUpdateFilter}
+              />
+            )}
+            {cfg.filters[FilterName.ramtype] && (
+              // <FilterRamTypes show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
+              <FilterRamTypes
+                show={cfg.filters[FilterName.ramtype].enable}
+                filter={filter}
+                onUpdateFilter={onUpdateFilter}
+              />
+            )}
+            {filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key') && (
               <FilterRange
-                title={cfg.filterRange.title}
-                min={cfg.filterRange.min}
-                max={cfg.filterRange.max}
-                dimension={cfg.filterRange.dimension}
+                title={filterRangeInfo[cfg.group].title ?? ''}
+                min={filterRangeInfo[cfg.group].min ?? 0}
+                max={filterRangeInfo[cfg.group].max ?? 10}
+                dimension={filterRangeInfo[cfg.group].unit ?? ''}
                 onChange={onChangeFilterRange}
               />
             )}

@@ -43,7 +43,7 @@ const FilterRamTypes = ({ filter, show, onUpdateFilter }: PropsType): JSX.Elemen
   const updateRamTypeFilter = (ramTypeIdSet: Set<number>) => {
     onUpdateFilter({
       ...filter,
-      socketIdSet: new Set(ramTypeIdSet),
+      ramTypeIdSet: new Set(ramTypeIdSet),
     });
   };
 

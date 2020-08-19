@@ -6,7 +6,7 @@ import { TypeGpu } from 'common/models/typeGpu';
 import { TypeRam } from 'common/models/typeRam';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
-import { Group } from 'containers/BuilderPage/config';
+import { GroupName } from 'containers/BuilderPage/config';
 
 export const SpecificationCpu = ({ component }: { component: TypeCpu }): JSX.Element => (
   <Box>
@@ -49,9 +49,9 @@ export const SpecificationPowersupply = ({ component }: { component: TypePowersu
 );
 
 export const SpecificationComponent = {
-  [Group.cpu]: SpecificationCpu,
-  [Group.gpu]: SpecificationGpu,
-  [Group.ram]: SpecificationRam,
-  [Group.motherboard]: SpecificationMotherboard,
-  [Group.powersupply]: SpecificationPowersupply,
+  [GroupName.cpu]: SpecificationCpu,
+  [GroupName.gpu]: SpecificationGpu,
+  [GroupName.ram]: SpecificationRam,
+  [GroupName.motherboard]: SpecificationMotherboard,
+  [GroupName.powersupply]: SpecificationPowersupply,
 };
