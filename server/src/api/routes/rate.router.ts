@@ -28,7 +28,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   fastify.get('/average', GetRatesAverage, async (request: GetAllRatesRequest, reply) => {
-    console.log('average');
+    const average = await RateService.getRatesAverage(request.query);
+    reply.send(average);
   })
 
   const getOneSchema = GetOneQuery(RateSchema);

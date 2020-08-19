@@ -73,7 +73,21 @@ export const RateSchema: SwaggerSchema = {
 
 export const GetRatesAverage = {
   schema: {
-    params: IRateFilter.schema,
+    querystring: {
+      type: 'object',
+      properties: {
+        ratebleType: {
+          type: 'string',
+          enum: ['news', 'game', 'setup'],
+          nullable: true,
+        },
+        ratebleId: {
+          type: 'integer',
+          minimum: 1,
+          nullable: true,
+        }
+      }
+    },
     response: {
       200: {
         type: 'object',

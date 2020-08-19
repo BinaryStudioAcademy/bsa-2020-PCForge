@@ -3,7 +3,16 @@ import { User } from './user';
 export interface Comment {
   id: number;
   authorId: number;
-  user: User;
+  author?: string;
+  user?: User;
   createdAt: Date;
   value: string;
+}
+
+export interface CommentCreationAttributes {
+  commentableType: 'setup' | 'game';
+  commentableId: number;
+  userId: number;
+  value: string;
+  token: string;
 }

@@ -15,8 +15,7 @@ export class SetupRepository extends BaseRepository<SetupModel> {
     private gpuModel: GpuStatic,
     private ramModel: RamStatic,
     private motherBoardModel: MotherboardStatic,
-    private powerSupplyModel: PowerSupplyStatic,
-    private rateModel: RateStatic
+    private powerSupplyModel: PowerSupplyStatic
   ) {
     super(<RichModel>model, IFilter);
   }

@@ -9,20 +9,27 @@ import { Container, Grid } from '@material-ui/core';
 
 interface Props {
   setup: PCSetup;
+  rate: number;
 }
 
 const SetupCard: React.FC<Props> = (props): JSX.Element => {
-  const { title, description, rating, image } = props.setup;
+  const { title, description, image } = props.setup;
   return (
     <Grid className={styles.card}>
       <Grid item xs={12} container alignItems="center">
         <CardHeader title={title} className={styles.contentHeader} />
         <div className={styles.ratingBox}>
-          <RatingBox name="setup-card" ratingValue={rating} disabled={false} />
+          <RatingBox name="setup-card" ratingValue={props.rate} disabled={false} />
         </div>
       </Grid>
       <Grid item xs={12} container justify="center" className={styles.imageWrapper}>
-        <ZoomImage src={image} alt={title} rootClassName={styles.setupImage} />
+        <ZoomImage
+          src={
+            'https://i.guim.co.uk/img/media/c6f7b43fa821d06fe1ab4311e558686529931492/168_84_1060_636/master/1060.jpg?width=1200&quality=85&auto=format&fit=max&s=5c5b07b8cc96af633881fb903fb14a83'
+          }
+          alt={title}
+          rootClassName={styles.setupImage}
+        />
       </Grid>
       <Grid item xs={12} container className={styles.cardContent}>
         <Container>

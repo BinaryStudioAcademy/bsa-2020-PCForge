@@ -1,5 +1,11 @@
-import { SetupActionTypes, GET_SETUP, GET_SETUP_SUCCESS, GET_SETUP_FAILURE, GET_SETUP_COMMENTS } from './actionTypes';
-import { PCSetup } from 'common/models/setup';
+import {
+  SetupActionTypes,
+  GET_SETUP,
+  GET_SETUP_COMMENTS,
+  CREATE_SETUP_COMMENT,
+  GET_SETUP_RATE,
+  SET_SETUP_RATE,
+} from './actionTypes';
 
 export const getSetup = (payload: { id: number }): SetupActionTypes => ({
   type: GET_SETUP,
@@ -11,4 +17,17 @@ export const getSetupComments = (payload: { id: number }): SetupActionTypes => (
   payload,
 });
 
-// export const getSetupRate = (pau)
+export const createSetupComment = (payload: { id: number; value: string }): SetupActionTypes => ({
+  type: CREATE_SETUP_COMMENT,
+  payload,
+});
+
+export const getSetupRate = (payload: { id: number }): SetupActionTypes => ({
+  type: GET_SETUP_RATE,
+  payload,
+});
+
+export const setSetupRate = (payload: { id: number; value: number }): SetupActionTypes => ({
+  type: SET_SETUP_RATE,
+  payload,
+});

@@ -1,5 +1,5 @@
 import webApi from 'api/webApiHelper';
-import { SetupComment } from 'common/models/comment';
+import { Comment } from 'common/models/comment';
 import { Setup } from 'common/models/setup';
 
 export type TypeResponseAllSetups = {
@@ -7,7 +7,7 @@ export type TypeResponseAllSetups = {
     globalCount: number;
     countAfterFiltering: number;
   };
-  data: SetupComment[];
+  data: Comment[];
 };
 
 const endpoint = '/setups';

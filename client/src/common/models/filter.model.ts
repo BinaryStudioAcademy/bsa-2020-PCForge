@@ -5,6 +5,11 @@ export type CommentFilter = {
   commentableId: number;
 };
 
+export type RateFilter = {
+  ratebleType: 'game' | 'setup' | '';
+  ratebleId: number;
+};
+
 export type FilterModel = {
   name?: string;
   from?: number;

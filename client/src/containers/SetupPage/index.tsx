@@ -23,6 +23,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     const id: string = this.props.match.params.id;
     this.props.getSetup({ id: +id });
     this.props.getSetupComments({ id: +id });
+    this.props.getSetupRate({ id: +id });
   }
 
   public render() {
@@ -33,7 +34,10 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     }
     const { cpu, gpu, motherboard, powerSupply, ram } = setup;
 
-    console.log(this.props);
+    const onCreateComment = (value: string) => {
+      const id: string = this.props.match.params.id;
+      this.props.createSetupComment({ id: +id, value: value });
+    };
 
     return (
       <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
@@ -41,7 +45,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
           <h1>PC setup</h1>
           <div className={styles.contentWrapper}>
             <Container className={styles.setupsDetails}>
-              <SetupCard setup={setup} />
+              <SetupCard setup={setup} rate={this.props.state.rate} />
               <div className={[styles.underline, styles.noMarginTop].join(' ')}></div>
               <PcComponentView
                 title="Processor"
@@ -73,7 +77,9 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
               <PcComponentView title="Motherboard" pcComponent={motherboard} neededProperties={{ name: 'Name' }} />
               <PcComponentView title="Power Supply" pcComponent={powerSupply} neededProperties={{ name: 'Name' }} />
               <div className={styles.underline}></div>
-              {this.props.state?.comments && <Comments comments={this.props.state.comments} />}
+              {this.props.state?.comments && (
+                <Comments comments={this.props.state.comments} onCreateComment={onCreateComment} />
+              )}
             </Container>
             <div className={styles.asideItems}>
               <TopGames games={[]} />
