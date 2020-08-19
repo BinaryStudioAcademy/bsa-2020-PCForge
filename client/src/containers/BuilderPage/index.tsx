@@ -19,6 +19,9 @@ import { MenuItems } from '../../common/enums/MenuItems';
 import PageComponent from '../PageComponent';
 import styles from './styles.module.scss';
 import { Group } from './config';
+import Modal from 'components/BasicComponents/Modal';
+import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
+import { AssignmentReturn } from '@material-ui/icons';
 
 type PropsType = {
   className?: string;
@@ -30,8 +33,17 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     socketIdSet: new Set() as Set<number>,
     ramTypeIdSet: new Set() as Set<number>,
   });
+  const [isModalActive, setIsModalActive] = useState<boolean>(false);
+
+  const showModal = () => {
+    setIsModalActive(true);
+  };
+  const hideModal = () => {
+    setIsModalActive(false);
+  };
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
+  console.log('setup', setup);
   const dispatch = useDispatch();
 
   const resetFilter = () => {
@@ -54,6 +66,10 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     ramTypeIdSet: setup.ram ? new Set([setup.ram.typeId]) : filter.ramTypeIdSet,
   };
 
+  const isCanToSaveSetup = (setup: TypeSetup) => {
+    return Boolean(setup.cpu && setup.gpu && setup.motherboard && setup.ram && setup.powersupply);
+  };
+
   useEffect(() => {
     dispatch(initSetupAction());
   }, []);
@@ -61,11 +77,14 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
       <Box className={styles.builderWrapper}>
+        {isModalActive ? <SaveSetupModal onClose={hideModal} /> : null}
         <BuilderTitle
+          isCanToSave={isCanToSaveSetup(setup)}
           showResetSetup={Object.values(setup).some((e) => !!e)}
           onResetSetup={() => dispatch(resetSetupAction())}
           showResetFilter={Object.values(filter).some((e) => !!e.size)}
           onResetFilter={resetFilter}
+          onSaveSetup={showModal}
         />
         <Box>
           <GroupCpus
