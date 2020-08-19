@@ -33,15 +33,15 @@ export function SetupFactory(sequelize: Sequelize): SetupStatic {
     },
     title: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(200),
     },
     description: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(500),
     },
     image: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(200),
     },
     createdAt: {
       type: DataTypes.DATE,

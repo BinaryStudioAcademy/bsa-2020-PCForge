@@ -2,48 +2,61 @@ import React, { useEffect, useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import GroupItemSummary from 'components/BuilderPage/GroupItemSummary';
 import ListComponentsItem from 'components/BuilderPage/ListComponentsItem';
-import SpecificationField from 'components/BuilderPage/SpecificationField';
 import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
+import { SpecificationRam } from 'components/BuilderPage/Specifications';
 import { getAllRam } from 'api/services/ramService';
 import { TypeRam } from 'common/models/typeRam';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
+import { ComponentGroups, TypeFilterBuilder, TypeShowFilters } from 'containers/BuilderPage/types';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
-  filter: TypeFilter;
+  filter: TypeFilterBuilder;
   selectedComponent: TypeRam | null;
-  onAddFilter: ({}: TypeFilter) => void;
+  onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: ({}: TypeRam) => void;
   onRemoveSelectedComponent: () => void;
+  expanded: boolean;
+  onChangeExpanded: (expanded: ComponentGroups | false) => void;
+  showFilters: TypeShowFilters;
+};
+
+type TypeMemorySize = {
+  minValue: number;
+  maxValue: number;
 };
 
 const GroupRams = ({
   filter,
   selectedComponent,
-  onAddFilter,
+  onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
+  expanded,
+  onChangeExpanded,
+  showFilters,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
+  const minMemorySize = 1;
+  const maxMemorySize = 64;
   const [rams, setRams] = useState([] as TypeRam[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
+  const [memorySize, setMemorySize] = useState({} as TypeMemorySize);
   const [load, setLoad] = useState(false);
 
   const getRams = async () => {
     setLoad(true);
-    const { ramTypeId } = filter;
+    const queryFilter = filter.ramTypeIdSet.size ? { typeId: [Array.from(filter.ramTypeIdSet)].join(',') } : {};
+    const querySize = { 'memorySize[minValue]': memorySize.minValue, 'memorySize[maxValue]': memorySize.maxValue };
     try {
-      const res = await getAllRam({ typeId: ramTypeId, ...pagination });
+      const res = await getAllRam({ ...queryFilter, ...pagination, ...querySize });
       setRams(res.data);
       setCount(res.meta.countAfterFiltering);
-      // setRams(newRams.length > 10 ? newRams.slice(0, 9) : newRams); // while the bug is on the server
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -53,51 +66,60 @@ const GroupRams = ({
 
   useEffect(() => {
     getRams();
-  }, [filter, pagination]);
+  }, [filter, pagination, memorySize]);
 
-  const AddComponentHandler = (ram: TypeRam): void => {
-    onAddFilter({
-      ...filter,
-      ramTypeId: ram.typeId,
-    });
-    onAddComponent(ram);
-  };
-
-  const specifications = (ram: TypeRam): JSX.Element => (
-    <Box>
-      <SpecificationField title="Memory size" value={`${ram.memorySize}Gb`} />
-      <SpecificationField title="Ram Frequency" value={`${ram.frequency}MHz`} />
-      <SpecificationField title="Ram type" value={ram.ramType.name} />
-    </Box>
-  );
+  useEffect(() => {
+    if (selectedComponent) {
+      onUpdateFilter({
+        ...filter,
+        ramTypeIdSet: new Set(filter.ramTypeIdSet.add(selectedComponent.typeId)),
+      });
+    }
+  }, [selectedComponent]);
 
   const listRamElements = rams?.map((ram) => (
     <ListComponentsItem
       key={ram.id}
       title={ram.name}
-      specifications={specifications(ram)}
-      onAddComponent={() => AddComponentHandler(ram)}
+      specifications={<SpecificationRam ram={ram} />}
+      onAddComponent={() => onAddComponent(ram)}
     />
   ));
 
-  function onChangeFilterRange() {
-    // do nothing.
+  function onChangeFilterRange([minValue, maxValue]: number[]): void {
+    setMemorySize({
+      ...memorySize,
+      minValue,
+      maxValue,
+    });
   }
 
   return (
-    <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
+    <Accordion
+      className={styles.group}
+      expanded={expanded}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? ComponentGroups.ram : false)}
+      TransitionProps={{ unmountOnExit: true }}
+    >
       <GroupItemSummary
         id="RAM"
         title="RAM"
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
+        popupContent={selectedComponent ? <SpecificationRam ram={selectedComponent} /> : false}
         onClear={onRemoveSelectedComponent}
       />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <FilterRamTypes filter={filter} onAddFilter={onAddFilter} />
-            <FilterRange title="Memory size" min={1} max={64} dimension="Gb" onChange={onChangeFilterRange} />
+            <FilterRamTypes show={showFilters.ramType} filter={filter} onUpdateFilter={onUpdateFilter} />
+            <FilterRange
+              title="Memory size"
+              min={minMemorySize}
+              max={maxMemorySize}
+              dimension="Gb"
+              onChange={onChangeFilterRange}
+            />
           </Grid>
           <Grid item xs={12} sm={8} md={9} xl={10}>
             {listRamElements}

@@ -46,14 +46,31 @@ $spaceBeforeFirstColumnStart: 6rem;
   position: relative;
 }
 
+.progressColumnsContainer {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  width: 100%;
+}
+
 .progressColumn {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
   position: relative;
   z-index: 1;
+}
+
+.fpsCountHeader {
+  position: absolute;
+  bottom: 100%;
+  font-size: 8px;
+  font-weight: bold;
+  line-height: 10px;
+  text-transform: uppercase;
+  color: $colorTextWhite;
 }
 
 .progress {
@@ -66,10 +83,11 @@ $spaceBeforeFirstColumnStart: 6rem;
 }
 
 .progressCaption {
+  position: absolute;
+  top: 100%;
   font-size: 10px;
   line-height: 12px;
   text-transform: uppercase;
-
   color: $colorTextGray;
 }
 
@@ -82,15 +100,16 @@ $spaceBeforeFirstColumnStart: 6rem;
 }
 
 .gameLine {
-  border-top: 1px solid $colorRed;
   width: calc(100% + 2rem);
   position: absolute;
   left: -$spaceBeforeFirstColumnStart / 3;
-  bottom: 40%;
   padding-top: 5px;
 }
 
 .gameLineText {
+  border-bottom: 1px solid $colorRed;
+  margin: 0;
+  padding-bottom: 2px;
   font-size: 10px;
   line-height: 12px;
   text-transform: uppercase;

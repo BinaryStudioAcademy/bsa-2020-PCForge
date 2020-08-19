@@ -6,34 +6,45 @@ import {
   DeleteMotherboardRequest,
   GetAllMotherboardsRequest,
   GetOneMotherboardRequest,
+  GetAllMotherBoardResponse,
+  MotherBoardSchema,
+  CreateMotherBoardSchema,
+  UpdateMotherBoardSchema,
 } from './motherboard.schema';
+import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { MotherboardService } = fastify.services;
 
-  fastify.get('/', {}, async (request: GetAllMotherboardsRequest, reply) => {
+  const getAllSchema = GetMultipleQuery(GetAllMotherBoardResponse, IMotherboardFilter.schema);
+  fastify.get('/', getAllSchema, async (request: GetAllMotherboardsRequest, reply) => {
     const motherboards = await MotherboardService.getAllMotherboards(request.query);
     reply.send(motherboards);
   });
 
-  fastify.get('/:id', {}, async (request: GetOneMotherboardRequest, reply) => {
+  const getOneSchema = GetOneQuery(MotherBoardSchema);
+  fastify.get('/:id', getOneSchema, async (request: GetOneMotherboardRequest, reply) => {
     const { id } = request.params;
     const motherboard = await MotherboardService.getMotherboardById(id);
     reply.send(motherboard);
   });
 
-  fastify.post('/', {}, async (request: PostMotherboardRequest, reply) => {
+  const createOneSchema = CreateOneQuery(CreateMotherBoardSchema, MotherBoardSchema);
+  fastify.post('/', createOneSchema, async (request: PostMotherboardRequest, reply) => {
     const motherboard = await MotherboardService.createMotherboard(request.body);
     reply.send(motherboard);
   });
 
-  fastify.put('/:id', {}, async (request: PutMotherboardRequest, reply) => {
+  const updateOneSchema = UpdateOneQuery(UpdateMotherBoardSchema, MotherBoardSchema);
+  fastify.put('/:id', updateOneSchema, async (request: PutMotherboardRequest, reply) => {
     const { id } = request.params;
     const newMotherboard = await MotherboardService.updateMotherboardById({ id, data: request.body });
     reply.send(newMotherboard);
   });
 
-  fastify.delete('/:id', {}, async (request: DeleteMotherboardRequest, reply) => {
+  const deleteOneSchema = DeleteOneQuery();
+  fastify.delete('/:id', deleteOneSchema, async (request: DeleteMotherboardRequest, reply) => {
     const { id } = request.params;
     await MotherboardService.deleteMotherboardById(id);
     reply.send({});

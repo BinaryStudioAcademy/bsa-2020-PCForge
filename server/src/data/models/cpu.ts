@@ -40,7 +40,7 @@ export function CpuFactory(sequelize: Sequelize): CpuStatic {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(150),
     },
     performance: {
       allowNull: false,
