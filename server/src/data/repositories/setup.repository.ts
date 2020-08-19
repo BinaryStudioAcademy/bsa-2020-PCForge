@@ -6,6 +6,8 @@ import { GpuStatic } from '../models/gpu';
 import { MotherboardStatic } from '../models/motherboard';
 import { RamStatic } from '../models/ram';
 import { PowerSupplyStatic } from '../models/powersupply';
+import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
+import { mergeFilters } from './filters/helper';
 
 export class SetupRepository extends BaseRepository<SetupModel> {
   constructor(
@@ -19,7 +21,8 @@ export class SetupRepository extends BaseRepository<SetupModel> {
     super(<RichModel>model, IFilter);
   }
 
-  async getSetups(): Promise<IWithMeta<SetupModel>> {
+  async getSetups(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+    const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
     const result = await this.model.findAndCountAll({
       include: [
         {
@@ -38,7 +41,8 @@ export class SetupRepository extends BaseRepository<SetupModel> {
           model: this.powerSupplyModel,
         },
       ],
-      limit: 4,
+      offset: filter.from,
+      limit: filter.count,
     });
 
     const globalCount = await this.model.count();

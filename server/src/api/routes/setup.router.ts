@@ -11,14 +11,21 @@ import {
   UpdateSetupSchema,
   GetAllSetupsResponse,
 } from './setup.schema';
-import { CreateOneQuery, UpdateOneQuery, GetOneQuery, GetMultipleQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  CreateOneQuery,
+  UpdateOneQuery,
+  GetOneQuery,
+  GetMultipleQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
+import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { SetupService } = fastify.services;
 
-  const getAllSchema = GetMultipleQuery(GetAllSetupsResponse);
+  const getAllSchema = GetMultipleQuery(GetAllSetupsResponse, ISetupFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetSetupsRequest, reply) => {
-    const setups = await SetupService.getAllSetups();
+    const setups = await SetupService.getAllSetups(request.query);
     reply.send(setups);
   });
 

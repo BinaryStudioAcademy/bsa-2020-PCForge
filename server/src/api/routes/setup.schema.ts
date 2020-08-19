@@ -6,8 +6,11 @@ import { GpuSchema } from './gpu.schema';
 import { MotherBoardSchema } from './motherboard.schema';
 import { RamSchema } from './ram.schema';
 import { PowerSupplySchema } from './powerSupply.schema';
+import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 
-export type GetSetupsRequest = FastifyRequest;
+export type GetSetupsRequest = FastifyRequest<{
+  Querystring: ISetupFilter;
+}>;
 
 export type GetSetupRequest = FastifyRequest<{
   Params: { id: string };

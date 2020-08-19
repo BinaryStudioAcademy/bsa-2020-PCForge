@@ -2,6 +2,7 @@ import { SetupCreationAttributes, SetupModel } from '../../data/models/setup';
 import { SetupRepository } from '../../data/repositories/setup.repository';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 
 export class SetupService {
   constructor(private repository: SetupRepository) {}
@@ -14,8 +15,8 @@ export class SetupService {
     return setup;
   }
 
-  async getAllSetups(): Promise<IWithMeta<SetupModel>> {
-    const setups = await this.repository.getSetups();
+  async getAllSetups(filter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+    const setups = await this.repository.getSetups(filter);
     return setups;
   }
 
