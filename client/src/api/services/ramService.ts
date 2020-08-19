@@ -2,7 +2,7 @@ import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeRam } from 'common/models/typeRam';
 
-type TypeResponseAll = {
+export type TypeResponseAllRams = {
   meta: {
     globalCount: number;
     countAfterFiltering: number;
@@ -12,7 +12,7 @@ type TypeResponseAll = {
 
 const endpoint = '/rams';
 
-export const getAllRam = async (filter: TypeFilter): Promise<TypeResponseAll> => {
+export const getAllRam = async (filter: TypeFilter): Promise<TypeResponseAllRams> => {
   return await webApi.get(endpoint, filter);
 };
 
