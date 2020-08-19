@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { fetchTopGames, fetchPerformanceAnalysis, fetchSetup } from 'containers/Chart/actions';
+import { fetchTopGames, fetchPerformanceAnalysis, fetchSetup, fetchGamesByName } from 'containers/Chart/actions';
 
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
@@ -11,7 +11,6 @@ import sharedStyles from '../../components/ChartComponents/styles.module.scss';
 import styles from './styles.module.scss';
 import TopGames from 'components/ChartComponents/TopGames';
 import TestDifferentGame from 'components/ChartComponents/TestDifferentGame';
-import TestDifferentSystem from 'components/ChartComponents/TestDifferentSystem';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
 import { Game } from 'common/models/game';
@@ -20,16 +19,19 @@ const GameMatcherResult: React.FC<Props> = ({
   fetchTopGames,
   fetchPerformanceAnalysis,
   fetchSetup,
+  fetchGamesByName: fetchGames,
   performance,
   topGames,
+  games,
   setup,
   match,
 }) => {
+  const [topGameSelected, setTopGameSelected] = React.useState<number>(0);
   const setupId = parseInt(match.params.id, 10);
-  console.log(setupId);
   React.useEffect(() => {
     fetchSetup(setupId);
     fetchTopGames();
+    fetchGames('');
   }, []);
 
   React.useEffect(() => {
@@ -37,6 +39,13 @@ const GameMatcherResult: React.FC<Props> = ({
       fetchPerformanceAnalysis(setupId, topGames[0].id);
     }
   }, [topGames]);
+
+  const onGameSelected = (game: Game) => {
+    fetchPerformanceAnalysis(setupId, game.id);
+    const index = topGames.findIndex((topGame) => topGame.id === game.id);
+    console.log(index);
+    setTopGameSelected(index);
+  };
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
@@ -53,11 +62,10 @@ const GameMatcherResult: React.FC<Props> = ({
             <div className={styles.asideItems}>
               <TopGames
                 games={topGames.map((topGame) => topGame.game)}
-                defaultSelected={0}
-                onGameSelected={(game: Game) => fetchPerformanceAnalysis(setupId, game.id)}
+                selected={topGameSelected}
+                onGameSelected={onGameSelected}
               />
-              <TestDifferentGame />
-              <TestDifferentSystem />
+              <TestDifferentGame games={games} onGameChanged={onGameSelected} />
             </div>
           </div>
         </div>
@@ -74,12 +82,14 @@ const mapState = (state: RootState) => ({
   topGames: state.setupChart.topGames,
   performance: state.setupChart.performance,
   setup: state.setupChart.setup,
+  games: state.setupChart.searchedGames,
 });
 
 const mapDispatch = {
   fetchTopGames,
   fetchPerformanceAnalysis,
   fetchSetup,
+  fetchGamesByName,
 };
 
 const connector = connect(mapState, mapDispatch);
