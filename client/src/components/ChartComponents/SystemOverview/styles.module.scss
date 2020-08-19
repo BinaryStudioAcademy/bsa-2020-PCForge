@@ -17,8 +17,9 @@
 }
 
 .requirement {
-
-  margin-top: 3rem;
+  flex: 1 1 0px;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .requirementHeader {
@@ -42,7 +43,6 @@
 .summary {
   width: 30%;
   height: 100%;
-  margin-left: 6rem;
   overflow: auto;
   box-sizing: border-box;
   border-radius: 6px;
