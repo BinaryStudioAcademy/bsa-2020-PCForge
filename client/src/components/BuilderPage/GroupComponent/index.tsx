@@ -10,11 +10,10 @@ import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { SpecificationComponent } from 'components/BuilderPage/Specifications';
 import { ComponentGroups, TypeFilterBuilder, TypeGroupConfig } from 'containers/BuilderPage/types';
-import styles from 'components/BuilderPage/styles.module.scss';
 import { FilterName, filterRangeInfo, GroupName, servicesGetAll } from 'containers/BuilderPage/config';
 import FilterRamTypes from '../FilterRamType';
-// import Search from 'components/Search';
 import Search from '../Search';
+import styles from './styles.module.scss';
 
 type PropsType = {
   cfg: TypeGroupConfig;
@@ -175,14 +174,14 @@ const GroupComponent = ({
         title={cfg.group}
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
-        // @ts-ignore
+        /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
         popupContent={selectedComponent ? SpecificationComponent[cfg.group]({ component: selectedComponent }) : false}
         onClear={() => onRemoveSelectedComponent(cfg.group)}
       />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
-            <Search value={name} onChange={setName} />
+            <Search className={styles.search} value={name} onChange={setName} />
             {cfg.filters[FilterName.socket] && (
               // <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
               <FilterSocket
