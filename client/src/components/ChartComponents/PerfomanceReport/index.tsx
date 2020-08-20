@@ -1,41 +1,56 @@
+import { width } from '@material-ui/system';
+import { roundToNearest } from 'common/helpers/math.helper';
+import { Setup } from 'common/models/setup';
+import { IReport } from 'common/models/setupPerformance';
 import React, { useState } from 'react';
 import sharedStyles from '../styles.module.scss';
 import styles from './styles.module.scss';
 
-interface RecommendedRequirement {
+interface IRequirement {
+  cpu: number;
+  gpu: number;
+  ram: number;
+}
+
+interface UIRequirement {
   id: number;
   title: string;
 }
 
-interface PerformanceIndicatorItem {
-  name: string;
-  value: number;
+interface Props {
+  setup: Setup;
+  report: IReport;
 }
 
-const GameMatcherPerformanceReport = (): JSX.Element => {
-  const [selectedRequirement, setSelectedRequirement] = useState<number>(1);
+const GameMatcherPerformanceReport: React.FC<Props> = ({ setup, report }): JSX.Element => {
+  const RECOMMENDED_REQUIREMENT_ID = 2;
+  const MINIMAL_REQUIREMENT_ID = 1;
+  const MAXIMUM_REPORT_VALUE = Math.max(
+    roundToNearest(report.minimal.cpu, 100),
+    roundToNearest(report.minimal.gpu, 100),
+    roundToNearest(report.minimal.ram, 100),
+    roundToNearest(report.recommended.cpu, 100),
+    roundToNearest(report.recommended.gpu, 100),
+    roundToNearest(report.recommended.ram, 100)
+  );
+  const REPORT_STEP = roundToNearest(MAXIMUM_REPORT_VALUE / 10, 10);
+  const [selectedRequirement, setSelectedRequirement] = useState<number>(RECOMMENDED_REQUIREMENT_ID);
   const values = [];
-  for (let i = 0; i <= 55000; i += 5000) {
+  for (let i = 0; i <= MAXIMUM_REPORT_VALUE; i += REPORT_STEP) {
     values.push(i);
   }
-  const recommendedRequirements = [
-    { id: 1, title: 'Recommended requirement' },
-    { id: 2, title: 'Minimal requirement' },
-  ];
-
-  const performanceIndicators = [
-    { name: 'CPU', value: 40 },
-    { name: 'GPU', value: 21 },
-    { name: 'RAM', value: 81 },
+  const requirements: UIRequirement[] = [
+    { id: MINIMAL_REQUIREMENT_ID, title: 'Minimal requirement' },
+    { id: RECOMMENDED_REQUIREMENT_ID, title: 'Recommended requirement' },
   ];
 
   const componentItems = [
-    { title: 'Processor', description: 'Intel Pentium II, AMD Athlon MP' },
-    { title: 'Graphics', description: 'Nvidia GeForce 6200 LE, AMD Radeon Xpress 1200 Series' },
-    { title: 'RAM', description: '32MB' },
+    { title: 'Processor', description: setup.cpu.name },
+    { title: 'Graphics', description: setup.gpu.name },
+    { title: 'RAM', description: `${setup.ram.memorySize}GB` },
   ];
 
-  const RecommendedRequirement = (req: RecommendedRequirement) => {
+  const getRequirementDiagram = (req: UIRequirement) => {
     const isActive = req.id === selectedRequirement;
 
     return (
@@ -46,20 +61,49 @@ const GameMatcherPerformanceReport = (): JSX.Element => {
     );
   };
 
-  const PerformanceIndicator = (ind: PerformanceIndicatorItem) => (
-    <div className={styles.performanceGraphItem} key={ind.name}>
-      <span className={styles.performanceIndicatorHeader}>{ind.name}</span>
+  const getScaledWidth = (width: number): number => {
+    const totalSteps = MAXIMUM_REPORT_VALUE / REPORT_STEP;
+    const currentStep = width / REPORT_STEP;
+    return (currentStep / totalSteps) * 100;
+  };
+
+  const getPerformanceIndicator = (name: string, value: number) => (
+    <div className={styles.performanceGraphItem} key={name}>
+      <span className={styles.performanceIndicatorHeader}>{name}</span>
       <div className={styles.performanceGraphCentralLine}></div>
-      <div className={styles.performanceIndicator} style={{ width: ind.value + '%' }}></div>
+      <div className={styles.performanceIndicator} style={{ width: getScaledWidth(value) + '%' }}></div>
     </div>
   );
+
+  const getPerformanceIndicators = (req: IRequirement) => {
+    const percents = (100 / MAXIMUM_REPORT_VALUE) * 100;
+    let additionalPixels = '+ 0px';
+    // we must add or remove pixels because we have margins. So, with margins left: 0% move orl line out of the graph. The same with left: 100%
+    if (percents < 50) additionalPixels = '+ 30px';
+    if (percents > 50) additionalPixels = '- 30px';
+    return (
+      <div className={styles.graphWrapper}>
+        <div className={styles.indicatorsWrapper}>
+          <div className={styles.normalLine} style={{ left: `calc(${percents}% ${additionalPixels})` }}>
+            <div className={styles.normalLineText}>100%</div>
+          </div>
+          {getPerformanceIndicator('CPU', req.cpu)}
+          {getPerformanceIndicator('GPU', req.gpu)} {getPerformanceIndicator('RAM', req.ram)}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section>
       <h2 className={sharedStyles.mainHeader}>Performance Report</h2>
-      <div className={styles.requirementVariants}>{recommendedRequirements.map(RecommendedRequirement)}</div>
+      <div className={styles.requirementVariants}>{requirements.map(getRequirementDiagram)}</div>
 
-      <div className={styles.performanceGraph}>{performanceIndicators.map(PerformanceIndicator)}</div>
+      {selectedRequirement === RECOMMENDED_REQUIREMENT_ID ? (
+        <div className={styles.performanceGraph}>{getPerformanceIndicators(report.recommended)}</div>
+      ) : (
+        <div className={styles.performanceGraph}>{getPerformanceIndicators(report.minimal)}</div>
+      )}
       <div className={styles.indicatorValues}>
         {values.map((value) => (
           <span key={value} className={styles.indicatorValue}>

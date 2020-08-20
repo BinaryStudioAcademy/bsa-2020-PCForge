@@ -11,6 +11,8 @@ export type TypeResponseAll = {
 
 export interface IGameFilter {
   name: string;
+  from: number;
+  count: number;
 }
 
 const endpoint = '/games';

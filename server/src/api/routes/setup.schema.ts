@@ -2,6 +2,9 @@ import { FastifyRequest } from 'fastify';
 import { SetupCreationAttributes } from '../../data/models/setup';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserAttributes } from '../../data/models/user';
+import { CpuSchema } from './cpu.schema';
+import { GpuSchema } from './gpu.schema';
+import { RamSchema } from './ram.schema';
 
 export type GetSetupsRequest = FastifyRequest;
 
@@ -51,11 +54,13 @@ export const SetupSchema: SwaggerSchema = {
       example: 1,
       nullable: false,
     },
+    cpu: CpuSchema,
     gpuId: {
       type: 'integer',
       example: 1,
       nullable: false,
     },
+    gpu: GpuSchema,
     motherboardId: {
       type: 'integer',
       example: 1,
@@ -66,6 +71,7 @@ export const SetupSchema: SwaggerSchema = {
       example: 1,
       nullable: false,
     },
+    ram: RamSchema,
     powerSupplyId: {
       type: 'integer',
       example: 1,

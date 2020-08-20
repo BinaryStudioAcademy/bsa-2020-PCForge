@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { GameModel, GameCreationAttributes, GameStatic } from '../../data/models/game';
 import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { CpuStatic } from '../models/cpu';
@@ -62,6 +63,34 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
             model: this.gpuModel,
             as: 'minimalGpu',
           },
+        ],
+        order: [
+          ...((inputFilter?.orderBy?.cpu
+            ? [
+                [
+                  {
+                    model: this.cpuModel,
+                    as: 'recommendedCpu',
+                  },
+                  'performance',
+                  inputFilter.orderBy.cpu.recommended,
+                ],
+              ]
+            : []) as any),
+          ...((inputFilter?.orderBy?.gpu
+            ? [
+                [
+                  {
+                    model: this.gpuModel,
+                    as: 'recommendedGpu',
+                  },
+                  'performance',
+                  inputFilter.orderBy.gpu.recommended,
+                ],
+              ]
+            : []) as any),
+          ...((inputFilter?.orderBy?.ram ? [['recommendedRamSize', inputFilter.orderBy.ram.recommended]] : []) as any),
+          ['id', 'ASC'],
         ],
       },
       filter

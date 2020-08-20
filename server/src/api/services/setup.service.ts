@@ -1,13 +1,14 @@
 import { SetupCreationAttributes, SetupModel } from '../../data/models/setup';
 import { SetupRepository } from '../../data/repositories/setup.repository';
 import { IWithMeta } from '../../data/repositories/base.repository';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 
 export class SetupService {
   constructor(private repository: SetupRepository) {}
 
   async getSetupById(id: string): Promise<SetupModel> {
-    const setup = await this.repository.getById(id);
+    const setup = await this.repository.getSetupById(id);
     if (!setup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
     }
@@ -15,7 +16,7 @@ export class SetupService {
   }
 
   async getAllSetups(): Promise<IWithMeta<SetupModel>> {
-    const setups = await this.repository.getAll();
+    const setups = await this.repository.getAllSetups(new IFilter());
     return setups;
   }
 

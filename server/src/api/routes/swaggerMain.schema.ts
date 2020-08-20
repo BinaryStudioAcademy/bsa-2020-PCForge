@@ -19,7 +19,7 @@ const SwaggerMainSchema: FastifyRegisterOptions<SwaggerOptions> = {
   swagger: {
     info: {
       title: 'pcforge',
-      version: '1'
+      version: '1',
     },
     definitions: {
       User: UserSchema,
@@ -39,7 +39,7 @@ const SwaggerMainSchema: FastifyRegisterOptions<SwaggerOptions> = {
     }
   },
   exposeRoute: true,
-  routePrefix: '/documentation'
-}
+  routePrefix: '/documentation',
+};
 
 export default SwaggerMainSchema;
