@@ -13,6 +13,8 @@ import { ComponentGroups, TypeFilterBuilder, TypeGroupConfig } from 'containers/
 import styles from 'components/BuilderPage/styles.module.scss';
 import { FilterName, filterRangeInfo, GroupName, servicesGetAll } from 'containers/BuilderPage/config';
 import FilterRamTypes from '../FilterRamType';
+// import Search from 'components/Search';
+import Search from '../Search';
 
 type PropsType = {
   cfg: TypeGroupConfig;
@@ -49,6 +51,7 @@ const GroupComponent = ({
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
+  const [name, setName] = useState('');
   const [range, setRange] = useState({} as TypeRange);
   const [marks, setMarks] = useState([] as { value: number }[]);
   const [rangeLimits, setrangeLimits] = useState({ min: null, max: null } as {
@@ -89,7 +92,7 @@ const GroupComponent = ({
     const { pagination, queryFilter, queryRange } = getFilters();
 
     try {
-      const res = await servicesGetAll[cfg.group]({ ...pagination, ...queryFilter, ...queryRange });
+      const res = await servicesGetAll[cfg.group]({ ...pagination, ...queryFilter, ...queryRange, name });
       console.log('res', res);
       setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
@@ -103,7 +106,7 @@ const GroupComponent = ({
   const getAllComponents = async () => {
     const { queryFilter, queryRange } = getFilters();
     try {
-      const res = await servicesGetAll[cfg.group]({ ...queryFilter, ...queryRange });
+      const res = await servicesGetAll[cfg.group]({ ...queryFilter, ...queryRange, name });
       if (filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key')) {
         const values = (res.data as []).map((component) => component[filterRangeInfo[cfg.group].key as string]);
         const valuesSort = Array.from(new Set(values)).sort((a, b) => a - b);
@@ -121,11 +124,11 @@ const GroupComponent = ({
 
   useEffect(() => {
     getComponents();
-  }, [filter, pagination]);
+  }, [filter, name, range, pagination]);
 
   useEffect(() => {
     getAllComponents();
-  }, [filter]);
+  }, [filter, name, range]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -179,6 +182,7 @@ const GroupComponent = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
+            <Search value={name} onChange={setName} />
             {cfg.filters[FilterName.socket] && (
               // <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
               <FilterSocket
