@@ -58,7 +58,7 @@ function* createSetupComment(action: ICreateSetupComment) {
       commentableType: 'setup',
       commentableId: action.payload.id,
       value: action.payload.value,
-      userId: 8,
+      userId: 1,
       token,
     };
     yield call(createComment, commentData);
