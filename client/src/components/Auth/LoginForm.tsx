@@ -5,8 +5,6 @@ import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
 import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { setToken } from 'helpers/tokenHelper';
 import history from 'browserHistory';
@@ -82,7 +80,8 @@ const LoginForm = ({
             clientId={googleClientId}
             render={(renderProps) => (
               <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                <img src={gLogo}></img>Sign in with Google
+                <img src={gLogo} alt="logo" />
+                Sign in with Google
               </Button>
             )}
             onSuccess={googleLoginSuccess}
@@ -91,7 +90,6 @@ const LoginForm = ({
           />
         </div>
       </form>
-
       <span className={styles.registerBox}>
         Don't have an account?{' '}
         <span onClick={switchToRegistration} className={[styles.registerLink, 'link'].join(' ')}>
