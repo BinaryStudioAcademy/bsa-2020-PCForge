@@ -1,0 +1,132 @@
+$cardButtonColor: #EB3D55;
+
+
+.contentWrapper {
+  margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    height: 2000px;
+  }
+}
+
+.buildsHeading {
+  margin-left: 15px;
+  font-size: 28px;
+  margin-bottom: 0;
+
+  @media (max-width: 1200px) {
+    margin-left: 30px;
+  }
+}
+
+.cardDisplay {
+  height: 690px;
+  width: 86vw;
+  margin-bottom: 30px;
+  display: flex;
+  margin: 10px;
+
+  @media (max-width: 1200px) {
+    flex-direction: row;
+    height: 1400px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    height: 1400px;
+  }
+
+  .topSetup {
+    width: 35%;
+    height: 100%;
+    margin-right: 80px;
+
+    @media (max-width: 1200px) {
+      height: 500px;
+      margin-right: 40px;
+      margin-left: 20px;
+      width: 50%;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 768px) {
+      width:80%;
+    }
+  }
+
+  .smallerCards {
+    width: 60%;
+    height: 690px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: space-evenly;
+    flex-direction: column;
+    flex-shrink: 1;
+
+    @media (max-width: 1200px) {
+      display: block;
+      width: 50%;
+      margin-right: 20px;
+
+      &>div {
+        margin-bottom: 15px !important;
+        margin-top: 15px !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      width:80%;
+    }
+    
+
+    &>div:nth-child(2n) {
+      margin-bottom: 0;
+    }
+
+    &>div:nth-child(2n+1) {
+      margin-top: 0;
+    }
+
+    .cardButton {
+      height: 335px;
+      width: 50%;
+      background-color: $cardButtonColor;
+      margin: 10px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+
+      @media (max-width: 1200px) {
+        width: 100%;
+      }
+
+      @media (max-width: 1200px) {
+        margin-left: 0;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+
+
+      svg {
+        font-size: 20px;
+      }
+
+      svg:first-child {
+        font-size: 50px;
+      }
+
+      p {
+        font-size: 20px;
+        margin-top: 0;
+      }
+    }
+  }
+}

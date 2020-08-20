@@ -1,4 +1,7 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
+import { CpuAttributes } from './cpu';
+import { GpuAttributes } from './gpu';
+import { RamAttributes } from './ram';
 
 export interface SetupAttributes {
   id: number;
@@ -6,6 +9,9 @@ export interface SetupAttributes {
   description: string;
   image: string;
   authorId: number;
+  cpu: CpuAttributes;
+  gpu: GpuAttributes;
+  ram: RamAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,6 +21,11 @@ export interface SetupCreationAttributes {
   description: string;
   image: string;
   authorId: number;
+  cpuId: number;
+  gpuId: number;
+  motherboardId: number;
+  ramId: number;
+  powerSupplyId: number;
 }
 
 export interface SetupModel extends Model<SetupAttributes>, SetupAttributes {}

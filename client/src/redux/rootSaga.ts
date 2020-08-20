@@ -5,6 +5,8 @@ import builderSagas from 'containers/BuilderPage/sagas';
 import authSagas from 'containers/Auth/sagas';
 import matcherSagas from 'containers/GameMatcher/sagas';
 import quickMatcherSagas from 'containers/QuickMatcher/sagas';
+import homePageSagas from 'containers/Home/logic/sagas';
+import setupSagas from 'containers/SetupPage/sagas';
 
 import setupsSagas from 'containers/SetupsPage/sagas';
 import homePageSagas from 'containers/Home/logic/sagas';

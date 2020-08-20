@@ -3,7 +3,6 @@ import { Gpu } from './gpu';
 import { Ram } from './ram';
 import { Motherboard } from './motherboard';
 import { PowerSupply } from './powerSupply';
-import { SetupComment } from './comment';
 
 export interface Setup {
   id: number;
@@ -11,6 +10,11 @@ export interface Setup {
   rating: number;
   description: string;
   image: string;
+  cpu: Cpu;
+  gpu: Gpu;
+  ram: Ram;
+  motherBoard: Motherboard;
+  powerSupply: PowerSupply;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,7 +23,18 @@ export interface PCSetup extends Setup {
   cpu: Cpu;
   gpu: Gpu;
   ram: Ram;
-  motherBoard: Motherboard;
+  motherboard: Motherboard;
   powerSupply: PowerSupply;
-  comments: SetupComment[];
+}
+
+export interface SetupItem {
+  title: string;
+  description: string;
+  image?: string;
+  token: string;
+  cpuId: number;
+  gpuId: number;
+  motherboardId: number;
+  ramId: number;
+  powerSupplyId: number;
 }

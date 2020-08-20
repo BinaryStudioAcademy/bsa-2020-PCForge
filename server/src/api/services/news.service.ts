@@ -1,11 +1,15 @@
 import { NewsCreationAttributes, NewsModel } from '../../data/models/news';
 import { NewsRepository } from '../../data/repositories/news.repository';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class NewsService {
   constructor(private repository: NewsRepository) {}
 
   async getNewsById(id: string): Promise<NewsModel> {
     const news = await this.repository.getNewsById(id);
+    if (!news) {
+      triggerServerError(`News with id: ${id} does not exists`, 404);
+    }
     return news;
   }
 
@@ -23,7 +27,7 @@ export class NewsService {
     const { id, data } = inputNews;
     const oldNews = await this.repository.getNewsById(id);
     if (!oldNews) {
-      throw new Error(`Socket with id: ${id} does not exists`);
+      triggerServerError(`News with id: ${id} does not exists`, 404);
     }
     const news = await this.repository.updateNewsById(id, data);
     return news;

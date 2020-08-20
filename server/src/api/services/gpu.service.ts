@@ -4,12 +4,16 @@ import { IFilter } from '../../data/repositories/filters/base.filter';
 import { GpuRepository } from '../../data/repositories/gpu.repository';
 import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
 import { Op } from 'sequelize';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class GpuService {
   constructor(private repository: GpuRepository) {}
 
   async getGpuById(id: string): Promise<GpuModel> {
     const gpu = await this.repository.getGpuById(id);
+    if (!gpu) {
+      triggerServerError(`Gpu with id: ${id} does not exists`, 404);
+    }
     return gpu;
   }
 
@@ -27,7 +31,7 @@ export class GpuService {
     const { id, data } = inputGpu;
     const oldGpu = await this.repository.getGpuById(id);
     if (!oldGpu) {
-      throw new Error(`Gpu with id: ${id} does not exists`);
+      triggerServerError(`Gpu with id: ${id} does not exists`, 404);
     }
     const Gpu = await this.repository.updateGpuById(id, data);
     return Gpu;

@@ -1,4 +1,14 @@
 .builderWrapper {
   width: 100%;
   padding: 3rem;
+
+  .contentWrapper {
+    display: flex;
+    width: 100%;
+
+    .componentsWrapper {
+      flex-grow: 1;
+      margin-right: 3rem;
+    }
+  }
 }

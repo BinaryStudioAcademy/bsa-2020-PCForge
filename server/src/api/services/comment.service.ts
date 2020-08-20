@@ -3,12 +3,17 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { CommentRepository } from '../../data/repositories/comment.repository';
 import { ICommentMiddleware } from '../middlewares/comment.middleware';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class CommentService {
   constructor(private repository: CommentRepository) {}
 
   async getCommentById(id: string): Promise<CommentModel> {
-    return await this.repository.getCommentById(id);
+    const comment = await this.repository.getCommentById(id);
+    if (!comment) {
+      triggerServerError(`Comment with id: ${id} does not exists`, 404);
+    }
+    return comment;
   }
 
   async getAllComments(filter: ICommentFilter): Promise<IWithMeta<CommentModel>> {
@@ -29,9 +34,10 @@ export class CommentService {
   ): Promise<CommentModel> {
     const { id, data } = inputComment;
     await CommentMiddleware(data);
+
     const oldComment = await this.repository.getCommentById(id);
     if (!oldComment) {
-      throw new Error(`Comment with id: ${id} does not exists`);
+      triggerServerError(`Comment with id: ${id} does not exists`, 404);
     }
     return await this.repository.updateCommentById(id, data);
   }
