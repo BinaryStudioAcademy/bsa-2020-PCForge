@@ -8,13 +8,13 @@ interface ISwaggerParams {
   };
 }
 
-export function GetOneQuery(schema: SwaggerSchema, additionalParams?: ISwaggerParams[]) {
+export function GetOneQuery(schema: SwaggerSchema, querystring?: SwaggerSchema) {
   return {
     schema: {
       params: {
         id: { type: 'integer', nullable: false, minimum: 1 },
-        ...additionalParams,
       },
+      querystring,
       response: {
         200: schema,
         404: {
