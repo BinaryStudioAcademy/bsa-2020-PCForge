@@ -19,6 +19,14 @@ export type TypeSetup = {
   powersupply: TypePowersupplies | null;
 };
 
+export type TypeSetupForPost = {
+  cpuId: number;
+  gpuId: number;
+  motherboardId: number;
+  ramId: number;
+  powerSupplyId: number;
+};
+
 const initialState = {
   cpu: null,
   gpu: null,

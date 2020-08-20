@@ -1,6 +1,12 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostAuthRequest, IsUserAuthenticated, LoginSchema, GoogleAuthSchema, IsAuthenticatedSchema } from './auth.schema';
+import {
+  PostAuthRequest,
+  IsUserAuthenticated,
+  LoginSchema,
+  GoogleAuthSchema,
+  IsAuthenticatedSchema,
+} from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -11,14 +17,14 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     'http://localhost:5001/api/auth/google/callback'
   );
 
-
   fastify.post('/login', LoginSchema, async (request: PostAuthRequest, response) => {
     const { email, password } = request.body || {};
     try {
       //return user
       const user = await UserService.getUserByLoginOrEmail(email, password);
-      const token = fastify.jwt.sign({}, { expiresIn: 86400 });
-      response.send({token, user});
+      console.log('functionrouter -> user', user);
+      const token = fastify.jwt.sign({ user }, { expiresIn: 86400 });
+      response.send({ token, user });
     } catch (error) {
       throw {
         error: `User with given credentials does not exist`,
