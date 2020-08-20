@@ -3,12 +3,21 @@ $cardButtonColor: #EB3D55;
 
 .contentWrapper {
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+
+    height: 1400px;
+  }
 }
 
 .buildsHeading {
   margin-left: 15px;
   font-size: 28px;
   margin-bottom: 0;
+
+  @media (max-width: 1200px) {
+    margin-left: 30px;
+  }
 }
 
 .cardDisplay {
@@ -18,14 +27,33 @@ $cardButtonColor: #EB3D55;
   display: flex;
   margin: 10px;
 
+  @media (max-width: 1200px) {
+    flex-direction: row;
+    height: 1400px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    height: 1400px;
+  }
+
   .topSetup {
     width: 35%;
     height: 100%;
     margin-right: 80px;
+
+    @media (max-width: 1200px) {
+      height: 500px;
+      margin-right: 40px;
+      margin-left: 20px;
+      width: 50%;
+
+    }
   }
 
   .smallerCards {
-    width: 40%;
+    width: 60%;
     height: 690px;
     display: flex;
     flex-wrap: wrap;
@@ -33,7 +61,19 @@ $cardButtonColor: #EB3D55;
     align-items: center;
     align-content: space-evenly;
     flex-direction: column;
-    margin-left: 30px;
+    flex-shrink: 1;
+
+    @media (max-width: 1200px) {
+      display: block;
+      width: 50%;
+      margin-right: 20px;
+
+      &>div {
+        margin-bottom: 10px !important;
+        margin-top: 10px !important;
+      }
+    }
+
 
     &>div:nth-child(2n) {
       margin-bottom: 0;
@@ -45,7 +85,7 @@ $cardButtonColor: #EB3D55;
 
     .cardButton {
       height: 335px;
-      width: 335px;
+      width: 50%;
       background-color: $cardButtonColor;
       margin: 10px;
       border-radius: 6px;
@@ -54,10 +94,14 @@ $cardButtonColor: #EB3D55;
       flex-direction: column;
       align-items: center;
 
-      &:hover {
-          cursor: pointer;
+      @media (max-width: 1200px) {
+        width: 100%;
       }
-      
+
+      &:hover {
+        cursor: pointer;
+      }
+
 
 
       svg {
