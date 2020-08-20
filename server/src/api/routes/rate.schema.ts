@@ -1,4 +1,4 @@
-import { FastifyRequest } from 'fastify';
+import fastify, { FastifyRequest } from 'fastify';
 import { RateCreationAttributes } from '../../data/models/rate';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
@@ -67,6 +67,38 @@ export const RateSchema: SwaggerSchema = {
       type: 'string',
       nullable: false,
       format: 'date-time',
+    },
+  },
+};
+
+export const GetRatesAverage = {
+  schema: {
+    querystring: {
+      type: 'object',
+      properties: {
+        ratebleType: {
+          type: 'string',
+          enum: ['news', 'game', 'setup'],
+          nullable: true,
+        },
+        ratebleId: {
+          type: 'integer',
+          minimum: 1,
+          nullable: true,
+        },
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          average: {
+            type: 'number',
+            nullable: false,
+            example: 2.5,
+          },
+        },
+      },
     },
   },
 };

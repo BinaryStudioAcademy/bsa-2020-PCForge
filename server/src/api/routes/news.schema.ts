@@ -47,6 +47,7 @@ export const NewsSchema: SwaggerSchema = {
     },
     image: {
       type: 'string',
+      nullable: false,
       example: 'http://image-server.com/route',
     },
     createdAt: {

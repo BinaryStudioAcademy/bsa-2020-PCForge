@@ -10,6 +10,7 @@ import {
   RateSchema,
   CreateRateSchema,
   UpdateRateSchema,
+  GetRatesAverage,
 } from './rate.schema';
 import { RateMiddleware } from '../middlewares/rate.middleware';
 import {
@@ -30,6 +31,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetAllRatesRequest, reply) => {
     const rates = await RateService.getAllRates(request.query);
     reply.send(rates);
+  });
+
+  fastify.get('/average', GetRatesAverage, async (request: GetAllRatesRequest, reply) => {
+    const average = await RateService.getRatesAverage(request.query);
+    reply.send(average);
   });
 
   const getOneSchema = GetOneQuery(RateSchema);

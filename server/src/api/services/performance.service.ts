@@ -107,7 +107,7 @@ export class PerformanceService {
     gameId: string,
     resolutions: IResolution[] = this.resolutions.map((r) => r.getIResolution())
   ): Promise<ISetupPerformance> {
-    const { cpu, gpu, ram } = await this.setupRepository.getSetupById(id);
+    const { cpu, gpu, ram } = await this.setupRepository.getOneSetup(id);
     const {
       minimalCpu,
       recommendedCpu,

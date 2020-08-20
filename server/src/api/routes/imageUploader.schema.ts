@@ -2,11 +2,7 @@
 import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 
-export type UploadImageRequest = FastifyRequest<{
-  Body: {
-    file: any;
-  };
-}>;
+const UploadImageRequest: SwaggerSchema = {};
 
 const UploadImageResponse: SwaggerSchema = {
   type: 'object',

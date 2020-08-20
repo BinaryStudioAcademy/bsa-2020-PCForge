@@ -6,11 +6,14 @@ import {
   PostSetupRequest,
   DeleteSetupRequest,
   PutSetupRequest,
-  SetupSchema,
   CreateSetupSchema,
   UpdateSetupSchema,
   GetAllSetupsResponse,
+  DetailedSetupSchema,
 } from './setup.schema';
+
+import { SetupMiddleware } from '../middlewares/setup.middleware';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import {
   CreateOneQuery,
   UpdateOneQuery,
@@ -18,10 +21,11 @@ import {
   GetMultipleQuery,
   DeleteOneQuery,
 } from '../../helpers/swagger.helper';
-import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { SetupService } = fastify.services;
+
+  const setupMiddleware = SetupMiddleware(fastify);
 
   const getAllSchema = GetMultipleQuery(GetAllSetupsResponse);
   fastify.get('/', getAllSchema, async (request: GetSetupsRequest, reply) => {
@@ -29,29 +33,29 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(setups);
   });
 
-  const getOneSchema = GetOneQuery(SetupSchema);
+  const getOneSchema = GetOneQuery(DetailedSetupSchema);
   fastify.get('/:id', getOneSchema, async function (request: GetSetupRequest) {
     const { id } = request.params;
-    const setup = SetupService.getSetupById(id);
+    const setup = await SetupService.getSetupById(id);
     return setup;
   });
 
-  const createOneSchema = CreateOneQuery(CreateSetupSchema, SetupSchema);
+  const createOneSchema = CreateOneQuery(CreateSetupSchema, DetailedSetupSchema);
   fastify.post(
     '/',
     { preHandler: userRequestMiddleware(fastify), ...createOneSchema },
     async (request: PostSetupRequest, reply) => {
       request.body.authorId = request.user.id;
       const data = { ...request.body };
-      const setup = await SetupService.createSetup(data);
+      const setup = await SetupService.createSetup(data, setupMiddleware);
       reply.send(setup);
     }
   );
 
-  const updateOneSchema = UpdateOneQuery(UpdateSetupSchema, SetupSchema);
+  const updateOneSchema = UpdateOneQuery(UpdateSetupSchema, DetailedSetupSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutSetupRequest, reply) => {
     const { id } = request.params;
-    const setup = await SetupService.updateSetupById(id, request.body);
+    const setup = await SetupService.updateSetupById({ id, data: request.body }, setupMiddleware);
     reply.send(setup);
   });
 

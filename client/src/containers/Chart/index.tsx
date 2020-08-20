@@ -64,7 +64,7 @@ const GameMatcherResult: React.FC<Props> = ({
                 selected={topGameSelected}
                 onGameSelected={onGameSelected}
               />
-              <TestDifferentGame games={games} onGameChanged={onGameSelected} />
+              <TestDifferentGame games={games} onGameChanged={onGameSelected} onInputChanged={fetchGames} />
             </div>
           </div>
         </div>
