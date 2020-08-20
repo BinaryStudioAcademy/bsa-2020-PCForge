@@ -11,7 +11,13 @@ import {
   UpdateSetupSchema,
   GetAllSetupsResponse,
 } from './setup.schema';
-import { CreateOneQuery, UpdateOneQuery, GetOneQuery, GetMultipleQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  CreateOneQuery,
+  UpdateOneQuery,
+  GetOneQuery,
+  GetMultipleQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { SetupService } = fastify.services;

@@ -1,7 +1,23 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostCpuRequest, PutCpuRequest, DeleteCpuRequest, GetAllCpusRequest, GetOneCpuRequest, GetAllCpusResponse, CpuSchema, CreateCpuSchema, UpdateCpuSchema } from './cpu.schema';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  PostCpuRequest,
+  PutCpuRequest,
+  DeleteCpuRequest,
+  GetAllCpusRequest,
+  GetOneCpuRequest,
+  GetAllCpusResponse,
+  CpuSchema,
+  CreateCpuSchema,
+  UpdateCpuSchema,
+} from './cpu.schema';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -26,7 +42,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(cpu);
   });
 
-  const updateOneSchema = UpdateOneQuery(UpdateCpuSchema, CpuSchema)
+  const updateOneSchema = UpdateOneQuery(UpdateCpuSchema, CpuSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutCpuRequest, reply) => {
     const { id } = request.params;
     const newCpu = await CpuService.updateCpuById({ id, data: request.body });
