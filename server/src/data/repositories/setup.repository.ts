@@ -55,16 +55,27 @@ export class SetupRepository extends BaseRepository<SetupModel> {
     console.log(filter);
     const setups = await this.getAll(
       {
-        group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id'],
+        group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id'],
         include: [
           {
             model: this.cpuModel,
+            as: 'cpu',
           },
           {
             model: this.gpuModel,
+            as: 'gpu',
           },
           {
             model: this.ramModel,
+            as: 'ram',
+          },
+          {
+            model: this.powerSupplyModel,
+            as: 'powerSupply',
+          },
+          {
+            model: this.motherBoardModel,
+            as: 'motherboard'
           },
         ],
       },
