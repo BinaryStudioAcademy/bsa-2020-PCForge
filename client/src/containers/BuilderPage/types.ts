@@ -13,6 +13,8 @@ export type TypeBuild = {
   powersupplies: TypePowersupplies;
 };
 
+export type TypeComponent = TypeCpu | TypeGpu | TypeRam | TypeMotherboard | TypePowersupplies;
+
 export type TypeFilterBuilder = {
   socketIdSet: Set<number>;
   ramTypeIdSet: Set<number>;

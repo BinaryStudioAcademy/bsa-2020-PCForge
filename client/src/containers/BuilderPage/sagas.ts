@@ -7,13 +7,17 @@ import {
   BUILDER_INIT_SETUP,
   BUILDER_RESET_SETUP,
   BUILDER_SET_SETUP,
-} from './actionTypes';
+  REMOVE_COMPONENT_FROM_SETUP,
+  SAVE_SETUP_REQUEST,
+} from 'containers/BuilderPage/actionTypes';
 import { getCpu } from 'api/services/cpuService';
 import { getGpu } from 'api/services/gpuService';
 import { getRam } from 'api/services/ramService';
 import { getMotherboard } from 'api/services/motherboardService';
 import { getPowersupplies } from 'api/services/powersupplyService';
 import { clearLocalSetup, getLocalSetup, setLocalSetup } from 'helpers/setupHelper';
+import { uploadImage } from 'api/services/imageService';
+import { createSetup } from 'api/services/setup.service';
 import { GroupName } from './config';
 
 const servicesGet = {
@@ -71,6 +75,29 @@ function* watchResetSetup() {
   yield takeEvery(BUILDER_RESET_SETUP, resetSetup);
 }
 
+export function* removeComponent(action: AnyAction) {
+  const setup = yield select((state) => state.setup);
+  yield call(setLocalSetup, { ...setup, [action.payload.group]: null });
+}
+
+function* watchRemoveSetup() {
+  yield takeEvery(REMOVE_COMPONENT_FROM_SETUP, removeComponent);
+}
+
+export function* saveSetup(action: AnyAction) {
+  try {
+    const data = action.payload.data;
+    data.image = yield call(uploadImage, action.payload.image);
+    const savedSetup = yield call(createSetup, data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* watchSaveSetup() {
+  yield takeEvery(SAVE_SETUP_REQUEST, saveSetup);
+}
+
 export default function* builderSagas() {
-  yield all([watchAddComponent(), watchInitSetup(), watchResetSetup()]);
+  yield all([watchAddComponent(), watchInitSetup(), watchResetSetup(), watchRemoveSetup(), watchSaveSetup()]);
 }

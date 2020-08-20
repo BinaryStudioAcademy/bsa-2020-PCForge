@@ -39,7 +39,14 @@ export const initializeRepositories = (models: Models): Repositories => {
   const ramRepository = new RamRepository(models.Ram, models.RamType);
   const powerSupplyRepository = new PowerSupplyRepository(models.PowerSupply);
   const socketRepository = new SocketRepository(models.Socket);
-  const setupRepository = new SetupRepository(models.Setup);
+  const setupRepository = new SetupRepository(
+    models.Setup,
+    models.Cpu,
+    models.Gpu,
+    models.Motherboard,
+    models.Ram,
+    models.PowerSupply
+  );
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
   const gpuRepository = new GpuRepository(models.Gpu);
   const cpuRepository = new CpuRepository(models.Cpu, models.Socket);
@@ -47,7 +54,7 @@ export const initializeRepositories = (models: Models): Repositories => {
   const topGameRepository = new TopGameRepository(models.TopGame, models.Game, models.Cpu, models.Gpu);
   const newsRepository = new NewsRepository(models.News);
   const rateRepository = new RateRepository(models.Rate);
-  const commentRepository = new CommentRepository(models.Comment);
+  const commentRepository = new CommentRepository(models.Comment, models.User);
   const addRequestRepository = new AddRequestRepository(models.AddRequest);
   const repositories: Repositories = {
     RamTypeRepository: ramTypeRepository,
@@ -64,7 +71,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     NewsRepository: newsRepository,
     RateRepository: rateRepository,
     CommentRepository: commentRepository,
-    AddRequestRepository: addRequestRepository
+    AddRequestRepository: addRequestRepository,
   };
   return repositories;
 };

@@ -34,7 +34,7 @@ export const GameSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
@@ -46,90 +46,70 @@ export const GameSchema: SwaggerSchema = {
       nullable: false,
       example: 2020,
       maximum: new Date().getFullYear(),
-      minimum: 1920
+      minimum: 1920,
     },
     image: {
       type: 'string',
       nullable: false,
-      example: 'http://hosting-server.com/route'
+      example: 'http://hosting-server.com/route',
     },
     description: {
       type: 'string',
       nullable: false,
-      example: 'Long game description goes here...'
+      example: 'Long game description goes here...',
     },
     minimalRamSize: {
       type: 'integer',
       nullable: false,
       example: 4,
-      minimum: 1
+      minimum: 1,
     },
     recommendedRamSize: {
       type: 'integer',
       nullable: false,
       example: 8,
-      minimum: 1
+      minimum: 1,
     },
     minimalCpuId: {
       type: 'integer',
       nullable: false,
       example: 1,
-      minimum: 1
+      minimum: 1,
     },
     recommendedCpuId: {
       type: 'integer',
       nullable: false,
       example: 1,
-      minimum: 1
+      minimum: 1,
     },
     minimalGpuId: {
       type: 'integer',
       nullable: false,
       example: 1,
-      minimum: 1
+      minimum: 1,
     },
     recommendedGpuId: {
       type: 'integer',
       nullable: false,
       example: 1,
-      minimum: 1
+      minimum: 1,
     },
-    minimalCpu: {
-      type: 'object',
-      properties: {
-        ...CpuSchema.properties,
-        socket: {
-          ...CpuSchema.properties.socket,
-          nullable: true,
-          example: null
-        }
-      }
-    },
-    recommendedCpu: {
-      type: 'object',
-      properties: {
-        ...CpuSchema.properties,
-        socket: {
-          ...CpuSchema.properties.socket,
-          nullable: true,
-          example: null
-        }
-      }
-    },
+    minimalCpu: CpuSchema,
+    recommendedCpu: CpuSchema,
     minimalGpu: GpuSchema,
     recommendedGpu: GpuSchema,
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const CreateGameSchema: SwaggerSchema = {
   type: 'object',
@@ -144,17 +124,17 @@ export const CreateGameSchema: SwaggerSchema = {
       nullable: false,
       example: 2020,
       maximum: new Date().getFullYear(),
-      minimum: 1920
+      minimum: 1920,
     },
     image: {
       type: 'string',
       nullable: false,
-      example: 'http://hosting-server.com/route'
+      example: 'http://hosting-server.com/route',
     },
     description: {
       type: 'string',
       nullable: false,
-      example: 'Long game description goes here...'
+      example: 'Long game description goes here...',
     },
     minimalRamSize: {
       type: 'integer',
@@ -192,8 +172,8 @@ export const CreateGameSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
     },
-  }
-}
+  },
+};
 
 export const updateGameSchema: SwaggerSchema = {
   type: 'object',
@@ -208,17 +188,17 @@ export const updateGameSchema: SwaggerSchema = {
       nullable: true,
       example: 2020,
       maximum: new Date().getFullYear(),
-      minimum: 1920
+      minimum: 1920,
     },
     image: {
       type: 'string',
       nullable: true,
-      example: 'http://hosting-server.com/route'
+      example: 'http://hosting-server.com/route',
     },
     description: {
       type: 'string',
       nullable: true,
-      example: 'Long game description goes here...'
+      example: 'Long game description goes here...',
     },
     minimalRamSize: {
       type: 'integer',
@@ -256,8 +236,8 @@ export const updateGameSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
     },
-  }
-}
+  },
+};
 
 export const GetAllGamesResponse: SwaggerSchema = {
   type: 'object',
@@ -267,17 +247,17 @@ export const GetAllGamesResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: GameSchema
-    }
-  }
-}
+      items: GameSchema,
+    },
+  },
+};

@@ -19,7 +19,7 @@ export const RateMiddleware = (fastify: FastifyInstance): IRateMiddleware => {
 
     const user = await UserService.getUser(stringUserId);
     if (!user) {
-      throw Error(`There's no user with id: ${userId}`);
+      triggerServerError(`There's no user with id: ${userId}`, 404);
     }
     switch (ratebleType) {
       case 'news':

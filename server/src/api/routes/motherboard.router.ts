@@ -10,8 +10,15 @@ import {
   MotherBoardSchema,
   CreateMotherBoardSchema,
   UpdateMotherBoardSchema,
+  DetailedMotherBoardSchema,
 } from './motherboard.schema';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -23,20 +30,20 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(motherboards);
   });
 
-  const getOneSchema = GetOneQuery(MotherBoardSchema);
+  const getOneSchema = GetOneQuery(DetailedMotherBoardSchema);
   fastify.get('/:id', getOneSchema, async (request: GetOneMotherboardRequest, reply) => {
     const { id } = request.params;
     const motherboard = await MotherboardService.getMotherboardById(id);
     reply.send(motherboard);
   });
 
-  const createOneSchema = CreateOneQuery(CreateMotherBoardSchema, MotherBoardSchema);
+  const createOneSchema = CreateOneQuery(CreateMotherBoardSchema, DetailedMotherBoardSchema);
   fastify.post('/', createOneSchema, async (request: PostMotherboardRequest, reply) => {
     const motherboard = await MotherboardService.createMotherboard(request.body);
     reply.send(motherboard);
   });
 
-  const updateOneSchema = UpdateOneQuery(UpdateMotherBoardSchema, MotherBoardSchema);
+  const updateOneSchema = UpdateOneQuery(UpdateMotherBoardSchema, DetailedMotherBoardSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutMotherboardRequest, reply) => {
     const { id } = request.params;
     const newMotherboard = await MotherboardService.updateMotherboardById({ id, data: request.body });

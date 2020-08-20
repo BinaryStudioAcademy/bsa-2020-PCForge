@@ -19,6 +19,14 @@ export type TypeSetup = {
   powersupply: TypePowersupplies | null;
 };
 
+export type TypeSetupForPost = {
+  cpuId: number;
+  gpuId: number;
+  motherboardId: number;
+  ramId: number;
+  powerSupplyId: number;
+};
+
 const initialState = {
   cpu: null,
   gpu: null,
@@ -44,7 +52,10 @@ export default function (state = initialState, action: AnyAction): TypeSetup {
     }
 
     case BUILDER_SET_SETUP: {
-      return action.payload;
+      return {
+        ...state,
+        ...action.payload,
+      };
     }
 
     case BUILDER_RESET_SETUP: {

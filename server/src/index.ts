@@ -37,10 +37,10 @@ server.register(fastifyStatic, {
 
 server.register(routes, { prefix: '/api' });
 
-server.ready(err => {
+server.ready((err) => {
   if (err) throw err;
   server.swagger();
-})
+});
 
 server.listen(port, '0.0.0.0', (err, address) => {
   if (err) {
