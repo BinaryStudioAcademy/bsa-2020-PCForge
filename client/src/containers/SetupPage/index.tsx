@@ -45,7 +45,11 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
           <h1>PC setup</h1>
           <div className={styles.contentWrapper}>
             <Container className={styles.setupsDetails}>
-              <SetupCard setup={setup} rate={this.props.state.rate} />
+              <SetupCard
+                setup={setup}
+                rate={this.props.state.rate}
+                onRatingSet={(value: number) => this.props.setSetupRate({ id: +this.props.match.params.id, value })}
+              />
               <div className={[styles.underline, styles.noMarginTop].join(' ')}></div>
               <PcComponentView
                 title="Processor"
