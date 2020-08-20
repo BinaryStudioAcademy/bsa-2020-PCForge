@@ -17,7 +17,7 @@ import styles from 'components/BuilderPage/styles.module.scss';
 type PropsType = {
   filter: TypeFilterBuilder;
   show: boolean;
-  onUpdateFilter: ({}: TypeFilterBuilder) => void;
+  onUpdateFilter: (filter: TypeFilterBuilder) => void;
 };
 
 const FilterSocket = ({ filter, show, onUpdateFilter }: PropsType): JSX.Element => {

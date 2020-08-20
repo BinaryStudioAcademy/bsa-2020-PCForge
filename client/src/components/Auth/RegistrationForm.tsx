@@ -2,8 +2,8 @@ import React from 'react';
 import styles from 'containers/Auth/styles.module.scss';
 import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
-import Alert, { AlertType } from '../BasicComponents/Alert';
-import PasswordInput from '../PasswordInput/PasswordInput';
+import Alert, { AlertType } from 'components/BasicComponents/Alert';
+import PasswordInput from 'components/PasswordInput/PasswordInput';
 
 interface IRegistrationFormProps {
   email: string;

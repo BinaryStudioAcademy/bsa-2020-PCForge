@@ -1,23 +1,9 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import {
-  PostRamRequest,
-  GetOneRamRequest,
-  PutRamRequest,
-  DeleteRamRequest,
-  GetAllRamsRequest,
-  GetAllRamResponse,
-  RamSchema,
-  CreateRamSchema,
-  UpdateRamSchema,
-} from './ram.schema';
-import {
-  GetMultipleQuery,
-  GetOneQuery,
-  CreateOneQuery,
-  UpdateOneQuery,
-  DeleteOneQuery,
-} from '../../helpers/swagger.helper';
+
+import { PostRamRequest, GetOneRamRequest, PutRamRequest, DeleteRamRequest, GetAllRamsRequest, GetAllRamResponse, RamSchema, CreateRamSchema, UpdateRamSchema, DetailedRamSchema } from './ram.schema';
+import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -29,20 +15,20 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(rams);
   });
 
-  const getOneSchema = GetOneQuery(RamSchema);
+  const getOneSchema = GetOneQuery(DetailedRamSchema);
   fastify.get('/:id', getOneSchema, async (request: GetOneRamRequest, reply) => {
     const { id } = request.params;
     const ram = await RamService.getRamById(id);
     reply.send(ram);
   });
 
-  const createOneSchema = CreateOneQuery(CreateRamSchema, RamSchema);
+  const createOneSchema = CreateOneQuery(CreateRamSchema, DetailedRamSchema);
   fastify.post('/', createOneSchema, async (request: PostRamRequest, reply) => {
     const ram = await RamService.createRam(request.body);
     reply.send(ram);
   });
 
-  const updateOneSchema = UpdateOneQuery(UpdateRamSchema, RamSchema);
+  const updateOneSchema = UpdateOneQuery(UpdateRamSchema, DetailedRamSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutRamRequest, reply) => {
     const { id } = request.params;
     const newRam = await RamService.updateRamById({ id, data: request.body });

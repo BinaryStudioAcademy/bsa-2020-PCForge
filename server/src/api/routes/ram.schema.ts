@@ -63,7 +63,6 @@ export const RamSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false
     },
-    ramType: RamTypeSchema,
     createdAt: {
       type: 'string',
       nullable: false,
@@ -76,6 +75,15 @@ export const RamSchema: SwaggerSchema = {
     }
   }
 }
+
+const createDetailedRamSchema = () => {
+  const schema: SwaggerSchema = JSON.parse(JSON.stringify(RamSchema));
+  schema.properties.ramType = RamTypeSchema;
+
+  return schema;
+}
+
+export const DetailedRamSchema: SwaggerSchema = createDetailedRamSchema();
 
 export const CreateRamSchema: SwaggerSchema = {
   type: 'object',
@@ -161,7 +169,7 @@ export const GetAllRamResponse: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: RamSchema
+      items: DetailedRamSchema
     }
   }
 }

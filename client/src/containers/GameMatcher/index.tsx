@@ -1,15 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import Select from 'components/BasicComponents/Select';
 import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from '../PageComponent';
+import Alert, { AlertType } from 'components/BasicComponents/Alert';
+import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import { MenuItems } from 'common/enums';
-// const mockDataCallback = async () => ([{value: 'example', title: 'example'}]);
-const mockData = [{ value: 'example', title: 'example' }];
+import * as actions from './actions';
+import { RootState } from 'redux/rootReducer';
+import { connect } from 'react-redux';
+import { GameMatcherProps } from './interfaces';
+import { MatcherSettableVariants, MatcherServerActions } from './actionTypes';
 
-const GameMatcherPage = (): JSX.Element => {
+const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
+  const { setAlertValue, getMatcherData } = props;
+
+  const {
+    gamesErrorMessage,
+    ramsErrorMessage,
+    cpusErrorMessage,
+    gpusErrorMessage,
+    alertMessage,
+    alertMessageType,
+  } = props.state;
+
+  const [selectedGame, setSelectedGame] = useState<number | null>(null);
+  const [selectedRam, setSelectedRam] = useState<number | null>(null);
+  const [selectedCpu, setSelectedCpu] = useState<number | null>(null);
+  const [selectedGpu, setSelectedGpu] = useState<number | null>(null);
+
+  const gameOptions = props.state.games.map((game) => ({ label: game.name, value: game.id }));
+  const ramOptions = props.state.rams.map((ram) => ({ label: ram.name, value: ram.id }));
+  const cpuOptions = props.state.cpus.map((cpu) => ({ label: cpu.name, value: cpu.id }));
+  const gpuOptions = props.state.gpus.map((gpu) => ({ label: gpu.name, value: gpu.id }));
+
+  const onTestGame = async () => {
+    if (!selectedRam || !selectedCpu || !selectedGpu || !selectedGame) {
+      setAlertValue({ type: AlertType.error, message: 'Error: Please choose hardware components' });
+      return;
+    }
+    setAlertValue({ type: AlertType.success, message: 'Success' });
+  };
+
+  const createHardwareGetter = (variant: MatcherSettableVariants, type: string) => {
+    return function ({ value, itemsCount = 0 }: { value: string; itemsCount?: number }) {
+      getMatcherData({
+        offset: itemsCount,
+        name: value,
+        variant,
+        type,
+      });
+    };
+  };
+
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.GameMatcher}>
       <main className={styles.gameMatcher} role="main">
@@ -17,50 +61,74 @@ const GameMatcherPage = (): JSX.Element => {
         <div className={styles.contentWrapper}>
           <div className={styles.mainContainer}>
             <div className={styles.configs}>
+              {alertMessage && <Alert alertType={alertMessageType}>{alertMessage}</Alert>}
               <section>
                 <h2 className={styles.sectionHeader}>Choose a Game</h2>
                 <div className={styles.selectItem}>
-                  <Select
-                    inputLabel="Game's name"
-                    inputOptions={mockData}
-                    placeholder="Select a game"
+                  <InputBasedSelect
+                    label="Game's name"
+                    placeholder="Choose a game"
+                    inputId="game"
+                    options={gameOptions}
+                    errorMessage={gamesErrorMessage}
                     labelClassName={styles.selectItemHeader}
-                  >
-                    {' '}
-                  </Select>
+                    debounceTime={300}
+                    onSelect={(id: number) => setSelectedGame(id)}
+                    onInputChange={createHardwareGetter('games', MatcherServerActions.MATCHER_REPLACE_GAMES)}
+                    onSeeMoreClick={createHardwareGetter('games', MatcherServerActions.MATCHER_ADD_GAMES)}
+                  />
                 </div>
               </section>
               <section>
                 <h2 className={styles.sectionHeader}>Your Computer Hardware</h2>
                 <div className={styles.selectItem}>
-                  <Select
-                    inputLabel="Processor"
-                    inputOptions={mockData}
-                    placeholder="Select"
+                  <InputBasedSelect
+                    label="RAM"
+                    placeholder="Choose a RAM"
+                    inputId="ram"
+                    options={ramOptions}
+                    errorMessage={ramsErrorMessage}
                     labelClassName={styles.selectItemHeader}
-                  ></Select>
+                    debounceTime={300}
+                    onSelect={(id: number) => setSelectedRam(id)}
+                    onInputChange={createHardwareGetter('rams', MatcherServerActions.MATCHER_REPLACE_RAMS)}
+                    onSeeMoreClick={createHardwareGetter('rams', MatcherServerActions.MATCHER_ADD_RAMS)}
+                  />
                 </div>
                 <div className={styles.selectItem}>
-                  <Select
-                    inputLabel="CPU"
-                    inputOptions={mockData}
-                    placeholder="Select"
+                  <InputBasedSelect
+                    label="CPU"
+                    placeholder="Choose a processor"
+                    inputId="cpu"
+                    options={cpuOptions}
+                    errorMessage={cpusErrorMessage}
                     labelClassName={styles.selectItemHeader}
-                  ></Select>
+                    debounceTime={300}
+                    onSelect={(id: number) => setSelectedCpu(id)}
+                    onInputChange={createHardwareGetter('cpus', MatcherServerActions.MATCHER_REPLACE_CPUS)}
+                    onSeeMoreClick={createHardwareGetter('cpus', MatcherServerActions.MATCHER_ADD_CPUS)}
+                  />
                 </div>
                 <div className={styles.selectItem}>
-                  <Select
-                    inputLabel="GPU"
-                    inputOptions={mockData}
-                    placeholder="Select"
+                  <InputBasedSelect
+                    label="GPU"
+                    placeholder="Choose a graphics"
+                    inputId="gpu"
+                    options={gpuOptions}
+                    errorMessage={gpusErrorMessage}
+                    debounceTime={300}
                     labelClassName={styles.selectItemHeader}
-                  ></Select>
+                    onSelect={(id: number) => setSelectedGpu(id)}
+                    onInputChange={createHardwareGetter('gpus', MatcherServerActions.MATCHER_REPLACE_GPUS)}
+                    onSeeMoreClick={createHardwareGetter('gpus', MatcherServerActions.MATCHER_ADD_GPUS)}
+                  />
                 </div>
               </section>
               <Button
                 buttonType={ButtonType.primary}
                 className={styles.pageButton}
                 classes={{ label: styles.buttonLabel }}
+                onClick={onTestGame}
               >
                 Can I Run It
               </Button>
@@ -73,4 +141,12 @@ const GameMatcherPage = (): JSX.Element => {
   );
 };
 
-export default GameMatcherPage;
+const mapStateToProps = (state: RootState) => ({
+  state: state.matcher,
+});
+
+const mapDispatchToProps = {
+  ...actions,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameMatcherPage);

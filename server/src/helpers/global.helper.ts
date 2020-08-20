@@ -7,3 +7,10 @@ export const reduceTo = <T>(from: T, ToFactory: new () => T): T => {
   const reduced: T = (pick(from, keys(to)) as unknown) as T;
   return reduced;
 };
+
+export const triggerServerError = (message: string, statusCode: number): never => {
+  throw {
+    error: message,
+    status: statusCode
+  }
+}

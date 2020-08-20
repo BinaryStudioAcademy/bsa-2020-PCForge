@@ -20,7 +20,8 @@ const TopGames: React.FC<Props> = ({
       key={game.id}
       onClick={() => onGameSelectedProps(game)}
     >
-      <img className={styles.gameImage} src={game.image} alt={game.name}></img>
+      <img className={styles.gameImage} src={game.image} alt={game.name} />
+
       <div className={styles.gameDetails}>
         {/* <span className={styles.gameCategory}>{game.name}</span> */}
 

@@ -2,6 +2,7 @@ import { FastifyRequest } from 'fastify';
 import { CommentCreationAttributes } from '../../data/models/comment';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserSchema } from './user.schema';
 
 export type GetAllCommentsRequest = FastifyRequest<{
   Params: { id: string };
@@ -46,6 +47,7 @@ export const CommentSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false
     },
+    user: UserSchema,
     commentableId: {
       type: 'integer',
       example: 1,
@@ -102,17 +104,23 @@ export const CreateCommentSchema: SwaggerSchema = {
       enum: ['news', 'game', 'setup'],
       nullable: false,
     },
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
-      nullable: false
-    },
     commentableId: {
       type: 'integer',
       example: 1,
       minimum: 1,
       nullable: false
+    },
+    userId: {
+      type: 'integer',
+      nullable: false,
+      example: 1,
+      minimum: 1,
+    },
+    token: {
+      type: 'string',
+      description: 'This is token that u get while loging in',
+      nullable: false,
+      example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc4NjQ5MjQsImV4cCI6MTU5Nzk1MTMyNH0.V8oy05YtI8elNEOl5Z_1hiCZFwD3Fq_ck1bZ4_UXI3o'
     },
     value: {
       type: 'string',

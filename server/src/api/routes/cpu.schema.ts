@@ -62,7 +62,7 @@ export const CpuSchema: SwaggerSchema = {
       minimum: 0,
       nullable: false,
     },
-    perfomance: {
+    performance: {
       type: 'integer',
       example: 160,
       minimum: 0,
@@ -74,7 +74,6 @@ export const CpuSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
-    socket: SocketSchema,
     createdAt: {
       type: 'string',
       nullable: false,
@@ -87,6 +86,15 @@ export const CpuSchema: SwaggerSchema = {
     },
   },
 };
+
+const createDetailedCpuSchema = (): SwaggerSchema => {
+  const schema: SwaggerSchema = JSON.parse(JSON.stringify(CpuSchema));
+  schema.properties.socket = SocketSchema;
+
+  return schema;
+}
+
+export const DetailedCpuSchema: SwaggerSchema = createDetailedCpuSchema();
 
 export const CreateCpuSchema: SwaggerSchema = {
   type: 'object',
@@ -119,7 +127,7 @@ export const CreateCpuSchema: SwaggerSchema = {
       minimum: 0,
       nullable: false,
     },
-    perfomance: {
+    performance: {
       type: 'integer',
       example: 160,
       minimum: 0,
@@ -165,7 +173,7 @@ export const UpdateCpuSchema: SwaggerSchema = {
       minimum: 0,
       nullable: false,
     },
-    perfomance: {
+    performance: {
       type: 'integer',
       example: 160,
       minimum: 0,
@@ -198,7 +206,9 @@ export const GetAllCpusResponse: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: CpuSchema,
-    },
-  },
-};
+      items: DetailedCpuSchema
+    }
+  }
+}
+
+

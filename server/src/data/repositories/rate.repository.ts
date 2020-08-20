@@ -2,6 +2,7 @@ import { RateCreationAttributes, RateModel, RateStatic } from '../models/rate';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { mergeFilters } from './filters/helper';
 import { IRateFilter } from './filters/rate.filter';
+import sequelize from 'sequelize';
 
 export class RateRepository extends BaseRepository<RateModel, IRateFilter> {
   constructor(private model: RateStatic) {
@@ -24,6 +25,15 @@ export class RateRepository extends BaseRepository<RateModel, IRateFilter> {
       },
       filter
     );
+  }
+
+  async getAverageRate(inputFilter: IRateFilter): Promise<number> {
+    const filter = mergeFilters<IRateFilter>(new IRateFilter(), inputFilter);
+    const averageRate: number = await this.model.aggregate('value', 'AVG', {where: {
+      ratebleType: filter.ratebleType,
+      ratebleId: filter.ratebleId,
+    }});
+    return averageRate;
   }
 
   async createRate(inputRate: RateCreationAttributes): Promise<RateModel> {

@@ -13,6 +13,7 @@ import { TopGameRepository } from './topGame.repository';
 import { NewsRepository } from './news.repository';
 import { RateRepository } from './rate.repository';
 import { CommentRepository } from './comment.repository';
+import { AddRequestRepository } from './addRequest.repository';
 
 export interface Repositories {
   RamTypeRepository: RamTypeRepository;
@@ -29,15 +30,16 @@ export interface Repositories {
   NewsRepository: NewsRepository;
   RateRepository: RateRepository;
   CommentRepository: CommentRepository;
+  AddRequestRepository: AddRequestRepository;
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
+  const setupRepository = new SetupRepository(models.Setup, models.Cpu, models.Gpu, models.Ram, models.Motherboard, models.PowerSupply);
   const ramTypeRepository = new RamTypeRepository(models.RamType);
   const usersRepository = new UserRepository(models.User);
   const ramRepository = new RamRepository(models.Ram, models.RamType);
   const powerSupplyRepository = new PowerSupplyRepository(models.PowerSupply);
   const socketRepository = new SocketRepository(models.Socket);
-  const setupRepository = new SetupRepository(models.Setup, models.Cpu, models.Gpu, models.Ram);
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
   const gpuRepository = new GpuRepository(models.Gpu);
   const cpuRepository = new CpuRepository(models.Cpu, models.Socket);
@@ -45,7 +47,8 @@ export const initializeRepositories = (models: Models): Repositories => {
   const topGameRepository = new TopGameRepository(models.TopGame, models.Game, models.Cpu, models.Gpu);
   const newsRepository = new NewsRepository(models.News);
   const rateRepository = new RateRepository(models.Rate);
-  const commentRepository = new CommentRepository(models.Comment);
+  const commentRepository = new CommentRepository(models.Comment, models.User);
+  const addRequestRepository = new AddRequestRepository(models.AddRequest);
   const repositories: Repositories = {
     RamTypeRepository: ramTypeRepository,
     RamRepository: ramRepository,
@@ -61,6 +64,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     NewsRepository: newsRepository,
     RateRepository: rateRepository,
     CommentRepository: commentRepository,
+    AddRequestRepository: addRequestRepository
   };
   return repositories;
 };

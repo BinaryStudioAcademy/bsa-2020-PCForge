@@ -2,12 +2,16 @@ import { TopGameCreationAttributes, TopGameModel } from '../../data/models/topga
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { TopGameRepository } from '../../data/repositories/topGame.repository';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export class TopGameService {
   constructor(private repository: TopGameRepository) {}
 
   async getTopGameById(id: string): Promise<TopGameModel> {
     const TopGame = await this.repository.getTopGameById(id);
+    if (!TopGame) {
+      triggerServerError(`TopGame with id: ${id} does not exists`, 404);
+    }
     return TopGame;
   }
 
@@ -25,7 +29,7 @@ export class TopGameService {
     const { id, data } = inputTopGame;
     const oldTopGame = await this.repository.getTopGameById(id);
     if (!oldTopGame) {
-      throw new Error(`TopGame with id: ${id} does not exists`);
+      triggerServerError(`TopGame with id: ${id} does not exists`, 404);
     }
     const TopGame = await this.repository.updateTopGameById(id, data);
     return TopGame;
