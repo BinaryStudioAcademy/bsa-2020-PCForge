@@ -9,7 +9,7 @@ import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { SpecificationComponent } from 'components/BuilderPage/Specifications';
-import { ComponentGroups, TypeFilterBuilder, TypeGroupConfig } from 'containers/BuilderPage/types';
+import { ComponentGroups, TypeComponent, TypeFilterBuilder, TypeGroupConfig } from 'containers/BuilderPage/types';
 import { FilterName, filterRangeInfo, GroupName, servicesGetAll } from 'containers/BuilderPage/config';
 import FilterRamTypes from '../FilterRamType';
 import Search from '../Search';
@@ -17,9 +17,8 @@ import styles from './styles.module.scss';
 
 type PropsType = {
   cfg: TypeGroupConfig;
-  // setup: TypeSetup;
   // filter: TypeFilterBuilder;
-  selectedComponent: any | null;
+  selectedComponent: TypeComponent | null;
   onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: (group: GroupName, id: number) => void;
   onRemoveSelectedComponent: (group: GroupName) => void;
@@ -35,7 +34,6 @@ type TypeRange = {
 
 const GroupComponent = ({
   cfg,
-  // setup,
   // filter,
   selectedComponent,
   onUpdateFilter,
@@ -46,8 +44,7 @@ const GroupComponent = ({
   onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
-  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
-  const [components, setComponents] = useState([] as any[]);
+  const [components, setComponents] = useState([] as TypeComponent[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
@@ -134,22 +131,9 @@ const GroupComponent = ({
     }
   };
 
-  const updateComponents = async () => {
-    await getAllComponents();
-    await getComponents();
-  };
-
   useEffect(() => {
     getComponents();
   }, [filter, name, range, pagination]);
-
-  // useEffect(() => {
-  //   getAllComponents();
-  // }, [filter, name]);
-  //
-  // useEffect(() => {
-  //   getComponents();
-  // }, [range, pagination]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -171,6 +155,8 @@ const GroupComponent = ({
     <ListComponentsItem
       key={component.id}
       title={component.name}
+      /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+      // @ts-ignore
       specifications={SpecificationComponent[cfg.group]({ component })}
       onAddComponent={() => onAddComponent(cfg.group, component.id)}
     />
@@ -196,6 +182,8 @@ const GroupComponent = ({
         title={cfg.group}
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
+        /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
+        // @ts-ignore
         popupContent={selectedComponent ? SpecificationComponent[cfg.group]({ component: selectedComponent }) : false}
         onClear={() => onRemoveSelectedComponent(cfg.group)}
       />

@@ -119,7 +119,6 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     <GroupComponent
       key={config.group}
       cfg={config}
-      // setup={setup}
       // filter={filterForCpu}
       // showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
       selectedComponent={setup[config.group]}
