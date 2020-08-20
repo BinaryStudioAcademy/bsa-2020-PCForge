@@ -11,7 +11,13 @@ import {
   UpdateCommentSchema,
 } from './comment.schema';
 import { CommentMiddleware } from '../middlewares/comment.middleware';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -33,7 +39,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   const createOneSchema = CreateOneQuery(UpdateCommentSchema, CommentSchema);
-  fastify.post('/', {...createOneSchema}, async (request: PostCommentRequest, reply) => {
+  fastify.post('/', { ...createOneSchema }, async (request: PostCommentRequest, reply) => {
     const comment = await CommentService.createComment(request.body, commentMiddleware);
     reply.send(comment);
   });

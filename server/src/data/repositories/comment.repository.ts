@@ -18,10 +18,12 @@ export class CommentRepository extends BaseRepository<CommentModel, ICommentFilt
     return await this.getAll(
       {
         group: ['comment.id', 'user.id'],
-        include: [{
-          model: this.userModel,
-          as: 'user'
-        }],
+        include: [
+          {
+            model: this.userModel,
+            as: 'user',
+          },
+        ],
         where: {
           commentableId: filter.commentableId,
           commentableType: filter.commentableType,

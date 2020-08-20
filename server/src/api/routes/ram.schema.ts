@@ -32,7 +32,7 @@ export const RamSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
@@ -55,33 +55,33 @@ export const RamSchema: SwaggerSchema = {
       type: 'number',
       example: 1.35,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     typeId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 const createDetailedRamSchema = () => {
   const schema: SwaggerSchema = JSON.parse(JSON.stringify(RamSchema));
   schema.properties.ramType = RamTypeSchema;
 
   return schema;
-}
+};
 
 export const DetailedRamSchema: SwaggerSchema = createDetailedRamSchema();
 
@@ -91,13 +91,13 @@ export const CreateRamSchema: SwaggerSchema = {
     name: {
       type: 'string',
       example: 'Ram name',
-      nullable: false
+      nullable: false,
     },
     memorySize: {
       type: 'integer',
       example: 8,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     frequency: {
       type: 'integer',
@@ -109,16 +109,16 @@ export const CreateRamSchema: SwaggerSchema = {
       type: 'number',
       example: 1.35,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     typeId: {
       type: 'number',
       example: 1,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
-  }
-}
+  },
+};
 
 export const UpdateRamSchema: SwaggerSchema = {
   type: 'object',
@@ -126,12 +126,12 @@ export const UpdateRamSchema: SwaggerSchema = {
     name: {
       type: 'string',
       example: 'Ram name',
-      nullable: true
+      nullable: true,
     },
     memorySize: {
       type: 'integer',
       example: 8,
-      nullable: true
+      nullable: true,
     },
     frequency: {
       type: 'integer',
@@ -141,15 +141,15 @@ export const UpdateRamSchema: SwaggerSchema = {
     power: {
       type: 'number',
       example: 1.35,
-      nullable: true
+      nullable: true,
     },
     typeId: {
       type: 'number',
       example: 1,
-      nullable: true
+      nullable: true,
     },
-  }
-}
+  },
+};
 
 export const GetAllRamResponse: SwaggerSchema = {
   type: 'object',
@@ -159,17 +159,17 @@ export const GetAllRamResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: DetailedRamSchema
-    }
-  }
-}
+      items: DetailedRamSchema,
+    },
+  },
+};

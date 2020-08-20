@@ -1,11 +1,12 @@
+import { SetupCreationAttributes, SetupModel, SetupStatic } from '../models/setup';
+import { BaseRepository, RichModel, IWithMeta } from './base.repository';
+import { IFilter } from './filters/base.filter';
 import { CpuStatic } from '../models/cpu';
 import { GpuStatic } from '../models/gpu';
-import { RamStatic } from '../models/ram';
 import { MotherboardStatic } from '../models/motherboard';
+import { RamStatic } from '../models/ram';
 import { PowerSupplyStatic } from '../models/powersupply';
-import { SetupCreationAttributes, SetupModel, SetupStatic } from '../models/setup';
-import { BaseRepository, IWithMeta, RichModel } from './base.repository';
-import { IFilter } from './filters/base.filter';
+import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { RateStatic } from '../models/rate';
 import { mergeFilters } from './filters/helper';
 
@@ -14,11 +15,44 @@ export class SetupRepository extends BaseRepository<SetupModel> {
     private model: SetupStatic,
     private cpuModel: CpuStatic,
     private gpuModel: GpuStatic,
-    private ramModel: RamStatic,
     private motherBoardModel: MotherboardStatic,
+    private ramModel: RamStatic,
     private powerSupplyModel: PowerSupplyStatic
   ) {
     super(<RichModel>model, IFilter);
+  }
+
+  async getSetups(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+    const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
+    const result = await this.model.findAndCountAll({
+      include: [
+        {
+          model: this.cpuModel,
+        },
+        {
+          model: this.gpuModel,
+        },
+        {
+          model: this.motherBoardModel,
+        },
+        {
+          model: this.ramModel,
+        },
+        {
+          model: this.powerSupplyModel,
+        },
+      ],
+      offset: filter.from,
+      limit: filter.count,
+    });
+
+    const globalCount = result.count;
+    const countAfterFiltering = result.rows.length;
+
+    return {
+      meta: { globalCount, countAfterFiltering },
+      data: result.rows,
+    };
   }
 
   async getOneSetup(id: string): Promise<SetupModel> {
@@ -43,46 +77,11 @@ export class SetupRepository extends BaseRepository<SetupModel> {
         },
         {
           model: this.motherBoardModel,
-          as: 'motherboard'
-        }
+          as: 'motherboard',
+        },
       ],
     });
     return setup;
-  }
-
-  async getAllSetups(inputFilter: IFilter): Promise<IWithMeta<SetupModel>> {
-    const filter = mergeFilters<IFilter>(new IFilter(), inputFilter);
-    console.log(filter);
-    const setups = await this.getAll(
-      {
-        group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id'],
-        include: [
-          {
-            model: this.cpuModel,
-            as: 'cpu',
-          },
-          {
-            model: this.gpuModel,
-            as: 'gpu',
-          },
-          {
-            model: this.ramModel,
-            as: 'ram',
-          },
-          {
-            model: this.powerSupplyModel,
-            as: 'powerSupply',
-          },
-          {
-            model: this.motherBoardModel,
-            as: 'motherboard'
-          },
-        ],
-      },
-      filter
-    );
-    console.log(setups.data[0].cpu);
-    return setups;
   }
 
   async createSetup(inputSetup: SetupCreationAttributes): Promise<SetupModel> {

@@ -13,7 +13,13 @@ import {
   GetRatesAverage,
 } from './rate.schema';
 import { RateMiddleware } from '../middlewares/rate.middleware';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -30,7 +36,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/average', GetRatesAverage, async (request: GetAllRatesRequest, reply) => {
     const average = await RateService.getRatesAverage(request.query);
     reply.send(average);
-  })
+  });
 
   const getOneSchema = GetOneQuery(RateSchema);
   fastify.get('/:id', getOneSchema, async (request: GetOneRateRequest, reply) => {

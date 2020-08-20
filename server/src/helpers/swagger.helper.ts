@@ -29,13 +29,13 @@ export function GetOneQuery(schema: SwaggerSchema, querystring?: SwaggerSchema) 
               type: 'integer',
               nullable: false,
               example: 404,
-            }
+            },
           },
-          nullable: false
-        }
-      }
-    }
-  }
+          nullable: false,
+        },
+      },
+    },
+  };
 }
 
 export function CreateOneQuery(request: SwaggerSchema, response: SwaggerSchema) {
@@ -74,13 +74,13 @@ export function UpdateOneQuery(toUpdate: SwaggerSchema, newData: SwaggerSchema) 
               type: 'integer',
               nullable: false,
               example: 404,
-            }
+            },
           },
-          nullable: false
-        }
-      }
-    }
-  }
+          nullable: false,
+        },
+      },
+    },
+  };
 }
 
 export function DeleteOneQuery(schema?: SwaggerSchema) {
@@ -96,13 +96,11 @@ export function DeleteOneQuery(schema?: SwaggerSchema) {
       response: {
         200: {
           type: 'object',
-          properties: {
-
-          }
-        }
-      }
-    }
-  }
+          properties: {},
+        },
+      },
+    },
+  };
 }
 
 export function GetMultipleQuery(schema: SwaggerSchema, querystring?: SwaggerSchema) {

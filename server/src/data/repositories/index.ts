@@ -34,12 +34,19 @@ export interface Repositories {
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
-  const setupRepository = new SetupRepository(models.Setup, models.Cpu, models.Gpu, models.Ram, models.Motherboard, models.PowerSupply);
   const ramTypeRepository = new RamTypeRepository(models.RamType);
   const usersRepository = new UserRepository(models.User);
   const ramRepository = new RamRepository(models.Ram, models.RamType);
   const powerSupplyRepository = new PowerSupplyRepository(models.PowerSupply);
   const socketRepository = new SocketRepository(models.Socket);
+  const setupRepository = new SetupRepository(
+    models.Setup,
+    models.Cpu,
+    models.Gpu,
+    models.Motherboard,
+    models.Ram,
+    models.PowerSupply
+  );
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
   const gpuRepository = new GpuRepository(models.Gpu);
   const cpuRepository = new CpuRepository(models.Cpu, models.Socket);
@@ -64,7 +71,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     NewsRepository: newsRepository,
     RateRepository: rateRepository,
     CommentRepository: commentRepository,
-    AddRequestRepository: addRequestRepository
+    AddRequestRepository: addRequestRepository,
   };
   return repositories;
 };

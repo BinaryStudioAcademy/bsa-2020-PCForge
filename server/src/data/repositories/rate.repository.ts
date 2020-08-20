@@ -29,10 +29,12 @@ export class RateRepository extends BaseRepository<RateModel, IRateFilter> {
 
   async getAverageRate(inputFilter: IRateFilter): Promise<number> {
     const filter = mergeFilters<IRateFilter>(new IRateFilter(), inputFilter);
-    const averageRate: number = await this.model.aggregate('value', 'AVG', {where: {
-      ratebleType: filter.ratebleType,
-      ratebleId: filter.ratebleId,
-    }});
+    const averageRate: number = await this.model.aggregate('value', 'AVG', {
+      where: {
+        ratebleType: filter.ratebleType,
+        ratebleId: filter.ratebleId,
+      },
+    });
     return averageRate;
   }
 

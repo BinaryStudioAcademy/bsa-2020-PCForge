@@ -3,13 +3,16 @@ import { SetupCreationAttributes } from '../../data/models/setup';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { CpuSchema } from './cpu.schema';
 import { GpuSchema } from './gpu.schema';
+import { MotherBoardSchema } from './motherboard.schema';
 import { RamSchema } from './ram.schema';
 import { PowerSupplySchema } from './powerSupply.schema';
-import { MotherBoardSchema } from './motherboard.schema';
+import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { CommentSchema } from './comment.schema';
 import { UserAttributes } from '../../data/models/user';
 
-export type GetSetupsRequest = FastifyRequest;
+export type GetSetupsRequest = FastifyRequest<{
+  Querystring: ISetupFilter;
+}>;
 
 export type GetSetupRequest = FastifyRequest<{
   Params: { id: string };
@@ -35,7 +38,7 @@ export const SetupSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     title: {
       type: 'string',
@@ -57,37 +60,37 @@ export const SetupSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     authorId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     gpuId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     motherboardId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     ramId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     powerSupplyId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     createdAt: {
       type: 'string',
@@ -99,6 +102,11 @@ export const SetupSchema: SwaggerSchema = {
       nullable: false,
       format: 'date-time',
     },
+    cpu: CpuSchema,
+    gpu: GpuSchema,
+    motherboard: MotherBoardSchema,
+    ram: RamSchema,
+    powerSupply: PowerSupplySchema,
   },
 };
 
@@ -110,7 +118,7 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
   schema.properties.motherboard = MotherBoardSchema;
   schema.properties.powerSupply = PowerSupplySchema;
   return schema;
-}
+};
 export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
 
 export const GetAllSetupsResponse: SwaggerSchema = {
@@ -159,7 +167,7 @@ export const CreateSetupSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     cpuId: {
       type: 'integer',
@@ -214,7 +222,7 @@ export const UpdateSetupSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     cpuId: {
       type: 'integer',

@@ -1,8 +1,25 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
 
-import { PostRamRequest, GetOneRamRequest, PutRamRequest, DeleteRamRequest, GetAllRamsRequest, GetAllRamResponse, RamSchema, CreateRamSchema, UpdateRamSchema, DetailedRamSchema } from './ram.schema';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  PostRamRequest,
+  GetOneRamRequest,
+  PutRamRequest,
+  DeleteRamRequest,
+  GetAllRamsRequest,
+  GetAllRamResponse,
+  RamSchema,
+  CreateRamSchema,
+  UpdateRamSchema,
+  DetailedRamSchema,
+} from './ram.schema';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 

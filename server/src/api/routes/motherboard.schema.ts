@@ -68,10 +68,10 @@ export const MotherBoardSchema: SwaggerSchema = {
 const createDetailedMotherboardSchema = (): SwaggerSchema => {
   const schema: SwaggerSchema = JSON.parse(JSON.stringify(MotherBoardSchema));
   schema.properties.ramType = RamTypeSchema;
-  schema.properties.socket = SocketSchema;;
+  schema.properties.socket = SocketSchema;
 
   return schema;
-}
+};
 
 export const DetailedMotherBoardSchema = createDetailedMotherboardSchema();
 
@@ -139,7 +139,7 @@ export const GetAllMotherBoardResponse: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: DetailedMotherBoardSchema
-    }
-  }
-}
+      items: DetailedMotherBoardSchema,
+    },
+  },
+};
