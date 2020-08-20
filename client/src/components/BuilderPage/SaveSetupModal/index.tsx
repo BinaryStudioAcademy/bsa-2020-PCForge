@@ -6,9 +6,8 @@ import styles from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { getLocalSetupObjectForSave } from 'helpers/setupHelper';
 import { TypeSetupForPost } from 'containers/BuilderPage/reducer';
-import { getToken } from 'helpers/tokenHelper';
-import { uploadImage } from 'api/services/imageService';
-import { createSetup } from 'api/services/setup.service';
+import { useDispatch } from 'react-redux';
+import { saveSetupRequest } from 'containers/BuilderPage/actions';
 
 interface IProps {
   onClose: () => void;
@@ -28,6 +27,8 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
     setComputerComponents(setup);
   }, []);
 
+  const dispatch = useDispatch();
+
   const onChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFile(event.target.files![0] ? event.target.files![0] : null);
     setFileName(event.target.files![0] ? event.target.files![0].name : '');
@@ -41,26 +42,20 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
     setTitle(event.target.value);
   };
 
-  const getBodyForSaveSetup = (imageUrl: string) => {
+  const getBodyForSaveSetup = () => {
     const setupForSave = {
       ...computerComponents!,
       title,
       description,
-      image: imageUrl,
       token: localStorage.getItem('access_token')!,
     };
     console.log('sendRequest -> setupForSave', setupForSave);
     return setupForSave;
   };
 
-  const handleFileUpload = async (e: FormEvent<HTMLFormElement>) => {
+  const handleFileUpload = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const response = await uploadImage(file!);
-    console.log('handleFileUpload -> response', response);
-    const body = getBodyForSaveSetup(response);
-    console.log('handleFileUpload -> body', body);
-    const responseOfAddSetupToDatabse = await createSetup(body);
-    console.log('handleFileUpload -> responseOfAddSetupToDatabse', responseOfAddSetupToDatabse);
+    dispatch(saveSetupRequest(getBodyForSaveSetup(), file!));
     onClose();
   };
 

@@ -27,7 +27,7 @@ export interface PCSetup extends Setup {
 export interface SetupItem {
   title: string;
   description: string;
-  image: string;
+  image?: string;
   token: string;
   cpuId: number;
   gpuId: number;
