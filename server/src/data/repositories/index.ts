@@ -34,7 +34,7 @@ export interface Repositories {
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
-  const setupRepository = new SetupRepository(models.Setup, models.Cpu, models.Gpu, models.Ram, models.Motherboard, models.PowerSupply, models.Rate);
+  const setupRepository = new SetupRepository(models.Setup, models.Cpu, models.Gpu, models.Ram, models.Motherboard, models.PowerSupply);
   const ramTypeRepository = new RamTypeRepository(models.RamType);
   const usersRepository = new UserRepository(models.User);
   const ramRepository = new RamRepository(models.Ram, models.RamType);
