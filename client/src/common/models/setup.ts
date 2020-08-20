@@ -23,3 +23,15 @@ export interface PCSetup extends Setup {
   powerSupply: PowerSupply;
   comments: Comment[];
 }
+
+export interface SetupItem {
+  title: string;
+  description: string;
+  image: string;
+  token: string;
+  cpuId: number;
+  gpuId: number;
+  motherboardId: number;
+  ramId: number;
+  powerSupplyId: number;
+}
