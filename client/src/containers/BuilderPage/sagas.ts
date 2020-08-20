@@ -7,6 +7,7 @@ import {
   BUILDER_INIT_SETUP,
   BUILDER_RESET_SETUP,
   BUILDER_SET_SETUP,
+  REMOVE_COMPONENT_FROM_SETUP,
 } from './actionTypes';
 import { getCpu } from 'api/services/cpuService';
 import { getGpu } from 'api/services/gpuService';
@@ -71,6 +72,15 @@ function* watchResetSetup() {
   yield takeEvery(BUILDER_RESET_SETUP, resetSetup);
 }
 
+export function* removeComponent(action: AnyAction) {
+  const setup = yield select((state) => state.setup);
+  yield call(setLocalSetup, { ...setup, [action.payload.group]: null });
+}
+
+function* watchRemoveSetup() {
+  yield takeEvery(REMOVE_COMPONENT_FROM_SETUP, removeComponent);
+}
+
 export default function* builderSagas() {
-  yield all([watchAddComponent(), watchInitSetup(), watchResetSetup()]);
+  yield all([watchAddComponent(), watchInitSetup(), watchResetSetup(), watchRemoveSetup()]);
 }

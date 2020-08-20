@@ -1,0 +1,17 @@
+.cardComponent {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+
+  .cardTitle {
+    justify-content: space-between;
+    cursor: pointer;
+
+    .expandButton {
+      padding: 5px;
+    }
+  }
+
+  div.cardContent {
+    padding: 0 8px 14px;
+  }
+}
+

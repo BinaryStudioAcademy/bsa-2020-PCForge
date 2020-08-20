@@ -1,0 +1,28 @@
+@import "styles/variables";
+
+div.summaryWrapper {
+  background-color: $colorDarkGray;
+  width: 250px;
+  height: fit-content;
+
+  .noComponents {
+    margin: 10px 0;
+    font-style: italic;
+  }
+
+  .componentWrapper {
+    margin-bottom: 15px;
+  }
+
+  .progressWrapper {
+    .progressTitle {
+      margin-bottom: 10px;
+    }
+
+    .progressBar {
+      height: 30px;
+      border-radius: 5px;
+      background-color: rgb(113, 113, 113);
+    }
+  }
+}

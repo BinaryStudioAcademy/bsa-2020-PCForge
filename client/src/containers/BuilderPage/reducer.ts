@@ -44,7 +44,10 @@ export default function (state = initialState, action: AnyAction): TypeSetup {
     }
 
     case BUILDER_SET_SETUP: {
-      return action.payload;
+      return {
+        ...state,
+        ...action.payload,
+      };
     }
 
     case BUILDER_RESET_SETUP: {
