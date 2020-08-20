@@ -94,28 +94,8 @@ export const GameSchema: SwaggerSchema = {
       example: 1,
       minimum: 1
     },
-    minimalCpu: {
-      type: 'object',
-      properties: {
-        ...CpuSchema.properties,
-        socket: {
-          ...CpuSchema.properties.socket,
-          nullable: true,
-          example: null
-        }
-      }
-    },
-    recommendedCpu: {
-      type: 'object',
-      properties: {
-        ...CpuSchema.properties,
-        socket: {
-          ...CpuSchema.properties.socket,
-          nullable: true,
-          example: null
-        }
-      }
-    },
+    minimalCpu: CpuSchema,
+    recommendedCpu: CpuSchema,
     minimalGpu: GpuSchema,
     recommendedGpu: GpuSchema,
     createdAt: {

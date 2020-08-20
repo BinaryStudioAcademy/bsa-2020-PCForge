@@ -74,7 +74,6 @@ export const CpuSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false
     },
-    socket: SocketSchema,
     createdAt: {
       type: 'string',
       nullable: false,
