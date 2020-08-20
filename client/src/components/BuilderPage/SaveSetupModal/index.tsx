@@ -6,6 +6,9 @@ import styles from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { getLocalSetupObjectForSave } from 'helpers/setupHelper';
 import { TypeSetupForPost } from 'containers/BuilderPage/reducer';
+import { getToken } from 'helpers/tokenHelper';
+import { uploadImage } from 'api/services/imageService';
+import { createSetup } from 'api/services/setyp.service';
 
 interface IProps {
   onClose: () => void;
@@ -38,31 +41,25 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
     setTitle(event.target.value);
   };
 
-  const sendRequest = () => {
+  const getBodyForSaveSetup = (imageUrl: string) => {
     const setupForSave = {
-      ...computerComponents,
+      ...computerComponents!,
       title,
       description,
-      image: file!.name,
-      authorId: 4,
+      image: imageUrl,
+      token: localStorage.getItem('access_token')!,
     };
-    console.log(file);
     console.log('sendRequest -> setupForSave', setupForSave);
     return setupForSave;
   };
 
   const handleFileUpload = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('file', file!);
-    console.log('handleFileUpload -> formData', formData);
-    const response = await fetch('http://127.0.0.1:5001/api/setups', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(sendRequest()),
-    });
+    const response = await uploadImage(file!);
+    console.log('handleFileUpload -> response', response);
+    const body = getBodyForSaveSetup(response);
+    console.log('handleFileUpload -> body', body);
+    const responseOfAddSetupToDatabse = createSetup(body);
   };
 
   return (
