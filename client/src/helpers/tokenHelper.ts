@@ -8,6 +8,6 @@ export const setToken = (token: string): void => {
   window.localStorage.setItem(keyToken, token);
 };
 
-export const removeToken = (): void => {
+export const clearToken = async (): Promise<void> => {
   window.localStorage.removeItem(keyToken);
 };

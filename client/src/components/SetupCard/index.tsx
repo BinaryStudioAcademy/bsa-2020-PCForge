@@ -49,7 +49,7 @@ const SetupCard: React.FC<I_Props> = ({
         </li>
       </ul>
       {/* <RatingBox name={id} ratingValue={rating} disabled={false} /> */}
-      <Link to={`${Routes.SETUP}/${id}`}>
+      <Link className={classes.viewMoreButton} to={`setup/${id}`}>
         <Button className={classes.setupCardButton} buttonType={ButtonType.primary}>
           VIEW MORE INFO
         </Button>
