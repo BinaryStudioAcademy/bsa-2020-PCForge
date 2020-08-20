@@ -54,6 +54,24 @@ export class SetupRepository extends BaseRepository<SetupModel> {
     };
   }
 
+  async getSetupById(id: string): Promise<SetupModel> {
+    const setup = await this.model.findByPk(id, {
+      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id'],
+      include: [
+        {
+          model: this.cpuModel,
+        },
+        {
+          model: this.gpuModel,
+        },
+        {
+          model: this.ramModel,
+        },
+      ],
+    });
+    return setup;
+  }
+
   async createSetup(inputSetup: SetupCreationAttributes): Promise<SetupModel> {
     const setup = await this.model.create(inputSetup);
     return setup;

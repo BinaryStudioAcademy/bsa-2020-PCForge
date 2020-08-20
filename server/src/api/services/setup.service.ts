@@ -8,7 +8,7 @@ export class SetupService {
   constructor(private repository: SetupRepository) {}
 
   async getSetupById(id: string): Promise<SetupModel> {
-    const setup = await this.repository.getById(id);
+    const setup = await this.repository.getSetupById(id);
     if (!setup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
     }

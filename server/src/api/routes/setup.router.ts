@@ -19,6 +19,7 @@ import {
   DeleteOneQuery,
 } from '../../helpers/swagger.helper';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { SetupService } = fastify.services;
@@ -37,12 +38,16 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   const createOneSchema = CreateOneQuery(CreateSetupSchema, SetupSchema);
-  fastify.post('/', createOneSchema, async (request: PostSetupRequest, reply) => {
-    const data = { ...request.body };
-    data.authorId = 1;
-    const setup = await SetupService.createSetup(data);
-    reply.send(setup);
-  });
+  fastify.post(
+    '/',
+    { preHandler: userRequestMiddleware(fastify), ...createOneSchema },
+    async (request: PostSetupRequest, reply) => {
+      request.body.authorId = request.user.id;
+      const data = { ...request.body };
+      const setup = await SetupService.createSetup(data);
+      reply.send(setup);
+    }
+  );
 
   const updateOneSchema = UpdateOneQuery(UpdateSetupSchema, SetupSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutSetupRequest, reply) => {

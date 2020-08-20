@@ -1,5 +1,6 @@
 import webApi from 'api/webApiHelper';
 import { SetupType } from 'common/models/typeSetup';
+import { Setup } from 'common/models/setup';
 
 export type TypeResponseAll = {
   meta: {
@@ -8,6 +9,8 @@ export type TypeResponseAll = {
   };
   data: SetupType[];
 };
+
+export type TypeResponseOne = Setup;
 
 export interface ITopSetupFilter {
   from?: number;
@@ -18,4 +21,9 @@ const endpoint = '/setups';
 
 export const getTopSetups = async (filter: ITopSetupFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);
+};
+
+export const getSetup = async (id: number): Promise<TypeResponseOne> => {
+  const url = `${endpoint}/${id}`;
+  return await webApi.get(url);
 };

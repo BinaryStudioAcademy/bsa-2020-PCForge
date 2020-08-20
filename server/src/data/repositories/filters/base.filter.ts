@@ -1,4 +1,4 @@
-import { SwaggerSchema } from "../../models/swaggerSchema";
+import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IFilter {
   constructor() {
@@ -13,13 +13,13 @@ export class IFilter {
       from: {
         type: 'integer',
         minimum: 0,
-        default: 0
+        default: 0,
       },
       count: {
         type: 'integer',
-        maximum: 100,
-        default: 50
-      }
-    }
-  }
+        maximum: 1000,
+        default: 50,
+      },
+    },
+  };
 }
