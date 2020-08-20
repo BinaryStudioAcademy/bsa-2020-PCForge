@@ -3,7 +3,6 @@ import { Gpu } from './gpu';
 import { Ram } from './ram';
 import { Motherboard } from './motherboard';
 import { PowerSupply } from './powerSupply';
-import { Comment } from './comment';
 
 export interface Setup {
   id: number;
@@ -24,9 +23,8 @@ export interface PCSetup extends Setup {
   cpu: Cpu;
   gpu: Gpu;
   ram: Ram;
-  motherBoard: Motherboard;
+  motherboard: Motherboard;
   powerSupply: PowerSupply;
-  comments: Comment[];
 }
 
 export interface SetupItem {

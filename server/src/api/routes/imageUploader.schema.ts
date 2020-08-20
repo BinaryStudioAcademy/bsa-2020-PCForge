@@ -1,9 +1,7 @@
-import { FastifyRequest } from "fastify";
-import { SwaggerSchema } from "../../data/models/swaggerSchema";
+import { FastifyRequest } from 'fastify';
+import { SwaggerSchema } from '../../data/models/swaggerSchema';
 
-const UploadImageRequest: SwaggerSchema = {
-
-};
+const UploadImageRequest: SwaggerSchema = {};
 
 const UploadImageResponse: SwaggerSchema = {
   type: 'object',
@@ -11,16 +9,16 @@ const UploadImageResponse: SwaggerSchema = {
     imageUrl: {
       type: 'string',
       nullable: false,
-      example: 'http://image-server.com/route'
-    }
-  }
+      example: 'http://image-server.com/route',
+    },
+  },
 };
 
 export const UploadImageSchema = {
-    schema: {
-      // body: UploadImageRequest,
-      response: {
-        200: UploadImageResponse
-      }
-    }
-}
+  schema: {
+    // body: UploadImageRequest,
+    response: {
+      200: UploadImageResponse,
+    },
+  },
+};

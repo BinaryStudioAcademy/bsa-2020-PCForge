@@ -52,8 +52,6 @@ export const MotherBoardSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
-    ramType: RamTypeSchema,
-    socket: SocketSchema,
     createdAt: {
       type: 'string',
       nullable: false,
@@ -66,6 +64,16 @@ export const MotherBoardSchema: SwaggerSchema = {
     },
   },
 };
+
+const createDetailedMotherboardSchema = (): SwaggerSchema => {
+  const schema: SwaggerSchema = JSON.parse(JSON.stringify(MotherBoardSchema));
+  schema.properties.ramType = RamTypeSchema;
+  schema.properties.socket = SocketSchema;
+
+  return schema;
+};
+
+export const DetailedMotherBoardSchema = createDetailedMotherboardSchema();
 
 export const CreateMotherBoardSchema: SwaggerSchema = {
   type: 'object',
@@ -131,7 +139,7 @@ export const GetAllMotherBoardResponse: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: MotherBoardSchema,
+      items: DetailedMotherBoardSchema,
     },
   },
 };

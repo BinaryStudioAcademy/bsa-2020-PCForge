@@ -7,6 +7,7 @@ import { MotherBoardSchema } from './motherboard.schema';
 import { RamSchema } from './ram.schema';
 import { PowerSupplySchema } from './powerSupply.schema';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
+import { CommentSchema } from './comment.schema';
 import { UserAttributes } from '../../data/models/user';
 
 export type GetSetupsRequest = FastifyRequest<{
@@ -36,6 +37,7 @@ export const SetupSchema: SwaggerSchema = {
     id: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false,
     },
     title: {
@@ -57,26 +59,37 @@ export const SetupSchema: SwaggerSchema = {
     cpuId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
+      nullable: false,
+    },
+    authorId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
       nullable: false,
     },
     gpuId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false,
     },
     motherboardId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false,
     },
     ramId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false,
     },
     powerSupplyId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false,
     },
     createdAt: {
@@ -97,6 +110,17 @@ export const SetupSchema: SwaggerSchema = {
   },
 };
 
+const getDetailedSetupSchema = (): SwaggerSchema => {
+  const schema: SwaggerSchema = JSON.parse(JSON.stringify(SetupSchema));
+  schema.properties.cpu = CpuSchema;
+  schema.properties.gpu = GpuSchema;
+  schema.properties.ram = RamSchema;
+  schema.properties.motherboard = MotherBoardSchema;
+  schema.properties.powerSupply = PowerSupplySchema;
+  return schema;
+};
+export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
+
 export const GetAllSetupsResponse: SwaggerSchema = {
   type: 'object',
   properties: {
@@ -115,7 +139,7 @@ export const GetAllSetupsResponse: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: SetupSchema,
+      items: DetailedSetupSchema,
     },
   },
 };
@@ -142,15 +166,18 @@ export const CreateSetupSchema: SwaggerSchema = {
     authorId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false,
     },
     cpuId: {
       type: 'integer',
+      minimum: 1,
       example: 1,
       nullable: false,
     },
     gpuId: {
       type: 'integer',
+      minimum: 1,
       example: 1,
       nullable: false,
     },
@@ -189,6 +216,12 @@ export const UpdateSetupSchema: SwaggerSchema = {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 200,
+      nullable: true,
+    },
+    authorId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
       nullable: true,
     },
     cpuId: {

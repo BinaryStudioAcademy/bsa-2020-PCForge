@@ -7,6 +7,7 @@ import { MotherboardStatic } from '../models/motherboard';
 import { RamStatic } from '../models/ram';
 import { PowerSupplyStatic } from '../models/powersupply';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
+import { RateStatic } from '../models/rate';
 import { mergeFilters } from './filters/helper';
 
 export class SetupRepository extends BaseRepository<SetupModel> {
@@ -14,7 +15,7 @@ export class SetupRepository extends BaseRepository<SetupModel> {
     private model: SetupStatic,
     private cpuModel: CpuStatic,
     private gpuModel: GpuStatic,
-    private motherboardModel: MotherboardStatic,
+    private motherBoardModel: MotherboardStatic,
     private ramModel: RamStatic,
     private powerSupplyModel: PowerSupplyStatic
   ) {
@@ -32,7 +33,7 @@ export class SetupRepository extends BaseRepository<SetupModel> {
           model: this.gpuModel,
         },
         {
-          model: this.motherboardModel,
+          model: this.motherBoardModel,
         },
         {
           model: this.ramModel,
@@ -54,18 +55,29 @@ export class SetupRepository extends BaseRepository<SetupModel> {
     };
   }
 
-  async getSetupById(id: string): Promise<SetupModel> {
+  async getOneSetup(id: string): Promise<SetupModel> {
     const setup = await this.model.findByPk(id, {
-      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id'],
+      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id'],
       include: [
         {
           model: this.cpuModel,
+          as: 'cpu',
         },
         {
           model: this.gpuModel,
+          as: 'gpu',
         },
         {
           model: this.ramModel,
+          as: 'ram',
+        },
+        {
+          model: this.powerSupplyModel,
+          as: 'powerSupply',
+        },
+        {
+          model: this.motherBoardModel,
+          as: 'motherboard',
         },
       ],
     });

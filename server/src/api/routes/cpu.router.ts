@@ -10,6 +10,7 @@ import {
   CpuSchema,
   CreateCpuSchema,
   UpdateCpuSchema,
+  DetailedCpuSchema,
 } from './cpu.schema';
 import {
   GetMultipleQuery,
@@ -29,20 +30,20 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(cpus);
   });
 
-  const getOneSchema = GetOneQuery(CpuSchema);
+  const getOneSchema = GetOneQuery(DetailedCpuSchema);
   fastify.get('/:id', getOneSchema, async (request: GetOneCpuRequest, reply) => {
     const { id } = request.params;
     const cpu = await CpuService.getCpuById(id);
     reply.send(cpu);
   });
 
-  const createOneSchema = CreateOneQuery(CreateCpuSchema, CpuSchema);
+  const createOneSchema = CreateOneQuery(CreateCpuSchema, DetailedCpuSchema);
   fastify.post('/', createOneSchema, async (request: PostCpuRequest, reply) => {
     const cpu = await CpuService.createCpu(request.body);
     reply.send(cpu);
   });
 
-  const updateOneSchema = UpdateOneQuery(UpdateCpuSchema, CpuSchema);
+  const updateOneSchema = UpdateOneQuery(UpdateCpuSchema, DetailedCpuSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutCpuRequest, reply) => {
     const { id } = request.params;
     const newCpu = await CpuService.updateCpuById({ id, data: request.body });

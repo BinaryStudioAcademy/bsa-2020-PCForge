@@ -54,7 +54,7 @@ export const initializeRepositories = (models: Models): Repositories => {
   const topGameRepository = new TopGameRepository(models.TopGame, models.Game, models.Cpu, models.Gpu);
   const newsRepository = new NewsRepository(models.News);
   const rateRepository = new RateRepository(models.Rate);
-  const commentRepository = new CommentRepository(models.Comment);
+  const commentRepository = new CommentRepository(models.Comment, models.User);
   const addRequestRepository = new AddRequestRepository(models.AddRequest);
   const repositories: Repositories = {
     RamTypeRepository: ramTypeRepository,

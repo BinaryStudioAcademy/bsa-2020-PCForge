@@ -8,136 +8,95 @@ import Comments from 'components/Comments';
 import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
-import Divider from 'components/BasicComponents/Divider';
+import { ISetupProps, ISetupState } from './interfaces';
+import * as SetupActions from './actions';
+import { RootState } from 'redux/rootReducer';
+import { connect } from 'react-redux';
 
-interface Props {
-  setup: PCSetup;
-}
+class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
+  constructor(props: ISetupProps) {
+    super(props);
+    this.state = props.state;
+  }
 
-const ViewSetupPage: React.FC<Props> = (props): JSX.Element => {
-  const { cpu, gpu, motherBoard, powerSupply, ram, comments } = mockSetup();
-  return (
-    <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
-      <div className={styles.setupPageRoot}>
-        <h1>PC setup</h1>
-        <div className={styles.contentWrapper}>
-          <Container className={styles.setupsDetails}>
-            <SetupCard setup={mockSetup()} />
-            <PcComponentView
-              title="Processor"
-              pcComponent={cpu}
-              neededProperties={{
-                name: 'Name',
-                cores: 'Cores',
-                clockspeed: 'Clock Speed',
-                class: 'Class',
-                tdp: 'Thermal design power',
-              }}
-            />
-            <PcComponentView
-              title="Graphics"
-              pcComponent={gpu}
-              neededProperties={{
-                name: 'Name',
-                interface: 'Interface',
-                memorySize: 'Memory',
-                opengl: 'OpenGL',
-                tdp: 'Thermal design power',
-              }}
-            />
-            <PcComponentView
-              title="RAM"
-              pcComponent={ram}
-              neededProperties={{ name: 'Name', memorySize: 'Memory', frequency: 'Frequency' }}
-            />
-            <PcComponentView title="Motherboard" pcComponent={motherBoard} neededProperties={{ name: 'Name' }} />
-            <PcComponentView title="Power Supply" pcComponent={powerSupply} neededProperties={{ name: 'Name' }} />
-            <Divider />
-            <Comments comments={comments} />
-          </Container>
-          <div className={styles.asideItems}>
-            <TopGames games={[]} />
+  public componentDidMount() {
+    const id: string = this.props.match.params.id;
+    this.props.getSetup({ id: +id });
+    this.props.getSetupComments({ id: +id });
+    this.props.getSetupRate({ id: +id });
+  }
+
+  public render() {
+    const { setup } = this.props.state;
+
+    if (!setup) {
+      return null;
+    }
+    const { cpu, gpu, motherboard, powerSupply, ram } = setup;
+
+    const onCreateComment = (value: string) => {
+      const id: string = this.props.match.params.id;
+      this.props.createSetupComment({ id: +id, value: value });
+    };
+
+    return (
+      <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
+        <div className={styles.setupPageRoot}>
+          <h1>PC setup</h1>
+          <div className={styles.contentWrapper}>
+            <Container className={styles.setupsDetails}>
+              <SetupCard setup={setup} rate={this.props.state.rate} />
+              <div className={[styles.underline, styles.noMarginTop].join(' ')}></div>
+              <PcComponentView
+                title="Processor"
+                pcComponent={cpu}
+                neededProperties={{
+                  name: 'Name',
+                  cores: 'Cores',
+                  clockspeed: 'Clock Speed',
+                  class: 'Class',
+                  tdp: 'Thermal design power',
+                }}
+              />
+              <PcComponentView
+                title="Graphics"
+                pcComponent={gpu}
+                neededProperties={{
+                  name: 'Name',
+                  interface: 'Interface',
+                  memorySize: 'Memory',
+                  opengl: 'OpenGL',
+                  tdp: 'Thermal design power',
+                }}
+              />
+              <PcComponentView
+                title="RAM"
+                pcComponent={ram}
+                neededProperties={{ name: 'Name', memorySize: 'Memory', frequency: 'Frequency' }}
+              />
+              <PcComponentView title="Motherboard" pcComponent={motherboard} neededProperties={{ name: 'Name' }} />
+              <PcComponentView title="Power Supply" pcComponent={powerSupply} neededProperties={{ name: 'Name' }} />
+              <div className={styles.underline}></div>
+              {this.props.state?.comments && (
+                <Comments comments={this.props.state.comments} onCreateComment={onCreateComment} />
+              )}
+            </Container>
+            <div className={styles.asideItems}>
+              <TopGames games={[]} />
+            </div>
           </div>
         </div>
-      </div>
-    </PageComponent>
-  );
-};
-
-function mockSetup(): PCSetup {
-  return {
-    id: 1,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    rating: 4,
-    title: 'Example PC setup',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    image: 'https://cdn.mos.cms.futurecdn.net/3LRrBeYMnjFsAD5DMZ9qU5.jpg',
-    cpu: {
-      id: 1,
-      class: 'cpu class',
-      clockspeed: 25,
-      cores: 4,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      name: 'Example cpu name',
-      performance: 63,
-      tdp: 23,
-    },
-    gpu: {
-      id: 1,
-      coreClocks: 4,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      interface: 'example interface name',
-      memorySize: 34,
-      name: 'Example gpu name',
-      opengl: 'open gl meta',
-      performance: 41,
-      tdp: 23,
-    },
-    motherBoard: {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      name: 'Mother board name',
-    },
-    powerSupply: {
-      id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      name: 'powerSupply name',
-      power: 24,
-    },
-    ram: {
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      frequency: 23,
-      id: 1,
-      memorySize: 36,
-      name: 'Ram name',
-      power: 100,
-    },
-    comments: [
-      {
-        id: 1,
-        authorId: 1,
-        author: 'Alexandr Lesiv',
-        value:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        createdAt: new Date(),
-      },
-      {
-        id: 2,
-        authorId: 1,
-        author: 'Alexandr Lesiv',
-        value:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-        createdAt: new Date(),
-      },
-    ],
-  };
+      </PageComponent>
+    );
+  }
 }
 
-export default ViewSetupPage;
+const mapStateToProps = (state: RootState) => {
+  return {
+    state: state.setupPage,
+  };
+};
+
+const mapDispatchToProps = SetupActions;
+
+export default connect(mapStateToProps, mapDispatchToProps)(ViewSetupPage);
