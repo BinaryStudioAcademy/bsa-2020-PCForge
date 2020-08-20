@@ -144,9 +144,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           onSaveSetup={showModal}
         />
         <Box className={styles.contentWrapper}>
-          <Box className={styles.componentsWrapper}>
-        {groups}
-          </Box>
+          <Box className={styles.componentsWrapper}>{groups}</Box>
           <BuilderSummary setup={setup} />
         </Box>
       </Box>
