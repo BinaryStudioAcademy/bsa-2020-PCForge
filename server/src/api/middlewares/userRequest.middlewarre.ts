@@ -7,7 +7,6 @@ type CustomRequest = FastifyRequest<{
 
 export const userRequestMiddleware = (fastify: FastifyInstance) => {
   return async (request: CustomRequest, reply: FastifyReply, done: FastifyDone): Promise<void> => {
-    console.log('userRequestMiddleware -> request.body', request);
     const { token } = request.body;
 
     fastify.jwt.verify(token, (err, decoded) => {
