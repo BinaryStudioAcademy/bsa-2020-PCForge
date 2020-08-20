@@ -46,6 +46,7 @@ const GroupComponent = ({
   onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
+  /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
   const [components, setComponents] = useState([] as any[]);
   const [count, setCount] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
@@ -53,7 +54,7 @@ const GroupComponent = ({
   const [name, setName] = useState('');
   const [range, setRange] = useState({} as TypeRange);
   const [marks, setMarks] = useState([] as { value: number }[]);
-  const [rangeLimits, setrangeLimits] = useState({ min: null, max: null } as {
+  const [rangeLimits, setRangeLimits] = useState({ min: null, max: null } as {
     min: number | null;
     max: number | null;
   });
@@ -103,15 +104,27 @@ const GroupComponent = ({
   };
 
   const getAllComponents = async () => {
-    const { queryFilter, queryRange } = getFilters();
+    const { queryFilter } = getFilters();
     try {
-      const res = await servicesGetAll[cfg.group]({ ...queryFilter, ...queryRange, name });
+      const res = await servicesGetAll[cfg.group]({ ...queryFilter, name });
       if (filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key')) {
         const values = (res.data as []).map((component) => component[filterRangeInfo[cfg.group].key as string]);
-        const valuesSort = Array.from(new Set(values)).sort((a, b) => a - b);
+        const valuesSort = Array.from(new Set(values));
+        valuesSort.sort((a, b) => a - b);
+        // const valuesSort = Array.from(new Set(values)).sort((a, b) => a - b);
         const marksSort = valuesSort.map((mk) => ({ value: mk }));
+        const min = Math.min(...valuesSort);
+        const max = Math.max(...valuesSort);
         setMarks(marksSort);
-        setrangeLimits({ min: Math.min(...valuesSort), max: Math.max(...valuesSort) });
+        setRangeLimits({ min, max });
+        // setRange({
+        //   minValue: range.minValue < min ? min : range.minValue,
+        //   maxValue: range.maxValue > max ? max : range.maxValue,
+        // });
+        setRange({
+          minValue: min,
+          maxValue: max,
+        });
       }
 
       setComponents(res.data);
@@ -121,13 +134,22 @@ const GroupComponent = ({
     }
   };
 
+  const updateComponents = async () => {
+    await getAllComponents();
+    await getComponents();
+  };
+
   useEffect(() => {
     getComponents();
   }, [filter, name, range, pagination]);
 
-  useEffect(() => {
-    getAllComponents();
-  }, [filter, name, range]);
+  // useEffect(() => {
+  //   getAllComponents();
+  // }, [filter, name]);
+  //
+  // useEffect(() => {
+  //   getComponents();
+  // }, [range, pagination]);
 
   useEffect(() => {
     if (selectedComponent) {
@@ -174,7 +196,6 @@ const GroupComponent = ({
         title={cfg.group}
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
-        /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
         popupContent={selectedComponent ? SpecificationComponent[cfg.group]({ component: selectedComponent }) : false}
         onClear={() => onRemoveSelectedComponent(cfg.group)}
       />
@@ -203,6 +224,7 @@ const GroupComponent = ({
                 title={filterRangeInfo[cfg.group].title ?? ''}
                 min={filterRangeInfo[cfg.group].min ?? rangeLimits.min ?? 0}
                 max={filterRangeInfo[cfg.group].max ?? rangeLimits.max ?? 10}
+                step={filterRangeInfo[cfg.group].step}
                 marks={marks}
                 dimension={filterRangeInfo[cfg.group].unit ?? ''}
                 onChange={onChangeFilterRange}
