@@ -8,7 +8,7 @@ import { getLocalSetupObjectForSave } from 'helpers/setupHelper';
 import { TypeSetupForPost } from 'containers/BuilderPage/reducer';
 import { getToken } from 'helpers/tokenHelper';
 import { uploadImage } from 'api/services/imageService';
-import { createSetup } from 'api/services/setyp.service';
+import { createSetup } from 'api/services/setup.service';
 
 interface IProps {
   onClose: () => void;
@@ -59,7 +59,9 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
     console.log('handleFileUpload -> response', response);
     const body = getBodyForSaveSetup(response);
     console.log('handleFileUpload -> body', body);
-    const responseOfAddSetupToDatabse = createSetup(body);
+    const responseOfAddSetupToDatabse = await createSetup(body);
+    console.log('handleFileUpload -> responseOfAddSetupToDatabse', responseOfAddSetupToDatabse);
+    onClose();
   };
 
   return (
