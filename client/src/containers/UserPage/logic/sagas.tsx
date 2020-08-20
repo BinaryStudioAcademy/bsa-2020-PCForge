@@ -3,6 +3,7 @@ import { getUser, updateUser as updateUserService } from 'api/services/userServi
 import { uploadImage } from 'api/services/imageService';
 import { loadUser as loadUserAction, updateUser as updateUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
 import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess } from './actions';
+import * as notification from 'common/services/notificationService';
 
 export default function* userSagas() {
   yield all([watchLoadUser(), watchUpdateUser()]);
@@ -36,8 +37,10 @@ function* updateUser(action: updateUserAction) {
     }
     const updatedUser = yield call(updateUserService, data);
     yield put(updateUserSuccess(updatedUser));
+    notification.success('Your data has been successfully updated');
   } catch (error) {
     console.log(error);
+    notification.error('Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
