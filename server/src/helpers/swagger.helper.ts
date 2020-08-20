@@ -1,10 +1,19 @@
 import { SwaggerSchema } from '../data/models/swaggerSchema';
 
-export function GetOneQuery(schema: SwaggerSchema) {
+interface ISwaggerParams {
+  [key: string]: {
+    type: string;
+    nullable: boolean;
+    minimum: number;
+  };
+}
+
+export function GetOneQuery(schema: SwaggerSchema, additionalParams?: ISwaggerParams[]) {
   return {
     schema: {
       params: {
         id: { type: 'integer', nullable: false, minimum: 1 },
+        ...additionalParams,
       },
       response: {
         200: schema,

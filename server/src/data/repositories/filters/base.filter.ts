@@ -17,7 +17,7 @@ export class IFilter {
       },
       count: {
         type: 'integer',
-        maximum: 100,
+        maximum: 1000,
         default: 50,
       },
     },

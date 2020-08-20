@@ -1,6 +1,10 @@
 import { FastifyRequest } from 'fastify';
 import { SetupCreationAttributes } from '../../data/models/setup';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
+import { CpuSchema } from './cpu.schema';
+import { GpuSchema } from './gpu.schema';
+import { RamSchema } from './ram.schema';
 
 export type GetSetupsRequest = FastifyRequest;
 
@@ -10,7 +14,7 @@ export type GetSetupRequest = FastifyRequest<{
 
 export type PostSetupRequest = FastifyRequest<{
   Body: SetupCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutSetupRequest = FastifyRequest<{
   Params: { id: string };
@@ -42,7 +46,7 @@ export const SetupSchema: SwaggerSchema = {
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
-      maxLength: 50,
+      maxLength: 200,
       nullable: true,
     },
     cpuId: {
@@ -50,11 +54,13 @@ export const SetupSchema: SwaggerSchema = {
       example: 1,
       nullable: false,
     },
+    cpu: CpuSchema,
     gpuId: {
       type: 'integer',
       example: 1,
       nullable: false,
     },
+    gpu: GpuSchema,
     motherboardId: {
       type: 'integer',
       example: 1,
@@ -65,6 +71,7 @@ export const SetupSchema: SwaggerSchema = {
       example: 1,
       nullable: false,
     },
+    ram: RamSchema,
     powerSupplyId: {
       type: 'integer',
       example: 1,
@@ -122,7 +129,7 @@ export const CreateSetupSchema: SwaggerSchema = {
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
-      maxLength: 50,
+      maxLength: 200,
       nullable: true,
     },
     authorId: {
@@ -174,7 +181,7 @@ export const UpdateSetupSchema: SwaggerSchema = {
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
-      maxLength: 50,
+      maxLength: 200,
       nullable: true,
     },
     cpuId: {

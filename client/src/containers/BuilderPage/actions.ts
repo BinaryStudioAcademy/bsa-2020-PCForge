@@ -4,8 +4,10 @@ import {
   BUILDER_INIT_SETUP,
   REMOVE_COMPONENT_FROM_SETUP,
   BUILDER_RESET_SETUP,
+  SAVE_SETUP_REQUEST,
 } from './actionTypes';
 import { Group } from './config';
+import { SetupItem } from 'common/models/setup';
 
 export const addComponentToSetupAction = (props: { id: number; group: Group }): AnyAction => ({
   type: ADD_COMPONENT_TO_SETUP,
@@ -23,4 +25,12 @@ export const initSetupAction = (): AnyAction => ({
 
 export const resetSetupAction = (): AnyAction => ({
   type: BUILDER_RESET_SETUP,
+});
+
+export const saveSetupRequest = (data: SetupItem, image: Blob): AnyAction => ({
+  type: SAVE_SETUP_REQUEST,
+  payload: {
+    data,
+    image,
+  },
 });

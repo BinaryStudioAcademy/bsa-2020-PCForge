@@ -39,7 +39,7 @@ export const initializeRepositories = (models: Models): Repositories => {
   const ramRepository = new RamRepository(models.Ram, models.RamType);
   const powerSupplyRepository = new PowerSupplyRepository(models.PowerSupply);
   const socketRepository = new SocketRepository(models.Socket);
-  const setupRepository = new SetupRepository(models.Setup);
+  const setupRepository = new SetupRepository(models.Setup, models.Cpu, models.Gpu, models.Ram);
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
   const gpuRepository = new GpuRepository(models.Gpu);
   const cpuRepository = new CpuRepository(models.Cpu, models.Socket);

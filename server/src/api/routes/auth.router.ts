@@ -22,7 +22,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     try {
       //return user
       const user = await UserService.getUserByLoginOrEmail(email, password);
-      const token = fastify.jwt.sign({}, { expiresIn: 86400 });
+      console.log('functionrouter -> user', user);
+      const token = fastify.jwt.sign({ user }, { expiresIn: 86400 });
       response.send({ token, user });
     } catch (error) {
       throw {
