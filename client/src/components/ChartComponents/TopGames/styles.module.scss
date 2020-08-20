@@ -35,6 +35,11 @@
   border-bottom-color: transparent;
 }
 
+.gameContainerSelected {
+  background: $colorBlue;
+  cursor: pointer;
+}
+
 .gameContainer:hover {
   background: $colorBlue;
   cursor: pointer;

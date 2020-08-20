@@ -1,22 +1,21 @@
 import webApi from 'api/webApiHelper';
-import { Game } from 'common/models/game';
+import { TopGame } from 'common/models/topGame';
 
 export type TypeResponseAll = {
   meta: {
     globalCount: number;
     countAfterFiltering: number;
   };
-  data: Game[];
+  data: TopGame[];
 };
 
-export interface IGameFilter {
-  name: string;
+export interface IFilter {
   from: number;
   count: number;
 }
 
-const endpoint = '/games';
+const endpoint = '/topGames';
 
-export const getAllGames = async (filter: IGameFilter): Promise<TypeResponseAll> => {
+export const getAllTopGames = async (filter: IFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);
 };

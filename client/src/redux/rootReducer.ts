@@ -6,6 +6,7 @@ import builderReducer from 'containers/BuilderPage/reducer';
 import { MatcherReducer } from 'containers/GameMatcher/reducer';
 import { QuickMatcherReducer } from 'containers/QuickMatcher/reducer';
 import { SetupReducer } from 'containers/SetupPage/reducer';
+import { SetupChartReducer } from 'containers/Chart/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -15,6 +16,7 @@ const RootReducer = combineReducers({
   quickMatcher: QuickMatcherReducer,
   notification: NotificationReducer,
   setupPage: SetupReducer,
+  setupChart: SetupChartReducer,
 });
 
 export default RootReducer;

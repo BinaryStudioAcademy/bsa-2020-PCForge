@@ -33,7 +33,7 @@ export const MotherBoardSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
@@ -44,26 +44,26 @@ export const MotherBoardSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     ramTypeId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 const createDetailedMotherboardSchema = (): SwaggerSchema => {
   const schema: SwaggerSchema = JSON.parse(JSON.stringify(MotherBoardSchema));
@@ -87,16 +87,16 @@ export const CreateMotherBoardSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     ramTypeId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
-  }
-}
+  },
+};
 
 export const UpdateMotherBoardSchema: SwaggerSchema = {
   type: 'object',
@@ -110,16 +110,16 @@ export const UpdateMotherBoardSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     ramTypeId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
   },
-}
+};
 
 export const GetAllMotherBoardResponse: SwaggerSchema = {
   type: 'object',
@@ -129,13 +129,13 @@ export const GetAllMotherBoardResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',

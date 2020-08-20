@@ -10,6 +10,11 @@ export interface Setup {
   rating: number;
   description: string;
   image: string;
+  cpu: Cpu;
+  gpu: Gpu;
+  ram: Ram;
+  motherBoard: Motherboard;
+  powerSupply: PowerSupply;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,4 +25,16 @@ export interface PCSetup extends Setup {
   ram: Ram;
   motherboard: Motherboard;
   powerSupply: PowerSupply;
+}
+
+export interface SetupItem {
+  title: string;
+  description: string;
+  image?: string;
+  token: string;
+  cpuId: number;
+  gpuId: number;
+  motherboardId: number;
+  ramId: number;
+  powerSupplyId: number;
 }

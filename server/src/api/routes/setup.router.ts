@@ -6,14 +6,21 @@ import {
   PostSetupRequest,
   DeleteSetupRequest,
   PutSetupRequest,
-  SetupSchema,
   CreateSetupSchema,
   UpdateSetupSchema,
   GetAllSetupsResponse,
   DetailedSetupSchema,
 } from './setup.schema';
-import { CreateOneQuery, UpdateOneQuery, GetOneQuery, GetMultipleQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+
 import { SetupMiddleware } from '../middlewares/setup.middleware';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
+import {
+  CreateOneQuery,
+  UpdateOneQuery,
+  GetOneQuery,
+  GetMultipleQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { SetupService } = fastify.services;
@@ -33,13 +40,19 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     return setup;
   });
 
-  const createOneSchema = CreateOneQuery(CreateSetupSchema, SetupSchema);
-  fastify.post('/', createOneSchema, async (request: PostSetupRequest, reply) => {
-    const setup = await SetupService.createSetup(request.body, setupMiddleware);
-    reply.send(setup);
-  });
+  const createOneSchema = CreateOneQuery(CreateSetupSchema, DetailedSetupSchema);
+  fastify.post(
+    '/',
+    { preHandler: userRequestMiddleware(fastify), ...createOneSchema },
+    async (request: PostSetupRequest, reply) => {
+      request.body.authorId = request.user.id;
+      const data = { ...request.body };
+      const setup = await SetupService.createSetup(data, setupMiddleware);
+      reply.send(setup);
+    }
+  );
 
-  const updateOneSchema = UpdateOneQuery(UpdateSetupSchema, SetupSchema);
+  const updateOneSchema = UpdateOneQuery(UpdateSetupSchema, DetailedSetupSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutSetupRequest, reply) => {
     const { id } = request.params;
     const setup = await SetupService.updateSetupById({id, data: request.body}, setupMiddleware);

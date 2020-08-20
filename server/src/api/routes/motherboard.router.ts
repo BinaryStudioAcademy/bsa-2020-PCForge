@@ -12,7 +12,13 @@ import {
   UpdateMotherBoardSchema,
   DetailedMotherBoardSchema,
 } from './motherboard.schema';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
