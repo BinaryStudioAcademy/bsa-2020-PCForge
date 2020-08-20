@@ -10,16 +10,18 @@ import { Container, Grid } from '@material-ui/core';
 interface Props {
   setup: PCSetup;
   rate: number;
+  onRatingSet: (value: number) => void;
 }
 
 const SetupCard: React.FC<Props> = (props): JSX.Element => {
+  const { onRatingSet } = props;
   const { title, description, image } = props.setup;
   return (
     <Grid className={styles.card}>
       <Grid item xs={12} container alignItems="center">
         <CardHeader title={title} className={styles.contentHeader} />
         <div className={styles.ratingBox}>
-          <RatingBox name="setup-card" ratingValue={props.rate} disabled={false} />
+          <RatingBox name="setup-card" ratingValue={props.rate} disabled={false} onValueSet={onRatingSet} />
         </div>
       </Grid>
       <Grid item xs={12} container justify="center" className={styles.imageWrapper}>
