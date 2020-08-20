@@ -8,21 +8,9 @@ import Title from 'components/Title';
 import { RootState } from 'redux/rootReducer';
 import { fetchSetups } from 'containers/SetupsPage/actions';
 import { ConnectedProps, connect } from 'react-redux';
-
-interface Setup {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  cpu: string;
-  gpu: string;
-  ram: string;
-}
-
-interface I_Props {
-  //Change it for mandatory prop when redux will be added
-  setups: Array<Setup>;
-}
+import { Cpu } from 'common/models/cpu';
+import { Gpu } from 'common/models/gpu';
+import { Ram } from 'common/models/ram';
 
 const SetupPage: React.FC<PropsFromRedux> = ({ setups, fetchSetups }) => {
   useEffect(() => {
@@ -38,9 +26,9 @@ const SetupPage: React.FC<PropsFromRedux> = ({ setups, fetchSetups }) => {
           id={setup.id}
           imageSource={setup.image}
           setupName={setup.title}
-          // processor={setup.cpu}
-          // gpu={setup.gpu}
-          // ram={setup.ram}
+          processor={setup.cpu.name}
+          gpu={setup.gpu.name}
+          ram={setup.ram.name}
           // comments={setup.comments}
           // rating={setup.rating}
         />

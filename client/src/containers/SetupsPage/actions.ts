@@ -1,11 +1,11 @@
 import { IFetchSetupsRequest, IFetchSetupsSuccess, SetupsActionsTypes, IFetchSetupsFailure } from './actionTypes';
-import { Setup } from 'common/models/setup';
+import { PCSetup } from 'common/models/setup';
 
 export const fetchSetups = (): IFetchSetupsRequest => ({
   type: SetupsActionsTypes.FETCH_SETUPS_REQUEST,
 });
 
-export const setSetups = (setups: Setup[]): IFetchSetupsSuccess => ({
+export const setSetups = (setups: PCSetup[]): IFetchSetupsSuccess => ({
   type: SetupsActionsTypes.FETCH_SETUPS_SUCCESS,
   payload: {
     setups,
