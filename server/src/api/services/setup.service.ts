@@ -1,8 +1,8 @@
 import { SetupCreationAttributes, SetupModel } from '../../data/models/setup';
 import { SetupRepository } from '../../data/repositories/setup.repository';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { IFilter } from '../../data/repositories/filters/base.filter';
 import { triggerServerError } from '../../helpers/global.helper';
+import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { ISetupMiddleware } from '../middlewares/setup.middleware';
 
 export class SetupService {
@@ -16,8 +16,8 @@ export class SetupService {
     return setup;
   }
 
-  async getAllSetups(): Promise<IWithMeta<SetupModel>> {
-    const setups = await this.repository.getAllSetups(new IFilter());
+  async getAllSetups(filter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+    const setups = await this.repository.getSetups(filter);
     return setups;
   }
 

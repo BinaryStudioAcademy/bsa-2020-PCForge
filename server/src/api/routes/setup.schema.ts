@@ -3,13 +3,16 @@ import { SetupCreationAttributes } from '../../data/models/setup';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { CpuSchema } from './cpu.schema';
 import { GpuSchema } from './gpu.schema';
+import { MotherBoardSchema } from './motherboard.schema';
 import { RamSchema } from './ram.schema';
 import { PowerSupplySchema } from './powerSupply.schema';
-import { MotherBoardSchema } from './motherboard.schema';
+import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { CommentSchema } from './comment.schema';
 import { UserAttributes } from '../../data/models/user';
 
-export type GetSetupsRequest = FastifyRequest;
+export type GetSetupsRequest = FastifyRequest<{
+  Querystring: ISetupFilter;
+}>;
 
 export type GetSetupRequest = FastifyRequest<{
   Params: { id: string };
@@ -99,6 +102,11 @@ export const SetupSchema: SwaggerSchema = {
       nullable: false,
       format: 'date-time',
     },
+    cpu: CpuSchema,
+    gpu: GpuSchema,
+    motherboard: MotherBoardSchema,
+    ram: RamSchema,
+    powerSupply: PowerSupplySchema,
   },
 };
 
