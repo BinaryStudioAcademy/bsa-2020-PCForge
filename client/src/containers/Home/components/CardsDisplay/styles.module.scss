@@ -5,8 +5,7 @@ $cardButtonColor: #EB3D55;
   margin-bottom: 30px;
 
   @media (max-width: 768px) {
-
-    height: 1400px;
+    height: 2000px;
   }
 }
 
@@ -48,7 +47,11 @@ $cardButtonColor: #EB3D55;
       margin-right: 40px;
       margin-left: 20px;
       width: 50%;
+      margin-top: 15px;
+    }
 
+    @media (max-width: 768px) {
+      width:80%;
     }
   }
 
@@ -69,11 +72,15 @@ $cardButtonColor: #EB3D55;
       margin-right: 20px;
 
       &>div {
-        margin-bottom: 10px !important;
-        margin-top: 10px !important;
+        margin-bottom: 15px !important;
+        margin-top: 15px !important;
       }
     }
 
+    @media (max-width: 768px) {
+      width:80%;
+    }
+    
 
     &>div:nth-child(2n) {
       margin-bottom: 0;
@@ -96,6 +103,10 @@ $cardButtonColor: #EB3D55;
 
       @media (max-width: 1200px) {
         width: 100%;
+      }
+
+      @media (max-width: 1200px) {
+        margin-left: 0;
       }
 
       &:hover {
