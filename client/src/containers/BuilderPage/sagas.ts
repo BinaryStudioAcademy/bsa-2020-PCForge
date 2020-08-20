@@ -8,7 +8,8 @@ import {
   BUILDER_RESET_SETUP,
   BUILDER_SET_SETUP,
   REMOVE_COMPONENT_FROM_SETUP,
-} from './actionTypes';
+  SAVE_SETUP_REQUEST,
+} from 'containers/BuilderPage/actionTypes';
 import { getCpu } from 'api/services/cpuService';
 import { getGpu } from 'api/services/gpuService';
 import { getRam } from 'api/services/ramService';
@@ -16,6 +17,8 @@ import { getMotherboard } from 'api/services/motherboardService';
 import { getPowersupplies } from 'api/services/powersupplyService';
 import { clearLocalSetup, getLocalSetup, setLocalSetup } from 'helpers/setupHelper';
 import { Group } from './config';
+import { uploadImage } from 'api/services/imageService';
+import { createSetup } from 'api/services/setup.service';
 
 const servicesGet = {
   [Group.cpu]: getCpu,
@@ -81,6 +84,20 @@ function* watchRemoveSetup() {
   yield takeEvery(REMOVE_COMPONENT_FROM_SETUP, removeComponent);
 }
 
+export function* saveSetup(action: AnyAction) {
+  try {
+    const data = action.payload.data;
+    data.image = yield call(uploadImage, action.payload.image);
+    const savedSetup = yield call(createSetup, data);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* watchSaveSetup() {
+  yield takeEvery(SAVE_SETUP_REQUEST, saveSetup);
+}
+
 export default function* builderSagas() {
-  yield all([watchAddComponent(), watchInitSetup(), watchResetSetup(), watchRemoveSetup()]);
+  yield all([watchAddComponent(), watchInitSetup(), watchResetSetup(), watchRemoveSetup(), watchSaveSetup()]);
 }

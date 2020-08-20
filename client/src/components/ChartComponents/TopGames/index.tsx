@@ -1,80 +1,45 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { Game } from 'common/models/game';
 import React from 'react';
 import styles from './styles.module.scss';
 
-interface Game {
-  id: string;
-  category: string;
-  name: string;
-  date: string;
-  image: string;
-}
-
 interface Props {
   games: Game[];
+  selected?: number;
+  onGameSelected?: (game: Game) => void;
 }
 
-const TopGames: React.FC<Props> = (props): JSX.Element => {
-  const games: Game[] = getGames();
-
-  const gameView = (game: Game) => (
-    <div className={styles.gameContainer} key={game.id}>
+const TopGames: React.FC<Props> = ({
+  games,
+  selected: selectedIndex,
+  onGameSelected: onGameSelectedProps = () => {},
+}): JSX.Element => {
+  const gameView = (game: Game, isSelected: boolean) => (
+    <div
+      className={`${styles.gameContainer} ${isSelected && styles.gameContainerSelected}`}
+      key={game.id}
+      onClick={() => onGameSelectedProps(game)}
+    >
       <img className={styles.gameImage} src={game.image} alt={game.name} />
+
       <div className={styles.gameDetails}>
-        <span className={styles.gameCategory}>{game.category}</span>
+        {/* <span className={styles.gameCategory}>{game.name}</span> */}
 
         <span className={styles.gameName}>{game.name}</span>
 
-        <span className={styles.gameDate}>{game.date}</span>
+        <span className={styles.gameDate}>{game.year}</span>
       </div>
     </div>
   );
 
   return (
     <aside className={styles.topGamesRoot}>
-      <h2 className={styles.topGamesHeader}>Top 5 Games</h2>
-      <div className={styles.topGamesContainer}>{games.map(gameView)}</div>
+      <h2 className={styles.topGamesHeader}>Top {games.length} Games</h2>
+      <div className={styles.topGamesContainer}>
+        {games.map((game, index) => gameView(game, selectedIndex === index))}
+      </div>
     </aside>
   );
 };
-
-function getGames() {
-  return [
-    {
-      id: '1',
-      category: 'category',
-      name: 'Horizon Zero Dawn™ Complete Edition',
-      date: 'Jan 13th, 2018',
-      image: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1151640/header.jpg?t=1596642543',
-    },
-    {
-      id: '2',
-      category: 'category',
-      name: 'Horizon Zero Dawn™ Complete Edition',
-      date: 'Jan 13th, 2018',
-      image: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1151640/header.jpg?t=1596642543',
-    },
-    {
-      id: '3',
-      category: 'category',
-      name: 'Horizon Zero Dawn™ Complete Edition',
-      date: 'Jan 13th, 2018',
-      image: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1151640/header.jpg?t=1596642543',
-    },
-    {
-      id: '4',
-      category: 'category',
-      name: 'Horizon Zero Dawn™ Complete Edition',
-      date: 'Jan 13th, 2018',
-      image: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1151640/header.jpg?t=1596642543',
-    },
-    {
-      id: '5',
-      category: 'category',
-      name: 'Horizon Zero Dawn™ Complete Edition',
-      date: 'Jan 13th, 2018',
-      image: 'https://cdn.cloudflare.steamstatic.com/steam/apps/1151640/header.jpg?t=1596642543',
-    },
-  ];
-}
 
 export default TopGames;
