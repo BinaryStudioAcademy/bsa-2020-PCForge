@@ -15,6 +15,11 @@ export interface SetupCreationAttributes {
   description: string;
   image: string;
   authorId: number;
+  cpuId: number;
+  gpuId: number;
+  motherboardId: number;
+  ramId: number;
+  powerSupplyId: number;
 }
 
 export interface SetupModel extends Model<SetupAttributes>, SetupAttributes {}

@@ -33,6 +33,7 @@ export const SetupSchema: SwaggerSchema = {
     id: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     title: {
@@ -54,26 +55,37 @@ export const SetupSchema: SwaggerSchema = {
     cpuId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
+      nullable: false
+    },
+    authorId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
       nullable: false
     },
     gpuId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     motherboardId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     ramId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     powerSupplyId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     createdAt: {
@@ -145,15 +157,18 @@ export const CreateSetupSchema: SwaggerSchema = {
     authorId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
       nullable: false
     },
     cpuId: {
       type: 'integer',
+      minimum: 1,
       example: 1,
       nullable: false
     },
     gpuId: {
       type: 'integer',
+      minimum: 1,
       example: 1,
       nullable: false
     },
@@ -192,6 +207,12 @@ export const UpdateSetupSchema: SwaggerSchema = {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 50,
+      nullable: true
+    },
+    authorId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
       nullable: true
     },
     cpuId: {

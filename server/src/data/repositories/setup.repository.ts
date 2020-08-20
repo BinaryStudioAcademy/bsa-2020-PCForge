@@ -46,6 +46,7 @@ export class SetupRepository extends BaseRepository<SetupModel> {
         }
       ],
     });
+    console.log('this is setup', setup.toJSON())
     return setup;
   }
 
