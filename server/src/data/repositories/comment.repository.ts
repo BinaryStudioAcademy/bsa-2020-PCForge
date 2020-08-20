@@ -2,9 +2,10 @@ import { CommentCreationAttributes, CommentModel, CommentStatic } from '../model
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { ICommentFilter } from './filters/comment.filter';
 import { mergeFilters } from './filters/helper';
+import { UserStatic } from '../models/user';
 
 export class CommentRepository extends BaseRepository<CommentModel, ICommentFilter> {
-  constructor(private model: CommentStatic) {
+  constructor(private model: CommentStatic, private userModel: UserStatic) {
     super(<RichModel>model, ICommentFilter);
   }
 
@@ -16,7 +17,11 @@ export class CommentRepository extends BaseRepository<CommentModel, ICommentFilt
     const filter = mergeFilters<ICommentFilter>(new ICommentFilter(), inputFilter);
     return await this.getAll(
       {
-        group: ['comment.id'],
+        group: ['comment.id', 'user.id'],
+        include: [{
+          model: this.userModel,
+          as: 'user'
+        }],
         where: {
           commentableId: filter.commentableId,
           commentableType: filter.commentableType,

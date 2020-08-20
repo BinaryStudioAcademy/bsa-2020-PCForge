@@ -2,7 +2,6 @@ import { FastifyRequest } from "fastify";
 import { SwaggerSchema } from "../../data/models/swaggerSchema";
 
 const UploadImageRequest: SwaggerSchema = {
-
 };
 
 const UploadImageResponse: SwaggerSchema = {

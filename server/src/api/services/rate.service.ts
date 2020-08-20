@@ -25,6 +25,11 @@ export class RateService {
     return await this.repository.createRate(inputRate);
   }
 
+  async getRatesAverage(input: IRateFilter): Promise<{average: number}> {
+    const average: number = await this.repository.getAverageRate(input);
+    return { average };
+  }
+
   async updateRateById(
     inputRate: { id: string; data: RateCreationAttributes },
     rateMiddleware: IRateMiddleware
