@@ -1,13 +1,29 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostRamRequest, GetOneRamRequest, PutRamRequest, DeleteRamRequest, GetAllRamsRequest, GetAllRamResponse, RamSchema, CreateRamSchema, UpdateRamSchema } from './ram.schema';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  PostRamRequest,
+  GetOneRamRequest,
+  PutRamRequest,
+  DeleteRamRequest,
+  GetAllRamsRequest,
+  GetAllRamResponse,
+  RamSchema,
+  CreateRamSchema,
+  UpdateRamSchema,
+} from './ram.schema';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { RamService } = fastify.services;
 
-  const getAllSchema = GetMultipleQuery(GetAllRamResponse, IRamFilter.schema)
+  const getAllSchema = GetMultipleQuery(GetAllRamResponse, IRamFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllRamsRequest, reply) => {
     const rams = await RamService.getAllRams(request.query);
     reply.send(rams);
