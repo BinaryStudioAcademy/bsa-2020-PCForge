@@ -131,7 +131,7 @@ export const GetAllSetupsResponse: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: SetupSchema,
+      items: DetailedSetupSchema,
     },
   },
 };
