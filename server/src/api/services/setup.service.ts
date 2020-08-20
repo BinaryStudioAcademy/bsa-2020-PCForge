@@ -11,7 +11,7 @@ export class SetupService {
   }
 
   async getAllSetups(): Promise<IWithMeta<SetupModel>> {
-    const setups = await this.repository.getAll();
+    const setups = await this.repository.getAllSetups();
     return setups;
   }
 
