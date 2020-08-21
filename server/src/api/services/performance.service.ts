@@ -94,7 +94,7 @@ export class PerformanceService {
     const low = (currentPerformance / minimal / ratio) * this.DEFAULT_FPS;
     const high = (currentPerformance / recommended / ratio) * this.DEFAULT_FPS;
     const medium = (low + high) / 2;
-    const ultra = 2 * high - medium; // because high = (medium + ultra) / 2 (like we calculate medium);
+    const ultra = Math.max(0, 2 * high - medium); // because high = (medium + ultra) / 2 (like we calculate medium);
     const analysis: IFpsAnalysis = {
       low: Math.ceil(low),
       medium: Math.ceil(medium),

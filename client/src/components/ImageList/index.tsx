@@ -28,6 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
         opacity: 0.75,
       },
     },
+    selected: {
+      border: '3px solid',
+      borderColor: theme.palette.common.white,
+      boxShadow: 'inset 10px 10px 43px 0px rgba(0,0,0,0.75)',
+    },
   })
 );
 
@@ -42,6 +47,7 @@ export interface IImageListProps {
   maxItemCount?: number;
   onImageSelect: (index: number) => void;
   className?: string;
+  defaultSelected?: number;
 }
 
 const ImageList: React.FC<IImageListProps> = ({
@@ -49,8 +55,10 @@ const ImageList: React.FC<IImageListProps> = ({
   maxItemCount = data.length,
   onImageSelect,
   className = '',
+  defaultSelected = 0,
 }: IImageListProps): JSX.Element => {
   const styles = useStyles();
+  const [selected, setSelected] = React.useState<number>(defaultSelected);
   const currentItemCount = data.length;
   const colsCount = Math.min(currentItemCount, maxItemCount);
 
@@ -77,6 +85,7 @@ const ImageList: React.FC<IImageListProps> = ({
 
   const onSelect = (image: IImage) => {
     onImageSelect(image.id);
+    setSelected(data.findIndex((item) => item.id === image.id));
   };
 
   return (
@@ -87,11 +96,11 @@ const ImageList: React.FC<IImageListProps> = ({
         ref={scrollRef as React.RefObject<HTMLUListElement>}
         spacing={20}
       >
-        {data.slice(0, colsCount).map((tile) => (
+        {data.slice(0, colsCount).map((tile, index) => (
           <GridListTile
             key={tile.id}
             rows={1}
-            classes={{ tile: styles.tile }}
+            classes={{ tile: `${styles.tile} ${index === selected && styles.selected}` }}
             className={styles.tile}
             onClick={() => onSelect(tile)}
           >
