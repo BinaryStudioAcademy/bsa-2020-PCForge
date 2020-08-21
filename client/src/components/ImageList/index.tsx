@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface IImage {
+  id: number;
   title: string;
   image: string;
 }
@@ -50,6 +51,8 @@ const ImageList: React.FC<IImageListProps> = ({
   className = '',
 }: IImageListProps): JSX.Element => {
   const styles = useStyles();
+  const currentItemCount = data.length;
+  const colsCount = Math.min(currentItemCount, maxItemCount);
 
   function useHorizontalScroll() {
     const elementRef = React.useRef<HTMLUListElement>();
@@ -80,14 +83,14 @@ const ImageList: React.FC<IImageListProps> = ({
   return (
     <div className={`${styles.root} ${className}`}>
       <GridList
-        cols={maxItemCount - 0.5}
+        cols={Math.max(1, colsCount - 0.5)} // cols={0.5} breaks layout
         className={styles.gridList}
         ref={scrollRef as React.RefObject<HTMLUListElement>}
         spacing={20}
       >
-        {data.slice(0, maxItemCount).map((tile) => (
+        {data.slice(0, colsCount).map((tile) => (
           <GridListTile
-            key={tile.image}
+            key={tile.id}
             rows={1}
             classes={{ tile: styles.tile }}
             className={styles.tile}

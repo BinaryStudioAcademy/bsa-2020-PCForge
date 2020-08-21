@@ -29,7 +29,7 @@ const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element 
 
   const transformGamesToImages = (games: Game[]) => {
     const firstFiveGames = games.slice(0, Math.min(games.length, 5));
-    const transformed = firstFiveGames.map((game) => ({ title: game.name, image: game.image }));
+    const transformed = firstFiveGames.map((game) => ({ title: game.name, image: game.image, id: game.id }));
     return transformed;
   };
 
@@ -41,7 +41,7 @@ const QuickMatcher: React.FC<Props> = ({ games = [], fetchGames }): JSX.Element 
   return (
     <Box className={styles.quickMatcher}>
       <Search value={gameName} onChange={onGameNameChange} className={styles.search} />
-      <ImageList data={transformGamesToImages(games)} onImageSelect={onGameSelect} />
+      <ImageList data={transformGamesToImages(games)} onImageSelect={onGameSelect} maxItemCount={5} />
       <Box className={styles.results}>
         <Tachometer value={tachometerValue} maxValue={100} type={''} className={styles.tachometer} />
         <Text text={'Recommended settings'} icon={<CheckIcon />} iconPosition="left" className={styles.text} />
