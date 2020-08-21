@@ -17,12 +17,39 @@ $viewBox: 100;
 }
 
 .tachometerBar {
-  fill: none;
-  stroke: $colorBlue;
-  stroke-width: 5;
   stroke-dasharray: 45, 1, 45, 1, 45, 1, 45, 1, 45, 46;
   transform: rotate(121deg);
   transform-origin: 50% 50%;
+}
+
+.redArc {
+  fill: none;
+  stroke: $colorRed;
+  stroke-width: 5;
+}
+
+.orangeArc {
+  fill: none;
+  stroke: $colorOrange;
+  stroke-width: 5;
+}
+
+.yellowArc {
+  fill: none;
+  stroke: $colorYellow;
+  stroke-width: 5;
+}
+
+.greenArc {
+  fill: none;
+  stroke: $colorGreen;
+  stroke-width: 5;
+}
+
+.orangeArc {
+  fill: none;
+  stroke: $colorOrange;
+  stroke-width: 5;
 }
 
 .tachometerBorder {
