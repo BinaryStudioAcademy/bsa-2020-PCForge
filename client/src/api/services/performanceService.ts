@@ -3,14 +3,17 @@ import { ISetupPerformance } from 'common/models/setupPerformance';
 
 export type TypeResponseOne = ISetupPerformance;
 
-export interface IFilter {
+export interface IPerformanceFilter {
   from: number;
   count: number;
+  cpuId: number;
+  gpuId: number;
+  ramSize: number;
+  gameId: number;
 }
 
-const endpoint = '/performances/setup';
+const endpoint = '/performances';
 
-export const getPerformance = async (setupId: number, gameId: number): Promise<TypeResponseOne> => {
-  const url = `${endpoint}/${setupId}`;
-  return await webApi.get(url, { gameId });
+export const getPerformance = async (filter: IPerformanceFilter): Promise<TypeResponseOne> => {
+  return await webApi.get(endpoint, filter);
 };
