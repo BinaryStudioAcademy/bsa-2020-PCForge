@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import ModalWindow from '../ModalWindow';
 import { TypeUsersRequests } from 'common/models/typeUsersRequests';
 import styles from './styles.module.scss';
 
@@ -11,9 +12,18 @@ interface IPropsItem {
 }
 
 const RenderRequestItem = ({ item, username, onDisaproveHandler, onApproveHandler }: IPropsItem): JSX.Element => {
+  const [displayDetailsOpen, setDisplayDetailsOpen] = useState(false);
   const date = new Date(item.createdAt);
-  console.log(date);
 
+  const showDetails = () => {
+    setDisplayDetailsOpen(true);
+  };
+  const hideDetails = () => {
+    setDisplayDetailsOpen(false);
+  };
+  const handleDetailsWindow = () => {
+    displayDetailsOpen ? hideDetails() : showDetails();
+  };
   const onDisapprove = () => {
     // update next after changing user Requests API:
     onDisaproveHandler(item.id, 'item.user.email', item.userId);
@@ -32,7 +42,8 @@ const RenderRequestItem = ({ item, username, onDisaproveHandler, onApproveHandle
         <div className={styles.requestExtraInfoItem}>{username}</div>
       </div>
       <div className={styles.buttonContainer}>
-        <Button buttonType={ButtonType.secondary} className={styles.buttonRequest}>
+        {displayDetailsOpen ? <ModalWindow displayInfo={item} onClose={hideDetails} /> : null}
+        <Button buttonType={ButtonType.secondary} className={styles.buttonRequest} onClick={handleDetailsWindow}>
           Details
         </Button>
         <Button buttonType={ButtonType.primary} className={styles.buttonRequest} onClick={onApprove}>
