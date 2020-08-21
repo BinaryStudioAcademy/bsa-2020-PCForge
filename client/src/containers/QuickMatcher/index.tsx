@@ -38,7 +38,7 @@ const QuickMatcher: React.FC<Props> = ({
   }, [games]);
 
   React.useEffect(() => {
-    if (cpuId && gpuId && ramSize && selectedGame) {
+    if (cpuId && gpuId && ramSize && selectedGame?.id > 0) {
       fetchPerformanceAnalysis({ cpuId, gpuId, ramSize, gameId: selectedGame.id });
     }
   }, [selectedGame]);

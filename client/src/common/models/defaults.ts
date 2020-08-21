@@ -94,7 +94,7 @@ export const defaultPerformance: ISetupPerformance = {
 };
 
 export const defaultGame: Game = {
-  id: 0,
+  id: -1,
   name: '',
   year: 0,
   description: '',
