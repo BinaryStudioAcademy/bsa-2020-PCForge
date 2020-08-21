@@ -3,7 +3,12 @@ import { SwaggerSchema } from '../../data/models/swaggerSchema';
 
 export type GetOneSetupPerformanceRequest = FastifyRequest<{
   Params: { id: string };
-  Querystring: { gameId: string };
+  Querystring: {
+    gameId: string;
+    cpuId: string;
+    gpuId: string;
+    ramSize: string;
+  };
 }>;
 
 export const SetupPerformanceSchemaRequest: SwaggerSchema = {
@@ -12,7 +17,18 @@ export const SetupPerformanceSchemaRequest: SwaggerSchema = {
     gameId: {
       type: 'integer',
       minimum: 0,
-      nullable: true,
+    },
+    cpuId: {
+      type: 'integer',
+      minimum: 0,
+    },
+    gpuId: {
+      type: 'integer',
+      minimum: 0,
+    },
+    ramSize: {
+      type: 'integer',
+      minimum: 0,
     },
   },
 };

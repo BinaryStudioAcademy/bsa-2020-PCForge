@@ -10,5 +10,12 @@
       flex-grow: 1;
       margin-right: 3rem;
     }
+
+    .summaryWrapper {
+      position: sticky;
+      height: fit-content;
+      top: 20px;
+      min-width: 25%;
+    }
   }
 }
