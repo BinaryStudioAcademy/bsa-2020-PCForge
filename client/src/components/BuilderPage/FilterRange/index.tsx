@@ -10,15 +10,23 @@ import styles from './styles.module.scss';
 
 type PropsType = {
   title: string;
-  min: number;
-  max: number;
+  min?: number;
+  max?: number;
   dimension?: string;
   marks?: { value: number }[];
   step?: number | null;
   onChange: (range: number[]) => void;
 };
 
-const FilterRange = ({ title, min, max, onChange, marks = [], dimension = '', step = 1 }: PropsType): JSX.Element => {
+const FilterRange = ({
+  title,
+  min = 0,
+  max = 100,
+  onChange,
+  marks = [],
+  dimension = '',
+  step = 1,
+}: PropsType): JSX.Element => {
   const [value, setValue] = useState([min, max]);
 
   const onChangeHandler = (ev: React.ChangeEvent<Record<string, unknown>>, value: number | number[]) => {

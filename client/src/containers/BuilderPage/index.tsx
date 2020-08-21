@@ -2,7 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
-import { ComponentGroups, TypeGroupConfig, TypeFilterBuilder } from './types';
+import { MenuItems } from 'common/enums/MenuItems';
+import PageComponent from 'containers/PageComponent';
+import BuilderSummary from 'components/BuilderPage/BuilderSummary';
+import GroupComponent from 'components/BuilderPage/GroupComponent';
+
+import Modal from 'components/BasicComponents/Modal';
+import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
+import { AssignmentReturn } from '@material-ui/icons';
+
+import { TypeGroupConfig, TypeFilterBuilder } from './types';
 import { TypeSetup } from './reducer';
 import {
   addComponentToSetupAction,
@@ -10,24 +19,17 @@ import {
   removeComponentFromSetupAction,
   resetSetupAction,
 } from 'containers/BuilderPage/actions';
-import { MenuItems } from 'common/enums/MenuItems';
-import PageComponent from 'containers/PageComponent';
-import BuilderSummary from 'components/BuilderPage/BuilderSummary';
+
+import { FilterName, GroupName } from './config';
 
 import styles from 'containers/BuilderPage/styles.module.scss';
-import { FilterName, GroupName } from './config';
-import GroupComponent from '../../components/BuilderPage/GroupComponent';
-
-import Modal from 'components/BasicComponents/Modal';
-import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
-import { AssignmentReturn } from '@material-ui/icons';
 
 type PropsType = {
   className?: string;
 };
 
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
-  const [expanded, setExpanded] = useState<false | ComponentGroups | GroupName>(false); // todo: del ComponentGroups
+  const [expanded, setExpanded] = useState<false | GroupName>(false);
   const [filter, setFilter] = useState<TypeFilterBuilder>({
     socketIdSet: new Set() as Set<number>,
     ramTypeIdSet: new Set() as Set<number>,
