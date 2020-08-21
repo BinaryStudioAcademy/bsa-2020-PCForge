@@ -1,30 +1,11 @@
-import { defaultSetup } from 'common/models/defaults';
+import { defaultPerformance, defaultSetup } from 'common/models/defaults';
 import { SetupChartActions, SetupChartState, SetupChartTypes } from './actionTypes';
 
 const initialState: SetupChartState = {
   searchedGames: [],
   topGames: [],
   setup: defaultSetup,
-  performance: {
-    fpsAnalysis: [],
-    report: {
-      minimal: {
-        cpu: 100,
-        gpu: 100,
-        ram: 100,
-      },
-      recommended: {
-        cpu: 100,
-        gpu: 100,
-        ram: 100,
-      },
-    },
-    overall: {
-      cpu: 0,
-      gpu: 0,
-      ram: 0,
-    },
-  },
+  performance: defaultPerformance,
   error: '',
 };
 

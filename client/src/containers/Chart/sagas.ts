@@ -40,8 +40,8 @@ function* watchFetchGames() {
 
 function* fetchPerformanceAnalysis(action: IFetchPerformanceRequestAction) {
   try {
-    const performance = yield call(getPerformance, action.payload.setupId, action.payload.gameId);
-    yield put(setPerformance(performance));
+    // const performance = yield call(getPerformance, action.payload.setupId, action.payload.gameId);
+    // yield put(setPerformance(performance));
   } catch (error) {
     yield put(setError(error));
   }
