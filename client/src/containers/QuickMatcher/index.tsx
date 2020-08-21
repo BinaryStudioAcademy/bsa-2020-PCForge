@@ -76,15 +76,24 @@ const QuickMatcher: React.FC<Props> = ({
     <Box className={styles.quickMatcher}>
       <Search value={gameName} onChange={onGameNameChange} className={styles.search} />
       <ImageList data={transformGamesToImages(games)} onImageSelect={onGameSelect} maxItemCount={5} />
-      <Box className={styles.results}>
-        <ColouredTachometer value={currentPerformance.fps} maxValue={100} type={'FPS'} className={styles.tachometer} />
-        <Text
-          text={currentPerformance.verdict}
-          icon={currentPerformance.isPlayable ? <CheckIcon /> : <CloseIcon />}
-          iconPosition="left"
-          className={styles.text}
-        />
-      </Box>
+      {games.length > 0 ? (
+        <Box className={styles.results}>
+          <ColouredTachometer
+            value={currentPerformance.fps}
+            maxValue={100}
+            type={'FPS'}
+            className={styles.tachometer}
+          />
+          <Text
+            text={currentPerformance.verdict}
+            icon={currentPerformance.isPlayable ? <CheckIcon /> : <CloseIcon />}
+            iconPosition="left"
+            className={styles.text}
+          />
+        </Box>
+      ) : (
+        <Text text="No games was found. Try different name!" className={styles.notFoundText} />
+      )}
     </Box>
   );
 };

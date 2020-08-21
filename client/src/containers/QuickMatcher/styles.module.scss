@@ -26,9 +26,15 @@
 .results {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   margin-top: 25px;
+  text-align: center;
 }
 
 .text {
   margin-left: 25px;
+}
+
+.notFoundText {
+  justify-content: center;
 }
