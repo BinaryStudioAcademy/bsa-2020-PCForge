@@ -142,7 +142,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           </Box>
           <Box className={styles.summaryWrapper}>
             <BuilderSummary setup={setup} />
-            <QuickMatcher />
+            {console.log(setup.cpu, setup.gpu, setup.ram)}
+            {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
           </Box>
         </Box>
       </Box>
