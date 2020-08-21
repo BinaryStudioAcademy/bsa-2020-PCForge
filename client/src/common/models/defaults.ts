@@ -1,9 +1,11 @@
 import { Cpu } from './cpu';
+import { Game } from './game';
 import { Gpu } from './gpu';
 import { Motherboard } from './motherboard';
 import { PowerSupply } from './powerSupply';
 import { Ram } from './ram';
 import { Setup } from './setup';
+import { ISetupPerformance } from './setupPerformance';
 
 export const defaultGpu: Gpu = {
   id: 0,
@@ -66,6 +68,43 @@ export const defaultSetup: Setup = {
   ram: defaultRam,
   motherBoard: defaultMotherboard,
   powerSupply: defaultPowerSupply,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+export const defaultPerformance: ISetupPerformance = {
+  fpsAnalysis: [],
+  report: {
+    minimal: {
+      cpu: 100,
+      gpu: 100,
+      ram: 100,
+    },
+    recommended: {
+      cpu: 100,
+      gpu: 100,
+      ram: 100,
+    },
+  },
+  overall: {
+    cpu: 0,
+    gpu: 0,
+    ram: 0,
+  },
+};
+
+export const defaultGame: Game = {
+  id: 0,
+  name: '',
+  year: 0,
+  description: '',
+  image: '',
+  recommendedRamSize: 0,
+  minimalRamSize: 0,
+  recommendedCpu: defaultCpu,
+  minimalCpu: defaultCpu,
+  recommendedGpu: defaultGpu,
+  minimalGpu: defaultGpu,
   createdAt: new Date(),
   updatedAt: new Date(),
 };
