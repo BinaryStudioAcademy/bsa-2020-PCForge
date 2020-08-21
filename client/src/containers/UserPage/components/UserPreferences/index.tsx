@@ -16,6 +16,7 @@ const generateKey = (pre: string, index: number) => {
 
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   const { games, setups } = props;
+  console.log(setups);
   return (
     <>
       {games ? (
@@ -49,14 +50,21 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
             </Link>
           </div>
           <div className={styles.userPreferences}>
-            {setups.map((setup, index) => (
-              <SetupCard
-                key={generateKey(setup.title, index)}
-                image={setup.image}
-                title={setup.title}
-                description={setup.description}
-              />
-            ))}
+            {setups.map((setup, index) => {
+              return (
+                <SetupCard
+                  title={setup.title}
+                  description={setup.description}
+                  cpu={setup.cpu}
+                  gpu={setup.gpu}
+                  motherboard={setup.motherboard}
+                  ram={setup.ram}
+                  image={setup.image}
+                  powerSupply={setup.powerSupply}
+                  key={generateKey(setup.title, index)}
+                />
+              );
+            })}
           </div>
         </>
       ) : (

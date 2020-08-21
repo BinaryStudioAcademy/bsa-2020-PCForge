@@ -8,6 +8,7 @@ import PasswordInput from 'components/PasswordInput/PasswordInput';
 import UserPreferences from '../UserPreferences';
 import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'common/models/typeUser';
+import { SetupType } from 'common/models/typeSetup';
 import { UserActionTypes } from '../../logic/actionTypes';
 import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
 
@@ -19,10 +20,13 @@ enum UserPageTabs {
 interface IUserInfoProps {
   user: TypeUser;
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
+  setups: SetupType[],
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const { user, updateUser } = props;
+  const { user, updateUser, setups } = props;
+  console.log(setups)
+
   const gamesArray = [
     {
       image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
@@ -61,62 +65,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
       releaseDate: '06.06.16',
     },
   ];
-  const setupsArray = [
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-  ];
+ 
 
   const initialErrorMessages = {
     emailErrorMessage: null,
@@ -146,6 +95,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   }, [editableInput]);
 
   const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
+    
     setSelectedTab(newValue);
   };
 
@@ -316,7 +266,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           </Tabs>
         </AppBar>
         {selectedTab === UserPageTabs.Games && <UserPreferences games={gamesArray} />}
-        {selectedTab === UserPageTabs.Setups && <UserPreferences setups={setupsArray} />}
+        {selectedTab === UserPageTabs.Setups && <UserPreferences setups={setups} />}
       </div>
     </div>
   );
