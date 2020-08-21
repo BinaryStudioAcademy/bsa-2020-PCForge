@@ -25,6 +25,7 @@ import { Group } from 'containers/BuilderPage/config';
 import Modal from 'components/BasicComponents/Modal';
 import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
 import { AssignmentReturn } from '@material-ui/icons';
+import QuickMatcher from 'containers/QuickMatcher';
 
 type PropsType = {
   className?: string;
@@ -139,7 +140,10 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
               onChangeExpanded={setExpanded}
             />
           </Box>
-          <BuilderSummary setup={setup} />
+          <Box className={styles.summaryWrapper}>
+            <BuilderSummary setup={setup} />
+            <QuickMatcher />
+          </Box>
         </Box>
       </Box>
     </PageComponent>
