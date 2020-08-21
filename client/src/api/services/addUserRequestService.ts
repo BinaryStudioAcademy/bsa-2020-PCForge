@@ -1,5 +1,4 @@
 import webApi from 'api/webApiHelper';
-import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeUsersRequests } from 'common/models/typeUsersRequests';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 

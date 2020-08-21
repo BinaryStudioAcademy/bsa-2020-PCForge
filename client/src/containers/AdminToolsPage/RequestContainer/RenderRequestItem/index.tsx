@@ -15,10 +15,12 @@ const RenderRequestItem = ({ item, username, onDisaproveHandler, onApproveHandle
   console.log(date);
 
   const onDisapprove = () => {
-    onDisaproveHandler(item.id, "item.user.email", item.userId);
+    // update next after changing user Requests API:
+    onDisaproveHandler(item.id, 'item.user.email', item.userId);
   };
   const onApprove = () => {
-    onApproveHandler(item.id, "item.user.email", item.userId);
+    // update next after changing user Requests API:
+    onApproveHandler(item.id, 'item.user.email', item.userId);
   };
 
   return (
