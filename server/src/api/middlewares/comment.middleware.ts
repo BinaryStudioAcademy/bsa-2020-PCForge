@@ -3,6 +3,7 @@ import { CommentCreationAttributes } from '../../data/models/comment';
 import { NewsModel } from '../../data/models/news';
 import { GameModel } from '../../data/models/game';
 import { SetupModel } from '../../data/models/setup';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export type ICommentMiddleware = (inputComment: CommentCreationAttributes) => void;
 export type IInstance = NewsModel | GameModel | SetupModel;
@@ -18,7 +19,7 @@ export const CommentMiddleware = (fastify: FastifyInstance): ICommentMiddleware 
 
     const user = await UserService.getUser(stringUserId);
     if (!user) {
-      throw Error(`There's no user with id: ${userId}`);
+      triggerServerError(`There's no user with id: ${userId}`, 404);
     }
     switch (commentableType) {
       case 'news':
@@ -32,7 +33,7 @@ export const CommentMiddleware = (fastify: FastifyInstance): ICommentMiddleware 
         break;
     }
     if (!instance) {
-      throw Error(`There's no instance from table: ${commentableType} and with id: ${commentableId}`);
+      triggerServerError(`There's no instance from table: ${commentableType} and with id: ${commentableId}`, 404);
     }
   };
 };

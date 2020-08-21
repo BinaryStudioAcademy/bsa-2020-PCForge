@@ -22,6 +22,7 @@ interface IRatingBox {
   ratingValue: number;
   disabled: boolean;
   name: string;
+  onValueSet?: (value: number) => void;
 }
 
 const StyledRating = withStyles({
@@ -37,9 +38,16 @@ const StyledRating = withStyles({
   },
 })(Rating);
 
-const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name }) => {
+const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name, onValueSet }) => {
   const [value, setValue] = React.useState<number>(ratingValue);
   const [hover, setHover] = React.useState<number>(-1);
+
+  const onRatingSet = (value: number) => {
+    if (onValueSet) {
+      onValueSet(value);
+    }
+    setValue(value);
+  };
 
   const tooltipValue = disabled ? value : labels[hover !== -1 ? hover : 0.5];
   return (
@@ -50,11 +58,11 @@ const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name }) => {
           value={value}
           disabled={disabled}
           precision={disabled ? 0.1 : 0.5}
-          icon={<RatingIcon />}
+          icon={<RatingIcon viewBox="0 0 24 10" />}
           size="small"
           onChange={(event: React.ChangeEvent<Record<string, unknown>>, newValue: number | null) => {
             if (newValue) {
-              setValue(newValue);
+              onRatingSet(newValue);
               //add function that change rating value
             }
           }}

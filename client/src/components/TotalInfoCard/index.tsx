@@ -51,7 +51,8 @@ export const TotalInfoCard = ({ name, icon, onAdd, filter }: ICard): JSX.Element
       switch (name) {
         case CardsName.Games:
           {
-            const res = await getAllGames({ name: '' });
+            const filter: IGameFilter = {};
+            const res = await getAllGames(filter);
             setCount(res.meta.globalCount);
             console.log(res.meta.globalCount);
 

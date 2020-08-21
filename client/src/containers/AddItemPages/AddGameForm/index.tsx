@@ -7,7 +7,7 @@ import { getAllCpu } from 'api/services/cpuService';
 import { getAllGpu } from 'api/services/gpuService';
 import { postGame } from 'api/services/gameService';
 import styles from './styles.module.scss';
-import { Game } from 'common/models/game';
+import { GameCreationAttributes } from 'common/models/game';
 
 interface IinputOptions {
   value: string | number;
@@ -68,7 +68,7 @@ const AddGameForm = ({ goBack, image }: IGameForm): JSX.Element => {
 
   const onPublish = async () => {
     // validate intered values here
-    const game: Game = {
+    const game: GameCreationAttributes = {
       name,
       year: year as number,
       image,

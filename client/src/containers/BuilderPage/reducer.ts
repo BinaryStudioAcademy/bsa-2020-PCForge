@@ -5,18 +5,10 @@ import { TypeRam } from 'common/models/typeRam';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
 import {
-  FETCH_CPU_SUCCESS,
-  FETCH_GPU_SUCCESS,
-  FETCH_MOTHERBOARD_SUCCESS,
-  FETCH_POWERSUPPLY_SUCCESS,
-  FETCH_RAM_SUCCESS,
-  REMOVE_CPU_FROM_SETUP,
-  REMOVE_GPU_FROM_SETUP,
-  REMOVE_MOTHERBOARD_FROM_SETUP,
-  REMOVE_POWERSUPPLY_FROM_SETUP,
-  REMOVE_RAM_FROM_SETUP,
-  RESET_SETUP,
-  SET_SETUP,
+  FETCH_COMPONENT_SUCCESS,
+  REMOVE_COMPONENT_FROM_SETUP,
+  BUILDER_RESET_SETUP,
+  BUILDER_SET_SETUP,
 } from './actionTypes';
 
 export type TypeSetup = {
@@ -25,6 +17,14 @@ export type TypeSetup = {
   ram: TypeRam | null;
   motherboard: TypeMotherboard | null;
   powersupply: TypePowersupplies | null;
+};
+
+export type TypeSetupForPost = {
+  cpuId: number;
+  gpuId: number;
+  motherboardId: number;
+  ramId: number;
+  powerSupplyId: number;
 };
 
 const initialState = {
@@ -37,81 +37,28 @@ const initialState = {
 
 export default function (state = initialState, action: AnyAction): TypeSetup {
   switch (action.type) {
-    case FETCH_CPU_SUCCESS: {
+    case FETCH_COMPONENT_SUCCESS: {
       return {
         ...state,
-        cpu: action.payload,
+        [action.payload.group]: action.payload.component,
       };
     }
 
-    case FETCH_GPU_SUCCESS: {
+    case REMOVE_COMPONENT_FROM_SETUP: {
       return {
         ...state,
-        gpu: action.payload,
+        [action.payload.group]: null,
       };
     }
 
-    case FETCH_RAM_SUCCESS: {
+    case BUILDER_SET_SETUP: {
       return {
         ...state,
-        ram: action.payload,
+        ...action.payload,
       };
     }
 
-    case FETCH_MOTHERBOARD_SUCCESS: {
-      return {
-        ...state,
-        motherboard: action.payload,
-      };
-    }
-
-    case FETCH_POWERSUPPLY_SUCCESS: {
-      return {
-        ...state,
-        powersupply: action.payload,
-      };
-    }
-
-    case REMOVE_CPU_FROM_SETUP: {
-      return {
-        ...state,
-        cpu: null,
-      };
-    }
-
-    case REMOVE_GPU_FROM_SETUP: {
-      return {
-        ...state,
-        gpu: null,
-      };
-    }
-
-    case REMOVE_RAM_FROM_SETUP: {
-      return {
-        ...state,
-        ram: null,
-      };
-    }
-
-    case REMOVE_MOTHERBOARD_FROM_SETUP: {
-      return {
-        ...state,
-        motherboard: null,
-      };
-    }
-
-    case REMOVE_POWERSUPPLY_FROM_SETUP: {
-      return {
-        ...state,
-        powersupply: null,
-      };
-    }
-
-    case SET_SETUP: {
-      return action.payload;
-    }
-
-    case RESET_SETUP: {
+    case BUILDER_RESET_SETUP: {
       return initialState;
     }
 

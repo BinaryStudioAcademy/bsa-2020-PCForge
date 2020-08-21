@@ -8,6 +8,17 @@ export class IGameFilter extends IFilter {
   }
   name: FilterByNameType = null;
   year: FilterByNumberType = notNull;
+  orderBy: {
+    cpu: {
+      recommended: 'ASC' | 'DESC';
+    };
+    gpu: {
+      recommended: 'ASC' | 'DESC';
+    };
+    ram: {
+      recommended: 'ASC' | 'DESC';
+    };
+  } = null;
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -19,6 +30,36 @@ export class IGameFilter extends IFilter {
       },
       name: {
         type: 'string',
+        nullable: true,
+      },
+      orderBy: {
+        type: 'object',
+        properties: {
+          cpu: {
+            type: 'object',
+            properties: {
+              recommended: {
+                type: 'string',
+              },
+            },
+          },
+          gpu: {
+            type: 'object',
+            properties: {
+              recommended: {
+                type: 'string',
+              },
+            },
+          },
+          ram: {
+            type: 'object',
+            properties: {
+              recommended: {
+                type: 'string',
+              },
+            },
+          },
+        },
         nullable: true,
       },
     },

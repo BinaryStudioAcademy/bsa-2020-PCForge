@@ -83,7 +83,8 @@ div.authContainer {
       user-select: none;
     }
 
-    .loginButtonBox, .registerButtonBox {
+    .loginButtonBox,
+    .registerButtonBox {
       display: flex;
       align-items: center;
     }
@@ -131,6 +132,7 @@ div.authContainer {
       margin-bottom: 40px;
     }
   }
+
   .registrationWrapper {
     form {
       margin-bottom: 97px;
@@ -189,5 +191,34 @@ div.authContainer {
     form {
       margin-bottom: 127px;
     }
+  }
+}
+
+
+.googleBtnHolder {
+  margin-top: 30px;
+  text-align: center;
+
+  .separator {
+    margin-bottom: 30px;
+
+    &::before,
+    &::after {
+      display: inline-block;
+      content: "";
+      border-top: 1px solid rgb(248, 246, 246);
+      width: 10%;
+      margin: 5px;
+    }
+  }
+
+  button span {
+    text-transform: initial;
+    color: rgb(221, 219, 219);
+  }
+
+  img {
+    width: 18px;
+    margin-right: 10px;
   }
 }

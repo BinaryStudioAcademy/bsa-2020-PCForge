@@ -2,6 +2,7 @@ import { FastifyRequest } from 'fastify';
 import { CommentCreationAttributes } from '../../data/models/comment';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserSchema } from './user.schema';
 
 export type GetAllCommentsRequest = FastifyRequest<{
   Params: { id: string };
@@ -44,31 +45,32 @@ export const CommentSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
+    user: UserSchema,
     commentableId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     value: {
       type: 'string',
       example: 'Comment body goes here...',
-      nullable: false
+      nullable: false,
     },
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const GetAllComments: SwaggerSchema = {
   type: 'object',
@@ -78,20 +80,20 @@ export const GetAllComments: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: CommentSchema
-    }
-  }
-}
+      items: CommentSchema,
+    },
+  },
+};
 
 export const CreateCommentSchema: SwaggerSchema = {
   type: 'object',
@@ -102,25 +104,32 @@ export const CreateCommentSchema: SwaggerSchema = {
       enum: ['news', 'game', 'setup'],
       nullable: false,
     },
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
-      nullable: false
-    },
     commentableId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
+    },
+    userId: {
+      type: 'integer',
+      nullable: false,
+      example: 1,
+      minimum: 1,
+    },
+    token: {
+      type: 'string',
+      description: 'This is token that u get while loging in',
+      nullable: false,
+      example:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc4NjQ5MjQsImV4cCI6MTU5Nzk1MTMyNH0.V8oy05YtI8elNEOl5Z_1hiCZFwD3Fq_ck1bZ4_UXI3o',
     },
     value: {
       type: 'string',
       example: 'Comment body goes here...',
-      nullable: false
-    }
-  }
-}
+      nullable: false,
+    },
+  },
+};
 
 export const UpdateCommentSchema: SwaggerSchema = {
   type: 'object',
@@ -135,18 +144,18 @@ export const UpdateCommentSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     commentableId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     value: {
       type: 'string',
       example: 'Comment body goes here...',
-      nullable: true
-    }
-  }
-}
+      nullable: true,
+    },
+  },
+};

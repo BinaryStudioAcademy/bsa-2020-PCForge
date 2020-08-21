@@ -1,5 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
+import { RootState } from 'redux/rootReducer';
+import { connect } from 'react-redux';
 
 interface Props {
   imageSrc: string;
@@ -8,10 +10,14 @@ interface Props {
 const UserProfile: React.FC<Props> = (props) => {
   const { imageSrc } = props;
   return (
-    <div className={styles.userProfileWrapper}>
+    <a href="/user/1" className={styles.userProfileWrapper}>
       <img className={styles.image} src={imageSrc} alt="user" />
-    </div>
+    </a>
   );
 };
 
-export default UserProfile;
+const mapStateToProps = (state: RootState) => ({
+  state: state.auth,
+});
+
+export default connect(mapStateToProps)(UserProfile);
