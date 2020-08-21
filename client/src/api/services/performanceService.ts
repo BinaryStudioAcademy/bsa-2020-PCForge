@@ -4,8 +4,6 @@ import { ISetupPerformance } from 'common/models/setupPerformance';
 export type TypeResponseOne = ISetupPerformance;
 
 export interface IPerformanceFilter {
-  from: number;
-  count: number;
   cpuId: number;
   gpuId: number;
   ramSize: number;

@@ -20,7 +20,7 @@ function* watchFetchGames() {
 function* fetchPerformance(action: IFetchPerformanceRequestAction) {
   try {
     const { cpuId, gpuId, ramSize, gameId } = action.payload;
-    const performance = yield call(getPerformance, { cpuId, gpuId, ramSize, gameId, from: 0, count: 50 });
+    const performance = yield call(getPerformance, { cpuId, gpuId, ramSize, gameId });
     yield put(setPerformance(performance));
   } catch (error) {
     yield put(setError(error));
