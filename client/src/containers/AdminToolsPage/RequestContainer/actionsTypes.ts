@@ -38,13 +38,22 @@ export interface IUsersRequestActionError {
   };
 }
 
+export interface IUsersRequestActionLoading {
+  type: UsersRequestActionTypes.LOADING_USER_REQUESTS;
+  payload: {
+    dataIsLoaded: boolean;
+  }
+}
+
 export interface UsersRequestState {
   userRequests: TypeUsersRequests[];
   error: string;
+  dataIsLoaded: boolean;
 }
 
 export type UsersRequestActions =
   | IUsersRequestActionSuccess
   | IUsersRequestActionError
   | IUsersRequestAction
-  | IUsersRequestDeleteAction;
+  | IUsersRequestDeleteAction
+  | IUsersRequestActionLoading;

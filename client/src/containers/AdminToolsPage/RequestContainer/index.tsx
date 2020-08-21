@@ -2,128 +2,63 @@ import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
 import { HardwareTypes } from 'common/enums/AdminTools/HardwareTypes';
 import ListItem from '@material-ui/core/ListItem';
-import Button, { ButtonType } from 'components/BasicComponents/Button';
+import Spinner from 'components/Spinner';
 import { getAllUsersRequsts, IUserRequestFilter, deleteUserRequest } from 'api/services/addUserRequestService';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 
 import { connect, ConnectedProps } from 'react-redux';
-import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { RootState } from 'redux/rootReducer';
-import { getUsersRequests } from './actions';
+import * as actions from './actions';
+import { UsersRequestState, UsersRequestActions } from './actionsTypes';
 import { TypeUsersRequests } from 'common/models/typeUsersRequests';
+import RenderRequestItem from './RenderRequestItem';
 
-interface IRequest {
-  id: number;
-  name: string;
-  hardwareType?: HardwareTypes;
-  game?: boolean;
-  data: Date;
-  userName: string;
+interface IPropsRequestContainer {
+  state: UsersRequestState;
+  getUsersRequests: (filter: IUserRequestFilter) => UsersRequestActions;
+  deleteUserRequest: (id: number) => UsersRequestActions;
 }
 
-const getRequests = (): Array<IRequest> => {
-  return [
-    {
-      id: 1,
-      name: 'MSI B450-A PRO MAX NEW',
-      hardwareType: HardwareTypes.Motherboard,
-      data: new Date(),
-      userName: 'Bill',
-    },
-    {
-      id: 2,
-      name: 'FirePro 3D V5800',
-      hardwareType: HardwareTypes.GPU,
-      data: new Date(),
-      userName: 'Bond 007',
-    },
-    {
-      id: 3,
-      name: 'Angry birds',
-      game: true,
-      data: new Date(),
-      userName: 'Alevtina Petrovna',
-    },
-  ];
-};
+const RequestContaner = (props: IPropsRequestContainer): JSX.Element => {
+  const { getUsersRequests, deleteUserRequest } = props;
 
-interface IProps {
-  item: TypeUsersRequests;
-  username: string;
-  onDisaproveHandler: (id: number) => void;
-}
-
-//const RenderRequestItem: React.FC<TypeUsersRequests> = (item) => {
-const RenderRequestItem = ({ item, username, onDisaproveHandler }: IProps): JSX.Element => {
-  const date = new Date(item.createdAt);
-  console.log(date);
-
-  const onDisapprove = () => {
-    onDisaproveHandler(item.id);
-  };
-  return (
-    <div className={styles.requestItem} key={item.id}>
-      <div className={styles.requestTitle}>{`New ${item.requestedType}`}</div>
-      <div className={styles.requestInfo}>{item.requestBody}</div>
-      <div className={styles.requestExtraInfoContainer}>
-        <div className={styles.requestExtraInfoItem}>{date.toLocaleString()}</div>
-        <div className={styles.requestExtraInfoItem}>{username}</div>
-      </div>
-      <div className={styles.buttonContainer}>
-        <Button buttonType={ButtonType.secondary} className={styles.buttonRequest}>
-          Details
-        </Button>
-        <Button buttonType={ButtonType.primary} className={styles.buttonRequest}>
-          Approve
-        </Button>
-        <Button buttonType={ButtonType.secondary} className={styles.buttonRequest} onClick={onDisapprove}>
-          Disapprove
-        </Button>
-      </div>
-    </div>
-  );
-};
-
-//const RequestContaner = (): JSX.Element => {
-const RequestContaner: React.FC<Props> = ({ userRequests = [], getUsersRequests, deleteUserRequest }): JSX.Element => {
-  const [requests, setRequests] = useState<Array<TypeUsersRequests>>([]);
-  const dispatch = useDispatch();
   useEffect(() => {
     getUsersRequests({});
   }, []);
 
-  const onDisapproveFunction = (id: number) => {
-    dispatch(deleteUserRequest(id));
+  const onDisapprove = (id: number, userEmail: string, userId: number) => {
+    // send notification about disapprove to user
+    console.log(`send notification about disapproving to user with id ${userId}`);
+    deleteUserRequest(id);
   };
+  const onApprove = (id: number, userEmail: string, userId: number) => {
+    // send notification about approve to user
+    console.log(`send notification about approving to user with id ${userId}`);
+    deleteUserRequest(id);
+  };
+  console.log(props.state);
 
   return (
     <div>
       <h2 className={styles.requestHeader}>Recent Requests</h2>
-      <div className={styles.requestContaner}>
-        {userRequests.map((item: TypeUsersRequests, key) => (
-          <ListItem key={`${item.id}-request-item`} className={styles.listItem}>
-            <RenderRequestItem item={item} username={'Bill Gates'} onDisaproveHandler={onDisapproveFunction} />
-          </ListItem>
-        ))}
-      </div>
+      {props.state.dataIsLoaded ? (
+        <div className={styles.requestContaner}>
+         {props.state.userRequests.map((item: TypeUsersRequests, key) => (
+           <ListItem key={`${item.id}-request-item`} className={styles.listItem}>
+             <RenderRequestItem item={item} username={'Bill Gates'} onDisaproveHandler={onDisapprove} onApproveHandler={onApprove}/>
+           </ListItem>
+         ))}
+       </div>
+      ) : <Spinner/>}
     </div>
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  return {
-    userRequests: state.userRequests.userRequests,
-  };
-};
+const mapStateToProps = (state: RootState) => ({
+  state: state.userRequests,
+});
 
-const mapDispatch = {
-  getUsersRequests,
-  deleteUserRequest,
-};
-const connector = connect(mapStateToProps, mapDispatch);
-type PropsRedux = ConnectedProps<typeof connector>;
-type Props = PropsRedux & {
-  userRequests: TypeUsersRequests[];
-};
+const mapDispatchToProps = (dispatch: any) => bindActionCreators(actions, dispatch);
 
-export default connector(RequestContaner);
+export default connect(mapStateToProps, mapDispatchToProps)(RequestContaner);

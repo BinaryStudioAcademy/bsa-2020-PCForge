@@ -1,6 +1,5 @@
 import {
   UsersRequestActions,
-  UsersRequestState,
   UsersRequestActionTypes,
   IUsersRequestActionSuccess,
 } from './actionsTypes';
@@ -19,6 +18,13 @@ export const loadUsersRequests = (userRequests: TypeUsersRequests[]): UsersReque
   type: UsersRequestActionTypes.GET_USERS_REQUESTS_SUCCESS,
   payload: {
     userRequests,
+  },
+});
+
+export const updateLoadingComponentStatus = (dataIsLoaded: boolean): UsersRequestActions => ({
+  type: UsersRequestActionTypes.LOADING_USER_REQUESTS,
+  payload: {
+    dataIsLoaded,
   },
 });
 
