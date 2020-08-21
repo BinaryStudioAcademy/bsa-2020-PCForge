@@ -9,22 +9,22 @@ import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 import { SpecificationComponent } from 'components/BuilderPage/Specifications';
-import { ComponentGroups, TypeComponent, TypeFilterBuilder, TypeGroupConfig } from 'containers/BuilderPage/types';
+import { ComponentGroups, TypeComponent, TypeFilterBuilder} from 'containers/BuilderPage/types';
 import { FilterName, filterRangeInfo, GroupName, servicesGetAll } from 'containers/BuilderPage/config';
 import FilterRamTypes from '../FilterRamType';
 import Search from '../Search';
 import styles from './styles.module.scss';
 
 type PropsType = {
-  cfg: TypeGroupConfig;
-  // filter: TypeFilterBuilder;
+  groupName: GroupName;
+  filter: TypeFilterBuilder;
+  filtersUsed: { [p: string]: { enable: boolean } };
   selectedComponent: TypeComponent | null;
   onUpdateFilter: ({}: TypeFilterBuilder) => void;
   onAddComponent: (group: GroupName, id: number) => void;
   onRemoveSelectedComponent: (group: GroupName) => void;
   expanded: GroupName | false | ComponentGroups; // todo: del ComponentGroups
   onChangeExpanded: (expanded: GroupName | ComponentGroups | false) => void; // todo: del ComponentGroups
-  // showFilters: TypeShowFilters;
 };
 
 type TypeRange = {
@@ -33,14 +33,14 @@ type TypeRange = {
 };
 
 const GroupComponent = ({
-  cfg,
-  // filter,
+  groupName,
+  filter,
+  filtersUsed,
   selectedComponent,
   onUpdateFilter,
   onAddComponent,
   onRemoveSelectedComponent,
   expanded,
-  // showFilters,
   onChangeExpanded,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
@@ -56,11 +56,8 @@ const GroupComponent = ({
     max: number | null;
   });
 
-  const filter = cfg.filter;
-  // const selectedComponent = setup[cfg.group];
-
   const getFilters = () => {
-    const keyRamType = cfg.group === GroupName.ram ? 'typeId' : 'ramTypeId';
+    const keyRamType = groupName === GroupName.ram ? 'typeId' : 'ramTypeId';
     const querySocketId = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
     const queryRamTypeId = filter.ramTypeIdSet.size
       ? { [keyRamType]: [Array.from(filter.ramTypeIdSet)].join(',') }
@@ -74,10 +71,10 @@ const GroupComponent = ({
     //   ramTypeId: filter.ramTypeIdSet.size ? [Array.from(filter.ramTypeIdSet)].join(',') : '',
     // };
     let queryRange = {};
-    if (filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key')) {
+    if (filterRangeInfo.hasOwnProperty(groupName) && filterRangeInfo[groupName].hasOwnProperty('key')) {
       queryRange = {
-        [`${filterRangeInfo[cfg.group].key}[minValue]`]: range.minValue,
-        [`${filterRangeInfo[cfg.group].key}[maxValue]`]: range.maxValue,
+        [`${filterRangeInfo[groupName].key}[minValue]`]: range.minValue,
+        [`${filterRangeInfo[groupName].key}[maxValue]`]: range.maxValue,
       };
     }
     return { pagination, queryFilter, queryRange };
@@ -89,7 +86,7 @@ const GroupComponent = ({
     const { pagination, queryFilter, queryRange } = getFilters();
 
     try {
-      const res = await servicesGetAll[cfg.group]({ ...pagination, ...queryFilter, ...queryRange, name });
+      const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, name });
       console.log('res', res);
       setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
@@ -103,9 +100,9 @@ const GroupComponent = ({
   const getAllComponents = async () => {
     const { queryFilter } = getFilters();
     try {
-      const res = await servicesGetAll[cfg.group]({ ...queryFilter, name });
-      if (filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key')) {
-        const values = (res.data as []).map((component) => component[filterRangeInfo[cfg.group].key as string]);
+      const res = await servicesGetAll[groupName]({ ...queryFilter, name });
+      if (filterRangeInfo.hasOwnProperty(groupName) && filterRangeInfo[groupName].hasOwnProperty('key')) {
+        const values = (res.data as []).map((component) => component[filterRangeInfo[groupName].key as string]);
         const valuesSort = Array.from(new Set(values));
         valuesSort.sort((a, b) => a - b);
         // const valuesSort = Array.from(new Set(values)).sort((a, b) => a - b);
@@ -157,8 +154,8 @@ const GroupComponent = ({
       title={component.name}
       /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
       // @ts-ignore
-      specifications={SpecificationComponent[cfg.group]({ component })}
-      onAddComponent={() => onAddComponent(cfg.group, component.id)}
+      specifications={SpecificationComponent[groupName]({ component })}
+      onAddComponent={() => onAddComponent(groupName, component.id)}
     />
   ));
 
@@ -173,48 +170,48 @@ const GroupComponent = ({
   return (
     <Accordion
       className={styles.group}
-      expanded={expanded === cfg.group}
-      onChange={(ev, expanded) => onChangeExpanded(expanded ? cfg.group : false)}
+      expanded={expanded === groupName}
+      onChange={(ev, expanded) => onChangeExpanded(expanded ? groupName : false)}
       TransitionProps={{ unmountOnExit: true }}
     >
       <GroupItemSummary
-        id={cfg.group}
-        title={cfg.group}
+        id={groupName}
+        title={groupName}
         count={count}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
         /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
         // @ts-ignore
-        popupContent={selectedComponent ? SpecificationComponent[cfg.group]({ component: selectedComponent }) : false}
-        onClear={() => onRemoveSelectedComponent(cfg.group)}
+        popupContent={selectedComponent ? SpecificationComponent[groupName]({ component: selectedComponent }) : false}
+        onClear={() => onRemoveSelectedComponent(groupName)}
       />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={1}>
           <Grid item xs={12} sm={4} md={3} xl={2}>
             <Search className={styles.search} value={name} onChange={setName} />
-            {cfg.filters[FilterName.socket] && (
+            {filtersUsed[FilterName.socket] && (
               // <FilterSocket show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
               <FilterSocket
-                show={cfg.filters[FilterName.socket].enable}
+                show={filtersUsed[FilterName.socket].enable}
                 filter={filter}
                 onUpdateFilter={onUpdateFilter}
               />
             )}
-            {cfg.filters[FilterName.ramtype] && (
+            {filtersUsed[FilterName.ramtype] && (
               // <FilterRamTypes show={showFilters.socket} filter={filter} onUpdateFilter={onUpdateFilter} />
               <FilterRamTypes
-                show={cfg.filters[FilterName.ramtype].enable}
+                show={filtersUsed[FilterName.ramtype].enable}
                 filter={filter}
                 onUpdateFilter={onUpdateFilter}
               />
             )}
-            {filterRangeInfo.hasOwnProperty(cfg.group) && filterRangeInfo[cfg.group].hasOwnProperty('key') && (
+            {filterRangeInfo.hasOwnProperty(groupName) && filterRangeInfo[groupName].hasOwnProperty('key') && (
               <FilterRange
-                title={filterRangeInfo[cfg.group].title ?? ''}
-                min={filterRangeInfo[cfg.group].min ?? rangeLimits.min ?? 0}
-                max={filterRangeInfo[cfg.group].max ?? rangeLimits.max ?? 10}
-                step={filterRangeInfo[cfg.group].step}
+                title={filterRangeInfo[groupName].title ?? ''}
+                min={filterRangeInfo[groupName].min ?? rangeLimits.min ?? 0}
+                max={filterRangeInfo[groupName].max ?? rangeLimits.max ?? 10}
+                step={filterRangeInfo[groupName].step}
                 marks={marks}
-                dimension={filterRangeInfo[cfg.group].unit ?? ''}
+                dimension={filterRangeInfo[groupName].unit ?? ''}
                 onChange={onChangeFilterRange}
               />
             )}

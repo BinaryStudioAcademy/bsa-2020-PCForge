@@ -118,9 +118,9 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const groups = groupConfigs.map((config) => (
     <GroupComponent
       key={config.group}
-      cfg={config}
-      // filter={filterForCpu}
-      // showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
+      groupName={config.group}
+      filter={config.filter}
+      filtersUsed={config.filters}
       selectedComponent={setup[config.group]}
       onUpdateFilter={(filter) => setFilter(filter)}
       onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
