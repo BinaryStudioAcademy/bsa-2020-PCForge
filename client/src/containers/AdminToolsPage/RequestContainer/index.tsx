@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './styles.module.scss';
 import { HardwareTypes } from 'common/enums/AdminTools/HardwareTypes';
 import ListItem from '@material-ui/core/ListItem';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import { getAllUsersRequsts, IUserRequestFilter, deleteUserRequest } from 'api/services/addUserRequestService';
+import { UserRequestedType } from 'common/enums/UserRequestedType';
+
+import { connect, ConnectedProps } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/rootReducer';
+import { getUsersRequests } from './actions';
+import { TypeUsersRequests } from 'common/models/typeUsersRequests';
 
 interface IRequest {
   id: number;
@@ -39,18 +47,27 @@ const getRequests = (): Array<IRequest> => {
   ];
 };
 
-interface Props {
-  item: IRequest;
+interface IProps {
+  item: TypeUsersRequests;
+  username: string;
+  onDisaproveHandler: (id: number) => void;
 }
 
-const RenderRequestItem: React.FC<IRequest> = (item) => {
+//const RenderRequestItem: React.FC<TypeUsersRequests> = (item) => {
+const RenderRequestItem = ({ item, username, onDisaproveHandler }: IProps): JSX.Element => {
+  const date = new Date(item.createdAt);
+  console.log(date);
+
+  const onDisapprove = () => {
+    onDisaproveHandler(item.id);
+  };
   return (
     <div className={styles.requestItem} key={item.id}>
-      <div className={styles.requestTitle}> {item.game ? `New Game` : `New ${item.hardwareType}`}</div>
-      <div className={styles.requestInfo}>{item.name}</div>
+      <div className={styles.requestTitle}>{`New ${item.requestedType}`}</div>
+      <div className={styles.requestInfo}>{item.requestBody}</div>
       <div className={styles.requestExtraInfoContainer}>
-        <div className={styles.requestExtraInfoItem}>{item.data.toLocaleDateString()}</div>
-        <div className={styles.requestExtraInfoItem}>{item.userName}</div>
+        <div className={styles.requestExtraInfoItem}>{date.toLocaleString()}</div>
+        <div className={styles.requestExtraInfoItem}>{username}</div>
       </div>
       <div className={styles.buttonContainer}>
         <Button buttonType={ButtonType.secondary} className={styles.buttonRequest}>
@@ -59,7 +76,7 @@ const RenderRequestItem: React.FC<IRequest> = (item) => {
         <Button buttonType={ButtonType.primary} className={styles.buttonRequest}>
           Approve
         </Button>
-        <Button buttonType={ButtonType.secondary} className={styles.buttonRequest}>
+        <Button buttonType={ButtonType.secondary} className={styles.buttonRequest} onClick={onDisapprove}>
           Disapprove
         </Button>
       </div>
@@ -67,16 +84,25 @@ const RenderRequestItem: React.FC<IRequest> = (item) => {
   );
 };
 
-const RequestContaner: React.FC = () => {
-  const requests: Array<IRequest> = getRequests(); // await
+//const RequestContaner = (): JSX.Element => {
+const RequestContaner: React.FC<Props> = ({ userRequests = [], getUsersRequests, deleteUserRequest }): JSX.Element => {
+  const [requests, setRequests] = useState<Array<TypeUsersRequests>>([]);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getUsersRequests({});
+  }, []);
+
+  const onDisapproveFunction = (id: number) => {
+    dispatch(deleteUserRequest(id));
+  };
+
   return (
     <div>
       <h2 className={styles.requestHeader}>Recent Requests</h2>
       <div className={styles.requestContaner}>
-        {requests.map((item: IRequest, key) => (
+        {userRequests.map((item: TypeUsersRequests, key) => (
           <ListItem key={`${item.id}-request-item`} className={styles.listItem}>
-            {RenderRequestItem(item)}
-            {/* <RenderRequestItem item={item} /> */}
+            <RenderRequestItem item={item} username={'Bill Gates'} onDisaproveHandler={onDisapproveFunction} />
           </ListItem>
         ))}
       </div>
@@ -84,4 +110,20 @@ const RequestContaner: React.FC = () => {
   );
 };
 
-export default RequestContaner;
+const mapStateToProps = (state: RootState) => {
+  return {
+    userRequests: state.userRequests.userRequests,
+  };
+};
+
+const mapDispatch = {
+  getUsersRequests,
+  deleteUserRequest,
+};
+const connector = connect(mapStateToProps, mapDispatch);
+type PropsRedux = ConnectedProps<typeof connector>;
+type Props = PropsRedux & {
+  userRequests: TypeUsersRequests[];
+};
+
+export default connector(RequestContaner);

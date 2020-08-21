@@ -33,6 +33,16 @@
   }
 }
 
+.buttonContainer {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.buttonWrapper {
+  margin: 1em 2em;
+}
+
 
 @media (max-width: 960px) {
   .additionalFieldsContainer, .contentMain {

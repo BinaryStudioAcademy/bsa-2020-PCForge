@@ -11,6 +11,7 @@ import styles from './styles.module.scss';
 import { useParams, useHistory, Redirect } from 'react-router-dom'; //RouteComponentProps,
 import AddHardwareForm from './AddHardwareForm';
 import AddGameForm from './AddGameForm';
+import emptyImage from 'assets/images/emptyImage.jpg';
 //import createTypography from '@material-ui/core/styles/createTypography';
 
 interface IinputOptions {
@@ -30,8 +31,9 @@ const theme = createMuiTheme({
 
 const AddItemPage = (): JSX.Element => {
   const history = useHistory();
-  const [image, setImage] = useState('https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg');
-  //const inputRef = React.createRef<HTMLInputElement>();
+  const [image, setImage] = useState(emptyImage);
+
+  const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
   let addItemType = '';
   let renderForm = false;
@@ -44,11 +46,13 @@ const AddItemPage = (): JSX.Element => {
       renderForm = true;
     }
   }
-  //const addItemType: CardsName = CardsName.Hardwares;
 
-  /*const handleChangeImage = () => {
-    alert('TO DO change Image');
-  };*/
+  const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+      console.log(image);
+    }
+  };
   const handleSendDataButton = () => {
     alert('TO DO send data');
   };
@@ -65,12 +69,12 @@ const AddItemPage = (): JSX.Element => {
         <ThemeProvider theme={theme}>
           <div className={styles.contentMain}>
             <div className={styles.leftContent}>
-              {addItemType === CardsName.Hardwares ? <AddHardwareForm /> : null}
-              {addItemType === CardsName.Games ? <AddGameForm /> : null}
-              <div className={styles.buttonContainer}>
+              {addItemType === CardsName.Hardwares ? <AddHardwareForm goBack={handleCancelButton} /> : null}
+              {addItemType === CardsName.Games ? <AddGameForm goBack={handleCancelButton} image={image} /> : null}
+              {/* <div className={styles.buttonContainer}>
                 <div className={styles.buttonWrapper}>
                   <Button buttonType={ButtonType.primary} onClick={handleSendDataButton}>
-                    {/* check is user is Admin and change text button here:*/}
+                    {/* check is user is Admin and change text button here:}
                     Publish
                   </Button>
                 </div>
@@ -79,20 +83,30 @@ const AddItemPage = (): JSX.Element => {
                     Cancel
                   </Button>
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className={styles.rightContent}>
-              <div className={styles.imageUpload}>
-                <img src={image} alt="hardware-icon" />
-                <input type="file" id="imageInput" accept="image/*" ref={imageInputRef} hidden />
-                <Button
-                  buttonType={ButtonType.secondary}
-                  className={styles.imageButton}
-                  onClick={() => imageInputRef.current?.click()}
-                >
-                  Select Image
-                </Button>
-              </div>
+              {addItemType !== CardsName.Hardwares ? (
+                <div className={styles.imageUpload}>
+                  <img src={image || emptyImage} alt="add-item-icon" />
+                  <input
+                    type="file"
+                    id="imageInput"
+                    name="image"
+                    accept="image/*"
+                    ref={imageInputRef}
+                    onChange={handleChangeImage}
+                    hidden
+                  />
+                  <Button
+                    buttonType={ButtonType.secondary}
+                    className={styles.imageButton}
+                    onClick={() => imageInputRef.current?.click()}
+                  >
+                    Select Image
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </div>
         </ThemeProvider>

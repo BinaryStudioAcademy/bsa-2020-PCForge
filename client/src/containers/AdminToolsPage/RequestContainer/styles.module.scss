@@ -37,7 +37,15 @@
       max-width: 7em;
       width: 7em;
     }
-    .requestInfo, .requestExtraInfoContainer{
+    .requestInfo {
+      max-width: 20em;
+      width: 20em;
+      max-height: 4em;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .requestExtraInfoContainer{
       max-width: 7em;
       width: 7em;
     }
@@ -54,10 +62,21 @@
 
     .buttonRequest {
       align-self: flex-end;
-      margin: 0 1em;
+      margin: 0 0.3em;
       padding: 0 1.5em;
     }
   }
+  @media (max-width: 1090px) {
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
+
+      .buttonRequest {
+        margin: 0.3em 0;
+        width: 100%;
+      }
+    }
+   }
 
   @media (max-width: 960px) {
     .buttonContainer {

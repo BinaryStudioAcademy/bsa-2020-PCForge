@@ -1,69 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import PageComponent from 'containers/PageComponent';
 import ListItem from '@material-ui/core/ListItem';
 import { MenuItems } from 'common/enums';
 import Title from 'components/Title';
-import { TotalInfoCard, ITotalInfoCard } from 'components/TotalInfoCard';
+import { TotalInfoCard, ITotalInfoCard, ICard } from 'components/TotalInfoCard';
 import RequestContaner from './RequestContainer';
 import { CardsName } from 'common/enums/AdminTools/CardsName';
 import PeopleIcon from '@material-ui/icons/People';
 import SportsEsportsOutlinedIcon from '@material-ui/icons/SportsEsportsOutlined';
-import HardwareIcon from 'components/NavigationBar/NavigationIcons/HardwareIcon';
-import SetupIcon from 'components/NavigationBar/NavigationIcons/SetupIcon';
+import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
+import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import { Routes } from 'common/enums';
+
+import { connect, ConnectedProps } from 'react-redux';
+import { UserRequestedType } from 'common/enums/UserRequestedType';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'redux/rootReducer';
+import { IUserRequestFilter } from 'api/services/addUserRequestService';
+//import { getUsersRequests } from './actions';
+
 import styles from './styles.module.scss';
+import { TypeUsersRequests } from 'common/models/typeUsersRequests';
 
-const cardsList: Array<ITotalInfoCard> = [
-  {
-    name: CardsName.Users,
-    count: 0,
-    icon: <PeopleIcon style={{ color: 'white' }} />,
-    createButton: false,
-  },
-  {
-    name: CardsName.Hardwares,
-    count: 0,
-    icon: <HardwareIcon />,
-    createButton: true,
-    countOfRequests: 2,
-    //() => alert('To do for hardware')
-  },
-  {
-    name: CardsName.Setups,
-    count: 0,
-    icon: <SetupIcon />,
-    createButton: false,
-  },
-  {
-    name: CardsName.Games,
-    count: 0,
-    icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
-    createButton: true,
-    countOfRequests: 1,
-    //onAdd: () => alert('To do for game'),
-  },
-];
-
-const getValuesOfTotalCards = async () => {
-  for (const CardItem in CardsName) {
-    const index: number = cardsList.findIndex((card) => card.name === CardItem);
-    cardsList[index].count = 3; //await getCount(); - should be request to server
-  }
-};
-
-//const AdminToolsPage: React.FC<IProps> = (props) => { //: JSX.Element
 const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
-  getValuesOfTotalCards();
+  //const AdminToolsPage: React.FC<Props> = ({userRequests=[], filteredCount, totalCount, getUsersRequests}): JSX.Element => {
+  //const dispatch = useDispatch();
+  //const [filter, setState] = useState<IUserRequestFilter>({});
+  //let filter: IUserRequestFilter = { requestedType: UserRequestedType.game };
+  //let filterGame: IUserRequestFilter = { requestedType: UserRequestedType.game };
+  //let filterHardware: IUserRequestFilter = { requestedType: UserRequestedType.cpu };
+  //const arr: IUserRequestFilter[] = [filterGame, filterHardware];
+  /* useEffect(() => {
+    getUsersRequests(filter);
+  }, []);*/
 
-  const goAddHardware = () => history.push(`${Routes.ADDITEM}/hardwares`);
-  const indexHardware: number = cardsList.findIndex((card) => card.name === CardsName.Hardwares);
-  cardsList[indexHardware].onAdd = goAddHardware;
-
-  const goAddGame = () => history.push(`${Routes.ADDITEM}/games`);
-  const indexGames: number = cardsList.findIndex((card) => card.name === CardsName.Games);
-  cardsList[indexGames].onAdd = goAddGame;
-
+  const cardsList: Array<ICard> = [
+    {
+      name: CardsName.Users,
+      icon: <PeopleIcon style={{ color: 'white' }} />,
+    },
+    {
+      name: CardsName.Hardwares,
+      icon: <HardwareIcon />,
+      onAdd: () => history.push(`${Routes.ADDITEM}/hardwares`),
+      filter: { requestedType: UserRequestedType.cpu },
+    },
+    {
+      name: CardsName.Setups,
+      icon: <SetupIcon />,
+    },
+    {
+      name: CardsName.Games,
+      icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
+      onAdd: () => history.push(`${Routes.ADDITEM}/games`),
+      filter: { requestedType: UserRequestedType.game },
+    },
+  ];
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
       <div className={styles.contentPage}>
@@ -72,16 +65,9 @@ const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
         </div>
         <div className={styles.contentMain}>
           <div className={styles.totalBlockContainer}>
-            {cardsList.map((item: ITotalInfoCard, key) => (
+            {cardsList.map((item: ICard, key) => (
               <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
-                <TotalInfoCard
-                  name={item.name}
-                  count={item.count}
-                  icon={item.icon}
-                  createButton={item.createButton}
-                  countOfRequests={item.countOfRequests}
-                  onAdd={item.onAdd}
-                />
+                {<TotalInfoCard name={item.name} icon={item.icon} onAdd={item.onAdd} filter={item.filter} />}
               </ListItem>
             ))}
           </div>
@@ -95,3 +81,12 @@ const AdminToolsPage = ({ history }: RouteComponentProps): JSX.Element => {
   );
 };
 export default AdminToolsPage;
+/*const mapStateToProps = (state: RootState) => {
+  return {
+    userRequests: state.userRequests.userRequests,
+  };
+};
+
+const mapDispatch = getUsersRequests;
+export default connect(mapStateToProps, mapDispatch)(AdminToolsPage);
+*/
