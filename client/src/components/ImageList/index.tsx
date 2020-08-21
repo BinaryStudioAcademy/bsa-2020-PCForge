@@ -76,8 +76,7 @@ const ImageList: React.FC<IImageListProps> = ({
   const scrollRef = useHorizontalScroll();
 
   const onSelect = (image: IImage) => {
-    const index = Math.max(0, data.indexOf(image));
-    onImageSelect(index);
+    onImageSelect(image.id);
   };
 
   return (

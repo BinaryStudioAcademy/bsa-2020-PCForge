@@ -10,9 +10,11 @@ import ImageList from 'components/ImageList';
 import Tachometer from 'components/Tachometer';
 import Text from 'components/BasicComponents/Text';
 import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 
 import styles from './styles.module.scss';
-import { TypeSetup } from 'containers/BuilderPage/reducer';
+import { IFpsAnalysis } from 'common/models/setupPerformance';
+import ColouredTachometer from 'components/ColouredTachometer';
 
 const QuickMatcher: React.FC<Props> = ({
   games,
@@ -26,8 +28,6 @@ const QuickMatcher: React.FC<Props> = ({
   selectGame,
 }): JSX.Element => {
   const [gameName, setGameName] = React.useState<string>('');
-  const performanceValue = ((performance.overall.cpu + performance.overall.gpu + performance.overall.ram) / 3) * 10;
-  const verdictTextValue = 'Recommended settings';
 
   React.useEffect(() => {
     fetchGames('');
@@ -55,18 +55,35 @@ const QuickMatcher: React.FC<Props> = ({
     return transformed;
   };
 
-  const onGameSelect = (index: number) => {
-    // mock
-    // setTachometerValue((index + 1) * 10);
+  const onGameSelect = (id: number) => {
+    const game = games.find((game) => game.id === id);
+    if (game) selectGame(game);
   };
+
+  const getPerformance = () => {
+    const DEFAULT_RESOLUTION = [1920, 1080];
+    const [, fps] = performance.fpsAnalysis.find((value) => {
+      const [resolution] = value;
+      return resolution[0] === DEFAULT_RESOLUTION[0] && resolution[1] === DEFAULT_RESOLUTION[1];
+    }) || [[], { low: 0, medium: 0, high: 0, ultra: 0 } as IFpsAnalysis];
+    if (fps.high >= 60) return { fps: fps.high, title: '60+', isPlayable: true, verdict: 'Recommended settings' };
+    if (fps.low >= 60) return { fps: fps.low, title: '30', isPlayable: true, verdict: 'Minimal settings' };
+    return { fps: 0, title: '<30', isPlayable: false, verdict: 'Impossible to run' };
+  };
+  const currentPerformance = getPerformance();
 
   return (
     <Box className={styles.quickMatcher}>
       <Search value={gameName} onChange={onGameNameChange} className={styles.search} />
       <ImageList data={transformGamesToImages(games)} onImageSelect={onGameSelect} maxItemCount={5} />
       <Box className={styles.results}>
-        <Tachometer value={performanceValue} maxValue={100} type={''} className={styles.tachometer} />
-        <Text text={verdictTextValue} icon={<CheckIcon />} iconPosition="left" className={styles.text} />
+        <ColouredTachometer value={currentPerformance.fps} maxValue={100} type={'FPS'} className={styles.tachometer} />
+        <Text
+          text={currentPerformance.verdict}
+          icon={currentPerformance.isPlayable ? <CheckIcon /> : <CloseIcon />}
+          iconPosition="left"
+          className={styles.text}
+        />
       </Box>
     </Box>
   );
