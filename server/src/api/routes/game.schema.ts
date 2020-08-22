@@ -40,6 +40,7 @@ export const GameSchema: SwaggerSchema = {
       type: 'string',
       example: 'Minecraft',
       nullable: false,
+      minLength: 1,
     },
     year: {
       type: 'integer',
@@ -52,11 +53,13 @@ export const GameSchema: SwaggerSchema = {
       type: 'string',
       nullable: false,
       example: 'http://hosting-server.com/route',
+      minLength: 1,
     },
     description: {
       type: 'string',
       nullable: false,
       example: 'Long game description goes here...',
+      minLength: 1,
     },
     minimalRamSize: {
       type: 'integer',
@@ -118,6 +121,7 @@ export const CreateGameSchema: SwaggerSchema = {
       type: 'string',
       example: 'FirePro 3D V3700',
       nullable: false,
+      minLength: 1,
     },
     year: {
       type: 'integer',
@@ -130,11 +134,13 @@ export const CreateGameSchema: SwaggerSchema = {
       type: 'string',
       nullable: false,
       example: 'http://hosting-server.com/route',
+      minLength: 1,
     },
     description: {
       type: 'string',
       nullable: false,
       example: 'Long game description goes here...',
+      minLength: 1,
     },
     minimalRamSize: {
       type: 'integer',
@@ -182,6 +188,7 @@ export const updateGameSchema: SwaggerSchema = {
       type: 'string',
       example: 'FirePro 3D V3700',
       nullable: true,
+      minLength: 1,
     },
     year: {
       type: 'integer',
@@ -194,11 +201,13 @@ export const updateGameSchema: SwaggerSchema = {
       type: 'string',
       nullable: true,
       example: 'http://hosting-server.com/route',
+      minLength: 1,
     },
     description: {
       type: 'string',
       nullable: true,
       example: 'Long game description goes here...',
+      minLength: 1,
     },
     minimalRamSize: {
       type: 'integer',

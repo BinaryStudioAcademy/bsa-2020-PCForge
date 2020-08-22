@@ -39,6 +39,7 @@ export const MotherBoardSchema: SwaggerSchema = {
       type: 'string',
       example: 'Motherboard name',
       nullable: false,
+      minLength: 1,
     },
     socketId: {
       type: 'integer',
@@ -82,6 +83,7 @@ export const CreateMotherBoardSchema: SwaggerSchema = {
       type: 'string',
       example: 'Motherboard name',
       nullable: false,
+      minLength: 1,
     },
     socketId: {
       type: 'integer',
@@ -105,6 +107,7 @@ export const UpdateMotherBoardSchema: SwaggerSchema = {
       type: 'string',
       example: 'Motherboard name',
       nullable: true,
+      minLength: 1,
     },
     socketId: {
       type: 'integer',
