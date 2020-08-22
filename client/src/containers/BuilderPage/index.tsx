@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
 import { MenuItems } from 'common/enums/MenuItems';
 import PageComponent from 'containers/PageComponent';
@@ -144,10 +145,14 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           onResetFilter={resetFilter}
           onSaveSetup={showModal}
         />
-        <Box className={styles.contentWrapper}>
-          <Box className={styles.componentsWrapper}>{groups}</Box>
-          <BuilderSummary setup={setup} />
-        </Box>
+        <Grid container spacing={3}>
+          <Grid item xs={12} lg={9} xl={10}>
+            {groups}
+          </Grid>
+          <Grid item xs={12} lg={3} xl={2}>
+            <BuilderSummary setup={setup} />
+          </Grid>
+        </Grid>
       </Box>
     </PageComponent>
   );
