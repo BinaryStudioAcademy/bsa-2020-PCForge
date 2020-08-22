@@ -12,9 +12,7 @@ import {
 
 function* fetchTopGames(action: IFetchTopGamesRequestAction) {
   try {
-    console.log('AAA');
     const { data: topGames } = yield call(getAllTopGames, action.payload);
-    console.log(topGames);
     yield put(setTopGames(topGames));
   } catch (error) {
     yield put(setError(error));

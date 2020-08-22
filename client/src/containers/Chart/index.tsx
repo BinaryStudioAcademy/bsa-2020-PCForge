@@ -12,8 +12,9 @@ import TopGames from 'components/ChartComponents/TopGames';
 import TestDifferentGame from 'components/ChartComponents/TestDifferentGame';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems, Routes } from 'common/enums';
-import { Game } from 'common/models/game';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { TopGame } from 'common/models/topGame';
+import { Game } from 'common/models/game';
 
 const GameMatcherResult: React.FC<Props> = ({
   fetchTopGames: propsFetchTopGames,
@@ -29,7 +30,6 @@ const GameMatcherResult: React.FC<Props> = ({
 }) => {
   const [topGameSelected, setTopGameSelected] = React.useState<number>(0);
   React.useEffect(() => {
-    console.log('fetching');
     propsFetchTopGames();
     fetchGames('');
   }, []);
@@ -40,14 +40,17 @@ const GameMatcherResult: React.FC<Props> = ({
     }
   }, [topGames]);
 
-  const onGameSelected = (game: Game) => {
-    if (cpu && gpu && ram) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ram.memorySize, game.id);
-    const index = topGames.findIndex((topGame) => topGame.id === game.id);
+  const onTopGameSelected = (topGame: TopGame) => {
+    if (cpu && gpu && ram) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ram.memorySize, topGame.game.id);
+    const index = topGames.findIndex((_topGame) => _topGame.id === topGame.id);
     setTopGameSelected(index);
   };
 
+  const onGameSelected = (game: Game) => {
+    if (cpu && gpu && ram) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ram.memorySize, game.id);
+  };
+
   if (!cpu || !gpu || !ram) return <Redirect to={Routes.MATCHER} />;
-  console.log(cpu, gpu, ram);
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
@@ -62,11 +65,7 @@ const GameMatcherResult: React.FC<Props> = ({
             </main>
 
             <div className={styles.asideItems}>
-              <TopGames
-                games={topGames.map((topGame) => topGame.game)}
-                selected={topGameSelected}
-                onGameSelected={onGameSelected}
-              />
+              <TopGames topGames={topGames} selected={topGameSelected} onGameSelected={onTopGameSelected} />
               <TestDifferentGame games={games} onGameChanged={onGameSelected} onInputChanged={fetchGames} />
             </div>
           </div>

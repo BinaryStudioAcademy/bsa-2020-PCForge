@@ -155,7 +155,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
               </Button>
             </div>
           </div>
-          <TopGames games={[]} />
+          <TopGames topGames={[]} />
         </div>
       </main>
     </PageComponent>
