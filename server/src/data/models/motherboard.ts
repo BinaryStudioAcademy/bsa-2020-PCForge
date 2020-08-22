@@ -7,6 +7,8 @@ export interface MotherboardAttributes {
   name: string;
   socket: SocketAttributes;
   ramType: RamTypeAttributes;
+  sata: number;
+  m2: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,6 +17,8 @@ export interface MotherboardCreationAttributes {
   name: string;
   socketId: number;
   ramTypeId: number;
+  sata: number;
+  m2: boolean;
 }
 
 export interface MotherboardModel extends Model<MotherboardAttributes>, MotherboardAttributes {}
