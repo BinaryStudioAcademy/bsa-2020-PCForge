@@ -2,28 +2,29 @@ import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { AddRequestCreationAttributes } from '../../data/models/addRequest';
 import { IAddRequestFilter } from '../../data/repositories/filters/addRequest.filter';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllAddRequests = FastifyRequest<{
   Params: { id: string };
   Querystring: IAddRequestFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneAddRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostAddRequestRequest = FastifyRequest<{
   Body: AddRequestCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutAddRequestRequest = FastifyRequest<{
   Params: { id: string };
   Body: AddRequestCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteAddRequestRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const AddRequestSchema: SwaggerSchema = {
   type: 'object',

@@ -1,9 +1,14 @@
 import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
+
+export type GetAllNews = FastifyRequest<{
+
+}> & { user: UserAttributes };
 
 export type GetNewsRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostNewsRequest = FastifyRequest<{
   Body: {
@@ -11,7 +16,7 @@ export type PostNewsRequest = FastifyRequest<{
     content: string;
     image: string;
   };
-}>;
+}> & { user: UserAttributes };
 
 export type PutNewsRequest = FastifyRequest<{
   Params: { id: string };
@@ -20,11 +25,11 @@ export type PutNewsRequest = FastifyRequest<{
     content: string;
     image: string;
   };
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteNewsRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const NewsSchema: SwaggerSchema = {
   type: 'object',
@@ -69,8 +74,23 @@ export const NewsSchema: SwaggerSchema = {
 };
 
 export const GetAllNewsResponse: SwaggerSchema = {
-  type: 'array',
-  items: NewsSchema,
+  type: 'object',
+  properties: {
+    meta: {
+      type: 'object',
+      properties: {
+        globalCount: {
+          type: 'integer',
+          minimum: 0,
+          nullable: false
+        }
+      }
+    },
+    data: {
+      type: 'array',
+      items: NewsSchema
+    }
+  }
 };
 
 export const CreateNewsSchema: SwaggerSchema = {

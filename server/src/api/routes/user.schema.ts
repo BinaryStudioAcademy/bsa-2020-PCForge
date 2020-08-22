@@ -1,11 +1,12 @@
 import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetOneUserRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
-export type GetAllUsersRequest = FastifyRequest;
+export type GetAllUsersRequest = FastifyRequest & { user: UserAttributes };;
 
 export type PostUserRequest = FastifyRequest<{
   Body: {
@@ -14,7 +15,7 @@ export type PostUserRequest = FastifyRequest<{
     email: string;
     avatar: string;
   };
-}>;
+}> & { user: UserAttributes };
 
 export type PutUserRequest = FastifyRequest<{
   Params: { id: string };
@@ -24,11 +25,11 @@ export type PutUserRequest = FastifyRequest<{
     email: string;
     avatar: string;
   };
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteUserRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 
 export const UserSchema: SwaggerSchema = {
@@ -81,8 +82,23 @@ export const UserSchema: SwaggerSchema = {
 }
 
 export const GetAllUsersSchema: SwaggerSchema = {
-  type: 'array',
-  items: UserSchema
+  type: 'object',
+  properties: {
+    meta: {
+      type: 'object',
+      properties: {
+        globalCount: {
+          type: 'integer',
+          minimum: 0,
+          nullable: false
+        }
+      }
+    },
+    data: {
+      type: 'array',
+      items: UserSchema
+    }
+  }
 }
 
 export const CreateUserSchema: SwaggerSchema = {

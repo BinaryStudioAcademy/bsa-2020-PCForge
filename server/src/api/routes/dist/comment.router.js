@@ -52,16 +52,22 @@ var comment_schema_1 = require("./comment.schema");
 var comment_middleware_1 = require("../middlewares/comment.middleware");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var comment_filter_1 = require("../../data/repositories/filters/comment.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var CommentService = fastify.services.CommentService;
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
     var commentMiddleware = comment_middleware_1.CommentMiddleware(fastify);
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(comment_schema_1.GetAllComments, comment_filter_1.ICommentFilter.schema);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(comment_schema_1.GetAllComments, comment_filter_1.ICommentFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var comments;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, CommentService.getAllComments(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, CommentService.getAllComments(request.query)];
                 case 1:
                     comments = _a.sent();
                     reply.send(comments);
@@ -69,12 +75,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(comment_schema_1.CommentSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(comment_schema_1.CommentSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, comment;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, CommentService.getCommentById(id)];
                 case 1:
@@ -84,12 +91,14 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(comment_schema_1.UpdateCommentSchema, comment_schema_1.CommentSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(comment_schema_1.UpdateCommentSchema, comment_schema_1.CommentSchema);
     fastify.post('/', __assign({}, createOneSchema), function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var comment;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, CommentService.createComment(request.body, commentMiddleware)];
+                case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
+                    return [4 /*yield*/, CommentService.createComment(request.body, commentMiddleware)];
                 case 1:
                     comment = _a.sent();
                     reply.send(comment);
@@ -97,12 +106,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(comment_schema_1.UpdateCommentSchema, comment_schema_1.CommentSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(comment_schema_1.UpdateCommentSchema, comment_schema_1.CommentSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newComment;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, CommentService.updateCommentById({ id: id, data: request.body }, commentMiddleware)];
                 case 1:
@@ -112,12 +122,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(comment_schema_1.CommentSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(comment_schema_1.CommentSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, comment;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, CommentService.deleteCommentById(id)];
                 case 1:

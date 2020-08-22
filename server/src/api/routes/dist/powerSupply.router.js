@@ -40,15 +40,21 @@ exports.router = void 0;
 var powerSupply_schema_1 = require("./powerSupply.schema");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var base_filter_1 = require("../../data/repositories/filters/base.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var PowerSupplyService = fastify.services.PowerSupplyService;
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(powerSupply_schema_1.GetAllPowerSuppliesResponse, base_filter_1.IFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(powerSupply_schema_1.GetAllPowerSuppliesResponse, base_filter_1.IFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var powerSupplies;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, PowerSupplyService.getAllPowerSupplies(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, PowerSupplyService.getAllPowerSupplies(request.query)];
                 case 1:
                     powerSupplies = _a.sent();
                     reply.send(powerSupplies);
@@ -56,40 +62,44 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(powerSupply_schema_1.PowerSupplySchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(powerSupply_schema_1.PowerSupplySchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
-        var id, PowerSupply;
+        var id, powerSupply;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, PowerSupplyService.getPowerSupplyById(id)];
                 case 1:
-                    PowerSupply = _a.sent();
-                    reply.send(PowerSupply);
+                    powerSupply = _a.sent();
+                    reply.send(powerSupply);
                     return [2 /*return*/];
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(powerSupply_schema_1.CreatePowerSupplySchema, powerSupply_schema_1.PowerSupplySchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(powerSupply_schema_1.CreatePowerSupplySchema, powerSupply_schema_1.PowerSupplySchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
-        var PowerSupply;
+        var powerSupply;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, PowerSupplyService.createPowerSupply(request.body)];
+                case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
+                    return [4 /*yield*/, PowerSupplyService.createPowerSupply(request.body)];
                 case 1:
-                    PowerSupply = _a.sent();
-                    reply.send(PowerSupply);
+                    powerSupply = _a.sent();
+                    reply.send(powerSupply);
                     return [2 /*return*/];
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(powerSupply_schema_1.UpdatePowerSupplySchema, powerSupply_schema_1.PowerSupplySchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(powerSupply_schema_1.UpdatePowerSupplySchema, powerSupply_schema_1.PowerSupplySchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newPowerSupply;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, PowerSupplyService.updatePowerSupplyById({ id: id, data: request.body })];
                 case 1:
@@ -99,12 +109,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(powerSupply_schema_1.PowerSupplySchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(powerSupply_schema_1.PowerSupplySchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, powerSupply;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, PowerSupplyService.deletePowerSupplyById(id)];
                 case 1:

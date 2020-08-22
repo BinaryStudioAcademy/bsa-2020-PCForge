@@ -14,46 +14,55 @@ import {
   DetailedRamSchema,
 } from './ram.schema';
 import {
-  GetMultipleQuery,
-  GetOneQuery,
-  CreateOneQuery,
-  UpdateOneQuery,
-  DeleteOneQuery,
+  getMultipleQuery,
+  getOneQuery,
+  createOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
 } from '../../helpers/swagger.helper';
 
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
+import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { RamService } = fastify.services;
+  const preHandler = userRequestMiddleware(fastify);
+  fastify.addHook('preHandler', preHandler);
 
-  const getAllSchema = GetMultipleQuery(GetAllRamResponse, IRamFilter.schema);
+  const getAllSchema = getMultipleQuery(GetAllRamResponse, IRamFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllRamsRequest, reply) => {
+    allowForAuthorized(request);
     const rams = await RamService.getAllRams(request.query);
     reply.send(rams);
   });
 
-  const getOneSchema = GetOneQuery(DetailedRamSchema);
+  const getOneSchema = getOneQuery(DetailedRamSchema);
   fastify.get('/:id', getOneSchema, async (request: GetOneRamRequest, reply) => {
+    allowForAuthorized(request);
     const { id } = request.params;
     const ram = await RamService.getRamById(id);
     reply.send(ram);
   });
 
-  const createOneSchema = CreateOneQuery(CreateRamSchema, DetailedRamSchema);
+  const createOneSchema = createOneQuery(CreateRamSchema, DetailedRamSchema);
   fastify.post('/', createOneSchema, async (request: PostRamRequest, reply) => {
+    allowForAdmin(request);
     const ram = await RamService.createRam(request.body);
     reply.send(ram);
   });
 
-  const updateOneSchema = UpdateOneQuery(UpdateRamSchema, DetailedRamSchema);
+  const updateOneSchema = updateOneQuery(UpdateRamSchema, DetailedRamSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutRamRequest, reply) => {
+    allowForAdmin(request);
     const { id } = request.params;
     const newRam = await RamService.updateRamById({ id, data: request.body });
     reply.send(newRam);
   });
 
-  const deleteOneSchema = DeleteOneQuery(DetailedRamSchema);
+  const deleteOneSchema = deleteOneQuery(DetailedRamSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteRamRequest, reply) => {
+    allowForAdmin(request);
     const { id } = request.params;
     const ram = await RamService.deleteRamById(id);
     reply.send(ram);

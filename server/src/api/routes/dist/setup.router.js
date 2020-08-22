@@ -53,16 +53,21 @@ var setup_middleware_1 = require("../middlewares/setup.middleware");
 var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var setup_filter_1 = require("../../data/repositories/filters/setup.filter");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var SetupService = fastify.services.SetupService;
     var setupMiddleware = setup_middleware_1.SetupMiddleware(fastify);
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(setup_schema_1.GetAllSetupsResponse, setup_filter_1.ISetupFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(setup_schema_1.GetAllSetupsResponse, setup_filter_1.ISetupFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var setups;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, SetupService.getAllSetups(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, SetupService.getAllSetups(request.query)];
                 case 1:
                     setups = _a.sent();
                     reply.send(setups);
@@ -70,15 +75,15 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(setup_schema_1.DetailedSetupSchema);
-    fastify.get('/:id', __assign({ preHandler: userRequest_middlewarre_1.userRequestMiddleware(fastify) }, getOneSchema), function (request) {
+    var getOneSchema = swagger_helper_1.getOneQuery(setup_schema_1.DetailedSetupSchema, undefined);
+    fastify.get('/:id', getOneSchema, function (request) {
         return __awaiter(this, void 0, void 0, function () {
             var id, setup;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        allowFor_middleware_1.allowForAuthorized(request);
                         id = request.params.id;
-                        console.log(request.headers);
                         return [4 /*yield*/, SetupService.getSetupById(id)];
                     case 1:
                         setup = _a.sent();
@@ -87,12 +92,13 @@ function router(fastify, opts, next) {
             });
         });
     });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(setup_schema_1.CreateSetupSchema, setup_schema_1.DetailedSetupSchema);
-    fastify.post('/', __assign({ preHandler: userRequest_middlewarre_1.userRequestMiddleware(fastify) }, createOneSchema), function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
+    var createOneSchema = swagger_helper_1.createOneQuery(setup_schema_1.CreateSetupSchema, setup_schema_1.DetailedSetupSchema);
+    fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var data, setup;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     request.body.authorId = request.user.id;
                     data = __assign({}, request.body);
                     return [4 /*yield*/, SetupService.createSetup(data, setupMiddleware)];
@@ -103,14 +109,16 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(setup_schema_1.UpdateSetupSchema, setup_schema_1.DetailedSetupSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(setup_schema_1.UpdateSetupSchema, setup_schema_1.DetailedSetupSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, setup;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    request.body.authorId = request.user.id;
                     id = request.params.id;
-                    return [4 /*yield*/, SetupService.updateSetupById({ id: id, data: request.body }, setupMiddleware)];
+                    return [4 /*yield*/, SetupService.updateSetupById({ id: id, data: request.body }, setupMiddleware, request.user)];
                 case 1:
                     setup = _a.sent();
                     reply.send(setup);
@@ -118,14 +126,15 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(setup_schema_1.DetailedSetupSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(setup_schema_1.DetailedSetupSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, setup;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
-                    return [4 /*yield*/, SetupService.deleteSetupById(id)];
+                    return [4 /*yield*/, SetupService.deleteSetupById(id, request.user)];
                 case 1:
                     setup = _a.sent();
                     reply.send(setup);

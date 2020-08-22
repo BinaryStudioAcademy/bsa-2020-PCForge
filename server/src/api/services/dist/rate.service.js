@@ -94,7 +94,7 @@ var RateService = /** @class */ (function () {
             });
         });
     };
-    RateService.prototype.updateRateById = function (inputRate, rateMiddleware) {
+    RateService.prototype.updateRateById = function (inputRate, rateMiddleware, initiator) {
         return __awaiter(this, void 0, Promise, function () {
             var id, data, oldRate;
             return __generator(this, function (_a) {
@@ -110,13 +110,16 @@ var RateService = /** @class */ (function () {
                         if (!oldRate) {
                             global_helper_1.triggerServerError("Rate with id: " + id + " does not exists", 404);
                         }
+                        if (oldRate.userId !== initiator.id) {
+                            global_helper_1.triggerServerError('Access denied', 403);
+                        }
                         return [4 /*yield*/, this.repository.updateRateById(id, data)];
                     case 3: return [2 /*return*/, _a.sent()];
                 }
             });
         });
     };
-    RateService.prototype.deleteRateById = function (id) {
+    RateService.prototype.deleteRateById = function (id, initiator) {
         return __awaiter(this, void 0, Promise, function () {
             var rate;
             return __generator(this, function (_a) {
@@ -126,6 +129,9 @@ var RateService = /** @class */ (function () {
                         rate = _a.sent();
                         if (!rate) {
                             global_helper_1.triggerServerError("Rate with id: " + id + " does not exists", 404);
+                        }
+                        if (rate.userId !== initiator.id) {
+                            global_helper_1.triggerServerError('Access denied', 403);
                         }
                         return [4 /*yield*/, this.repository.deleteRateById(id)];
                     case 2:

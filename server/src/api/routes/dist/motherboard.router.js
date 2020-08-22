@@ -40,15 +40,21 @@ exports.router = void 0;
 var motherboard_schema_1 = require("./motherboard.schema");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var motherboard_filter_1 = require("../../data/repositories/filters/motherboard.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var MotherboardService = fastify.services.MotherboardService;
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(motherboard_schema_1.GetAllMotherBoardResponse, motherboard_filter_1.IMotherboardFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(motherboard_schema_1.GetAllMotherBoardResponse, motherboard_filter_1.IMotherboardFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var motherboards;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, MotherboardService.getAllMotherboards(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, MotherboardService.getAllMotherboards(request.query)];
                 case 1:
                     motherboards = _a.sent();
                     reply.send(motherboards);
@@ -56,12 +62,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(motherboard_schema_1.DetailedMotherBoardSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(motherboard_schema_1.DetailedMotherBoardSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, motherboard;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, MotherboardService.getMotherboardById(id)];
                 case 1:
@@ -71,12 +78,14 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(motherboard_schema_1.CreateMotherBoardSchema, motherboard_schema_1.DetailedMotherBoardSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(motherboard_schema_1.CreateMotherBoardSchema, motherboard_schema_1.DetailedMotherBoardSchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var motherboard;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, MotherboardService.createMotherboard(request.body)];
+                case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
+                    return [4 /*yield*/, MotherboardService.createMotherboard(request.body)];
                 case 1:
                     motherboard = _a.sent();
                     reply.send(motherboard);
@@ -84,12 +93,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(motherboard_schema_1.UpdateMotherBoardSchema, motherboard_schema_1.DetailedMotherBoardSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(motherboard_schema_1.UpdateMotherBoardSchema, motherboard_schema_1.DetailedMotherBoardSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newMotherboard;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, MotherboardService.updateMotherboardById({ id: id, data: request.body })];
                 case 1:
@@ -99,12 +109,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(motherboard_schema_1.DetailedMotherBoardSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(motherboard_schema_1.DetailedMotherBoardSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, motherboard;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, MotherboardService.deleteMotherboardById(id)];
                 case 1:

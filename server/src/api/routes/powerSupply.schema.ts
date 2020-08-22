@@ -2,27 +2,28 @@ import { FastifyRequest } from 'fastify';
 import { PowerSupplyCreationAttributes } from '../../data/models/powersupply';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetOnePowerSuppliesRequest = FastifyRequest<{
   Querystring: IFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOnePowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostPowerSupplyRequest = FastifyRequest<{
   Body: PowerSupplyCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutPowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
   Body: PowerSupplyCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeletePowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const PowerSupplySchema: SwaggerSchema = {
   type: 'object',

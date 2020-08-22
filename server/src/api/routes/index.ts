@@ -18,6 +18,7 @@ import { router as rateRouter } from './rate.router';
 import { router as commentRouter } from './comment.router';
 import { router as performanceRouter } from './performance.router';
 import { router as addRequestRouter } from './addRequest.router';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
   fastify.register(ramTypeRouter, { prefix: '/ramTypes' });

@@ -40,15 +40,21 @@ exports.router = void 0;
 var cpu_schema_1 = require("./cpu.schema");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var cpu_filter_1 = require("../../data/repositories/filters/cpu.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var CpuService = fastify.services.CpuService;
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(cpu_schema_1.GetAllCpusResponse, cpu_filter_1.ICpuFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(cpu_schema_1.GetAllCpusResponse, cpu_filter_1.ICpuFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var cpus;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, CpuService.getAllCpus(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, CpuService.getAllCpus(request.query)];
                 case 1:
                     cpus = _a.sent();
                     reply.send(cpus);
@@ -56,12 +62,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(cpu_schema_1.DetailedCpuSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(cpu_schema_1.DetailedCpuSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, cpu;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, CpuService.getCpuById(id)];
                 case 1:
@@ -71,12 +78,14 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(cpu_schema_1.CreateCpuSchema, cpu_schema_1.DetailedCpuSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(cpu_schema_1.CreateCpuSchema, cpu_schema_1.DetailedCpuSchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var cpu;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, CpuService.createCpu(request.body)];
+                case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
+                    return [4 /*yield*/, CpuService.createCpu(request.body)];
                 case 1:
                     cpu = _a.sent();
                     reply.send(cpu);
@@ -84,12 +93,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(cpu_schema_1.UpdateCpuSchema, cpu_schema_1.DetailedCpuSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(cpu_schema_1.UpdateCpuSchema, cpu_schema_1.DetailedCpuSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newCpu;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, CpuService.updateCpuById({ id: id, data: request.body })];
                 case 1:
@@ -99,12 +109,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(cpu_schema_1.DetailedCpuSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(cpu_schema_1.DetailedCpuSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, cpu;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, CpuService.deleteCpuById(id)];
                 case 1:

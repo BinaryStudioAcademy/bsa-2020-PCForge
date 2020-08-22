@@ -2,6 +2,7 @@
 exports.__esModule = true;
 exports.GetAllTopGames = exports.UpdateTopGameSchema = exports.CreateTopGameSchema = exports.TopGameSchema = void 0;
 var game_schema_1 = require("./game.schema");
+;
 exports.TopGameSchema = {
     type: 'object',
     properties: {

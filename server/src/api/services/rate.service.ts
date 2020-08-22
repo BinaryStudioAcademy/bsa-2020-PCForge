@@ -4,6 +4,7 @@ import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { RateRepository } from '../../data/repositories/rate.repository';
 import { IRateMiddleware } from '../middlewares/rate.middleware';
 import { triggerServerError } from '../../helpers/global.helper';
+import { UserAttributes } from '../../data/models/user';
 
 export class RateService {
   constructor(private repository: RateRepository) {}
@@ -32,7 +33,8 @@ export class RateService {
 
   async updateRateById(
     inputRate: { id: string; data: RateCreationAttributes },
-    rateMiddleware: IRateMiddleware
+    rateMiddleware: IRateMiddleware,
+    initiator: UserAttributes
   ): Promise<RateModel> {
     const { id, data } = inputRate;
     await rateMiddleware(data);
@@ -41,13 +43,19 @@ export class RateService {
     if (!oldRate) {
       triggerServerError(`Rate with id: ${id} does not exists`, 404);
     }
+    if (oldRate.userId !== initiator.id) {
+      triggerServerError('Access denied', 403);
+    }
     return await this.repository.updateRateById(id, data);
   }
 
-  async deleteRateById(id: string): Promise<RateModel> {
+  async deleteRateById(id: string, initiator: UserAttributes): Promise<RateModel> {
     const rate = await this.repository.getRateById(id);
     if (!rate) {
       triggerServerError(`Rate with id: ${id} does not exists`, 404);
+    }
+    if (rate.userId !== initiator.id) {
+      triggerServerError('Access denied', 403);
     }
     await this.repository.deleteRateById(id);
     return rate;

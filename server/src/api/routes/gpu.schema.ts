@@ -2,27 +2,28 @@ import { FastifyRequest } from 'fastify';
 import { GpuCreationAttributes } from '../../data/models/gpu';
 import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllGpusRequest = FastifyRequest<{
   Querystring: IGpuFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneGpuRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostGpuRequest = FastifyRequest<{
   Body: GpuCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutGpuRequest = FastifyRequest<{
   Params: { id: string };
   Body: GpuCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteGpuRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const GpuSchema: SwaggerSchema = {
   type: 'object',

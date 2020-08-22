@@ -143,12 +143,6 @@ exports.CreateSetupSchema = {
             maxLength: 200,
             nullable: true
         },
-        authorId: {
-            type: 'integer',
-            example: 1,
-            minimum: 1,
-            nullable: false
-        },
         cpuId: {
             type: 'integer',
             minimum: 1,
@@ -198,12 +192,6 @@ exports.UpdateSetupSchema = {
             minLength: 1,
             example: 'http://hosting-url.com/route',
             maxLength: 200,
-            nullable: true
-        },
-        authorId: {
-            type: 'integer',
-            example: 1,
-            minimum: 1,
             nullable: true
         },
         cpuId: {

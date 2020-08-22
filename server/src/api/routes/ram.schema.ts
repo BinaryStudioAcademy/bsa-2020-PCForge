@@ -3,27 +3,28 @@ import { RamCreationAttributes } from '../../data/models/ram';
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { RamTypeSchema } from './ramType.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetOneRamRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type GetAllRamsRequest = FastifyRequest<{
   Querystring: IRamFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type PostRamRequest = FastifyRequest<{
   Body: RamCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutRamRequest = FastifyRequest<{
   Params: { id: string };
   Body: RamCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteRamRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const RamSchema: SwaggerSchema = {
   type: 'object',

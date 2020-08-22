@@ -2,28 +2,29 @@ import fastify, { FastifyRequest } from 'fastify';
 import { RateCreationAttributes } from '../../data/models/rate';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllRatesRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: IRateFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneRateRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostRateRequest = FastifyRequest<{
   Body: RateCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutRateRequest = FastifyRequest<{
   Params: { id: string };
   Body: RateCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteRateRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const RateSchema: SwaggerSchema = {
   type: 'object',

@@ -4,28 +4,29 @@ import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { CpuSchema } from './cpu.schema';
 import { GpuSchema } from './gpu.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllGamesRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: IGameFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneGameRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostGameRequest = FastifyRequest<{
   Body: GameCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutGameRequest = FastifyRequest<{
   Params: { id: string };
   Body: GameCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteGameRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const GameSchema: SwaggerSchema = {
   type: 'object',

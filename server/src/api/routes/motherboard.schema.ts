@@ -4,27 +4,28 @@ import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { RamTypeSchema } from './ramType.schema';
 import { SocketSchema } from './socket.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllMotherboardsRequest = FastifyRequest<{
   Querystring: IMotherboardFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneMotherboardRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostMotherboardRequest = FastifyRequest<{
   Body: MotherboardCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutMotherboardRequest = FastifyRequest<{
   Params: { id: string };
   Body: MotherboardCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteMotherboardRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const MotherBoardSchema: SwaggerSchema = {
   type: 'object',

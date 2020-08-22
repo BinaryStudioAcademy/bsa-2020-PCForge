@@ -12,45 +12,54 @@ import {
   UpdatePowerSupplySchema,
 } from './powerSupply.schema';
 import {
-  GetMultipleQuery,
-  GetOneQuery,
-  CreateOneQuery,
-  UpdateOneQuery,
-  DeleteOneQuery,
+  getMultipleQuery,
+  getOneQuery,
+  createOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
 } from '../../helpers/swagger.helper';
 import { IFilter } from '../../data/repositories/filters/base.filter';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
+import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { PowerSupplyService } = fastify.services;
+  const preHandler = userRequestMiddleware(fastify);
+  fastify.addHook('preHandler', preHandler);
 
-  const getAllSchema = GetMultipleQuery(GetAllPowerSuppliesResponse, IFilter.schema);
+  const getAllSchema = getMultipleQuery(GetAllPowerSuppliesResponse, IFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetOnePowerSuppliesRequest, reply) => {
+    allowForAuthorized(request);
     const powerSupplies = await PowerSupplyService.getAllPowerSupplies(request.query);
     reply.send(powerSupplies);
   });
 
-  const getOneSchema = GetOneQuery(PowerSupplySchema);
+  const getOneSchema = getOneQuery(PowerSupplySchema);
   fastify.get('/:id', getOneSchema, async (request: GetOnePowerSupplyRequest, reply) => {
+    allowForAuthorized(request);
     const { id } = request.params;
-    const PowerSupply = await PowerSupplyService.getPowerSupplyById(id);
-    reply.send(PowerSupply);
+    const powerSupply = await PowerSupplyService.getPowerSupplyById(id);
+    reply.send(powerSupply);
   });
 
-  const createOneSchema = CreateOneQuery(CreatePowerSupplySchema, PowerSupplySchema);
+  const createOneSchema = createOneQuery(CreatePowerSupplySchema, PowerSupplySchema);
   fastify.post('/', createOneSchema, async (request: PostPowerSupplyRequest, reply) => {
-    const PowerSupply = await PowerSupplyService.createPowerSupply(request.body);
-    reply.send(PowerSupply);
+    allowForAdmin(request);
+    const powerSupply = await PowerSupplyService.createPowerSupply(request.body);
+    reply.send(powerSupply);
   });
 
-  const updateOneSchema = UpdateOneQuery(UpdatePowerSupplySchema, PowerSupplySchema);
+  const updateOneSchema = updateOneQuery(UpdatePowerSupplySchema, PowerSupplySchema);
   fastify.put('/:id', updateOneSchema, async (request: PutPowerSupplyRequest, reply) => {
+    allowForAdmin(request);
     const { id } = request.params;
     const newPowerSupply = await PowerSupplyService.updatePowerSupplyById({ id, data: request.body });
     reply.send(newPowerSupply);
   });
 
-  const deleteOneSchema = DeleteOneQuery(PowerSupplySchema);
+  const deleteOneSchema = deleteOneQuery(PowerSupplySchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeletePowerSupplyRequest, reply) => {
+    allowForAdmin(request);
     const { id } = request.params;
     const powerSupply = await PowerSupplyService.deletePowerSupplyById(id);
     reply.send(powerSupply);

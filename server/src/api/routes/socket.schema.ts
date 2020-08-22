@@ -2,27 +2,28 @@ import { FastifyRequest } from 'fastify';
 import { SocketCreationAttributes } from '../../data/models/socket';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllSocketsRequest = FastifyRequest<{
   Querystring: IFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneSocketRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostSocketRequest = FastifyRequest<{
   Body: SocketCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutSocketRequest = FastifyRequest<{
   Params: { id: string };
   Body: SocketCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteSocketRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const SocketSchema: SwaggerSchema = {
   type: 'object',

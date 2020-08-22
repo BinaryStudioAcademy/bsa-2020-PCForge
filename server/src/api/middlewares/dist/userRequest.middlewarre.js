@@ -37,19 +37,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.userRequestMiddleware = void 0;
-var global_helper_1 = require("../../helpers/global.helper");
 exports.userRequestMiddleware = function (fastify) {
     return function (request, reply, done) { return __awaiter(void 0, void 0, Promise, function () {
         var token;
         var _a, _b;
         return __generator(this, function (_c) {
-            console.log(request.headers);
             token = ((_b = (_a = request.headers) === null || _a === void 0 ? void 0 : _a.authorization) === null || _b === void 0 ? void 0 : _b.replace('Bearer ', '')) || '';
             fastify.jwt.verify(token, function (err, decoded) {
-                if (err) {
-                    global_helper_1.triggerServerError('Access denied', 403);
+                if (!err && decoded) {
+                    request.user = decoded.user;
                 }
-                request.user = decoded.user;
             });
             return [2 /*return*/];
         });

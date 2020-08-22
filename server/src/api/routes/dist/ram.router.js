@@ -40,15 +40,21 @@ exports.router = void 0;
 var ram_schema_1 = require("./ram.schema");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var ram_filter_1 = require("../../data/repositories/filters/ram.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var RamService = fastify.services.RamService;
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(ram_schema_1.GetAllRamResponse, ram_filter_1.IRamFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(ram_schema_1.GetAllRamResponse, ram_filter_1.IRamFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var rams;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, RamService.getAllRams(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, RamService.getAllRams(request.query)];
                 case 1:
                     rams = _a.sent();
                     reply.send(rams);
@@ -56,12 +62,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(ram_schema_1.DetailedRamSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(ram_schema_1.DetailedRamSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, ram;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, RamService.getRamById(id)];
                 case 1:
@@ -71,12 +78,14 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(ram_schema_1.CreateRamSchema, ram_schema_1.DetailedRamSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(ram_schema_1.CreateRamSchema, ram_schema_1.DetailedRamSchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var ram;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, RamService.createRam(request.body)];
+                case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
+                    return [4 /*yield*/, RamService.createRam(request.body)];
                 case 1:
                     ram = _a.sent();
                     reply.send(ram);
@@ -84,12 +93,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(ram_schema_1.UpdateRamSchema, ram_schema_1.DetailedRamSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(ram_schema_1.UpdateRamSchema, ram_schema_1.DetailedRamSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newRam;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, RamService.updateRamById({ id: id, data: request.body })];
                 case 1:
@@ -99,12 +109,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(ram_schema_1.DetailedRamSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(ram_schema_1.DetailedRamSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, ram;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, RamService.deleteRamById(id)];
                 case 1:

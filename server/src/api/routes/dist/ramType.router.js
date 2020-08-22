@@ -40,15 +40,21 @@ exports.router = void 0;
 var ramType_schema_1 = require("./ramType.schema");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var base_filter_1 = require("../../data/repositories/filters/base.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var RamTypeService = fastify.services.RamTypeService;
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(ramType_schema_1.GetAllRamTypesResponse, base_filter_1.IFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(ramType_schema_1.GetAllRamTypesResponse, base_filter_1.IFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var ramTypes;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, RamTypeService.getAllRamTypes(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, RamTypeService.getAllRamTypes(request.query)];
                 case 1:
                     ramTypes = _a.sent();
                     reply.send(ramTypes);
@@ -56,12 +62,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(ramType_schema_1.RamTypeSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(ramType_schema_1.RamTypeSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, ramType;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, RamTypeService.getRamTypeById(id)];
                 case 1:
@@ -71,12 +78,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(ramType_schema_1.CreateRamTypeSchema, ramType_schema_1.RamTypeSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(ramType_schema_1.CreateRamTypeSchema, ramType_schema_1.RamTypeSchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var name, ramType;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     name = request.body.name;
                     return [4 /*yield*/, RamTypeService.createRamType({ name: name })];
                 case 1:
@@ -86,12 +94,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(ramType_schema_1.UpdateRamTypeSchema, ramType_schema_1.RamTypeSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(ramType_schema_1.UpdateRamTypeSchema, ramType_schema_1.RamTypeSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, name, newRamType;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     name = request.body.name;
                     return [4 /*yield*/, RamTypeService.updateRamById({ id: id, data: { name: name } })];
@@ -102,12 +111,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(ramType_schema_1.RamTypeSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(ramType_schema_1.RamTypeSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, ramType;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, RamTypeService.deleteRamTypeById(id)];
                 case 1:

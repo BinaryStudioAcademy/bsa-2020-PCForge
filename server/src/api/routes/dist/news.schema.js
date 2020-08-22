@@ -43,8 +43,23 @@ exports.NewsSchema = {
     }
 };
 exports.GetAllNewsResponse = {
-    type: 'array',
-    items: exports.NewsSchema
+    type: 'object',
+    properties: {
+        meta: {
+            type: 'object',
+            properties: {
+                globalCount: {
+                    type: 'integer',
+                    minimum: 0,
+                    nullable: false
+                }
+            }
+        },
+        data: {
+            type: 'array',
+            items: exports.NewsSchema
+        }
+    }
 };
 exports.CreateNewsSchema = {
     type: 'object',

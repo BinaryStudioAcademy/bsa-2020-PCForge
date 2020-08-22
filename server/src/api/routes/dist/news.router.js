@@ -39,15 +39,21 @@ exports.__esModule = true;
 exports.router = void 0;
 var news_schema_1 = require("./news.schema");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var NewsService = fastify.services.NewsService;
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(news_schema_1.GetAllNewsResponse);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(news_schema_1.GetAllNewsResponse);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var news;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, NewsService.getAllNews()];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, NewsService.getAllNews()];
                 case 1:
                     news = _a.sent();
                     reply.send(news);
@@ -55,12 +61,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(news_schema_1.NewsSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(news_schema_1.NewsSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, news;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, NewsService.getNewsById(id)];
                 case 1:
@@ -70,12 +77,14 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(news_schema_1.CreateNewsSchema, news_schema_1.NewsSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(news_schema_1.CreateNewsSchema, news_schema_1.NewsSchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var news;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, NewsService.createNews(request.body)];
+                case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
+                    return [4 /*yield*/, NewsService.createNews(request.body)];
                 case 1:
                     news = _a.sent();
                     reply.send(news);
@@ -83,12 +92,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(news_schema_1.UpdateNewsSchema, news_schema_1.NewsSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(news_schema_1.UpdateNewsSchema, news_schema_1.NewsSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newNews;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, NewsService.updateNewsById({ id: id, data: request.body })];
                 case 1:
@@ -98,12 +108,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(news_schema_1.NewsSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(news_schema_1.NewsSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, news;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, NewsService.deleteNewsById(id)];
                 case 1:

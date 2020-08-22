@@ -40,10 +40,13 @@ exports.router = void 0;
 var gpu_schema_1 = require("./gpu.schema");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var gpu_filter_1 = require("../../data/repositories/filters/gpu.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
 function router(fastify, opts, next) {
     var _this = this;
     var GpuService = fastify.services.GpuService;
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(gpu_schema_1.GetAllGpusResponse, gpu_filter_1.IGpuFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(gpu_schema_1.GetAllGpusResponse, gpu_filter_1.IGpuFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var gpus;
         return __generator(this, function (_a) {
@@ -56,7 +59,7 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(gpu_schema_1.GpuSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(gpu_schema_1.GpuSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, gpu;
         return __generator(this, function (_a) {
@@ -71,7 +74,7 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(gpu_schema_1.CreateGpuSchema, gpu_schema_1.GpuSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(gpu_schema_1.CreateGpuSchema, gpu_schema_1.GpuSchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var gpu;
         return __generator(this, function (_a) {
@@ -84,7 +87,7 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(gpu_schema_1.UpdateGpuSchema, gpu_schema_1.GpuSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(gpu_schema_1.UpdateGpuSchema, gpu_schema_1.GpuSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newGpu;
         return __generator(this, function (_a) {
@@ -99,7 +102,7 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(gpu_schema_1.GpuSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(gpu_schema_1.GpuSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, gpu;
         return __generator(this, function (_a) {

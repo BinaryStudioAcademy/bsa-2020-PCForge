@@ -40,15 +40,21 @@ exports.router = void 0;
 var game_schema_1 = require("./game.schema");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var game_filter_1 = require("../../data/repositories/filters/game.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var GameService = fastify.services.GameService;
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(game_schema_1.GetAllGamesResponse, game_filter_1.IGameFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(game_schema_1.GetAllGamesResponse, game_filter_1.IGameFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var games;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, GameService.getAllGames(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, GameService.getAllGames(request.query)];
                 case 1:
                     games = _a.sent();
                     reply.send(games);
@@ -56,12 +62,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(game_schema_1.GameSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(game_schema_1.GameSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, game;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, GameService.getGameById(id)];
                 case 1:
@@ -71,12 +78,14 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(game_schema_1.CreateGameSchema, game_schema_1.GameSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(game_schema_1.CreateGameSchema, game_schema_1.GameSchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var game;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, GameService.createGame(request.body)];
+                case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
+                    return [4 /*yield*/, GameService.createGame(request.body)];
                 case 1:
                     game = _a.sent();
                     reply.send(game);
@@ -84,12 +93,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(game_schema_1.updateGameSchema, game_schema_1.GameSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(game_schema_1.updateGameSchema, game_schema_1.GameSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newGame;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, GameService.updateGameById({ id: id, data: request.body })];
                 case 1:
@@ -99,12 +109,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(game_schema_1.GameSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(game_schema_1.GameSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, game;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAdmin(request);
                     id = request.params.id;
                     return [4 /*yield*/, GameService.deleteGameById(id)];
                 case 1:

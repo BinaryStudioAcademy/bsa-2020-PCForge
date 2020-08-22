@@ -41,16 +41,22 @@ var rate_schema_1 = require("./rate.schema");
 var rate_middleware_1 = require("../middlewares/rate.middleware");
 var swagger_helper_1 = require("../../helpers/swagger.helper");
 var rate_filter_1 = require("../../data/repositories/filters/rate.filter");
+var userRequest_middlewarre_1 = require("../middlewares/userRequest.middlewarre");
+var allowFor_middleware_1 = require("../middlewares/allowFor.middleware");
 function router(fastify, opts, next) {
     var _this = this;
     var RateService = fastify.services.RateService;
     var rateMiddleware = rate_middleware_1.RateMiddleware(fastify);
-    var getAllSchema = swagger_helper_1.GetMultipleQuery(rate_schema_1.GetAllRates, rate_filter_1.IRateFilter.schema);
+    var preHandler = userRequest_middlewarre_1.userRequestMiddleware(fastify);
+    fastify.addHook('preHandler', preHandler);
+    var getAllSchema = swagger_helper_1.getMultipleQuery(rate_schema_1.GetAllRates, rate_filter_1.IRateFilter.schema);
     fastify.get('/', getAllSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var rates;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, RateService.getAllRates(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, RateService.getAllRates(request.query)];
                 case 1:
                     rates = _a.sent();
                     reply.send(rates);
@@ -62,7 +68,9 @@ function router(fastify, opts, next) {
         var average;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, RateService.getRatesAverage(request.query)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, RateService.getRatesAverage(request.query)];
                 case 1:
                     average = _a.sent();
                     reply.send(average);
@@ -70,12 +78,13 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var getOneSchema = swagger_helper_1.GetOneQuery(rate_schema_1.RateSchema);
+    var getOneSchema = swagger_helper_1.getOneQuery(rate_schema_1.RateSchema);
     fastify.get('/:id', getOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, rate;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
                     return [4 /*yield*/, RateService.getRateById(id)];
                 case 1:
@@ -85,12 +94,14 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var createOneSchema = swagger_helper_1.CreateOneQuery(rate_schema_1.CreateRateSchema, rate_schema_1.RateSchema);
+    var createOneSchema = swagger_helper_1.createOneQuery(rate_schema_1.CreateRateSchema, rate_schema_1.RateSchema);
     fastify.post('/', createOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var rate;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, RateService.createRate(request.body, rateMiddleware)];
+                case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
+                    return [4 /*yield*/, RateService.createRate(request.body, rateMiddleware)];
                 case 1:
                     rate = _a.sent();
                     reply.send(rate);
@@ -98,14 +109,15 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var updateOneSchema = swagger_helper_1.UpdateOneQuery(rate_schema_1.UpdateRateSchema, rate_schema_1.RateSchema);
+    var updateOneSchema = swagger_helper_1.updateOneQuery(rate_schema_1.UpdateRateSchema, rate_schema_1.RateSchema);
     fastify.put('/:id', updateOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, newRate;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
-                    return [4 /*yield*/, RateService.updateRateById({ id: id, data: request.body }, rateMiddleware)];
+                    return [4 /*yield*/, RateService.updateRateById({ id: id, data: request.body }, rateMiddleware, request.user)];
                 case 1:
                     newRate = _a.sent();
                     reply.send(newRate);
@@ -113,14 +125,15 @@ function router(fastify, opts, next) {
             }
         });
     }); });
-    var deleteOneSchema = swagger_helper_1.DeleteOneQuery(rate_schema_1.RateSchema);
+    var deleteOneSchema = swagger_helper_1.deleteOneQuery(rate_schema_1.RateSchema);
     fastify["delete"]('/:id', deleteOneSchema, function (request, reply) { return __awaiter(_this, void 0, void 0, function () {
         var id, rate;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    allowFor_middleware_1.allowForAuthorized(request);
                     id = request.params.id;
-                    return [4 /*yield*/, RateService.deleteRateById(id)];
+                    return [4 /*yield*/, RateService.deleteRateById(id, request.user)];
                 case 1:
                     rate = _a.sent();
                     reply.send(rate);

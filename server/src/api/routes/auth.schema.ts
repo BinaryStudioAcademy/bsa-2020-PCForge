@@ -1,6 +1,7 @@
 import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserSchema } from './user.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type PostAuthRequest = FastifyRequest<{
   Body: {

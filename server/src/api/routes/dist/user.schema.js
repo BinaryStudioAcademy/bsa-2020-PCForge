@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 exports.UpdateUserSchema = exports.CreateUserSchema = exports.GetAllUsersSchema = exports.UserSchema = void 0;
+;
 exports.UserSchema = {
     type: 'object',
     properties: {
@@ -50,8 +51,23 @@ exports.UserSchema = {
     }
 };
 exports.GetAllUsersSchema = {
-    type: 'array',
-    items: exports.UserSchema
+    type: 'object',
+    properties: {
+        meta: {
+            type: 'object',
+            properties: {
+                globalCount: {
+                    type: 'integer',
+                    minimum: 0,
+                    nullable: false
+                }
+            }
+        },
+        data: {
+            type: 'array',
+            items: exports.UserSchema
+        }
+    }
 };
 exports.CreateUserSchema = {
     type: 'object',

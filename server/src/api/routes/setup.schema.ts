@@ -12,11 +12,11 @@ import { UserAttributes } from '../../data/models/user';
 
 export type GetSetupsRequest = FastifyRequest<{
   Querystring: ISetupFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetSetupRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostSetupRequest = FastifyRequest<{
   Body: SetupCreationAttributes;
@@ -25,11 +25,11 @@ export type PostSetupRequest = FastifyRequest<{
 export type PutSetupRequest = FastifyRequest<{
   Params: { id: string };
   Body: SetupCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteSetupRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const SetupSchema: SwaggerSchema = {
   type: 'object',
@@ -171,12 +171,6 @@ export const CreateSetupSchema: SwaggerSchema = {
       maxLength: 200,
       nullable: true,
     },
-    authorId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
-      nullable: false,
-    },
     cpuId: {
       type: 'integer',
       minimum: 1,
@@ -227,12 +221,6 @@ export const UpdateSetupSchema: SwaggerSchema = {
       minLength: 1,
       example: 'http://hosting-url.com/route',
       maxLength: 200,
-      nullable: true,
-    },
-    authorId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
       nullable: true,
     },
     cpuId: {

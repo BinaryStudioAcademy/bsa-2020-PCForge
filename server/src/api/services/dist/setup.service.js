@@ -87,22 +87,25 @@ var SetupService = /** @class */ (function () {
             });
         });
     };
-    SetupService.prototype.updateSetupById = function (inputSetup, setupMiddleware) {
+    SetupService.prototype.updateSetupById = function (inputSetup, setupMiddleware, initiator) {
         return __awaiter(this, void 0, Promise, function () {
             var id, data, oldSetup, setup;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = inputSetup.id, data = inputSetup.data;
-                        return [4 /*yield*/, setupMiddleware(data)];
-                    case 1:
-                        _a.sent();
                         return [4 /*yield*/, this.repository.getById(id)];
-                    case 2:
+                    case 1:
                         oldSetup = _a.sent();
                         if (!oldSetup) {
                             global_helper_1.triggerServerError("Setup with id: " + id + " does not exists", 404);
                         }
+                        if (!initiator.isAdmin && initiator.id !== oldSetup.authorId) {
+                            global_helper_1.triggerServerError("Access denied", 403);
+                        }
+                        return [4 /*yield*/, setupMiddleware(data)];
+                    case 2:
+                        _a.sent();
                         return [4 /*yield*/, this.repository.updateById(id, data)];
                     case 3:
                         setup = _a.sent();
@@ -111,7 +114,7 @@ var SetupService = /** @class */ (function () {
             });
         });
     };
-    SetupService.prototype.deleteSetupById = function (id) {
+    SetupService.prototype.deleteSetupById = function (id, initiator) {
         return __awaiter(this, void 0, Promise, function () {
             var setup;
             return __generator(this, function (_a) {
@@ -121,6 +124,9 @@ var SetupService = /** @class */ (function () {
                         setup = _a.sent();
                         if (!setup) {
                             global_helper_1.triggerServerError("Setup with id: " + id + " does not exists", 404);
+                        }
+                        if (!(initiator === null || initiator === void 0 ? void 0 : initiator.isAdmin) && (initiator === null || initiator === void 0 ? void 0 : initiator.id) !== setup.authorId) {
+                            global_helper_1.triggerServerError("Access denied", 403);
                         }
                         return [4 /*yield*/, this.repository.deleteById(id)];
                     case 2:
