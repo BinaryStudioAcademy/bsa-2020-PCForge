@@ -65,8 +65,8 @@ export const AddRequestSchema: SwaggerSchema = {
       minLength: 1,
       nullable: false,
       format: 'date-time'
-    }
-  }
+    },
+  },
 }
 
 export const GetAllAddRequest: SwaggerSchema = {

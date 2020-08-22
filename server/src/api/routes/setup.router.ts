@@ -35,8 +35,12 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   const getOneSchema = GetOneQuery(DetailedSetupSchema);
-  fastify.get('/:id', getOneSchema, async function (request: GetSetupRequest) {
+  fastify.get('/:id', {
+    preHandler: userRequestMiddleware(fastify),
+    ...getOneSchema
+  } , async function (request: GetSetupRequest) {
     const { id } = request.params;
+    console.log(request.headers)
     const setup = await SetupService.getSetupById(id);
     return setup;
   });

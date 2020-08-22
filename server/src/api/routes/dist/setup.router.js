@@ -71,13 +71,14 @@ function router(fastify, opts, next) {
         });
     }); });
     var getOneSchema = swagger_helper_1.GetOneQuery(setup_schema_1.DetailedSetupSchema);
-    fastify.get('/:id', getOneSchema, function (request) {
+    fastify.get('/:id', __assign({ preHandler: userRequest_middlewarre_1.userRequestMiddleware(fastify) }, getOneSchema), function (request) {
         return __awaiter(this, void 0, void 0, function () {
             var id, setup;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         id = request.params.id;
+                        console.log(request.headers);
                         return [4 /*yield*/, SetupService.getSetupById(id)];
                     case 1:
                         setup = _a.sent();
