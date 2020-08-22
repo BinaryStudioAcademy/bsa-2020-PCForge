@@ -1,14 +1,5 @@
 import { SwaggerSchema } from '../data/models/swaggerSchema';
 import { RouteShorthandOptions } from 'fastify/types/route';
-import { userRequestMiddleware } from '../api/middlewares/userRequest.middlewarre';
-
-export enum queryTypes {
-  getOne,
-  getMultiple,
-  createOne,
-  updateOne,
-  deleteOne
-}
 
 export function getOneQuery(schema: SwaggerSchema, querystring?: SwaggerSchema, isProtected: boolean = true): RouteShorthandOptions {
   return {
