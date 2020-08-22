@@ -12,7 +12,7 @@ import TopGames from 'components/ChartComponents/TopGames';
 import TestDifferentGame from 'components/ChartComponents/TestDifferentGame';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems, Routes } from 'common/enums';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { TopGame } from 'common/models/topGame';
 import { Game } from 'common/models/game';
 
@@ -26,7 +26,6 @@ const GameMatcherResult: React.FC<Props> = ({
   cpu,
   gpu,
   ram,
-  history,
 }) => {
   const [topGameSelected, setTopGameSelected] = React.useState<number>(0);
   React.useEffect(() => {
@@ -92,6 +91,6 @@ const mapDispatch = {
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux & RouteComponentProps;
+type Props = PropsFromRedux;
 
 export default connector(GameMatcherResult);
