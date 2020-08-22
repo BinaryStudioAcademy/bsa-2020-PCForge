@@ -1,4 +1,7 @@
+import { Cpu } from 'common/models/cpu';
 import { Game } from 'common/models/game';
+import { Gpu } from 'common/models/gpu';
+import { Ram } from 'common/models/ram';
 import { Setup } from 'common/models/setup';
 import { ISetupPerformance } from 'common/models/setupPerformance';
 import { TopGame } from 'common/models/topGame';
@@ -7,26 +10,22 @@ export enum SetupChartTypes {
   ERROR = 'SetupChart/ERROR',
   FETCH_PERFORMANCE_REQUEST = 'SetupChart/FETCH_PERFORMANCE_REQUEST',
   FETCH_PERFORMANCE_SUCCESS = 'SetupChart/FETCH_PERFORMANCE_SUCCESS',
-  FETCH_SETUP_REQUEST = 'SetupChart/FETCH_SETUP_REQUEST',
-  FETCH_SETUP_SUCCESS = 'SetupChart/FETCH_SETUP_SUCCESS',
   FETCH_TOP_GAMES_REQUEST = 'SetupChart/FETCH_TOP_GAMES_REQUEST',
   FETCH_TOP_GAMES_SUCCESS = 'SetupChart/FETCH_TOP_GAMES_SUCCESS',
   FETCH_GAMES_REQUEST = 'SetupChart/FETCH_GAMES_REQUEST',
   FETCH_GAMES_SUCCESS = 'SetupChart/FETCH_GAMES_SUCCESS',
+  SET_CPU = 'SetupChart/SET_CPU',
+  SET_GPU = 'SetupChart/SET_GPU',
+  SET_RAM = 'SetupChart/SET_RAM',
 }
 
 export interface IFetchPerformanceRequestAction {
   type: SetupChartTypes.FETCH_PERFORMANCE_REQUEST;
   payload: {
-    setupId: number;
+    cpuId: number;
+    gpuId: number;
+    ramSize: number;
     gameId: number;
-  };
-}
-
-export interface IFetchSetupRequestAction {
-  type: SetupChartTypes.FETCH_SETUP_REQUEST;
-  payload: {
-    id: number;
   };
 }
 
@@ -52,13 +51,6 @@ interface IFetchPerformanceAction {
   };
 }
 
-interface IFetchSetupAction {
-  type: SetupChartTypes.FETCH_SETUP_SUCCESS;
-  payload: {
-    setup: Setup;
-  };
-}
-
 interface IFetchTopGamesAction {
   type: SetupChartTypes.FETCH_TOP_GAMES_SUCCESS;
   payload: {
@@ -73,6 +65,27 @@ interface IFetchGamesAction {
   };
 }
 
+interface ISetCpuAction {
+  type: SetupChartTypes.SET_CPU;
+  payload: {
+    cpu: Cpu;
+  };
+}
+
+interface ISetGpuAction {
+  type: SetupChartTypes.SET_GPU;
+  payload: {
+    gpu: Gpu;
+  };
+}
+
+interface ISetRamAction {
+  type: SetupChartTypes.SET_RAM;
+  payload: {
+    ram: Ram;
+  };
+}
+
 interface IErrorAction {
   type: SetupChartTypes.ERROR;
   payload: {
@@ -80,22 +93,26 @@ interface IErrorAction {
   };
 }
 
-type SetupChartRequests =
-  | IFetchPerformanceRequestAction
-  | IFetchTopGamesRequestAction
-  | IFetchGamesRequestAction
-  | IFetchSetupRequestAction;
+type SetupChartRequests = IFetchPerformanceRequestAction | IFetchTopGamesRequestAction | IFetchGamesRequestAction;
 
-type SetupChartSuccess = IFetchPerformanceAction | IFetchTopGamesAction | IFetchGamesAction | IFetchSetupAction;
+type SetupChartSuccess = IFetchPerformanceAction | IFetchTopGamesAction | IFetchGamesAction;
 
 export type SetupChartErrors = IErrorAction;
 
-export type SetupChartActions = SetupChartRequests | SetupChartSuccess | SetupChartErrors;
+export type SetupChartActions =
+  | SetupChartRequests
+  | SetupChartSuccess
+  | SetupChartErrors
+  | ISetCpuAction
+  | ISetGpuAction
+  | ISetRamAction;
 
 export interface SetupChartState {
   topGames: TopGame[];
   searchedGames: Game[];
   performance: ISetupPerformance;
-  setup: Setup;
+  cpu: Cpu | null;
+  gpu: Gpu | null;
+  ram: Ram | null;
   error: string;
 }
