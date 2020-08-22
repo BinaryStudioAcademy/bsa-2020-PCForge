@@ -1,5 +1,7 @@
+import { CpuRepository } from '../../data/repositories/cpu.repository';
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { GameRepository } from '../../data/repositories/game.repository';
+import { GpuRepository } from '../../data/repositories/gpu.repository';
 import { SetupRepository } from '../../data/repositories/setup.repository';
 
 class Resolution {
@@ -39,7 +41,11 @@ export interface ISetupPerformance {
 }
 
 export class PerformanceService {
-  constructor(private setupRepository: SetupRepository, private gameRepository: GameRepository) {}
+  constructor(
+    private cpuRepository: CpuRepository,
+    private gpuRepository: GpuRepository,
+    private gameRepository: GameRepository
+  ) {}
   private MINIMAL_PERFORMANCE = 1;
   private MAXIMUM_PERFORMANCE = 10;
   private resolutions: Resolution[] = [
@@ -88,7 +94,7 @@ export class PerformanceService {
     const low = (currentPerformance / minimal / ratio) * this.DEFAULT_FPS;
     const high = (currentPerformance / recommended / ratio) * this.DEFAULT_FPS;
     const medium = (low + high) / 2;
-    const ultra = 2 * high - medium; // because high = (medium + ultra) / 2 (like we calculate medium);
+    const ultra = Math.max(0, 2 * high - medium); // because high = (medium + ultra) / 2 (like we calculate medium);
     const analysis: IFpsAnalysis = {
       low: Math.ceil(low),
       medium: Math.ceil(medium),
@@ -102,12 +108,17 @@ export class PerformanceService {
     return Math.ceil((current / needed) * 100);
   }
 
-  async getSetupPerformanceById(
-    id: string,
-    gameId: string,
-    resolutions: IResolution[] = this.resolutions.map((r) => r.getIResolution())
-  ): Promise<ISetupPerformance> {
-    const { cpu, gpu, ram } = await this.setupRepository.getSetupById(id);
+  async getPerformanceByHardware(obj: {
+    cpuId: string;
+    gpuId: string;
+    ramSize: string;
+    gameId: string;
+  }): Promise<ISetupPerformance> {
+    const { cpuId, gpuId, gameId } = obj;
+    const ramSize = parseInt(obj.ramSize);
+    const resolutions: IResolution[] = this.resolutions.map((r) => r.getIResolution());
+    const cpu = await this.cpuRepository.getCpuById(cpuId);
+    const gpu = await this.gpuRepository.getGpuById(gpuId);
     const {
       minimalCpu,
       recommendedCpu,
@@ -132,18 +143,18 @@ export class PerformanceService {
         minimal: {
           cpu: this.getReport(minimalCpu.performance, cpu.performance),
           gpu: this.getReport(minimalGpu.performance, gpu.performance),
-          ram: this.getReport(minimalRamSize, ram.memorySize),
+          ram: this.getReport(minimalRamSize, ramSize),
         },
         recommended: {
           cpu: this.getReport(recommendedCpu.performance, cpu.performance),
           gpu: this.getReport(recommendedGpu.performance, gpu.performance),
-          ram: this.getReport(recommendedRamSize, ram.memorySize),
+          ram: this.getReport(recommendedRamSize, ramSize),
         },
       },
       overall: {
         cpu: await this.getOverallPerformance('cpu', cpu.performance),
         gpu: await this.getOverallPerformance('gpu', gpu.performance),
-        ram: await this.getOverallPerformance('ram', ram.memorySize),
+        ram: await this.getOverallPerformance('ram', ramSize),
       },
     };
     return performance;

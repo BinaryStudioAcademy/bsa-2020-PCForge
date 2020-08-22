@@ -52,7 +52,11 @@ export const initializeServices = (repositories: Repositories): Services => {
   const newsService = new NewsService(repositories.NewsRepository);
   const rateService = new RateService(repositories.RateRepository);
   const commentService = new CommentService(repositories.CommentRepository);
-  const performanceService = new PerformanceService(repositories.SetupRepository, repositories.GameRepository);
+  const performanceService = new PerformanceService(
+    repositories.CpuRepository,
+    repositories.GpuRepository,
+    repositories.GameRepository
+  );
   const addRequestService = new AddRequestService(repositories.AddRequestRepository);
   const services: Services = {
     AddRequestService: addRequestService,

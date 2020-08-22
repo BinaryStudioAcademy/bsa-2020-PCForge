@@ -24,6 +24,7 @@ import {
 import { FilterName, GroupName } from './config';
 
 import styles from 'containers/BuilderPage/styles.module.scss';
+import QuickMatcher from 'containers/QuickMatcher';
 
 type PropsType = {
   className?: string;
@@ -151,6 +152,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           </Grid>
           <Grid item xs={12} lg={3} xl={2}>
             <BuilderSummary setup={setup} />
+            {console.log(setup.cpu, setup.gpu, setup.ram)}
+            {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
           </Grid>
         </Grid>
       </Box>
