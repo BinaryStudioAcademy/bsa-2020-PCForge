@@ -33,11 +33,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newGpu);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(GpuSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteGpuRequest, reply) => {
     const { id } = request.params;
-    await GpuService.deleteGpuById({ id });
-    reply.send({});
+    const gpu = await GpuService.deleteGpuById(id);
+    reply.send(gpu);
   });
 
   next();

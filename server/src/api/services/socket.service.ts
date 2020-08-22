@@ -35,7 +35,12 @@ export class SocketService {
     return socket;
   }
 
-  async deleteSocketById(id: string): Promise<void> {
+  async deleteSocketById(id: string): Promise<SocketModel> {
+    const socket = await this.repository.getSocketById(id);
+    if (!socket) {
+      triggerServerError(`Socket with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteSocketById(id);
+    return socket;
   }
 }

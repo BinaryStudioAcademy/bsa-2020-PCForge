@@ -35,8 +35,12 @@ export class RamService {
     return ram;
   }
 
-  async deleteRamById(inputRam: { id: string }): Promise<void> {
-    const { id } = inputRam;
+  async deleteRamById(id: string): Promise<RamModel> {
+    const ram = await this.repository.getRamById(id);
+    if (!ram) {
+      triggerServerError(`Ram with id: ${id} does not exists`, 404)
+    }
     await this.repository.deleteRamById(id);
+    return ram;
   }
 }

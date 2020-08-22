@@ -38,6 +38,7 @@ export const GameSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Minecraft',
       nullable: false,
     },
@@ -50,11 +51,13 @@ export const GameSchema: SwaggerSchema = {
     },
     image: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example: 'http://hosting-server.com/route',
     },
     description: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example: 'Long game description goes here...',
     },
@@ -100,11 +103,13 @@ export const GameSchema: SwaggerSchema = {
     recommendedGpu: GpuSchema,
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -116,6 +121,7 @@ export const CreateGameSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'FirePro 3D V3700',
       nullable: false,
     },
@@ -128,11 +134,13 @@ export const CreateGameSchema: SwaggerSchema = {
     },
     image: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example: 'http://hosting-server.com/route',
     },
     description: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example: 'Long game description goes here...',
     },
@@ -180,6 +188,7 @@ export const updateGameSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'FirePro 3D V3700',
       nullable: true,
     },
@@ -192,11 +201,13 @@ export const updateGameSchema: SwaggerSchema = {
     },
     image: {
       type: 'string',
+      minLength: 1,
       nullable: true,
       example: 'http://hosting-server.com/route',
     },
     description: {
       type: 'string',
+      minLength: 1,
       nullable: true,
       example: 'Long game description goes here...',
     },

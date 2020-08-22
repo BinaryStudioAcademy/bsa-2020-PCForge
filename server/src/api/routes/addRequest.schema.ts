@@ -43,22 +43,26 @@ export const AddRequestSchema: SwaggerSchema = {
     },
     requestedType: {
       type: 'string',
+      minLength: 1,
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
       nullable: false
     },
     requestBody: {
       type: 'string',
+      minLength: 1,
       example: 'Request body goes here...',
       nullable: false
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time'
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time'
     }
@@ -99,12 +103,14 @@ export const CreateAddRequestSchema: SwaggerSchema = {
     },
     requestedType: {
       type: 'string',
+      minLength: 1,
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
       nullable: false
     },
     requestBody: {
       type: 'string',
+      minLength: 1,
       example: 'Request body goes here...',
       nullable: false
     },
@@ -122,12 +128,14 @@ export const UpdateAddRequestSchema: SwaggerSchema = {
     },
     requestedType: {
       type: 'string',
+      minLength: 1,
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
       nullable: true
     },
     requestBody: {
       type: 'string',
+      minLength: 1,
       example: 'Request body goes here...',
       nullable: true
     },

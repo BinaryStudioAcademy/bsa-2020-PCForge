@@ -22,6 +22,7 @@ export function GetOneQuery(schema: SwaggerSchema, querystring?: SwaggerSchema) 
           properties: {
             error: {
               type: 'string',
+              minLength: 1,
               example: 'Item not found',
               nullable: false,
             },
@@ -67,6 +68,7 @@ export function UpdateOneQuery(toUpdate: SwaggerSchema, newData: SwaggerSchema) 
           properties: {
             error: {
               type: 'string',
+              minLength: 1,
               example: 'Item with id: 1 does not exists',
               nullable: false,
             },
@@ -94,10 +96,24 @@ export function DeleteOneQuery(schema?: SwaggerSchema) {
         },
       },
       response: {
-        200: {
+        200: schema,
+        404: {
           type: 'object',
-          properties: {},
-        },
+          properties: {
+            error: {
+              type: 'string',
+              minLength: 1,
+              example: 'Item with id: 1 does not exists',
+              nullable: false,
+            },
+            status: {
+              type: 'integer',
+              nullable: false,
+              example: 404,
+            },
+          },
+          nullable: false,
+        }
       },
     },
   };

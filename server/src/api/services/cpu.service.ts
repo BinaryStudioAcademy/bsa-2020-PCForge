@@ -35,8 +35,12 @@ export class CpuService {
     return cpu;
   }
 
-  async deleteCpuById(inputCpu: { id: string }): Promise<void> {
-    const { id } = inputCpu;
+  async deleteCpuById(id: string): Promise<CpuModel> {
+    const cpu = await this.repository.getCpuById(id);
+    if (!cpu) {
+      triggerServerError(`Cpu with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteCpuById(id);
+    return cpu;
   }
 }

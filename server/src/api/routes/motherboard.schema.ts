@@ -37,6 +37,7 @@ export const MotherBoardSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Motherboard name',
       nullable: false,
     },
@@ -54,11 +55,13 @@ export const MotherBoardSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -80,6 +83,7 @@ export const CreateMotherBoardSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Motherboard name',
       nullable: false,
     },
@@ -103,6 +107,7 @@ export const UpdateMotherBoardSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Motherboard name',
       nullable: true,
     },

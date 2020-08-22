@@ -43,11 +43,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newSocket);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(SocketSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteSocketRequest, reply) => {
     const { id } = request.params;
-    await SocketService.deleteSocketById(id);
-    reply.send({});
+    const socket = await SocketService.deleteSocketById(id);
+    reply.send(socket);
   });
 
   next();

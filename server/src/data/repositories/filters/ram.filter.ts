@@ -24,6 +24,7 @@ export class IRamFilter extends IFilter {
       },
       name: {
         type: 'string',
+      minLength: 1,
         minimum: 1,
         nullable: true
       }

@@ -60,11 +60,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(setup);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(DetailedSetupSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteSetupRequest, reply) => {
     const { id } = request.params;
-    await SetupService.deleteSetupById(id);
-    reply.send({});
+    const setup = await SetupService.deleteSetupById(id);
+    reply.send(setup);
   });
 
   next();

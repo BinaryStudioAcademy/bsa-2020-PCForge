@@ -20,6 +20,7 @@ export class ICpuFilter extends IFilter {
       },
       name: {
         type: 'string',
+      minLength: 1,
         nullable: true,
       },
     },

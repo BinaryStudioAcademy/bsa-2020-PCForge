@@ -49,11 +49,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newPowerSupply);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(PowerSupplySchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeletePowerSupplyRequest, reply) => {
     const { id } = request.params;
-    await PowerSupplyService.deletePowerSupplyById(id);
-    reply.send({});
+    const powerSupply = await PowerSupplyService.deletePowerSupplyById(id);
+    reply.send(powerSupply);
   });
 
   next();

@@ -36,7 +36,7 @@ export class UserService {
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getById(id);
     if (!user) {
-      triggerServerError('User with id: ${id} does not exists', 404);
+      triggerServerError(`User with id: ${id} does not exists`, 404);
     }
     return user;
   }
@@ -65,8 +65,13 @@ export class UserService {
     return user;
   }
 
-  async deleteUser(id: string): Promise<void> {
+  async deleteUser(id: string): Promise<UserModel> {
+    const user = await this.repository.getById(id);
+    if (!user) {
+      triggerServerError(`User with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteById(id);
+    return user;
   }
 
   hash(password: string): string {

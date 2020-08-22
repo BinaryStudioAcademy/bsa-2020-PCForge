@@ -35,11 +35,13 @@ export const GpuSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'FirePro 3D V3700',
       nullable: false,
     },
     interface: {
       type: 'string',
+      minLength: 1,
       example: 'PCIe 2.0 x16',
       nullable: false,
     },
@@ -57,6 +59,7 @@ export const GpuSchema: SwaggerSchema = {
     },
     opengl: {
       type: 'string',
+      minLength: 1,
       example: '3',
       nullable: false
     },
@@ -74,11 +77,13 @@ export const GpuSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time'
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time'
     }
@@ -90,11 +95,13 @@ export const CreateGpuSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'FirePro 3D V3700',
       nullable: false,
     },
     interface: {
       type: 'string',
+      minLength: 1,
       example: 'PCIe 2.0 x16',
       nullable: false,
     },
@@ -112,6 +119,7 @@ export const CreateGpuSchema: SwaggerSchema = {
     },
     opengl: {
       type: 'string',
+      minLength: 1,
       example: '3',
       nullable: false
     },
@@ -135,11 +143,13 @@ export const UpdateGpuSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'FirePro 3D V3700',
       nullable: true,
     },
     interface: {
       type: 'string',
+      minLength: 1,
       example: 'PCIe 2.0 x16',
       nullable: true,
     },
@@ -157,6 +167,7 @@ export const UpdateGpuSchema: SwaggerSchema = {
     },
     opengl: {
       type: 'string',
+      minLength: 1,
       example: '3',
       nullable: true
     },

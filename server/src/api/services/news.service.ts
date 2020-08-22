@@ -33,8 +33,12 @@ export class NewsService {
     return news;
   }
 
-  async deleteNewsById(inputNews: { id: string }): Promise<void> {
-    const { id } = inputNews;
+  async deleteNewsById(id: string): Promise<NewsModel> {
+    const news = await this.repository.getNewsById(id);
+    if (!news) {
+      triggerServerError(`News with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteNewsById(id);
+    return news;
   }
 }

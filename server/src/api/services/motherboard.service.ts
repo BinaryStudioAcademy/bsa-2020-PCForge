@@ -38,7 +38,12 @@ export class MotherboardService {
     return motherboard;
   }
 
-  async deleteMotherboardById(id: string): Promise<void> {
+  async deleteMotherboardById(id: string): Promise<MotherboardModel> {
+    const motherboard = await this.repository.getMotherboardById(id);
+    if (!motherboard) {
+      triggerServerError(`Motherboard with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteMotherboardById(id);
+    return motherboard;
   }
 }

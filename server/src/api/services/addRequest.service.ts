@@ -41,7 +41,12 @@ export class AddRequestService {
     return await this.repository.updateAddRequest(id, data);
   }
 
-  async deleteAddRequestById(id: string): Promise<void> {
+  async deleteAddRequestById(id: string): Promise<AddRequestModel> {
+    const addRequest: AddRequestModel = await this.repository.getAddRequestById(id);
+    if (!addRequest) {
+      triggerServerError(`Add request with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteAddRequest(id);
+    return addRequest;
   }
 }

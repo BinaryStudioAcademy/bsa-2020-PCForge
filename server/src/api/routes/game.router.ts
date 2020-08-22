@@ -43,11 +43,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newGame);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(GameSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteGameRequest, reply) => {
     const { id } = request.params;
-    await GameService.deleteGameById(id);
-    reply.send({});
+    const game = await GameService.deleteGameById(id);
+    reply.send(game);
   });
 
   next();

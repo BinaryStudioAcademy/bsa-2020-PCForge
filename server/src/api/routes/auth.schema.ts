@@ -20,11 +20,13 @@ const LoginRequest: SwaggerSchema = {
   properties: {
     email: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'email'
     },
     password: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example: '**********',
     }
@@ -37,6 +39,7 @@ const LoginResponse: {[number: number]: SwaggerSchema} = {
     properties: {
       token: {
         type: 'string',
+      minLength: 1,
         example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
         nullable: false
       },
@@ -48,6 +51,7 @@ const LoginResponse: {[number: number]: SwaggerSchema} = {
     properties: {
       error: {
         type: 'string',
+      minLength: 1,
         example: 'User with given credential does not exist',
         nullable: false
       },
@@ -67,6 +71,7 @@ const GoogleAuthResponse: SwaggerSchema = {
   properties: {
     token: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
     }
@@ -102,6 +107,7 @@ const isAuthenticatedRequest: SwaggerSchema = {
   properties: {
     token: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
     }

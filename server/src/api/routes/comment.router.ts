@@ -51,11 +51,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newComment);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(CommentSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteCommentRequest, reply) => {
     const { id } = request.params;
-    await CommentService.deleteCommentById(id);
-    reply.send({});
+    const comment = await CommentService.deleteCommentById(id);
+    reply.send(comment);
   });
 
   next();

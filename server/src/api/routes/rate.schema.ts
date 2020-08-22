@@ -36,6 +36,7 @@ export const RateSchema: SwaggerSchema = {
     },
     ratebleType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
       nullable: false,
@@ -60,11 +61,13 @@ export const RateSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -78,6 +81,7 @@ export const GetRatesAverage = {
       properties: {
         ratebleType: {
           type: 'string',
+      minLength: 1,
           enum: ['news', 'game', 'setup'],
           nullable: true,
         },
@@ -131,6 +135,7 @@ export const CreateRateSchema: SwaggerSchema = {
   properties: {
     ratebleType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
       nullable: false,
@@ -161,6 +166,7 @@ export const UpdateRateSchema: SwaggerSchema = {
   properties: {
     ratebleType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
       nullable: true,

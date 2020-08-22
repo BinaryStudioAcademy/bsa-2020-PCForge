@@ -36,11 +36,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newComment);
   });
 
-  const deleteCommentSchema = DeleteOneQuery();
+  const deleteCommentSchema = DeleteOneQuery(AddRequestSchema);
   fastify.delete('/:id', deleteCommentSchema, async (request: DeleteAddRequestRequest, reply) => {
     const { id } = request.params;
-    await AddRequestService.deleteAddRequestById(id);
-    reply.send({});
+    const addRequest = await AddRequestService.deleteAddRequestById(id);
+    reply.send(addRequest);
   });
 
   next();

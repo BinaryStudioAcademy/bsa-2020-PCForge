@@ -52,11 +52,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newRam);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(DetailedRamSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteRamRequest, reply) => {
     const { id } = request.params;
-    await RamService.deleteRamById({ id });
-    reply.send({});
+    const ram = await RamService.deleteRamById(id);
+    reply.send(ram);
   });
 
   next();

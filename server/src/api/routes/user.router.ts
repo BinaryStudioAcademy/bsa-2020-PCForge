@@ -43,11 +43,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(user);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(UserSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteUserRequest, reply) => {
     const { id } = request.params;
-    await UserService.deleteUser(id);
-    reply.send({});
+    const user = await UserService.deleteUser(id);
+    reply.send(user);
   });
 
   next();

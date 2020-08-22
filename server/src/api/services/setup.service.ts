@@ -41,7 +41,12 @@ export class SetupService {
     return setup;
   }
 
-  async deleteSetupById(id: string): Promise<void> {
+  async deleteSetupById(id: string): Promise<SetupModel> {
+    const setup = await this.repository.getOneSetup(id);
+    if (!setup) {
+      triggerServerError(`Setup with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteById(id);
+    return setup;
   }
 }

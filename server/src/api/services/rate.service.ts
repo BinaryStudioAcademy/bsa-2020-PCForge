@@ -44,7 +44,12 @@ export class RateService {
     return await this.repository.updateRateById(id, data);
   }
 
-  async deleteRateById(id: string): Promise<void> {
+  async deleteRateById(id: string): Promise<RateModel> {
+    const rate = await this.repository.getRateById(id);
+    if (!rate) {
+      triggerServerError(`Rate with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteRateById(id);
+    return rate;
   }
 }

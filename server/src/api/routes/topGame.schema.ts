@@ -43,11 +43,13 @@ export const TopGameSchema: SwaggerSchema = {
     game: GameSchema,
     createdAt: {
       type: 'string',
+      minLength: 1,
       format: 'date-time',
       nullable: false,
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       format: 'date-time',
       nullable: false,
     }

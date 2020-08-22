@@ -35,7 +35,12 @@ export class TopGameService {
     return TopGame;
   }
 
-  async deleteTopGameById(id: string): Promise<void> {
+  async deleteTopGameById(id: string): Promise<TopGameModel> {
+    const TopGame = await this.repository.getTopGameById(id);
+    if (!TopGame) {
+      triggerServerError(`TopGame with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteTopGameById(id);
+    return TopGame;
   }
 }

@@ -42,16 +42,19 @@ export const SetupSchema: SwaggerSchema = {
     },
     title: {
       type: 'string',
+      minLength: 1,
       example: 'Setup name',
       nullable: false,
     },
     description: {
       type: 'string',
+      minLength: 1,
       example: 'Setup description',
       nullable: false,
     },
     image: {
       type: 'string',
+      minLength: 1,
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,
@@ -94,11 +97,13 @@ export const SetupSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -149,16 +154,19 @@ export const CreateSetupSchema: SwaggerSchema = {
   properties: {
     title: {
       type: 'string',
+      minLength: 1,
       example: 'Setup title',
       nullable: false,
     },
     description: {
       type: 'string',
+      minLength: 1,
       example: 'Setup description',
       nullable: false,
     },
     image: {
       type: 'string',
+      minLength: 1,
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,
@@ -204,16 +212,19 @@ export const UpdateSetupSchema: SwaggerSchema = {
   properties: {
     title: {
       type: 'string',
+      minLength: 1,
       example: 'Setup title',
       nullable: true,
     },
     description: {
       type: 'string',
+      minLength: 1,
       example: 'Setup description',
       nullable: true,
     },
     image: {
       type: 'string',
+      minLength: 1,
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,

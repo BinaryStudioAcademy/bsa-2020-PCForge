@@ -36,6 +36,7 @@ export const CpuSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
     },
@@ -47,6 +48,7 @@ export const CpuSchema: SwaggerSchema = {
     },
     class: {
       type: 'string',
+      minLength: 1,
       example: 'Desktop',
       nullable: false,
     },
@@ -76,11 +78,13 @@ export const CpuSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -101,6 +105,7 @@ export const CreateCpuSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
     },
@@ -112,6 +117,7 @@ export const CreateCpuSchema: SwaggerSchema = {
     },
     class: {
       type: 'string',
+      minLength: 1,
       example: 'Desktop',
       nullable: false,
     },
@@ -147,6 +153,7 @@ export const UpdateCpuSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
     },
@@ -158,6 +165,7 @@ export const UpdateCpuSchema: SwaggerSchema = {
     },
     class: {
       type: 'string',
+      minLength: 1,
       example: 'Desktop',
       nullable: false,
     },

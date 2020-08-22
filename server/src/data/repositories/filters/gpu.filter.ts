@@ -14,6 +14,7 @@ export class IGpuFilter extends IFilter {
       ...IFilter.schema.properties,
       name: {
         type: 'string',
+      minLength: 1,
         minimum: 1,
         nullable: true
       }

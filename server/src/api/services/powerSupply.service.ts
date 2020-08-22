@@ -38,7 +38,12 @@ export class PowerSupplyService {
     return PowerSupply;
   }
 
-  async deletePowerSupplyById(id: string): Promise<void> {
+  async deletePowerSupplyById(id: string): Promise<PowerSupplyModel> {
+    const powerSupply = await this.repository.getPowerSupplyById(id);
+    if (!powerSupply) {
+      triggerServerError(`PowerSupply with id: ${id} does not exists`, 404);
+    }
     await this.repository.deletePowerSupplyById(id);
+    return powerSupply;
   }
 }

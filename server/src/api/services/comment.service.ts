@@ -42,7 +42,12 @@ export class CommentService {
     return await this.repository.updateCommentById(id, data);
   }
 
-  async deleteCommentById(id: string): Promise<void> {
+  async deleteCommentById(id: string): Promise<CommentModel> {
+    const comment = await this.repository.getCommentById(id);
+    if (!comment) {
+      triggerServerError(`Comment with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteCommentById(id);
+    return comment;
   }
 }

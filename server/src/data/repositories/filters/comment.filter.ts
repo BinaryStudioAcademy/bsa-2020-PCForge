@@ -15,6 +15,7 @@ export class ICommentFilter extends IFilter {
       ...IFilter.schema.properties,
       commentableType: {
         type: 'string',
+      minLength: 1,
         enum: ['news', 'game', 'setup'],
         nullable: true,
       },

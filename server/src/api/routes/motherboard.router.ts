@@ -50,11 +50,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newMotherboard);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(DetailedMotherBoardSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteMotherboardRequest, reply) => {
     const { id } = request.params;
-    await MotherboardService.deleteMotherboardById(id);
-    reply.send({});
+    const motherboard = await MotherboardService.deleteMotherboardById(id);
+    reply.send(motherboard);
   });
 
   next();

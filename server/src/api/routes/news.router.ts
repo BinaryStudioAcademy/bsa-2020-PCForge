@@ -32,11 +32,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newNews);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(NewsSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteNewsRequest, reply) => {
     const { id } = request.params;
-    await NewsService.deleteNewsById({ id });
-    reply.send({});
+    const news = await NewsService.deleteNewsById(id);
+    reply.send(news);
   });
 
   next();

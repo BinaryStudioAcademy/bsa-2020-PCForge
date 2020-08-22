@@ -35,7 +35,12 @@ export class RamTypeService {
     return ramType;
   }
 
-  async deleteRamTypeById(id: string): Promise<void> {
+  async deleteRamTypeById(id: string): Promise<RamTypeModel> {
+    const ramType = await this.repository.getRamTypeById(id);
+    if (!ramType) {
+      triggerServerError(`Ram type with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteRamTypeById(id);
+    return ramType;
   }
 }

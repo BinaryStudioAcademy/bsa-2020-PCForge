@@ -20,7 +20,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = GetMultipleQuery(GetAllTopGames, IFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllTopGamesRequest, reply) => {
     const TopGames = await TopGameService.getAllTopGames(request.query);
-    console.log(TopGames);
     reply.send(TopGames);
   });
 
@@ -44,11 +43,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newTopGame);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = DeleteOneQuery(TopGameSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteTopGameRequest, reply) => {
     const { id } = request.params;
-    await TopGameService.deleteTopGameById(id);
-    reply.send({});
+    const topGame = await TopGameService.deleteTopGameById(id);
+    reply.send(topGame);
   });
 
   next();

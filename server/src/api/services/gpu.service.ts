@@ -37,8 +37,12 @@ export class GpuService {
     return Gpu;
   }
 
-  async deleteGpuById(inputGpu: { id: string }): Promise<void> {
-    const { id } = inputGpu;
+  async deleteGpuById(id: string): Promise<GpuModel> {
+    const gpu = await this.repository.getGpuById(id);
+    if (!gpu) {
+      triggerServerError(`Gpu with id: ${id} does not exists`, 404);
+    }
     await this.repository.deleteGpuById(id);
+    return gpu;
   }
 }

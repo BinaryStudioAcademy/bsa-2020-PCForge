@@ -35,16 +35,19 @@ export const SocketSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Unique socket name',
       nullable: false,
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time'
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time'
     }
@@ -79,6 +82,7 @@ export const CreateSocketSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'socket name',
       nullable: false,
     },
@@ -90,6 +94,7 @@ export const UpdateSocketSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'socket name',
       nullable: true,
     },
