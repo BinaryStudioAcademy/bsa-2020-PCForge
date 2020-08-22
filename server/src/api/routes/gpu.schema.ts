@@ -90,6 +90,7 @@ export const GpuSchema: SwaggerSchema = {
 
 export const CreateGpuSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'interface', 'memorySize', 'coreClocks', 'opengl', 'tdp', 'performance'],
   properties: {
     name: {
       type: 'string',

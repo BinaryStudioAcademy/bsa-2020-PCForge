@@ -77,6 +77,7 @@ export const GetAllSockets: SwaggerSchema = {
 
 export const CreateSocketSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
@@ -89,6 +90,7 @@ export const CreateSocketSchema: SwaggerSchema = {
 
 export const UpdateSocketSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',

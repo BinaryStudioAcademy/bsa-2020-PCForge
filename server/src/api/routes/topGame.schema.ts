@@ -56,6 +56,7 @@ export const TopGameSchema: SwaggerSchema = {
 
 export const CreateTopGameSchema: SwaggerSchema = {
   type: 'object',
+  required: ['gameId'],
   properties: {
     gameId: {
       example: 1,
@@ -68,6 +69,7 @@ export const CreateTopGameSchema: SwaggerSchema = {
 
 export const UpdateTopGameSchema: SwaggerSchema = {
   type: 'object',
+  required: ['gameId'],
   properties: {
     gameId: {
       example: 1,

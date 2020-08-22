@@ -17,6 +17,7 @@ export type IsUserAuthenticated = FastifyRequest<{
 
 const LoginRequest: SwaggerSchema = {
   type: 'object',
+  required: ['email', 'password'],
   properties: {
     email: {
       type: 'string',
