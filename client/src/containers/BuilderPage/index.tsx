@@ -135,7 +135,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
-      <Box className={styles.builderWrapper}>
+      <Box className={`${styles.builderWrapper} ${className}`}>
         {isModalActive ? <SaveSetupModal onClose={hideModal} /> : null}
         <BuilderTitle
           isCanToSave={isCanToSaveSetup(setup)}
@@ -145,7 +145,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           onResetFilter={resetFilter}
           onSaveSetup={showModal}
         />
-        <Grid container spacing={3}>
+        <Grid container spacing={5}>
           <Grid item xs={12} lg={9} xl={10}>
             {groups}
           </Grid>
