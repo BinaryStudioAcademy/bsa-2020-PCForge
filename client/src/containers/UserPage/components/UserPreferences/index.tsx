@@ -2,7 +2,7 @@ import React from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
-import SetupCard, { SetupCardProps } from '../SetupCard';
+import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import styles from './styles.module.scss';
 
 export interface UserPreferencesProps {
@@ -16,7 +16,6 @@ const generateKey = (pre: string, index: number) => {
 
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   const { games, setups } = props;
-  console.log(setups);
   return (
     <>
       {games ? (

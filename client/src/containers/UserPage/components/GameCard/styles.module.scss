@@ -3,7 +3,7 @@
 $bgGameCard:rgb(19, 18, 18);
 
 .gameCard {
-  height: 180px;
+  // height: auto;
   width: 280px;
   display: flex;
   flex-direction: column;
@@ -16,15 +16,9 @@ $bgGameCard:rgb(19, 18, 18);
   position: relative;
   transition: all 0.3s;
 
-  @media (max-width: 768px) {
-    width: 70%;
-    height:auto;
-
-    .gameImage {
-      width:100%;
-    }
+  .gameImage {
+    width:100%;
   }
-
 
   img {
     object-fit: contain;

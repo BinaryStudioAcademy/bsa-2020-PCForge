@@ -7,7 +7,7 @@ export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const SHOW_SPINNER = 'SHOW_SPINNER';
 export const HIDE_SPINNER = 'HIDE_SPINNER';
-export const LOAD_SETUPS =  'LOAD_SETUPS';
+export const LOAD_SETUPS = 'LOAD_SETUPS';
 export const LOAD_SETUPS_SUCCESS = 'LOAD_SETUPS_SUCCES';
 
 export interface loadUser {
@@ -22,12 +22,11 @@ export interface loadUserSuccess {
   payload: TypeUser;
 }
 
-
 export interface loadSetups {
   type: typeof LOAD_SETUPS;
   payload: {
-    id: number;
-  }
+    authorId: number;
+  };
 }
 
 export interface loadSetupsSuccess {
@@ -56,4 +55,12 @@ export interface hideSpinner {
   type: typeof HIDE_SPINNER;
 }
 
-export type UserActionTypes = hideSpinner | showSpinner | loadUser | loadUserSuccess | updateUser | updateUserSuccess | loadSetups | loadSetupsSuccess;
+export type UserActionTypes =
+  | hideSpinner
+  | showSpinner
+  | loadUser
+  | loadUserSuccess
+  | updateUser
+  | updateUserSuccess
+  | loadSetups
+  | loadSetupsSuccess;

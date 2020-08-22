@@ -20,12 +20,11 @@ enum UserPageTabs {
 interface IUserInfoProps {
   user: TypeUser;
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
-  setups: SetupType[],
+  setups: SetupType[];
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const { user, updateUser, setups } = props;
-  console.log(setups)
 
   const gamesArray = [
     {
@@ -65,7 +64,6 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
       releaseDate: '06.06.16',
     },
   ];
- 
 
   const initialErrorMessages = {
     emailErrorMessage: null,
@@ -95,7 +93,6 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   }, [editableInput]);
 
   const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
-    
     setSelectedTab(newValue);
   };
 

@@ -1,6 +1,13 @@
 import { TypeUser } from 'common/models/typeUser';
 import { SetupType } from 'common/models/typeSetup';
-import { UserActionTypes, LOAD_USER_SUCCESS, UPDATE_USER_SUCCESS, LOAD_SETUPS_SUCCESS, SHOW_SPINNER, HIDE_SPINNER } from './actionTypes';
+import {
+  UserActionTypes,
+  LOAD_USER_SUCCESS,
+  UPDATE_USER_SUCCESS,
+  LOAD_SETUPS_SUCCESS,
+  SHOW_SPINNER,
+  HIDE_SPINNER,
+} from './actionTypes';
 
 export interface IUserState {
   loadedUser: TypeUser | null;
@@ -40,7 +47,7 @@ function UserReducer(state = initialState, action: UserActionTypes): IUserState 
       return {
         ...state,
         setups: action.payload,
-      }
+      };
     default:
       return state;
   }

@@ -36,15 +36,15 @@ export const updateUserSuccess = (data: TypeUser): UserActionTypes => ({
   payload: data,
 });
 
-export const loadSetups = (id: number): UserActionTypes => ({
+export const loadSetups = (authorId: number): UserActionTypes => ({
   type: LOAD_SETUPS,
-  payload: { id }
-})
+  payload: { authorId },
+});
 
 export const loadSetupsSuccess = (data: SetupType[]): UserActionTypes => ({
   type: LOAD_SETUPS_SUCCESS,
   payload: data,
-})
+});
 
 export const showSpinner = (): UserActionTypes => ({
   type: SHOW_SPINNER,

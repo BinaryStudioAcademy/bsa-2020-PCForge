@@ -1,7 +1,14 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
 import { getUser, updateUser as updateUserService } from 'api/services/userService';
 import { uploadImage } from 'api/services/imageService';
-import { loadUser as loadUserAction, updateUser as updateUserAction, loadSetups as loadSetupsAction, LOAD_USER, UPDATE_USER, LOAD_SETUPS } from './actionTypes';
+import {
+  loadUser as loadUserAction,
+  updateUser as updateUserAction,
+  loadSetups as loadSetupsAction,
+  LOAD_USER,
+  UPDATE_USER,
+  LOAD_SETUPS,
+} from './actionTypes';
 import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess, loadSetupsSuccess } from './actions';
 import * as notification from 'common/services/notificationService';
 import { getUserSetups, TypeResponseAll } from 'api/services/setupService';
@@ -53,8 +60,8 @@ function* watchLoadSetups() {
 function* loadSetups(action: loadSetupsAction) {
   yield put(showSpinner());
   try {
-    const id = action.payload.id;
-    const setups = yield call(getUserSetups, {authorId: id});
+    const id = action.payload.authorId;
+    const setups = yield call(getUserSetups, { authorId: id });
     yield put(loadSetupsSuccess((setups as TypeResponseAll).data));
   } catch (error) {
     console.log(error);

@@ -27,9 +27,9 @@ export const getTopSetups = async (filter: ITopSetupFilter): Promise<TypeRespons
   return await webApi.get(endpoint, filter);
 };
 
-export const getUserSetups = async(filter: IUserSetupFilter): Promise<TypeResponseAll> => {
+export const getUserSetups = async (filter: IUserSetupFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);
-}
+};
 
 export const getSetup = async (id: number): Promise<TypeResponseOne> => {
   const url = `${endpoint}/${id}`;
