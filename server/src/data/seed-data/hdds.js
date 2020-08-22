@@ -2303,3 +2303,5 @@ const hdds = [
     ram: 64,
   },
 ];
+
+module.exports = hdds;
