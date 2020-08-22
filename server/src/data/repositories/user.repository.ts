@@ -8,6 +8,11 @@ export class UserRepository extends BaseRepository<UserModel, IFilter> {
     super(<RichModel>model, IFilter);
   }
 
+  async getUserById(id: string): Promise<UserModel> {
+    const user = await this.getById(id);
+    return user;
+  }
+
   async getAllUsers(): Promise<UserModel[]> {
     const user = await this.getAll();
     return user.data;

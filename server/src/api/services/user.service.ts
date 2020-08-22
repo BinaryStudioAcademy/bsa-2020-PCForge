@@ -34,7 +34,7 @@ export class UserService {
   }
 
   async getUser(id: string): Promise<UserModel> {
-    const user = await this.repository.getById(id);
+    const user = await this.repository.getUserById(id);
     if (!user) {
       triggerServerError('User with id: ${id} does not exists', 404);
     }

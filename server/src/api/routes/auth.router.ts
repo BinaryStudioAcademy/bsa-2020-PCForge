@@ -51,7 +51,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
           response.send({ logged_in: false });
         }
       } else {
-        response.send({ logged_in: true });
+        const user = await UserService.getUser(decoded.user.id);
+        response.send({ logged_in: true, user });
       }
     });
   });
