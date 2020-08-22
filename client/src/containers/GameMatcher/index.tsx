@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
 import { MatcherSettableVariants, MatcherServerActions } from './actionTypes';
 import { RouteComponentProps } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 
 const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Element => {
   const { setAlertValue, getMatcherData } = props;
@@ -145,14 +146,16 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                   />
                 </div>
               </section>
-              <Button
-                buttonType={ButtonType.primary}
-                className={styles.pageButton}
-                classes={{ label: styles.buttonLabel }}
-                onClick={onTestGame}
-              >
-                Can I Run It
-              </Button>
+              <Box className={styles.pageButtonWrapper}>
+                <Button
+                  buttonType={ButtonType.primary}
+                  className={styles.pageButton}
+                  classes={{ label: styles.buttonLabel }}
+                  onClick={onTestGame}
+                >
+                  Can I Run It
+                </Button>
+              </Box>
             </div>
           </div>
           <TopGames topGames={[]} />
