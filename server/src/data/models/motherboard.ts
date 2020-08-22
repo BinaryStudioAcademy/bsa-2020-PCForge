@@ -39,6 +39,14 @@ export function MotherboardFactory(sequelize: Sequelize): MotherboardStatic {
       allowNull: false,
       type: DataTypes.STRING(150),
     },
+    sata: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    m2: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
