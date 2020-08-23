@@ -17,7 +17,7 @@ export interface IWithMeta<M extends Model> {
 }
 
 export abstract class BaseRepository<M extends Model, F extends IFilter = IFilter> {
-  constructor(private _model: RichModel, private filterFactory: new () => F) {}
+  constructor(public _model: RichModel, private filterFactory: new () => F) {}
 
   private async getCount(where?: Record<string, unknown>): Promise<number> {
     const count = await this._model.count({ where });

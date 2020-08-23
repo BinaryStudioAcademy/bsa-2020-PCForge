@@ -22,7 +22,7 @@ export abstract class BaseService<M extends Model, R extends BaseRepository<M>> 
   public async updateById(id: string, data: object): Promise<M | never> {
     const oldModel = await this._repository.getById(id);
     if (!oldModel) {
-      triggerServerError(`with id: ${id} does not exists`, 404);
+      triggerServerError(`${this._repository._model.name} with id: ${id} does not exists`, 404);
     }
     try {
       const newModel = await this._repository.updateById(id, data);
