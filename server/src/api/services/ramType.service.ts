@@ -3,9 +3,12 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { RamTypeRepository } from '../../data/repositories/ramType.repository';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class RamTypeService {
-  constructor(private repository: RamTypeRepository) {}
+export class RamTypeService extends BaseService<RamTypeModel, RamTypeRepository> {
+  constructor(private repository: RamTypeRepository) {
+    super(repository);
+  }
 
   async getRamTypeById(id: string): Promise<RamTypeModel> {
     const ramType = await this.repository.getRamTypeById(id);
@@ -21,7 +24,7 @@ export class RamTypeService {
   }
 
   async createRamType(inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
-    const ramType = await this.repository.createRamType(inputRamType);
+    const ramType = await super.create(inputRamType);
     return ramType;
   }
 

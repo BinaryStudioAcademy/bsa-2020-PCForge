@@ -3,9 +3,12 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SocketRepository } from '../../data/repositories/socket.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class SocketService {
-  constructor(private repository: SocketRepository) {}
+export class SocketService extends BaseService<SocketModel, SocketRepository> {
+  constructor(private repository: SocketRepository) {
+    super(repository);
+  }
 
   async getSocketById(id: string): Promise<SocketModel> {
     const socket = await this.repository.getSocketById(id);
@@ -21,7 +24,7 @@ export class SocketService {
   }
 
   async createSocket(inputSocket: SocketCreationAttributes): Promise<SocketModel> {
-    const socket = await this.repository.createSocket(inputSocket);
+    const socket = await super.create(inputSocket);
     return socket;
   }
 

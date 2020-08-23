@@ -3,9 +3,12 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { CpuRepository } from '../../data/repositories/cpu.repository';
 import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class CpuService {
-  constructor(private repository: CpuRepository) {}
+export class CpuService extends BaseService<CpuModel, CpuRepository> {
+  constructor(private repository: CpuRepository) {
+    super(repository);
+  }
 
   async getCpuById(id: string): Promise<CpuModel> {
     const cpu = await this.repository.getCpuById(id);
@@ -21,7 +24,7 @@ export class CpuService {
   }
 
   async createCpu(inputCpu: CpuCreationAttributes): Promise<CpuModel> {
-    const cpu = await this.repository.createCpu(inputCpu);
+    const cpu = await super.create(inputCpu);
     return cpu;
   }
 

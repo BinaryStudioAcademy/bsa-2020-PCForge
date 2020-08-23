@@ -67,4 +67,10 @@ export abstract class BaseRepository<M extends Model, F extends IFilter = IFilte
       where: { id },
     });
   }
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  async create(data: object): Promise<M> {
+    const model = this._model.create(data);
+    return (model as unknown) as M;
+  }
 }

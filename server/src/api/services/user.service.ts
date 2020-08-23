@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
 interface UserCreateAttributes {
   name: string;
@@ -10,8 +11,10 @@ interface UserCreateAttributes {
   avatar: string;
 }
 
-export class UserService {
-  constructor(private repository: UserRepository) {}
+export class UserService extends BaseService<UserModel, UserRepository> {
+  constructor(private repository: UserRepository) {
+    super(repository);
+  }
 
   async getUserByLoginOrEmail(login: string, password: string): Promise<UserModel> {
     if (!login || !password) {
@@ -49,7 +52,7 @@ export class UserService {
       verifyEmailToken: null,
       resetPasswordToken: null,
     };
-    const user = await this.repository.create(userAttributes);
+    const user = await super.create(userAttributes);
     return user;
   }
 

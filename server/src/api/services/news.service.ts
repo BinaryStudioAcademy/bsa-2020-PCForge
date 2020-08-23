@@ -1,9 +1,12 @@
 import { NewsCreationAttributes, NewsModel } from '../../data/models/news';
 import { NewsRepository } from '../../data/repositories/news.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class NewsService {
-  constructor(private repository: NewsRepository) {}
+export class NewsService extends BaseService<NewsModel, NewsRepository> {
+  constructor(private repository: NewsRepository) {
+    super(repository);
+  }
 
   async getNewsById(id: string): Promise<NewsModel> {
     const news = await this.repository.getNewsById(id);
@@ -19,7 +22,7 @@ export class NewsService {
   }
 
   async createNews(inputNews: NewsCreationAttributes): Promise<NewsModel> {
-    const news = await this.repository.createNews(inputNews);
+    const news = await super.create(inputNews);
     return news;
   }
 

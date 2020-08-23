@@ -4,9 +4,12 @@ import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { CommentRepository } from '../../data/repositories/comment.repository';
 import { ICommentMiddleware } from '../middlewares/comment.middleware';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class CommentService {
-  constructor(private repository: CommentRepository) {}
+export class CommentService extends BaseService<CommentModel, CommentRepository> {
+  constructor(private repository: CommentRepository) {
+    super(repository);
+  }
 
   async getCommentById(id: string): Promise<CommentModel> {
     const comment = await this.repository.getCommentById(id);
@@ -25,7 +28,8 @@ export class CommentService {
     commentMiddleware: ICommentMiddleware
   ): Promise<CommentModel> {
     await commentMiddleware(inputComment);
-    return await this.repository.createComment(inputComment);
+    const comment = await super.create(inputComment);
+    return comment;
   }
 
   async updateCommentById(
