@@ -31,8 +31,7 @@ export class NewsService extends BaseService<NewsModel, NewsRepository> {
     return news;
   }
 
-  async deleteNewsById(inputNews: { id: string }): Promise<void> {
-    const { id } = inputNews;
-    await this.repository.deleteNewsById(id);
+  async deleteNewsById(id: string): Promise<void> {
+    await super.deleteById(id);
   }
 }

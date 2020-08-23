@@ -40,6 +40,6 @@ export class MotherboardService extends BaseService<MotherboardModel, Motherboar
   }
 
   async deleteMotherboardById(id: string): Promise<void> {
-    await this.repository.deleteMotherboardById(id);
+    await super.deleteById(id);
   }
 }

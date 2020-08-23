@@ -34,6 +34,6 @@ export class SocketService extends BaseService<SocketModel, SocketRepository> {
   }
 
   async deleteSocketById(id: string): Promise<void> {
-    await this.repository.deleteSocketById(id);
+    await super.deleteById(id);
   }
 }

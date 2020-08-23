@@ -33,8 +33,7 @@ export class CpuService extends BaseService<CpuModel, CpuRepository> {
     return cpu;
   }
 
-  async deleteCpuById(inputCpu: { id: string }): Promise<void> {
-    const { id } = inputCpu;
-    await this.repository.deleteCpuById(id);
+  async deleteCpuById(id: string): Promise<void> {
+    await super.deleteById(id);
   }
 }

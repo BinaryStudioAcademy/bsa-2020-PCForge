@@ -46,6 +46,6 @@ export class AddRequestService extends BaseService<AddRequestModel, AddRequestRe
   }
 
   async deleteAddRequestById(id: string): Promise<void> {
-    await this.repository.deleteAddRequest(id);
+    await super.deleteById(id);
   }
 }

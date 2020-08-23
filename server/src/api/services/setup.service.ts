@@ -40,6 +40,6 @@ export class SetupService extends BaseService<SetupModel, SetupRepository> {
   }
 
   async deleteSetupById(id: string): Promise<void> {
-    await this.repository.deleteById(id);
+    await super.deleteById(id);
   }
 }

@@ -33,8 +33,7 @@ export class GpuService extends BaseService<GpuModel, GpuRepository> {
     return gpu;
   }
 
-  async deleteGpuById(inputGpu: { id: string }): Promise<void> {
-    const { id } = inputGpu;
-    await this.repository.deleteGpuById(id);
+  async deleteGpuById(id: string): Promise<void> {
+    await super.deleteById(id);
   }
 }

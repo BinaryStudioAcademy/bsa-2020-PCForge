@@ -52,7 +52,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const deleteOneSchema = DeleteOneQuery();
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteGpuRequest, reply) => {
     const { id } = request.params;
-    await GpuService.deleteGpuById({ id });
+    await GpuService.deleteGpuById(id);
     reply.send({});
   });
 

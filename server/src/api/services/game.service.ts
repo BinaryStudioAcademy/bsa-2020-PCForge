@@ -34,6 +34,6 @@ export class GameService extends BaseService<GameModel, GameRepository> {
   }
 
   async deleteGameById(id: string): Promise<void> {
-    await this.repository.deleteGameById(id);
+    await super.deleteById(id);
   }
 }

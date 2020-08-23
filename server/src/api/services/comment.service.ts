@@ -42,6 +42,6 @@ export class CommentService extends BaseService<CommentModel, CommentRepository>
   }
 
   async deleteCommentById(id: string): Promise<void> {
-    await this.repository.deleteCommentById(id);
+    await super.deleteById(id);
   }
 }

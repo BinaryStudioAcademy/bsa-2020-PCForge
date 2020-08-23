@@ -44,6 +44,6 @@ export class RateService extends BaseService<RateModel, RateRepository> {
   }
 
   async deleteRateById(id: string): Promise<void> {
-    await this.repository.deleteRateById(id);
+    await super.deleteById(id);
   }
 }

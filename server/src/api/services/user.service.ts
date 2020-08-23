@@ -69,7 +69,7 @@ export class UserService extends BaseService<UserModel, UserRepository> {
   }
 
   async deleteUser(id: string): Promise<void> {
-    await this.repository.deleteById(id);
+    await super.deleteById(id);
   }
 
   hash(password: string): string {

@@ -34,6 +34,6 @@ export class TopGameService extends BaseService<TopGameModel, TopGameRepository>
   }
 
   async deleteTopGameById(id: string): Promise<void> {
-    await this.repository.deleteTopGameById(id);
+    await super.deleteById(id);
   }
 }

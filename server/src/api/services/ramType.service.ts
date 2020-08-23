@@ -34,6 +34,6 @@ export class RamTypeService extends BaseService<RamTypeModel, RamTypeRepository>
   }
 
   async deleteRamTypeById(id: string): Promise<void> {
-    await this.repository.deleteRamTypeById(id);
+    await super.deleteById(id);
   }
 }

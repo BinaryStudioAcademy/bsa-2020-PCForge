@@ -33,8 +33,7 @@ export class RamService extends BaseService<RamModel, RamRepository> {
     return ram;
   }
 
-  async deleteRamById(inputRam: { id: string }): Promise<void> {
-    const { id } = inputRam;
-    await this.repository.deleteRamById(id);
+  async deleteRamById(id: string): Promise<void> {
+    await super.deleteById(id);
   }
 }
