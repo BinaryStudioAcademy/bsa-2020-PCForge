@@ -1208,7 +1208,7 @@ const hdds = [
     name: 'HGST 0F23072 6TB SATA Hard Drive for Desktop NAS Systems',
     capacity: 6144,
     sata: 3,
-    size: null,
+    size: 3.5,
     rpm: 7200,
     ram: 64,
   },

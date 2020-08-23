@@ -267,7 +267,7 @@ const ssds = [
     name: 'Cisco Hyperflex HX-M2-240GB= 240GB M.2 SATA Solid State Drive',
     capacity: 240,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -351,7 +351,7 @@ const ssds = [
     name: 'Micron 1300 MTFDDAV256TDL-1AW12ABYY 256GB SED SATA M.2 Solid State Drive',
     capacity: 256,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -584,7 +584,7 @@ const ssds = [
     name: 'Transcend MTS600 TS128GMTS600 128GB M.2 2260 MLC SATA Solid State Drive',
     capacity: 128,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -739,7 +739,7 @@ const ssds = [
     name: 'Micron 1300 MTFDDAV256TDL-1AW1ZABYY 256GB SATA M.2 Solid State Drive',
     capacity: 256,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -753,7 +753,7 @@ const ssds = [
     name: 'Micron 1300 MTFDDAV512TDL-1AW1ZABYY 512GB SATA M.2 Solid State Drive',
     capacity: 512,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -767,7 +767,7 @@ const ssds = [
     name: 'Micron 1300 MTFDDAV512TDL-1AW12ABYY 512GB SED SATA M.2 Solid State Drive',
     capacity: 512,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -781,7 +781,7 @@ const ssds = [
     name: 'Micron 1300 MTFDDAV1T0TDL-1AW1ZABYY 1TB SATA M.2 Solid State Drive',
     capacity: 1024,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -795,7 +795,7 @@ const ssds = [
     name: 'Micron 1300 MTFDDAV1T0TDL-1AW12ABYY 1TB SED SATA M.2 Solid State Drive',
     capacity: 1024,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -907,21 +907,21 @@ const ssds = [
     name: 'Intel SSDSCKKB240G801 240GB TLC D3 S4510 SED SATA Solid State Drive',
     capacity: 240,
     sata: 1,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
     name: 'Intel SSDSCKKB480G801 480GB TLC D3 S4510 SED SATA Solid State Drive',
     capacity: 480,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
     name: 'Intel SSDSCKKB960G801 960GB TLC D3 S4510 SED SATA Solid State Drive',
     capacity: 960,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
@@ -1091,14 +1091,14 @@ const ssds = [
     name: 'Intel 545s Series SSDSCKKW512G8X1 512GB SED SATA M.2 Solid State Drive',
     capacity: 512,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   {
     name: 'Intel 545s Series SSDSCKKW128G8X1 128GB SED SATA M.2 Solid State Drive',
     capacity: 128,
     sata: 3,
-    size: null,
+    size: 2.5,
     m2: false,
   },
   { name: 'Seagate XA240ME10003 240GB SATA Solid State Drive', capacity: 240, sata: 3, size: 2.5, m2: false },
