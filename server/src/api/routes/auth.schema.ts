@@ -72,6 +72,7 @@ const GoogleAuthResponse: SwaggerSchema = {
       example:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
     },
+    user: UserSchema,
   },
 };
 

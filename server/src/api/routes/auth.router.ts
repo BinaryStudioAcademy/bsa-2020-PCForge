@@ -45,13 +45,24 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
       if (err) {
         try {
           //Return object with information about user
-          await oAuth2Client.verifyIdToken({ idToken: token });
-          response.send({ logged_in: true });
+          const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
+          try {
+            const user = await UserService.getUserByLoginOrEmail(userData.email, '');
+            response.send({ logged_in: true, user });
+          } catch (err) {
+            const user = await UserService.createUser({
+              name: userData.name,
+              email: userData.email,
+              password: '',
+              avatar: userData.picture,
+            });
+            response.send({ logged_in: true, user });
+          }
         } catch (err) {
           response.send({ logged_in: false });
         }
       } else {
-        const user = await UserService.getUser(decoded.user.id);
+        const user = decoded.user;
         response.send({ logged_in: true, user });
       }
     });

@@ -14,7 +14,7 @@ export class UserService {
   constructor(private repository: UserRepository) {}
 
   async getUserByLoginOrEmail(login: string, password: string): Promise<UserModel> {
-    if (!login || !password) {
+    if (!login || (!password && password !== '')) {
       throw { error: `You are missing login or password`, status: 400 };
     }
     const user = await this.repository.getUserByUserNameOrEmail(login);
