@@ -28,14 +28,9 @@ export class GpuService extends BaseService<GpuModel, GpuRepository> {
     return gpu;
   }
 
-  async updateGpuById(inputGpu: { id: string; data: GpuCreationAttributes }): Promise<GpuModel> {
-    const { id, data } = inputGpu;
-    const oldGpu = await this.repository.getGpuById(id);
-    if (!oldGpu) {
-      triggerServerError(`Gpu with id: ${id} does not exists`, 404);
-    }
-    const Gpu = await this.repository.updateGpuById(id, data);
-    return Gpu;
+  async updateGpuById({ id, data }: { id: string; data: GpuCreationAttributes }): Promise<GpuModel> {
+    const gpu = await super.updateById(id, data);
+    return gpu;
   }
 
   async deleteGpuById(inputGpu: { id: string }): Promise<void> {

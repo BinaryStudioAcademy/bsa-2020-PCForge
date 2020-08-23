@@ -28,13 +28,8 @@ export class GameService extends BaseService<GameModel, GameRepository> {
     return game;
   }
 
-  async updateGameById(inputGame: { id: string; data: GameCreationAttributes }): Promise<GameModel> {
-    const { id, data } = inputGame;
-    const oldGame = await this.repository.getGameById(id);
-    if (!oldGame) {
-      triggerServerError(`Game with id: ${id} does not exists`, 404);
-    }
-    const game = await this.repository.updateGameById(id, data);
+  async updateGameById({ id, data }: { id: string; data: GameCreationAttributes }): Promise<GameModel> {
+    const game = await super.updateById(id, data);
     return game;
   }
 

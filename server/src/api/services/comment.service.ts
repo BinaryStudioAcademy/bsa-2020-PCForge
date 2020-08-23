@@ -33,17 +33,12 @@ export class CommentService extends BaseService<CommentModel, CommentRepository>
   }
 
   async updateCommentById(
-    inputComment: { id: string; data: CommentCreationAttributes },
+    { id, data }: { id: string; data: CommentCreationAttributes },
     CommentMiddleware: ICommentMiddleware
   ): Promise<CommentModel> {
-    const { id, data } = inputComment;
     await CommentMiddleware(data);
-
-    const oldComment = await this.repository.getCommentById(id);
-    if (!oldComment) {
-      triggerServerError(`Comment with id: ${id} does not exists`, 404);
-    }
-    return await this.repository.updateCommentById(id, data);
+    const comment = await super.updateById(id, data);
+    return comment;
   }
 
   async deleteCommentById(id: string): Promise<void> {

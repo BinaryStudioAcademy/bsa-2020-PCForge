@@ -28,13 +28,8 @@ export class SocketService extends BaseService<SocketModel, SocketRepository> {
     return socket;
   }
 
-  async updateSocketById(inputSocket: { id: string; data: SocketCreationAttributes }): Promise<SocketModel> {
-    const { id, data } = inputSocket;
-    const oldSocket = await this.repository.getSocketById(id);
-    if (!oldSocket) {
-      triggerServerError(`Socket with id: ${id} does not exists`, 404);
-    }
-    const socket = await this.repository.updateSocketById(id, data);
+  async updateSocketById({ id, data }: { id: string; data: SocketCreationAttributes }): Promise<SocketModel> {
+    const socket = await super.updateById(id, data);
     return socket;
   }
 

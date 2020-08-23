@@ -28,16 +28,14 @@ export class MotherboardService extends BaseService<MotherboardModel, Motherboar
     return motherboard;
   }
 
-  async updateMotherboardById(inputMotherboard: {
+  async updateMotherboardById({
+    id,
+    data,
+  }: {
     id: string;
     data: MotherboardCreationAttributes;
   }): Promise<MotherboardModel> {
-    const { id, data } = inputMotherboard;
-    const oldMotherboard = await this.repository.getMotherboardById(id);
-    if (!oldMotherboard) {
-      triggerServerError(`Motherboard with id: ${id} does not exists`, 404);
-    }
-    const motherboard = await this.repository.updateMotherboardById(id, data);
+    const motherboard = await super.updateById(id, data);
     return motherboard;
   }
 

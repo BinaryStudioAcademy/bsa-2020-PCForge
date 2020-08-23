@@ -28,13 +28,8 @@ export class RamService extends BaseService<RamModel, RamRepository> {
     return ram;
   }
 
-  async updateRamById(inputRam: { id: string; data: RamCreationAttributes }): Promise<RamModel> {
-    const { id, data } = inputRam;
-    const oldRam = await this.repository.getRamById(id);
-    if (!oldRam) {
-      triggerServerError(`Ram with id: ${id} does not exists`, 404);
-    }
-    const ram = await this.repository.updateRamById(id, data);
+  async updateRamById({ id, data }: { id: string; data: RamCreationAttributes }): Promise<RamModel> {
+    const ram = await super.updateById(id, data);
     return ram;
   }
 

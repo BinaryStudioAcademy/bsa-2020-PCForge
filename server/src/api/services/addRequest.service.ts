@@ -33,16 +33,16 @@ export class AddRequestService extends BaseService<AddRequestModel, AddRequestRe
   }
 
   async updateAddRequestById(
-    inputAddRequest: { id: string; data: AddRequestCreationAttributes },
+    { id, data }: { id: string; data: AddRequestCreationAttributes },
     addRequestMiddleware: IAddRequestMiddleware
   ): Promise<AddRequestModel> {
-    await addRequestMiddleware(inputAddRequest.data);
-    const { id, data } = inputAddRequest;
+    await addRequestMiddleware(data);
     const oldAddRequest = await this.repository.getAddRequestById(id);
     if (!oldAddRequest) {
       triggerServerError(`Add request with id: ${id} does not exists`, 404);
     }
-    return await this.repository.updateAddRequest(id, data);
+    const request = await super.updateById(id, data);
+    return request;
   }
 
   async deleteAddRequestById(id: string): Promise<void> {

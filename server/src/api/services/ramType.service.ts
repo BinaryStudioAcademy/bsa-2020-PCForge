@@ -28,13 +28,8 @@ export class RamTypeService extends BaseService<RamTypeModel, RamTypeRepository>
     return ramType;
   }
 
-  async updateRamById(inputRamType: { id: string; data: RamTypeCreationAttributes }): Promise<RamTypeModel> {
-    const { id, data } = inputRamType;
-    const oldRamType = await this.repository.getRamTypeById(id);
-    if (!oldRamType) {
-      triggerServerError(`Ram type with id: ${id} does not exists`, 404);
-    }
-    const ramType = await this.repository.updateRamTypeById(id, data);
+  async updateRamById({ id, data }: { id: string; data: RamTypeCreationAttributes }): Promise<RamTypeModel> {
+    const ramType = await super.updateById(id, data);
     return ramType;
   }
 

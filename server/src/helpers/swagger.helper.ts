@@ -65,6 +65,11 @@ export function UpdateOneQuery(toUpdate: SwaggerSchema, newData: SwaggerSchema) 
         404: {
           type: 'object',
           properties: {
+            message: {
+              type: 'string',
+              example: 'Item with id: 1 does not exists',
+              nullable: false,
+            },
             error: {
               type: 'string',
               example: 'Item with id: 1 does not exists',

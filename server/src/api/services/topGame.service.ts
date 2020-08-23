@@ -28,13 +28,8 @@ export class TopGameService extends BaseService<TopGameModel, TopGameRepository>
     return topGame;
   }
 
-  async updateTopGameById(inputTopGame: { id: string; data: TopGameCreationAttributes }): Promise<TopGameModel> {
-    const { id, data } = inputTopGame;
-    const oldTopGame = await this.repository.getTopGameById(id);
-    if (!oldTopGame) {
-      triggerServerError(`TopGame with id: ${id} does not exists`, 404);
-    }
-    const topGame = await this.repository.updateTopGameById(id, data);
+  async updateTopGameById({ id, data }: { id: string; data: TopGameCreationAttributes }): Promise<TopGameModel> {
+    const topGame = await super.updateById(id, data);
     return topGame;
   }
 

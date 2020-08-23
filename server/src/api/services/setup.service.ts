@@ -31,16 +31,11 @@ export class SetupService extends BaseService<SetupModel, SetupRepository> {
   }
 
   async updateSetupById(
-    inputSetup: { id: string; data: SetupCreationAttributes },
+    { id, data }: { id: string; data: SetupCreationAttributes },
     setupMiddleware: ISetupMiddleware
   ): Promise<SetupModel> {
-    const { id, data } = inputSetup;
     await setupMiddleware(data);
-    const oldSetup = await this.repository.getById(id);
-    if (!oldSetup) {
-      triggerServerError(`Setup with id: ${id} does not exists`, 404);
-    }
-    const setup = await this.repository.updateById(id, data);
+    const setup = await super.updateById(id, data);
     return setup;
   }
 

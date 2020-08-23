@@ -28,17 +28,15 @@ export class PowerSupplyService extends BaseService<PowerSupplyModel, PowerSuppl
     return powerSupply;
   }
 
-  async updatePowerSupplyById(inputPowerSupply: {
+  async updatePowerSupplyById({
+    id,
+    data,
+  }: {
     id: string;
     data: PowerSupplyCreationAttributes;
   }): Promise<PowerSupplyModel> {
-    const { id, data } = inputPowerSupply;
-    const oldPowerSupply = await this.repository.getPowerSupplyById(id);
-    if (!oldPowerSupply) {
-      triggerServerError(`PowerSupply with id: ${id} does not exists`, 404);
-    }
-    const PowerSupply = await this.repository.updatePowerSupplyById(id, data);
-    return PowerSupply;
+    const powerSupply = await super.updateById(id, data);
+    return powerSupply;
   }
 
   async deletePowerSupplyById(id: string): Promise<void> {

@@ -35,17 +35,12 @@ export class RateService extends BaseService<RateModel, RateRepository> {
   }
 
   async updateRateById(
-    inputRate: { id: string; data: RateCreationAttributes },
+    { id, data }: { id: string; data: RateCreationAttributes },
     rateMiddleware: IRateMiddleware
   ): Promise<RateModel> {
-    const { id, data } = inputRate;
     await rateMiddleware(data);
-
-    const oldRate = await this.repository.getRateById(id);
-    if (!oldRate) {
-      triggerServerError(`Rate with id: ${id} does not exists`, 404);
-    }
-    return await this.repository.updateRateById(id, data);
+    const rate = await super.updateById(id, data);
+    return rate;
   }
 
   async deleteRateById(id: string): Promise<void> {

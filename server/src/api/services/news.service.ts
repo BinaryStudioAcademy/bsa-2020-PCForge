@@ -26,13 +26,8 @@ export class NewsService extends BaseService<NewsModel, NewsRepository> {
     return news;
   }
 
-  async updateNewsById(inputNews: { id: string; data: NewsCreationAttributes }): Promise<NewsModel> {
-    const { id, data } = inputNews;
-    const oldNews = await this.repository.getNewsById(id);
-    if (!oldNews) {
-      triggerServerError(`News with id: ${id} does not exists`, 404);
-    }
-    const news = await this.repository.updateNewsById(id, data);
+  async updateNewsById({ id, data }: { id: string; data: NewsCreationAttributes }): Promise<NewsModel> {
+    const news = await super.updateById(id, data);
     return news;
   }
 

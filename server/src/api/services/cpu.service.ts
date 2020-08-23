@@ -28,13 +28,8 @@ export class CpuService extends BaseService<CpuModel, CpuRepository> {
     return cpu;
   }
 
-  async updateCpuById(inputCpu: { id: string; data: CpuCreationAttributes }): Promise<CpuModel> {
-    const { id, data } = inputCpu;
-    const oldCpu = await this.repository.getCpuById(id);
-    if (!oldCpu) {
-      triggerServerError(`Cpu with id: ${id} does not exists`, 404);
-    }
-    const cpu = await this.repository.updateCpuById(id, data);
+  async updateCpuById({ id, data }: { id: string; data: CpuCreationAttributes }): Promise<CpuModel> {
+    const cpu = await super.updateById(id, data);
     return cpu;
   }
 
