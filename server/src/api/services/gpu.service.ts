@@ -5,7 +5,7 @@ import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class GpuService extends BaseService<GpuModel, GpuRepository> {
+export class GpuService extends BaseService<GpuModel, GpuCreationAttributes, GpuRepository> {
   constructor(private repository: GpuRepository) {
     super(repository);
   }

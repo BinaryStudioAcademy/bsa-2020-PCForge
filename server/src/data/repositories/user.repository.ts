@@ -3,7 +3,7 @@ import { BaseRepository, RichModel } from './base.repository';
 import { Op } from 'sequelize';
 import { IFilter } from './filters/base.filter';
 
-export class UserRepository extends BaseRepository<UserModel, IFilter> {
+export class UserRepository extends BaseRepository<UserModel, UserCreationAttributes, IFilter> {
   constructor(private model: UserStatic) {
     super(<RichModel>model, IFilter);
   }

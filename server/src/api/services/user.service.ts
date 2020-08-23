@@ -11,7 +11,7 @@ interface UserCreateAttributes {
   avatar: string;
 }
 
-export class UserService extends BaseService<UserModel, UserRepository> {
+export class UserService extends BaseService<UserModel, UserCreationAttributes, UserRepository> {
   constructor(private repository: UserRepository) {
     super(repository);
   }
@@ -64,7 +64,14 @@ export class UserService extends BaseService<UserModel, UserRepository> {
     if (inputUser.password) {
       inputUser.password = this.hash(inputUser.password);
     }
-    const user = await this.repository.updateById(id, inputUser);
+    const userAttributes: UserCreationAttributes = {
+      ...inputUser,
+      isAdmin: false,
+      password: this.hash(inputUser.password),
+      verifyEmailToken: null,
+      resetPasswordToken: null,
+    };
+    const user = await this.repository.updateById(id, userAttributes);
     return user;
   }
 

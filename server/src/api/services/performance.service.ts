@@ -2,7 +2,6 @@ import { CpuRepository } from '../../data/repositories/cpu.repository';
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { GameRepository } from '../../data/repositories/game.repository';
 import { GpuRepository } from '../../data/repositories/gpu.repository';
-import { SetupRepository } from '../../data/repositories/setup.repository';
 
 class Resolution {
   constructor(public width: number, public height: number) {}

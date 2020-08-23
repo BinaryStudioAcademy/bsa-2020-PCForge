@@ -3,7 +3,7 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 
-export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
+export class SocketRepository extends BaseRepository<SocketModel, SocketCreationAttributes, IFilter> {
   constructor(private model: SocketStatic) {
     super(<RichModel>model, IFilter);
   }

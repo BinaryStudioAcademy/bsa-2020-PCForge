@@ -7,7 +7,7 @@ import { IGameFilter } from './filters/game.filter';
 import { mergeFilters } from './filters/helper';
 import { Op } from 'sequelize';
 
-export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
+export class GameRepository extends BaseRepository<GameModel, GameCreationAttributes, IGameFilter> {
   constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
     super(<RichModel>model, IGameFilter);
   }

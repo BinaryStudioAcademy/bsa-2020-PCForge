@@ -5,7 +5,7 @@ import { ICpuFilter } from './filters/cpu.filter';
 import { mergeFilters } from './filters/helper';
 import { Op } from 'sequelize';
 
-export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
+export class CpuRepository extends BaseRepository<CpuModel, CpuCreationAttributes, ICpuFilter> {
   constructor(private model: CpuStatic, private socketModel: SocketStatic) {
     super(<RichModel>model, ICpuFilter);
   }

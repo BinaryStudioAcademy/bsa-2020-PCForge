@@ -5,7 +5,7 @@ import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class CpuService extends BaseService<CpuModel, CpuRepository> {
+export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, CpuRepository> {
   constructor(private repository: CpuRepository) {
     super(repository);
   }

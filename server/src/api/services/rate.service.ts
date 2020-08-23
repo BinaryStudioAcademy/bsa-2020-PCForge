@@ -6,7 +6,7 @@ import { IRateMiddleware } from '../middlewares/rate.middleware';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class RateService extends BaseService<RateModel, RateRepository> {
+export class RateService extends BaseService<RateModel, RateCreationAttributes, RateRepository> {
   constructor(private repository: RateRepository) {
     super(repository);
   }

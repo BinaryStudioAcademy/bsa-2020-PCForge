@@ -6,7 +6,7 @@ import { GameStatic } from '../models/game';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 
-export class TopGameRepository extends BaseRepository<TopGameModel, IFilter> {
+export class TopGameRepository extends BaseRepository<TopGameModel, TopGameCreationAttributes, IFilter> {
   constructor(
     private model: TopGameStatic,
     private gameModel: GameStatic,

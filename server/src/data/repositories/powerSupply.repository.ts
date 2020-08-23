@@ -3,7 +3,7 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 
-export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, IFilter> {
+export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, PowerSupplyCreationAttributes, IFilter> {
   constructor(private model: PowerSupplyStatic) {
     super(<RichModel>model, IFilter);
   }

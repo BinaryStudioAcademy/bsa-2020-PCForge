@@ -5,7 +5,11 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { mergeFilters } from './filters/helper';
 import { IMotherboardFilter } from './filters/motherboard.filter';
 
-export class MotherboardRepository extends BaseRepository<MotherboardModel, IMotherboardFilter> {
+export class MotherboardRepository extends BaseRepository<
+  MotherboardModel,
+  MotherboardCreationAttributes,
+  IMotherboardFilter
+> {
   constructor(
     private model: MotherboardStatic,
     private ramTypeModel: RamTypeStatic,

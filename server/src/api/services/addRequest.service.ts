@@ -6,7 +6,11 @@ import { IAddRequestMiddleware } from '../middlewares/addRequest.middleware';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class AddRequestService extends BaseService<AddRequestModel, AddRequestRepository> {
+export class AddRequestService extends BaseService<
+  AddRequestModel,
+  AddRequestCreationAttributes,
+  AddRequestRepository
+> {
   constructor(private repository: AddRequestRepository) {
     super(repository);
   }

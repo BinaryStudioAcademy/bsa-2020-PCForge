@@ -3,7 +3,7 @@ import { NewsRepository } from '../../data/repositories/news.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class NewsService extends BaseService<NewsModel, NewsRepository> {
+export class NewsService extends BaseService<NewsModel, NewsCreationAttributes, NewsRepository> {
   constructor(private repository: NewsRepository) {
     super(repository);
   }

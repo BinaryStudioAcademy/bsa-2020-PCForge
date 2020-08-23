@@ -1,9 +1,9 @@
-import { RateModel, RateStatic } from '../models/rate';
+import { RateCreationAttributes, RateModel, RateStatic } from '../models/rate';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { mergeFilters } from './filters/helper';
 import { IRateFilter } from './filters/rate.filter';
 
-export class RateRepository extends BaseRepository<RateModel, IRateFilter> {
+export class RateRepository extends BaseRepository<RateModel, RateCreationAttributes, IRateFilter> {
   constructor(private model: RateStatic) {
     super(<RichModel>model, IRateFilter);
   }

@@ -5,7 +5,7 @@ import { IFilter } from '../../data/repositories/filters/base.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class RamTypeService extends BaseService<RamTypeModel, RamTypeRepository> {
+export class RamTypeService extends BaseService<RamTypeModel, RamTypeCreationAttributes, RamTypeRepository> {
   constructor(private repository: RamTypeRepository) {
     super(repository);
   }

@@ -5,7 +5,7 @@ import { TopGameRepository } from '../../data/repositories/topGame.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class TopGameService extends BaseService<TopGameModel, TopGameRepository> {
+export class TopGameService extends BaseService<TopGameModel, TopGameCreationAttributes, TopGameRepository> {
   constructor(private repository: TopGameRepository) {
     super(repository);
   }

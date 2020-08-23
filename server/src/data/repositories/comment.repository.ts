@@ -4,7 +4,7 @@ import { ICommentFilter } from './filters/comment.filter';
 import { mergeFilters } from './filters/helper';
 import { UserStatic } from '../models/user';
 
-export class CommentRepository extends BaseRepository<CommentModel, ICommentFilter> {
+export class CommentRepository extends BaseRepository<CommentModel, CommentCreationAttributes, ICommentFilter> {
   constructor(private model: CommentStatic, private userModel: UserStatic) {
     super(<RichModel>model, ICommentFilter);
   }

@@ -5,7 +5,7 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IRamFilter } from './filters/ram.filter';
 import { mergeFilters } from './filters/helper';
 
-export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
+export class RamRepository extends BaseRepository<RamModel, RamCreationAttributes, IRamFilter> {
   constructor(private model: RamStatic, private ramTypeModel: RamTypeStatic) {
     super(<RichModel>model, IRamFilter);
   }
