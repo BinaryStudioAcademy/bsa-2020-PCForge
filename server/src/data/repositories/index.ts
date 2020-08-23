@@ -14,6 +14,7 @@ import { NewsRepository } from './news.repository';
 import { RateRepository } from './rate.repository';
 import { CommentRepository } from './comment.repository';
 import { AddRequestRepository } from './addRequest.repository';
+import { UserGameRepository } from './usergame.repository';
 
 export interface Repositories {
   RamTypeRepository: RamTypeRepository;
@@ -31,6 +32,7 @@ export interface Repositories {
   RateRepository: RateRepository;
   CommentRepository: CommentRepository;
   AddRequestRepository: AddRequestRepository;
+  UserGameRepository: UserGameRepository;
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
@@ -56,6 +58,7 @@ export const initializeRepositories = (models: Models): Repositories => {
   const rateRepository = new RateRepository(models.Rate);
   const commentRepository = new CommentRepository(models.Comment, models.User);
   const addRequestRepository = new AddRequestRepository(models.AddRequest);
+  const userGameRepository = new UserGameRepository(models.UserGame);
   const repositories: Repositories = {
     RamTypeRepository: ramTypeRepository,
     RamRepository: ramRepository,
@@ -72,6 +75,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     RateRepository: rateRepository,
     CommentRepository: commentRepository,
     AddRequestRepository: addRequestRepository,
+    UserGameRepository: userGameRepository,
   };
   return repositories;
 };

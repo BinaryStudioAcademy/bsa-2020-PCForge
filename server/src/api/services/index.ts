@@ -16,6 +16,7 @@ import { CommentService } from './comment.service';
 import { AddRequestService } from './addRequest.service';
 import uploadService from './imageUpload.service';
 import { PerformanceService } from './performance.service';
+import { UserGameService } from './usergame.service';
 
 export interface Services {
   RamTypeService: RamTypeService;
@@ -35,6 +36,7 @@ export interface Services {
   AddRequestService: AddRequestService;
   UploadImageService;
   PerformanceService: PerformanceService;
+  UserGameService: UserGameService;
 }
 
 export const initializeServices = (repositories: Repositories): Services => {
@@ -58,6 +60,7 @@ export const initializeServices = (repositories: Repositories): Services => {
     repositories.GameRepository
   );
   const addRequestService = new AddRequestService(repositories.AddRequestRepository);
+  const userGameService = new UserGameService(repositories.UserGameRepository);
   const services: Services = {
     AddRequestService: addRequestService,
     RamTypeService: ramTypeService,
@@ -76,6 +79,7 @@ export const initializeServices = (repositories: Repositories): Services => {
     CommentService: commentService,
     UploadImageService: uploadService,
     PerformanceService: performanceService,
+    UserGameService: userGameService,
   };
   return services;
 };
