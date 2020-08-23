@@ -23,18 +23,4 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, IFil
     );
     return powerSupplies;
   }
-
-  async createPowerSupply(inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
-    const powerSupply = await this.model.create(inputPowerSupply);
-    return powerSupply;
-  }
-
-  async updatePowerSupplyById(id: string, inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
-    const powerSupply = await this.updateById(id, inputPowerSupply);
-    return powerSupply;
-  }
-
-  async deletePowerSupplyById(id: string): Promise<void> {
-    await this.deleteById(id);
-  }
 }

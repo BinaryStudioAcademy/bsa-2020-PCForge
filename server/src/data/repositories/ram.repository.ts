@@ -47,19 +47,4 @@ export class RamRepository extends BaseRepository<RamModel, IRamFilter> {
     );
     return rams;
   }
-
-  async createRam(inputRam: RamCreationAttributes): Promise<RamModel> {
-    const { id } = await this.model.create(inputRam);
-    const ram = this.getRamById(id.toString());
-    return ram;
-  }
-
-  async updateRamById(id: string, inputRam: RamCreationAttributes): Promise<RamModel> {
-    const ram = await this.updateById(id, inputRam);
-    return ram;
-  }
-
-  async deleteRamById(id: string): Promise<void> {
-    await this.deleteById(id);
-  }
 }

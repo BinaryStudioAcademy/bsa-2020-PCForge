@@ -29,18 +29,4 @@ export class GpuRepository extends BaseRepository<GpuModel, IFilter> {
     );
     return gpus;
   }
-
-  async createGpu(inputGpu: GpuCreationAttributes): Promise<GpuModel> {
-    const gpu = await this.model.create(inputGpu);
-    return gpu;
-  }
-
-  async updateGpuById(id: string, inputGpu: GpuCreationAttributes): Promise<GpuModel> {
-    const gpu = await this.updateById(id, inputGpu);
-    return gpu;
-  }
-
-  async deleteGpuById(id: string): Promise<void> {
-    await this.deleteById(id);
-  }
 }

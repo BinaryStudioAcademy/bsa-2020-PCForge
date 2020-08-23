@@ -32,16 +32,4 @@ export class CommentRepository extends BaseRepository<CommentModel, ICommentFilt
       filter
     );
   }
-
-  async createComment(inputComment: CommentCreationAttributes): Promise<CommentModel> {
-    return this.model.create(inputComment);
-  }
-
-  async updateCommentById(id: string, inputComment: CommentCreationAttributes): Promise<CommentModel> {
-    return await this.updateById(id, inputComment);
-  }
-
-  async deleteCommentById(id: string): Promise<void> {
-    await this.deleteById(id);
-  }
 }

@@ -94,17 +94,6 @@ export class TopGameRepository extends BaseRepository<TopGameModel, IFilter> {
     return topGames;
   }
 
-  async createTopGame(inputTopGame: TopGameCreationAttributes): Promise<TopGameModel> {
-    const { id } = await this.model.create(inputTopGame);
-    const topGame = this.getTopGameById(id.toString());
-    return topGame;
-  }
-
-  async updateTopGameById(id: string, inputTopGame: TopGameCreationAttributes): Promise<TopGameModel> {
-    const topGame = await this.updateById(id, inputTopGame);
-    return topGame;
-  }
-
   async deleteTopGameById(id: string): Promise<void> {
     await this.deleteById(id);
   }

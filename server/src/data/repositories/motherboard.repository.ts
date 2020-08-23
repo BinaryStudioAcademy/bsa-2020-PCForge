@@ -54,19 +54,4 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel, IMot
     );
     return motherboards;
   }
-
-  async createMotherboard(inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
-    const { id } = await this.model.create(inputMotherboard);
-    const motherboard = this.getMotherboardById(id.toString());
-    return motherboard;
-  }
-
-  async updateMotherboardById(id: string, inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
-    const motherboard = await this.updateById(id, inputMotherboard);
-    return motherboard;
-  }
-
-  async deleteMotherboardById(id: string): Promise<void> {
-    await this.deleteById(id);
-  }
 }

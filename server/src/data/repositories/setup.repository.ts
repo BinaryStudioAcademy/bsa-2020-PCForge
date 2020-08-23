@@ -83,9 +83,4 @@ export class SetupRepository extends BaseRepository<SetupModel> {
     });
     return setup;
   }
-
-  async createSetup(inputSetup: SetupCreationAttributes): Promise<SetupModel> {
-    const setup = await this.model.create(inputSetup);
-    return setup;
-  }
 }

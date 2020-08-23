@@ -23,18 +23,4 @@ export class RamTypeRepository extends BaseRepository<RamTypeModel, IFilter> {
     );
     return ramTypes;
   }
-
-  async createRamType(inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
-    const ramType = await this.model.create(inputRamType);
-    return ramType;
-  }
-
-  async updateRamTypeById(id: string, inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
-    const ramType = await this.updateById(id, inputRamType);
-    return ramType;
-  }
-
-  async deleteRamTypeById(id: string): Promise<void> {
-    await this.deleteById(id);
-  }
 }

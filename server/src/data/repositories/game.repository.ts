@@ -97,19 +97,4 @@ export class GameRepository extends BaseRepository<GameModel, IGameFilter> {
     );
     return games;
   }
-
-  async createGame(inputGame: GameCreationAttributes): Promise<GameModel> {
-    const { id } = await this.model.create(inputGame);
-    const game = this.getGameById(id.toString());
-    return game;
-  }
-
-  async updateGameById(id: string, inputGame: GameCreationAttributes): Promise<GameModel> {
-    const game = await this.updateById(id, inputGame);
-    return game;
-  }
-
-  async deleteGameById(id: string): Promise<void> {
-    await this.deleteById(id);
-  }
 }

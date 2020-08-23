@@ -13,11 +13,6 @@ export class UserRepository extends BaseRepository<UserModel, IFilter> {
     return user.data;
   }
 
-  async create(attributes: UserCreationAttributes): Promise<UserModel> {
-    const user = await this.model.create(attributes);
-    return user;
-  }
-
   async getUserByUserNameOrEmail(login: string): Promise<UserModel> {
     const user = await this.model.findOne({
       where: {
