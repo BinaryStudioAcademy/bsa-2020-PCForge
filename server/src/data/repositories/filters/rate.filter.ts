@@ -19,10 +19,18 @@ export class IRateFilter extends IFilter {
         nullable: true,
       },
       ratebleId: {
-        type: 'integer',
-        minimum: 1,
-        nullable: true,
-      }
+        oneOf: [{
+          type: 'integer',
+          minimum: 1
+        }, {
+          type: 'array',
+          items: {
+            type: 'integer',
+            minimum: 1,
+          }
+        }],
+        nullable: true
+      },
     }
   }
 }

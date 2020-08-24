@@ -18,8 +18,16 @@ export class IRamFilter extends IFilter {
     properties: {
       ...IFilter.schema.properties,
       typeId: {
-        type: 'number',
-        minimum: 1,
+        oneOf: [{
+          type: 'integer',
+          minimum: 1
+        }, {
+          type: 'array',
+          items: {
+            type: 'integer',
+            minimum: 1,
+          }
+        }],
         nullable: true
       },
       name: {

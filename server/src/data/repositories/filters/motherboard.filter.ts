@@ -16,15 +16,31 @@ export class IMotherboardFilter extends IFilter {
     properties: {
       ...IFilter.schema.properties,
       ramTypeId: {
-        type: 'integer',
-        minimum: 1,
-        nullable: true,
+        oneOf: [{
+          type: 'integer',
+          minimum: 1
+        }, {
+          type: 'array',
+          items: {
+            type: 'integer',
+            minimum: 1,
+          }
+        }],
+        nullable: true
       },
       socketId: {
-        type: 'integer',
-        minimum: 1,
+        oneOf: [{
+          type: 'integer',
+          minimum: 1
+        }, {
+          type: 'array',
+          items: {
+            type: 'integer',
+            minimum: 1,
+          }
+        }],
         nullable: true
-      }
+      },
     }
   }
 }
