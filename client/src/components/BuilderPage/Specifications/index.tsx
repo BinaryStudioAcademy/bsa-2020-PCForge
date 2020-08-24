@@ -41,6 +41,8 @@ export const SpecificationMotherboard = ({ component }: { component: TypeMotherb
   <Box>
     <SpecificationField title="Socket" value={component.socket.name} />
     <SpecificationField title="Ram type" value={component.ramType.name} />
+    <SpecificationField title="SATA" value={component.ramType.name} />
+    <SpecificationField title="M2" value={component.ramType.name} />
   </Box>
 );
 
@@ -53,7 +55,7 @@ export const SpecificationPowersupply = ({ component }: { component: TypePowersu
 export const SpecificationHdd = ({ component }: { component: TypeHdd }): JSX.Element => (
   <Box>
     <SpecificationField title="Capacity" value={`${component.capacity}Gb`} />
-    <SpecificationField title="Interface Types" value={`SATA ${component.sata}`} />
+    <SpecificationField title="Interface SATA" value={`SATA ${component.sata}`} />
     <SpecificationField title="Speed" value={`${component.rpm}RPM`} />
     <SpecificationField title="Form Factor" value={`${component.size}in`} />
     {!!component.ram && <SpecificationField title="On-Board Cache" value={`${component.ram}Mb`} />}
