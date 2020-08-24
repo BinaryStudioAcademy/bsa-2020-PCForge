@@ -1,5 +1,8 @@
 import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { GameSchema } from './game.schema';
+import { IFilter } from '../../data/repositories/filters/base.filter';
+import { SwaggerOptions } from 'fastify-swagger';
 
 export type GetOneUserRequest = FastifyRequest<{
   Params: { id: string };
@@ -128,6 +131,41 @@ export const UpdateUserSchema: SwaggerSchema = {
   },
 };
 
+export const UserGameSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: false,
+    },
+    userId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: false,
+    },
+    gameId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: false,
+    },
+    createdAt: {
+      type: 'string',
+      format: 'date-time',
+      nullable: false,
+    },
+    updatedAt: {
+      type: 'string',
+      format: 'date-time',
+      nullable: false,
+    },
+    game: GameSchema,
+  },
+};
+
 export const CreateUserGameSchema: SwaggerSchema = {
   type: 'object',
   properties: {
@@ -140,9 +178,52 @@ export const CreateUserGameSchema: SwaggerSchema = {
   },
 };
 
+export const GetUserGamesSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    meta: {
+      type: 'object',
+      properties: {
+        globalCount: {
+          type: 'integer',
+          nullable: false,
+        },
+        countAfterFiltering: {
+          type: 'integer',
+          nullable: false,
+        },
+      },
+    },
+    data: {
+      type: 'array',
+      items: UserGameSchema,
+    },
+  },
+};
+
+export type GetUserGamesRequest = FastifyRequest<{
+  Params: { id: string };
+  Querystring: IFilter;
+}>;
+
 export type CreateUserGameRequest = FastifyRequest<{
   Params: { id: string };
   Body: {
     id: string;
   };
+}>;
+
+export const CreateUserGameResponse: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    game: GameSchema,
+    isNew: {
+      type: 'boolean',
+      nullable: false,
+    },
+  },
+};
+
+export type DeleteUserGameRequest = FastifyRequest<{
+  Params: { id: string; gameId: string };
 }>;

@@ -6,12 +6,16 @@ import {
   PostUserRequest,
   DeleteUserRequest,
   PutUserRequest,
+  GetUserGamesRequest,
+  CreateUserGameRequest,
+  DeleteUserGameRequest,
   UserSchema,
   CreateUserSchema,
   UpdateUserSchema,
   GetAllUsersSchema,
   CreateUserGameSchema,
-  CreateUserGameRequest,
+  CreateUserGameResponse,
+  GetUserGamesSchema,
 } from './user.schema';
 import { GameSchema } from './game.schema';
 import {
@@ -21,6 +25,7 @@ import {
   UpdateOneQuery,
   DeleteOneQuery,
 } from '../../helpers/swagger.helper';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { UserService, GameService, UserGameService } = fastify.services;
@@ -59,14 +64,34 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send({});
   });
 
-  const createGameSchema = CreateOneQuery(CreateUserGameSchema, GameSchema);
+  // Users games
+  const getUserGamesSchema = GetMultipleQuery(GetUserGamesSchema, IFilter.schema);
+  fastify.get('/:id/games', getUserGamesSchema, async (request: GetUserGamesRequest, reply) => {
+    const result = await UserGameService.getUserGames(request.params.id, request.query);
+    reply.send(result);
+  });
+
+  const createGameSchema = CreateOneQuery(CreateUserGameSchema, CreateUserGameResponse);
   fastify.post('/:id/games', createGameSchema, async (request: CreateUserGameRequest, reply) => {
     const game = await GameService.getGameById(request.body.id);
-    UserGameService.createUserGame({
+    const result = await UserGameService.findOrCreateUserGame({
       userId: parseInt(request.params.id),
       gameId: parseInt(request.body.id),
     });
-    reply.send(game);
+    reply.send({
+      game,
+      isNew: result.isNew,
+      userGame: result.userGame,
+    });
+  });
+
+  const deleteGameSchema = DeleteOneQuery();
+  fastify.delete('/:id/games/:gameId', deleteGameSchema, async (request: DeleteUserGameRequest, reply) => {
+    await UserGameService.deleteUserGame({
+      userId: parseInt(request.params.id),
+      gameId: parseInt(request.params.gameId),
+    });
+    reply.send({});
   });
 
   next();
