@@ -41,8 +41,8 @@ export const SpecificationMotherboard = ({ component }: { component: TypeMotherb
   <Box>
     <SpecificationField title="Socket" value={component.socket.name} />
     <SpecificationField title="Ram type" value={component.ramType.name} />
-    <SpecificationField title="SATA" value={component.ramType.name} />
-    <SpecificationField title="M2" value={component.ramType.name} />
+    <SpecificationField title="SATA" value={`SATA${component.sata}`} />
+    <SpecificationField title="M2" value={component.m2 ? 'available' : 'n/a'} />
   </Box>
 );
 
