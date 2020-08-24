@@ -35,6 +35,10 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel, IMot
     const motherboards = await this.getAll(
       {
         group: ['motherboard.id', 'socket.id', 'ramType.id'],
+        where: {
+          sata: filter.sata,
+          m2: filter.m2,
+        },
         include: [
           {
             model: this.ramTypeModel,
