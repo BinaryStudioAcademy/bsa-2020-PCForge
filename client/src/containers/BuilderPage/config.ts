@@ -20,8 +20,7 @@ export enum GroupName {
 export enum FilterName {
   socket = 'socketId',
   ramtype = 'ramTypeId',
-  sata = 'sata',
-  m2 = 'm2',
+  hdd = 'sata',
 }
 
 export const servicesGetAll = {
