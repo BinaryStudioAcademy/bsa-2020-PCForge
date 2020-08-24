@@ -5,4 +5,6 @@ export type TypeFilter = {
   ramTypeId?: string;
   from?: number;
   count?: number;
+  sata?: number;
+  m2?: boolean;
 };
