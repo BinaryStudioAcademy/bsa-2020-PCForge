@@ -6,6 +6,8 @@ export interface HddAttributes {
   capacity: number;
   size: number;
   sata: number;
+  rpm: number;
+  ram: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,6 +17,8 @@ export interface HddCreationAttributes {
   capacity: number;
   size: number;
   sata: number;
+  rpm: number;
+  ram: number;
 }
 
 export interface HddModel extends Model<HddAttributes>, HddAttributes {}
@@ -44,6 +48,14 @@ export function HddFactory(sequelize: Sequelize): HddStatic {
       type: DataTypes.FLOAT,
     },
     sata: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    rpm: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    ram: {
       allowNull: false,
       type: DataTypes.INTEGER,
     },
