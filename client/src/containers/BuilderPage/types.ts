@@ -22,6 +22,8 @@ export type TypeComponent = TypeCpu | TypeGpu | TypeRam | TypeMotherboard | Type
 export type TypeFilterBuilder = {
   socketIdSet: Set<number>;
   ramTypeIdSet: Set<number>;
+  sata: Set<number>;
+  m2: Set<string>;
 };
 
 export type TypeShowFilters = {
