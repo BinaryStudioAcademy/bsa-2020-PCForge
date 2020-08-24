@@ -31,10 +31,16 @@ export class IRamFilter extends IFilter {
         nullable: true
       },
       name: {
-        type: 'string',
-        minimum: 1,
+        oneOf: [{
+          type: 'string',
+        }, {
+          type: 'array',
+          items: {
+            type: 'string',
+          }
+        }],
         nullable: true
-      }
+      },
     }
   }
 }

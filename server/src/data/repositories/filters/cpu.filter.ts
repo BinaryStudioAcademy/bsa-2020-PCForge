@@ -27,8 +27,15 @@ export class ICpuFilter extends IFilter {
         nullable: true
       },
       name: {
-        type: 'string',
-        nullable: true,
+        oneOf: [{
+          type: 'string',
+        }, {
+          type: 'array',
+          items: {
+            type: 'string',
+          }
+        }],
+        nullable: true
       },
     },
   };
