@@ -10,7 +10,7 @@ export class ISsdFilter extends IFilter {
   m2: FilterByBooleanType = notNull;
   capacity: FilterRangeType<number> = {
     minValue: 0,
-    maxValue: 100,
+    maxValue: 1000000,
   };
   name: FilterByNameType = null;
 
