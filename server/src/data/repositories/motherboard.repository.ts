@@ -4,6 +4,8 @@ import { SocketStatic } from '../models/socket';
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { mergeFilters } from './filters/helper';
 import { IMotherboardFilter } from './filters/motherboard.filter';
+import { Op } from 'sequelize';
+import { notNull } from './filters/types';
 
 export class MotherboardRepository extends BaseRepository<MotherboardModel, IMotherboardFilter> {
   constructor(
@@ -32,12 +34,23 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel, IMot
 
   async getAllMotherboards(inputFilter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
     const filter = mergeFilters<IMotherboardFilter>(new IMotherboardFilter(), inputFilter);
+    console.log('filter.m2 === notNull', filter.m2 === notNull);
     const motherboards = await this.getAll(
       {
         group: ['motherboard.id', 'socket.id', 'ramType.id'],
         where: {
-          sata: filter.sata,
-          m2: filter.m2,
+          // sata: filter.sata,
+          // m2: filter.m2,
+          [Op.or]: [
+            {
+              sata: filter.sata,
+              m2: filter.sata === notNull ? filter.m2 : notNull,
+            },
+            {
+              sata: filter.m2 === notNull ? filter.sata : notNull,
+              m2: filter.m2,
+            },
+          ],
         },
         include: [
           {

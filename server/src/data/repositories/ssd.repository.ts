@@ -5,6 +5,7 @@ import { mergeFilters } from './filters/helper';
 import { Op } from 'sequelize';
 import { Literal } from 'sequelize/types/lib/utils';
 import { ISsdFilter } from './filters/ssd.filter';
+import { notNull } from './filters/types';
 
 export class SsdRepository extends BaseRepository<SsdModel, IFilter> {
   constructor(private model: SsdStatic) {
@@ -22,8 +23,16 @@ export class SsdRepository extends BaseRepository<SsdModel, IFilter> {
       {
         group: ['ssd.id'],
         where: {
-          sata: filter.sata,
-          m2: filter.m2,
+          [Op.or]: [
+            {
+              sata: filter.sata,
+              m2: filter.sata === notNull ? filter.m2 : notNull,
+            },
+            {
+              sata: filter.m2 === notNull ? filter.sata : notNull,
+              m2: filter.m2,
+            },
+          ],
           ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
           capacity: {
             [Op.between]: [filter.capacity.minValue, filter.capacity.maxValue],
