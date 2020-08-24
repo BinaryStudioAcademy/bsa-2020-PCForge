@@ -8,6 +8,7 @@ import quickMatcherSagas from 'containers/QuickMatcher/sagas';
 import userRequestsSagas from 'containers/AdminToolsPage/sagas';
 import setupSagas from 'containers/SetupPage/sagas';
 import homePageSagas from 'containers/Home/logic/sagas';
+import gameFormSagas from 'containers/AddItemPages/AddGameForm/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -20,5 +21,6 @@ export default function* rootSaga() {
     homePageSagas(),
     matcherSagas(),
     setupSagas(),
+    gameFormSagas(),
   ]);
 }

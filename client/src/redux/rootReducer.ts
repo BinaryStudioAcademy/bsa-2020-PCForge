@@ -9,6 +9,7 @@ import { QuickMatcherReducer } from 'containers/QuickMatcher/reducer';
 import UserRequestsReducer from 'containers/AdminToolsPage/reducer';
 import { SetupReducer } from 'containers/SetupPage/reducer';
 import { SetupChartReducer } from 'containers/Chart/reducer';
+import { GameFormReducer } from 'containers/AddItemPages/AddGameForm/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -21,6 +22,7 @@ const RootReducer = combineReducers({
   userRequests: UserRequestsReducer,
   setupPage: SetupReducer,
   setupChart: SetupChartReducer,
+  gameForm: GameFormReducer,
 });
 
 export default RootReducer;

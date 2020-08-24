@@ -1,4 +1,4 @@
-@import '../../styles/variables.scss';
+@import 'styles/variables.scss';
 
 .contentPage {
   display: flex;
@@ -65,6 +65,10 @@
     order: 2;
     width: 100%;
     padding: 3em;
+  }
+
+  img {
+    max-height: 300px;
   }
 
 }
