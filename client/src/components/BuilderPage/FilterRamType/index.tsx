@@ -29,6 +29,7 @@ const FilterRamTypes = ({ filter, show, onUpdateFilter }: PropsType): JSX.Elemen
     try {
       const res = await getAllRamType({});
       setRamTypes(res.data);
+      console.log('res.data', res.data);
     } catch (err) {
       console.log(err); // add notification
     } finally {
