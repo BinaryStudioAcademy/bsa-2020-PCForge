@@ -35,6 +35,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const [filter, setFilter] = useState<TypeFilterBuilder>({
     socketIdSet: new Set() as Set<number>,
     ramTypeIdSet: new Set() as Set<number>,
+    sata: new Set() as Set<number>,
+    m2: new Set() as Set<string>,
   });
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
@@ -49,7 +51,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const dispatch = useDispatch();
 
   const resetFilter = () => {
-    setFilter({ socketIdSet: new Set(), ramTypeIdSet: new Set() });
+    setFilter({ socketIdSet: new Set(), ramTypeIdSet: new Set(), sata: new Set(), m2: new Set() });
   };
 
   const filterForCpu = {
@@ -110,6 +112,9 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
         [FilterName.ramtype]: {
           enable: !setup[GroupName.ram],
         },
+        [FilterName.hdd]: {
+          enable: !setup[GroupName.hdd] || !setup[GroupName.ssd],
+        },
       },
     },
     {
@@ -120,12 +125,20 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     {
       group: GroupName.hdd,
       filter: filter,
-      filters: {},
+      filters: {
+        [FilterName.hdd]: {
+          enable: !setup[GroupName.motherboard],
+        },
+      },
     },
     {
       group: GroupName.ssd,
       filter: filter,
-      filters: {},
+      filters: {
+        [FilterName.hdd]: {
+          enable: !setup[GroupName.motherboard],
+        },
+      },
     },
   ];
 
