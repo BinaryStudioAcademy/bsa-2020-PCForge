@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('hdds', {
@@ -21,6 +22,14 @@ module.exports = {
         type: Sequelize.FLOAT,
       },
       sata: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      rpm: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      ram: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
