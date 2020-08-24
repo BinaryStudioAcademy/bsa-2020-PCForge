@@ -117,6 +117,16 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
       filter: filter,
       filters: {},
     },
+    {
+      group: GroupName.hdd,
+      filter: filter,
+      filters: {},
+    },
+    {
+      group: GroupName.ssd,
+      filter: filter,
+      filters: {},
+    },
   ];
 
   const groups = groupConfigs.map((config) => (
