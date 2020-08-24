@@ -15,6 +15,8 @@ import { getGpu } from 'api/services/gpuService';
 import { getRam } from 'api/services/ramService';
 import { getMotherboard } from 'api/services/motherboardService';
 import { getPowersupplies } from 'api/services/powersupplyService';
+import { getHdd } from 'api/services/hddService';
+import { getSsd } from 'api/services/ssdService';
 import { clearLocalSetup, getLocalSetup, setLocalSetup } from 'helpers/setupHelper';
 import { uploadImage } from 'api/services/imageService';
 import { createSetup } from 'api/services/setup.service';
@@ -26,6 +28,8 @@ const servicesGet = {
   [GroupName.ram]: getRam,
   [GroupName.motherboard]: getMotherboard,
   [GroupName.powersupply]: getPowersupplies,
+  [GroupName.hdd]: getHdd,
+  [GroupName.ssd]: getSsd,
 };
 
 export function* fetchComponent(action: AnyAction) {
