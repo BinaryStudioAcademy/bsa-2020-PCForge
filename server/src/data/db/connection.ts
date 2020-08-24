@@ -21,6 +21,8 @@ import { initializeRepositories, Repositories } from '../repositories';
 import { initializeServices, Services } from '../../api/services';
 import { TopGameStatic } from '../models/topgame';
 import { AddRequestStatic } from '../models/addRequest';
+import { HddStatic } from '../models/hdd';
+import { SsdStatic } from '../models/ssd';
 
 export interface Models {
   AddRequest: AddRequestStatic;
@@ -39,6 +41,8 @@ export interface Models {
   User: UserStatic;
   UserGame: UserGameStatic;
   TopGame: TopGameStatic;
+  Hdd: HddStatic;
+  Ssd: SsdStatic;
 }
 
 export interface Db {
