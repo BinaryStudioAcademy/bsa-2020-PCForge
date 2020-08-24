@@ -113,7 +113,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           enable: !setup[GroupName.ram],
         },
         [FilterName.hdd]: {
-          enable: !setup[GroupName.hdd] || !setup[GroupName.ssd],
+          enable: !setup[GroupName.hdd] && !setup[GroupName.ssd],
         },
       },
     },
