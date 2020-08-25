@@ -47,6 +47,10 @@ export class IMotherboardFilter extends IFilter {
         ],
         nullable: true,
       },
+      name: {
+        type: 'string',
+        nullable: true,
+      },
       sata: {
         type: 'integer',
         minimum: 1,
