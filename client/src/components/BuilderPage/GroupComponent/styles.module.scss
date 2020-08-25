@@ -1,4 +1,4 @@
-@import "src/styles/variables";
+@import '../../../styles/variables';
 
 .group,
 .group .details,
@@ -7,18 +7,14 @@
 }
 
 .details {
-  flex-direction: column;
-}
-
-.description {
   display: flex;
-  justify-content: center;
-}
-
-.dimension {
-  color: $colorLightGray;
+  flex-direction: column;
 }
 
 .details .button {
   text-transform: none;
+}
+
+.search {
+  margin: 5px 0 20px;
 }
