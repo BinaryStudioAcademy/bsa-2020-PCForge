@@ -1,4 +1,4 @@
-import { RateCreationAttributes, RateModel } from '../../data/models/rate';
+import { RateCreationAttributes, RateModel, RateAttributes } from '../../data/models/rate';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { RateRepository } from '../../data/repositories/rate.repository';
@@ -22,6 +22,13 @@ export class RateService {
 
   async createRate(inputRate: RateCreationAttributes, rateMiddleware: IRateMiddleware): Promise<RateModel> {
     await rateMiddleware(inputRate);
+
+    const oldUserRate = await this.repository.getRateByUserAndRateable(inputRate.userId, inputRate.ratebleId, inputRate.ratebleType);
+    if (oldUserRate) {
+      const objOldUserRate: RateAttributes = oldUserRate.toJSON() as RateAttributes;
+      return await this.repository.updateRateById(objOldUserRate.id.toString(), inputRate);
+    }
+
     return await this.repository.createRate(inputRate);
   }
 

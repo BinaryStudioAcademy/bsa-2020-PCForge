@@ -4,17 +4,28 @@ import Input from 'components/BasicComponents/Input';
 import CommentComponent from 'components/Comments/Comment';
 import styles from 'components/Comments/styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import Paginator from 'components/Paginator';
 
 interface Props {
   comments: Comment[];
+  commentsPerPage: number;
+  commentsTotal: number;
+  rootClassName?: string;
   onCreateComment: (value: string) => void;
+  onPaginationToggle: (meta: { from: number; count: number }) => void;
 }
 
 const Comments: React.FC<Props> = (props): JSX.Element => {
   const { comments } = props;
   const [value, setValue] = useState('');
+
+  const onCreateComment = () => {
+    props.onCreateComment(value);
+    setValue('');
+  };
+
   return (
-    <div className={styles.commentsRoot}>
+    <div className={[styles.commentsRoot, props.rootClassName].join(' ')}>
       <h2 className={styles.reviewHeader}>Users reviews</h2>
       <div className={styles.userReviewRoot}>
         <Input
@@ -32,7 +43,7 @@ const Comments: React.FC<Props> = (props): JSX.Element => {
             className={styles.addCommentButton}
             title="Write a review"
             size="large"
-            onClick={() => props.onCreateComment(value)}
+            onClick={onCreateComment}
           >
             Add review
           </Button>
@@ -43,8 +54,17 @@ const Comments: React.FC<Props> = (props): JSX.Element => {
           <CommentComponent key={comment.id} comment={comment} />
         ))}
       </ul>
+      <Paginator
+        countComponents={props.commentsTotal}
+        countComponentsOnPage={props.commentsPerPage}
+        setPagination={props.onPaginationToggle}
+      />
     </div>
   );
+};
+
+Comments.defaultProps = {
+  rootClassName: '',
 };
 
 export default Comments;

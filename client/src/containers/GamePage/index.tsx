@@ -95,7 +95,13 @@ class GamePage extends Component<Record<string, unknown>, IGamePageState> {
             </Grid>
             <Divider />
             <Grid className={styles.commentsWrapper} container direction="column">
-              <Comments comments={this.state.comments} onCreateComment={console.log} />
+              <Comments
+                commentsPerPage={2}
+                commentsTotal={20}
+                comments={this.state.comments}
+                onCreateComment={console.log}
+                onPaginationToggle={console.log}
+              />
             </Grid>
           </Grid>
         </Container>

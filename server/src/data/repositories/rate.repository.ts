@@ -27,6 +27,16 @@ export class RateRepository extends BaseRepository<RateModel, IRateFilter> {
     );
   }
 
+  async getRateByUserAndRateable(userId: number, ratebleId: number, ratebleType: string): Promise<RateModel | null> {
+    return this.model.findOne({
+      where: {
+        ratebleType,
+        ratebleId,
+        userId
+      }
+    })
+  }
+
   async getAverageRate(inputFilter: IRateFilter): Promise<number> {
     const filter = mergeFilters<IRateFilter>(new IRateFilter(), inputFilter);
     const averageRate: number = await this.model.aggregate('value', 'AVG', {
