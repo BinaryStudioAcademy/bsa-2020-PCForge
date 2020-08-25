@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent} from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -9,9 +9,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Button from '@material-ui/core/Button';
 import Spinner from 'components/Spinner';
 import Checkbox from 'components/BasicComponents/Checkbox';
-import { TypeRamType } from 'common/models/typeRamType';
 import { TypeFilterBuilder } from 'containers/BuilderPage/types';
-import { getAllRamType } from 'api/services/ramTypeService';
 import styles from 'components/BuilderPage/styles.module.scss';
 
 type PropsType = {
@@ -20,71 +18,59 @@ type PropsType = {
   onUpdateFilter: (filter: TypeFilterBuilder) => void;
 };
 
-const FilterRamTypes = ({ filter, show, onUpdateFilter }: PropsType): JSX.Element => {
-  const [ramTypes, setRamTypes] = useState([] as TypeRamType[]);
-  const [load, setLoad] = useState(false);
+const FilterHddTypes = ({ filter, show, onUpdateFilter }: PropsType): JSX.Element => {
+  const sataType = [1, 2, 3];
 
-  const getRamTypes = async () => {
-    setLoad(true);
-    try {
-      const res = await getAllRamType({});
-      setRamTypes(res.data);
-      console.log('res.data', res.data);
-    } catch (err) {
-      console.log(err); // add notification
-    } finally {
-      setLoad(false);
-    }
-  };
-
-  useEffect(() => {
-    getRamTypes();
-  }, []);
-
-  const updateRamTypeFilter = (ramTypeIdSet: Set<number>) => {
+  const updateRamTypeFilter = (sata: Set<number>, m2: Set<string>) => {
     onUpdateFilter({
       ...filter,
-      ramTypeIdSet: new Set(ramTypeIdSet),
+      sata: new Set(sata),
+      m2: new Set(m2),
     });
   };
 
   const onChangeHandler = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
-    const id = event.target.name;
-    const ramTypeIdSet = filter.ramTypeIdSet;
-    checked ? ramTypeIdSet.add(+id) : ramTypeIdSet.delete(+id);
-    updateRamTypeFilter(ramTypeIdSet);
+    const value = event.target.name;
+    const sata = filter.sata;
+    const m2 = filter.m2;
+    if (value === 'm2') {
+      checked ? m2.add(value) : m2.delete(value);
+    } else {
+      checked ? sata.add(+value) : sata.delete(+value);
+    }
+    updateRamTypeFilter(sata, m2);
   };
 
   const resetRamTypeFilter = () => {
-    const ramTypeIdSet = filter.ramTypeIdSet;
-    ramTypeIdSet.clear();
-    updateRamTypeFilter(ramTypeIdSet);
+    const sata = filter.sata;
+    const m2 = filter.m2;
+    sata.clear();
+    m2.clear();
+    updateRamTypeFilter(sata, m2);
   };
 
-  const listRamTypeElements = ramTypes.map((ramType) => (
+  const listHddTypeElements = sataType.map((sata) => (
     <FormControlLabel
-      key={ramType.id}
+      key={sata}
       control={
-        <Checkbox
-          disabled={!show}
-          name={ramType.id.toString()}
-          checked={filter.ramTypeIdSet.has(ramType.id)}
-          onChange={onChangeHandler}
-        />
+        <Checkbox disabled={!show} name={sata.toString()} checked={filter.sata.has(sata)} onChange={onChangeHandler} />
       }
-      label={ramType.name}
+      label={`SATA ${sata.toString()}`}
     />
   ));
 
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
       <AccordionSummary className={styles.summary} expandIcon={<ExpandMoreIcon />}>
-        <Typography>Ram Type</Typography>
+        <Typography>Interface Disc</Typography>
       </AccordionSummary>
       <AccordionDetails className={styles.details}>
         <FormGroup>
-          {listRamTypeElements}
-          <Spinner load={load} />
+          {listHddTypeElements}
+          <FormControlLabel
+            control={<Checkbox disabled={!show} name="m2" checked={filter.m2.has('m2')} onChange={onChangeHandler} />}
+            label="M2"
+          />
           <Button disabled={!show} className={styles.button} size="small" onClick={resetRamTypeFilter}>
             Uncheck all
           </Button>
@@ -94,4 +80,4 @@ const FilterRamTypes = ({ filter, show, onUpdateFilter }: PropsType): JSX.Elemen
   );
 };
 
-export default FilterRamTypes;
+export default FilterHddTypes;

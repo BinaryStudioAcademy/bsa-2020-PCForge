@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import GroupItemSummary from 'components/BuilderPage/GroupItemSummary';
 import ListComponentsItem from 'components/BuilderPage/ListComponentsItem';
 import FilterSocket from 'components/BuilderPage/FilterSocket';
+import FilterHddTypes from 'components/BuilderPage/FilterHddType';
 import FilterRange from 'components/BuilderPage/FilterRange';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
@@ -57,9 +58,13 @@ const GroupComponent = ({
     const queryRamTypeId = filter.ramTypeIdSet.size
       ? { [keyRamType]: [Array.from(filter.ramTypeIdSet)].join(',') }
       : {};
+    const querySata = filter.sata.size ? { sata: [Array.from(filter.sata)].join(',') } : {};
+    const queryM2 = filter.m2.size ? { m2: true } : {};
     const queryFilter = {
       ...querySocketId,
       ...queryRamTypeId,
+      ...querySata,
+      ...queryM2,
     };
     let queryRange = {};
     if (filterRangeInfo.hasOwnProperty(groupName) && filterRangeInfo[groupName].hasOwnProperty('key')) {
@@ -78,7 +83,6 @@ const GroupComponent = ({
 
     try {
       const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, name });
-      console.log('res', res);
       setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -100,10 +104,16 @@ const GroupComponent = ({
       const ramTypeIdSet = selectedComponent.hasOwnProperty('ramTypeId')
         ? new Set(filter.ramTypeIdSet.add((selectedComponent as { ramTypeId: number })?.ramTypeId))
         : filter.ramTypeIdSet;
+      const sata = selectedComponent.hasOwnProperty('sata')
+        ? new Set(filter.sata.add((selectedComponent as { sata: number })?.sata))
+        : filter.sata;
+      const m2 = selectedComponent.hasOwnProperty('m2') ? new Set(filter.m2.add('m2')) : filter.m2;
       onUpdateFilter({
         ...filter,
         socketIdSet,
         ramTypeIdSet,
+        sata,
+        m2,
       });
     }
   }, [selectedComponent]);
@@ -158,6 +168,13 @@ const GroupComponent = ({
             {filtersUsed[FilterName.ramtype] && (
               <FilterRamTypes
                 show={filtersUsed[FilterName.ramtype].enable}
+                filter={filter}
+                onUpdateFilter={onUpdateFilter}
+              />
+            )}
+            {filtersUsed[FilterName.hdd] && (
+              <FilterHddTypes
+                show={filtersUsed[FilterName.hdd].enable}
                 filter={filter}
                 onUpdateFilter={onUpdateFilter}
               />

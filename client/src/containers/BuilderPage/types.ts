@@ -3,6 +3,8 @@ import { TypeGpu } from 'common/models/typeGpu';
 import { TypeRam } from 'common/models/typeRam';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { TypeHdd } from 'common/models/typeHdd';
+import { TypeSsd } from 'common/models/typeSsd';
 import { GroupName } from './config';
 
 export type TypeBuild = {
@@ -11,13 +13,17 @@ export type TypeBuild = {
   ram: TypeRam;
   motherboard: TypeMotherboard;
   powersupplies: TypePowersupplies;
+  hdd: TypeHdd;
+  ssd: TypeSsd;
 };
 
-export type TypeComponent = TypeCpu | TypeGpu | TypeRam | TypeMotherboard | TypePowersupplies;
+export type TypeComponent = TypeCpu | TypeGpu | TypeRam | TypeMotherboard | TypePowersupplies | TypeHdd | TypeSsd;
 
 export type TypeFilterBuilder = {
   socketIdSet: Set<number>;
   ramTypeIdSet: Set<number>;
+  sata: Set<number>;
+  m2: Set<string>;
 };
 
 export type TypeShowFilters = {

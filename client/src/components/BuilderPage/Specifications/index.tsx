@@ -6,6 +6,8 @@ import { TypeGpu } from 'common/models/typeGpu';
 import { TypeRam } from 'common/models/typeRam';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { TypeHdd } from 'common/models/typeHdd';
+import { TypeSsd } from 'common/models/typeSsd';
 import { GroupName } from 'containers/BuilderPage/config';
 
 export const SpecificationCpu = ({ component }: { component: TypeCpu }): JSX.Element => (
@@ -39,6 +41,8 @@ export const SpecificationMotherboard = ({ component }: { component: TypeMotherb
   <Box>
     <SpecificationField title="Socket" value={component.socket.name} />
     <SpecificationField title="Ram type" value={component.ramType.name} />
+    <SpecificationField title="SATA" value={`SATA${component.sata}`} />
+    <SpecificationField title="M2" value={component.m2 ? 'available' : 'n/a'} />
   </Box>
 );
 
@@ -48,10 +52,31 @@ export const SpecificationPowersupply = ({ component }: { component: TypePowersu
   </Box>
 );
 
+export const SpecificationHdd = ({ component }: { component: TypeHdd }): JSX.Element => (
+  <Box>
+    <SpecificationField title="Capacity" value={`${component.capacity}Gb`} />
+    <SpecificationField title="Interface SATA" value={`SATA ${component.sata}`} />
+    <SpecificationField title="Speed" value={`${component.rpm}RPM`} />
+    <SpecificationField title="Form Factor" value={`${component.size}in`} />
+    {!!component.ram && <SpecificationField title="On-Board Cache" value={`${component.ram}Mb`} />}
+  </Box>
+);
+
+export const SpecificationSsd = ({ component }: { component: TypeSsd }): JSX.Element => (
+  <Box>
+    <SpecificationField title="Capacity" value={`${component.capacity}Gb`} />
+    <SpecificationField title="Interface SATA" value={`SATA ${component.sata ? component.sata : 'none'}`} />
+    <SpecificationField title="Interface M2" value={component.m2 ? 'yes' : 'no'} />
+    <SpecificationField title="Form Factor" value={`${component.size}${component.size < 6 ? 'in' : 'mm'}`} />
+  </Box>
+);
+
 export const SpecificationComponent = {
   [GroupName.cpu]: SpecificationCpu,
   [GroupName.gpu]: SpecificationGpu,
   [GroupName.ram]: SpecificationRam,
   [GroupName.motherboard]: SpecificationMotherboard,
   [GroupName.powersupply]: SpecificationPowersupply,
+  [GroupName.hdd]: SpecificationHdd,
+  [GroupName.ssd]: SpecificationSsd,
 };
