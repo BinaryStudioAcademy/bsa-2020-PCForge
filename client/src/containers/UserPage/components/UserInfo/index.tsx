@@ -10,6 +10,7 @@ import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../he
 import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from '../../logic/actionTypes';
 import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
+import { Game } from 'common/models/typeUserGame';
 
 enum UserPageTabs {
   Games = 0,
@@ -18,50 +19,14 @@ enum UserPageTabs {
 
 interface IUserInfoProps {
   user: TypeUser;
+  userGames: Game[],
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
   isCurrentUser: boolean;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const { user, updateUser, isCurrentUser } = props;
-  const gamesArray = [
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-  ];
+  const { user, userGames, updateUser, isCurrentUser } = props;
+ 
   const setupsArray = [
     {
       image:
@@ -318,7 +283,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             <Tab label="Setups" />
           </Tabs>
         </AppBar>
-        {selectedTab === UserPageTabs.Games && <UserPreferences isCurrentUser={isCurrentUser} games={gamesArray} />}
+        {selectedTab === UserPageTabs.Games && <UserPreferences isCurrentUser={isCurrentUser} games={userGames} />}
         {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setupsArray} />}
       </div>
     </div>

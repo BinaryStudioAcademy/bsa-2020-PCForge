@@ -6,9 +6,13 @@ import {
   UPDATE_USER_SUCCESS,
   SHOW_SPINNER,
   HIDE_SPINNER,
+  LOAD_USER_GAMES,
+  LOAD_USER_GAMES_SUCCESS,
+
 } from './actionTypes';
 
 import { TypeUser } from 'common/models/typeUser';
+import { UserGame } from 'common/models/typeUserGame';
 
 export const loadUser = (id: number): UserActionTypes => ({
   type: LOAD_USER,
@@ -32,6 +36,16 @@ export const updateUserSuccess = (data: TypeUser): UserActionTypes => ({
   type: UPDATE_USER_SUCCESS,
   payload: data,
 });
+
+export const loadUserGames = (id: number): UserActionTypes => ({
+  type: LOAD_USER_GAMES,    
+  payload: { id }                         
+});
+
+export const loadUserGamesSuccess = (data: UserGame[]): UserActionTypes => ({
+  type: LOAD_USER_GAMES_SUCCESS,
+  payload: data,
+})
 
 export const showSpinner = (): UserActionTypes => ({
   type: SHOW_SPINNER,

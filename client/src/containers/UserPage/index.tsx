@@ -5,20 +5,23 @@ import { useParams } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import UserInfo from './components/UserInfo';
 import { RootState } from 'redux/rootReducer';
-import { loadUser, updateUser } from './logic/actions';
+import { loadUser, updateUser, loadUserGames } from './logic/actions';
 import Spinner from 'components/Spinner';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const UserPage = (props: Props) => {
-  const { loadedUser, showSpinner, loadUser, currentUser, updateUser: userUpdate } = props;
+  const { loadedUser, loadUserGames, showSpinner, loadUser, currentUser, updateUser: userUpdate, userGames } = props;
+  const gamesArray = userGames.map(game => game.game);
+  console.log(gamesArray);
 
   const { id } = useParams();
   const currentUserId = currentUser?.id.toString();
 
   useEffect(() => {
     loadUser(parseInt(id));
+    loadUserGames(parseInt(id));
   }, []);
 
   const renderContent = () => {
@@ -28,6 +31,7 @@ const UserPage = (props: Props) => {
       return (
         <UserInfo
           user={loadedUser}
+          userGames={gamesArray}
           updateUser={userUpdate}
           isCurrentUser={id.toString() === currentUserId?.toString()}
         />
@@ -44,11 +48,13 @@ const mapState = (state: RootState) => ({
   loadedUser: state.user.loadedUser,
   showSpinner: state.user.showSpinner,
   currentUser: state.auth.user,
+  userGames: state.user.userGames,
 });
 
 const mapDispatch = {
   loadUser,
   updateUser,
+  loadUserGames,
 };
 
 const connector = connect(mapState, mapDispatch);

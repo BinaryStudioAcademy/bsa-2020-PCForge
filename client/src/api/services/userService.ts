@@ -1,5 +1,6 @@
 import webApi from 'api/webApiHelper';
 import { TypeUser } from 'common/models/typeUser';
+import { Game } from 'common/models/game';
 
 const endpoint = '/users';
 
@@ -14,3 +15,7 @@ export const updateUser = async (request: TypeUser): Promise<TypeUser> => {
 export const deleteUser = async (id: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}`);
 };
+
+export const getUserGames = async (id: number): Promise<Game> => {
+  return await webApi.get(`${endpoint}/${id}/games`);
+}

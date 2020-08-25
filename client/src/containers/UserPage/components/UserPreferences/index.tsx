@@ -3,7 +3,9 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from '../SetupCard';
+import GamesModal from '../GamesModal';
 import styles from './styles.module.scss';
+import { getAllTopGames } from 'api/services/topgameService';
 
 export interface UserPreferencesProps {
   games?: GameCardProps[];
@@ -15,15 +17,25 @@ const generateKey = (pre: string, index: number) => {
   return `${pre}_${new Date().getTime()}_${index}`;
 };
 
+
+const handleAddGameClick = async () => {
+//  const topGames = await getAllTopGames({from:0, count:5});
+//  const result = topGames.data;
+//  console.log(result)
+}
+
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
+
   const { games, setups, isCurrentUser } = props;
+  
+
   return (
     <>
       {games ? (
         <>
           <div className={styles.buttonPlacement}>
             {isCurrentUser && (
-              <Button variant="contained" className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add">
+              <Button variant="contained" className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add" onClick={handleAddGameClick} >
                 Add Game
               </Button>
             )}
@@ -31,10 +43,10 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
           <div className={styles.userPreferences}>
             {games.map((game, index) => (
               <GameCard
-                key={generateKey(game.title, index)}
+                key={generateKey(game.name, index)}
                 image={game.image}
-                title={game.title}
-                releaseDate={game.releaseDate}
+                name={game.name}
+                year={game.year}
                 description={game.description}
               />
             ))}

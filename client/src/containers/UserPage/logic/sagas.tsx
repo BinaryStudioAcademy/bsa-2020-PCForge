@@ -1,12 +1,19 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
-import { getUser, updateUser as updateUserService } from 'api/services/userService';
+import { getUser, updateUser as updateUserService, getUserGames } from 'api/services/userService';
 import { uploadImage } from 'api/services/imageService';
-import { loadUser as loadUserAction, updateUser as updateUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
-import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess } from './actions';
+import { loadUser as loadUserAction, loadUserGames as loadUserGamesActionType, updateUser as updateUserAction, LOAD_USER, UPDATE_USER, LOAD_USER_GAMES } from './actionTypes';
+import {
+  showSpinner,
+  hideSpinner,
+  loadUserSuccess,
+  updateUserSuccess,
+  loadUserGames as loadUserGamesAction,
+  loadUserGamesSuccess,
+} from './actions';
 import * as notification from 'common/services/notificationService';
 
 export default function* userSagas() {
-  yield all([watchLoadUser(), watchUpdateUser()]);
+  yield all([watchLoadUser(), watchUpdateUser(), watchLoadUserGames()]);
 }
 
 function* watchLoadUser() {
@@ -41,6 +48,21 @@ function* updateUser(action: updateUserAction) {
   } catch (error) {
     console.log(error);
     notification.error('Something went wrong, please try again later');
+  }
+  yield put(hideSpinner());
+}
+
+function* watchLoadUserGames() {
+  yield takeEvery(LOAD_USER_GAMES, loadUserGames)
+}
+
+function* loadUserGames(action: loadUserGamesActionType) {
+  yield put(showSpinner());
+  try{
+    const data = yield call(getUserGames, action.payload.id); 
+    yield put(loadUserGamesSuccess(data.data));
+  } catch (error) {
+    console.log(error);
   }
   yield put(hideSpinner());
 }
