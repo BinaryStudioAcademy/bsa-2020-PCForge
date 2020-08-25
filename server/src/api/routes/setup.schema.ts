@@ -135,8 +135,14 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
   schema.properties.ram = RamSchema;
   schema.properties.motherboard = MotherBoardSchema;
   schema.properties.powerSupply = PowerSupplySchema;
-  // schema.properties.hdd = HddSchema;
-  // schema.properties.ssd = SsdSchema;
+  schema.properties.hdd = {
+    ...HddSchema,
+    nullable: true
+  };
+  schema.properties.ssd = {
+    ...SsdSchema,
+    nullable: true
+  };
   return schema;
 };
 export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
