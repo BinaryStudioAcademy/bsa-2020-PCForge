@@ -14,10 +14,9 @@ export class IAddRequestFilter extends IFilter {
       ...IFilter.schema.properties,
       requestedType: {
         type: 'string',
-      minLength: 1,
         enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
         nullable: true,
-      }
-    }
-  }
+      },
+    },
+  };
 }
