@@ -1,16 +1,29 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import Link from 'components/BasicComponents/Link';
+import { UserActionTypes } from '../../logic/actionTypes';
+import { useParams } from 'react-router';
+import { deleteUserGame } from 'api/services/userService';
 
 export interface GameCardProps {
   image: string;
+  id?: number;
   name: string;
   year?: number;
   description?: string;
   isCurrentUser?: boolean;
+  deleteUserGame?: (id: number, gameId: number) => UserActionTypes;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isCurrentUser }) => {
+const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isCurrentUser, id, deleteUserGame}) => {
+  const { id : userId} = useParams();
+ 
+  const handleDeleteGame:() => void = () => {
+    if (deleteUserGame && typeof id == 'number') {
+      deleteUserGame(userId, id)
+    }
+  }
+
   return (
     <div className={styles.gameCard}>
       <div className={styles.gameImage}>
@@ -25,7 +38,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
           <div>{description}</div>
           {isCurrentUser && (
             <div className={styles.cardButton}>
-              <Link icon="Delete"></Link>
+              <Link icon="Delete" onClick={handleDeleteGame} ></Link>
             </div>
           )}
         </div>

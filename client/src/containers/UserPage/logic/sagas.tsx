@@ -7,11 +7,13 @@ import {
   updateUser as updateUserAction,
   loadFilteredGames as loadFilteredGamesActionType,
   addUserGame as addUserGameActionType,
+  deleteUserGame as deleteUserGameActionType,
   LOAD_USER,
   UPDATE_USER,
   LOAD_USER_GAMES,
   LOAD_FILTERED_GAMES,
   ADD_USER_GAME,
+  DELETE_USER_GAME,
 } from './actionTypes';
 import {
   showSpinner,
@@ -24,10 +26,10 @@ import {
 } from './actions';
 import * as notification from 'common/services/notificationService';
 import { getAllGames } from 'api/services/gamesService';
-import { addUserGame as addUserGameService } from 'api/services/userService';
+import { addUserGame as addUserGameService, deleteUserGame as deleteUserGameService } from 'api/services/userService';
 
 export default function* userSagas() {
-  yield all([watchLoadUser(), watchUpdateUser(), watchLoadUserGames(), watchLoadFilteredGames(), watchAddUserGame()]);
+  yield all([watchLoadUser(), watchUpdateUser(), watchLoadUserGames(), watchLoadFilteredGames(), watchAddUserGame(), watchDeleteUserGame()]);
 }
 
 function* watchLoadUser() {
@@ -110,6 +112,22 @@ function* addUserGame(action: addUserGameActionType) {
     }
   } catch (error) {
     notification.error('Something went wrong, please try again later');
+  }
+  yield put(hideSpinner());
+}
+
+
+function* watchDeleteUserGame() {
+  yield takeEvery(DELETE_USER_GAME, deleteUserGame);
+}
+
+function* deleteUserGame(action: deleteUserGameActionType) {
+  yield put(showSpinner());
+  try {
+    yield call(deleteUserGameService, action.payload.id, action.payload.gameId);
+    yield put(loadUserGamesAction(action.payload.id));
+  } catch (error) {
+    notification.error("Could not delete the game, try again later");
   }
   yield put(hideSpinner());
 }

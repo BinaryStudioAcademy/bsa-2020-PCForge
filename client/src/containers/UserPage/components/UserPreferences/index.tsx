@@ -15,6 +15,7 @@ export interface UserPreferencesProps {
   setups?: SetupCardProps[];
   isCurrentUser: boolean;
   addUserGame?: (id: number, gameId: number) => UserActionTypes;
+  deleteUserGame?: (id: number, gameId: number) => UserActionTypes;
   filteredGames?: Game[];
   loadFilteredGames?: (searchString: string) => UserActionTypes;
 }
@@ -24,7 +25,7 @@ const generateKey = (pre: string, index: number) => {
 };
 
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
-  const { games, setups, isCurrentUser, filteredGames, loadFilteredGames, addUserGame } = props;
+  const { games, setups, isCurrentUser, filteredGames, loadFilteredGames, addUserGame, deleteUserGame } = props;
   const [showGameSearch, setShowGameSearch] = useState(false);
   const handleAddGameClick = async () => {
     setShowGameSearch(true);
@@ -74,6 +75,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                 year={game.year}
                 description={game.description}
                 isCurrentUser={isCurrentUser}
+                deleteUserGame={deleteUserGame}
               />
             ))}
           </div>

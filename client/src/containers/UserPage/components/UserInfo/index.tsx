@@ -23,12 +23,13 @@ interface IUserInfoProps {
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
   isCurrentUser: boolean;
   addUserGame: (id: number, gameId: number) => UserActionTypes;
+  deleteUserGame: (id:number, gameId: number) => UserActionTypes;
   filteredGames: Game[];
   loadFilteredGames: (searchString: string) => UserActionTypes;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const { user, userGames, updateUser, isCurrentUser, filteredGames, loadFilteredGames, addUserGame } = props;
+  const { user, userGames, updateUser, isCurrentUser, filteredGames, loadFilteredGames, addUserGame, deleteUserGame} = props;
 
   const setupsArray = [
     {
@@ -291,6 +292,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             isCurrentUser={isCurrentUser}
             games={userGames}
             addUserGame={addUserGame}
+            deleteUserGame={deleteUserGame}
             filteredGames={filteredGames}
             loadFilteredGames={loadFilteredGames}
           />

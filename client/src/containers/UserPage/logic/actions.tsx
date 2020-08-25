@@ -11,6 +11,7 @@ import {
   LOAD_FILTERED_GAMES,
   LOAD_FILTERED_GAMES_SUCCESS,
   ADD_USER_GAME,
+  DELETE_USER_GAME,
 } from './actionTypes';
 
 import { TypeUser } from 'common/models/typeUser';
@@ -64,6 +65,11 @@ export const addUserGame = (id: number, gameId: number): UserActionTypes => ({
   type: ADD_USER_GAME,
   payload: { id, gameId },
 });
+
+export const deleteUserGame = (id: number, gameId: number): UserActionTypes => ({
+  type: DELETE_USER_GAME,
+  payload: {id, gameId},
+})
 
 export const showSpinner = (): UserActionTypes => ({
   type: SHOW_SPINNER,

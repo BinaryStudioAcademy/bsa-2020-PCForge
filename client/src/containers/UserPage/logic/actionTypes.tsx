@@ -1,5 +1,6 @@
 import { TypeUser } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
+import { deleteUserGame } from 'api/services/userService';
 
 export const LOAD_USER = 'LOAD_USER';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
@@ -12,6 +13,7 @@ export const LOAD_USER_GAMES_SUCCESS = 'LOAD_USER_GAMES_SUCCESS';
 export const LOAD_FILTERED_GAMES = 'LOAD_FILTERED_GAMES';
 export const LOAD_FILTERED_GAMES_SUCCESS = 'LOAD_FILTERED_GAMES_SUCCESS';
 export const ADD_USER_GAME = 'ADD_USER_GAME';
+export const DELETE_USER_GAME = 'DELETE_USER_GAME';
 
 export interface loadUser {
   type: typeof LOAD_USER;
@@ -70,6 +72,11 @@ export interface addUserGame {
   payload: { id: number; gameId: number };
 }
 
+export interface deleteUserGame {
+  type: typeof DELETE_USER_GAME;
+  payload: { id: number; gameId: number};
+}
+
 export type UserActionTypes =
   | hideSpinner
   | showSpinner
@@ -81,4 +88,5 @@ export type UserActionTypes =
   | loadUserGamesSuccss
   | loadFilteredGames
   | loadFilteredGamesSuceess
-  | addUserGame;
+  | addUserGame
+  | deleteUserGame;
