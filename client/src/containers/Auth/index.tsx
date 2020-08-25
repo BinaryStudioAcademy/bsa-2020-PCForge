@@ -9,6 +9,7 @@ import LoginForm from 'components/Auth/LoginForm';
 import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
+import { getTokenSync } from 'helpers/tokenHelper';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
@@ -70,7 +71,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-    if (state.user) {
+    if (state.user && getTokenSync()) {
       return <Redirect to={'/'} />;
     }
 
