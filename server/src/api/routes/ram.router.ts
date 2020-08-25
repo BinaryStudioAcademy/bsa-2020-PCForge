@@ -55,7 +55,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const deleteOneSchema = DeleteOneQuery();
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteRamRequest, reply) => {
     const { id } = request.params;
-    await RamService.deleteRamById({ id });
+    await RamService.deleteRamById(id);
     reply.send({});
   });
 

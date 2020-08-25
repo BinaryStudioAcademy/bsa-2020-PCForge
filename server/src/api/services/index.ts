@@ -16,6 +16,8 @@ import { CommentService } from './comment.service';
 import { AddRequestService } from './addRequest.service';
 import uploadService from './imageUpload.service';
 import { PerformanceService } from './performance.service';
+import { HddService } from './hdd.service';
+import { SsdService } from './ssd.service';
 
 export interface Services {
   RamTypeService: RamTypeService;
@@ -35,6 +37,8 @@ export interface Services {
   AddRequestService: AddRequestService;
   UploadImageService;
   PerformanceService: PerformanceService;
+  HddService: HddService;
+  SsdService: SsdService;
 }
 
 export const initializeServices = (repositories: Repositories): Services => {
@@ -52,8 +56,14 @@ export const initializeServices = (repositories: Repositories): Services => {
   const newsService = new NewsService(repositories.NewsRepository);
   const rateService = new RateService(repositories.RateRepository);
   const commentService = new CommentService(repositories.CommentRepository);
-  const performanceService = new PerformanceService(repositories.SetupRepository, repositories.GameRepository);
+  const performanceService = new PerformanceService(
+    repositories.CpuRepository,
+    repositories.GpuRepository,
+    repositories.GameRepository
+  );
   const addRequestService = new AddRequestService(repositories.AddRequestRepository);
+  const hddService = new HddService(repositories.HddRepository);
+  const ssdService = new SsdService(repositories.SsdRepository);
   const services: Services = {
     AddRequestService: addRequestService,
     RamTypeService: ramTypeService,
@@ -72,6 +82,8 @@ export const initializeServices = (repositories: Repositories): Services => {
     CommentService: commentService,
     UploadImageService: uploadService,
     PerformanceService: performanceService,
+    HddService: hddService,
+    SsdService: ssdService,
   };
   return services;
 };

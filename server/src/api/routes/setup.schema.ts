@@ -9,6 +9,8 @@ import { PowerSupplySchema } from './powerSupply.schema';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { CommentSchema } from './comment.schema';
 import { UserAttributes } from '../../data/models/user';
+import { HddSchema } from './hdd.schema';
+import { SsdSchema } from './ssd.schema';
 
 export type GetSetupsRequest = FastifyRequest<{
   Querystring: ISetupFilter;
@@ -44,11 +46,13 @@ export const SetupSchema: SwaggerSchema = {
       type: 'string',
       example: 'Setup name',
       nullable: false,
+      minLength: 1,
     },
     description: {
       type: 'string',
       example: 'Setup description',
       nullable: false,
+      minLength: 1,
     },
     image: {
       type: 'string',
@@ -92,6 +96,20 @@ export const SetupSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    hddId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null,
+    },
+    ssdId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null,
+    },
     createdAt: {
       type: 'string',
       nullable: false,
@@ -117,6 +135,14 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
   schema.properties.ram = RamSchema;
   schema.properties.motherboard = MotherBoardSchema;
   schema.properties.powerSupply = PowerSupplySchema;
+  schema.properties.hdd = {
+    ...HddSchema,
+    nullable: true,
+  };
+  schema.properties.ssd = {
+    ...SsdSchema,
+    nullable: true,
+  };
   return schema;
 };
 export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
@@ -146,22 +172,26 @@ export const GetAllSetupsResponse: SwaggerSchema = {
 
 export const CreateSetupSchema: SwaggerSchema = {
   type: 'object',
+  required: ['title', 'description', 'image', 'authorId', 'cpuId', 'gpuId', 'motherboardId', 'ramId', 'powerSupplyId'],
   properties: {
     title: {
       type: 'string',
       example: 'Setup title',
       nullable: false,
+      minLength: 1,
     },
     description: {
       type: 'string',
       example: 'Setup description',
       nullable: false,
+      minLength: 1,
     },
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,
+      minLength: 1,
     },
     authorId: {
       type: 'integer',
@@ -190,6 +220,20 @@ export const CreateSetupSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       nullable: false,
+    },
+    hddId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null,
+    },
+    ssdId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null,
     },
     powerSupplyId: {
       type: 'integer',
@@ -206,17 +250,20 @@ export const UpdateSetupSchema: SwaggerSchema = {
       type: 'string',
       example: 'Setup title',
       nullable: true,
+      minLength: 1,
     },
     description: {
       type: 'string',
       example: 'Setup description',
       nullable: true,
+      minLength: 1,
     },
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,
+      minLength: 1,
     },
     authorId: {
       type: 'integer',
@@ -247,6 +294,20 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+    hddId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null,
+    },
+    ssdId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null,
     },
     powerSupplyId: {
       type: 'integer',

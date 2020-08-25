@@ -6,7 +6,7 @@ export enum TokenType {
 const keyToken = 'access_token';
 const keyTokenType = 'access_token_type';
 
-export const getToken = async (): Promise<string | null> => {
+export const getToken = (): string | null => {
   return window.localStorage.getItem(keyToken);
 };
 

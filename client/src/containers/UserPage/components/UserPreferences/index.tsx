@@ -8,6 +8,7 @@ import styles from './styles.module.scss';
 export interface UserPreferencesProps {
   games?: GameCardProps[];
   setups?: SetupCardProps[];
+  isCurrentUser: boolean;
 }
 
 const generateKey = (pre: string, index: number) => {
@@ -15,15 +16,17 @@ const generateKey = (pre: string, index: number) => {
 };
 
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
-  const { games, setups } = props;
+  const { games, setups, isCurrentUser } = props;
   return (
     <>
       {games ? (
         <>
           <div className={styles.buttonPlacement}>
-            <Button variant="contained" className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add">
-              Add Game
-            </Button>
+            {isCurrentUser && (
+              <Button variant="contained" className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add">
+                Add Game
+              </Button>
+            )}
           </div>
           <div className={styles.userPreferences}>
             {games.map((game, index) => (

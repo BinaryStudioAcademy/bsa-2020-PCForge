@@ -5,6 +5,7 @@ import {
   CREATE_SETUP_COMMENT,
   GET_SETUP_RATE,
   SET_SETUP_RATE,
+  SETUP_WIPE_SNACKBAR_DATA,
 } from './actionTypes';
 
 export const getSetup = (payload: { id: number }): SetupActionTypes => ({
@@ -12,7 +13,7 @@ export const getSetup = (payload: { id: number }): SetupActionTypes => ({
   payload,
 });
 
-export const getSetupComments = (payload: { id: number }): SetupActionTypes => ({
+export const getSetupComments = (payload: { id: number; count: number; from: number }): SetupActionTypes => ({
   type: GET_SETUP_COMMENTS,
   payload,
 });
@@ -30,4 +31,8 @@ export const getSetupRate = (payload: { id: number }): SetupActionTypes => ({
 export const setSetupRate = (payload: { id: number; value: number }): SetupActionTypes => ({
   type: SET_SETUP_RATE,
   payload,
+});
+
+export const wipeSnackbarData = (): SetupActionTypes => ({
+  type: SETUP_WIPE_SNACKBAR_DATA,
 });

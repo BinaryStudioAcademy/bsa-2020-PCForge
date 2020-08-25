@@ -28,10 +28,16 @@ const useStyles = makeStyles((theme: Theme) =>
         opacity: 0.75,
       },
     },
+    selected: {
+      border: '3px solid',
+      borderColor: theme.palette.common.white,
+      boxShadow: 'inset 10px 10px 43px 0px rgba(0,0,0,0.75)',
+    },
   })
 );
 
 interface IImage {
+  id: number;
   title: string;
   image: string;
 }
@@ -41,6 +47,7 @@ export interface IImageListProps {
   maxItemCount?: number;
   onImageSelect: (index: number) => void;
   className?: string;
+  defaultSelected?: number;
 }
 
 const ImageList: React.FC<IImageListProps> = ({
@@ -48,8 +55,12 @@ const ImageList: React.FC<IImageListProps> = ({
   maxItemCount = data.length,
   onImageSelect,
   className = '',
+  defaultSelected = 0,
 }: IImageListProps): JSX.Element => {
   const styles = useStyles();
+  const [selected, setSelected] = React.useState<number>(defaultSelected);
+  const currentItemCount = data.length;
+  const colsCount = Math.min(currentItemCount, maxItemCount);
 
   function useHorizontalScroll() {
     const elementRef = React.useRef<HTMLUListElement>();
@@ -73,23 +84,23 @@ const ImageList: React.FC<IImageListProps> = ({
   const scrollRef = useHorizontalScroll();
 
   const onSelect = (image: IImage) => {
-    const index = Math.max(0, data.indexOf(image));
-    onImageSelect(index);
+    onImageSelect(image.id);
+    setSelected(data.findIndex((item) => item.id === image.id));
   };
 
   return (
     <div className={`${styles.root} ${className}`}>
       <GridList
-        cols={maxItemCount - 0.5}
+        cols={Math.max(1, colsCount - 0.5)} // cols={0.5} breaks layout
         className={styles.gridList}
         ref={scrollRef as React.RefObject<HTMLUListElement>}
         spacing={20}
       >
-        {data.slice(0, maxItemCount).map((tile) => (
+        {data.slice(0, colsCount).map((tile, index) => (
           <GridListTile
-            key={tile.image}
+            key={tile.id}
             rows={1}
-            classes={{ tile: styles.tile }}
+            classes={{ tile: `${styles.tile} ${index === selected && styles.selected}` }}
             className={styles.tile}
             onClick={() => onSelect(tile)}
           >

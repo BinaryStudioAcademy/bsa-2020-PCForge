@@ -13,10 +13,19 @@ export class IGpuFilter extends IFilter {
     properties: {
       ...IFilter.schema.properties,
       name: {
-        type: 'string',
-        minimum: 1,
-        nullable: true
-      }
-    }
-  }
+        oneOf: [
+          {
+            type: 'string',
+          },
+          {
+            type: 'array',
+            items: {
+              type: 'string',
+            },
+          },
+        ],
+        nullable: true,
+      },
+    },
+  };
 }

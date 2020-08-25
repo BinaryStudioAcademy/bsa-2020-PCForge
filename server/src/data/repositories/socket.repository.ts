@@ -3,7 +3,7 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 
-export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
+export class SocketRepository extends BaseRepository<SocketModel, SocketCreationAttributes, IFilter> {
   constructor(private model: SocketStatic) {
     super(<RichModel>model, IFilter);
   }
@@ -22,19 +22,5 @@ export class SocketRepository extends BaseRepository<SocketModel, IFilter> {
       filter
     );
     return sockets;
-  }
-
-  async createSocket(inputSocket: SocketCreationAttributes): Promise<SocketModel> {
-    const socket = await this.model.create(inputSocket);
-    return socket;
-  }
-
-  async updateSocketById(id: string, inputSocket: SocketCreationAttributes): Promise<SocketModel> {
-    const socket = await this.updateById(id, inputSocket);
-    return socket;
-  }
-
-  async deleteSocketById(id: string): Promise<void> {
-    await this.deleteById(id);
   }
 }

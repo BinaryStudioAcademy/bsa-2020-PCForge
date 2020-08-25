@@ -9,7 +9,6 @@ import {
   AUTH_SWITCH_AUTH_PAGE,
   AUTH_REGISTRATION_SUCCESS,
   AUTH_REGISTRATION_ERROR,
-  loginRequestSuccess,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
 } from './actionTypes';

@@ -33,4 +33,8 @@ export interface GameMatcherProps {
 
   getMatcherData: (payload: GameMatcherFilter) => MatcherActionTypes;
   setAlertValue: (payload: { message: string; type: AlertType }) => MatcherActionTypes;
+
+  setCpu: (cpu: Cpu) => void;
+  setGpu: (gpu: Gpu) => void;
+  setRam: (ram: Ram) => void;
 }

@@ -5,3 +5,8 @@ export interface PowerSupply {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface PowerSupplyCreationAttributes {
+  name: string;
+  power: number;
+}

@@ -10,6 +10,7 @@ const UploadImageResponse: SwaggerSchema = {
       type: 'string',
       nullable: false,
       example: 'http://image-server.com/route',
+      minLength: 1,
     },
   },
 };

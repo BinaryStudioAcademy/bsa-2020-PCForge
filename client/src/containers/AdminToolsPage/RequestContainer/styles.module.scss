@@ -1,0 +1,27 @@
+@import 'styles/variables.scss';
+
+.requestHeader {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  color: $colorTextWhite;
+}
+.requestContaner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: $colorBackgroundGray;
+  flex-grow: 1;
+  border-radius: 7px;
+  border: 1px solid $colorLightGray;
+  padding: 3rem 1em;
+
+  .listItem {
+    border-bottom: 1px solid $colorLightGray;
+
+    &:last-of-type {
+      border-bottom: none;
+    }
+  }
+}
+

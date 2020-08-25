@@ -5,11 +5,13 @@ export interface SwaggerSchema extends BaseSchema {
   allOf?: SwaggerSchema[];
   additionalProperties?: SwaggerSchema | boolean;
   properties?: { [propertyName: string]: SwaggerSchema };
+  anyOf?: SwaggerSchema[];
+  oneOf?: SwaggerSchema[];
   nullable?: boolean;
   discriminator?: string;
   readOnly?: boolean;
   xml?: XML;
   externalDocs?: ExternalDocs;
-  example?: any;
+  example?: string | null;
   required?: string[];
 }

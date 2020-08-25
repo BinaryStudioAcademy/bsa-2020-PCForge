@@ -6,6 +6,7 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 interface IPasswordInputProps extends IInputProps {
   inputHandler: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  blurHandler?: () => void;
   placeholder?: string;
   helperText?: string;
 }
@@ -33,7 +34,7 @@ class PasswordInput extends Component<IPasswordInputProps, IPasswordInputState> 
   render(): JSX.Element {
     const Icon = this.state.preview ? VisibilityOffIcon : VisibilityOutlinedIcon;
 
-    const { inputHandler, value, placeholder, helperText, icon, inputType, ...restProps } = this.props;
+    const { inputHandler, blurHandler, value, placeholder, helperText, icon, inputType, ...restProps } = this.props;
 
     return (
       <div className={styles.passwordBox} {...restProps}>
@@ -44,6 +45,7 @@ class PasswordInput extends Component<IPasswordInputProps, IPasswordInputState> 
           inputType={inputType}
           className={styles.passwordInput}
           onChange={inputHandler}
+          onBlur={blurHandler}
           placeholder={placeholder ? placeholder : 'Password'}
           type={this.state.preview ? 'text' : 'password'}
           helperText={helperText}

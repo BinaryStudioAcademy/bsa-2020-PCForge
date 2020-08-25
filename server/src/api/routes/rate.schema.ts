@@ -128,6 +128,7 @@ export const GetAllRates: SwaggerSchema = {
 
 export const CreateRateSchema: SwaggerSchema = {
   type: 'object',
+  required: ['ratebleType', 'userId', 'ratebleId', 'value'],
   properties: {
     ratebleType: {
       type: 'string',
@@ -158,6 +159,7 @@ export const CreateRateSchema: SwaggerSchema = {
 
 export const UpdateRateSchema: SwaggerSchema = {
   type: 'object',
+  required: ['ratebleType', 'userId', 'ratebleId', 'value'],
   properties: {
     ratebleType: {
       type: 'string',

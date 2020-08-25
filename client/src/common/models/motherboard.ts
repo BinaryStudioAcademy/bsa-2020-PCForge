@@ -4,3 +4,9 @@ export interface Motherboard {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface MotherboardCreationAttributes {
+  name: string;
+  socketId: number;
+  ramTypeId: number;
+}

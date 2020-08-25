@@ -9,10 +9,16 @@
 .details {
   flex-direction: column;
 }
+
 .description {
   display: flex;
   justify-content: center;
 }
+
 .dimension {
   color: $colorLightGray;
+}
+
+.details .button {
+  text-transform: none;
 }

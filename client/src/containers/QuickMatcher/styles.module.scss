@@ -10,6 +10,7 @@
   margin: 0 auto;
   border: 2px solid $colorDarkGray;
   border-radius: 20px;
+  margin-top: 30px;
 }
 
 .search {
@@ -25,9 +26,15 @@
 .results {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   margin-top: 25px;
+  text-align: center;
 }
 
 .text {
   margin-left: 25px;
+}
+
+.notFoundText {
+  justify-content: center;
 }

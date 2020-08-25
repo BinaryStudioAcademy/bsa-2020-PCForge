@@ -1,9 +1,13 @@
-import { BaseRepository, RichModel, IWithMeta } from "./base.repository";
-import { AddRequestModel, AddRequestStatic, AddRequestCreationAttributes } from "../models/addRequest";
-import { mergeFilters } from "./filters/helper";
-import { IAddRequestFilter } from "./filters/addRequest.filter";
+import { BaseRepository, RichModel, IWithMeta } from './base.repository';
+import { AddRequestModel, AddRequestStatic, AddRequestCreationAttributes } from '../models/addRequest';
+import { mergeFilters } from './filters/helper';
+import { IAddRequestFilter } from './filters/addRequest.filter';
 
-export class AddRequestRepository extends BaseRepository<AddRequestModel, IAddRequestFilter> {
+export class AddRequestRepository extends BaseRepository<
+  AddRequestModel,
+  AddRequestCreationAttributes,
+  IAddRequestFilter
+> {
   constructor(private model: AddRequestStatic) {
     super(<RichModel>model, IAddRequestFilter);
   }
