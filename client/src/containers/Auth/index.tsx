@@ -9,6 +9,7 @@ import LoginForm from 'components/Auth/LoginForm';
 import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
+import UserSchema from 'common/validation/user';
 import { getTokenSync } from 'helpers/tokenHelper';
 
 class Auth extends Component<IAuthProps, IAuthState> {
@@ -16,6 +17,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
     super(props);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.validate = this.validate.bind(this);
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
     this.sendData = this.sendData.bind(this);
     this.switchToRegistration = this.switchToRegistration.bind(this);
@@ -32,6 +34,20 @@ class Auth extends Component<IAuthProps, IAuthState> {
     const state = this.props.authState;
     const target: HTMLInputElement = event.target as HTMLInputElement;
     target.value !== state.password && this.props.changePassword(target.value);
+  }
+
+  validate() {
+    UserSchema.email
+      .validate(this.props.authState.email)
+      .then(() => {
+        this.props.validationError('');
+
+        UserSchema.password
+          .validate(this.props.authState.password)
+          .then(() => this.props.validationError(''))
+          .catch((err) => this.props.validationError(err.message));
+      })
+      .catch((err) => this.props.validationError(err.message));
   }
 
   handleChangeCheckbox() {
@@ -97,6 +113,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
                     isLoading={state.isLoading}
                     handleChangeEmail={this.handleChangeEmail}
                     handleChangePassword={this.handleChangePassword}
+                    validate={this.validate}
                     register={this.sendData}
                     switchToLogin={this.switchToLogin}
                   />
@@ -109,6 +126,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
                   isLoading={state.isLoading}
                   handleChangeEmail={this.handleChangeEmail}
                   handleChangePassword={this.handleChangePassword}
+                  validate={this.validate}
                   handleChangeCheckbox={this.handleChangeCheckbox}
                   login={this.sendData}
                   switchToRegistration={this.switchToRegistration}
