@@ -12,9 +12,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const UserPage = (props: Props) => {
-  const { loadedUser, showSpinner, loadUser, updateUser: userUpdate } = props;
+  const { loadedUser, showSpinner, loadUser, currentUser, updateUser: userUpdate } = props;
 
   const { id } = useParams();
+  const currentUserId = currentUser?.id.toString();
 
   useEffect(() => {
     loadUser(parseInt(id));
@@ -24,7 +25,13 @@ const UserPage = (props: Props) => {
     if (showSpinner) {
       return <Spinner load />;
     } else if (loadedUser) {
-      return <UserInfo user={loadedUser} updateUser={userUpdate} />;
+      return (
+        <UserInfo
+          user={loadedUser}
+          updateUser={userUpdate}
+          isCurrentUser={id.toString() === currentUserId?.toString()}
+        />
+      );
     } else {
       return <Redirect to="/404" />;
     }
@@ -36,6 +43,7 @@ const UserPage = (props: Props) => {
 const mapState = (state: RootState) => ({
   loadedUser: state.user.loadedUser,
   showSpinner: state.user.showSpinner,
+  currentUser: state.auth.user,
 });
 
 const mapDispatch = {

@@ -17,7 +17,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   }
 
   async getUserByLoginOrEmail(login: string, password: string): Promise<UserModel> {
-    if (!login || !password) {
+    if (!login || (!password && password !== '')) {
       throw { error: `You are missing login or password`, status: 400 };
     }
     const user = await this.repository.getUserByUserNameOrEmail(login);
@@ -37,7 +37,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   }
 
   async getUser(id: string): Promise<UserModel> {
-    const user = await this.repository.getById(id);
+    const user = await this.repository.getUserById(id);
     if (!user) {
       triggerServerError('User with id: ${id} does not exists', 404);
     }

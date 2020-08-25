@@ -30,6 +30,10 @@
       &:hover {
         border: 1px solid $colorRed;
       }
+
+      .icon {
+        display: flex;
+      }
     }
 
     .selectedButon {
