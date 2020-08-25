@@ -39,31 +39,33 @@ export const AddRequestSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     requestedType: {
       type: 'string',
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
-      nullable: false
+      nullable: false,
+      minLength: 1,
     },
     requestBody: {
       type: 'string',
       example: 'Request body goes here...',
-      nullable: false
+      nullable: false,
+      minLength: 1,
     },
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const GetAllAddRequest: SwaggerSchema = {
   type: 'object',
@@ -73,63 +75,69 @@ export const GetAllAddRequest: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: AddRequestSchema
-    }
-  }
-}
+      items: AddRequestSchema,
+    },
+  },
+};
 
 export const CreateAddRequestSchema: SwaggerSchema = {
   type: 'object',
+  required: ['userId', 'requestType', 'requestBody'],
   properties: {
     userId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     requestedType: {
       type: 'string',
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
-      nullable: false
+      nullable: false,
+      minLength: 1,
     },
     requestBody: {
       type: 'string',
       example: 'Request body goes here...',
-      nullable: false
+      nullable: false,
+      minLength: 1,
     },
-  }
-}
+  },
+};
 
 export const UpdateAddRequestSchema: SwaggerSchema = {
   type: 'object',
+  required: ['userId', 'requestType', 'requestBody'],
   properties: {
     userId: {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: true
+      nullable: true,
     },
     requestedType: {
       type: 'string',
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
-      nullable: true
+      nullable: true,
+      minLength: 1,
     },
     requestBody: {
       type: 'string',
       example: 'Request body goes here...',
-      nullable: true
+      nullable: true,
+      minLength: 1,
     },
-  }
-}
+  },
+};

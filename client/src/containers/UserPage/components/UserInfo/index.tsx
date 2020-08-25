@@ -19,10 +19,11 @@ enum UserPageTabs {
 interface IUserInfoProps {
   user: TypeUser;
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
+  isCurrentUser: boolean;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const { user, updateUser } = props;
+  const { user, updateUser, isCurrentUser } = props;
   const gamesArray = [
     {
       image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
@@ -245,17 +246,17 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
         </div>
         <div className={styles.userData}>
           <Input
-            disabled={editableInput ? false : true}
+            disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
             icon="Face"
-            value={name}
+            value={name || ''}
             inputType={errorMessages.nameErrorMessage ? InputType.error : undefined}
             onChange={handleNameChange}
             inputRef={inputRef}
             helperText={errorMessages.nameErrorMessage || ''}
           />
           <Input
-            disabled={editableInput ? false : true}
+            disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
             icon="Email"
             value={email}
@@ -295,16 +296,18 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
               />
             </div>
           )}
-          <div className={styles.buttonsContainer}>
-            <Button onClick={handleSetEditable} buttonType={ButtonType.primary}>
-              {editableInput ? 'Save' : 'Edit'}
-            </Button>
-            {editableInput && (
-              <Button onClick={handleCancel} buttonType={ButtonType.secondary}>
-                Cancel
+          {isCurrentUser && (
+            <div className={styles.buttonsContainer}>
+              <Button onClick={handleSetEditable} buttonType={ButtonType.primary}>
+                {editableInput ? 'Save' : 'Edit'}
               </Button>
-            )}
-          </div>
+              {editableInput && (
+                <Button onClick={handleCancel} buttonType={ButtonType.secondary}>
+                  Cancel
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
@@ -315,8 +318,8 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             <Tab label="Setups" />
           </Tabs>
         </AppBar>
-        {selectedTab === UserPageTabs.Games && <UserPreferences games={gamesArray} />}
-        {selectedTab === UserPageTabs.Setups && <UserPreferences setups={setupsArray} />}
+        {selectedTab === UserPageTabs.Games && <UserPreferences isCurrentUser={isCurrentUser} games={gamesArray} />}
+        {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setupsArray} />}
       </div>
     </div>
   );

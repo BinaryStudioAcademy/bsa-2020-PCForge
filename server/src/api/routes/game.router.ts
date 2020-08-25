@@ -11,13 +11,19 @@ import {
   CreateGameSchema,
   updateGameSchema,
 } from './game.schema';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { GameService } = fastify.services;
 
-  const getAllSchema = GetMultipleQuery(GetAllGamesResponse, IGameFilter.schema)
+  const getAllSchema = GetMultipleQuery(GetAllGamesResponse, IGameFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllGamesRequest, reply) => {
     const games = await GameService.getAllGames(request.query);
     reply.send(games);

@@ -7,12 +7,11 @@ import { MotherboardStatic } from '../models/motherboard';
 import { RamStatic } from '../models/ram';
 import { PowerSupplyStatic } from '../models/powersupply';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
-import { RateStatic } from '../models/rate';
 import { mergeFilters } from './filters/helper';
 import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
 
-export class SetupRepository extends BaseRepository<SetupModel> {
+export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
   constructor(
     private model: SetupStatic,
     private cpuModel: CpuStatic,
@@ -99,11 +98,6 @@ export class SetupRepository extends BaseRepository<SetupModel> {
         },
       ],
     });
-    return setup;
-  }
-
-  async createSetup(inputSetup: SetupCreationAttributes): Promise<SetupModel> {
-    const setup = await this.model.create(inputSetup);
     return setup;
   }
 }

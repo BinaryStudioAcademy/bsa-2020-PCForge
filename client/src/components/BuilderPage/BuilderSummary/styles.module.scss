@@ -2,8 +2,9 @@
 
 div.summaryWrapper {
   background-color: $colorDarkGray;
-  width: 100%;
+  //width: 250px;
   height: fit-content;
+  position: sticky;
   top: 20px;
 
   .noComponents {
