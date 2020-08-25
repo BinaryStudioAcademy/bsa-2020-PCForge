@@ -1,9 +1,7 @@
 import React from 'react';
 import styles from 'containers/SetupPage/styles.module.scss';
-import { PCSetup } from 'common/models/setup';
 import PcComponentView from 'components/SetupComponents/PcComponentView';
 import SetupCard from 'components/SetupComponents/SetupCard';
-import Container from '@material-ui/core/Container';
 import Comments from 'components/Comments';
 import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from 'containers/PageComponent';
@@ -12,45 +10,76 @@ import { ISetupProps, ISetupState } from './interfaces';
 import * as SetupActions from './actions';
 import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
+import NotFound from 'containers/NotFound';
+import Spinner from 'components/Spinner';
+import Snackbar from 'components/BasicComponents/Snackbar';
+import { AlertType } from 'components/BasicComponents/Alert';
 
 class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   constructor(props: ISetupProps) {
     super(props);
     this.state = props.state;
+
+    this.getSetupComments = this.getSetupComments.bind(this);
+    this.onCreateComment = this.onCreateComment.bind(this);
+    this.onRatingSet = this.onRatingSet.bind(this);
+    this.onSnackBarClose = this.onSnackBarClose.bind(this);
   }
 
   public componentDidMount() {
     const id: string = this.props.match.params.id;
     this.props.getSetup({ id: +id });
-    this.props.getSetupComments({ id: +id });
     this.props.getSetupRate({ id: +id });
+    this.getSetupComments({ count: 20, from: 0 });
+  }
+
+  public getSetupComments = (meta: { count: number; from: number }) => {
+    const id: number = +this.props.match.params.id;
+    this.props.getSetupComments({ id, ...meta });
+  };
+
+  public onCreateComment = (value: string) => {
+    const id: string = this.props.match.params.id;
+    this.props.createSetupComment({ id: +id, value: value });
+  };
+
+  public onRatingSet(value: number) {
+    this.props.setSetupRate({ id: +this.props.match.params.id, value });
+  }
+
+  public onSnackBarClose() {
+    this.props.wipeSnackbarData();
   }
 
   public render() {
-    const { setup } = this.props.state;
+    const { setup, commentsPerPage, commentsCountTotal, hasErrorDuringSetupFetch } = this.props.state;
+
+    if (hasErrorDuringSetupFetch) {
+      return <NotFound history={this.props.history} location={this.props.location} match={this.props.match} />;
+    }
 
     if (!setup) {
-      return null;
+      return <Spinner />;
     }
+
     const { cpu, gpu, motherboard, powerSupply, ram } = setup;
-
-    const onCreateComment = (value: string) => {
-      const id: string = this.props.match.params.id;
-      this.props.createSetupComment({ id: +id, value: value });
-    };
-
     return (
       <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
         <div className={styles.setupPageRoot}>
           <h1>PC setup</h1>
+          <Snackbar
+            open={!!(this.props.state.snackbarMessage && this.state.snackbarMessageType)}
+            alertProps={{
+              alertTitle: this.state.snackbarMessageType === AlertType.error ? 'Error' : '',
+              alertType: this.state.snackbarMessageType,
+            }}
+            onClose={this.onSnackBarClose}
+          >
+            <span>{this.state.snackbarMessage}</span>
+          </Snackbar>
           <div className={styles.contentWrapper}>
-            <Container className={styles.setupsDetails}>
-              <SetupCard
-                setup={setup}
-                rate={this.props.state.rate}
-                onRatingSet={(value: number) => this.props.setSetupRate({ id: +this.props.match.params.id, value })}
-              />
-              <div className={[styles.underline, styles.noMarginTop].join(' ')}></div>
+            <div className={styles.setupsDetails}>
+              <SetupCard setup={setup} rate={this.props.state.rate} onRatingSet={this.onRatingSet} />
               <PcComponentView
                 title="Processor"
                 pcComponent={cpu}
@@ -80,11 +109,18 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
               />
               <PcComponentView title="Motherboard" pcComponent={motherboard} neededProperties={{ name: 'Name' }} />
               <PcComponentView title="Power Supply" pcComponent={powerSupply} neededProperties={{ name: 'Name' }} />
-              <div className={styles.underline}></div>
+
               {this.props.state?.comments && (
-                <Comments comments={this.props.state.comments} onCreateComment={onCreateComment} />
+                <Comments
+                  commentsPerPage={commentsPerPage}
+                  commentsTotal={commentsCountTotal}
+                  comments={this.props.state.comments}
+                  rootClassName={styles.commentsRoot}
+                  onCreateComment={this.onCreateComment}
+                  onPaginationToggle={this.getSetupComments}
+                />
               )}
-            </Container>
+            </div>
             <div className={styles.asideItems}>
               <TopGames topGames={[]} />
             </div>
