@@ -11,7 +11,13 @@ import {
   CreateGameSchema,
   updateGameSchema,
 } from './game.schema';
-import { getMultipleQuery, getOneQuery, createOneQuery, updateOneQuery, deleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  getMultipleQuery,
+  getOneQuery,
+  createOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
@@ -21,7 +27,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
-  const getAllSchema = getMultipleQuery(GetAllGamesResponse, IGameFilter.schema)
+  const getAllSchema = getMultipleQuery(GetAllGamesResponse, IGameFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllGamesRequest, reply) => {
     allowForAuthorized(request);
     const games = await GameService.getAllGames(request.query);

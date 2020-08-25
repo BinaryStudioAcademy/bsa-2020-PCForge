@@ -1,13 +1,14 @@
 import { GpuCreationAttributes, GpuModel } from '../../data/models/gpu';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { IFilter } from '../../data/repositories/filters/base.filter';
 import { GpuRepository } from '../../data/repositories/gpu.repository';
 import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
-import { Op } from 'sequelize';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class GpuService {
-  constructor(private repository: GpuRepository) {}
+export class GpuService extends BaseService<GpuModel, GpuCreationAttributes, GpuRepository> {
+  constructor(private repository: GpuRepository) {
+    super(repository);
+  }
 
   async getGpuById(id: string): Promise<GpuModel> {
     const gpu = await this.repository.getGpuById(id);
@@ -23,26 +24,16 @@ export class GpuService {
   }
 
   async createGpu(inputGpu: GpuCreationAttributes): Promise<GpuModel> {
-    const gpu = await this.repository.createGpu(inputGpu);
+    const gpu = await super.create(inputGpu);
     return gpu;
   }
 
-  async updateGpuById(inputGpu: { id: string; data: GpuCreationAttributes }): Promise<GpuModel> {
-    const { id, data } = inputGpu;
-    const oldGpu = await this.repository.getGpuById(id);
-    if (!oldGpu) {
-      triggerServerError(`Gpu with id: ${id} does not exists`, 404);
-    }
-    const Gpu = await this.repository.updateGpuById(id, data);
-    return Gpu;
+  async updateGpuById({ id, data }: { id: string; data: GpuCreationAttributes }): Promise<GpuModel> {
+    const gpu = await super.updateById(id, data);
+    return gpu;
   }
 
   async deleteGpuById(id: string): Promise<GpuModel> {
-    const gpu = await this.repository.getGpuById(id);
-    if (!gpu) {
-      triggerServerError(`Gpu with id: ${id} does not exists`, 404);
-    }
-    await this.repository.deleteGpuById(id);
-    return gpu;
+    return await super.deleteById(id);
   }
 }

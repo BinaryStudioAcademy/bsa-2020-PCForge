@@ -1,7 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserSchema } from './user.schema';
-import { UserAttributes } from '../../data/models/user';
 
 export type PostAuthRequest = FastifyRequest<{
   Body: {
@@ -18,33 +17,35 @@ export type IsUserAuthenticated = FastifyRequest<{
 
 const LoginRequest: SwaggerSchema = {
   type: 'object',
+  required: ['email', 'password'],
   properties: {
     email: {
       type: 'string',
       minLength: 1,
       nullable: false,
-      format: 'email'
+      format: 'email',
     },
     password: {
       type: 'string',
       minLength: 1,
       nullable: false,
       example: '**********',
-    }
-  }
-}
+    },
+  },
+};
 
-const LoginResponse: {[number: number]: SwaggerSchema} = {
+const LoginResponse: { [number: number]: SwaggerSchema } = {
   200: {
     type: 'object',
     properties: {
       token: {
         type: 'string',
-      minLength: 1,
-        example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
-        nullable: false
+        example:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
+        nullable: false,
+        minLength: 1,
       },
-      user: UserSchema
+      user: UserSchema,
     },
   },
   401: {
@@ -52,20 +53,20 @@ const LoginResponse: {[number: number]: SwaggerSchema} = {
     properties: {
       error: {
         type: 'string',
-      minLength: 1,
+        minLength: 1,
         example: 'User with given credential does not exist',
-        nullable: false
+        nullable: false,
       },
-    }
-  }
-}
+    },
+  },
+};
 
 export const LoginSchema = {
   schema: {
     body: LoginRequest,
-    response: LoginResponse
-  }
-}
+    response: LoginResponse,
+  },
+};
 
 const GoogleAuthResponse: SwaggerSchema = {
   type: 'object',
@@ -74,34 +75,37 @@ const GoogleAuthResponse: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       nullable: false,
-      example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
-    }
-  }
-}
+      example:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
+    },
+    user: UserSchema,
+  },
+};
 
 const GoogleAuthRequest: SwaggerSchema = {
   type: 'object',
-  additionalProperties: true
-}
+  additionalProperties: true,
+};
 
 export const GoogleAuthSchema = {
   schema: {
     response: {
-      200: GoogleAuthResponse
+      200: GoogleAuthResponse,
     },
-    body: GoogleAuthRequest
-  }
-}
+    body: GoogleAuthRequest,
+  },
+};
 
 const isAuthenticatedResponse: SwaggerSchema = {
   type: 'object',
   properties: {
     logged_in: {
       type: 'boolean',
-      nullable: false
-    }
-  }
-}
+      nullable: false,
+    },
+    user: UserSchema,
+  },
+};
 
 const isAuthenticatedRequest: SwaggerSchema = {
   type: 'object',
@@ -110,16 +114,17 @@ const isAuthenticatedRequest: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       nullable: false,
-      example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
-    }
-  }
-}
+      example:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
+    },
+  },
+};
 
 export const IsAuthenticatedSchema = {
   schema: {
     body: isAuthenticatedRequest,
     response: {
-      200: isAuthenticatedResponse
-    }
-  }
-}
+      200: isAuthenticatedResponse,
+    },
+  },
+};

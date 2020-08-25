@@ -6,6 +6,7 @@ enum MenuItems {
   Hardware,
   AdminTools,
   LogOut,
+  User,
 }
 
 export { MenuItems };

@@ -1,0 +1,49 @@
+@import 'styles/variables.scss';
+
+.formControl {
+  min-width: 200px !important;
+  width: 100% !important;
+  border: none;
+
+  /*input[type=text], input[type=number], input[type=textarea] {
+    padding: 10px;
+  }*/
+
+  & div {
+    background-color: white;
+    border-radius: 5px;
+  }
+
+  legend {
+    display: none;
+  }
+
+  fieldset {
+    border: none;
+  }
+
+  & div select{
+    filter: none;
+
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus,
+    &:-internal-autofill-selected,
+    &:-internal-autofill-selected:hover,
+    &:-internal-autofill-selected:focus {
+      font-family: Lato, Arial, sans-serif;
+      -webkit-text-fill-color: white;
+      background-image: none;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  }
+}
+
+.labelInput {
+  color: $colorTextGray;
+  margin-top: 10px;
+  //padding: 10px;
+  font-size: 10px;
+  line-height: 18px;
+  text-transform: uppercase;
+}

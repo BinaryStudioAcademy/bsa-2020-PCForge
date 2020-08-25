@@ -91,6 +91,7 @@ export const DetailedRamSchema: SwaggerSchema = createDetailedRamSchema();
 
 export const CreateRamSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'memorySize', 'frequency', 'power', 'typeId'],
   properties: {
     name: {
       type: 'string',

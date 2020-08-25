@@ -1,7 +1,23 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostNewsRequest, GetNewsRequest, PutNewsRequest, DeleteNewsRequest, NewsSchema, GetAllNewsResponse, CreateNewsSchema, UpdateNewsSchema, GetAllNews } from './news.schema';
-import { getMultipleQuery, getOneQuery, createOneQuery, updateOneQuery, deleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  PostNewsRequest,
+  GetNewsRequest,
+  PutNewsRequest,
+  DeleteNewsRequest,
+  NewsSchema,
+  GetAllNewsResponse,
+  CreateNewsSchema,
+  UpdateNewsSchema,
+  GetAllNews,
+} from './news.schema';
+import {
+  getMultipleQuery,
+  getOneQuery,
+  createOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 

@@ -15,15 +15,26 @@ export class ICommentFilter extends IFilter {
       ...IFilter.schema.properties,
       commentableType: {
         type: 'string',
-      minLength: 1,
+        minLength: 1,
         enum: ['news', 'game', 'setup'],
         nullable: true,
       },
       commentableId: {
-        type: 'integer',
-        minimum: 1,
+        oneOf: [
+          {
+            type: 'integer',
+            minimum: 1,
+          },
+          {
+            type: 'array',
+            items: {
+              type: 'integer',
+              minimum: 1,
+            },
+          },
+        ],
         nullable: true,
-      }
-    }
-  }
+      },
+    },
+  };
 }

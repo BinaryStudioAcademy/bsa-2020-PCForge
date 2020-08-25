@@ -32,7 +32,7 @@ export const GpuSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
@@ -56,43 +56,44 @@ export const GpuSchema: SwaggerSchema = {
       type: 'integer',
       example: 800,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     opengl: {
       type: 'string',
       minLength: 1,
       example: '3',
-      nullable: false
+      nullable: false,
     },
     tdp: {
       type: 'number',
       example: 16.2,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     performance: {
       type: 'integer',
       example: 160,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     createdAt: {
       type: 'string',
       minLength: 1,
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       minLength: 1,
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const CreateGpuSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'interface', 'memorySize', 'coreClocks', 'opengl', 'tdp', 'performance'],
   properties: {
     name: {
       type: 'string',
@@ -116,28 +117,28 @@ export const CreateGpuSchema: SwaggerSchema = {
       type: 'integer',
       example: 800,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     opengl: {
       type: 'string',
       minLength: 1,
       example: '3',
-      nullable: false
+      nullable: false,
     },
     tdp: {
       type: 'number',
       example: 16.2,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     performance: {
       type: 'integer',
       example: 160,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
-  }
-}
+  },
+};
 
 export const UpdateGpuSchema: SwaggerSchema = {
   type: 'object',
@@ -164,28 +165,28 @@ export const UpdateGpuSchema: SwaggerSchema = {
       type: 'integer',
       example: 800,
       minimum: 0,
-      nullable: true
+      nullable: true,
     },
     opengl: {
       type: 'string',
       minLength: 1,
       example: '3',
-      nullable: true
+      nullable: true,
     },
     tdp: {
       type: 'number',
       example: 16.2,
       minimum: 0,
-      nullable: true
+      nullable: true,
     },
     performance: {
       type: 'integer',
       example: 160,
       minimum: 0,
-      nullable: true
+      nullable: true,
     },
   },
-}
+};
 
 export const GetAllGpusResponse: SwaggerSchema = {
   type: 'object',
@@ -195,17 +196,17 @@ export const GetAllGpusResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: GpuSchema
-    }
-  }
-}
+      items: GpuSchema,
+    },
+  },
+};

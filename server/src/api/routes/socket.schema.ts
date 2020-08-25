@@ -32,7 +32,7 @@ export const SocketSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
@@ -44,16 +44,16 @@ export const SocketSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       minLength: 1,
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const GetAllSockets: SwaggerSchema = {
   type: 'object',
@@ -63,23 +63,24 @@ export const GetAllSockets: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: SocketSchema
-    }
-  }
-}
+      items: SocketSchema,
+    },
+  },
+};
 
 export const CreateSocketSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
@@ -87,11 +88,12 @@ export const CreateSocketSchema: SwaggerSchema = {
       example: 'socket name',
       nullable: false,
     },
-  }
-}
+  },
+};
 
 export const UpdateSocketSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
@@ -99,5 +101,5 @@ export const UpdateSocketSchema: SwaggerSchema = {
       example: 'socket name',
       nullable: true,
     },
-  }
-}
+  },
+};

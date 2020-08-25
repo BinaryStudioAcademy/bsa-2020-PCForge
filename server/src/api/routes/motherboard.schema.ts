@@ -54,6 +54,17 @@ export const MotherBoardSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    sata: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: false,
+    },
+    m2: {
+      type: 'boolean',
+      example: false,
+      nullable: false,
+    },
     createdAt: {
       type: 'string',
       minLength: 1,
@@ -81,6 +92,7 @@ export const DetailedMotherBoardSchema = createDetailedMotherboardSchema();
 
 export const CreateMotherBoardSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'socketId', 'ramTypeId'],
   properties: {
     name: {
       type: 'string',

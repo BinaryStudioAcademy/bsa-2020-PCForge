@@ -5,7 +5,7 @@
   flex-direction: column;
   width: 100%;
   align-items: stretch;
-  padding: 2rem;
+  padding: 3rem;
 
   .contentWrapper {
     margin: 0;
@@ -25,13 +25,27 @@
   }
 }
 
+.commentsRoot {
+  margin-top: 2rem;
+}
+
 @media (max-width: 1200px) {
   .contentWrapper {
     flex-direction: column;
+  }
 
-    .asideItems {
-      margin-top: 2rem;
-      margin-left: 0;
-    }
+  .setupsDetails.setupsDetails.setupsDetails {
+    margin-right: 0;
+  }
+
+  .asideItems.asideItems.asideItems {
+    margin-top: 2rem;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .setupPageRoot.setupPageRoot {
+    padding: 0;
   }
 }

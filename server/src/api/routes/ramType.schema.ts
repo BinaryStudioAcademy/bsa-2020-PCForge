@@ -32,7 +32,7 @@ export const RamTypeSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
@@ -44,16 +44,16 @@ export const RamTypeSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       minLength: 1,
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const GetAllRamTypesResponse: SwaggerSchema = {
   type: 'object',
@@ -63,23 +63,24 @@ export const GetAllRamTypesResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: RamTypeSchema
-    }
-  }
-}
+      items: RamTypeSchema,
+    },
+  },
+};
 
 export const CreateRamTypeSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
@@ -87,11 +88,12 @@ export const CreateRamTypeSchema: SwaggerSchema = {
       example: 'Ram type name',
       nullable: false,
     },
-  }
-}
+  },
+};
 
 export const UpdateRamTypeSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
@@ -99,5 +101,5 @@ export const UpdateRamTypeSchema: SwaggerSchema = {
       example: 'Unique ram type name',
       nullable: true,
     },
-  }
-}
+  },
+};

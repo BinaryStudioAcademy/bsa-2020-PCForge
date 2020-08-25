@@ -7,6 +7,8 @@ import { router as socketRouter } from './socket.router';
 import { router as motherboardRouter } from './motherboard.router';
 import { router as gpuRouter } from './gpu.router';
 import { router as cpuRouter } from './cpu.router';
+import { router as hddRouter } from './hdd.router';
+import { router as ssdRouter } from './ssd.router';
 import { router as userRouter } from './user.router';
 import { router as imageUploadRouter } from './imageUpload.router';
 import { router as setupRouter } from './setup.router';
@@ -18,7 +20,6 @@ import { router as rateRouter } from './rate.router';
 import { router as commentRouter } from './comment.router';
 import { router as performanceRouter } from './performance.router';
 import { router as addRequestRouter } from './addRequest.router';
-import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
   fastify.register(ramTypeRouter, { prefix: '/ramTypes' });
@@ -28,6 +29,8 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(motherboardRouter, { prefix: '/motherboards' });
   fastify.register(gpuRouter, { prefix: '/gpus' });
   fastify.register(cpuRouter, { prefix: '/cpus' });
+  fastify.register(hddRouter, { prefix: '/hdds' });
+  fastify.register(ssdRouter, { prefix: '/ssds' });
   fastify.register(authRouter, { prefix: '/auth' });
   fastify.register(userRouter, { prefix: '/users' });
   fastify.register(setupRouter, { prefix: '/setups' });

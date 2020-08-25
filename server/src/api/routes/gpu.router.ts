@@ -1,7 +1,23 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostGpuRequest, GetOneGpuRequest, PutGpuRequest, DeleteGpuRequest, GetAllGpusRequest, GetAllGpusResponse, GpuSchema, CreateGpuSchema, UpdateGpuSchema } from './gpu.schema';
-import { getMultipleQuery, getOneQuery, createOneQuery, updateOneQuery, deleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  PostGpuRequest,
+  GetOneGpuRequest,
+  PutGpuRequest,
+  DeleteGpuRequest,
+  GetAllGpusRequest,
+  GetAllGpusResponse,
+  GpuSchema,
+  CreateGpuSchema,
+  UpdateGpuSchema,
+} from './gpu.schema';
+import {
+  getMultipleQuery,
+  getOneQuery,
+  createOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';

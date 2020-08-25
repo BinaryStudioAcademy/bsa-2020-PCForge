@@ -43,14 +43,14 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(cpu);
   });
 
-  const createOneSchema = createOneQuery(CreateCpuSchema, DetailedCpuSchema);
+  const createOneSchema = createOneQuery(CreateCpuSchema, CpuSchema);
   fastify.post('/', createOneSchema, async (request: PostCpuRequest, reply) => {
     allowForAdmin(request);
     const cpu = await CpuService.createCpu(request.body);
     reply.send(cpu);
   });
 
-  const updateOneSchema = updateOneQuery(UpdateCpuSchema, DetailedCpuSchema);
+  const updateOneSchema = updateOneQuery(UpdateCpuSchema, CpuSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutCpuRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
@@ -58,7 +58,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newCpu);
   });
 
-  const deleteOneSchema = deleteOneQuery(DetailedCpuSchema);
+  const deleteOneSchema = deleteOneQuery(CpuSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteCpuRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;

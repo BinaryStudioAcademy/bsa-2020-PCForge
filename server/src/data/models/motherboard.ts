@@ -7,6 +7,8 @@ export interface MotherboardAttributes {
   name: string;
   socket: SocketAttributes;
   ramType: RamTypeAttributes;
+  sata: number;
+  m2: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -15,6 +17,8 @@ export interface MotherboardCreationAttributes {
   name: string;
   socketId: number;
   ramTypeId: number;
+  sata: number;
+  m2: boolean;
 }
 
 export interface MotherboardModel extends Model<MotherboardAttributes>, MotherboardAttributes {}
@@ -34,6 +38,14 @@ export function MotherboardFactory(sequelize: Sequelize): MotherboardStatic {
     name: {
       allowNull: false,
       type: DataTypes.STRING(150),
+    },
+    sata: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    m2: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
     },
     createdAt: {
       type: DataTypes.DATE,

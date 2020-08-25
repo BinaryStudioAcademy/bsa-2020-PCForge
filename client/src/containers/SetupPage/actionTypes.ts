@@ -22,6 +22,8 @@ export const SET_SETUP_RATE = 'SET_SETUP_RATE';
 export const SET_SETUP_RATE_SUCCESS = 'SET_SETUP_RATE_SUCCESS';
 export const SET_SETUP_RATE_FAILURE = 'SET_SETUP_RATE_FAILURE';
 
+export const SETUP_WIPE_SNACKBAR_DATA = 'SETUP_WIPE_SNACKBAR_DATA';
+
 export interface IGetSetup {
   type: typeof GET_SETUP;
   payload: {
@@ -45,6 +47,8 @@ export interface IGetComments {
   type: typeof GET_SETUP_COMMENTS;
   payload: {
     id: number;
+    count: number;
+    from: number;
   };
 }
 
@@ -70,7 +74,6 @@ export interface ICreateSetupComment {
 
 export interface ICreateSetupCommentSuccess {
   type: typeof CREATE_SETUP_COMMENT_SUCCESS;
-  payload: Comment;
 }
 
 export interface ICreateSetupCommentFailure {
@@ -121,6 +124,10 @@ export interface ISetSetupRateFailure {
   };
 }
 
+export interface ISetupWipeSnackbarData {
+  type: typeof SETUP_WIPE_SNACKBAR_DATA;
+}
+
 export type SetupActionTypes =
   | IGetSetup
   | IGetSetupSuccess
@@ -136,4 +143,5 @@ export type SetupActionTypes =
   | IGetSetupRateFailure
   | ISetSetupRate
   | ISetSetupRateSuccess
-  | ISetSetupRateFailure;
+  | ISetSetupRateFailure
+  | ISetupWipeSnackbarData;
