@@ -16,6 +16,10 @@ import {
   SET_SETUP_RATE_SUCCESS,
   SET_SETUP_RATE,
   SET_SETUP_RATE_FAILURE,
+  GET_SETUP_RATE_FAILURE,
+  CREATE_SETUP_COMMENT_FAILURE,
+  GET_SETUP_COMMENTS_FAILURE,
+  CREATE_SETUP_COMMENT_SUCCESS,
 } from './actionTypes';
 import { getSetupById } from 'api/services/setups.service';
 import { PCSetup } from 'common/models/setup';
@@ -25,12 +29,6 @@ import { CommentFilter } from 'common/models/filter.model';
 import { getToken } from 'helpers/tokenHelper';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
-import {
-  GET_SETUP_RATE_FAILURE,
-  CREATE_SETUP_COMMENT_FAILURE,
-  GET_SETUP_COMMENTS_FAILURE,
-  CREATE_SETUP_COMMENT_SUCCESS,
-} from './dist/actionTypes';
 
 function* getSetup(action: IGetSetup) {
   try {
