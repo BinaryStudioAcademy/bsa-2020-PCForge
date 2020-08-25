@@ -6,7 +6,7 @@ import { ICommentMiddleware } from '../middlewares/comment.middleware';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class CommentService extends BaseService<CommentModel, CommentRepository> {
+export class CommentService extends BaseService<CommentModel, CommentCreationAttributes, CommentRepository> {
   constructor(private repository: CommentRepository) {
     super(repository);
   }
@@ -42,6 +42,6 @@ export class CommentService extends BaseService<CommentModel, CommentRepository>
   }
 
   async deleteCommentById(id: string): Promise<void> {
-    await this.repository.deleteCommentById(id);
+    await super.deleteById(id);
   }
 }

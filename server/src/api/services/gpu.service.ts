@@ -5,7 +5,7 @@ import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class GpuService extends BaseService<GpuModel, GpuRepository> {
+export class GpuService extends BaseService<GpuModel, GpuCreationAttributes, GpuRepository> {
   constructor(private repository: GpuRepository) {
     super(repository);
   }
@@ -33,8 +33,7 @@ export class GpuService extends BaseService<GpuModel, GpuRepository> {
     return gpu;
   }
 
-  async deleteGpuById(inputGpu: { id: string }): Promise<void> {
-    const { id } = inputGpu;
-    await this.repository.deleteGpuById(id);
+  async deleteGpuById(id: string): Promise<void> {
+    await super.deleteById(id);
   }
 }

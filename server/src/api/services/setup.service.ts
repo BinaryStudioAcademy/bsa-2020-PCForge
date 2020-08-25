@@ -6,7 +6,7 @@ import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { ISetupMiddleware } from '../middlewares/setup.middleware';
 import { BaseService } from './base.service';
 
-export class SetupService extends BaseService<SetupModel, SetupRepository> {
+export class SetupService extends BaseService<SetupModel, SetupCreationAttributes, SetupRepository> {
   constructor(private repository: SetupRepository) {
     super(repository);
   }
@@ -40,6 +40,6 @@ export class SetupService extends BaseService<SetupModel, SetupRepository> {
   }
 
   async deleteSetupById(id: string): Promise<void> {
-    await this.repository.deleteById(id);
+    await super.deleteById(id);
   }
 }

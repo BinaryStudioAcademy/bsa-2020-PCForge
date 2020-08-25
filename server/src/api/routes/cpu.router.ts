@@ -53,7 +53,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const deleteOneSchema = DeleteOneQuery();
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteCpuRequest, reply) => {
     const { id } = request.params;
-    await CpuService.deleteCpuById({ id });
+    await CpuService.deleteCpuById(id);
     reply.send({});
   });
 

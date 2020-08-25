@@ -5,7 +5,7 @@ import { IFilter } from '../../data/repositories/filters/base.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class RamTypeService extends BaseService<RamTypeModel, RamTypeRepository> {
+export class RamTypeService extends BaseService<RamTypeModel, RamTypeCreationAttributes, RamTypeRepository> {
   constructor(private repository: RamTypeRepository) {
     super(repository);
   }
@@ -34,6 +34,6 @@ export class RamTypeService extends BaseService<RamTypeModel, RamTypeRepository>
   }
 
   async deleteRamTypeById(id: string): Promise<void> {
-    await this.repository.deleteRamTypeById(id);
+    await super.deleteById(id);
   }
 }

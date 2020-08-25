@@ -5,7 +5,7 @@ import { TopGameRepository } from '../../data/repositories/topGame.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class TopGameService extends BaseService<TopGameModel, TopGameRepository> {
+export class TopGameService extends BaseService<TopGameModel, TopGameCreationAttributes, TopGameRepository> {
   constructor(private repository: TopGameRepository) {
     super(repository);
   }
@@ -34,6 +34,6 @@ export class TopGameService extends BaseService<TopGameModel, TopGameRepository>
   }
 
   async deleteTopGameById(id: string): Promise<void> {
-    await this.repository.deleteTopGameById(id);
+    await super.deleteById(id);
   }
 }

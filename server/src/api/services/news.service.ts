@@ -3,7 +3,7 @@ import { NewsRepository } from '../../data/repositories/news.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class NewsService extends BaseService<NewsModel, NewsRepository> {
+export class NewsService extends BaseService<NewsModel, NewsCreationAttributes, NewsRepository> {
   constructor(private repository: NewsRepository) {
     super(repository);
   }
@@ -31,8 +31,7 @@ export class NewsService extends BaseService<NewsModel, NewsRepository> {
     return news;
   }
 
-  async deleteNewsById(inputNews: { id: string }): Promise<void> {
-    const { id } = inputNews;
-    await this.repository.deleteNewsById(id);
+  async deleteNewsById(id: string): Promise<void> {
+    await super.deleteById(id);
   }
 }

@@ -5,7 +5,7 @@ import { ICpuFilter } from './filters/cpu.filter';
 import { mergeFilters } from './filters/helper';
 import { Op } from 'sequelize';
 
-export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
+export class CpuRepository extends BaseRepository<CpuModel, CpuCreationAttributes, ICpuFilter> {
   constructor(private model: CpuStatic, private socketModel: SocketStatic) {
     super(<RichModel>model, ICpuFilter);
   }
@@ -42,19 +42,5 @@ export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
       filter
     );
     return cpus;
-  }
-
-  async createCpu(inputCpu: CpuCreationAttributes): Promise<CpuModel> {
-    const cpu = await this.create(inputCpu);
-    return cpu;
-  }
-
-  async updateCpuById(id: string, inputCpu: CpuCreationAttributes): Promise<CpuModel> {
-    const cpu = await this.updateById(id, inputCpu);
-    return cpu;
-  }
-
-  async deleteCpuById(id: string): Promise<void> {
-    await this.deleteById(id);
   }
 }

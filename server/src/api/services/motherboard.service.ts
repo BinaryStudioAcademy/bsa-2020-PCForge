@@ -5,7 +5,11 @@ import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class MotherboardService extends BaseService<MotherboardModel, MotherboardRepository> {
+export class MotherboardService extends BaseService<
+  MotherboardModel,
+  MotherboardCreationAttributes,
+  MotherboardRepository
+> {
   constructor(private repository: MotherboardRepository) {
     super(repository);
   }
@@ -40,6 +44,6 @@ export class MotherboardService extends BaseService<MotherboardModel, Motherboar
   }
 
   async deleteMotherboardById(id: string): Promise<void> {
-    await this.repository.deleteMotherboardById(id);
+    await super.deleteById(id);
   }
 }

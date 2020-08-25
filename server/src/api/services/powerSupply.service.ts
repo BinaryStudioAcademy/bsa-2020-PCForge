@@ -5,7 +5,11 @@ import { PowerSupplyRepository } from '../../data/repositories/powerSupply.repos
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class PowerSupplyService extends BaseService<PowerSupplyModel, PowerSupplyRepository> {
+export class PowerSupplyService extends BaseService<
+  PowerSupplyModel,
+  PowerSupplyCreationAttributes,
+  PowerSupplyRepository
+> {
   constructor(private repository: PowerSupplyRepository) {
     super(repository);
   }
@@ -40,6 +44,6 @@ export class PowerSupplyService extends BaseService<PowerSupplyModel, PowerSuppl
   }
 
   async deletePowerSupplyById(id: string): Promise<void> {
-    await this.repository.deletePowerSupplyById(id);
+    await super.deleteById(id);
   }
 }

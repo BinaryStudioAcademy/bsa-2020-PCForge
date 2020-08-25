@@ -5,7 +5,7 @@ import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class CpuService extends BaseService<CpuModel, CpuRepository> {
+export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, CpuRepository> {
   constructor(private repository: CpuRepository) {
     super(repository);
   }
@@ -33,8 +33,7 @@ export class CpuService extends BaseService<CpuModel, CpuRepository> {
     return cpu;
   }
 
-  async deleteCpuById(inputCpu: { id: string }): Promise<void> {
-    const { id } = inputCpu;
-    await this.repository.deleteCpuById(id);
+  async deleteCpuById(id: string): Promise<void> {
+    await super.deleteById(id);
   }
 }

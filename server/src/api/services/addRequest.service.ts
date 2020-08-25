@@ -6,7 +6,11 @@ import { IAddRequestMiddleware } from '../middlewares/addRequest.middleware';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class AddRequestService extends BaseService<AddRequestModel, AddRequestRepository> {
+export class AddRequestService extends BaseService<
+  AddRequestModel,
+  AddRequestCreationAttributes,
+  AddRequestRepository
+> {
   constructor(private repository: AddRequestRepository) {
     super(repository);
   }
@@ -46,6 +50,6 @@ export class AddRequestService extends BaseService<AddRequestModel, AddRequestRe
   }
 
   async deleteAddRequestById(id: string): Promise<void> {
-    await this.repository.deleteAddRequest(id);
+    await super.deleteById(id);
   }
 }

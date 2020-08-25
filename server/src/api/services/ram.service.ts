@@ -5,7 +5,7 @@ import { RamRepository } from '../../data/repositories/ram.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class RamService extends BaseService<RamModel, RamRepository> {
+export class RamService extends BaseService<RamModel, RamCreationAttributes, RamRepository> {
   constructor(private repository: RamRepository) {
     super(repository);
   }
@@ -33,8 +33,7 @@ export class RamService extends BaseService<RamModel, RamRepository> {
     return ram;
   }
 
-  async deleteRamById(inputRam: { id: string }): Promise<void> {
-    const { id } = inputRam;
-    await this.repository.deleteRamById(id);
+  async deleteRamById(id: string): Promise<void> {
+    await super.deleteById(id);
   }
 }

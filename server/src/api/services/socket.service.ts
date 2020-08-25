@@ -5,7 +5,7 @@ import { SocketRepository } from '../../data/repositories/socket.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 
-export class SocketService extends BaseService<SocketModel, SocketRepository> {
+export class SocketService extends BaseService<SocketModel, SocketCreationAttributes, SocketRepository> {
   constructor(private repository: SocketRepository) {
     super(repository);
   }
@@ -34,6 +34,6 @@ export class SocketService extends BaseService<SocketModel, SocketRepository> {
   }
 
   async deleteSocketById(id: string): Promise<void> {
-    await this.repository.deleteSocketById(id);
+    await super.deleteById(id);
   }
 }
