@@ -60,6 +60,7 @@ const GroupComponent = ({
       : {};
     const querySata = filter.sata.size ? { sata: [Array.from(filter.sata)].join(',') } : {};
     const queryM2 = filter.m2.size ? { m2: true } : {};
+    const queryName = name ? { name } : {};
     const queryFilter = {
       ...querySocketId,
       ...queryRamTypeId,
@@ -73,16 +74,16 @@ const GroupComponent = ({
         [`${filterRangeInfo[groupName].key}[maxValue]`]: range.maxValue,
       };
     }
-    return { pagination, queryFilter, queryRange };
+    return { pagination, queryFilter, queryRange, queryName };
   };
 
   const getComponents = async () => {
     setLoad(true);
 
-    const { pagination, queryFilter, queryRange } = getFilters();
+    const { pagination, queryFilter, queryRange, queryName } = getFilters();
 
     try {
-      const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, name });
+      const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, ...queryName });
       setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
