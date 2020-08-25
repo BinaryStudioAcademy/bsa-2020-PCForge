@@ -11,7 +11,13 @@ import {
   TopGameSchema,
   UpdateTopGameSchema,
 } from './topGame.schema';
-import { CreateOneQuery, GetMultipleQuery, GetOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  CreateOneQuery,
+  GetMultipleQuery,
+  GetOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -32,7 +38,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   const createOneSchema = CreateOneQuery(CreateTopGameSchema, TopGameSchema);
-  fastify.post('/', createOneSchema , async (request: PostTopGameRequest, reply) => {
+  fastify.post('/', createOneSchema, async (request: PostTopGameRequest, reply) => {
     const TopGame = await TopGameService.createTopGame(request.body);
     reply.send(TopGame);
   });
