@@ -10,7 +10,7 @@ import {
 import { OAuth2Client } from 'google-auth-library';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { UserService } = fastify.services;
+  const { MailService, UserService } = fastify.services;
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -66,6 +66,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
         response.send({ logged_in: true, user });
       }
     });
+  });
+
+  // const createOneSchema = CreateOneQuery(CreateGpuSchema, GpuSchema);
+  fastify.post('/reset-password', {}, async (request, reply) => {
+    MailService.sendMail();
   });
 
   next();
