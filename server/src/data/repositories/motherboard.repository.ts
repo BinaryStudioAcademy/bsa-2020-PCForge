@@ -5,7 +5,11 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { mergeFilters } from './filters/helper';
 import { IMotherboardFilter } from './filters/motherboard.filter';
 
-export class MotherboardRepository extends BaseRepository<MotherboardModel, IMotherboardFilter> {
+export class MotherboardRepository extends BaseRepository<
+  MotherboardModel,
+  MotherboardCreationAttributes,
+  IMotherboardFilter
+> {
   constructor(
     private model: MotherboardStatic,
     private ramTypeModel: RamTypeStatic,
@@ -53,20 +57,5 @@ export class MotherboardRepository extends BaseRepository<MotherboardModel, IMot
       filter
     );
     return motherboards;
-  }
-
-  async createMotherboard(inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
-    const { id } = await this.model.create(inputMotherboard);
-    const motherboard = this.getMotherboardById(id.toString());
-    return motherboard;
-  }
-
-  async updateMotherboardById(id: string, inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
-    const motherboard = await this.updateById(id, inputMotherboard);
-    return motherboard;
-  }
-
-  async deleteMotherboardById(id: string): Promise<void> {
-    await this.deleteById(id);
   }
 }

@@ -1,0 +1,15 @@
+@import 'src/styles/variables';
+
+.search .inputWrap {
+  border-radius: 20px;
+}
+
+.search .icon {
+  transform: scaleX(-1);
+  cursor: pointer;
+}
+
+.search .iconFill {
+  fill: $colorTextGray;
+  opacity: 0.5;
+}

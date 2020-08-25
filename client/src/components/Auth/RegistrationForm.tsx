@@ -11,6 +11,7 @@ interface IRegistrationFormProps {
   isLoading: boolean;
   handleChangeEmail: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleChangePassword: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  validate: () => void;
   register: (event: React.FormEvent<HTMLButtonElement>) => void;
   switchToLogin: (event: React.MouseEvent) => void;
 }
@@ -20,6 +21,7 @@ const LoginForm = ({
   errorMessage,
   handleChangeEmail,
   handleChangePassword,
+  validate,
   register,
   isLoading,
   switchToLogin,
@@ -37,12 +39,13 @@ const LoginForm = ({
           name="Email"
           className={styles.emailInput}
           onChange={handleChangeEmail}
+          onBlur={validate}
           value={email}
           placeholder="Email"
           type="text"
           required
         />
-        <PasswordInput inputHandler={handleChangePassword} />
+        <PasswordInput inputHandler={handleChangePassword} blurHandler={validate} />
         <div className={styles.registerButtonBox}>
           <Button type="submit" onClick={register} disabled={isLoading}>
             Register

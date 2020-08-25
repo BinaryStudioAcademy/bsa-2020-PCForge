@@ -6,14 +6,17 @@ import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from '../PageComponent';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
-import { MenuItems } from 'common/enums';
+import { MenuItems, Routes } from 'common/enums';
 import * as actions from './actions';
+import { setCpu, setGpu, setRam } from '../Chart/actions';
 import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
 import { MatcherSettableVariants, MatcherServerActions } from './actionTypes';
+import { RouteComponentProps } from 'react-router-dom';
+import { Box } from '@material-ui/core';
 
-const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
+const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Element => {
   const { setAlertValue, getMatcherData } = props;
 
   const {
@@ -41,6 +44,7 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
       return;
     }
     setAlertValue({ type: AlertType.success, message: 'Success' });
+    props.history.push(Routes.CHART);
   };
 
   const createHardwareGetter = (variant: MatcherSettableVariants, type: string) => {
@@ -52,6 +56,24 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
         type,
       });
     };
+  };
+
+  const selectRam = (id: number) => {
+    setSelectedRam(id);
+    const ram = props.state.rams.find((ram) => ram.id === id);
+    if (ram) props.setRam(ram);
+  };
+
+  const selectCpu = (id: number) => {
+    setSelectedCpu(id);
+    const cpu = props.state.cpus.find((cpu) => cpu.id === id);
+    if (cpu) props.setCpu(cpu);
+  };
+
+  const selectGpu = (id: number) => {
+    setSelectedGpu(id);
+    const gpu = props.state.gpus.find((gpu) => gpu.id === id);
+    if (gpu) props.setGpu(gpu);
   };
 
   return (
@@ -90,7 +112,7 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     errorMessage={ramsErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     debounceTime={300}
-                    onSelect={(id: number) => setSelectedRam(id)}
+                    onSelect={selectRam}
                     onInputChange={createHardwareGetter('rams', MatcherServerActions.MATCHER_REPLACE_RAMS)}
                     onSeeMoreClick={createHardwareGetter('rams', MatcherServerActions.MATCHER_ADD_RAMS)}
                   />
@@ -104,7 +126,7 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     errorMessage={cpusErrorMessage}
                     labelClassName={styles.selectItemHeader}
                     debounceTime={300}
-                    onSelect={(id: number) => setSelectedCpu(id)}
+                    onSelect={selectCpu}
                     onInputChange={createHardwareGetter('cpus', MatcherServerActions.MATCHER_REPLACE_CPUS)}
                     onSeeMoreClick={createHardwareGetter('cpus', MatcherServerActions.MATCHER_ADD_CPUS)}
                   />
@@ -118,23 +140,25 @@ const GameMatcherPage = (props: GameMatcherProps): JSX.Element => {
                     errorMessage={gpusErrorMessage}
                     debounceTime={300}
                     labelClassName={styles.selectItemHeader}
-                    onSelect={(id: number) => setSelectedGpu(id)}
+                    onSelect={selectGpu}
                     onInputChange={createHardwareGetter('gpus', MatcherServerActions.MATCHER_REPLACE_GPUS)}
                     onSeeMoreClick={createHardwareGetter('gpus', MatcherServerActions.MATCHER_ADD_GPUS)}
                   />
                 </div>
               </section>
-              <Button
-                buttonType={ButtonType.primary}
-                className={styles.pageButton}
-                classes={{ label: styles.buttonLabel }}
-                onClick={onTestGame}
-              >
-                Can I Run It
-              </Button>
+              <Box className={styles.pageButtonWrapper}>
+                <Button
+                  buttonType={ButtonType.primary}
+                  className={styles.pageButton}
+                  classes={{ label: styles.buttonLabel }}
+                  onClick={onTestGame}
+                >
+                  Can I Run It
+                </Button>
+              </Box>
             </div>
           </div>
-          <TopGames games={[]} />
+          <TopGames topGames={[]} />
         </div>
       </main>
     </PageComponent>
@@ -147,6 +171,9 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = {
   ...actions,
+  setCpu,
+  setGpu,
+  setRam,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameMatcherPage);

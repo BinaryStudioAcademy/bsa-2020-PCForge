@@ -44,11 +44,13 @@ export const SetupSchema: SwaggerSchema = {
       type: 'string',
       example: 'Setup name',
       nullable: false,
+      minLength: 1,
     },
     description: {
       type: 'string',
       example: 'Setup description',
       nullable: false,
+      minLength: 1,
     },
     image: {
       type: 'string',
@@ -146,22 +148,26 @@ export const GetAllSetupsResponse: SwaggerSchema = {
 
 export const CreateSetupSchema: SwaggerSchema = {
   type: 'object',
+  required: ['title', 'description', 'image', 'authorId', 'cpuId', 'gpuId', 'motherboardId', 'ramId', 'powerSupplyId'],
   properties: {
     title: {
       type: 'string',
       example: 'Setup title',
       nullable: false,
+      minLength: 1,
     },
     description: {
       type: 'string',
       example: 'Setup description',
       nullable: false,
+      minLength: 1,
     },
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,
+      minLength: 1,
     },
     authorId: {
       type: 'integer',
@@ -206,17 +212,20 @@ export const UpdateSetupSchema: SwaggerSchema = {
       type: 'string',
       example: 'Setup title',
       nullable: true,
+      minLength: 1,
     },
     description: {
       type: 'string',
       example: 'Setup description',
       nullable: true,
+      minLength: 1,
     },
     image: {
       type: 'string',
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,
+      minLength: 1,
     },
     authorId: {
       type: 'integer',

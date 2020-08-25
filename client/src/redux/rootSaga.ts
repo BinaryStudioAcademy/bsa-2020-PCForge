@@ -7,6 +7,11 @@ import matcherSagas from 'containers/GameMatcher/sagas';
 import quickMatcherSagas from 'containers/QuickMatcher/sagas';
 import homePageSagas from 'containers/Home/logic/sagas';
 import setupSagas from 'containers/SetupPage/sagas';
+import setupChartSagas from 'containers/Chart/sagas';
+
+import setupsSagas from 'containers/SetupsPage/sagas';
+import homePageSagas from 'containers/Home/logic/sagas';
+import setupSagas from 'containers/SetupPage/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -18,5 +23,7 @@ export default function* rootSaga() {
     homePageSagas(),
     matcherSagas(),
     setupSagas(),
+    setupChartSagas(),
+    setupsSagas(),
   ]);
 }

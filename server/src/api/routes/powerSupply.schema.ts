@@ -31,48 +31,51 @@ export const PowerSupplySchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
       example: 'yam name',
       nullable: false,
+      minLength: 1,
     },
     power: {
       type: 'integer',
       example: 750,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const CreatePowerSupplySchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'power'],
   properties: {
     name: {
       type: 'string',
       example: 'Power supply name',
-      nullable: false
+      nullable: false,
+      minLength: 1,
     },
     power: {
       type: 'integer',
       example: 750,
       minimum: 0,
-      nullable: false
-    }
-  }
-}
+      nullable: false,
+    },
+  },
+};
 
 export const UpdatePowerSupplySchema: SwaggerSchema = {
   type: 'object',
@@ -80,16 +83,17 @@ export const UpdatePowerSupplySchema: SwaggerSchema = {
     name: {
       type: 'string',
       example: 'Power supply name',
-      nullable: true
+      nullable: true,
+      minLength: 1,
     },
     power: {
       type: 'integer',
       example: 750,
       minimum: 0,
-      nullable: true
-    }
+      nullable: true,
+    },
   },
-}
+};
 
 export const GetAllPowerSuppliesResponse: SwaggerSchema = {
   type: 'object',
@@ -99,17 +103,17 @@ export const GetAllPowerSuppliesResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: PowerSupplySchema
-    }
-  }
-}
+      items: PowerSupplySchema,
+    },
+  },
+};

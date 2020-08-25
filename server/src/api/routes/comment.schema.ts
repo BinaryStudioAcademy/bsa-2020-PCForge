@@ -58,6 +58,7 @@ export const CommentSchema: SwaggerSchema = {
       type: 'string',
       example: 'Comment body goes here...',
       nullable: false,
+      minLength: 1,
     },
     createdAt: {
       type: 'string',
@@ -97,6 +98,7 @@ export const GetAllComments: SwaggerSchema = {
 
 export const CreateCommentSchema: SwaggerSchema = {
   type: 'object',
+  required: ['commentableType', 'commentableId', 'userId', 'token', 'value'],
   properties: {
     commentableType: {
       type: 'string',
@@ -122,17 +124,20 @@ export const CreateCommentSchema: SwaggerSchema = {
       nullable: false,
       example:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc4NjQ5MjQsImV4cCI6MTU5Nzk1MTMyNH0.V8oy05YtI8elNEOl5Z_1hiCZFwD3Fq_ck1bZ4_UXI3o',
+      minLength: 1,
     },
     value: {
       type: 'string',
       example: 'Comment body goes here...',
       nullable: false,
+      minLength: 1,
     },
   },
 };
 
 export const UpdateCommentSchema: SwaggerSchema = {
   type: 'object',
+  required: ['commentableType', 'commentableId', 'userId', 'token', 'value'],
   properties: {
     commentableType: {
       type: 'string',
@@ -156,6 +161,7 @@ export const UpdateCommentSchema: SwaggerSchema = {
       type: 'string',
       example: 'Comment body goes here...',
       nullable: true,
+      minLength: 1,
     },
   },
 };

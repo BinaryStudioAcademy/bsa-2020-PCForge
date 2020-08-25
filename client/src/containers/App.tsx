@@ -11,7 +11,6 @@ import Home from 'containers/Home';
 import RootComponent from 'containers/Root';
 import SetupPage from 'containers/SetupsPage';
 import BuilderPage from 'containers/BuilderPage';
-import QuickMatcher from 'containers/QuickMatcher';
 import Notification from 'containers/Notification';
 import GamePage from 'containers/GamePage';
 
@@ -29,7 +28,6 @@ export default class App extends Component {
           <Route exact path={Routes.DEFAULT} component={Home} />
           <Route exact path={Routes.SETUPS} component={SetupPage} />
           <Route exact path={Routes.GAME} component={GamePage} />
-          <Route exact path={'/builder/quick-matcher'} component={QuickMatcher} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>
         <Notification />

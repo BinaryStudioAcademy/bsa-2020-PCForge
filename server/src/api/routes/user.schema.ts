@@ -44,6 +44,7 @@ export const UserSchema: SwaggerSchema = {
       type: 'string',
       nullable: true,
       maxLength: 50,
+      minLength: 1,
     },
     email: {
       example: 'example@example.com',
@@ -51,6 +52,7 @@ export const UserSchema: SwaggerSchema = {
       format: 'email',
       nullable: false,
       maxLength: 50,
+      minLength: 1,
     },
     isAdmin: {
       type: 'boolean',
@@ -60,6 +62,8 @@ export const UserSchema: SwaggerSchema = {
       example: 'http://image-server.com/route',
       type: 'string',
       nullable: true,
+      minLength: 1,
+      maxLength: 500,
     },
     createdAt: {
       type: 'string',
@@ -81,40 +85,47 @@ export const GetAllUsersSchema: SwaggerSchema = {
 
 export const CreateUserSchema: SwaggerSchema = {
   type: 'object',
+  required: ['email', 'password'],
   properties: {
     email: {
       type: 'string',
       format: 'email',
       nullable: false,
       maxLength: 50,
+      minLength: 1,
     },
     password: {
       type: 'string',
       example: '**********',
       nullable: false,
       maxLength: 50,
+      minLength: 1,
     },
   },
 };
 
 export const UpdateUserSchema: SwaggerSchema = {
   type: 'object',
+  required: ['oldPassword'],
   properties: {
     name: {
       type: 'string',
       nullable: true,
       maxLength: 50,
+      minLength: 1,
     },
     email: {
       type: 'string',
       format: 'email',
       nullable: false,
       maxLength: 50,
+      minLength: 1,
     },
     password: {
       type: 'string',
       nullable: false,
       maxLength: 50,
+      minLength: 1,
     },
     oldPassword: {
       type: 'string',
@@ -124,6 +135,8 @@ export const UpdateUserSchema: SwaggerSchema = {
     avatar: {
       type: 'string',
       nullable: true,
+      minLength: 1,
+      maxLength: 500,
     },
   },
 };
