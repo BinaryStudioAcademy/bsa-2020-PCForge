@@ -30,7 +30,7 @@ export interface SetupCreationAttributes {
   motherboardId: number;
   ramId: number;
   powerSupplyId: number;
-  hhdId: number;
+  hddId: number;
   ssdId: number;
 }
 

@@ -66,7 +66,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
 
   async getOneSetup(id: string): Promise<SetupModel> {
     const setup = await this.model.findByPk(id, {
-      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id'],
+      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id', 'hdd.id', 'ssd.id'],
       include: [
         {
           model: this.cpuModel,

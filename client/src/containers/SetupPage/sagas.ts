@@ -1,19 +1,25 @@
 import { call, put, takeEvery, all } from 'redux-saga/effects';
 import {
-  GET_SETUP,
   IGetSetup,
-  GET_SETUP_SUCCESS,
   IGetComments,
+  IGetSetupRate,
+  ICreateSetupComment,
+  ISetSetupRate,
+  GET_SETUP,
+  GET_SETUP_SUCCESS,
   GET_SETUP_COMMENTS,
   GET_SETUP_COMMENTS_SUCCESS,
+  GET_SETUP_FAILURE,
   CREATE_SETUP_COMMENT,
-  ICreateSetupComment,
-  IGetSetupRate,
   GET_SETUP_RATE,
   GET_SETUP_RATE_SUCCESS,
-  ISetSetupRate,
   SET_SETUP_RATE_SUCCESS,
   SET_SETUP_RATE,
+  SET_SETUP_RATE_FAILURE,
+  GET_SETUP_RATE_FAILURE,
+  CREATE_SETUP_COMMENT_FAILURE,
+  GET_SETUP_COMMENTS_FAILURE,
+  CREATE_SETUP_COMMENT_SUCCESS,
 } from './actionTypes';
 import { getSetupById } from 'api/services/setups.service';
 import { PCSetup } from 'common/models/setup';
@@ -29,7 +35,7 @@ function* getSetup(action: IGetSetup) {
     const setup: PCSetup = yield call<(id: number) => void>(getSetupById, action.payload.id);
     yield put({ type: GET_SETUP_SUCCESS, payload: setup });
   } catch (e) {
-    console.log(e);
+    yield put({ type: GET_SETUP_FAILURE });
   }
 }
 
@@ -39,11 +45,21 @@ function* watchGetSetup() {
 
 function* getSetupComments(action: IGetComments) {
   try {
-    const filter: CommentFilter = { commentableId: action.payload.id, commentableType: 'setup', from: 0, count: 100 };
+    const filter: CommentFilter = {
+      commentableId: action.payload.id,
+      commentableType: 'setup',
+      from: action.payload.from,
+      count: action.payload.count,
+    };
     const comments: Comment[] = yield call(getAllComments, filter);
     yield put({ type: GET_SETUP_COMMENTS_SUCCESS, payload: comments });
   } catch (e) {
-    console.log(e);
+    yield put({
+      type: GET_SETUP_COMMENTS_FAILURE,
+      payload: {
+        message: 'Failed to get setup comments',
+      },
+    });
   }
 }
 
@@ -62,9 +78,15 @@ function* createSetupComment(action: ICreateSetupComment) {
       token,
     };
     yield call(createComment, commentData);
+    yield put({ type: CREATE_SETUP_COMMENT_SUCCESS });
     yield put({ type: GET_SETUP_COMMENTS, payload: { id: action.payload.id } });
   } catch (e) {
-    console.log(e);
+    yield put({
+      type: CREATE_SETUP_COMMENT_FAILURE,
+      payload: {
+        message: 'Failed to add setup rate',
+      },
+    });
   }
 }
 
@@ -80,7 +102,12 @@ function* getSetupRate(action: IGetSetupRate) {
     });
     yield put({ type: GET_SETUP_RATE_SUCCESS, payload: response });
   } catch (e) {
-    console.log(e);
+    yield put({
+      type: GET_SETUP_RATE_FAILURE,
+      payload: {
+        message: 'Failed to get setup rate',
+      },
+    });
   }
 }
 
@@ -99,7 +126,12 @@ function* addSetupRate(action: ISetSetupRate) {
     const response = yield call(addRate, data);
     yield put({ type: SET_SETUP_RATE_SUCCESS, payload: response });
   } catch (e) {
-    console.log(e);
+    yield put({
+      type: SET_SETUP_RATE_FAILURE,
+      payload: {
+        message: 'Failed to add setup rate',
+      },
+    });
   }
 }
 

@@ -1,9 +1,10 @@
-import { RateCreationAttributes, RateModel } from '../../data/models/rate';
+import { RateCreationAttributes, RateModel, RateAttributes } from '../../data/models/rate';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { RateRepository } from '../../data/repositories/rate.repository';
 import { IRateMiddleware } from '../middlewares/rate.middleware';
 import { triggerServerError } from '../../helpers/global.helper';
+import { UserAttributes } from '../../data/models/user';
 import { BaseService } from './base.service';
 
 export class RateService extends BaseService<RateModel, RateCreationAttributes, RateRepository> {
@@ -25,8 +26,18 @@ export class RateService extends BaseService<RateModel, RateCreationAttributes, 
 
   async createRate(inputRate: RateCreationAttributes, rateMiddleware: IRateMiddleware): Promise<RateModel> {
     await rateMiddleware(inputRate);
-    const rate = await super.create(inputRate);
-    return rate;
+
+    const oldUserRate = await this.repository.getRateByUserAndRateable(
+      inputRate.userId,
+      inputRate.ratebleId,
+      inputRate.ratebleType
+    );
+    if (oldUserRate) {
+      const objOldUserRate: RateAttributes = oldUserRate.toJSON() as RateAttributes;
+      return await this.repository.updateById(objOldUserRate.id.toString(), inputRate);
+    }
+
+    return await this.repository.create(inputRate);
   }
 
   async getRatesAverage(input: IRateFilter): Promise<{ average: number }> {
@@ -36,14 +47,30 @@ export class RateService extends BaseService<RateModel, RateCreationAttributes, 
 
   async updateRateById(
     { id, data }: { id: string; data: RateCreationAttributes },
-    rateMiddleware: IRateMiddleware
+    rateMiddleware: IRateMiddleware,
+    initiator: UserAttributes
   ): Promise<RateModel> {
     await rateMiddleware(data);
-    const rate = await super.updateById(id, data);
-    return rate;
+
+    const oldRate = await this.repository.getRateById(id);
+    if (!oldRate) {
+      triggerServerError(`Rate with id: ${id} does not exists`, 404);
+    }
+    if (oldRate.userId !== initiator.id) {
+      triggerServerError('Access denied', 403);
+    }
+    return await this.repository.updateById(id, data);
   }
 
-  async deleteRateById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteRateById(id: string, initiator: UserAttributes): Promise<RateModel> {
+    const rate = await this.repository.getRateById(id);
+    if (!rate) {
+      triggerServerError(`Rate with id: ${id} does not exists`, 404);
+    }
+    if (rate.userId !== initiator.id) {
+      triggerServerError('Access denied', 403);
+    }
+    await this.repository.deleteById(id);
+    return rate;
   }
 }

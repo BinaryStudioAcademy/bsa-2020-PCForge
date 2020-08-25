@@ -15,22 +15,26 @@ export class IRateFilter extends IFilter {
       ...IFilter.schema.properties,
       ratebleType: {
         type: 'string',
+        minLength: 1,
         enum: ['news', 'game', 'setup'],
         nullable: true,
       },
       ratebleId: {
-        oneOf: [{
-          type: 'integer',
-          minimum: 1
-        }, {
-          type: 'array',
-          items: {
+        oneOf: [
+          {
             type: 'integer',
             minimum: 1,
-          }
-        }],
-        nullable: true
+          },
+          {
+            type: 'array',
+            items: {
+              type: 'integer',
+              minimum: 1,
+            },
+          },
+        ],
+        nullable: true,
       },
-    }
-  }
+    },
+  };
 }

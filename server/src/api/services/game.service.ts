@@ -33,7 +33,7 @@ export class GameService extends BaseService<GameModel, GameCreationAttributes, 
     return game;
   }
 
-  async deleteGameById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteGameById(id: string): Promise<GameModel> {
+    return await super.deleteById(id);
   }
 }

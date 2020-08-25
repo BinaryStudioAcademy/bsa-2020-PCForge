@@ -33,7 +33,7 @@ export class TopGameService extends BaseService<TopGameModel, TopGameCreationAtt
     return topGame;
   }
 
-  async deleteTopGameById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteTopGameById(id: string): Promise<TopGameModel> {
+    return await super.deleteById(id);
   }
 }

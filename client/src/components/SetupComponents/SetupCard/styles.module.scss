@@ -1,60 +1,76 @@
 @import '../../../styles/variables.scss';
 
 .card {
+  display: flex;
   padding: 16px 16px 16px;
   background: #3C444D;
-  box-shadow: 0 30px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 30px 40px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   border: 1px solid $colorBlue;
   margin-bottom: 4rem;
+}
 
-  .contentHeader {
-    color: $colorOrange;
-  }
+.contentHeader {
+  color: $colorOrange;
+}
 
-  .ratingBox {
-    line-height: .8;
-  }
+.cardContentWrapper {
+  display: flex;
+  flex-direction: column;
+}
 
-  .imageWrapper {
-    display: flex;
-  }
+.cardContent {
+  display: flex;
+  flex-grow: 1;
+  padding: 16px 16px 0 16px;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+}
 
-  .cardContent {
-    display: flex;
-    flex-grow: 1;
-    padding: 16px 16px 0 16px;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: auto;
+.ratingBoxWrapper {
+  align-self: flex-end;
+}
 
-    .cardText {
-      color: $colorTextWhite;
-      font-weight: 500;
-      font-size: 14px;
-      line-height: 22px;
-    }
-  }
+.cardText {
+  // width: 500px;
+  color: $colorTextWhite;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
 }
 
 @media (min-width: 1200px) {
-  .card {
-    .imageWrapper {
-      .setupImage {
-        width: 400px;
-      }
-    }
+  .setupImage {
+    width: 400px;
   }
 }
 
 @media (max-width: 1200px) {
   .card {
     flex-direction: column;
+  }
 
-    .imageWrapper {
-      .setupImage {
-        flex-grow: 1;
-      }
-    }
+  .setupImage {
+    flex-grow: 1;
+    margin: 0 0 1rem;
+  }
+
+  .contentHeader.contentHeader {
+    padding-top: 0;
+    padding-left: 0;
+  }
+
+  .card {
+    padding: 2rem;
+  }
+
+  .cardContent {
+    padding-left: 0;
+  }
+
+  .imageWrapper {
+    display: flex;
+    width: 100%;
   }
 }

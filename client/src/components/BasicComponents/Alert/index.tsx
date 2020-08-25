@@ -16,7 +16,7 @@ export enum AlertType {
 
 type IconType = typeof CheckCircleOutlinedIcon;
 
-interface IAlertProps {
+export interface IAlertProps {
   alertType?: AlertType;
   alertTitle?: JSX.Element | string;
 }
