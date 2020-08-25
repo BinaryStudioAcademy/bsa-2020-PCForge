@@ -85,6 +85,7 @@ export const GetAllUsersSchema: SwaggerSchema = {
 
 export const CreateUserSchema: SwaggerSchema = {
   type: 'object',
+  required: ['email', 'password'],
   properties: {
     email: {
       type: 'string',
@@ -105,6 +106,7 @@ export const CreateUserSchema: SwaggerSchema = {
 
 export const UpdateUserSchema: SwaggerSchema = {
   type: 'object',
+  required: ['oldPassword'],
   properties: {
     name: {
       type: 'string',

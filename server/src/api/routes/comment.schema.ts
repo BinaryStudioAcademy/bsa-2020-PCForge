@@ -98,6 +98,7 @@ export const GetAllComments: SwaggerSchema = {
 
 export const CreateCommentSchema: SwaggerSchema = {
   type: 'object',
+  required: ['commentableType', 'commentableId', 'userId', 'token', 'value'],
   properties: {
     commentableType: {
       type: 'string',
@@ -136,6 +137,7 @@ export const CreateCommentSchema: SwaggerSchema = {
 
 export const UpdateCommentSchema: SwaggerSchema = {
   type: 'object',
+  required: ['commentableType', 'commentableId', 'userId', 'token', 'value'],
   properties: {
     commentableType: {
       type: 'string',

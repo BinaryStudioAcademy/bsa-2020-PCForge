@@ -77,6 +77,7 @@ export const GetAllRamTypesResponse: SwaggerSchema = {
 
 export const CreateRamTypeSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
@@ -89,6 +90,7 @@ export const CreateRamTypeSchema: SwaggerSchema = {
 
 export const UpdateRamTypeSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',

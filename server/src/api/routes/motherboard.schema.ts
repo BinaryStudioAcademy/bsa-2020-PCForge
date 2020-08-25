@@ -78,6 +78,7 @@ export const DetailedMotherBoardSchema = createDetailedMotherboardSchema();
 
 export const CreateMotherBoardSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'socketId', 'ramTypeId'],
   properties: {
     name: {
       type: 'string',

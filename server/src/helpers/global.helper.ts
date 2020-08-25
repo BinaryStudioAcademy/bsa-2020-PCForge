@@ -11,6 +11,6 @@ export const reduceTo = <T>(from: T, ToFactory: new () => T): T => {
 export const triggerServerError = (message: string, statusCode: number): never => {
   throw {
     error: message,
-    status: statusCode
-  }
-}
+    status: statusCode,
+  };
+};

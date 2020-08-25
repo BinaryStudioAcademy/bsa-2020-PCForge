@@ -73,6 +73,7 @@ export const GetAllNewsResponse: SwaggerSchema = {
 
 export const CreateNewsSchema: SwaggerSchema = {
   type: 'object',
+  required: ['title', 'content', 'image'],
   properties: {
     title: {
       type: 'string',

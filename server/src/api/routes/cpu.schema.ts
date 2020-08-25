@@ -100,6 +100,7 @@ export const DetailedCpuSchema: SwaggerSchema = createDetailedCpuSchema();
 
 export const CreateCpuSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'cores', 'class', 'clockspeed', 'tdp', 'performance', 'socketId'],
   properties: {
     name: {
       type: 'string',

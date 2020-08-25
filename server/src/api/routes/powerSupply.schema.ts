@@ -60,6 +60,7 @@ export const PowerSupplySchema: SwaggerSchema = {
 
 export const CreatePowerSupplySchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'power'],
   properties: {
     name: {
       type: 'string',

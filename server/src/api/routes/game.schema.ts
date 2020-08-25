@@ -116,6 +116,18 @@ export const GameSchema: SwaggerSchema = {
 
 export const CreateGameSchema: SwaggerSchema = {
   type: 'object',
+  required: [
+    'name',
+    'year',
+    'image',
+    'description',
+    'minimalRamSize',
+    'recommendedRamSize',
+    'minimalCpuId',
+    'recommendedCpuId',
+    'minimalGpuId',
+    'recommendedGpuId',
+  ],
   properties: {
     name: {
       type: 'string',
