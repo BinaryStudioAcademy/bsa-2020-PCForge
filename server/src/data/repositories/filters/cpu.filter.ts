@@ -33,13 +33,11 @@ export class ICpuFilter extends IFilter {
         oneOf: [
           {
             type: 'string',
-            minLength: 1,
           },
           {
             type: 'array',
             items: {
               type: 'string',
-              minLength: 1,
             },
           },
         ],
