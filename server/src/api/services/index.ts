@@ -93,12 +93,11 @@ export default fp(async (fastify, opts, next) => {
       SsdService: ssdService,
       MailService: mailService,
     };
-    fastify.decorate('services', { services });
+    fastify.decorate('services', services);
     console.log('services were successfully initialized');
+    next();
   } catch (err) {
     console.error('Unable to initialize services:', err);
     next(err);
-  } finally {
-    next();
   }
 });

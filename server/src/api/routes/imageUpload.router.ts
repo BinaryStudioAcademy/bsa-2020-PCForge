@@ -5,7 +5,6 @@ import { UploadImageSchema } from './imageUploader.schema';
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   //Example how to use image Upload
   const { UploadImageService } = fastify.services;
-  console.log(UploadImageService);
   const singleUpload = UploadImageService.multer.single('image');
 
   fastify.post('/image', { preHandler: singleUpload, ...UploadImageSchema }, (request, response) => {

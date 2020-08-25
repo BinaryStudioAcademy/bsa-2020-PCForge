@@ -9,13 +9,13 @@ AWS.config.update({
   region: 'eu-central-1',
 });
 
-const s3 = new AWS.S3();
 export class UploadService {
   // TODO: make private
   // use any here because fastify-multer does not export Multer interface
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  readonly multer: any;
+  public multer: any;
   constructor() {
+    const s3 = new AWS.S3();
     this.multer = multer({
       storage: multerS3({
         s3,

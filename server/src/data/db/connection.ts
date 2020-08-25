@@ -62,10 +62,11 @@ export default fp(async (fastify, opts, next) => {
     const repositories: Repositories = initializeRepositories(models);
 
     fastify.decorate('db', { models });
-    fastify.decorate('repositories', { repositories });
+    fastify.decorate('repositories', repositories);
+    console.log('repositories were successfully initialized');
+    next();
   } catch (err) {
     console.error('Unable to connect to the database:', err);
-  } finally {
-    next();
+    next(err);
   }
 });

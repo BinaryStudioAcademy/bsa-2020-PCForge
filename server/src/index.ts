@@ -29,11 +29,11 @@ server.register(cors, {
 });
 
 server.register(swagger, SwaggerMainSchema);
+server.register(db);
+server.register(multer.contentParser);
 server.register(jwtAuth);
 server.register(googleAuth);
-server.register(db);
 server.register(services);
-server.register(multer.contentParser);
 server.register(nodemailer, {
   service: process.env.EMAIL_SERVICE,
   auth: {
