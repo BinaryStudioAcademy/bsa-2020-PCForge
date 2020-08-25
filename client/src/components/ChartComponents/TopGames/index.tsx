@@ -1,42 +1,38 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Game } from 'common/models/game';
+import { TopGame } from 'common/models/topGame';
 import React from 'react';
 import styles from './styles.module.scss';
 
 interface Props {
-  games: Game[];
+  topGames: TopGame[];
   selected?: number;
-  onGameSelected?: (game: Game) => void;
+  onGameSelected?: (topGame: TopGame) => void;
 }
 
 const TopGames: React.FC<Props> = ({
-  games,
+  topGames,
   selected: selectedIndex,
   onGameSelected: onGameSelectedProps = () => {},
 }): JSX.Element => {
-  const gameView = (game: Game, isSelected: boolean) => (
+  const gameView = (topGame: TopGame, isSelected: boolean) => (
     <div
       className={`${styles.gameContainer} ${isSelected && styles.gameContainerSelected}`}
-      key={game.id}
-      onClick={() => onGameSelectedProps(game)}
+      key={topGame.id}
+      onClick={() => onGameSelectedProps(topGame)}
     >
-      <img className={styles.gameImage} src={game.image} alt={game.name} />
-
+      <img className={styles.gameImage} src={topGame.game.image} alt={topGame.game.name} />
       <div className={styles.gameDetails}>
-        {/* <span className={styles.gameCategory}>{game.name}</span> */}
-
-        <span className={styles.gameName}>{game.name}</span>
-
-        <span className={styles.gameDate}>{game.year}</span>
+        <span className={styles.gameName}>{topGame.game.name}</span>
+        <span className={styles.gameDate}>{topGame.game.year}</span>
       </div>
     </div>
   );
 
   return (
     <aside className={styles.topGamesRoot}>
-      <h2 className={styles.topGamesHeader}>Top {games.length} Games</h2>
+      <h2 className={styles.topGamesHeader}>Top {topGames.length} Games</h2>
       <div className={styles.topGamesContainer}>
-        {games.map((game, index) => gameView(game, selectedIndex === index))}
+        {topGames.map((topGame, index) => gameView(topGame, selectedIndex === index))}
       </div>
     </aside>
   );
