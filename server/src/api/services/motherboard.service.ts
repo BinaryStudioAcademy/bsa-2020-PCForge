@@ -3,9 +3,12 @@ import { MotherboardCreationAttributes, MotherboardModel } from '../../data/mode
 import { MotherboardRepository } from '../../data/repositories/motherboard.repository';
 import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.filter';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class MotherboardService {
-  constructor(private repository: MotherboardRepository) {}
+export class MotherboardService extends BaseService<MotherboardModel, MotherboardRepository> {
+  constructor(private repository: MotherboardRepository) {
+    super(repository);
+  }
 
   async getMotherboardById(id: string): Promise<MotherboardModel> {
     const motherboard = await this.repository.getMotherboardById(id);
@@ -21,20 +24,18 @@ export class MotherboardService {
   }
 
   async createMotherboard(inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
-    const motherboard = await this.repository.createMotherboard(inputMotherboard);
+    const motherboard = await super.create(inputMotherboard);
     return motherboard;
   }
 
-  async updateMotherboardById(inputMotherboard: {
+  async updateMotherboardById({
+    id,
+    data,
+  }: {
     id: string;
     data: MotherboardCreationAttributes;
   }): Promise<MotherboardModel> {
-    const { id, data } = inputMotherboard;
-    const oldMotherboard = await this.repository.getMotherboardById(id);
-    if (!oldMotherboard) {
-      triggerServerError(`Motherboard with id: ${id} does not exists`, 404);
-    }
-    const motherboard = await this.repository.updateMotherboardById(id, data);
+    const motherboard = await super.updateById(id, data);
     return motherboard;
   }
 

@@ -45,8 +45,7 @@ export class CpuRepository extends BaseRepository<CpuModel, ICpuFilter> {
   }
 
   async createCpu(inputCpu: CpuCreationAttributes): Promise<CpuModel> {
-    const { id } = await this.model.create(inputCpu);
-    const cpu = this.getCpuById(id.toString());
+    const cpu = await this.create(inputCpu);
     return cpu;
   }
 

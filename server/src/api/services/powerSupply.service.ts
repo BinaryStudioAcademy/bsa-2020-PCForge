@@ -3,9 +3,12 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { PowerSupplyRepository } from '../../data/repositories/powerSupply.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class PowerSupplyService {
-  constructor(private repository: PowerSupplyRepository) {}
+export class PowerSupplyService extends BaseService<PowerSupplyModel, PowerSupplyRepository> {
+  constructor(private repository: PowerSupplyRepository) {
+    super(repository);
+  }
 
   async getPowerSupplyById(id: string): Promise<PowerSupplyModel> {
     const powerSupply = await this.repository.getPowerSupplyById(id);
@@ -21,21 +24,19 @@ export class PowerSupplyService {
   }
 
   async createPowerSupply(inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
-    const powerSupply = await this.repository.createPowerSupply(inputPowerSupply);
+    const powerSupply = await super.create(inputPowerSupply);
     return powerSupply;
   }
 
-  async updatePowerSupplyById(inputPowerSupply: {
+  async updatePowerSupplyById({
+    id,
+    data,
+  }: {
     id: string;
     data: PowerSupplyCreationAttributes;
   }): Promise<PowerSupplyModel> {
-    const { id, data } = inputPowerSupply;
-    const oldPowerSupply = await this.repository.getPowerSupplyById(id);
-    if (!oldPowerSupply) {
-      triggerServerError(`PowerSupply with id: ${id} does not exists`, 404);
-    }
-    const PowerSupply = await this.repository.updatePowerSupplyById(id, data);
-    return PowerSupply;
+    const powerSupply = await super.updateById(id, data);
+    return powerSupply;
   }
 
   async deletePowerSupplyById(id: string): Promise<void> {

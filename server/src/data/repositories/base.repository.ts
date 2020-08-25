@@ -17,7 +17,7 @@ export interface IWithMeta<M extends Model> {
 }
 
 export abstract class BaseRepository<M extends Model, F extends IFilter = IFilter> {
-  constructor(private _model: RichModel, private filterFactory: new () => F) {}
+  constructor(public _model: RichModel, private filterFactory: new () => F) {}
 
   private async getCount(where?: Record<string, unknown>): Promise<number> {
     const count = await this._model.count({ where });
@@ -66,5 +66,11 @@ export abstract class BaseRepository<M extends Model, F extends IFilter = IFilte
     await this._model.destroy({
       where: { id },
     });
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  async create(data: object): Promise<M> {
+    const model = this._model.create(data);
+    return (model as unknown) as M;
   }
 }
