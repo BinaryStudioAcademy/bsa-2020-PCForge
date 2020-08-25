@@ -8,6 +8,10 @@ import quickMatcherSagas from 'containers/QuickMatcher/sagas';
 import homePageSagas from 'containers/Home/logic/sagas';
 import setupSagas from 'containers/SetupPage/sagas';
 
+import setupsSagas from 'containers/SetupsPage/sagas';
+import homePageSagas from 'containers/Home/logic/sagas';
+import setupSagas from 'containers/SetupPage/sagas';
+
 export default function* rootSaga() {
   yield all([
     authSagas(),
@@ -18,5 +22,6 @@ export default function* rootSaga() {
     homePageSagas(),
     matcherSagas(),
     setupSagas(),
+    setupsSagas(),
   ]);
 }
