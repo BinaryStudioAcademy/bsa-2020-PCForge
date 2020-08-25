@@ -6,6 +6,7 @@ import UserReducer from 'containers/UserPage/logic/reducer';
 import builderReducer from 'containers/BuilderPage/reducer';
 import { MatcherReducer } from 'containers/GameMatcher/reducer';
 import { QuickMatcherReducer } from 'containers/QuickMatcher/reducer';
+import { SetupsReducer } from 'containers/SetupsPage/reducer';
 import { SetupReducer } from 'containers/SetupPage/reducer';
 import { SetupChartReducer } from 'containers/Chart/reducer';
 
@@ -17,6 +18,7 @@ const RootReducer = combineReducers({
   setup: builderReducer,
   quickMatcher: QuickMatcherReducer,
   notification: NotificationReducer,
+  setups: SetupsReducer,
   setupPage: SetupReducer,
   setupChart: SetupChartReducer,
 });

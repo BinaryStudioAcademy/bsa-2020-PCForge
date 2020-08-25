@@ -6,7 +6,7 @@ import Button from 'components/BasicComponents/Button';
 import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import { setToken } from 'helpers/tokenHelper';
+import { setToken, setTokenType, TokenType } from 'helpers/tokenHelper';
 import history from 'browserHistory';
 import { Routes } from 'common/enums';
 import gLogo from 'assets/images/g-logo.png';
@@ -40,6 +40,7 @@ const LoginForm = ({
 
   const googleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
     setToken((response as GoogleLoginResponse).tokenId);
+    setTokenType(TokenType.google);
     history.push(Routes.DEFAULT);
   };
 

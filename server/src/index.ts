@@ -10,6 +10,7 @@ import cors from 'fastify-cors';
 import multer from 'fastify-multer';
 import swagger from 'fastify-swagger';
 import SwaggerMainSchema from './api/routes/swaggerMain.schema';
+import { validateBody } from './helpers/bodyValidator.helper';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
 const server = fastify({
@@ -18,6 +19,7 @@ const server = fastify({
     return parsed as { [key: string]: string | string[] };
   },
 });
+server.addContentTypeParser('application/json', { parseAs: 'string' }, (req, body, done) => validateBody(body, done));
 
 server.register(cors, {
   origin: process.env.APP_CLIENT_URL,
@@ -25,7 +27,6 @@ server.register(cors, {
 });
 
 server.register(swagger, SwaggerMainSchema);
-
 server.register(jwtAuth);
 server.register(googleAuth);
 server.register(db);

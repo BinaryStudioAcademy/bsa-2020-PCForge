@@ -11,7 +11,13 @@ import {
   UpdateUserSchema,
   GetAllUsersSchema,
 } from './user.schema';
-import { GetOneQuery, GetMultipleQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  GetOneQuery,
+  GetMultipleQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
   const { UserService } = fastify.services;
@@ -22,20 +28,20 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(users);
   });
 
-  const getOneSchema = GetOneQuery(UserSchema)
+  const getOneSchema = GetOneQuery(UserSchema);
   fastify.get('/:id', getOneSchema, async function (request: GetOneUserRequest, reply) {
     const { id } = request.params;
     const user = await UserService.getUser(id);
     reply.send(user);
   });
 
-  const createSchema = CreateOneQuery(CreateUserSchema, UserSchema)
+  const createSchema = CreateOneQuery(CreateUserSchema, UserSchema);
   fastify.post('/', createSchema, async (request: PostUserRequest, reply) => {
     const user = await UserService.createUser(request.body);
     reply.send(user);
   });
 
-  const updateSchema = UpdateOneQuery(UpdateUserSchema, UserSchema)
+  const updateSchema = UpdateOneQuery(UpdateUserSchema, UserSchema);
   fastify.put('/:id', updateSchema, async (request: PutUserRequest, reply) => {
     const { id } = request.params;
     const { body } = request;

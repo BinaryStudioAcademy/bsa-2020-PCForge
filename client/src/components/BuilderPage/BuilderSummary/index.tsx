@@ -41,16 +41,25 @@ const BuilderSummary = ({ setup }: IProps): JSX.Element => {
           </Typography>
         ) : (
           <Box className={styles.componentWrapper}>
-            <ComponentItem title={cpu ? cpu.name : ''} specification={cpu ? <SpecificationCpu cpu={cpu} /> : null} />
-            <ComponentItem title={gpu ? gpu.name : ''} specification={gpu ? <SpecificationGpu gpu={gpu} /> : null} />
-            <ComponentItem title={ram ? ram.name : ''} specification={ram ? <SpecificationRam ram={ram} /> : null} />
+            <ComponentItem
+              title={cpu ? cpu.name : ''}
+              specification={cpu ? <SpecificationCpu component={cpu} /> : null}
+            />
+            <ComponentItem
+              title={gpu ? gpu.name : ''}
+              specification={gpu ? <SpecificationGpu component={gpu} /> : null}
+            />
+            <ComponentItem
+              title={ram ? ram.name : ''}
+              specification={ram ? <SpecificationRam component={ram} /> : null}
+            />
             <ComponentItem
               title={motherboard ? motherboard.name : ''}
-              specification={motherboard ? <SpecificationMotherboard motherboard={motherboard} /> : null}
+              specification={motherboard ? <SpecificationMotherboard component={motherboard} /> : null}
             />
             <ComponentItem
               title={powersupply ? powersupply.name : ''}
-              specification={powersupply ? <SpecificationPowersupply powersupply={powersupply} /> : null}
+              specification={powersupply ? <SpecificationPowersupply component={powersupply} /> : null}
             />
           </Box>
         )}
