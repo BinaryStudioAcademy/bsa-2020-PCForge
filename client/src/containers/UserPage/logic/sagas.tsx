@@ -29,7 +29,14 @@ import { getAllGames } from 'api/services/gamesService';
 import { addUserGame as addUserGameService, deleteUserGame as deleteUserGameService } from 'api/services/userService';
 
 export default function* userSagas() {
-  yield all([watchLoadUser(), watchUpdateUser(), watchLoadUserGames(), watchLoadFilteredGames(), watchAddUserGame(), watchDeleteUserGame()]);
+  yield all([
+    watchLoadUser(),
+    watchUpdateUser(),
+    watchLoadUserGames(),
+    watchLoadFilteredGames(),
+    watchAddUserGame(),
+    watchDeleteUserGame(),
+  ]);
 }
 
 function* watchLoadUser() {
@@ -116,7 +123,6 @@ function* addUserGame(action: addUserGameActionType) {
   yield put(hideSpinner());
 }
 
-
 function* watchDeleteUserGame() {
   yield takeEvery(DELETE_USER_GAME, deleteUserGame);
 }
@@ -127,7 +133,7 @@ function* deleteUserGame(action: deleteUserGameActionType) {
     yield call(deleteUserGameService, action.payload.id, action.payload.gameId);
     yield put(loadUserGamesAction(action.payload.id));
   } catch (error) {
-    notification.error("Could not delete the game, try again later");
+    notification.error('Could not delete the game, try again later');
   }
   yield put(hideSpinner());
 }

@@ -1,17 +1,16 @@
 export interface Game {
-    id: number;
-    name: string;
-    year: number;
-    image: string;
-    description:string;
-    minimalRamSize: number;
-    recommendedRamSize: number;
-    minimalCpuId: number;
-    recommendedCpuId:number;
-    minimalGpuId: number;
-    createdAt: Date;
-    updatedAt: Date;
-
+  id: number;
+  name: string;
+  year: number;
+  image: string;
+  description: string;
+  minimalRamSize: number;
+  recommendedRamSize: number;
+  minimalCpuId: number;
+  recommendedCpuId: number;
+  minimalGpuId: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface UserGame {

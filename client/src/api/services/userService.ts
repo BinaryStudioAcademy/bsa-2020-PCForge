@@ -18,12 +18,12 @@ export const deleteUser = async (id: number): Promise<void> => {
 
 export const getUserGames = async (id: number): Promise<Game> => {
   return await webApi.get(`${endpoint}/${id}/games`);
-}
+};
 
 export const addUserGame = async (id: number, gameId: number): Promise<Game> => {
-  return await webApi.post(`${endpoint}/${id}/games`, {id: gameId});
-}
+  return await webApi.post(`${endpoint}/${id}/games`, { id: gameId });
+};
 
-export const deleteUserGame = async (id:number, gameId: number): Promise<void> => {
+export const deleteUserGame = async (id: number, gameId: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}/games/${gameId}`);
-}
+};

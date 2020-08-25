@@ -74,7 +74,7 @@ export interface addUserGame {
 
 export interface deleteUserGame {
   type: typeof DELETE_USER_GAME;
-  payload: { id: number; gameId: number};
+  payload: { id: number; gameId: number };
 }
 
 export type UserActionTypes =

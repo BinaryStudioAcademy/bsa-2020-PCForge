@@ -59,7 +59,6 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                     onSelect={(id: number) => addUserGame!(userId, id)}
                     options={filteredGames!.map((game) => ({ label: game.name, value: game.id }))}
                     onInputChange={({ value }) => loadFilteredGames!(value)}
-                    onSeeMoreClick={() => {}}
                     hideSeeMore
                   />
                 )}
@@ -71,6 +70,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
               <GameCard
                 key={generateKey(game.name, index)}
                 image={game.image}
+                id={game.id}
                 name={game.name}
                 year={game.year}
                 description={game.description}

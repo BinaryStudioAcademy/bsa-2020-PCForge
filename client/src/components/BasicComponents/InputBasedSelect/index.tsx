@@ -13,7 +13,7 @@ export interface SelectOption {
 interface Props {
   onInputChange: ({ value }: { value: string }) => void;
   onSelect: (value: number) => void;
-  onSeeMoreClick: ({ itemsCount, value }: { itemsCount: number; value: string }) => void;
+  onSeeMoreClick?: ({ itemsCount, value }: { itemsCount: number; value: string }) => void;
   options: SelectOption[];
   placeholder: string;
   errorMessage?: string | boolean;
@@ -120,16 +120,18 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
                 {option.label}
               </div>
             ))}
-            {!this.props.hideSeeMore && (<div
-              className={styles.seeMore}
-              onClick={() => onSeeMoreClick({ itemsCount: options.length, value: this.state.inputValue })}
-              tabIndex={0}
-              onKeyUp={(e) =>
-                e.keyCode === 13 && onSeeMoreClick({ itemsCount: options.length, value: this.state.inputValue })
-              }
-            >
-              See More
-            </div>)}
+            {!this.props.hideSeeMore && onSeeMoreClick && (
+              <div
+                className={styles.seeMore}
+                onClick={() => onSeeMoreClick({ itemsCount: options.length, value: this.state.inputValue })}
+                tabIndex={0}
+                onKeyUp={(e) =>
+                  e.keyCode === 13 && onSeeMoreClick({ itemsCount: options.length, value: this.state.inputValue })
+                }
+              >
+                See More
+              </div>
+            )}
             {errorMessage && (
               <div className={styles.errorMessage}>
                 <ErrorIcon />{' '}

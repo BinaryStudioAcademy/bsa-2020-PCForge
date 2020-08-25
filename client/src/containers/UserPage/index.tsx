@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import UserInfo from './components/UserInfo';
 import { RootState } from 'redux/rootReducer';
-import { loadUser, updateUser, loadUserGames, loadFilteredGames, addUserGame, deleteUserGame} from './logic/actions';
+import { loadUser, updateUser, loadUserGames, loadFilteredGames, addUserGame, deleteUserGame } from './logic/actions';
 import Spinner from 'components/Spinner';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -75,7 +75,7 @@ const mapDispatch = {
   loadFilteredGames,
   addUserGame,
   deleteUserGame,
-}
+};
 
 const connector = connect(mapState, mapDispatch);
 

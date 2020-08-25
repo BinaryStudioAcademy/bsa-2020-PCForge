@@ -68,8 +68,8 @@ export const addUserGame = (id: number, gameId: number): UserActionTypes => ({
 
 export const deleteUserGame = (id: number, gameId: number): UserActionTypes => ({
   type: DELETE_USER_GAME,
-  payload: {id, gameId},
-})
+  payload: { id, gameId },
+});
 
 export const showSpinner = (): UserActionTypes => ({
   type: SHOW_SPINNER,
