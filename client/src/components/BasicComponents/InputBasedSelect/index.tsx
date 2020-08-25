@@ -21,6 +21,7 @@ interface Props {
   inputId: string;
   label: string;
   labelClassName?: string;
+  hideSeeMore?: boolean;
 }
 
 interface State {
@@ -119,7 +120,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
                 {option.label}
               </div>
             ))}
-            <div
+            {!this.props.hideSeeMore && (<div
               className={styles.seeMore}
               onClick={() => onSeeMoreClick({ itemsCount: options.length, value: this.state.inputValue })}
               tabIndex={0}
@@ -128,7 +129,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
               }
             >
               See More
-            </div>
+            </div>)}
             {errorMessage && (
               <div className={styles.errorMessage}>
                 <ErrorIcon />{' '}

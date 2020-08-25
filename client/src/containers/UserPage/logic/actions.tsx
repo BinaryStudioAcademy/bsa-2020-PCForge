@@ -8,11 +8,14 @@ import {
   HIDE_SPINNER,
   LOAD_USER_GAMES,
   LOAD_USER_GAMES_SUCCESS,
-
+  LOAD_FILTERED_GAMES,
+  LOAD_FILTERED_GAMES_SUCCESS,
+  ADD_USER_GAME,
 } from './actionTypes';
 
 import { TypeUser } from 'common/models/typeUser';
-import { UserGame } from 'common/models/typeUserGame';
+import { UserGame, Game } from 'common/models/typeUserGame';
+import { User } from 'common/models/user';
 
 export const loadUser = (id: number): UserActionTypes => ({
   type: LOAD_USER,
@@ -38,14 +41,29 @@ export const updateUserSuccess = (data: TypeUser): UserActionTypes => ({
 });
 
 export const loadUserGames = (id: number): UserActionTypes => ({
-  type: LOAD_USER_GAMES,    
-  payload: { id }                         
+  type: LOAD_USER_GAMES,
+  payload: { id },
 });
 
 export const loadUserGamesSuccess = (data: UserGame[]): UserActionTypes => ({
   type: LOAD_USER_GAMES_SUCCESS,
   payload: data,
-})
+});
+
+export const loadFilteredGames = (searchString: string): UserActionTypes => ({
+  type: LOAD_FILTERED_GAMES,
+  payload: { searchString },
+});
+
+export const loadFilteredGamesSuceess = (data: Game[]): UserActionTypes => ({
+  type: LOAD_FILTERED_GAMES_SUCCESS,
+  payload: data,
+});
+
+export const addUserGame = (id: number, gameId: number): UserActionTypes => ({
+  type: ADD_USER_GAME,
+  payload: { id, gameId },
+});
 
 export const showSpinner = (): UserActionTypes => ({
   type: SHOW_SPINNER,

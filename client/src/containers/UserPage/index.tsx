@@ -5,15 +5,26 @@ import { useParams } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import UserInfo from './components/UserInfo';
 import { RootState } from 'redux/rootReducer';
-import { loadUser, updateUser, loadUserGames } from './logic/actions';
+import { loadUser, updateUser, loadUserGames, loadFilteredGames, addUserGame } from './logic/actions';
 import Spinner from 'components/Spinner';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const UserPage = (props: Props) => {
-  const { loadedUser, loadUserGames, showSpinner, loadUser, currentUser, updateUser: userUpdate, userGames } = props;
-  const gamesArray = userGames.map(game => game.game);
+  const {
+    loadedUser,
+    loadUserGames,
+    showSpinner,
+    loadUser,
+    currentUser,
+    updateUser: userUpdate,
+    userGames,
+    addUserGame: userGameAdd,
+    loadFilteredGames,
+    filteredGames,
+  } = props;
+  const gamesArray = userGames.map((game) => game.game);
   console.log(gamesArray);
 
   const { id } = useParams();
@@ -34,6 +45,9 @@ const UserPage = (props: Props) => {
           userGames={gamesArray}
           updateUser={userUpdate}
           isCurrentUser={id.toString() === currentUserId?.toString()}
+          addUserGame={userGameAdd}
+          loadFilteredGames={loadFilteredGames}
+          filteredGames={filteredGames}
         />
       );
     } else {
@@ -49,12 +63,15 @@ const mapState = (state: RootState) => ({
   showSpinner: state.user.showSpinner,
   currentUser: state.auth.user,
   userGames: state.user.userGames,
+  filteredGames: state.user.filteredGames,
 });
 
 const mapDispatch = {
   loadUser,
   updateUser,
   loadUserGames,
+  loadFilteredGames,
+  addUserGame,
 };
 
 const connector = connect(mapState, mapDispatch);

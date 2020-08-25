@@ -19,14 +19,17 @@ enum UserPageTabs {
 
 interface IUserInfoProps {
   user: TypeUser;
-  userGames: Game[],
+  userGames: Game[];
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
   isCurrentUser: boolean;
+  addUserGame: (id: number, gameId: number) => UserActionTypes;
+  filteredGames: Game[];
+  loadFilteredGames: (searchString: string) => UserActionTypes;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const { user, userGames, updateUser, isCurrentUser } = props;
- 
+  const { user, userGames, updateUser, isCurrentUser, filteredGames, loadFilteredGames, addUserGame } = props;
+
   const setupsArray = [
     {
       image:
@@ -283,7 +286,15 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             <Tab label="Setups" />
           </Tabs>
         </AppBar>
-        {selectedTab === UserPageTabs.Games && <UserPreferences isCurrentUser={isCurrentUser} games={userGames} />}
+        {selectedTab === UserPageTabs.Games && (
+          <UserPreferences
+            isCurrentUser={isCurrentUser}
+            games={userGames}
+            addUserGame={addUserGame}
+            filteredGames={filteredGames}
+            loadFilteredGames={loadFilteredGames}
+          />
+        )}
         {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setupsArray} />}
       </div>
     </div>

@@ -1,33 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from '../SetupCard';
 import GamesModal from '../GamesModal';
 import styles from './styles.module.scss';
+import { useParams } from 'react-router';
 import { getAllTopGames } from 'api/services/topgameService';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
+import { Game } from 'common/models/typeUserGame';
+import { UserActionTypes } from '../../logic/actionTypes';
+import { addUserGame } from 'containers/UserPage/logic/actions';
 
 export interface UserPreferencesProps {
   games?: GameCardProps[];
   setups?: SetupCardProps[];
   isCurrentUser: boolean;
+  addUserGame?: (id: number, gameId: number) => UserActionTypes;
+  filteredGames?: Game[];
+  loadFilteredGames?: (searchString: string) => UserActionTypes;
 }
 
 const generateKey = (pre: string, index: number) => {
   return `${pre}_${new Date().getTime()}_${index}`;
 };
 
-
-const handleAddGameClick = async () => {
-//  const topGames = await getAllTopGames({from:0, count:5});
-//  const result = topGames.data;
-//  console.log(result)
-}
-
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
-
-  const { games, setups, isCurrentUser } = props;
-  
+  const { games, setups, isCurrentUser, filteredGames, loadFilteredGames, addUserGame } = props;
+  const [showGameSearch, setShowGameSearch] = useState(false);
+  const handleAddGameClick = async () => {
+    setShowGameSearch(true);
+  };
+  const { id: userId } = useParams();
 
   return (
     <>
@@ -35,9 +40,32 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
         <>
           <div className={styles.buttonPlacement}>
             {isCurrentUser && (
-              <Button variant="contained" className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add" onClick={handleAddGameClick} >
-                Add Game
-              </Button>
+              <>
+                {!showGameSearch && (
+                  <Button
+                    variant="contained"
+                    className={styles.addGameButton}
+                    buttonType={ButtonType.primary}
+                    icon="Add"
+                    onClick={handleAddGameClick}
+                  >
+                    Add Game
+                  </Button>
+                )}
+                {showGameSearch && (
+                  <InputBasedSelect
+                    label="Game's name"
+                    placeholder="Choose a game"
+                    inputId="game"
+                    debounceTime={300}
+                    onSelect={(id: number) => addUserGame!(userId, id)}
+                    options={filteredGames!.map((game) => ({ label: game.name, value: game.id }))}
+                    onInputChange={({ value }) => loadFilteredGames!(value)}
+                    onSeeMoreClick={() => {}}
+                    hideSeeMore
+                  />
+                )}
+              </>
             )}
           </div>
           <div className={styles.userPreferences}>
