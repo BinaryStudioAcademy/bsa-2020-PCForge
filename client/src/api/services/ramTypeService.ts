@@ -2,7 +2,7 @@ import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeRamType } from 'common/models/typeRamType';
 
-type TypeResponseAll = {
+export type TypeResponseAll = {
   meta: {
     globalCount: number;
     countAfterFiltering: number;

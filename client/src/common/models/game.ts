@@ -20,7 +20,7 @@ export interface Game {
 export interface GameCreationAttributes {
   name: string;
   year: number;
-  image: string;
+  image?: string;
   description: string;
   recommendedRamSize: number;
   minimalRamSize: number;

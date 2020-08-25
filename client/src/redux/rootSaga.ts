@@ -9,6 +9,7 @@ import userRequestsSagas from 'containers/AdminToolsPage/sagas';
 import setupSagas from 'containers/SetupPage/sagas';
 import homePageSagas from 'containers/Home/logic/sagas';
 import gameFormSagas from 'containers/AddItemPages/AddGameForm/saga';
+import hardwareFormSagas from 'containers/AddItemPages/AddHardwareForm/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -22,5 +23,6 @@ export default function* rootSaga() {
     matcherSagas(),
     setupSagas(),
     gameFormSagas(),
+    hardwareFormSagas(),
   ]);
 }

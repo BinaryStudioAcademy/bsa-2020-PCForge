@@ -14,6 +14,14 @@
   text-transform: uppercase;
 }
 
+.labelBaseSelect {
+  color: $colorTextGray;
+  margin-top: 10px;
+  font-size: 10px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
 .additionalFieldsContainer {
   display: flex;
   flex-direction: row;

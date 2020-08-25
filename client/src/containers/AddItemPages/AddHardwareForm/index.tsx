@@ -1,19 +1,37 @@
 import React, { useState } from 'react';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { HardwareTypes } from 'common/enums/AdminTools/HardwareTypes';
 import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-//import Title from 'components/Title';
-//import Button, { ButtonType } from 'components/BasicComponents/Button';
-//import Input from 'components/BasicComponents/Input';
 import InputForm from 'components/BasicComponents/InputForm';
-//import Link from 'components/BasicComponents/Link';
+import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
+import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import Select from 'components/BasicComponents/Select';
 import styles from './styles.module.scss';
 
-interface IinputOptions {
-  value: string | number;
-  title: string;
-}
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import { RootState } from 'redux/rootReducer';
+import * as actions from './actions';
+import { HardwareFormState, HardWareFormAction, HardwareFormActionTypes, IHardwareFilter } from './actionsTypes';
+import { RamCreationAttributes } from 'common/models/ram';
+import { CpuCreationAttributes } from 'common/models/cpu';
+import { GpuCreationAttributes } from 'common/models/gpu';
+import { MotherboardCreationAttributes } from 'common/models/motherboard';
+import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
+import { memorySizeOptions, classCpuOptions } from './interfaces';
+
+const theme = createMuiTheme({
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        fontSize: '10px',
+        lineHeight: '18px',
+        color: '#cbcfd4',
+      },
+    },
+  },
+});
 
 const HardwareTypesValues = [
   { value: HardwareTypes.PowerSupply, title: HardwareTypes.PowerSupply },
@@ -23,28 +41,40 @@ const HardwareTypesValues = [
   { value: HardwareTypes.GPU, title: HardwareTypes.GPU },
 ];
 
-let typeRamOptions: IinputOptions[], socketOptions: IinputOptions[], ramOptions: IinputOptions[];
-const memorySizeOptions = [
-  { value: 2, title: '2' },
-  { value: 4, title: '4' },
-  { value: 8, title: '8' },
-  { value: 16, title: '16' },
-];
-const classCpuOptions = [
-  { value: 'Laptop', title: 'Laptop' },
-  { value: 'Desktop', title: 'Desktop' },
-];
-
-interface IHardWareForm {
+interface IPropsAddHardwareForm {
+  state: HardwareFormState;
+  getAllSelectsInitialValuesMotherboard: () => HardWareFormAction;
+  getAllSelectsInitialValuesRAM: () => HardWareFormAction;
+  getAllSelectsInitialValuesCPU: () => HardWareFormAction;
+  uploadMoreItems: (payload: IHardwareFilter) => HardWareFormAction;
+  createRAM: (ram: RamCreationAttributes) => HardWareFormAction;
+  createPowerSupply: (powerSupply: PowerSupplyCreationAttributes) => HardWareFormAction;
+  createMotherboard: (motherboard: MotherboardCreationAttributes) => HardWareFormAction;
+  createGPU: (gpu: GpuCreationAttributes) => HardWareFormAction;
+  createCPU: (cpu: CpuCreationAttributes) => HardWareFormAction;
   goBack: () => void;
 }
 
-const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
+const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
+  const {
+    goBack,
+    getAllSelectsInitialValuesMotherboard,
+    getAllSelectsInitialValuesRAM,
+    getAllSelectsInitialValuesCPU,
+    uploadMoreItems,
+    createRAM,
+    createPowerSupply,
+    createMotherboard,
+    createGPU,
+    createCPU,
+  } = props;
+
+  const [alertText, setAlertText] = useState<string | null>(null);
+  const [alertType, setAlertType] = useState<AlertType>();
   const [name, setName] = useState('');
   const [typeHardWare, setTypeHardWare] = useState<string | unknown>();
   const [performance, setPerformance] = useState('');
   const [tdp, setTdp] = useState('');
-  const [socket, setSocket] = useState('');
   const [clockSpeed, setClockSpeed] = useState('');
   const [cores, setCores] = useState('');
   const [classCpu, setClassCpu] = useState('');
@@ -53,16 +83,37 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
   const [coreClocks, setCoreClocks] = useState('');
   const [directX, setDirectX] = useState('');
   const [openGl, setOpenGl] = useState('');
-  const [ram, setRam] = useState('');
+
   const [power, setPower] = useState('');
   const [frequency, setFrequency] = useState('');
-  const [typeRam, setTypeRam] = useState('');
+  const [ram, setRam] = useState<number>();
+  const [typeRam, setTypeRam] = useState<number>();
+  const [socket, setSocket] = useState<number>();
+
+  console.log(props.state);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
   const handleChangeType = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTypeHardWare(event.target.value as string);
+    setAlertText('');
+    console.log(typeHardWare);
+    console.log(event.target.value);
+    switch (event.target.value) {
+      case HardwareTypes.Motherboard: {
+        getAllSelectsInitialValuesMotherboard();
+        break;
+      }
+      case HardwareTypes.RAM: {
+        getAllSelectsInitialValuesRAM();
+        break;
+      }
+      case HardwareTypes.CPU: {
+        getAllSelectsInitialValuesCPU();
+        break;
+      }
+    }
   };
   const handleChangeFrequency = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFrequency(event.target.value);
@@ -95,17 +146,8 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
     setCores(event.target.value);
   };
 
-  const handleChangeSocket = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSocket(event.target.value as string);
-  };
   const handleChangeClassCpu = (event: React.ChangeEvent<{ value: unknown }>) => {
     setClassCpu(event.target.value as string);
-  };
-  const handleChangeRam = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setRam(event.target.value as string);
-  };
-  const handleChangeTypeRam = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setTypeRam(event.target.value as string);
   };
   const handleChangeMemorySize = (event: React.ChangeEvent<{ value: unknown }>) => {
     setMemorySize(event.target.value as string);
@@ -116,15 +158,120 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
     goBack();
   };
   const onPublish = () => {
-    console.log('publish');
-    //goBack();
+    switch (typeHardWare) {
+      case HardwareTypes.PowerSupply: {
+        if (!name || !power) {
+          setAlertText('Error: Please fill all hardware components');
+          setAlertType(AlertType.error);
+          return;
+        }
+        setAlertText('');
+        const powerSupply: PowerSupplyCreationAttributes = {
+          name,
+          power: +power,
+        };
+        createPowerSupply(powerSupply);
+        break;
+      }
+      case HardwareTypes.Motherboard: {
+        if (!name || !socket || !ram) {
+          setAlertText('Error: Please fill all hardware components');
+          setAlertType(AlertType.error);
+          return;
+        }
+        setAlertText('');
+        const motherBoard: MotherboardCreationAttributes = {
+          name,
+          socketId: socket,
+          ramTypeId: ram,
+        };
+        createMotherboard(motherBoard);
+        break;
+      }
+      case HardwareTypes.RAM: {
+        if (!name || !frequency || !typeRam || !power || !memorySize) {
+          setAlertText('Error: Please fill all hardware components');
+          setAlertType(AlertType.error);
+          return;
+        }
+        setAlertText('');
+        const newRam: RamCreationAttributes = {
+          name,
+          memorySize: +memorySize,
+          frequency: +frequency,
+          power: +power,
+          typeId: typeRam,
+        };
+        createRAM(newRam);
+        break;
+      }
+      case HardwareTypes.CPU: {
+        if (!name || !performance || !tdp || !cores || !socket || !clockSpeed || !classCpu) {
+          setAlertText('Error: Please fill all hardware components');
+          setAlertType(AlertType.error);
+          return;
+        }
+        setAlertText('');
+        const newCPU: CpuCreationAttributes = {
+          name,
+          performance: +performance,
+          clockspeed: +clockSpeed,
+          tdp: +tdp,
+          cores: +cores,
+          class: classCpu,
+          socketId: socket,
+        };
+        createCPU(newCPU);
+        break;
+      }
+      case HardwareTypes.GPU: {
+        if (!name || !performance || !tdp || !memorySize || !openGl || !interfaceGpu || !clockSpeed || !directX) {
+          setAlertText('Error: Please fill all hardware components');
+          setAlertType(AlertType.error);
+          return;
+        }
+        setAlertText('');
+        const newGPU: GpuCreationAttributes = {
+          name,
+          interface: interfaceGpu,
+          memorySize: +memorySize,
+          coreClocks: +coreClocks,
+          opengl: openGl,
+          tdp: +tdp,
+          performance: +performance,
+        };
+        createGPU(newGPU);
+        break;
+      }
+    }
+  };
+
+  const createUploadMoreItems = (typeHardware: HardwareFields, typeAction: string) => {
+    let offset = 0;
+    switch (typeHardware) {
+      case HardwareFields.ram: {
+        offset = props.state.RAMList.length;
+        break;
+      }
+      case HardwareFields.socket: {
+        offset = props.state.socketList.length;
+        break;
+      }
+      case HardwareFields.typeRam: {
+        offset = props.state.RAMtypeList.length;
+        break;
+      }
+    }
+    return function ({ value, itemCount = offset }: { value: string; itemCount?: number }) {
+      const filter: IHardwareFilter = { offset: itemCount, name: value, typeHardware, typeAction };
+      uploadMoreItems(filter);
+    };
   };
 
   const fieldsMap = new Map<string, boolean>();
   for (const field in HardwareFields) {
     fieldsMap.set(field, false);
   }
-  console.log(fieldsMap);
 
   fieldsMap.forEach((value, key) => {
     fieldsMap.set(key, false);
@@ -140,25 +287,13 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
         fieldsMap.set(HardwareFields.frequency, true);
         fieldsMap.set(HardwareFields.power, true);
         fieldsMap.set(HardwareFields.typeRam, true); // get data from server
-        typeRamOptions = [
-          { value: 0, title: 'example0' },
-          { value: 1, title: 'example1' },
-        ];
         fieldsMap.set(HardwareFields.memorySize, true);
       }
       break;
     case HardwareTypes.Motherboard:
       {
-        fieldsMap.set(HardwareFields.socket, true); // get data from server
-        socketOptions = [
-          { value: 0, title: 'example0' },
-          { value: 1, title: 'example1' },
-        ];
-        fieldsMap.set(HardwareFields.ram, true); // get data from server
-        ramOptions = [
-          { value: 0, title: 'example0' },
-          { value: 1, title: 'example1' },
-        ];
+        fieldsMap.set(HardwareFields.socket, true);
+        fieldsMap.set(HardwareFields.ram, true);
       }
       break;
     case HardwareTypes.GPU:
@@ -176,10 +311,6 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
       {
         fieldsMap.set(HardwareFields.perfomance, true);
         fieldsMap.set(HardwareFields.socket, true); // get data from server
-        socketOptions = [
-          { value: 0, title: 'example0' },
-          { value: 1, title: 'example1' },
-        ];
         fieldsMap.set(HardwareFields.tdp, true);
         fieldsMap.set(HardwareFields.clockSpeed, true);
         fieldsMap.set(HardwareFields.cores, true);
@@ -188,9 +319,19 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
       break;
   }
 
+  if (props.state.error && !alertText) {
+    setAlertText(props.state.error);
+    setAlertType(AlertType.error);
+  }
+  if (props.state.createdHardwareName && !alertText) {
+    setAlertText(`Success: Hardware ${props.state.createdHardwareName} was created.`);
+    setAlertType(AlertType.success);
+  }
+
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <div className={styles.formFields}>
+        {alertText ? <Alert alertType={alertType}>{alertText}</Alert> : null}
         <div className={styles.inputItem}>
           <InputForm
             name="Name"
@@ -309,27 +450,43 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
             { select socket } */}
             {fieldsMap.get(HardwareFields.typeRam) ? (
               <div className={styles.selectItem}>
-                <Select
-                  inputLabel={HardwareFields.typeRam}
+                <InputBasedSelect
+                  label={HardwareFields.typeRam}
+                  labelClassName={styles.labelBaseSelect}
                   placeholder="Select a type of RAM"
-                  value={typeRam}
-                  onChange={handleChangeTypeRam}
-                  inputOptions={typeRamOptions}
-                  labelClassName={styles.selectItemHeader}
-                  required
+                  inputId={HardwareFields.typeRam}
+                  options={props.state.RAMtypeList}
+                  debounceTime={300}
+                  onSelect={(id: number) => setTypeRam(id)}
+                  onInputChange={createUploadMoreItems(
+                    HardwareFields.typeRam,
+                    HardwareFormActionTypes.UPLOAD_MORE_ENTERED_RAMTYPE_VALUES
+                  )}
+                  onSeeMoreClick={createUploadMoreItems(
+                    HardwareFields.typeRam,
+                    HardwareFormActionTypes.UPLOAD_MORE_RAMTYPE_VALUES
+                  )}
                 />
               </div>
             ) : null}
             {fieldsMap.get(HardwareFields.socket) && typeHardWare === HardwareTypes.Motherboard ? (
               <div className={styles.selectItem}>
-                <Select
-                  inputLabel={HardwareFields.socket}
+                <InputBasedSelect
+                  label={HardwareFields.socket}
+                  labelClassName={styles.labelBaseSelect}
                   placeholder="Select a socket"
-                  value={socket}
-                  onChange={handleChangeSocket}
-                  inputOptions={socketOptions}
-                  labelClassName={styles.selectItemHeader}
-                  required
+                  inputId={HardwareFields.socket}
+                  options={props.state.socketList}
+                  debounceTime={300}
+                  onSelect={(id: number) => setSocket(id)}
+                  onInputChange={createUploadMoreItems(
+                    HardwareFields.socket,
+                    HardwareFormActionTypes.UPLOAD_MORE_ENTERED_SOCKET_VALUES
+                  )}
+                  onSeeMoreClick={createUploadMoreItems(
+                    HardwareFields.socket,
+                    HardwareFormActionTypes.UPLOAD_MORE_SOCKET_VALUES
+                  )}
                 />
               </div>
             ) : null}
@@ -403,27 +560,43 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
             ) : null}
             {fieldsMap.get(HardwareFields.ram) ? (
               <div className={styles.selectItem}>
-                <Select
-                  inputLabel={HardwareFields.ram}
+                <InputBasedSelect
+                  label={HardwareFields.ram}
+                  labelClassName={styles.labelBaseSelect}
                   placeholder="Select a RAM"
-                  value={ram}
-                  onChange={handleChangeRam}
-                  inputOptions={ramOptions}
-                  labelClassName={styles.selectItemHeader}
-                  required
+                  inputId={HardwareFields.ram}
+                  options={props.state.RAMList}
+                  debounceTime={300}
+                  onSelect={(id: number) => setRam(id)}
+                  onInputChange={createUploadMoreItems(
+                    HardwareFields.ram,
+                    HardwareFormActionTypes.UPLOAD_MORE_ENTERED_RAM_VALUES
+                  )}
+                  onSeeMoreClick={createUploadMoreItems(
+                    HardwareFields.ram,
+                    HardwareFormActionTypes.UPLOAD_MORE_RAM_VALUES
+                  )}
                 />
               </div>
             ) : null}
             {fieldsMap.get(HardwareFields.socket) && typeHardWare === HardwareTypes.CPU ? (
               <div className={styles.selectItem}>
-                <Select
-                  inputLabel={HardwareFields.socket}
-                  placeholder="Select a Socket"
-                  value={socket}
-                  onChange={handleChangeSocket}
-                  inputOptions={socketOptions}
-                  labelClassName={styles.selectItemHeader}
-                  required
+                <InputBasedSelect
+                  label={HardwareFields.socket}
+                  labelClassName={styles.labelBaseSelect}
+                  placeholder="Select a socket"
+                  inputId={HardwareFields.socket}
+                  options={props.state.socketList}
+                  debounceTime={300}
+                  onSelect={(id: number) => setSocket(id)}
+                  onInputChange={createUploadMoreItems(
+                    HardwareFields.socket,
+                    HardwareFormActionTypes.UPLOAD_MORE_ENTERED_SOCKET_VALUES
+                  )}
+                  onSeeMoreClick={createUploadMoreItems(
+                    HardwareFields.socket,
+                    HardwareFormActionTypes.UPLOAD_MORE_SOCKET_VALUES
+                  )}
                 />
               </div>
             ) : null}
@@ -460,7 +633,6 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
       <div className={styles.buttonContainer}>
         <div className={styles.buttonWrapper}>
           <Button buttonType={ButtonType.primary} onClick={onPublish}>
-            {/* check is user is Admin and change text button here:*/}
             Publish
           </Button>
         </div>
@@ -470,8 +642,13 @@ const AddHardwareForm = ({ goBack }: IHardWareForm): JSX.Element => {
           </Button>
         </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 
-export default AddHardwareForm;
+const mapStateToProps = (state: RootState) => ({
+  state: state.hardwareForm,
+});
+const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddHardwareForm);

@@ -10,6 +10,7 @@ import UserRequestsReducer from 'containers/AdminToolsPage/reducer';
 import { SetupReducer } from 'containers/SetupPage/reducer';
 import { SetupChartReducer } from 'containers/Chart/reducer';
 import { GameFormReducer } from 'containers/AddItemPages/AddGameForm/reducer';
+import { HardwareFormReducer } from 'containers/AddItemPages/AddHardwareForm/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -23,6 +24,7 @@ const RootReducer = combineReducers({
   setupPage: SetupReducer,
   setupChart: SetupChartReducer,
   gameForm: GameFormReducer,
+  hardwareForm: HardwareFormReducer,
 });
 
 export default RootReducer;

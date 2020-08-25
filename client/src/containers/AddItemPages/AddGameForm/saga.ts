@@ -5,10 +5,6 @@ import { TypeGpu } from 'common/models/typeGpu';
 import { getAllGpu, TypeResponseAllGpus } from 'api/services/gpuService';
 import { uploadImage } from 'api/services/imageService';
 import { postGame } from 'api/services/gameService';
-import { getAllMotherboard } from 'api/services/motherboardService';
-import { getAllPowersupplies } from 'api/services/powersupplyService';
-import { getAllRam } from 'api/services/ramService';
-import { getAllSocket } from 'api/services/socketService';
 import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 import { FilterModel } from 'common/models/filter.model';
 import * as notification from 'common/services/notificationService';
@@ -34,7 +30,7 @@ function* getAllSelectsInitialValuesRequests(action: IGetInitialValueAction) {
     });
     yield put(loadAllSelectsInitialValues(CPUList, GPUList, CPUList, GPUList));
   } catch (error) {
-    yield put(loadError(error));
+    yield put(loadError(error.message));
   }
 }
 
