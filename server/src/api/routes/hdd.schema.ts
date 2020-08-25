@@ -2,27 +2,28 @@ import { FastifyRequest } from 'fastify';
 import { HddCreationAttributes } from '../../data/models/hdd';
 import { IHddFilter } from '../../data/repositories/filters/hdd.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllHddsRequest = FastifyRequest<{
   Querystring: IHddFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneHddRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostHddRequest = FastifyRequest<{
   Body: HddCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutHddRequest = FastifyRequest<{
   Params: { id: string };
   Body: HddCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteHddRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const HddSchema: SwaggerSchema = {
   type: 'object',
@@ -37,6 +38,7 @@ export const HddSchema: SwaggerSchema = {
       type: 'string',
       example: 'Western Digital Blue WD10SPCX 1TB 2.5" SATA Hard Drive',
       nullable: false,
+      minLength: 1,
     },
     sata: {
       type: 'integer',
@@ -87,6 +89,7 @@ export const CreateHddSchema: SwaggerSchema = {
       type: 'string',
       example: 'Western Digital Blue WD10SPCX 1TB 2.5" SATA Hard Drive',
       nullable: false,
+      minLength: 1,
     },
     sata: {
       type: 'integer',
@@ -126,6 +129,7 @@ export const UpdateHddSchema: SwaggerSchema = {
     name: {
       type: 'string',
       example: 'Western Digital Blue WD10SPCX 1TB 2.5" SATA Hard Drive',
+      minLength: 1,
       nullable: false,
     },
     sata: {

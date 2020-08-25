@@ -1,5 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetOneSetupPerformanceRequest = FastifyRequest<{
   Params: { id: string };
@@ -9,7 +10,7 @@ export type GetOneSetupPerformanceRequest = FastifyRequest<{
     gpuId: string;
     ramSize: string;
   };
-}>;
+}> & { user: UserAttributes };
 
 export const SetupPerformanceSchemaRequest: SwaggerSchema = {
   type: 'object',

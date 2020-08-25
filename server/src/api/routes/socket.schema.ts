@@ -2,27 +2,28 @@ import { FastifyRequest } from 'fastify';
 import { SocketCreationAttributes } from '../../data/models/socket';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllSocketsRequest = FastifyRequest<{
   Querystring: IFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneSocketRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostSocketRequest = FastifyRequest<{
   Body: SocketCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutSocketRequest = FastifyRequest<{
   Params: { id: string };
   Body: SocketCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteSocketRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const SocketSchema: SwaggerSchema = {
   type: 'object',
@@ -35,17 +36,19 @@ export const SocketSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Unique socket name',
       nullable: false,
-      minLength: 1,
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -81,9 +84,9 @@ export const CreateSocketSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'socket name',
       nullable: false,
-      minLength: 1,
     },
   },
 };
@@ -94,9 +97,9 @@ export const UpdateSocketSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'socket name',
       nullable: true,
-      minLength: 1,
     },
   },
 };

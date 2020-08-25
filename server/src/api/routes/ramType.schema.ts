@@ -2,27 +2,28 @@ import { FastifyRequest } from 'fastify';
 import { RamTypeCreationAttributes } from '../../data/models/ramtype';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllRamTypesRequest = FastifyRequest<{
   Querystring: IFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneRamTypeRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostRamTypeRequest = FastifyRequest<{
   Body: RamTypeCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutRamTypeRequest = FastifyRequest<{
   Params: { id: string };
   Body: RamTypeCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteRamTypeRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const RamTypeSchema: SwaggerSchema = {
   type: 'object',
@@ -35,17 +36,19 @@ export const RamTypeSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Unique ram type name',
       nullable: false,
-      minLength: 1,
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -81,9 +84,9 @@ export const CreateRamTypeSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Ram type name',
       nullable: false,
-      minLength: 1,
     },
   },
 };
@@ -94,9 +97,9 @@ export const UpdateRamTypeSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Unique ram type name',
       nullable: true,
-      minLength: 1,
     },
   },
 };

@@ -1,29 +1,30 @@
-import fastify, { FastifyRequest } from 'fastify';
+import { FastifyRequest } from 'fastify';
 import { RateCreationAttributes } from '../../data/models/rate';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllRatesRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: IRateFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneRateRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostRateRequest = FastifyRequest<{
   Body: RateCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutRateRequest = FastifyRequest<{
   Params: { id: string };
   Body: RateCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteRateRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const RateSchema: SwaggerSchema = {
   type: 'object',
@@ -36,6 +37,7 @@ export const RateSchema: SwaggerSchema = {
     },
     ratebleType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
       nullable: false,
@@ -60,11 +62,13 @@ export const RateSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -78,6 +82,7 @@ export const GetRatesAverage = {
       properties: {
         ratebleType: {
           type: 'string',
+          minLength: 1,
           enum: ['news', 'game', 'setup'],
           nullable: true,
         },
@@ -132,6 +137,7 @@ export const CreateRateSchema: SwaggerSchema = {
   properties: {
     ratebleType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
       nullable: false,
@@ -163,6 +169,7 @@ export const UpdateRateSchema: SwaggerSchema = {
   properties: {
     ratebleType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
       nullable: true,

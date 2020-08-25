@@ -2,28 +2,29 @@ import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { AddRequestCreationAttributes } from '../../data/models/addRequest';
 import { IAddRequestFilter } from '../../data/repositories/filters/addRequest.filter';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllAddRequests = FastifyRequest<{
   Params: { id: string };
   Querystring: IAddRequestFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneAddRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostAddRequestRequest = FastifyRequest<{
   Body: AddRequestCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutAddRequestRequest = FastifyRequest<{
   Params: { id: string };
   Body: AddRequestCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteAddRequestRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const AddRequestSchema: SwaggerSchema = {
   type: 'object',
@@ -43,24 +44,26 @@ export const AddRequestSchema: SwaggerSchema = {
     },
     requestedType: {
       type: 'string',
+      minLength: 1,
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
       nullable: false,
-      minLength: 1,
     },
     requestBody: {
       type: 'string',
+      minLength: 1,
       example: 'Request body goes here...',
       nullable: false,
-      minLength: 1,
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -102,16 +105,16 @@ export const CreateAddRequestSchema: SwaggerSchema = {
     },
     requestedType: {
       type: 'string',
+      minLength: 1,
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
       nullable: false,
-      minLength: 1,
     },
     requestBody: {
       type: 'string',
+      minLength: 1,
       example: 'Request body goes here...',
       nullable: false,
-      minLength: 1,
     },
   },
 };
@@ -128,16 +131,15 @@ export const UpdateAddRequestSchema: SwaggerSchema = {
     },
     requestedType: {
       type: 'string',
+      minLength: 1,
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
-      nullable: true,
-      minLength: 1,
     },
     requestBody: {
       type: 'string',
+      minLength: 1,
       example: 'Request body goes here...',
       nullable: true,
-      minLength: 1,
     },
   },
 };

@@ -4,6 +4,7 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { ISetupMiddleware } from '../middlewares/setup.middleware';
+import { UserAttributes } from '../../data/models/user';
 import { BaseService } from './base.service';
 
 export class SetupService extends BaseService<SetupModel, SetupCreationAttributes, SetupRepository> {
@@ -31,15 +32,32 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
   }
 
   async updateSetupById(
-    { id, data }: { id: string; data: SetupCreationAttributes },
-    setupMiddleware: ISetupMiddleware
+    inputSetup: { id: string; data: SetupCreationAttributes },
+    setupMiddleware: ISetupMiddleware,
+    initiator?: UserAttributes
   ): Promise<SetupModel> {
+    const { id, data } = inputSetup;
+    const oldSetup = await this.repository.getById(id);
+    if (!oldSetup) {
+      triggerServerError(`Setup with id: ${id} does not exists`, 404);
+    }
+    if (!initiator.isAdmin && initiator.id !== oldSetup.authorId) {
+      triggerServerError(`Access denied`, 403);
+    }
     await setupMiddleware(data);
-    const setup = await super.updateById(id, data);
+    const setup = await this.repository.updateById(id, data);
     return setup;
   }
 
-  async deleteSetupById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteSetupById(id: string, initiator?: UserAttributes): Promise<SetupModel> {
+    const setup = await this.repository.getOneSetup(id);
+    if (!setup) {
+      triggerServerError(`Setup with id: ${id} does not exists`, 404);
+    }
+    if (!initiator?.isAdmin && initiator?.id !== setup.authorId) {
+      triggerServerError(`Access denied`, 403);
+    }
+    await this.repository.deleteById(id);
+    return setup;
   }
 }

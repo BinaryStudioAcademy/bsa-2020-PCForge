@@ -3,27 +3,28 @@ import { CpuCreationAttributes } from '../../data/models/cpu';
 import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { SocketSchema } from './socket.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllCpusRequest = FastifyRequest<{
   Querystring: ICpuFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneCpuRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostCpuRequest = FastifyRequest<{
   Body: CpuCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutCpuRequest = FastifyRequest<{
   Params: { id: string };
   Body: CpuCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteCpuRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const CpuSchema: SwaggerSchema = {
   type: 'object',
@@ -36,9 +37,9 @@ export const CpuSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
-      minLength: 1,
     },
     cores: {
       type: 'integer',
@@ -48,9 +49,9 @@ export const CpuSchema: SwaggerSchema = {
     },
     class: {
       type: 'string',
+      minLength: 1,
       example: 'Desktop',
       nullable: false,
-      minLength: 1,
     },
     clockspeed: {
       type: 'integer',
@@ -78,11 +79,13 @@ export const CpuSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -104,9 +107,9 @@ export const CreateCpuSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
-      minLength: 1,
     },
     cores: {
       type: 'integer',
@@ -116,9 +119,9 @@ export const CreateCpuSchema: SwaggerSchema = {
     },
     class: {
       type: 'string',
+      minLength: 1,
       example: 'Desktop',
       nullable: false,
-      minLength: 1,
     },
     clockspeed: {
       type: 'integer',
@@ -152,9 +155,9 @@ export const UpdateCpuSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
-      minLength: 1,
     },
     cores: {
       type: 'integer',
@@ -164,9 +167,9 @@ export const UpdateCpuSchema: SwaggerSchema = {
     },
     class: {
       type: 'string',
+      minLength: 1,
       example: 'Desktop',
       nullable: false,
-      minLength: 1,
     },
     clockspeed: {
       type: 'integer',

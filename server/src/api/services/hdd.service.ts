@@ -3,9 +3,12 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { IHddFilter } from '../../data/repositories/filters/hdd.filter';
 import { HddRepository } from '../../data/repositories/hdd.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class HddService {
-  constructor(private repository: HddRepository) {}
+export class HddService extends BaseService<HddModel, HddCreationAttributes, HddRepository> {
+  constructor(private repository: HddRepository) {
+    super(repository);
+  }
 
   async getHddById(id: string): Promise<HddModel> {
     const hdd = await this.repository.getHddById(id);
@@ -35,8 +38,8 @@ export class HddService {
     return hdd;
   }
 
-  async deleteHddById(inputHdd: { id: string }): Promise<void> {
+  async deleteHddById(inputHdd: { id: string }): Promise<HddModel> {
     const { id } = inputHdd;
-    await this.repository.deleteHddById(id);
+    return await super.deleteById(id);
   }
 }

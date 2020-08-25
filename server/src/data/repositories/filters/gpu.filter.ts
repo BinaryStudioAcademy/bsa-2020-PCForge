@@ -1,5 +1,5 @@
 import { IFilter } from './base.filter';
-import { FilterByNameType, notNull } from './types';
+import { FilterByNameType } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IGpuFilter extends IFilter {
@@ -16,11 +16,13 @@ export class IGpuFilter extends IFilter {
         oneOf: [
           {
             type: 'string',
+            minLength: 1,
           },
           {
             type: 'array',
             items: {
               type: 'string',
+              minLength: 1,
             },
           },
         ],
