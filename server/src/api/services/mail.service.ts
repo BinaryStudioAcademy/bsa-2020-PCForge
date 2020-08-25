@@ -1,6 +1,4 @@
-import { SendMailOptions } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
-import { promisify } from 'util';
 import { triggerServerError } from '../../helpers/global.helper';
 
 export interface SendMessageStatus {

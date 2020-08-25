@@ -1,13 +1,5 @@
 import { SwaggerSchema } from '../data/models/swaggerSchema';
 
-interface ISwaggerParams {
-  [key: string]: {
-    type: string;
-    nullable: boolean;
-    minimum: number;
-  };
-}
-
 export function GetOneQuery(schema: SwaggerSchema, querystring?: SwaggerSchema) {
   return {
     schema: {
