@@ -14,3 +14,6 @@ export const updateUser = async (request: TypeUser): Promise<TypeUser> => {
 export const deleteUser = async (id: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}`);
 };
+export const getAllUsers = async (): Promise<Array<TypeUser>> => {
+  return await webApi.get(`${endpoint}`);
+};

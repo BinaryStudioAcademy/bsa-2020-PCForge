@@ -7,6 +7,10 @@ enum Routes {
   SETUP = '/setup/:id',
   SETUPS = '/setups',
   USER = '/user/:id',
+  ADMINTOOLS = '/admintools',
+  ADDITEM = '/additem',
+  ADDHARDWARE = '/addharware',
+  ADDGAME = '/addgame',
   GAME = '/game/:id',
 }
 

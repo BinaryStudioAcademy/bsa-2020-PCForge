@@ -1,6 +1,7 @@
 import webApi from 'api/webApiHelper';
 import { TypeCpu } from 'common/models/typeCpu';
 import { FilterModel } from 'common/models/filter.model';
+import { CpuCreationAttributes } from 'common/models/cpu';
 
 export type TypeResponseAllCpus = {
   meta: {
@@ -27,4 +28,8 @@ export const updateCpu = async (request: TypeCpu): Promise<TypeCpu> => {
 
 export const deleteCpu = async (id: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}`);
+};
+
+export const postCpu = async (request: CpuCreationAttributes): Promise<TypeCpu> => {
+  return await webApi.post(endpoint, request);
 };
