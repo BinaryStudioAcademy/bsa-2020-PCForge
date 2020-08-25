@@ -3,9 +3,12 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { ISsdFilter } from '../../data/repositories/filters/ssd.filter';
 import { SsdRepository } from '../../data/repositories/ssd.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class SsdService {
-  constructor(private repository: SsdRepository) {}
+export class SsdService extends BaseService<SsdModel, SsdCreationAttributes, SsdRepository> {
+  constructor(private repository: SsdRepository) {
+    super(repository);
+  }
 
   async getSsdById(id: string): Promise<SsdModel> {
     const ssd = await this.repository.getSsdById(id);
@@ -35,8 +38,9 @@ export class SsdService {
     return ssd;
   }
 
-  async deleteSsdById(inputSsd: { id: string }): Promise<void> {
+  async deleteSsdById(inputSsd: { id: string }): Promise<SsdModel> {
     const { id } = inputSsd;
-    await this.repository.deleteSsdById(id);
+    const ssd = await super.deleteById(id);
+    return ssd;
   }
 }

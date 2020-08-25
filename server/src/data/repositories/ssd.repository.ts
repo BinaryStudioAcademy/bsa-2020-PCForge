@@ -3,7 +3,6 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 import { Op } from 'sequelize';
-import { Literal } from 'sequelize/types/lib/utils';
 import { ISsdFilter } from './filters/ssd.filter';
 import { notNull } from './filters/types';
 

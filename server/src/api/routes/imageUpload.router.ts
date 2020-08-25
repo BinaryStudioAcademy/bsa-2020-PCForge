@@ -1,13 +1,18 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { UploadImageSchema } from './imageUploader.schema';
+import { UploadImageSchema, UploadRequest } from './imageUploader.schema';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
+import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   //Example how to use image Upload
   const { UploadImageService } = fastify.services;
   const singleUpload = UploadImageService.single('image');
+  const preHandler = userRequestMiddleware(fastify);
+  fastify.addHook('preHandler', preHandler);
 
-  fastify.post('/image', { preHandler: singleUpload, ...UploadImageSchema }, (request, response) => {
+  fastify.post('/image', { preHandler: singleUpload, ...UploadImageSchema }, (request: UploadRequest, response) => {
+    allowForAuthorized(request);
     singleUpload(request, response, (error) => {
       if (error) {
         response.send({ error: error });

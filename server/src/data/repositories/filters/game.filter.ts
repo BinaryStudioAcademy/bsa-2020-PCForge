@@ -30,6 +30,7 @@ export class IGameFilter extends IFilter {
       },
       name: {
         type: 'string',
+      minLength: 1,
         nullable: true,
       },
       orderBy: {
@@ -40,6 +41,7 @@ export class IGameFilter extends IFilter {
             properties: {
               recommended: {
                 type: 'string',
+      minLength: 1,
               },
             },
           },
@@ -48,6 +50,7 @@ export class IGameFilter extends IFilter {
             properties: {
               recommended: {
                 type: 'string',
+      minLength: 1,
               },
             },
           },
@@ -56,6 +59,7 @@ export class IGameFilter extends IFilter {
             properties: {
               recommended: {
                 type: 'string',
+      minLength: 1,
               },
             },
           },

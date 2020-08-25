@@ -49,7 +49,7 @@ export class AddRequestService extends BaseService<
     return request;
   }
 
-  async deleteAddRequestById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteAddRequestById(id: string): Promise<AddRequestModel> {
+    return await super.deleteById(id);
   }
 }

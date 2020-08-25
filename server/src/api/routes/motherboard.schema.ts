@@ -4,27 +4,28 @@ import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { RamTypeSchema } from './ramType.schema';
 import { SocketSchema } from './socket.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllMotherboardsRequest = FastifyRequest<{
   Querystring: IMotherboardFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneMotherboardRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostMotherboardRequest = FastifyRequest<{
   Body: MotherboardCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutMotherboardRequest = FastifyRequest<{
   Params: { id: string };
   Body: MotherboardCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteMotherboardRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const MotherBoardSchema: SwaggerSchema = {
   type: 'object',
@@ -37,9 +38,9 @@ export const MotherBoardSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Motherboard name',
       nullable: false,
-      minLength: 1,
     },
     socketId: {
       type: 'integer',
@@ -66,11 +67,13 @@ export const MotherBoardSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -93,9 +96,9 @@ export const CreateMotherBoardSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Motherboard name',
       nullable: false,
-      minLength: 1,
     },
     socketId: {
       type: 'integer',
@@ -117,9 +120,9 @@ export const UpdateMotherBoardSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Motherboard name',
       nullable: true,
-      minLength: 1,
     },
     socketId: {
       type: 'integer',
