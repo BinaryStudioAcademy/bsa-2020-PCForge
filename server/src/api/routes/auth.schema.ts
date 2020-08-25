@@ -17,16 +17,19 @@ export type IsUserAuthenticated = FastifyRequest<{
 
 const LoginRequest: SwaggerSchema = {
   type: 'object',
+  required: ['email', 'password'],
   properties: {
     email: {
       type: 'string',
       nullable: false,
       format: 'email',
+      minLength: 1,
     },
     password: {
       type: 'string',
       nullable: false,
       example: '**********',
+      minLength: 1,
     },
   },
 };
@@ -40,6 +43,7 @@ const LoginResponse: { [number: number]: SwaggerSchema } = {
         example:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
         nullable: false,
+        minLength: 1,
       },
       user: UserSchema,
     },
@@ -71,7 +75,9 @@ const GoogleAuthResponse: SwaggerSchema = {
       nullable: false,
       example:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
+      minLength: 1,
     },
+    user: UserSchema,
   },
 };
 
@@ -96,6 +102,7 @@ const isAuthenticatedResponse: SwaggerSchema = {
       type: 'boolean',
       nullable: false,
     },
+    user: UserSchema,
   },
 };
 
@@ -107,6 +114,7 @@ const isAuthenticatedRequest: SwaggerSchema = {
       nullable: false,
       example:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
+      minLength: 1,
     },
   },
 };

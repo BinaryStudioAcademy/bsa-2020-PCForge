@@ -5,6 +5,8 @@ export type TypeMotherboard = {
   updatedAt: Date;
   socketId: number;
   ramTypeId: number;
+  sata: number;
+  m2: boolean;
   ramType: {
     id: number;
     name: string;

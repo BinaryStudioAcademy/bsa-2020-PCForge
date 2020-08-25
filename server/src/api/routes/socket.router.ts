@@ -36,7 +36,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(socket);
   });
 
-  const createOneSchema = CreateOneQuery(CreateSocketSchema, {});
+  const createOneSchema = CreateOneQuery(CreateSocketSchema, SocketSchema);
   fastify.post('/', createOneSchema, async (request: PostSocketRequest, reply) => {
     const socket = await SocketService.createSocket(request.body);
     reply.send(socket);

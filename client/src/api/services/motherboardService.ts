@@ -1,8 +1,9 @@
 import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
+import { MotherboardCreationAttributes } from 'common/models/motherboard';
 
-type TypeResponseAll = {
+export type TypeResponseAll = {
   meta: {
     globalCount: number;
     countAfterFiltering: number;
@@ -26,4 +27,8 @@ export const updateMotherboard = async (request: TypeMotherboard): Promise<TypeM
 
 export const deleteMotherboard = async (id: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}`);
+};
+
+export const postMotherBoard = async (request: MotherboardCreationAttributes): Promise<TypeMotherboard> => {
+  return await webApi.post(endpoint, request);
 };

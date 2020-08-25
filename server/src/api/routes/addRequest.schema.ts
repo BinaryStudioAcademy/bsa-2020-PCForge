@@ -46,11 +46,13 @@ export const AddRequestSchema: SwaggerSchema = {
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
       nullable: false,
+      minLength: 1,
     },
     requestBody: {
       type: 'string',
       example: 'Request body goes here...',
       nullable: false,
+      minLength: 1,
     },
     createdAt: {
       type: 'string',
@@ -90,6 +92,7 @@ export const GetAllAddRequest: SwaggerSchema = {
 
 export const CreateAddRequestSchema: SwaggerSchema = {
   type: 'object',
+  required: ['userId', 'requestType', 'requestBody'],
   properties: {
     userId: {
       type: 'integer',
@@ -102,17 +105,20 @@ export const CreateAddRequestSchema: SwaggerSchema = {
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
       nullable: false,
+      minLength: 1,
     },
     requestBody: {
       type: 'string',
       example: 'Request body goes here...',
       nullable: false,
+      minLength: 1,
     },
   },
 };
 
 export const UpdateAddRequestSchema: SwaggerSchema = {
   type: 'object',
+  required: ['userId', 'requestType', 'requestBody'],
   properties: {
     userId: {
       type: 'integer',
@@ -125,11 +131,13 @@ export const UpdateAddRequestSchema: SwaggerSchema = {
       example: 'cpu',
       enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
       nullable: true,
+      minLength: 1,
     },
     requestBody: {
       type: 'string',
       example: 'Request body goes here...',
       nullable: true,
+      minLength: 1,
     },
   },
 };

@@ -37,11 +37,13 @@ export const GpuSchema: SwaggerSchema = {
       type: 'string',
       example: 'FirePro 3D V3700',
       nullable: false,
+      minLength: 1,
     },
     interface: {
       type: 'string',
       example: 'PCIe 2.0 x16',
       nullable: false,
+      minLength: 1,
     },
     memorySize: {
       type: 'integer',
@@ -59,6 +61,7 @@ export const GpuSchema: SwaggerSchema = {
       type: 'string',
       example: '3',
       nullable: false,
+      minLength: 1,
     },
     tdp: {
       type: 'number',
@@ -87,16 +90,19 @@ export const GpuSchema: SwaggerSchema = {
 
 export const CreateGpuSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'interface', 'memorySize', 'coreClocks', 'opengl', 'tdp', 'performance'],
   properties: {
     name: {
       type: 'string',
       example: 'FirePro 3D V3700',
       nullable: false,
+      minLength: 1,
     },
     interface: {
       type: 'string',
       example: 'PCIe 2.0 x16',
       nullable: false,
+      minLength: 1,
     },
     memorySize: {
       type: 'integer',
@@ -114,6 +120,7 @@ export const CreateGpuSchema: SwaggerSchema = {
       type: 'string',
       example: '3',
       nullable: false,
+      minLength: 1,
     },
     tdp: {
       type: 'number',
@@ -137,11 +144,13 @@ export const UpdateGpuSchema: SwaggerSchema = {
       type: 'string',
       example: 'FirePro 3D V3700',
       nullable: true,
+      minLength: 1,
     },
     interface: {
       type: 'string',
       example: 'PCIe 2.0 x16',
       nullable: true,
+      minLength: 1,
     },
     memorySize: {
       type: 'integer',
@@ -159,6 +168,7 @@ export const UpdateGpuSchema: SwaggerSchema = {
       type: 'string',
       example: '3',
       nullable: true,
+      minLength: 1,
     },
     tdp: {
       type: 'number',

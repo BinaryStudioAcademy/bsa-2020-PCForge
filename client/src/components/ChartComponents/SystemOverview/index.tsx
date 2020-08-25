@@ -1,5 +1,7 @@
 import { IHardwareReport } from 'common/models/setupPerformance';
-import { Setup } from 'common/models/setup';
+import { Cpu } from 'common/models/cpu';
+import { Gpu } from 'common/models/gpu';
+import { Ram } from 'common/models/ram';
 
 import React from 'react';
 import styles from './styles.module.scss';
@@ -7,11 +9,13 @@ import CircularProgress from 'components/CircularProgress';
 import { Container } from '@material-ui/core';
 
 interface Props {
-  setup: Setup;
+  cpu: Cpu;
+  gpu: Gpu;
+  ram: Ram;
   overall: IHardwareReport;
 }
 
-const GameMatcherSystemOverview: React.FC<Props> = ({ setup, overall }): JSX.Element => {
+const GameMatcherSystemOverview: React.FC<Props> = ({ cpu, gpu, ram, overall }): JSX.Element => {
   const getSummary = (): string => {
     const TOTAL_GAME_NUMBER = 100;
     const POSSIBLE_GAME_NUMBER = Math.ceil((Math.min(overall.cpu, overall.gpu, overall.ram) / 10) * TOTAL_GAME_NUMBER);
@@ -25,19 +29,19 @@ const GameMatcherSystemOverview: React.FC<Props> = ({ setup, overall }): JSX.Ele
           <div className={styles.requirement}>
             <CircularProgress progressValue={overall.cpu} />
             <h3 className={styles.requirementHeader}>Processor</h3>
-            <p className={styles.requirementDetail}>{setup.cpu.name}</p>
+            <p className={styles.requirementDetail}>{cpu.name}</p>
           </div>
 
           <div className={styles.requirement}>
             <CircularProgress progressValue={overall.gpu} />
             <h3 className={styles.requirementHeader}>Graphics</h3>
-            <p className={styles.requirementDetail}>{setup.gpu.name}</p>
+            <p className={styles.requirementDetail}>{gpu.name}</p>
           </div>
 
           <div className={styles.requirement}>
             <CircularProgress progressValue={overall.ram} />
             <h3 className={styles.requirementHeader}>RAM</h3>
-            <p className={styles.requirementDetail}>{setup.ram.memorySize}GB</p>
+            <p className={styles.requirementDetail}>{ram.memorySize}GB</p>
           </div>
         </div>
         <div className={styles.summary}>

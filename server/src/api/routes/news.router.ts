@@ -50,7 +50,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const deleteOneSchema = DeleteOneQuery();
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteNewsRequest, reply) => {
     const { id } = request.params;
-    await NewsService.deleteNewsById({ id });
+    await NewsService.deleteNewsById(id);
     reply.send({});
   });
 

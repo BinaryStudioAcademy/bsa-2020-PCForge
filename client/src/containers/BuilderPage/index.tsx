@@ -1,40 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
-import GroupCpus from 'components/BuilderPage/GroupCpus';
-import GroupGpus from 'components/BuilderPage/GroupGpus';
-import GroupRams from 'components/BuilderPage/GroupRams';
-import GroupMotherboards from 'components/BuilderPage/GroupMotherboards';
-import GroupPowersupplies from 'components/BuilderPage/GroupPowersupply';
-import { ComponentGroups, TypeFilterBuilder } from 'containers/BuilderPage/types';
-import { TypeSetup } from 'containers/BuilderPage/reducer';
+import { MenuItems } from 'common/enums/MenuItems';
+import PageComponent from 'containers/PageComponent';
+import BuilderSummary from 'components/BuilderPage/BuilderSummary';
+import GroupComponent from 'components/BuilderPage/GroupComponent';
+
+import Modal from 'components/BasicComponents/Modal';
+import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
+import { AssignmentReturn } from '@material-ui/icons';
+
+import { TypeGroupConfig, TypeFilterBuilder } from './types';
+import { TypeSetup } from './reducer';
 import {
   addComponentToSetupAction,
   initSetupAction,
   removeComponentFromSetupAction,
   resetSetupAction,
 } from 'containers/BuilderPage/actions';
-import { MenuItems } from 'common/enums/MenuItems';
-import PageComponent from 'containers/PageComponent';
-import BuilderSummary from 'components/BuilderPage/BuilderSummary';
+
+import { FilterName, GroupName } from './config';
 
 import styles from 'containers/BuilderPage/styles.module.scss';
-import { Group } from 'containers/BuilderPage/config';
-
-import Modal from 'components/BasicComponents/Modal';
-import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
-import { AssignmentReturn } from '@material-ui/icons';
+import QuickMatcher from 'containers/QuickMatcher';
 
 type PropsType = {
   className?: string;
 };
 
 const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
-  const [expanded, setExpanded] = useState<false | ComponentGroups>(false);
+  const [expanded, setExpanded] = useState<false | GroupName>(false);
   const [filter, setFilter] = useState<TypeFilterBuilder>({
     socketIdSet: new Set() as Set<number>,
     ramTypeIdSet: new Set() as Set<number>,
+    sata: new Set() as Set<number>,
+    m2: new Set() as Set<string>,
   });
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
 
@@ -49,7 +51,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   const dispatch = useDispatch();
 
   const resetFilter = () => {
-    setFilter({ socketIdSet: new Set(), ramTypeIdSet: new Set() });
+    setFilter({ socketIdSet: new Set(), ramTypeIdSet: new Set(), sata: new Set(), m2: new Set() });
   };
 
   const filterForCpu = {
@@ -76,9 +78,88 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     dispatch(initSetupAction());
   }, []);
 
+  const groupConfigs: TypeGroupConfig[] = [
+    {
+      group: GroupName.cpu,
+      filter: filterForCpu,
+      filters: {
+        [FilterName.socket]: {
+          enable: !setup[GroupName.motherboard],
+        },
+      },
+    },
+    {
+      group: GroupName.gpu,
+      filter: filter,
+      filters: {},
+    },
+    {
+      group: GroupName.ram,
+      filter: filterForRam,
+      filters: {
+        [FilterName.ramtype]: {
+          enable: !setup[GroupName.motherboard],
+        },
+      },
+    },
+    {
+      group: GroupName.motherboard,
+      filter: filterForMotherboard,
+      filters: {
+        [FilterName.socket]: {
+          enable: !setup[GroupName.cpu],
+        },
+        [FilterName.ramtype]: {
+          enable: !setup[GroupName.ram],
+        },
+        [FilterName.hdd]: {
+          enable: !setup[GroupName.hdd] && !setup[GroupName.ssd],
+        },
+      },
+    },
+    {
+      group: GroupName.powersupply,
+      filter: filter,
+      filters: {},
+    },
+    {
+      group: GroupName.hdd,
+      filter: filter,
+      filters: {
+        [FilterName.hdd]: {
+          enable: !setup[GroupName.motherboard],
+        },
+      },
+    },
+    {
+      group: GroupName.ssd,
+      filter: filter,
+      filters: {
+        [FilterName.hdd]: {
+          enable: !setup[GroupName.motherboard],
+        },
+      },
+    },
+  ];
+
+  const groups = groupConfigs.map((config) => (
+    <GroupComponent
+      key={config.group}
+      groupName={config.group}
+      filter={config.filter}
+      filtersUsed={config.filters}
+      selectedComponent={setup[config.group]}
+      onUpdateFilter={(filter) => setFilter(filter)}
+      onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
+      onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
+      expanded={expanded}
+      onChangeExpanded={setExpanded}
+    />
+  ));
+
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
-      <Box className={styles.builderWrapper}>
+      <Box className={`${styles.builderWrapper} ${className}`}>
         {isModalActive ? <SaveSetupModal onClose={hideModal} /> : null}
         <BuilderTitle
           isCanToSave={isCanToSaveSetup(setup)}
@@ -88,59 +169,16 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           onResetFilter={resetFilter}
           onSaveSetup={showModal}
         />
-        <Box className={styles.contentWrapper}>
-          <Box className={styles.componentsWrapper}>
-            <GroupCpus
-              filter={filterForCpu}
-              showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
-              selectedComponent={setup.cpu}
-              onUpdateFilter={(filter) => setFilter(filter)}
-              onAddComponent={(cpu) => dispatch(addComponentToSetupAction({ group: Group.cpu, id: cpu.id }))}
-              onRemoveSelectedComponent={() => dispatch(removeComponentFromSetupAction({ group: Group.cpu }))}
-              expanded={expanded === ComponentGroups.cpu}
-              onChangeExpanded={setExpanded}
-            />
-            <GroupGpus
-              filter={filter}
-              selectedComponent={setup.gpu}
-              onUpdateFilter={(filter) => setFilter(filter)}
-              onAddComponent={(gpu) => dispatch(addComponentToSetupAction({ group: Group.gpu, id: gpu.id }))}
-              onRemoveSelectedComponent={() => dispatch(removeComponentFromSetupAction({ group: Group.gpu }))}
-              expanded={expanded === ComponentGroups.gpu}
-              onChangeExpanded={setExpanded}
-            />
-            <GroupRams
-              filter={filterForRam}
-              showFilters={{ socket: !setup.motherboard, ramType: !setup.motherboard }}
-              selectedComponent={setup.ram}
-              onUpdateFilter={(filter) => setFilter(filter)}
-              onAddComponent={(ram) => dispatch(addComponentToSetupAction({ group: Group.ram, id: ram.id }))}
-              onRemoveSelectedComponent={() => dispatch(removeComponentFromSetupAction({ group: Group.ram }))}
-              expanded={expanded === ComponentGroups.ram}
-              onChangeExpanded={setExpanded}
-            />
-            <GroupMotherboards
-              filter={filterForMotherboard}
-              showFilters={{ socket: !setup.cpu, ramType: !setup.ram }}
-              selectedComponent={setup.motherboard}
-              onUpdateFilter={(filter) => setFilter(filter)}
-              onAddComponent={(mb) => dispatch(addComponentToSetupAction({ group: Group.motherboard, id: mb.id }))}
-              onRemoveSelectedComponent={() => dispatch(removeComponentFromSetupAction({ group: Group.motherboard }))}
-              expanded={expanded === ComponentGroups.motherboard}
-              onChangeExpanded={setExpanded}
-            />
-            <GroupPowersupplies
-              filter={filter}
-              selectedComponent={setup.powersupply}
-              onUpdateFilter={(filter) => setFilter(filter)}
-              onAddComponent={(ps) => dispatch(addComponentToSetupAction({ group: Group.powersupply, id: ps.id }))}
-              onRemoveSelectedComponent={() => dispatch(removeComponentFromSetupAction({ group: Group.powersupply }))}
-              expanded={expanded === ComponentGroups.powersupply}
-              onChangeExpanded={setExpanded}
-            />
-          </Box>
-          <BuilderSummary setup={setup} />
-        </Box>
+        <Grid container spacing={5}>
+          <Grid item xs={12} lg={9} xl={10}>
+            {groups}
+          </Grid>
+          <Grid item xs={12} lg={3} xl={2}>
+            <BuilderSummary setup={setup} />
+            {console.log(setup.cpu, setup.gpu, setup.ram)}
+            {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
+          </Grid>
+        </Grid>
       </Box>
     </PageComponent>
   );

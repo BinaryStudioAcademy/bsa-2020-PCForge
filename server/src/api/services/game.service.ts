@@ -2,11 +2,13 @@ import { GameCreationAttributes, GameModel } from '../../data/models/game';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { GameRepository } from '../../data/repositories/game.repository';
-import { Op } from 'sequelize';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class GameService {
-  constructor(private repository: GameRepository) {}
+export class GameService extends BaseService<GameModel, GameCreationAttributes, GameRepository> {
+  constructor(private repository: GameRepository) {
+    super(repository);
+  }
 
   async getGameById(id: string): Promise<GameModel> {
     const game = await this.repository.getGameById(id);
@@ -22,21 +24,16 @@ export class GameService {
   }
 
   async createGame(inputGame: GameCreationAttributes): Promise<GameModel> {
-    const game = await this.repository.createGame(inputGame);
+    const game = await super.create(inputGame);
     return game;
   }
 
-  async updateGameById(inputGame: { id: string; data: GameCreationAttributes }): Promise<GameModel> {
-    const { id, data } = inputGame;
-    const oldGame = await this.repository.getGameById(id);
-    if (!oldGame) {
-      triggerServerError(`Game with id: ${id} does not exists`, 404);
-    }
-    const game = await this.repository.updateGameById(id, data);
+  async updateGameById({ id, data }: { id: string; data: GameCreationAttributes }): Promise<GameModel> {
+    const game = await super.updateById(id, data);
     return game;
   }
 
   async deleteGameById(id: string): Promise<void> {
-    await this.repository.deleteGameById(id);
+    await super.deleteById(id);
   }
 }

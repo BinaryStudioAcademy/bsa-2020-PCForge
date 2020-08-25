@@ -37,6 +37,7 @@ export const RamTypeSchema: SwaggerSchema = {
       type: 'string',
       example: 'Unique ram type name',
       nullable: false,
+      minLength: 1,
     },
     createdAt: {
       type: 'string',
@@ -76,22 +77,26 @@ export const GetAllRamTypesResponse: SwaggerSchema = {
 
 export const CreateRamTypeSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
       example: 'Ram type name',
       nullable: false,
+      minLength: 1,
     },
   },
 };
 
 export const UpdateRamTypeSchema: SwaggerSchema = {
   type: 'object',
+  required: ['name'],
   properties: {
     name: {
       type: 'string',
       example: 'Unique ram type name',
       nullable: true,
+      minLength: 1,
     },
   },
 };

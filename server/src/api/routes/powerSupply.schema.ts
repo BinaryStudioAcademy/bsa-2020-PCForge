@@ -37,6 +37,7 @@ export const PowerSupplySchema: SwaggerSchema = {
       type: 'string',
       example: 'yam name',
       nullable: false,
+      minLength: 1,
     },
     power: {
       type: 'integer',
@@ -59,11 +60,13 @@ export const PowerSupplySchema: SwaggerSchema = {
 
 export const CreatePowerSupplySchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'power'],
   properties: {
     name: {
       type: 'string',
       example: 'Power supply name',
       nullable: false,
+      minLength: 1,
     },
     power: {
       type: 'integer',
@@ -81,6 +84,7 @@ export const UpdatePowerSupplySchema: SwaggerSchema = {
       type: 'string',
       example: 'Power supply name',
       nullable: true,
+      minLength: 1,
     },
     power: {
       type: 'integer',

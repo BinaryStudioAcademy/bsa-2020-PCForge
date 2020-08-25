@@ -1,0 +1,32 @@
+@import 'styles/variables.scss';
+
+.contentPage {
+  margin: 1em 2rem;
+  width: 100%;
+}
+.pageHeader {
+  margin: 1em 2rem;
+}
+.contentMain {
+  margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .totalBlockContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3em;
+  }
+
+  .notificationsContainer {
+    margin-top: 4em;
+    width: 100%;
+  }
+}
+
+@media (max-width: 960px) {
+  .contentMain .totalBlockContainer {
+    display: block;
+  }
+}
