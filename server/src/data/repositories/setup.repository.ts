@@ -8,6 +8,8 @@ import { RamStatic } from '../models/ram';
 import { PowerSupplyStatic } from '../models/powersupply';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { mergeFilters } from './filters/helper';
+import { HddStatic } from '../models/hdd';
+import { SsdStatic } from '../models/ssd';
 
 export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
   constructor(
@@ -16,7 +18,9 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     private gpuModel: GpuStatic,
     private motherBoardModel: MotherboardStatic,
     private ramModel: RamStatic,
-    private powerSupplyModel: PowerSupplyStatic
+    private powerSupplyModel: PowerSupplyStatic,
+    private hddModel: HddStatic,
+    private ssdModel: SsdStatic
   ) {
     super(<RichModel>model, IFilter);
   }
@@ -39,6 +43,12 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         },
         {
           model: this.powerSupplyModel,
+        },
+        {
+          model: this.hddModel,
+        },
+        {
+          model: this.ssdModel,
         },
       ],
       offset: filter.from,
@@ -77,6 +87,14 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         {
           model: this.motherBoardModel,
           as: 'motherboard',
+        },
+        {
+          model: this.hddModel,
+          as: 'hdd',
+        },
+        {
+          model: this.ssdModel,
+          as: 'ssd',
         },
       ],
     });

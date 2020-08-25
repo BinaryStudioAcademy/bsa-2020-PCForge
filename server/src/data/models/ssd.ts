@@ -1,35 +1,33 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
-import { RamTypeAttributes } from './ramtype';
-import { SocketAttributes } from './socket';
 
-export interface MotherboardAttributes {
+export interface SsdAttributes {
   id: number;
   name: string;
-  socket: SocketAttributes;
-  ramType: RamTypeAttributes;
+  capacity: number;
+  size: number;
   sata: number;
   m2: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface MotherboardCreationAttributes {
+export interface SsdCreationAttributes {
   name: string;
-  socketId: number;
-  ramTypeId: number;
+  capacity: number;
+  size: number;
   sata: number;
   m2: boolean;
 }
 
-export interface MotherboardModel extends Model<MotherboardAttributes>, MotherboardAttributes {}
-export class Motherboard extends Model<MotherboardModel, MotherboardAttributes> {}
+export interface SsdModel extends Model<SsdAttributes>, SsdAttributes {}
+export class Ssd extends Model<SsdModel, SsdAttributes> {}
 
-export type MotherboardStatic = typeof Model & {
-  new (values?: Record<string, unknown>, options?: BuildOptions): MotherboardModel;
+export type SsdStatic = typeof Model & {
+  new (values?: Record<string, unknown>, options?: BuildOptions): SsdModel;
 };
 
-export function MotherboardFactory(sequelize: Sequelize): MotherboardStatic {
-  return <MotherboardStatic>sequelize.define('motherboard', {
+export function SsdFactory(sequelize: Sequelize): SsdStatic {
+  return <SsdStatic>sequelize.define('ssd', {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -39,9 +37,17 @@ export function MotherboardFactory(sequelize: Sequelize): MotherboardStatic {
       allowNull: false,
       type: DataTypes.STRING(150),
     },
+    capacity: {
+      allowNull: false,
+      type: DataTypes.FLOAT,
+    },
     sata: {
       allowNull: false,
       type: DataTypes.INTEGER,
+    },
+    size: {
+      allowNull: false,
+      type: DataTypes.FLOAT,
     },
     m2: {
       allowNull: false,
