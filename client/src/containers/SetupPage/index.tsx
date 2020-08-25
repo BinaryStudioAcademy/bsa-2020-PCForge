@@ -122,7 +122,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
               )}
             </div>
             <div className={styles.asideItems}>
-              <TopGames games={[]} />
+              <TopGames topGames={[]} />
             </div>
           </div>
         </div>

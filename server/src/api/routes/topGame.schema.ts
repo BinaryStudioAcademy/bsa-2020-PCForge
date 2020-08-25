@@ -32,13 +32,13 @@ export const TopGameSchema: SwaggerSchema = {
       type: 'integer',
       nullable: false,
       example: 1,
-      minimum: 1
+      minimum: 1,
     },
     gameId: {
       type: 'integer',
       nullable: false,
       example: 1,
-      minimum: 1
+      minimum: 1,
     },
     game: GameSchema,
     createdAt: {
@@ -50,12 +50,13 @@ export const TopGameSchema: SwaggerSchema = {
       type: 'string',
       format: 'date-time',
       nullable: false,
-    }
-  }
-}
+    },
+  },
+};
 
 export const CreateTopGameSchema: SwaggerSchema = {
   type: 'object',
+  required: ['gameId'],
   properties: {
     gameId: {
       example: 1,
@@ -63,11 +64,12 @@ export const CreateTopGameSchema: SwaggerSchema = {
       type: 'integer',
       nullable: false,
     },
-  }
-}
+  },
+};
 
 export const UpdateTopGameSchema: SwaggerSchema = {
   type: 'object',
+  required: ['gameId'],
   properties: {
     gameId: {
       example: 1,
@@ -75,8 +77,8 @@ export const UpdateTopGameSchema: SwaggerSchema = {
       type: 'integer',
       nullable: true,
     },
-  }
-}
+  },
+};
 
 export const GetAllTopGames: SwaggerSchema = {
   type: 'object',
@@ -87,19 +89,18 @@ export const GetAllTopGames: SwaggerSchema = {
         globalCount: {
           type: 'integer',
           minimum: 0,
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
           minimum: 0,
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: TopGameSchema
-    }
-  }
-}
-
+      items: TopGameSchema,
+    },
+  },
+};

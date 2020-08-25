@@ -6,7 +6,7 @@ import { GameStatic } from '../models/game';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 
-export class TopGameRepository extends BaseRepository<TopGameModel, IFilter> {
+export class TopGameRepository extends BaseRepository<TopGameModel, TopGameCreationAttributes, IFilter> {
   constructor(
     private model: TopGameStatic,
     private gameModel: GameStatic,
@@ -92,17 +92,6 @@ export class TopGameRepository extends BaseRepository<TopGameModel, IFilter> {
       filter
     );
     return topGames;
-  }
-
-  async createTopGame(inputTopGame: TopGameCreationAttributes): Promise<TopGameModel> {
-    const { id } = await this.model.create(inputTopGame);
-    const topGame = this.getTopGameById(id.toString());
-    return topGame;
-  }
-
-  async updateTopGameById(id: string, inputTopGame: TopGameCreationAttributes): Promise<TopGameModel> {
-    const topGame = await this.updateById(id, inputTopGame);
-    return topGame;
   }
 
   async deleteTopGameById(id: string): Promise<void> {

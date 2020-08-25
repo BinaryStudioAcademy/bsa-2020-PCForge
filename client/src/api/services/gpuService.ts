@@ -1,6 +1,7 @@
 import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeGpu } from 'common/models/typeGpu';
+import { GpuCreationAttributes } from 'common/models/gpu';
 
 export type TypeResponseAllGpus = {
   meta: {
@@ -26,4 +27,8 @@ export const updateGpu = async (request: TypeGpu): Promise<TypeGpu> => {
 
 export const deleteGpu = async (id: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}`);
+};
+
+export const postGpu = async (request: GpuCreationAttributes): Promise<TypeGpu> => {
+  return await webApi.post(endpoint, request);
 };

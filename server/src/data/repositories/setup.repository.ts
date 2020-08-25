@@ -7,17 +7,20 @@ import { MotherboardStatic } from '../models/motherboard';
 import { RamStatic } from '../models/ram';
 import { PowerSupplyStatic } from '../models/powersupply';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
-import { RateStatic } from '../models/rate';
 import { mergeFilters } from './filters/helper';
+import { HddStatic } from '../models/hdd';
+import { SsdStatic } from '../models/ssd';
 
-export class SetupRepository extends BaseRepository<SetupModel> {
+export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
   constructor(
     private model: SetupStatic,
     private cpuModel: CpuStatic,
     private gpuModel: GpuStatic,
     private motherBoardModel: MotherboardStatic,
     private ramModel: RamStatic,
-    private powerSupplyModel: PowerSupplyStatic
+    private powerSupplyModel: PowerSupplyStatic,
+    private hddModel: HddStatic,
+    private ssdModel: SsdStatic
   ) {
     super(<RichModel>model, IFilter);
   }
@@ -40,6 +43,12 @@ export class SetupRepository extends BaseRepository<SetupModel> {
         },
         {
           model: this.powerSupplyModel,
+        },
+        {
+          model: this.hddModel,
+        },
+        {
+          model: this.ssdModel,
         },
       ],
       offset: filter.from,
@@ -79,13 +88,16 @@ export class SetupRepository extends BaseRepository<SetupModel> {
           model: this.motherBoardModel,
           as: 'motherboard',
         },
+        {
+          model: this.hddModel,
+          as: 'hdd',
+        },
+        {
+          model: this.ssdModel,
+          as: 'ssd',
+        },
       ],
     });
-    return setup;
-  }
-
-  async createSetup(inputSetup: SetupCreationAttributes): Promise<SetupModel> {
-    const setup = await this.model.create(inputSetup);
     return setup;
   }
 }

@@ -7,6 +7,8 @@ import { MenuItems, Routes } from 'common/enums';
 import Spinner from 'components/Spinner';
 import TopBar from 'containers/TopBar';
 import { getToken, clearToken } from 'helpers/tokenHelper';
+import { useDispatch } from 'react-redux';
+import { loginRequestSuccess } from '../Auth/actions';
 
 interface IProps {
   selectedMenuItemNumber?: MenuItems;
@@ -16,6 +18,8 @@ interface IProps {
 const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setLoading] = useState(true);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     checkIsUserAuthenticated();
@@ -38,9 +42,10 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
       const isAuthenticated = await response.json();
       console.log('checkIsUserAuthenticated -> isAuthenticated', isAuthenticated);
       if (!isAuthenticated.logged_in) {
-        clearToken();
+        await clearToken();
       }
       setIsAuthenticated(isAuthenticated.logged_in);
+      dispatch(loginRequestSuccess(isAuthenticated.user));
     }
     setLoading(false);
   };

@@ -33,7 +33,8 @@
     "redux": "^4.0.5",
     "redux-saga": "^1.1.3",
     "strip-bom": "^4.0.0",
-    "typescript": "~3.7.2"
+    "typescript": "~3.7.2",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -60,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@types/yup": "^0.29.6",
     "@typescript-eslint/eslint-plugin": "^3.7.1",
     "@typescript-eslint/parser": "^3.7.1",
     "eslint-config-prettier": "^6.11.0",

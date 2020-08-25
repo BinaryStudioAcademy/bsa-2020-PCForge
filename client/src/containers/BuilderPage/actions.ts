@@ -6,15 +6,15 @@ import {
   BUILDER_RESET_SETUP,
   SAVE_SETUP_REQUEST,
 } from './actionTypes';
-import { Group } from './config';
 import { SetupItem } from 'common/models/setup';
+import { GroupName } from './config';
 
-export const addComponentToSetupAction = (props: { id: number; group: Group }): AnyAction => ({
+export const addComponentToSetupAction = (props: { id: number; group: GroupName }): AnyAction => ({
   type: ADD_COMPONENT_TO_SETUP,
   payload: props,
 });
 
-export const removeComponentFromSetupAction = (props: { group: Group }): AnyAction => ({
+export const removeComponentFromSetupAction = (props: { group: GroupName }): AnyAction => ({
   type: REMOVE_COMPONENT_FROM_SETUP,
   payload: props,
 });

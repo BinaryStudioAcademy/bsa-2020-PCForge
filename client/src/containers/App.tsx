@@ -12,6 +12,8 @@ import RootComponent from 'containers/Root';
 import SetupPage from 'containers/SetupsPage';
 import BuilderPage from 'containers/BuilderPage';
 import QuickMatcher from 'containers/QuickMatcher';
+import AdminToolsPage from 'containers/AdminToolsPage';
+import AddItemPages from 'containers/AddItemPages';
 import Notification from 'containers/Notification';
 import GamePage from 'containers/GamePage';
 
@@ -28,8 +30,9 @@ export default class App extends Component {
           <Route exact path={Routes.SETUP} component={ViewSetupPage} />
           <Route exact path={Routes.DEFAULT} component={Home} />
           <Route exact path={Routes.SETUPS} component={SetupPage} />
+          <Route exact path={Routes.ADMINTOOLS} component={AdminToolsPage} />
+          <Route exact path={`${Routes.ADDITEM}/:item`} component={AddItemPages} />
           <Route exact path={Routes.GAME} component={GamePage} />
-          <Route exact path={'/builder/quick-matcher'} component={QuickMatcher} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>
         <Notification />

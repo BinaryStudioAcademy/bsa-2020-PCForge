@@ -10,12 +10,14 @@ export const getLocalSetup = async (): Promise<TypeSetup | null> => {
 export const getLocalSetupObjectForSave = () => {
   const setupString = window.localStorage.getItem(keySetup);
   const setup = setupString ? JSON.parse(setupString) : setupString;
-  const [cpuId, gpuId, motherboardId, ramId, powerSupplyId] = [
+  const [cpuId, gpuId, motherboardId, ramId, powerSupplyId, hddId, ssdId] = [
     setup?.cpu?.id,
     setup?.gpu?.id,
     setup?.motherboard?.id,
     setup?.ram?.id,
     setup?.powersupply?.id,
+    setup?.hdd?.id,
+    setup?.ssd?.id,
   ];
   if (cpuId && gpuId && motherboardId && ramId && powerSupplyId) {
     const setupForSave: TypeSetupForPost = {
@@ -24,6 +26,8 @@ export const getLocalSetupObjectForSave = () => {
       motherboardId,
       ramId,
       powerSupplyId,
+      hddId,
+      ssdId,
     };
     return setupForSave;
   }
