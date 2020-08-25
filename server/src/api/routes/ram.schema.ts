@@ -38,6 +38,7 @@ export const RamSchema: SwaggerSchema = {
       type: 'string',
       example: 'yam name',
       nullable: false,
+      minLength: 1,
     },
     memorySize: {
       type: 'integer',
@@ -92,6 +93,7 @@ export const CreateRamSchema: SwaggerSchema = {
       type: 'string',
       example: 'Ram name',
       nullable: false,
+      minLength: 1,
     },
     memorySize: {
       type: 'integer',
@@ -127,6 +129,7 @@ export const UpdateRamSchema: SwaggerSchema = {
       type: 'string',
       example: 'Ram name',
       nullable: true,
+      minLength: 1,
     },
     memorySize: {
       type: 'integer',

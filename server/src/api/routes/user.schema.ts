@@ -30,7 +30,6 @@ export type DeleteUserRequest = FastifyRequest<{
   Params: { id: string };
 }>;
 
-
 export const UserSchema: SwaggerSchema = {
   type: 'object',
   properties: {
@@ -38,13 +37,14 @@ export const UserSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       example: 'username',
       type: 'string',
       nullable: true,
-      maxLength: 50
+      maxLength: 50,
+      minLength: 1,
     },
     email: {
       example: 'example@example.com',
@@ -52,6 +52,7 @@ export const UserSchema: SwaggerSchema = {
       format: 'email',
       nullable: false,
       maxLength: 50,
+      minLength: 1,
     },
     isAdmin: {
       type: 'boolean',
@@ -60,7 +61,9 @@ export const UserSchema: SwaggerSchema = {
     avatar: {
       example: 'http://image-server.com/route',
       type: 'string',
-      nullable: true
+      nullable: true,
+      minLength: 1,
+      maxLength: 500,
     },
     createdAt: {
       type: 'string',
@@ -71,14 +74,14 @@ export const UserSchema: SwaggerSchema = {
       type: 'string',
       format: 'date-time',
       nullable: false,
-    }
-  }
-}
+    },
+  },
+};
 
 export const GetAllUsersSchema: SwaggerSchema = {
   type: 'array',
-  items: UserSchema
-}
+  items: UserSchema,
+};
 
 export const CreateUserSchema: SwaggerSchema = {
   type: 'object',
@@ -87,16 +90,18 @@ export const CreateUserSchema: SwaggerSchema = {
       type: 'string',
       format: 'email',
       nullable: false,
-      maxLength: 50
+      maxLength: 50,
+      minLength: 1,
     },
     password: {
       type: 'string',
       example: '**********',
       nullable: false,
-      maxLength: 50
-    }
-  }
-}
+      maxLength: 50,
+      minLength: 1,
+    },
+  },
+};
 
 export const UpdateUserSchema: SwaggerSchema = {
   type: 'object',
@@ -104,27 +109,32 @@ export const UpdateUserSchema: SwaggerSchema = {
     name: {
       type: 'string',
       nullable: true,
-      maxLength: 50
+      maxLength: 50,
+      minLength: 1,
     },
     email: {
       type: 'string',
       format: 'email',
       nullable: false,
       maxLength: 50,
+      minLength: 1,
     },
     password: {
       type: 'string',
       nullable: false,
-      maxLength: 50
+      maxLength: 50,
+      minLength: 1,
     },
     oldPassword: {
       type: 'string',
       nullable: true,
-      maxLength: 50
+      maxLength: 50,
     },
     avatar: {
       type: 'string',
-      nullable: true
+      nullable: true,
+      minLength: 1,
+      maxLength: 500,
     },
-  }
-}
+  },
+};

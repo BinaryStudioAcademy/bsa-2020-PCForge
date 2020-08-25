@@ -38,6 +38,7 @@ export const CpuSchema: SwaggerSchema = {
       type: 'string',
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
+      minLength: 1,
     },
     cores: {
       type: 'integer',
@@ -49,6 +50,7 @@ export const CpuSchema: SwaggerSchema = {
       type: 'string',
       example: 'Desktop',
       nullable: false,
+      minLength: 1,
     },
     clockspeed: {
       type: 'integer',
@@ -103,6 +105,7 @@ export const CreateCpuSchema: SwaggerSchema = {
       type: 'string',
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
+      minLength: 1,
     },
     cores: {
       type: 'integer',
@@ -114,6 +117,7 @@ export const CreateCpuSchema: SwaggerSchema = {
       type: 'string',
       example: 'Desktop',
       nullable: false,
+      minLength: 1,
     },
     clockspeed: {
       type: 'integer',
@@ -149,6 +153,7 @@ export const UpdateCpuSchema: SwaggerSchema = {
       type: 'string',
       example: 'Intel Celeron D 347 @ 3.06GHz',
       nullable: false,
+      minLength: 1,
     },
     cores: {
       type: 'integer',
@@ -160,6 +165,7 @@ export const UpdateCpuSchema: SwaggerSchema = {
       type: 'string',
       example: 'Desktop',
       nullable: false,
+      minLength: 1,
     },
     clockspeed: {
       type: 'integer',

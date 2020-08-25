@@ -39,16 +39,19 @@ export const NewsSchema: SwaggerSchema = {
       type: 'string',
       example: 'News title',
       nullable: false,
+      minLength: 1,
     },
     content: {
       type: 'string',
       example: 'Long Text goes here',
       nullable: false,
+      minLength: 1,
     },
     image: {
       type: 'string',
       nullable: false,
       example: 'http://image-server.com/route',
+      minLength: 1,
     },
     createdAt: {
       type: 'string',
@@ -76,17 +79,20 @@ export const CreateNewsSchema: SwaggerSchema = {
       example: 'News title',
       maxLength: 50,
       nullable: false,
+      minLength: 1,
     },
     content: {
       type: 'string',
       example: 'Text goes here...',
       nullable: false,
+      minLength: 1,
     },
     image: {
       type: 'string',
       example: 'http://image-hosting.com/route',
-      maxLength: 50,
+      maxLength: 500,
       nullable: false,
+      minLength: 1,
     },
   },
 };
@@ -98,16 +104,19 @@ export const UpdateNewsSchema: SwaggerSchema = {
       type: 'string',
       example: 'News title',
       nullable: true,
+      minLength: 1,
     },
-    power: {
-      type: 'integer',
-      example: 750,
-      nullable: true,
+    content: {
+      type: 'string',
+      example: 'Text goes here...',
+      nullable: false,
+      minLength: 1,
     },
     image: {
       type: 'string',
       example: 'http://image-hosting.com/route',
       nullable: true,
+      minLength: 1,
     },
   },
 };

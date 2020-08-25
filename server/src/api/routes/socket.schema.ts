@@ -31,25 +31,26 @@ export const SocketSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
       example: 'Unique socket name',
       nullable: false,
+      minLength: 1,
     },
     createdAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const GetAllSockets: SwaggerSchema = {
   type: 'object',
@@ -59,20 +60,20 @@ export const GetAllSockets: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: SocketSchema
-    }
-  }
-}
+      items: SocketSchema,
+    },
+  },
+};
 
 export const CreateSocketSchema: SwaggerSchema = {
   type: 'object',
@@ -81,9 +82,10 @@ export const CreateSocketSchema: SwaggerSchema = {
       type: 'string',
       example: 'socket name',
       nullable: false,
+      minLength: 1,
     },
-  }
-}
+  },
+};
 
 export const UpdateSocketSchema: SwaggerSchema = {
   type: 'object',
@@ -92,6 +94,7 @@ export const UpdateSocketSchema: SwaggerSchema = {
       type: 'string',
       example: 'socket name',
       nullable: true,
+      minLength: 1,
     },
-  }
-}
+  },
+};
