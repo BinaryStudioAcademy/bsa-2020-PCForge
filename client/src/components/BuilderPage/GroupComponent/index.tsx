@@ -52,6 +52,13 @@ const GroupComponent = ({
   const [name, setName] = useState('');
   const [range, setRange] = useState({} as TypeRange);
 
+  const fltersUseEffect = [
+    filtersUsed[FilterName.socket] ? filter.socketIdSet : null,
+    filtersUsed[FilterName.ramtype] ? filter.ramTypeIdSet : null,
+    filtersUsed[FilterName.hdd] ? filter.sata : null,
+    filtersUsed[FilterName.hdd] ? filter.m2 : null,
+  ];
+
   const getFilters = () => {
     const keyRamType = groupName === GroupName.ram ? 'typeId' : 'ramTypeId';
     const querySocketId = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
@@ -94,7 +101,7 @@ const GroupComponent = ({
 
   useEffect(() => {
     getComponents();
-  }, [filter, name, range, pagination]);
+  }, [...fltersUseEffect, name, range, pagination]);
 
   useEffect(() => {
     if (selectedComponent) {
