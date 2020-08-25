@@ -11,6 +11,7 @@ import multer from 'fastify-multer';
 import swagger from 'fastify-swagger';
 import SwaggerMainSchema from './api/routes/swaggerMain.schema';
 import { validateBody } from './helpers/bodyValidator.helper';
+import nodemailer from './api/plugins/nodemailer';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
 const server = fastify({
@@ -31,6 +32,13 @@ server.register(jwtAuth);
 server.register(googleAuth);
 server.register(db);
 server.register(multer.contentParser);
+server.register(nodemailer, {
+  service: process.env.EMAIL_SERVICE,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASSWORD,
+  },
+});
 server.register(fastifyStatic, {
   root: path.join(__dirname, '..', '..', 'client', 'build'),
   prefix: '/',
