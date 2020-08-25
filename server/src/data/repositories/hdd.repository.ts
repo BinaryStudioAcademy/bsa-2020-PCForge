@@ -3,10 +3,9 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 import { Op } from 'sequelize';
-import { Literal } from 'sequelize/types/lib/utils';
 import { IHddFilter } from './filters/hdd.filter';
 
-export class HddRepository extends BaseRepository<HddModel, IFilter> {
+export class HddRepository extends BaseRepository<HddModel, HddCreationAttributes, IFilter> {
   constructor(private model: HddStatic) {
     super(<RichModel>model, IFilter);
   }

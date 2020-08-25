@@ -7,7 +7,7 @@ import { Literal } from 'sequelize/types/lib/utils';
 import { ISsdFilter } from './filters/ssd.filter';
 import { notNull } from './filters/types';
 
-export class SsdRepository extends BaseRepository<SsdModel, IFilter> {
+export class SsdRepository extends BaseRepository<SsdModel, SsdCreationAttributes, IFilter> {
   constructor(private model: SsdStatic) {
     super(<RichModel>model, IFilter);
   }
