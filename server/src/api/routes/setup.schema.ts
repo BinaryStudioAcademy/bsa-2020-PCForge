@@ -9,6 +9,8 @@ import { PowerSupplySchema } from './powerSupply.schema';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { CommentSchema } from './comment.schema';
 import { UserAttributes } from '../../data/models/user';
+import { HddSchema } from './hdd.schema';
+import { SsdSchema } from './ssd.schema';
 
 export type GetSetupsRequest = FastifyRequest<{
   Querystring: ISetupFilter;
@@ -94,6 +96,20 @@ export const SetupSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    hddId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null
+    },
+    ssdId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null
+    },
     createdAt: {
       type: 'string',
       nullable: false,
@@ -119,6 +135,8 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
   schema.properties.ram = RamSchema;
   schema.properties.motherboard = MotherBoardSchema;
   schema.properties.powerSupply = PowerSupplySchema;
+  // schema.properties.hdd = HddSchema;
+  // schema.properties.ssd = SsdSchema;
   return schema;
 };
 export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
@@ -197,6 +215,20 @@ export const CreateSetupSchema: SwaggerSchema = {
       example: 1,
       nullable: false,
     },
+    hddId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null
+    },
+    ssdId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null
+    },
     powerSupplyId: {
       type: 'integer',
       example: 1,
@@ -256,6 +288,20 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+    hddId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null
+    },
+    ssdId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: true,
+      default: null
     },
     powerSupplyId: {
       type: 'integer',
