@@ -20,6 +20,11 @@ export function GetOneQuery(schema: SwaggerSchema, querystring?: SwaggerSchema) 
         404: {
           type: 'object',
           properties: {
+            message: {
+              type: 'string',
+              example: 'Item not found',
+              nullable: false,
+            },
             error: {
               type: 'string',
               example: 'Item not found',

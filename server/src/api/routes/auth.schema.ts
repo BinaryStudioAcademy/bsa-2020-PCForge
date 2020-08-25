@@ -15,9 +15,17 @@ export type IsUserAuthenticated = FastifyRequest<{
   };
 }>;
 
-export type ResetPasswordRequest = FastifyRequest<{
+export type ResetPasswordRequestRequest = FastifyRequest<{
   Body: {
     email: string;
+  };
+}>;
+
+export type ResetPasswordRequest = FastifyRequest<{
+  Body: {
+    userId: string;
+    token: string;
+    newPassword: string;
   };
 }>;
 
@@ -134,10 +142,11 @@ export const IsAuthenticatedSchema = {
   },
 };
 
-export const ResetPasswordSchema = {
+export const ResetPasswordRequestSchema = {
   schema: {
     body: {
       type: 'object',
+      required: ['email'],
       properties: {
         email: {
           type: 'string',
@@ -150,6 +159,82 @@ export const ResetPasswordSchema = {
     response: {
       200: {
         type: 'object',
+      },
+      404: {
+        type: 'object',
+        properties: {
+          message: {
+            type: 'string',
+            example: 'Item not found',
+            nullable: false,
+          },
+          error: {
+            type: 'string',
+            example: 'Item not found',
+            nullable: false,
+          },
+          status: {
+            type: 'integer',
+            nullable: false,
+            example: 404,
+          },
+        },
+        nullable: false,
+      },
+    },
+  },
+};
+
+export const ResetPasswordSchema = {
+  schema: {
+    body: {
+      type: 'object',
+      required: ['userId', 'token', 'newPassword'],
+      properties: {
+        userId: {
+          type: 'integer',
+          example: 1,
+          minimum: 1,
+          nullable: false,
+        },
+        token: {
+          type: 'string',
+          nullable: false,
+          example: '312ui7iudhjkasdbckxyz',
+          minLength: 1,
+        },
+        newPassword: {
+          type: 'string',
+          nullable: false,
+          example: 'password',
+          minLength: 1,
+        },
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+      },
+      404: {
+        type: 'object',
+        properties: {
+          message: {
+            type: 'string',
+            example: 'Item not found',
+            nullable: false,
+          },
+          error: {
+            type: 'string',
+            example: 'Item not found',
+            nullable: false,
+          },
+          status: {
+            type: 'integer',
+            nullable: false,
+            example: 404,
+          },
+        },
+        nullable: false,
       },
     },
   },

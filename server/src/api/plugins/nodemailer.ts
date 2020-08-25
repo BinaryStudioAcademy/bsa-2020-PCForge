@@ -5,7 +5,7 @@ import SMTPTransport from 'nodemailer/lib/smtp-transport';
 
 export default fp((fastify, opts: SMTPTransport.Options, next) => {
   try {
-    const transporter: Mail = createTransport(opts);
+    const transporter: Mail = createTransport(new SMTPTransport(opts));
     fastify.decorate('nodemailer', transporter).addHook('onClose', onClose);
   } catch (err) {
     return next(err);
