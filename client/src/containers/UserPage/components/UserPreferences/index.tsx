@@ -3,11 +3,8 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from '../SetupCard';
-import GamesModal from '../GamesModal';
 import styles from './styles.module.scss';
 import { useParams } from 'react-router';
-import { getAllTopGames } from 'api/services/topgameService';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import { Game } from 'common/models/typeUserGame';
 import { UserActionTypes } from '../../logic/actionTypes';
@@ -76,6 +73,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                 name={game.name}
                 year={game.year}
                 description={game.description}
+                isCurrentUser={isCurrentUser}
               />
             ))}
           </div>
