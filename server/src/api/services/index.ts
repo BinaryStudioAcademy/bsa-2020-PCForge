@@ -46,7 +46,7 @@ export interface Services {
 
 export default fp(async (fastify, opts, next) => {
   try {
-    const { repositories } = fastify;
+    const { nodemailer, repositories } = fastify;
     const ramTypeService = new RamTypeService(repositories.RamTypeRepository);
     const usersService = new UserService(repositories.UserRepository);
     const setupService = new SetupService(repositories.SetupRepository);
@@ -69,7 +69,7 @@ export default fp(async (fastify, opts, next) => {
     const addRequestService = new AddRequestService(repositories.AddRequestRepository);
     const hddService = new HddService(repositories.HddRepository);
     const ssdService = new SsdService(repositories.SsdRepository);
-    const mailService = new MailService(fastify.nodemailer);
+    const mailService = new MailService(nodemailer);
     const uploadService = new UploadService();
     const services: Services = {
       AddRequestService: addRequestService,

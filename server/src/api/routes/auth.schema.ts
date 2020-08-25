@@ -15,6 +15,12 @@ export type IsUserAuthenticated = FastifyRequest<{
   };
 }>;
 
+export type ResetPasswordRequest = FastifyRequest<{
+  Body: {
+    email: string;
+  };
+}>;
+
 const LoginRequest: SwaggerSchema = {
   type: 'object',
   required: ['email', 'password'],
@@ -124,6 +130,27 @@ export const IsAuthenticatedSchema = {
     body: isAuthenticatedRequest,
     response: {
       200: isAuthenticatedResponse,
+    },
+  },
+};
+
+export const ResetPasswordSchema = {
+  schema: {
+    body: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+          nullable: false,
+          example: 'mail@gmail.com',
+          minLength: 1,
+        },
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+      },
     },
   },
 };

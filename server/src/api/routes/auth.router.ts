@@ -6,6 +6,8 @@ import {
   LoginSchema,
   GoogleAuthSchema,
   IsAuthenticatedSchema,
+  ResetPasswordRequest,
+  ResetPasswordSchema,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
 
@@ -68,9 +70,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     });
   });
 
-  // const createOneSchema = CreateOneQuery(CreateGpuSchema, GpuSchema);
-  fastify.post('/reset-password', {}, async (request, reply) => {
-    MailService.sendMail();
+  fastify.post('/reset-password', ResetPasswordSchema, async (request: ResetPasswordRequest, reply) => {
+    const { email } = request.body;
+    const resetPasswordToken = 'Ajkdjahkjh227d8asjasd'; //generate reset password token and save it to user.resetPasswordToken in DB
+    const user = { id: 22 }; //get user by email from DB
+    MailService.sendResetPassword({ to: email, userId: user.id, token: resetPasswordToken });
   });
 
   next();

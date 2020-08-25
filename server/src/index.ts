@@ -33,7 +33,6 @@ server.register(db);
 server.register(multer.contentParser);
 server.register(jwtAuth);
 server.register(googleAuth);
-server.register(services);
 server.register(nodemailer, {
   service: process.env.EMAIL_SERVICE,
   auth: {
@@ -41,6 +40,7 @@ server.register(nodemailer, {
     pass: process.env.EMAIL_PASSWORD,
   },
 });
+server.register(services);
 server.register(fastifyStatic, {
   root: path.join(__dirname, '..', '..', 'client', 'build'),
   prefix: '/',
