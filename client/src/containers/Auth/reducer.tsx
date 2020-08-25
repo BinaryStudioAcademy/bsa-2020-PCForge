@@ -9,7 +9,6 @@ import {
   AUTH_SWITCH_AUTH_PAGE,
   AUTH_REGISTRATION_SUCCESS,
   AUTH_REGISTRATION_ERROR,
-  loginRequestSuccess,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
 } from './actionTypes';
@@ -63,6 +62,8 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
       return {
         ...state,
         ...action.payload,
+        email: '',
+        password: '',
       };
     case AUTH_LOGIN_FAILURE:
       return {

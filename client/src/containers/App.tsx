@@ -33,7 +33,6 @@ export default class App extends Component {
           <Route exact path={Routes.ADMINTOOLS} component={AdminToolsPage} />
           <Route exact path={`${Routes.ADDITEM}/:item`} component={AddItemPages} />
           <Route exact path={Routes.GAME} component={GamePage} />
-          <Route exact path={'/builder/quick-matcher'} component={QuickMatcher} />
           <Route path="*" exact={true} component={NotFound} />
         </Switch>
         <Notification />

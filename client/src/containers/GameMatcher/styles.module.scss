@@ -62,6 +62,12 @@
   width: 50%;
 }
 
+.pageButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .buttonLabel {
   font-size: 10px;
   line-height: 12px;

@@ -1,7 +1,22 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { PostNewsRequest, GetNewsRequest, PutNewsRequest, DeleteNewsRequest, NewsSchema, GetAllNewsResponse, CreateNewsSchema, UpdateNewsSchema } from './news.schema';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  PostNewsRequest,
+  GetNewsRequest,
+  PutNewsRequest,
+  DeleteNewsRequest,
+  NewsSchema,
+  GetAllNewsResponse,
+  CreateNewsSchema,
+  UpdateNewsSchema,
+} from './news.schema';
+import {
+  GetMultipleQuery,
+  GetOneQuery,
+  CreateOneQuery,
+  UpdateOneQuery,
+  DeleteOneQuery,
+} from '../../helpers/swagger.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { NewsService } = fastify.services;
@@ -35,7 +50,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const deleteOneSchema = DeleteOneQuery();
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteNewsRequest, reply) => {
     const { id } = request.params;
-    await NewsService.deleteNewsById({ id });
+    await NewsService.deleteNewsById(id);
     reply.send({});
   });
 

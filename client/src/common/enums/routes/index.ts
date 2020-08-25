@@ -1,7 +1,7 @@
 enum Routes {
   DEFAULT = '/',
   LOGIN = '/login',
-  CHART = '/setup/:id/chart',
+  CHART = '/chart',
   MATCHER = '/matcher',
   BUILDER = '/builder',
   SETUP = '/setup/:id',

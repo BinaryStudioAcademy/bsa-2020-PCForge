@@ -11,8 +11,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const { PerformanceService } = fastify.services;
 
   const getOneSetupPerformance = GetOneQuery(SetupPerformanceSchema, SetupPerformanceSchemaRequest);
-  fastify.get('/setup/:id', getOneSetupPerformance, async (request: GetOneSetupPerformanceRequest, reply) => {
-    const performance = await PerformanceService.getSetupPerformanceById(request.params.id, request.query.gameId);
+  fastify.get('/', getOneSetupPerformance, async (request: GetOneSetupPerformanceRequest, reply) => {
+    const performance = await PerformanceService.getPerformanceByHardware(request.query);
     reply.send(performance);
   });
 

@@ -4,9 +4,12 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { ISetupMiddleware } from '../middlewares/setup.middleware';
+import { BaseService } from './base.service';
 
-export class SetupService {
-  constructor(private repository: SetupRepository) {}
+export class SetupService extends BaseService<SetupModel, SetupCreationAttributes, SetupRepository> {
+  constructor(private repository: SetupRepository) {
+    super(repository);
+  }
 
   async getSetupById(id: string): Promise<SetupModel> {
     const setup = await this.repository.getOneSetup(id);
@@ -23,25 +26,20 @@ export class SetupService {
 
   async createSetup(inputSetup: SetupCreationAttributes, setupMiddleware: ISetupMiddleware): Promise<SetupModel> {
     await setupMiddleware(inputSetup);
-    const setup = await this.repository.createSetup(inputSetup);
+    const setup = await super.create(inputSetup);
     return setup;
   }
 
   async updateSetupById(
-    inputSetup: { id: string; data: SetupCreationAttributes },
+    { id, data }: { id: string; data: SetupCreationAttributes },
     setupMiddleware: ISetupMiddleware
   ): Promise<SetupModel> {
-    const { id, data } = inputSetup;
     await setupMiddleware(data);
-    const oldSetup = await this.repository.getById(id);
-    if (!oldSetup) {
-      triggerServerError(`Setup with id: ${id} does not exists`, 404);
-    }
-    const setup = await this.repository.updateById(id, data);
+    const setup = await super.updateById(id, data);
     return setup;
   }
 
   async deleteSetupById(id: string): Promise<void> {
-    await this.repository.deleteById(id);
+    await super.deleteById(id);
   }
 }

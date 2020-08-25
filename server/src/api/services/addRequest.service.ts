@@ -1,12 +1,19 @@
-import { AddRequestRepository } from "../../data/repositories/addRequest.repository";
-import { AddRequestModel, AddRequestCreationAttributes } from "../../data/models/addRequest";
-import { IWithMeta } from "../../data/repositories/base.repository";
-import { IAddRequestFilter } from "../../data/repositories/filters/addRequest.filter";
-import { IAddRequestMiddleware } from "../middlewares/addRequest.middleware";
-import { triggerServerError } from "../../helpers/global.helper";
+import { AddRequestRepository } from '../../data/repositories/addRequest.repository';
+import { AddRequestModel, AddRequestCreationAttributes } from '../../data/models/addRequest';
+import { IWithMeta } from '../../data/repositories/base.repository';
+import { IAddRequestFilter } from '../../data/repositories/filters/addRequest.filter';
+import { IAddRequestMiddleware } from '../middlewares/addRequest.middleware';
+import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class AddRequestService {
-  constructor(private repository: AddRequestRepository) {}
+export class AddRequestService extends BaseService<
+  AddRequestModel,
+  AddRequestCreationAttributes,
+  AddRequestRepository
+> {
+  constructor(private repository: AddRequestRepository) {
+    super(repository);
+  }
 
   async getAddRequestById(id: string): Promise<AddRequestModel> {
     const addRequest = await this.repository.getAddRequestById(id);
@@ -25,23 +32,24 @@ export class AddRequestService {
     addRequestMiddleware: IAddRequestMiddleware
   ): Promise<AddRequestModel> {
     await addRequestMiddleware(inputAddRequest);
-    return await this.repository.createAddRequest(inputAddRequest);
+    const request = await super.create(inputAddRequest);
+    return request;
   }
 
   async updateAddRequestById(
-    inputAddRequest: { id: string; data: AddRequestCreationAttributes },
+    { id, data }: { id: string; data: AddRequestCreationAttributes },
     addRequestMiddleware: IAddRequestMiddleware
   ): Promise<AddRequestModel> {
-    await addRequestMiddleware(inputAddRequest.data);
-    const { id, data } = inputAddRequest;
+    await addRequestMiddleware(data);
     const oldAddRequest = await this.repository.getAddRequestById(id);
     if (!oldAddRequest) {
       triggerServerError(`Add request with id: ${id} does not exists`, 404);
     }
-    return await this.repository.updateAddRequest(id, data);
+    const request = await super.updateById(id, data);
+    return request;
   }
 
   async deleteAddRequestById(id: string): Promise<void> {
-    await this.repository.deleteAddRequest(id);
+    await super.deleteById(id);
   }
 }

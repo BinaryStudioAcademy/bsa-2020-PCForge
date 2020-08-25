@@ -10,6 +10,11 @@ import setupSagas from 'containers/SetupPage/sagas';
 import homePageSagas from 'containers/Home/logic/sagas';
 import gameFormSagas from 'containers/AddItemPages/AddGameForm/saga';
 import hardwareFormSagas from 'containers/AddItemPages/AddHardwareForm/saga';
+import setupChartSagas from 'containers/Chart/sagas';
+
+import setupsSagas from 'containers/SetupsPage/sagas';
+import homePageSagas from 'containers/Home/logic/sagas';
+import setupSagas from 'containers/SetupPage/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -24,5 +29,7 @@ export default function* rootSaga() {
     setupSagas(),
     gameFormSagas(),
     hardwareFormSagas(),
+    setupChartSagas(),
+    setupsSagas(),
   ]);
 }

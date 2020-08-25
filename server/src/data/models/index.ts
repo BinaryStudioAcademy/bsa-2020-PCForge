@@ -15,6 +15,8 @@ import { TopGameFactory } from './topgame';
 import { UserFactory } from './user';
 import { UserGameFactory } from './usergame';
 import { AddRequestFactory } from './addRequest';
+import { HddFactory } from './hdd';
+import { SsdFactory } from './ssd';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const initializeModels = (orm: Sequelize) => {
@@ -34,6 +36,8 @@ export const initializeModels = (orm: Sequelize) => {
   const UserGameModel = UserGameFactory(orm);
   const TopGameModel = TopGameFactory(orm);
   const AddRequestModel = AddRequestFactory(orm);
+  const HddModel = HddFactory(orm);
+  const SsdModel = SsdFactory(orm);
 
   CommentModel.belongsTo(UserModel);
   CommentModel.belongsTo(SetupModel, { foreignKey: 'commentableId', constraints: false });
@@ -61,6 +65,10 @@ export const initializeModels = (orm: Sequelize) => {
 
   PowerSupplyModel.hasMany(SetupModel);
 
+  HddModel.hasMany(SetupModel);
+
+  SsdModel.hasMany(SetupModel);
+
   RamModel.belongsTo(RamTypeModel, { foreignKey: 'typeId' });
   RamModel.hasMany(SetupModel);
 
@@ -78,6 +86,8 @@ export const initializeModels = (orm: Sequelize) => {
   SetupModel.belongsTo(RamModel);
   SetupModel.belongsTo(MotherboardModel);
   SetupModel.belongsTo(PowerSupplyModel);
+  SetupModel.belongsTo(HddModel);
+  SetupModel.belongsTo(SsdModel);
   SetupModel.hasMany(CommentModel, { foreignKey: 'commentableId', constraints: false });
   SetupModel.hasMany(RateModel, { foreignKey: 'ratebleId', constraints: false });
 
@@ -118,5 +128,7 @@ export const initializeModels = (orm: Sequelize) => {
     UserGame: UserGameModel,
     Rate: RateModel,
     TopGame: TopGameModel,
+    Hdd: HddModel,
+    Ssd: SsdModel,
   };
 };

@@ -7,6 +7,7 @@ import builderReducer from 'containers/BuilderPage/reducer';
 import { MatcherReducer } from 'containers/GameMatcher/reducer';
 import { QuickMatcherReducer } from 'containers/QuickMatcher/reducer';
 import UserRequestsReducer from 'containers/AdminToolsPage/reducer';
+import { SetupsReducer } from 'containers/SetupsPage/reducer';
 import { SetupReducer } from 'containers/SetupPage/reducer';
 import { SetupChartReducer } from 'containers/Chart/reducer';
 import { GameFormReducer } from 'containers/AddItemPages/AddGameForm/reducer';
@@ -21,6 +22,7 @@ const RootReducer = combineReducers({
   quickMatcher: QuickMatcherReducer,
   notification: NotificationReducer,
   userRequests: UserRequestsReducer,
+  setups: SetupsReducer,
   setupPage: SetupReducer,
   setupChart: SetupChartReducer,
   gameForm: GameFormReducer,

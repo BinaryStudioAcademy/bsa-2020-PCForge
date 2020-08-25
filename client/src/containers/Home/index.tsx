@@ -6,7 +6,6 @@ import Title from './components/Title';
 import CardDisplay from './components/CardsDisplay';
 import { RootState } from 'redux/rootReducer';
 import { loadTopSetups } from './logic/actions';
-import { showSpinner } from 'containers/UserPage/logic/actions';
 import Spinner from 'components/Spinner';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;

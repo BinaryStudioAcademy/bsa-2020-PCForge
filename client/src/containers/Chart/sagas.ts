@@ -1,13 +1,11 @@
 import { getAllGames } from 'api/services/gameService';
 import { getPerformance } from 'api/services/performanceService';
-import { getSetup } from 'api/services/setupService';
 import { getAllTopGames } from 'api/services/topgameService';
 import { call, put, all, takeLatest } from 'redux-saga/effects';
-import { setError, setGames, setPerformance, setSetup, setTopGames } from './actions';
+import { setError, setGames, setPerformance, setTopGames } from './actions';
 import {
   IFetchGamesRequestAction,
   IFetchPerformanceRequestAction,
-  IFetchSetupRequestAction,
   IFetchTopGamesRequestAction,
   SetupChartTypes,
 } from './actionTypes';
@@ -40,7 +38,7 @@ function* watchFetchGames() {
 
 function* fetchPerformanceAnalysis(action: IFetchPerformanceRequestAction) {
   try {
-    const performance = yield call(getPerformance, action.payload.setupId, action.payload.gameId);
+    const performance = yield call(getPerformance, action.payload);
     yield put(setPerformance(performance));
   } catch (error) {
     yield put(setError(error));
@@ -51,19 +49,6 @@ function* watchFetchPerformanceAnalysis() {
   yield takeLatest(SetupChartTypes.FETCH_PERFORMANCE_REQUEST, fetchPerformanceAnalysis);
 }
 
-function* fetchSetup(action: IFetchSetupRequestAction) {
-  try {
-    const setup = yield call(getSetup, action.payload.id);
-    yield put(setSetup(setup));
-  } catch (error) {
-    yield put(setError(error));
-  }
-}
-
-function* watchFetchSetup() {
-  yield takeLatest(SetupChartTypes.FETCH_SETUP_REQUEST, fetchSetup);
-}
-
 export default function* setupChartSagas() {
-  yield all([watchFetchTopGames(), watchFetchPerformanceAnalysis(), watchFetchSetup(), watchFetchGames()]);
+  yield all([watchFetchTopGames(), watchFetchPerformanceAnalysis(), watchFetchGames()]);
 }

@@ -3,7 +3,7 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 
-export class RamTypeRepository extends BaseRepository<RamTypeModel, IFilter> {
+export class RamTypeRepository extends BaseRepository<RamTypeModel, RamTypeCreationAttributes, IFilter> {
   constructor(private model: RamTypeStatic) {
     super(<RichModel>model, IFilter);
   }
@@ -22,19 +22,5 @@ export class RamTypeRepository extends BaseRepository<RamTypeModel, IFilter> {
       filter
     );
     return ramTypes;
-  }
-
-  async createRamType(inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
-    const ramType = await this.model.create(inputRamType);
-    return ramType;
-  }
-
-  async updateRamTypeById(id: string, inputRamType: RamTypeCreationAttributes): Promise<RamTypeModel> {
-    const ramType = await this.updateById(id, inputRamType);
-    return ramType;
-  }
-
-  async deleteRamTypeById(id: string): Promise<void> {
-    await this.deleteById(id);
   }
 }
