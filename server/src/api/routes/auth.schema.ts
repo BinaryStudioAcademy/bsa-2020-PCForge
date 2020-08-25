@@ -78,7 +78,6 @@ const GoogleAuthResponse: SwaggerSchema = {
       minLength: 1,
     },
     user: UserSchema,
-    },
   },
 };
 
