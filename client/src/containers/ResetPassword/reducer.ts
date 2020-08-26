@@ -24,6 +24,22 @@ export function ResetPasswordReducer(state = initialState, action: ResetPassword
       };
     }
 
+    case ResetPasswordActionTypes.FETCH_RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        loading: true,
+      };
+    }
+
+    case ResetPasswordActionTypes.FETCH_RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        success: true,
+        loading: false,
+        error: null,
+      };
+    }
+
     case ResetPasswordActionTypes.ERROR: {
       return {
         ...state,

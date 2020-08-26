@@ -1,6 +1,6 @@
 import { authService } from 'api/services/auth.service';
 import { call, put, all, takeLatest } from 'redux-saga/effects';
-import { setError, setResetPasswordRequestSuccess } from './actions';
+import { setError, setResetPasswordRequestSuccess, setResetPasswordSuccess } from './actions';
 import {
   ResetPasswordActionTypes,
   IFetchResetPasswordRequestAction,
@@ -12,7 +12,6 @@ function* sendResetPasswordRequest(action: IFetchResetPasswordRequestRequestActi
     yield call(authService.resetPasswordRequest, action.payload.email);
     yield put(setResetPasswordRequestSuccess());
   } catch (error) {
-    console.log(error);
     yield put(setError(error.message));
   }
 }
@@ -24,8 +23,9 @@ function* watchSendResetPasswordRequest() {
 function* sendResetPassword(action: IFetchResetPasswordRequestAction) {
   try {
     yield call(authService.resetPassword, action.payload);
+    yield put(setResetPasswordSuccess());
   } catch (error) {
-    yield put(setError(error));
+    yield put(setError(error.message));
   }
 }
 

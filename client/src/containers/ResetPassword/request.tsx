@@ -1,6 +1,8 @@
 import { RootState } from 'redux/rootReducer';
 import { ConnectedProps, connect } from 'react-redux';
 import { sendResetPasswordRequest } from './actions';
+import { Link as RouterLink } from 'react-router-dom';
+import { Routes } from 'common/enums';
 
 import React from 'react';
 import styles from 'containers/ResetPassword/styles.module.scss';
@@ -9,8 +11,6 @@ import InputWithValidation from 'components/InputWithValidation';
 import EmailSchema from 'common/validation/email';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Spinner from 'components/Spinner';
-import { Link as RouterLink } from 'react-router-dom';
-import { Routes } from 'common/enums';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -79,7 +79,7 @@ const ResetPasswordRequest: React.FC<Props> = ({
                 back to login
               </RouterLink>
             </Grid>
-            <Grid item>{success && <Alert alertType={AlertType.success}>Success</Alert>}</Grid>
+            <Grid item>{success && <Alert alertType={AlertType.success}>Successfully sent</Alert>}</Grid>
             <Grid item>{error && <Alert alertType={AlertType.error}>{error}</Alert>}</Grid>
           </Grid>
         )}
