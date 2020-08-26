@@ -11,6 +11,7 @@ import { TypeUser } from 'common/models/typeUser';
 import { SetupType } from 'common/models/typeSetup';
 import { UserActionTypes } from '../../logic/actionTypes';
 import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
+import { Game } from 'common/models/typeUserGame';
 
 enum UserPageTabs {
   Games = 0,
@@ -19,51 +20,28 @@ enum UserPageTabs {
 
 interface IUserInfoProps {
   user: TypeUser;
+  userGames: Game[];
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
   setups: SetupType[];
   isCurrentUser: boolean;
+  addUserGame: (id: number, gameId: number) => UserActionTypes;
+  deleteUserGame: (id: number, gameId: number) => UserActionTypes;
+  filteredGames: Game[];
+  loadFilteredGames: (searchString: string) => UserActionTypes;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const { user, updateUser, setups, isCurrentUser } = props;
-  const gamesArray = [
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-  ];
+  const {
+    user,
+    userGames,
+    updateUser,
+    isCurrentUser,
+    filteredGames,
+    loadFilteredGames,
+    addUserGame,
+    deleteUserGame,
+    setups,
+  } = props;
 
   const initialErrorMessages = {
     emailErrorMessage: null,
@@ -266,7 +244,16 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             <Tab label="Setups" />
           </Tabs>
         </AppBar>
-        {selectedTab === UserPageTabs.Games && <UserPreferences isCurrentUser={isCurrentUser} games={gamesArray} />}
+        {selectedTab === UserPageTabs.Games && (
+          <UserPreferences
+            isCurrentUser={isCurrentUser}
+            games={userGames}
+            addUserGame={addUserGame}
+            deleteUserGame={deleteUserGame}
+            filteredGames={filteredGames}
+            loadFilteredGames={loadFilteredGames}
+          />
+        )}
         {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setups} />}
       </div>
     </div>

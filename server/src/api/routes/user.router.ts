@@ -6,11 +6,19 @@ import {
   PostUserRequest,
   DeleteUserRequest,
   PutUserRequest,
+  GetUserGamesRequest,
+  CreateUserGameRequest,
+  DeleteUserGameRequest,
   UserSchema,
   CreateUserSchema,
   UpdateUserSchema,
   GetAllUsersSchema,
+  CreateUserGameSchema,
+  CreateUserGameResponse,
+  GetUserGamesSchema,
+  UserGameSchema,
 } from './user.schema';
+import { GameSchema } from './game.schema';
 import {
   getOneQuery,
   getMultipleQuery,
@@ -18,12 +26,13 @@ import {
   updateOneQuery,
   deleteOneQuery,
 } from '../../helpers/swagger.helper';
+import { IFilter } from '../../data/repositories/filters/base.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { triggerServerError } from '../../helpers/global.helper';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
-  const { UserService } = fastify.services;
+  const { UserService, GameService, UserGameService } = fastify.services;
   const preHandler = userRequestMiddleware(fastify);
 
   const getAllSchema = getMultipleQuery(GetAllUsersSchema);
@@ -70,6 +79,43 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     const user = await UserService.deleteUser(id);
     reply.send(user);
   });
+
+  // Users games
+  const getUserGamesSchema = getMultipleQuery(GetUserGamesSchema, IFilter.schema);
+  fastify.get('/:id/games', { ...getUserGamesSchema, preHandler }, async (request: GetUserGamesRequest, reply) => {
+    allowForAuthorized(request);
+    const result = await UserGameService.getUserGames(request.params.id, request.query);
+    reply.send(result);
+  });
+
+  const createGameSchema = createOneQuery(CreateUserGameSchema, CreateUserGameResponse);
+  fastify.post('/:id/games', { ...createGameSchema, preHandler }, async (request: CreateUserGameRequest, reply) => {
+    allowForAuthorized(request);
+    const game = await GameService.getGameById(request.body.id);
+    const result = await UserGameService.findOrCreateUserGame({
+      userId: parseInt(request.params.id),
+      gameId: parseInt(request.body.id),
+    });
+    reply.send({
+      game,
+      isNew: result.isNew,
+      userGame: result.userGame,
+    });
+  });
+
+  const deleteGameSchema = deleteOneQuery(UserGameSchema);
+  fastify.delete(
+    '/:id/games/:gameId',
+    { ...deleteGameSchema, preHandler },
+    async (request: DeleteUserGameRequest, reply) => {
+      allowForAuthorized(request);
+      const deletedUserGame = await UserGameService.deleteUserGame({
+        userId: parseInt(request.params.id),
+        gameId: parseInt(request.params.gameId),
+      });
+      reply.send(deletedUserGame);
+    }
+  );
 
   next();
 }

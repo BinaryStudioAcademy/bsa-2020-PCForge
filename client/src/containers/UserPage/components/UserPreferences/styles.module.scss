@@ -54,6 +54,14 @@
 }
 
 .buttonPlacement {
+
+  label {
+    display: none;
+  }
+  & > div > div {
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  }
   @media(max-width: 768px) {
     display: flex;
     justify-content: center;

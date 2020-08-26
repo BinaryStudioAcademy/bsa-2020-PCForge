@@ -5,19 +5,45 @@ import { useParams } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
 import UserInfo from './components/UserInfo';
 import { RootState } from 'redux/rootReducer';
-import { loadUser, updateUser, loadSetups } from './logic/actions';
+import {
+  loadUser,
+  updateUser,
+  loadUserGames,
+  loadFilteredGames,
+  addUserGame,
+  deleteUserGame,
+  loadSetups,
+} from './logic/actions';
 import Spinner from 'components/Spinner';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
 const UserPage = (props: Props) => {
-  const { loadedUser, showSpinner, loadUser, loadSetups, currentUser, updateUser: userUpdate, setups } = props;
+  const {
+    loadedUser,
+    loadUserGames,
+    showSpinner,
+    loadUser,
+    currentUser,
+    updateUser: userUpdate,
+    userGames,
+    addUserGame: userGameAdd,
+    loadFilteredGames,
+    filteredGames,
+    deleteUserGame,
+    loadSetups,
+    setups,
+  } = props;
+  const gamesArray = userGames.map((game) => game.game);
+  console.log(gamesArray);
+
   const { id } = useParams();
   const currentUserId = currentUser?.id.toString();
 
   useEffect(() => {
     loadUser(parseInt(id));
+    loadUserGames(parseInt(id));
     loadSetups(parseInt(id));
   }, [id]);
 
@@ -28,9 +54,14 @@ const UserPage = (props: Props) => {
       return (
         <UserInfo
           user={loadedUser}
+          userGames={gamesArray}
           updateUser={userUpdate}
           setups={setups}
           isCurrentUser={id.toString() === currentUserId?.toString()}
+          addUserGame={userGameAdd}
+          loadFilteredGames={loadFilteredGames}
+          filteredGames={filteredGames}
+          deleteUserGame={deleteUserGame}
         />
       );
     } else {
@@ -46,11 +77,17 @@ const mapState = (state: RootState) => ({
   showSpinner: state.user.showSpinner,
   setups: state.user.setups,
   currentUser: state.auth.user,
+  userGames: state.user.userGames,
+  filteredGames: state.user.filteredGames,
 });
 
 const mapDispatch = {
   loadUser,
   updateUser,
+  loadUserGames,
+  loadFilteredGames,
+  addUserGame,
+  deleteUserGame,
   loadSetups,
 };
 
