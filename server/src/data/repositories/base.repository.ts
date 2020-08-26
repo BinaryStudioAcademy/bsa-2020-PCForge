@@ -51,7 +51,7 @@ export abstract class BaseRepository<M extends Model, C extends object, F extend
   }
 
   async get(where: Record<string, unknown>): Promise<M> {
-    const result = await this._model.findOne(where);
+    const result = await this._model.findOne({ where });
     return result as M;
   }
 

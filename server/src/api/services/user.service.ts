@@ -4,6 +4,7 @@ import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 import { IWithMeta } from '../../data/repositories/base.repository';
+import { encryptSync } from '../../helpers/crypto.helper';
 
 interface UserCreateAttributes {
   name: string;
@@ -68,7 +69,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     const userAttributes: UserCreationAttributes = {
       ...inputUser,
       isAdmin: false,
-      password: this.hash(inputUser.password),
+      password: inputUser.password,
       verifyEmailToken: null,
       resetPasswordToken: null,
     };
@@ -91,7 +92,6 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   }
 
   hash(password: string): string {
-    const saltRounds = 10;
-    return bcrypt.hashSync(password, saltRounds);
+    return encryptSync(password);
   }
 }

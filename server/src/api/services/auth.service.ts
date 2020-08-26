@@ -1,5 +1,5 @@
 import { UserCreationAttributes, UserModel } from '../../data/models/user';
-import { getRandomStringToken } from '../../helpers/crypto.helper';
+import { compare, getRandomStringToken } from '../../helpers/crypto.helper';
 import { removeNonUrlChars, triggerServerError } from '../../helpers/global.helper';
 
 interface IMailService {
@@ -8,7 +8,9 @@ interface IMailService {
 
 interface IUserService {
   getByEmail: (email: string) => Promise<UserModel>;
-  setUserById: (id: number, user: UserCreationAttributes) => Promise<UserModel>;
+  getUser: (id: number | string) => Promise<UserModel>;
+  setUserById: (id: string | number, user: UserCreationAttributes) => Promise<UserModel>;
+  updateUser: (id: string | number, user: UserCreationAttributes) => Promise<UserModel>;
 }
 
 export class AuthService {
@@ -17,8 +19,25 @@ export class AuthService {
   public async resetPasswordByEmail(email: string): Promise<void | never> {
     const user = await this.userService.getByEmail(email);
     if (!user) triggerServerError(`User with email ${email} was not found`, 400);
+    console.log(user.name);
     const token = removeNonUrlChars(getRandomStringToken());
-    this.userService.setUserById(user.id, { ...user, resetPasswordToken: token });
-    this.mailService.sendResetPassword({ to: email, userId: user.id, token: token });
+    await this.userService.setUserById(user.id, { ...user, resetPasswordToken: token });
+    await this.mailService.sendResetPassword({ to: email, userId: user.id, token: token });
+  }
+
+  public async resetPassword({
+    userId,
+    token,
+    newPassword,
+  }: {
+    userId: string;
+    token: string;
+    newPassword: string;
+  }): Promise<void | never> {
+    const user = await this.userService.getUser(userId);
+    if (!user) triggerServerError(`User with id ${userId} was not found`, 400);
+    const isTokensEqual = token === user.resetPasswordToken;
+    if (!isTokensEqual) triggerServerError(`Token is not valid`, 400);
+    await this.userService.updateUser(userId, { ...user, password: newPassword });
   }
 }
