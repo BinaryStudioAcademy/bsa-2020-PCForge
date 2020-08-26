@@ -116,7 +116,6 @@ function* watchGetSetupRate() {
 function* addSetupRate(action: ISetSetupRate) {
   try {
     const data: RateCreationAttributes = {
-      userId: 8,
       ratebleId: action.payload.id,
       ratebleType: 'setup',
       value: action.payload.value,
