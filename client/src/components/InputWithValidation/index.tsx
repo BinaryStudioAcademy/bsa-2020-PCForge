@@ -9,6 +9,8 @@ interface IValidationResult {
 interface Props {
   onChange: (newValue: string) => void;
   validate?: (inputValue: string) => [boolean, string?];
+  isValid?: boolean;
+  error?: string;
   label: string;
   defaultValue?: string;
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -21,6 +23,8 @@ const InputWithValidation: React.FC<Props> = ({
   validate = () => [true],
   label,
   defaultValue,
+  error = '',
+  isValid = true,
 }): JSX.Element => {
   const [validationResult, setValidationResult] = React.useState<IValidationResult>({ isValid: true, error: '' });
   const onInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -30,13 +34,18 @@ const InputWithValidation: React.FC<Props> = ({
     onChange(newValue);
   };
 
-  console.log(!validationResult.isValid ? validationResult.error : label);
+  const getLabel = () => {
+    if (isValid && validationResult.isValid) return label;
+    if (!isValid) return error;
+    if (!validationResult.isValid) return validationResult.error;
+    return label;
+  };
 
   return (
     <TextField
-      error={!validationResult.isValid}
+      error={!isValid || !validationResult.isValid}
       id="input"
-      label={!validationResult.isValid ? validationResult.error : label}
+      label={getLabel()}
       defaultValue={defaultValue}
       variant="outlined"
       fullWidth={true}

@@ -16,7 +16,8 @@ import AddItemPages from 'containers/AddItemPages';
 import Notification from 'containers/Notification';
 import GamePage from 'containers/GamePage';
 import * as Sentry from '@sentry/react';
-import ResetPassword from './ResetPassword';
+import ResetPasswordRequest from './ResetPassword/request';
+import ResetPasswordCallback from './ResetPassword/callback';
 
 const SentryRoute = Sentry.withSentryRouting(Route);
 
@@ -36,7 +37,8 @@ class App extends Component {
           <SentryRoute exact path={Routes.ADMINTOOLS} component={AdminToolsPage} />
           <SentryRoute exact path={`${Routes.ADDITEM}/:item`} component={AddItemPages} />
           <SentryRoute exact path={Routes.GAME} component={GamePage} />
-          <SentryRoute exact path={Routes.RESET_PASSWORD} component={ResetPassword} />
+          <SentryRoute exact path={Routes.RESET_PASSWORD_REQUEST} component={ResetPasswordRequest} />
+          <SentryRoute exact path={Routes.RESET_PASSWORD} component={ResetPasswordCallback} />
           <SentryRoute path="*" exact={true} component={NotFound} />
         </Switch>
         <Notification />

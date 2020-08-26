@@ -19,23 +19,22 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ResetPassword: React.FC<Props> = ({ sendResetPasswordRequest: propsSendResetPasswordRequest }): JSX.Element => {
+const ResetPasswordCallback: React.FC<Props> = ({
+  sendResetPasswordRequest: propsSendResetPasswordRequest,
+}): JSX.Element => {
   const materialStyles = useStyles();
-  const [email, setEmail] = React.useState<string>('');
-  const onEmailInputChange = (newEmail: string) => {
-    setEmail(newEmail);
-  };
-  const validateEmail = (newEmail: string): [boolean, string?] => {
-    try {
-      EmailSchema.email.validateSync(newEmail);
-      return [true, ''];
-    } catch (err) {
-      return [false, err.message];
-    }
-  };
+  const [password1, setPassword1] = React.useState<string>('');
+  const [password2, setPassword2] = React.useState<string>('');
 
-  const onSendRequestClick = () => {
-    propsSendResetPasswordRequest(email);
+  const validate = (password1: string) => (password2: string): [boolean, string?] => {
+    const isEqual = password1 === password2;
+    const error = isEqual ? '' : 'passwords must be equal';
+    return [isEqual, error];
+  };
+  const isValid = validate(password1)(password2)[0];
+
+  const onSubmitClick = () => {
+    console.log('click');
   };
 
   return (
@@ -44,22 +43,34 @@ const ResetPassword: React.FC<Props> = ({ sendResetPasswordRequest: propsSendRes
         <Grid container spacing={4} direction="column" justify="center" alignItems="stretch">
           <Grid item md>
             <div>
-              <h2>Forgot password?</h2>
-              <h3>Enter your email address and we will send you a link to reset your password</h3>
+              <h2>Confirm password</h2>
             </div>
           </Grid>
           <Grid item>
-            <InputWithValidation onChange={onEmailInputChange} validate={validateEmail} label="Email" />
+            <InputWithValidation
+              onChange={setPassword1}
+              isValid={isValid}
+              error="passwords must be equal"
+              label="Password"
+            />
+          </Grid>
+          <Grid item>
+            <InputWithValidation
+              onChange={setPassword2}
+              isValid={isValid}
+              error="passwords must be equal"
+              label="Confirm Password"
+            />
           </Grid>
           <Grid container justify="center">
             <Button
               variant="outlined"
-              disabled={validateEmail(email)[0] ? false : true}
+              disabled={!isValid}
               className={materialStyles.sendButton}
-              buttonType={validateEmail(email)[0] ? ButtonType.secondary : ButtonType.error}
-              onClick={onSendRequestClick}
+              buttonType={isValid ? ButtonType.secondary : ButtonType.error}
+              onClick={onSubmitClick}
             >
-              Send
+              Submit
             </Button>
           </Grid>
         </Grid>
@@ -78,4 +89,4 @@ const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-export default connector(ResetPassword);
+export default connector(ResetPasswordCallback);
