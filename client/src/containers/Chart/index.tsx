@@ -25,7 +25,7 @@ const GameMatcherResult: React.FC<Props> = ({
   games,
   cpu,
   gpu,
-  ram,
+  ramSize
 }) => {
   const [topGameSelected, setTopGameSelected] = React.useState<number>(0);
   React.useEffect(() => {
@@ -34,22 +34,22 @@ const GameMatcherResult: React.FC<Props> = ({
   }, []);
 
   React.useEffect(() => {
-    if (topGames.length > 0 && cpu && gpu && ram) {
-      propsFetchPerformanceAnalysis(cpu.id, gpu.id, ram.memorySize, topGames[0].id);
+    if (topGames.length > 0 && cpu && gpu && ramSize) {
+      propsFetchPerformanceAnalysis(cpu.id, gpu.id, ramSize, topGames[0].id);
     }
   }, [topGames]);
 
   const onTopGameSelected = (topGame: TopGame) => {
-    if (cpu && gpu && ram) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ram.memorySize, topGame.game.id);
+    if (cpu && gpu && ramSize) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ramSize, topGame.game.id);
     const index = topGames.findIndex((_topGame) => _topGame.id === topGame.id);
     setTopGameSelected(index);
   };
 
   const onGameSelected = (game: Game) => {
-    if (cpu && gpu && ram) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ram.memorySize, game.id);
+    if (cpu && gpu && ramSize) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ramSize, game.id);
   };
 
-  if (!cpu || !gpu || !ram) return <Redirect to={Routes.MATCHER} />;
+  if (!cpu || !gpu || !ramSize) return <Redirect to={Routes.MATCHER} />;
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
@@ -58,8 +58,8 @@ const GameMatcherResult: React.FC<Props> = ({
           <h1 className={[sharedStyles.mainHeader, styles.pageHeader].join(' ')}>System overview</h1>
           <div className={styles.gameMatcherContentWrapper}>
             <main>
-              <GameMatcherSystemOverview cpu={cpu} gpu={gpu} ram={ram} overall={performance.overall} />
-              <GameMatcherPerformanceReport cpu={cpu} gpu={gpu} ram={ram} report={performance.report} />
+              <GameMatcherSystemOverview cpu={cpu} gpu={gpu} ramSize={ramSize} overall={performance.overall} />
+              <GameMatcherPerformanceReport cpu={cpu} gpu={gpu} ramSize={ramSize} report={performance.report} />
               <GameMatcherFpsAnalysis fpsAnalysis={performance.fpsAnalysis} />
             </main>
 
@@ -79,7 +79,7 @@ const mapState = (state: RootState) => ({
   performance: state.setupChart.performance,
   cpu: state.setupChart.cpu,
   gpu: state.setupChart.gpu,
-  ram: state.setupChart.ram,
+  ramSize: state.setupChart.ramSize,
   games: state.setupChart.searchedGames,
 });
 

@@ -3,12 +3,10 @@ import {
   MatcherActionTypes,
   MATCHER_ADD_CPUS,
   MATCHER_ADD_GPUS,
-  MATCHER_ADD_RAMS,
   MATCHER_ADD_GAMES,
   MATCHER_REPLACE_CPUS,
   MATCHER_REPLACE_GPUS,
   MATCHER_REPLACE_GAMES,
-  MATCHER_REPLACE_RAMS,
   SET_ALERT_MESSAGE,
 } from './actionTypes';
 
@@ -37,11 +35,6 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
         ...state,
         gpus: [...state.gpus, ...action.payload],
       };
-    case MATCHER_ADD_RAMS:
-      return {
-        ...state,
-        rams: [...state.rams, ...action.payload],
-      };
     case MATCHER_ADD_GAMES:
       return {
         ...state,
@@ -56,11 +49,6 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
       return {
         ...state,
         gpus: action.payload,
-      };
-    case MATCHER_REPLACE_RAMS:
-      return {
-        ...state,
-        rams: action.payload,
       };
     case MATCHER_REPLACE_GAMES:
       return {
