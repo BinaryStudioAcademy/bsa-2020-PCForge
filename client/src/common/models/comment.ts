@@ -12,7 +12,5 @@ export interface Comment {
 export interface CommentCreationAttributes {
   commentableType: 'setup' | 'game';
   commentableId: number;
-  userId: number;
   value: string;
-  token: string;
 }

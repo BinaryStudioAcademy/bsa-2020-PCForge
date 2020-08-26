@@ -93,7 +93,6 @@ export const DetailedMotherBoardSchema = createDetailedMotherboardSchema();
 export const CreateMotherBoardSchema: SwaggerSchema = {
   type: 'object',
   required: ['name', 'socketId', 'ramTypeId'],
-  additionalProperties: false,
   properties: {
     name: {
       type: 'string',
@@ -118,7 +117,6 @@ export const CreateMotherBoardSchema: SwaggerSchema = {
 
 export const UpdateMotherBoardSchema: SwaggerSchema = {
   type: 'object',
-  additionalProperties: false,
   properties: {
     name: {
       type: 'string',
