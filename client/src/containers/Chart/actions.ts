@@ -1,8 +1,6 @@
 import { Cpu } from 'common/models/cpu';
 import { Game } from 'common/models/game';
 import { Gpu } from 'common/models/gpu';
-import { Ram } from 'common/models/ram';
-import { Setup } from 'common/models/setup';
 import { ISetupPerformance } from 'common/models/setupPerformance';
 import { TopGame } from 'common/models/topGame';
 import { SetupChartActions, SetupChartTypes } from './actionTypes';
@@ -72,10 +70,10 @@ export const setGpu = (gpu: Gpu): SetupChartActions => ({
   },
 });
 
-export const setRam = (ram: Ram): SetupChartActions => ({
+export const setRamSize = (ramSize: number): SetupChartActions => ({
   type: SetupChartTypes.SET_RAM,
   payload: {
-    ram,
+    ramSize,
   },
 });
 

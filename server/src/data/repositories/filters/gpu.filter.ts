@@ -1,11 +1,15 @@
 import { IFilter } from './base.filter';
-import { FilterByNameType, notNull } from './types';
+import { FilterByNameType, FilterRangeType } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IGpuFilter extends IFilter {
   constructor() {
     super();
   }
+  memorySize: FilterRangeType<number> = {
+    minValue: 0,
+    maxValue: 10000,
+  };
   name: FilterByNameType = null;
 
   static schema: SwaggerSchema = {
@@ -13,16 +17,9 @@ export class IGpuFilter extends IFilter {
     properties: {
       ...IFilter.schema.properties,
       name: {
-        oneOf: [{
-          type: 'string',
-        }, {
-          type: 'array',
-          items: {
-            type: 'string',
-          }
-        }],
-        nullable: true
+        type: 'string',
+        nullable: true,
       },
-    }
-  }
+    },
+  };
 }

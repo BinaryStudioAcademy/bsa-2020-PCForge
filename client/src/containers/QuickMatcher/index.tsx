@@ -7,7 +7,6 @@ import { fetchGames, fetchPerformanceAnalysis, selectGame } from './actions';
 import Search from 'components/Search';
 import { Box } from '@material-ui/core';
 import ImageList from 'components/ImageList';
-import Tachometer from 'components/Tachometer';
 import Text from 'components/BasicComponents/Text';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';

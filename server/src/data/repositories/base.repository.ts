@@ -1,6 +1,5 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
 import { IFilter } from './filters/base.filter';
-import { mergeFilters } from './filters/helper';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;
@@ -46,13 +45,18 @@ export abstract class BaseRepository<M extends Model, C extends object, F extend
     };
   }
 
-  async getById(id: string): Promise<M> {
+  async getById(id: string | number): Promise<M> {
     const result = await this._model.findByPk(id);
     return result as M;
   }
 
+  async get(where: Record<string, unknown>): Promise<M> {
+    const result = await this._model.findOne({ where });
+    return result as M;
+  }
+
   // eslint-disable-next-line @typescript-eslint/ban-types
-  async updateById(id: string, data: C): Promise<M> {
+  async updateById(id: string | number, data: C): Promise<M> {
     const result = await this._model.update(data, {
       where: { id },
       returning: true,
@@ -63,7 +67,7 @@ export abstract class BaseRepository<M extends Model, C extends object, F extend
     return models[0] as M;
   }
 
-  async deleteById(id: string): Promise<void> {
+  async deleteById(id: string | number): Promise<void> {
     await this._model.destroy({
       where: { id },
     });

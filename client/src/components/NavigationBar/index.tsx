@@ -96,9 +96,10 @@ const listHeader: Array<IListNavigatinBar> = [
 
 interface selectedMenuProps {
   selectedMenuItemNumber?: number;
+  isAdmin?: boolean;
 }
 
-const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber }) => {
+const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, isAdmin }) => {
   const clearTokenAndRedirect = async () => {
     await clearToken();
     history.push(Routes.LOGIN);
@@ -138,26 +139,30 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber }) 
       icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
       link: '#',
     },
-    {
+  ];
+
+  if (isAdmin) {
+    listHeader.push({
       name: 'Admin Tools',
       icon: <BuildOutlinedIcon style={{ color: 'white' }} />,
-      link: '#',
+      link: Routes.ADMINTOOLS,
+    });
+  }
+
+  listHeader.push({
+    name: 'Log out',
+    icon: <SvgIcon component={LogOutIcon} viewBox="0 0 31 31" />,
+    link: '#',
+    onClick: async () => {
+      switch (getTokenType()) {
+        case TokenType.google:
+          signOut();
+          break;
+        default:
+          clearTokenAndRedirect();
+      }
     },
-    {
-      name: 'Log out',
-      icon: <SvgIcon component={LogOutIcon} viewBox="0 0 31 31" />,
-      link: '#',
-      onClick: async () => {
-        switch (getTokenType()) {
-          case TokenType.google:
-            signOut();
-            break;
-          default:
-            clearTokenAndRedirect();
-        }
-      },
-    },
-  ];
+  });
 
   let selectedMenuItem = undefined;
   if (selectedMenuItemNumber !== undefined) {

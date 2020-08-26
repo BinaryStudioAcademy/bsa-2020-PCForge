@@ -8,8 +8,10 @@ import PasswordInput from 'components/PasswordInput/PasswordInput';
 import UserPreferences from '../UserPreferences';
 import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'common/models/typeUser';
+import { SetupType } from 'common/models/typeSetup';
 import { UserActionTypes } from '../../logic/actionTypes';
 import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
+import { Game } from 'common/models/typeUserGame';
 
 enum UserPageTabs {
   Games = 0,
@@ -18,106 +20,28 @@ enum UserPageTabs {
 
 interface IUserInfoProps {
   user: TypeUser;
+  userGames: Game[];
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
+  setups: SetupType[];
   isCurrentUser: boolean;
+  addUserGame: (id: number, gameId: number) => UserActionTypes;
+  deleteUserGame: (id: number, gameId: number) => UserActionTypes;
+  filteredGames: Game[];
+  loadFilteredGames: (searchString: string) => UserActionTypes;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const { user, updateUser, isCurrentUser } = props;
-  const gamesArray = [
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/342180/header_292x136.jpg?t=1594132736',
-      title: 'Arizona Sunshine',
-      releaseDate: '20.02.20',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Et maxime nisi deleniti aliquam magni beatae?',
-    },
-    {
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/546560/header_292x136.jpg?t=1594314571',
-      title: 'Half-life ALYX',
-      releaseDate: '06.06.16',
-    },
-  ];
-  const setupsArray = [
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-  ];
+  const {
+    user,
+    userGames,
+    updateUser,
+    isCurrentUser,
+    filteredGames,
+    loadFilteredGames,
+    addUserGame,
+    deleteUserGame,
+    setups,
+  } = props;
 
   const initialErrorMessages = {
     emailErrorMessage: null,
@@ -248,6 +172,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           <Input
             disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
+            placeholder="Name"
             icon="Face"
             value={name || ''}
             inputType={errorMessages.nameErrorMessage ? InputType.error : undefined}
@@ -259,6 +184,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
             icon="Email"
+            placeholder="Email"
             value={email}
             inputType={errorMessages.emailErrorMessage ? InputType.error : undefined}
             onChange={handleEmailChange}
@@ -318,8 +244,17 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             <Tab label="Setups" />
           </Tabs>
         </AppBar>
-        {selectedTab === UserPageTabs.Games && <UserPreferences isCurrentUser={isCurrentUser} games={gamesArray} />}
-        {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setupsArray} />}
+        {selectedTab === UserPageTabs.Games && (
+          <UserPreferences
+            isCurrentUser={isCurrentUser}
+            games={userGames}
+            addUserGame={addUserGame}
+            deleteUserGame={deleteUserGame}
+            filteredGames={filteredGames}
+            loadFilteredGames={loadFilteredGames}
+          />
+        )}
+        {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setups} />}
       </div>
     </div>
   );

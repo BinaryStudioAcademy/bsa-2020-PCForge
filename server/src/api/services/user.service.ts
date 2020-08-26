@@ -1,8 +1,10 @@
 const bcrypt = require('bcrypt');
-import { UserModel, UserCreationAttributes } from '../../data/models/user';
+import { UserModel, UserCreationAttributes, UserAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { IWithMeta } from '../../data/repositories/base.repository';
+import { encryptSync } from '../../helpers/crypto.helper';
 
 interface UserCreateAttributes {
   name: string;
@@ -21,7 +23,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
       throw { error: `You are missing login or password`, status: 400 };
     }
     const user = await this.repository.getUserByUserNameOrEmail(login);
-    const isPasswordValidForUser = user ? await bcrypt.compare(password, user.password) : 0;
+    const isPasswordValidForUser = user ? await bcrypt.compare(password.toLowerCase(), user.password.toLowerCase()) : 0;
     if (!isPasswordValidForUser) {
       throw {
         error: `Invalid login or password`,
@@ -31,7 +33,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return user;
   }
 
-  async getUsers(): Promise<UserModel[]> {
+  async getUsers(): Promise<IWithMeta<UserModel>> {
     const users = await this.repository.getAllUsers();
     return users;
   }
@@ -39,7 +41,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getUserById(id);
     if (!user) {
-      triggerServerError('User with id: ${id} does not exists', 404);
+      triggerServerError(`User with id: ${id} does not exists`, 404);
     }
     return user;
   }
@@ -56,7 +58,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return user;
   }
 
-  async updateUser(id: string, inputUser: UserCreateAttributes): Promise<UserModel> {
+  async updateUser(id: string | number, inputUser: UserCreateAttributes): Promise<UserModel> {
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
       triggerServerError('User with id: ${id} does not exists', 404);
@@ -67,7 +69,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     const userAttributes: UserCreationAttributes = {
       ...inputUser,
       isAdmin: false,
-      password: this.hash(inputUser.password),
+      password: inputUser.password,
       verifyEmailToken: null,
       resetPasswordToken: null,
     };
@@ -75,12 +77,21 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return user;
   }
 
-  async deleteUser(id: string): Promise<void> {
-    await super.deleteById(id);
+  async setUserById(id: string | number, newUser: UserCreationAttributes): Promise<UserModel> {
+    const user = await this.repository.updateById(id, newUser);
+    return user;
+  }
+
+  async getByEmail(email: string): Promise<UserModel> {
+    const user = await this.repository.get({ email });
+    return user;
+  }
+
+  async deleteUser(id: string): Promise<UserModel> {
+    return await super.deleteById(id);
   }
 
   hash(password: string): string {
-    const saltRounds = 10;
-    return bcrypt.hashSync(password, saltRounds);
+    return encryptSync(password);
   }
 }

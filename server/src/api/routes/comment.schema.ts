@@ -3,28 +3,29 @@ import { CommentCreationAttributes } from '../../data/models/comment';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserSchema } from './user.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllCommentsRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: ICommentFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneCommentRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostCommentRequest = FastifyRequest<{
   Body: CommentCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutCommentRequest = FastifyRequest<{
   Params: { id: string };
   Body: CommentCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteCommentRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const CommentSchema: SwaggerSchema = {
   type: 'object',
@@ -37,6 +38,7 @@ export const CommentSchema: SwaggerSchema = {
     },
     commentableType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
       nullable: false,
@@ -47,7 +49,6 @@ export const CommentSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
-    user: UserSchema,
     commentableId: {
       type: 'integer',
       example: 1,
@@ -56,22 +57,32 @@ export const CommentSchema: SwaggerSchema = {
     },
     value: {
       type: 'string',
+      minLength: 1,
       example: 'Comment body goes here...',
       nullable: false,
-      minLength: 1,
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
   },
 };
+
+const makeDetailedSchema = () => {
+  const schema: SwaggerSchema = JSON.parse(JSON.stringify(CommentSchema));
+  schema.properties.user = UserSchema;
+  return schema;
+};
+
+export const DetailedCommentSchema = makeDetailedSchema();
 
 export const GetAllComments: SwaggerSchema = {
   type: 'object',
@@ -91,17 +102,18 @@ export const GetAllComments: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: CommentSchema,
+      items: DetailedCommentSchema,
     },
   },
 };
 
 export const CreateCommentSchema: SwaggerSchema = {
   type: 'object',
-  required: ['commentableType', 'commentableId', 'userId', 'token', 'value'],
+  required: ['commentableType', 'commentableId', 'value'],
   properties: {
     commentableType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
       nullable: false,
@@ -112,43 +124,24 @@ export const CreateCommentSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
-    userId: {
-      type: 'integer',
-      nullable: false,
-      example: 1,
-      minimum: 1,
-    },
-    token: {
-      type: 'string',
-      description: 'This is token that u get while loging in',
-      nullable: false,
-      example:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc4NjQ5MjQsImV4cCI6MTU5Nzk1MTMyNH0.V8oy05YtI8elNEOl5Z_1hiCZFwD3Fq_ck1bZ4_UXI3o',
-      minLength: 1,
-    },
     value: {
       type: 'string',
+      minLength: 1,
       example: 'Comment body goes here...',
       nullable: false,
-      minLength: 1,
     },
   },
 };
 
 export const UpdateCommentSchema: SwaggerSchema = {
   type: 'object',
-  required: ['commentableType', 'commentableId', 'userId', 'token', 'value'],
+  required: ['commentableType', 'commentableId', 'value'],
   properties: {
     commentableType: {
       type: 'string',
+      minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
-      nullable: true,
-    },
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
       nullable: true,
     },
     commentableId: {
@@ -159,9 +152,9 @@ export const UpdateCommentSchema: SwaggerSchema = {
     },
     value: {
       type: 'string',
+      minLength: 1,
       example: 'Comment body goes here...',
       nullable: true,
-      minLength: 1,
     },
   },
 };

@@ -15,21 +15,35 @@ export type IsUserAuthenticated = FastifyRequest<{
   };
 }>;
 
+export type ResetPasswordRequestRequest = FastifyRequest<{
+  Body: {
+    email: string;
+  };
+}>;
+
+export type ResetPasswordRequest = FastifyRequest<{
+  Body: {
+    userId: string;
+    token: string;
+    newPassword: string;
+  };
+}>;
+
 const LoginRequest: SwaggerSchema = {
   type: 'object',
   required: ['email', 'password'],
   properties: {
     email: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'email',
-      minLength: 1,
     },
     password: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example: '**********',
-      minLength: 1,
     },
   },
 };
@@ -53,6 +67,7 @@ const LoginResponse: { [number: number]: SwaggerSchema } = {
     properties: {
       error: {
         type: 'string',
+        minLength: 1,
         example: 'User with given credential does not exist',
         nullable: false,
       },
@@ -72,10 +87,10 @@ const GoogleAuthResponse: SwaggerSchema = {
   properties: {
     token: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
-      minLength: 1,
     },
     user: UserSchema,
   },
@@ -111,10 +126,10 @@ const isAuthenticatedRequest: SwaggerSchema = {
   properties: {
     token: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       example:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
-      minLength: 1,
     },
   },
 };
@@ -124,6 +139,104 @@ export const IsAuthenticatedSchema = {
     body: isAuthenticatedRequest,
     response: {
       200: isAuthenticatedResponse,
+    },
+  },
+};
+
+export const ResetPasswordRequestSchema = {
+  schema: {
+    body: {
+      type: 'object',
+      required: ['email'],
+      properties: {
+        email: {
+          type: 'string',
+          nullable: false,
+          example: 'mail@gmail.com',
+          minLength: 1,
+        },
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+      },
+      404: {
+        type: 'object',
+        properties: {
+          message: {
+            type: 'string',
+            example: 'Item not found',
+            nullable: false,
+          },
+          error: {
+            type: 'string',
+            example: 'Item not found',
+            nullable: false,
+          },
+          status: {
+            type: 'integer',
+            nullable: false,
+            example: 404,
+          },
+        },
+        nullable: false,
+      },
+    },
+  },
+};
+
+export const ResetPasswordSchema = {
+  schema: {
+    body: {
+      type: 'object',
+      required: ['userId', 'token', 'newPassword'],
+      properties: {
+        userId: {
+          type: 'integer',
+          example: 1,
+          minimum: 1,
+          nullable: false,
+        },
+        token: {
+          type: 'string',
+          nullable: false,
+          example: '312ui7iudhjkasdbckxyz',
+          minLength: 1,
+        },
+        newPassword: {
+          type: 'string',
+          nullable: false,
+          example: 'password',
+          minLength: 1,
+        },
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+      },
+      404: {
+        type: 'object',
+        properties: {
+          message: {
+            type: 'string',
+            example: 'Item not found',
+            nullable: false,
+          },
+          error: {
+            type: 'string',
+            example: 'Item not found',
+            nullable: false,
+          },
+          status: {
+            type: 'integer',
+            nullable: false,
+            example: 404,
+          },
+        },
+        nullable: false,
+      },
     },
   },
 };

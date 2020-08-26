@@ -1,4 +1,4 @@
-import { FilterByIdType, notNull, FilterByNameType } from './types';
+import { FilterByIdType, notNull, FilterByNameType, FilterRangeType } from './types';
 import { IFilter } from './base.filter';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
@@ -7,6 +7,10 @@ export class ICpuFilter extends IFilter {
     super();
   }
   socketId: FilterByIdType = notNull;
+  clockspeed: FilterRangeType<number> = {
+    minValue: 0,
+    maxValue: 10000,
+  };
   name: FilterByNameType = '';
 
   static schema: SwaggerSchema = {
@@ -14,28 +18,24 @@ export class ICpuFilter extends IFilter {
     properties: {
       ...IFilter.schema.properties,
       socketId: {
-        oneOf: [{
-          type: 'integer',
-          minimum: 1
-        }, {
-          type: 'array',
-          items: {
+        oneOf: [
+          {
             type: 'integer',
             minimum: 1,
-          }
-        }],
-        nullable: true
+          },
+          {
+            type: 'array',
+            items: {
+              type: 'integer',
+              minimum: 1,
+            },
+          },
+        ],
+        nullable: true,
       },
       name: {
-        oneOf: [{
-          type: 'string',
-        }, {
-          type: 'array',
-          items: {
-            type: 'string',
-          }
-        }],
-        nullable: true
+        type: 'string',
+        nullable: true,
       },
     },
   };

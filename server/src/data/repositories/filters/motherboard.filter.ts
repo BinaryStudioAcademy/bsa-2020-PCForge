@@ -1,6 +1,4 @@
 import { IFilter } from './base.filter';
-import { IRamTypeFilter } from './ramType.filter';
-import { ISocketFilter } from './socket.filter';
 import { FilterByBooleanType, FilterByIdType, FilterByNumberType, notNull } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
@@ -18,30 +16,40 @@ export class IMotherboardFilter extends IFilter {
     properties: {
       ...IFilter.schema.properties,
       ramTypeId: {
-        oneOf: [{
-          type: 'integer',
-          minimum: 1
-        }, {
-          type: 'array',
-          items: {
+        oneOf: [
+          {
             type: 'integer',
             minimum: 1,
-          }
-        }],
-        nullable: true
+          },
+          {
+            type: 'array',
+            items: {
+              type: 'integer',
+              minimum: 1,
+            },
+          },
+        ],
+        nullable: true,
       },
       socketId: {
-        oneOf: [{
-          type: 'integer',
-          minimum: 1
-        }, {
-          type: 'array',
-          items: {
+        oneOf: [
+          {
             type: 'integer',
             minimum: 1,
-          }
-        }],
-        nullable: true
+          },
+          {
+            type: 'array',
+            items: {
+              type: 'integer',
+              minimum: 1,
+            },
+          },
+        ],
+        nullable: true,
+      },
+      name: {
+        type: 'string',
+        nullable: true,
       },
       sata: {
         type: 'integer',

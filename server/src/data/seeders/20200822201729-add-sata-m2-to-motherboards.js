@@ -2,72 +2,29 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    // const ddr4 = await queryInterface.rawSelect(
-    //   'motherboards',
-    //   {
-    //     where: {
-    //       ramTypeId: 1,
-    //     },
-    //   },
-    //   'id'
-    // );
-    const [ddr4] = await queryInterface.sequelize.query(
-      'SELECT * FROM "motherboards" WHERE "motherboards"."ramTypeId" = 1'
-    );
-    const idM2 = ddr4.map((mb) => mb.id).filter(() => Math.random() < 0.3);
-
+    const [motherboards] = await queryInterface.sequelize.query('SELECT * FROM "motherboards"');
     try {
-      await queryInterface.bulkUpdate(
-        'motherboards',
-        {
-          sata: 3,
-          m2: false,
-        },
-        {
-          ramTypeId: 1,
-        }
-      );
-      await queryInterface.bulkUpdate(
-        'motherboards',
-        {
-          sata: 3,
-          m2: true,
-        },
-        {
-          ramTypeId: 1,
-          id: idM2,
-        }
-      );
-      await queryInterface.bulkUpdate(
-        'motherboards',
-        {
-          sata: 3,
-          m2: false,
-        },
-        {
-          ramTypeId: 2,
-        }
-      );
-      await queryInterface.bulkUpdate(
-        'motherboards',
-        {
-          sata: 2,
-          m2: false,
-        },
-        {
-          ramTypeId: 3,
-        }
-      );
-      await queryInterface.bulkUpdate(
-        'motherboards',
-        {
-          sata: 1,
-          m2: false,
-        },
-        {
-          ramTypeId: 4,
-        }
-      );
+      for (const motherboard of motherboards) {
+        const ramType = await queryInterface.rawSelect(
+          'ramTypes',
+          {
+            where: {
+              id: motherboard.ramTypeId,
+            },
+          },
+          ['name']
+        );
+        await queryInterface.bulkUpdate(
+          'motherboards',
+          {
+            sata: ramType === ('DDR4' || 'DDR3') ? 3 : ramType === 'DDR2' ? 2 : 1,
+            m2: ramType === 'DDR4' ? Math.random() < 0.3 : false,
+          },
+          {
+            id: motherboard.id,
+          }
+        );
+      }
     } catch (err) {
       console.log(`Seeding error: ${err}`);
     }

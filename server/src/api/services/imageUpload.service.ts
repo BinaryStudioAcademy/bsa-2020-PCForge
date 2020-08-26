@@ -9,35 +9,41 @@ AWS.config.update({
   region: 'eu-central-1',
 });
 
-const s3 = new AWS.S3();
-const uploadService = multer({
-  storage: multerS3({
-    s3,
-    bucket: process.env.AWS_BUCKET_NAME,
-    asl: 'public-read',
-    metadata: function (req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: function (req, file, cb) {
-      cb(
-        null,
-        'images/' +
-          path.basename(file.originalname, path.extname(file.originalname)) +
-          '-' +
-          Date.now() +
-          path.extname(file.originalname)
-      );
-    },
-  }),
+export class UploadService {
+  // TODO: make private
+  // use any here because fastify-multer does not export Multer interface
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public multer: any;
+  constructor() {
+    const s3 = new AWS.S3();
+    this.multer = multer({
+      storage: multerS3({
+        s3,
+        bucket: process.env.AWS_BUCKET_NAME,
+        asl: 'public-read',
+        metadata: function (req, file, cb) {
+          cb(null, { fieldName: file.fieldname });
+        },
+        key: function (req, file, cb) {
+          cb(
+            null,
+            'images/' +
+              path.basename(file.originalname, path.extname(file.originalname)) +
+              '-' +
+              Date.now() +
+              path.extname(file.originalname)
+          );
+        },
+      }),
 
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg') {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
-    }
-  },
-});
-
-export default uploadService;
+      fileFilter: (req, file, cb) => {
+        if (file.mimetype == 'image/png' || file.mimetype == 'image/jpg' || file.mimetype == 'image/jpeg') {
+          cb(null, true);
+        } else {
+          cb(null, false);
+          return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
+        }
+      },
+    });
+  }
+}

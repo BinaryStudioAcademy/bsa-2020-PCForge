@@ -31,9 +31,9 @@ export class RateRepository extends BaseRepository<RateModel, RateCreationAttrib
       where: {
         ratebleType,
         ratebleId,
-        userId
-      }
-    })
+        userId,
+      },
+    });
   }
 
   async getAverageRate(inputFilter: IRateFilter): Promise<number> {
