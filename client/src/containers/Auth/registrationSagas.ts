@@ -12,7 +12,7 @@ export function* registerUser(action: registerRequestAction) {
     const data: User = yield call<(data: IRegPayload) => void>(authService.register, newUser);
     yield put(registered(false));
   } catch (error) {
-    yield put(validationError(error?.message))
+    yield put(validationError(error?.message));
     // yield put({ type: AUTH_REGISTRATION_ERROR, payload: {
     //   message: error.message === 'Bad '
     // }});

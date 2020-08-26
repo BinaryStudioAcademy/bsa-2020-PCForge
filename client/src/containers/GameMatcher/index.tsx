@@ -19,13 +19,7 @@ import { Box, Slider } from '@material-ui/core';
 const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Element => {
   const { setAlertValue, getMatcherData } = props;
 
-  const {
-    gamesErrorMessage,
-    cpusErrorMessage,
-    gpusErrorMessage,
-    alertMessage,
-    alertMessageType,
-  } = props.state;
+  const { gamesErrorMessage, cpusErrorMessage, gpusErrorMessage, alertMessage, alertMessageType } = props.state;
 
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
   const [selectedCpu, setSelectedCpu] = useState<number | null>(null);

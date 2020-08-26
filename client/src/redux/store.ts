@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
-import * as Sentry from "@sentry/react";
+import * as Sentry from '@sentry/react';
 
 import rootReducer from 'redux/rootReducer';
 import rootSaga from 'redux/rootSaga';
