@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 module.exports = {
+  use_env_variable: 'DATABASE_URL',
   database: process.env.POSTGRES_DB,
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
