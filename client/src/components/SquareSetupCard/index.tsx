@@ -7,8 +7,10 @@ import { Motherboard } from 'common/models/motherboard';
 import { Gpu } from 'common/models/gpu';
 import { Ram } from 'common/models/ram';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { Link } from 'react-router-dom';
 
 export interface SetupCardProps {
+  id: number;
   image: string;
   title: string;
   description: string;
@@ -22,6 +24,7 @@ export interface SetupCardProps {
 }
 
 const SetupCard: React.FC<SetupCardProps> = ({
+  id,
   image,
   title,
   description,
@@ -59,9 +62,12 @@ const SetupCard: React.FC<SetupCardProps> = ({
           <div>Power Supply: {powerSupply.name}</div>
         </div>
 
-        <Button icon="ArrowForward" buttonType={ButtonType.primary}>
-          Find Out More
-        </Button>
+        <Link to={`/setup/${id}`}>
+          <Button icon="ArrowForward" buttonType={ButtonType.primary}>
+            {' '}
+            Find out more{' '}
+          </Button>
+        </Link>
       </div>
     </div>
   );
