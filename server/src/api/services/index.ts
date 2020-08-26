@@ -20,6 +20,7 @@ import { PerformanceService } from './performance.service';
 import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
+import { AuthService } from './auth.service';
 
 export interface Services {
   RamTypeService: RamTypeService;
@@ -42,6 +43,7 @@ export interface Services {
   HddService: HddService;
   SsdService: SsdService;
   MailService: MailService;
+  AuthService: AuthService;
 }
 
 export default fp(async (fastify, opts, next) => {
@@ -71,6 +73,7 @@ export default fp(async (fastify, opts, next) => {
     const ssdService = new SsdService(repositories.SsdRepository);
     const mailService = new MailService(nodemailer);
     const uploadService = new UploadService();
+    const authService = new AuthService(mailService, usersService);
     const services: Services = {
       AddRequestService: addRequestService,
       RamTypeService: ramTypeService,
@@ -92,6 +95,7 @@ export default fp(async (fastify, opts, next) => {
       HddService: hddService,
       SsdService: ssdService,
       MailService: mailService,
+      AuthService: authService,
     };
     fastify.decorate('services', services);
     console.log('services were successfully initialized');

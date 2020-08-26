@@ -15,7 +15,7 @@ import { OAuth2Client } from 'google-auth-library';
 import { triggerServerError } from '../../helpers/global.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { MailService, UserService } = fastify.services;
+  const { UserService, AuthService } = fastify.services;
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -81,9 +81,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     ResetPasswordRequestSchema,
     async (request: ResetPasswordRequestRequest, reply) => {
       const { email } = request.body;
-      const resetPasswordToken = 'Ajkdjahkjh227d8asjasd'; //generate reset password token and save it to user.resetPasswordToken in DB
-      const user = { id: 22 }; //get user by email from DB
-      const status = await MailService.sendResetPassword({ to: email, userId: user.id, token: resetPasswordToken });
+      const status = await AuthService.resetPasswordByEmail(email);
       reply.send(status);
     }
   );
