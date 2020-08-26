@@ -1,9 +1,10 @@
 import React from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import Link from 'components/BasicComponents/Link';
+import BasicLink from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import styles from './styles.module.scss';
+import { Link } from 'react-router-dom';
 
 export interface UserPreferencesProps {
   games?: GameCardProps[];
@@ -47,14 +48,17 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
       {setups ? (
         <>
           <div className={styles.buttonPlacement}>
-            <Link className={styles.setupLink} icon="Build">
-              Builder
+            <Link to="/builder">
+              <BasicLink className={styles.setupLink} icon="Build">
+                Builder
+              </BasicLink>
             </Link>
           </div>
           <div className={styles.userPreferences}>
             {setups.map((setup, index) => {
               return (
                 <SetupCard
+                  id={setup.id}
                   title={setup.title}
                   description={setup.description}
                   cpu={setup.cpu}
