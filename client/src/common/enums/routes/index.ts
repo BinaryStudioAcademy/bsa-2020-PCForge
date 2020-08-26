@@ -12,6 +12,7 @@ enum Routes {
   ADDHARDWARE = '/addharware',
   ADDGAME = '/addgame',
   GAME = '/game/:id',
+  RESET_PASSWORD = '/reset-password',
 }
 
 export { Routes };
