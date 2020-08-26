@@ -141,7 +141,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber }) 
     {
       name: 'Admin Tools',
       icon: <BuildOutlinedIcon style={{ color: 'white' }} />,
-      link: '#',
+      link: Routes.ADMINTOOLS,
     },
     {
       name: 'Log out',

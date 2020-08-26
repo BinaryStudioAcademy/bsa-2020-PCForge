@@ -7,7 +7,7 @@ import { uploadImage } from 'api/services/imageService';
 import { postGame } from 'api/services/gameService';
 import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 import { FilterModel } from 'common/models/filter.model';
-import * as notification from 'common/services/notificationService';
+//import * as notification from 'common/services/notificationService';
 
 import { loadAllSelectsInitialValues, loadError, loadCreatedGame } from './actions';
 import {
@@ -41,14 +41,12 @@ function* watchGetAllSelectsInitialValuesRequests() {
 function* createGame(action: ICreateGameAction) {
   try {
     const { game, imageData } = action.payload;
-    //game.image = yield call(uploadImage, imageData);
-    game.image = 'testURL';
+    game.image = yield call(uploadImage, imageData);
     const gameCreated = yield call(postGame, game);
     console.log(gameCreated);
-    notification.success(`Game ${gameCreated.name} has been created`);
+    //notification.success(`Game ${gameCreated.name} has been created`);
     yield put(loadCreatedGame(gameCreated.name));
   } catch (error) {
-    notification.error(error);
     yield put(loadError(error.message));
   }
 }
