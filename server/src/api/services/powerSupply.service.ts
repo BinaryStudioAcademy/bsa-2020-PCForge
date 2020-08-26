@@ -1,9 +1,9 @@
 import { PowerSupplyCreationAttributes, PowerSupplyModel } from '../../data/models/powersupply';
 import { IWithMeta } from '../../data/repositories/base.repository';
-import { IFilter } from '../../data/repositories/filters/base.filter';
 import { PowerSupplyRepository } from '../../data/repositories/powerSupply.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { IPowerSupplyFilter } from '../../data/repositories/filters/powerSupply.filter';
 
 export class PowerSupplyService extends BaseService<
   PowerSupplyModel,
@@ -22,7 +22,7 @@ export class PowerSupplyService extends BaseService<
     return powerSupply;
   }
 
-  async getAllPowerSupplies(filter: IFilter): Promise<IWithMeta<PowerSupplyModel>> {
+  async getAllPowerSupplies(filter: IPowerSupplyFilter): Promise<IWithMeta<PowerSupplyModel>> {
     const powerSupplies = await this.repository.getAllPowerSupplies(filter);
     return powerSupplies;
   }
