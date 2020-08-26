@@ -1,7 +1,7 @@
 import { RootState } from 'redux/rootReducer';
 import { ConnectedProps, connect } from 'react-redux';
 import { sendResetPassword } from './actions';
-import { RouteComponentProps } from 'react-router-dom';
+import { Route, RouteComponentProps } from 'react-router-dom';
 
 import React from 'react';
 import styles from 'containers/ResetPassword/styles.module.scss';
@@ -10,6 +10,7 @@ import InputWithValidation from 'components/InputWithValidation';
 import PasswordSchema from 'common/validation/password';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import { Routes } from 'common/enums';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,6 +53,7 @@ const ResetPasswordCallback: React.FC<Props> = ({
   const onSubmitClick = () => {
     const { userId, token } = match.params;
     propsSendResetPassword({ userId, token, newPassword: password1 });
+    history.push(Routes.LOGIN);
   };
 
   const toggleInputType = () => {
