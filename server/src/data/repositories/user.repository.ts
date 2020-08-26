@@ -1,5 +1,5 @@
 import { UserModel, UserStatic, UserCreationAttributes } from '../models/user';
-import { BaseRepository, RichModel } from './base.repository';
+import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { Op } from 'sequelize';
 import { IFilter } from './filters/base.filter';
 
@@ -8,14 +8,13 @@ export class UserRepository extends BaseRepository<UserModel, UserCreationAttrib
     super(<RichModel>model, IFilter);
   }
 
+  async getAllUsers(): Promise<IWithMeta<UserModel>> {
+    const users = await this.getAll();
+    return users;
+  }
   async getUserById(id: string): Promise<UserModel> {
     const user = await this.getById(id);
     return user;
-  }
-
-  async getAllUsers(): Promise<UserModel[]> {
-    const user = await this.getAll();
-    return user.data;
   }
 
   async getUserByUserNameOrEmail(login: string): Promise<UserModel> {

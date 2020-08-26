@@ -33,7 +33,7 @@ export class SocketService extends BaseService<SocketModel, SocketCreationAttrib
     return socket;
   }
 
-  async deleteSocketById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteSocketById(id: string): Promise<SocketModel> {
+    return await super.deleteById(id);
   }
 }

@@ -3,6 +3,7 @@ import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { IWithMeta } from '../../data/repositories/base.repository';
 
 interface UserCreateAttributes {
   name: string;
@@ -31,7 +32,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return user;
   }
 
-  async getUsers(): Promise<UserModel[]> {
+  async getUsers(): Promise<IWithMeta<UserModel>> {
     const users = await this.repository.getAllUsers();
     return users;
   }
@@ -39,7 +40,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getUserById(id);
     if (!user) {
-      triggerServerError('User with id: ${id} does not exists', 404);
+      triggerServerError(`User with id: ${id} does not exists`, 404);
     }
     return user;
   }
@@ -75,8 +76,8 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return user;
   }
 
-  async deleteUser(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteUser(id: string): Promise<UserModel> {
+    return await super.deleteById(id);
   }
 
   hash(password: string): string {

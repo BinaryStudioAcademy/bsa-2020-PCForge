@@ -2,27 +2,28 @@ import { FastifyRequest } from 'fastify';
 import { PowerSupplyCreationAttributes } from '../../data/models/powersupply';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetOnePowerSuppliesRequest = FastifyRequest<{
   Querystring: IFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOnePowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostPowerSupplyRequest = FastifyRequest<{
   Body: PowerSupplyCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutPowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
   Body: PowerSupplyCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeletePowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const PowerSupplySchema: SwaggerSchema = {
   type: 'object',
@@ -35,9 +36,9 @@ export const PowerSupplySchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'yam name',
       nullable: false,
-      minLength: 1,
     },
     power: {
       type: 'integer',
@@ -47,11 +48,13 @@ export const PowerSupplySchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -64,9 +67,9 @@ export const CreatePowerSupplySchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Power supply name',
       nullable: false,
-      minLength: 1,
     },
     power: {
       type: 'integer',
@@ -82,9 +85,9 @@ export const UpdatePowerSupplySchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Power supply name',
       nullable: true,
-      minLength: 1,
     },
     power: {
       type: 'integer',

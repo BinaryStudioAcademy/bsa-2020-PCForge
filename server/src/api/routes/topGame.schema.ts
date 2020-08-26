@@ -3,27 +3,28 @@ import { TopGameCreationAttributes } from '../../data/models/topgame';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { GameSchema } from './game.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetAllTopGamesRequest = FastifyRequest<{
   Querystring: IFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetOneTopGameRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostTopGameRequest = FastifyRequest<{
   Body: TopGameCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutTopGameRequest = FastifyRequest<{
   Params: { id: string };
   Body: TopGameCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteTopGameRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const TopGameSchema: SwaggerSchema = {
   type: 'object',
@@ -43,11 +44,13 @@ export const TopGameSchema: SwaggerSchema = {
     game: GameSchema,
     createdAt: {
       type: 'string',
+      minLength: 1,
       format: 'date-time',
       nullable: false,
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       format: 'date-time',
       nullable: false,
     },

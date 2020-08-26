@@ -3,27 +3,28 @@ import { RamCreationAttributes } from '../../data/models/ram';
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { RamTypeSchema } from './ramType.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type GetOneRamRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type GetAllRamsRequest = FastifyRequest<{
   Querystring: IRamFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type PostRamRequest = FastifyRequest<{
   Body: RamCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutRamRequest = FastifyRequest<{
   Params: { id: string };
   Body: RamCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteRamRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const RamSchema: SwaggerSchema = {
   type: 'object',
@@ -36,9 +37,9 @@ export const RamSchema: SwaggerSchema = {
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'yam name',
       nullable: false,
-      minLength: 1,
     },
     memorySize: {
       type: 'integer',
@@ -66,11 +67,13 @@ export const RamSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -92,9 +95,9 @@ export const CreateRamSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Ram name',
       nullable: false,
-      minLength: 1,
     },
     memorySize: {
       type: 'integer',
@@ -128,9 +131,9 @@ export const UpdateRamSchema: SwaggerSchema = {
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Ram name',
       nullable: true,
-      minLength: 1,
     },
     memorySize: {
       type: 'integer',

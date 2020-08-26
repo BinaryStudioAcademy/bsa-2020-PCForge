@@ -43,7 +43,7 @@ export class MotherboardService extends BaseService<
     return motherboard;
   }
 
-  async deleteMotherboardById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteMotherboardById(id: string): Promise<MotherboardModel> {
+    return await super.deleteById(id);
   }
 }

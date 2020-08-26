@@ -16,7 +16,7 @@ export class IAddRequestFilter extends IFilter {
         type: 'string',
         enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
         nullable: true,
-      }
-    }
-  }
+      },
+    },
+  };
 }

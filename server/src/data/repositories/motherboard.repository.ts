@@ -38,6 +38,7 @@ export class MotherboardRepository extends BaseRepository<
 
   async getAllMotherboards(inputFilter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
     const filter = mergeFilters<IMotherboardFilter>(new IMotherboardFilter(), inputFilter);
+    console.log('repository filter', filter);
     console.log('filter.m2 === notNull', filter.m2 === notNull);
     const motherboards = await this.getAll(
       {
@@ -73,6 +74,7 @@ export class MotherboardRepository extends BaseRepository<
       },
       filter
     );
+    console.log(motherboards, 'this is motherboards');
     return motherboards;
   }
 }

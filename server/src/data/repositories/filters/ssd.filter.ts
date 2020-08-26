@@ -30,7 +30,6 @@ export class ISsdFilter extends IFilter {
       },
       name: {
         type: 'string',
-        minimum: 1,
         nullable: true,
       },
     },

@@ -43,7 +43,7 @@ export class PowerSupplyService extends BaseService<
     return powerSupply;
   }
 
-  async deletePowerSupplyById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deletePowerSupplyById(id: string): Promise<PowerSupplyModel> {
+    return await super.deleteById(id);
   }
 }
