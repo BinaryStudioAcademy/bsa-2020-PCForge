@@ -73,7 +73,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
               onChange={onChangeImage}
             ></input>
             <label htmlFor="uploadFile" className={styles.fileInputLabel}>
-              Chose File
+              Select Image
             </label>
           </Button>
           <span className={styles.fileName}>{fileName}</span>
