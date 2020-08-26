@@ -8,13 +8,14 @@ import { postCpu } from 'api/services/cpuService';
 import { postGpu } from 'api/services/gpuService';
 import { postMotherBoard } from 'api/services/motherboardService';
 import { postPowerSupply } from 'api/services/powersupplyService';
+import { postSsd } from 'api/services/ssdService';
+import { postHdd } from 'api/services/hddService';
 import { getAllRam, postRam, TypeResponseAllRams } from 'api/services/ramService';
 import { getAllRamType, TypeResponseAll as TypeResponseAllRamType } from 'api/services/ramTypeService';
 import { getAllSocket, TypeResponseAll as TypeResponseAllSocket } from 'api/services/socketService';
 import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 import { FilterModel } from 'common/models/filter.model';
 import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
-import * as notification from 'common/services/notificationService';
 
 import {
   loadError,
@@ -22,6 +23,7 @@ import {
   loadAllSelectsInitialValuesRAM,
   loadAllSelectsInitialValuesCPU,
   loadCreatedHardware,
+  updateStateToInitSuccess,
 } from './actions';
 import {
   HardwareFormActionTypes,
@@ -31,12 +33,20 @@ import {
   ICreateRAMAction,
   ICreateCPUAction,
   ICreateGPUAction,
+  ICreateSSDAction,
+  ICreateHDDAction,
 } from './actionsTypes';
 
 // get initials values
+function* getInitialValues() {
+  yield put(updateStateToInitSuccess('', ''));
+}
+function* watchGetInitialValues() {
+  yield takeEvery(HardwareFormActionTypes.UPDATE_STATE_TO_INIT_ACTION, getInitialValues);
+}
+
 function* getInitialValuesMotherBoard() {
   try {
-    console.log('MB');
     const { data: sockets } = yield call(getAllSocket, {});
     const socketList: SelectOption[] = sockets.map((item: TypeSocket) => {
       return { value: item.id, label: item.name };
@@ -90,11 +100,10 @@ function* watchGetInitialValuesCPU() {
 function* createPowerSupply(action: ICreatePowerSupplyAction) {
   try {
     const powerSupplyNew = yield call(postPowerSupply, action.payload.powerSupply);
-    console.log(powerSupplyNew);
-    notification.success(`New Power supply has been created`);
+    //notification.success(`New Power supply has been created`);
     yield put(loadCreatedHardware(powerSupplyNew.name));
   } catch (error) {
-    notification.error(error);
+    //notification.error(error);
     yield put(loadError(error.message));
   }
 }
@@ -105,11 +114,8 @@ function* watchCreatePowerSupply() {
 function* createMotherBoard(action: ICreateMotherboardAction) {
   try {
     const motherBoardNew = yield call(postMotherBoard, action.payload.motherboard);
-    console.log(motherBoardNew);
-    notification.success(`New Motherboard has been created`);
     yield put(loadCreatedHardware(motherBoardNew.name));
   } catch (error) {
-    notification.error(error);
     yield put(loadError(error.message));
   }
 }
@@ -120,11 +126,8 @@ function* watchCreateMotherBoard() {
 function* createRAM(action: ICreateRAMAction) {
   try {
     const ramNew = yield call(postRam, action.payload.ram);
-    console.log(ramNew);
-    notification.success(`New RAM has been created`);
     yield put(loadCreatedHardware(ramNew.name));
   } catch (error) {
-    notification.error(error);
     yield put(loadError(error.message));
   }
 }
@@ -135,11 +138,8 @@ function* watchCreateRAM() {
 function* createCPU(action: ICreateCPUAction) {
   try {
     const cpuNew = yield call(postCpu, action.payload.cpu);
-    console.log(cpuNew);
-    notification.success(`New CPU has been created`);
     yield put(loadCreatedHardware(cpuNew.name));
   } catch (error) {
-    notification.error(error);
     yield put(loadError(error.message));
   }
 }
@@ -150,11 +150,8 @@ function* watchCreateCPU() {
 function* createGPU(action: ICreateGPUAction) {
   try {
     const gpuNew = yield call(postGpu, action.payload.gpu);
-    console.log(gpuNew);
-    notification.success(`New GPU has been created`);
     yield put(loadCreatedHardware(gpuNew.name));
   } catch (error) {
-    notification.error(error);
     yield put(loadError(error.message));
   }
 }
@@ -162,10 +159,33 @@ function* watchCreateGPU() {
   yield takeEvery(HardwareFormActionTypes.CREATE_NEW_GPU_ACTION, createGPU);
 }
 
+function* createSSD(action: ICreateSSDAction) {
+  try {
+    const ssd = yield call(postSsd, action.payload.ssd);
+    yield put(loadCreatedHardware(ssd.name));
+  } catch (error) {
+    yield put(loadError(error.message));
+  }
+}
+function* watchCreateSSD() {
+  yield takeEvery(HardwareFormActionTypes.CREATE_NEW_SSD_ACTION, createSSD);
+}
+
+function* createHDD(action: ICreateHDDAction) {
+  try {
+    const hdd = yield call(postHdd, action.payload.hdd);
+    yield put(loadCreatedHardware(hdd.name));
+  } catch (error) {
+    yield put(loadError(error.message));
+  }
+}
+function* watchCreateHDD() {
+  yield takeEvery(HardwareFormActionTypes.CREATE_NEW_HDD_ACTION, createHDD);
+}
+
 // upload new values
 function* uploadMoreItems(action: IUploadMoreItemsAction) {
   try {
-    console.log('upload SAGA');
     const filter: FilterModel = {
       name: action.payload.name,
       count: 20,
@@ -179,7 +199,7 @@ function* uploadMoreItems(action: IUploadMoreItemsAction) {
     let valuesList: SelectOption[] = [];
     switch (typeHardware) {
       case HardwareFields.socket: {
-        const response = yield call(getAllSocket, filter);
+        response = yield call(getAllSocket, filter);
         break;
       }
       case HardwareFields.ram: {
@@ -216,5 +236,8 @@ export default function* hardwareFormSagas() {
     watchCreateRAM(),
     watchCreateCPU(),
     watchCreateGPU(),
+    watchCreateSSD(),
+    watchCreateHDD(),
+    watchGetInitialValues(),
   ]);
 }

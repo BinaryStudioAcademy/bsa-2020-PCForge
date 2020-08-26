@@ -4,7 +4,7 @@ enum HardwareTypes {
   CPU = 'CPU',
   RAM = 'RAM',
   GPU = 'GPU',
-  HHD = 'HHD',
+  HDD = 'HDD',
   SSD = 'SSD',
 }
 
