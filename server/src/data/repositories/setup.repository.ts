@@ -27,6 +27,11 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
 
   async getSetups(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
     const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
+    const where: { authorId?: string } = {};
+    if (filter.authorId) {
+      where.authorId = filter.authorId;
+    }
+
     const result = await this.model.findAndCountAll({
       include: [
         {
@@ -51,6 +56,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           model: this.ssdModel,
         },
       ],
+      where,
       offset: filter.from,
       limit: filter.count,
     });

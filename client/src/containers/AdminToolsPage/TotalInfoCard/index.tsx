@@ -19,7 +19,6 @@ export interface ITotalInfoCard {
 
 export const TotalInfoCard = (props: ITotalInfoCard): JSX.Element => {
   const { name, count, icon, countOfRequests, onAdd } = props;
-
   return (
     <ThemeProvider theme={theme}>
       <Box className={styles.cardContainer}>
@@ -27,7 +26,7 @@ export const TotalInfoCard = (props: ITotalInfoCard): JSX.Element => {
           <h3 className={styles.cardTitle}>Total {name}</h3>
           <Box>{count}</Box>
         </Box>
-        <Box className={countOfRequests && countOfRequests > 0 ? styles.boxBadget : ''}>
+        <Box className={countOfRequests && countOfRequests > 0 ? styles.boxBadget : styles.boxWithoutBadget}>
           {countOfRequests && countOfRequests > 0 ? (
             <Tooltip title={`You have new ${countOfRequests} requests of ${name}`} placement="right-start" arrow>
               <Badge color="primary" badgeContent={countOfRequests}>

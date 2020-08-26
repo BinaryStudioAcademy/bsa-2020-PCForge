@@ -1,12 +1,14 @@
 import { GameFormAction, GameFormActionTypes, GameFormState } from './actionTypes';
+import { AlertType } from 'components/BasicComponents/Alert';
 
 const initialState: GameFormState = {
   minCPUList: [],
   minGPUList: [],
   recCPUList: [],
   recGPUList: [],
-  error: '',
-  gameName: '',
+  errorMessage: undefined,
+  gameName: undefined,
+  alertType: undefined,
 };
 
 export function GameFormReducer(state = initialState, action: GameFormAction): GameFormState {
@@ -14,7 +16,8 @@ export function GameFormReducer(state = initialState, action: GameFormAction): G
     case GameFormActionTypes.GET_INITIAL_VALUES_ERROR: {
       return {
         ...state,
-        error: action.payload.error,
+        errorMessage: action.payload.errorMessage,
+        alertType: AlertType.error,
       };
     }
     case GameFormActionTypes.GET_INITIAL_VALUES_SUCCESS: {
@@ -24,12 +27,14 @@ export function GameFormReducer(state = initialState, action: GameFormAction): G
         recGPUList: action.payload.recGPUList,
         minCPUList: action.payload.minCPUList,
         minGPUList: action.payload.minGPUList,
+        gameName: undefined,
       };
     }
     case GameFormActionTypes.CREATE_NEW_GAME_SUCCESS: {
       return {
         ...state,
         gameName: action.payload.gameName,
+        alertType: AlertType.success,
       };
     }
     case GameFormActionTypes.UPLOAD_MORE_REC_CPU_VALUES: {

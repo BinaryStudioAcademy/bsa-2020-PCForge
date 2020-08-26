@@ -1,5 +1,6 @@
 import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 import { GameCreationAttributes } from 'common/models/game';
+import { AlertType } from 'components/BasicComponents/Alert';
 
 export enum GameFormActionTypes {
   GET_INITIAL_VALUES = 'GET_INITIAL_VALUES',
@@ -79,7 +80,8 @@ export interface ICreateGameSuccess {
 export interface ILoadGameFormError {
   type: GameFormActionTypes.GET_INITIAL_VALUES_ERROR;
   payload: {
-    error: string;
+    errorMessage: string;
+    alertType?: AlertType;
   };
 }
 
@@ -144,8 +146,9 @@ export interface GameFormState {
   minGPUList: SelectOption[];
   recCPUList: SelectOption[];
   recGPUList: SelectOption[];
-  error: string;
-  gameName: string;
+  errorMessage?: string;
+  gameName?: string;
+  alertType?: AlertType;
 }
 
 export type GameFormAction =

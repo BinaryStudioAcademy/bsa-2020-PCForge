@@ -82,7 +82,7 @@ interface ISetGpuAction {
 interface ISetRamAction {
   type: SetupChartTypes.SET_RAM;
   payload: {
-    ram: Ram;
+    ramSize: number;
   };
 }
 
@@ -113,6 +113,6 @@ export interface SetupChartState {
   performance: ISetupPerformance;
   cpu: Cpu | null;
   gpu: Gpu | null;
-  ram: Ram | null;
+  ramSize: number | null;
   error: string;
 }

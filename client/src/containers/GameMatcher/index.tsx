@@ -8,7 +8,7 @@ import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import { MenuItems, Routes } from 'common/enums';
 import * as actions from './actions';
-import { setCpu, setGpu, setRam } from '../Chart/actions';
+import { setCpu, setGpu, setRamSize } from '../Chart/actions';
 import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
@@ -24,13 +24,14 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
   const [selectedCpu, setSelectedCpu] = useState<number | null>(null);
   const [selectedGpu, setSelectedGpu] = useState<number | null>(null);
-  const [ramValue, setRamValue] = useState<number>(1);
+  const [ramSize, setRamValue] = useState<number>(1);
 
   const gameOptions = props.state.games.map((game) => ({ label: game.name, value: game.id }));
   const cpuOptions = props.state.cpus.map((cpu) => ({ label: cpu.name, value: cpu.id }));
   const gpuOptions = props.state.gpus.map((gpu) => ({ label: gpu.name, value: gpu.id }));
 
   const onTestGame = async () => {
+    props.setRamSize(ramSize);
     if (!selectedCpu || !selectedGpu || !selectedGame) {
       setAlertValue({ type: AlertType.error, message: 'Error: Please choose hardware components' });
       return;
@@ -89,20 +90,6 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
               <section>
                 <h2 className={styles.sectionHeader}>Your Computer Hardware</h2>
                 <div className={styles.selectItem}>
-                  {/* <InputBasedSelect
-                    label="RAM"
-                    placeholder="Choose a RAM"
-                    inputId="ram"
-                    options={ramOptions}
-                    errorMessage={ramsErrorMessage}
-                    labelClassName={styles.selectItemHeader}
-                    debounceTime={300}
-                    onSelect={selectRam}
-                    onInputChange={createHardwareGetter('rams', MatcherServerActions.MATCHER_REPLACE_RAMS)}
-                    onSeeMoreClick={createHardwareGetter('rams', MatcherServerActions.MATCHER_ADD_RAMS)}
-                  /> */}
-                </div>
-                <div className={styles.selectItem}>
                   <InputBasedSelect
                     label="CPU"
                     placeholder="Choose a processor"
@@ -132,7 +119,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                 </div>
                 <span className={styles.selectItemHeader}>RAM</span>
                 <Slider
-                  value={ramValue}
+                  value={ramSize}
                   min={1}
                   step={1}
                   max={32}
@@ -170,7 +157,7 @@ const mapDispatchToProps = {
   ...actions,
   setCpu,
   setGpu,
-  setRam,
+  setRamSize,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameMatcherPage);

@@ -1,12 +1,20 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
 import { getUser, updateUser as updateUserService } from 'api/services/userService';
 import { uploadImage } from 'api/services/imageService';
-import { loadUser as loadUserAction, updateUser as updateUserAction, LOAD_USER, UPDATE_USER } from './actionTypes';
-import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess } from './actions';
+import {
+  loadUser as loadUserAction,
+  updateUser as updateUserAction,
+  loadSetups as loadSetupsAction,
+  LOAD_USER,
+  UPDATE_USER,
+  LOAD_SETUPS,
+} from './actionTypes';
+import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess, loadSetupsSuccess } from './actions';
 import * as notification from 'common/services/notificationService';
+import { getUserSetups, TypeResponseAll } from 'api/services/setupService';
 
 export default function* userSagas() {
-  yield all([watchLoadUser(), watchUpdateUser()]);
+  yield all([watchLoadUser(), watchUpdateUser(), watchLoadSetups()]);
 }
 
 function* watchLoadUser() {
@@ -41,6 +49,22 @@ function* updateUser(action: updateUserAction) {
   } catch (error) {
     console.log(error);
     notification.error('Something went wrong, please try again later');
+  }
+  yield put(hideSpinner());
+}
+
+function* watchLoadSetups() {
+  yield takeEvery(LOAD_SETUPS, loadSetups);
+}
+
+function* loadSetups(action: loadSetupsAction) {
+  yield put(showSpinner());
+  try {
+    const id = action.payload.authorId;
+    const setups = yield call(getUserSetups, { authorId: id });
+    yield put(loadSetupsSuccess((setups as TypeResponseAll).data));
+  } catch (error) {
+    console.log(error);
   }
   yield put(hideSpinner());
 }

@@ -11,7 +11,13 @@ import {
   SocketSchema,
   UpdateSocketSchema,
 } from './socket.schema';
-import { createOneQuery, getMultipleQuery, getOneQuery, updateOneQuery, deleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  createOneQuery,
+  getMultipleQuery,
+  getOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAdmin, allowForAuthorized } from '../middlewares/allowFor.middleware';
