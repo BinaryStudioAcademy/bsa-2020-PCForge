@@ -12,6 +12,6 @@ export interface SwaggerSchema extends BaseSchema {
   readOnly?: boolean;
   xml?: XML;
   externalDocs?: ExternalDocs;
-  example?: string | null;
+  example?: string | null | number | boolean;
   required?: string[];
 }

@@ -2,6 +2,8 @@ import { PowerSupplyCreationAttributes, PowerSupplyModel, PowerSupplyStatic } fr
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
+import { IPowerSupplyFilter } from './filters/powerSupply.filter';
+import { Op } from 'sequelize';
 
 export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, PowerSupplyCreationAttributes, IFilter> {
   constructor(private model: PowerSupplyStatic) {
@@ -13,11 +15,17 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, Powe
     return powerSupply;
   }
 
-  async getAllPowerSupplies(inputFilter: IFilter): Promise<IWithMeta<PowerSupplyModel>> {
-    const filter = mergeFilters<IFilter>(new IFilter(), inputFilter);
+  async getAllPowerSupplies(inputFilter: IPowerSupplyFilter): Promise<IWithMeta<PowerSupplyModel>> {
+    const filter = mergeFilters<IPowerSupplyFilter>(new IPowerSupplyFilter(), inputFilter);
     const powerSupplies = await this.getAll(
       {
         group: ['powerSupply.id'],
+        where: {
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+          power: {
+            [Op.between]: [filter.power.minValue, filter.power.maxValue],
+          },
+        },
       },
       filter
     );

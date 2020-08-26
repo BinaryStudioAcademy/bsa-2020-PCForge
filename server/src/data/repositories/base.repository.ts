@@ -1,6 +1,5 @@
 import { BuildOptions, FindOptions, Model } from 'sequelize/types';
 import { IFilter } from './filters/base.filter';
-import { mergeFilters } from './filters/helper';
 
 export type RichModel = typeof Model & {
   new (values?: Record<string, unknown>, options?: BuildOptions): Model;

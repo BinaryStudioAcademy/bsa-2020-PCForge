@@ -7,18 +7,17 @@ import { MotherBoardSchema } from './motherboard.schema';
 import { RamSchema } from './ram.schema';
 import { PowerSupplySchema } from './powerSupply.schema';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
-import { CommentSchema } from './comment.schema';
 import { UserAttributes } from '../../data/models/user';
 import { HddSchema } from './hdd.schema';
 import { SsdSchema } from './ssd.schema';
 
 export type GetSetupsRequest = FastifyRequest<{
   Querystring: ISetupFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type GetSetupRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostSetupRequest = FastifyRequest<{
   Body: SetupCreationAttributes;
@@ -27,11 +26,11 @@ export type PostSetupRequest = FastifyRequest<{
 export type PutSetupRequest = FastifyRequest<{
   Params: { id: string };
   Body: SetupCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeleteSetupRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const SetupSchema: SwaggerSchema = {
   type: 'object',
@@ -44,18 +43,19 @@ export const SetupSchema: SwaggerSchema = {
     },
     title: {
       type: 'string',
+      minLength: 1,
       example: 'Setup name',
       nullable: false,
-      minLength: 1,
     },
     description: {
       type: 'string',
+      minLength: 1,
       example: 'Setup description',
       nullable: false,
-      minLength: 1,
     },
     image: {
       type: 'string',
+      minLength: 1,
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,
@@ -112,11 +112,13 @@ export const SetupSchema: SwaggerSchema = {
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
       format: 'date-time',
     },
@@ -176,28 +178,22 @@ export const CreateSetupSchema: SwaggerSchema = {
   properties: {
     title: {
       type: 'string',
+      minLength: 1,
       example: 'Setup title',
       nullable: false,
-      minLength: 1,
     },
     description: {
       type: 'string',
+      minLength: 1,
       example: 'Setup description',
       nullable: false,
-      minLength: 1,
     },
     image: {
       type: 'string',
+      minLength: 1,
       example: 'http://hosting-url.com/route',
       maxLength: 200,
       nullable: true,
-      minLength: 1,
-    },
-    authorId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
-      nullable: false,
     },
     cpuId: {
       type: 'integer',
@@ -248,27 +244,21 @@ export const UpdateSetupSchema: SwaggerSchema = {
   properties: {
     title: {
       type: 'string',
+      minLength: 1,
       example: 'Setup title',
       nullable: true,
-      minLength: 1,
     },
     description: {
       type: 'string',
+      minLength: 1,
       example: 'Setup description',
       nullable: true,
-      minLength: 1,
     },
     image: {
       type: 'string',
+      minLength: 1,
       example: 'http://hosting-url.com/route',
       maxLength: 200,
-      nullable: true,
-      minLength: 1,
-    },
-    authorId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
       nullable: true,
     },
     cpuId: {

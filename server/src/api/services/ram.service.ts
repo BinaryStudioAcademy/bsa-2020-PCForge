@@ -33,7 +33,7 @@ export class RamService extends BaseService<RamModel, RamCreationAttributes, Ram
     return ram;
   }
 
-  async deleteRamById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteRamById(id: string): Promise<RamModel> {
+    return await super.deleteById(id);
   }
 }

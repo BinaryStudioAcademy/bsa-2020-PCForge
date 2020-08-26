@@ -2,6 +2,7 @@ import { NewsCreationAttributes, NewsModel } from '../../data/models/news';
 import { NewsRepository } from '../../data/repositories/news.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { IWithMeta } from '../../data/repositories/base.repository';
 
 export class NewsService extends BaseService<NewsModel, NewsCreationAttributes, NewsRepository> {
   constructor(private repository: NewsRepository) {
@@ -16,7 +17,7 @@ export class NewsService extends BaseService<NewsModel, NewsCreationAttributes, 
     return news;
   }
 
-  async getAllNews(): Promise<NewsModel[]> {
+  async getAllNews(): Promise<IWithMeta<NewsModel>> {
     const news = await this.repository.getAllNews();
     return news;
   }
@@ -31,7 +32,7 @@ export class NewsService extends BaseService<NewsModel, NewsCreationAttributes, 
     return news;
   }
 
-  async deleteNewsById(id: string): Promise<void> {
-    await super.deleteById(id);
+  async deleteNewsById(id: string): Promise<NewsModel> {
+    return await super.deleteById(id);
   }
 }

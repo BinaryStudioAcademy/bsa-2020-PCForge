@@ -1,20 +1,24 @@
+import { FilterByNameType, FilterRangeType } from './types';
 import { IFilter } from './base.filter';
-import { notNull, FilterByNameType } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
-export class IAddRequestFilter extends IFilter {
+export class IPowerSupplyFilter extends IFilter {
   constructor() {
     super();
   }
-  requestedType: FilterByNameType = notNull;
+  power: FilterRangeType<number> = {
+    minValue: 0,
+    maxValue: 10000,
+  };
+  name: FilterByNameType = null;
 
   static schema: SwaggerSchema = {
     type: 'object',
     properties: {
       ...IFilter.schema.properties,
-      requestedType: {
+      name: {
         type: 'string',
-        enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
+        minimum: 1,
         nullable: true,
       },
     },
