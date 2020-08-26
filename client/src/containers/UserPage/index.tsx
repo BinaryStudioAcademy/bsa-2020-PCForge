@@ -19,7 +19,7 @@ const UserPage = (props: Props) => {
   useEffect(() => {
     loadUser(parseInt(id));
     loadSetups(parseInt(id));
-  }, []);
+  }, [id]);
 
   const renderContent = () => {
     if (showSpinner) {
