@@ -174,7 +174,7 @@ export const GetAllSetupsResponse: SwaggerSchema = {
 
 export const CreateSetupSchema: SwaggerSchema = {
   type: 'object',
-  required: ['title', 'description', 'image', 'authorId', 'cpuId', 'gpuId', 'motherboardId', 'ramId', 'powerSupplyId'],
+  required: ['title', 'description', 'image', 'cpuId', 'gpuId', 'motherboardId', 'ramId', 'powerSupplyId'],
   properties: {
     title: {
       type: 'string',

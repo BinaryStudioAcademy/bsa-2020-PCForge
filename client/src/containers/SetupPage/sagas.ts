@@ -74,8 +74,6 @@ function* createSetupComment(action: ICreateSetupComment) {
       commentableType: 'setup',
       commentableId: action.payload.id,
       value: action.payload.value,
-      userId: 1,
-      token,
     };
     yield call(createComment, commentData);
     yield put({ type: CREATE_SETUP_COMMENT_SUCCESS });
@@ -118,7 +116,6 @@ function* watchGetSetupRate() {
 function* addSetupRate(action: ISetSetupRate) {
   try {
     const data: RateCreationAttributes = {
-      userId: 8,
       ratebleId: action.payload.id,
       ratebleType: 'setup',
       value: action.payload.value,

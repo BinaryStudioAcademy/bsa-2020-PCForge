@@ -9,6 +9,7 @@ import {
   GetAllComments,
   CommentSchema,
   UpdateCommentSchema,
+  DetailedCommentSchema,
 } from './comment.schema';
 import { CommentMiddleware } from '../middlewares/comment.middleware';
 import {
@@ -36,7 +37,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(comments);
   });
 
-  const getOneSchema = getOneQuery(CommentSchema);
+  const getOneSchema = getOneQuery(DetailedCommentSchema);
   fastify.get('/:id', getOneSchema, async (request: GetOneCommentRequest, reply) => {
     allowForAuthorized(request);
     const { id } = request.params;
@@ -46,22 +47,28 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const createOneSchema = createOneQuery(UpdateCommentSchema, CommentSchema);
   fastify.post('/', { ...createOneSchema }, async (request: PostCommentRequest, reply) => {
-    allowForAdmin(request);
+    allowForAuthorized(request);
+    request.body.userId = request.user.id;
     const comment = await CommentService.createComment(request.body, commentMiddleware);
     reply.send(comment);
   });
 
   const updateOneSchema = updateOneQuery(UpdateCommentSchema, CommentSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutCommentRequest, reply) => {
-    allowForAdmin(request);
+    allowForAuthorized(request);
     const { id } = request.params;
-    const newComment = await CommentService.updateCommentById({ id, data: request.body }, commentMiddleware);
+    request.body.userId = request.user.id;
+    const newComment = await CommentService.updateCommentById(
+      { id, data: request.body },
+      commentMiddleware,
+      request.user
+    );
     reply.send(newComment);
   });
 
   const deleteOneSchema = deleteOneQuery(CommentSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteCommentRequest, reply) => {
-    allowForAdmin(request);
+    allowForAuthorized(request);
     const { id } = request.params;
     const comment = await CommentService.deleteCommentById(id);
     reply.send(comment);
