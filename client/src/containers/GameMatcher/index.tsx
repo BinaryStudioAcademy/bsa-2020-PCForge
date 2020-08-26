@@ -14,14 +14,13 @@ import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
 import { MatcherSettableVariants, MatcherServerActions } from './actionTypes';
 import { RouteComponentProps } from 'react-router-dom';
-import { Box } from '@material-ui/core';
+import { Box, Slider } from '@material-ui/core';
 
 const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Element => {
   const { setAlertValue, getMatcherData } = props;
 
   const {
     gamesErrorMessage,
-    ramsErrorMessage,
     cpusErrorMessage,
     gpusErrorMessage,
     alertMessage,
@@ -29,21 +28,19 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
   } = props.state;
 
   const [selectedGame, setSelectedGame] = useState<number | null>(null);
-  const [selectedRam, setSelectedRam] = useState<number | null>(null);
   const [selectedCpu, setSelectedCpu] = useState<number | null>(null);
   const [selectedGpu, setSelectedGpu] = useState<number | null>(null);
+  const [ramValue, setRamValue] = useState<number>(1);
 
   const gameOptions = props.state.games.map((game) => ({ label: game.name, value: game.id }));
-  const ramOptions = props.state.rams.map((ram) => ({ label: ram.name, value: ram.id }));
   const cpuOptions = props.state.cpus.map((cpu) => ({ label: cpu.name, value: cpu.id }));
   const gpuOptions = props.state.gpus.map((gpu) => ({ label: gpu.name, value: gpu.id }));
 
   const onTestGame = async () => {
-    if (!selectedRam || !selectedCpu || !selectedGpu || !selectedGame) {
+    if (!selectedCpu || !selectedGpu || !selectedGame) {
       setAlertValue({ type: AlertType.error, message: 'Error: Please choose hardware components' });
       return;
     }
-    setAlertValue({ type: AlertType.success, message: 'Success' });
     props.history.push(Routes.CHART);
   };
 
@@ -56,12 +53,6 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
         type,
       });
     };
-  };
-
-  const selectRam = (id: number) => {
-    setSelectedRam(id);
-    const ram = props.state.rams.find((ram) => ram.id === id);
-    if (ram) props.setRam(ram);
   };
 
   const selectCpu = (id: number) => {
@@ -104,7 +95,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
               <section>
                 <h2 className={styles.sectionHeader}>Your Computer Hardware</h2>
                 <div className={styles.selectItem}>
-                  <InputBasedSelect
+                  {/* <InputBasedSelect
                     label="RAM"
                     placeholder="Choose a RAM"
                     inputId="ram"
@@ -115,7 +106,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                     onSelect={selectRam}
                     onInputChange={createHardwareGetter('rams', MatcherServerActions.MATCHER_REPLACE_RAMS)}
                     onSeeMoreClick={createHardwareGetter('rams', MatcherServerActions.MATCHER_ADD_RAMS)}
-                  />
+                  /> */}
                 </div>
                 <div className={styles.selectItem}>
                   <InputBasedSelect
@@ -145,6 +136,18 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                     onSeeMoreClick={createHardwareGetter('gpus', MatcherServerActions.MATCHER_ADD_GPUS)}
                   />
                 </div>
+                <span className={styles.selectItemHeader}>RAM</span>
+                <Slider
+                  value={ramValue}
+                  min={1}
+                  step={1}
+                  max={32}
+                  color="secondary"
+                  onChange={(e, value) => setRamValue(value as number)}
+                  valueLabelDisplay="auto"
+                  aria-labelledby="range-slider"
+                  getAriaValueText={(value) => value.toString()}
+                />
               </section>
               <Box className={styles.pageButtonWrapper}>
                 <Button
