@@ -1,14 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import Link from 'components/BasicComponents/Link';
+import BasicLink from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
-import SetupCard, { SetupCardProps } from '../SetupCard';
+import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import styles from './styles.module.scss';
+import { useParams } from 'react-router';
+import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
+import { Game } from 'common/models/typeUserGame';
+import { UserActionTypes } from '../../logic/actionTypes';
+import { addUserGame } from 'containers/UserPage/logic/actions';
+import { Link } from 'react-router-dom';
 
 export interface UserPreferencesProps {
   games?: GameCardProps[];
   setups?: SetupCardProps[];
   isCurrentUser: boolean;
+  addUserGame?: (id: number, gameId: number) => UserActionTypes;
+  deleteUserGame?: (id: number, gameId: number) => UserActionTypes;
+  filteredGames?: Game[];
+  loadFilteredGames?: (searchString: string) => UserActionTypes;
 }
 
 const generateKey = (pre: string, index: number) => {
@@ -16,26 +26,57 @@ const generateKey = (pre: string, index: number) => {
 };
 
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
-  const { games, setups, isCurrentUser } = props;
+  const { games, setups, isCurrentUser, filteredGames, loadFilteredGames, addUserGame, deleteUserGame } = props;
+  const [showGameSearch, setShowGameSearch] = useState(false);
+  const handleAddGameClick = async () => {
+    setShowGameSearch(true);
+  };
+  const { id: userId } = useParams();
+
   return (
     <>
       {games ? (
         <>
           <div className={styles.buttonPlacement}>
             {isCurrentUser && (
-              <Button variant="contained" className={styles.addGameButton} buttonType={ButtonType.primary} icon="Add">
-                Add Game
-              </Button>
+              <>
+                {!showGameSearch && (
+                  <Button
+                    variant="contained"
+                    className={styles.addGameButton}
+                    buttonType={ButtonType.primary}
+                    icon="Add"
+                    onClick={handleAddGameClick}
+                  >
+                    Add Game
+                  </Button>
+                )}
+                {showGameSearch && (
+                  <InputBasedSelect
+                    label="Game's name"
+                    placeholder="Choose a game"
+                    inputId="game"
+                    debounceTime={300}
+                    onSelect={(id: number) => addUserGame!(userId, id)}
+                    options={filteredGames!.map((game) => ({ label: game.name, value: game.id }))}
+                    onInputChange={({ value }) => loadFilteredGames!(value)}
+                    hideSeeMore
+                  />
+                )}
+              </>
             )}
           </div>
           <div className={styles.userPreferences}>
             {games.map((game, index) => (
               <GameCard
-                key={generateKey(game.title, index)}
+                key={generateKey(game.name, index)}
                 image={game.image}
-                title={game.title}
-                releaseDate={game.releaseDate}
+                id={game.id}
+                name={game.name}
+                year={game.year}
                 description={game.description}
+                isCurrentUser={isCurrentUser}
+                deleteUserGame={deleteUserGame}
               />
             ))}
           </div>
@@ -47,19 +88,29 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
       {setups ? (
         <>
           <div className={styles.buttonPlacement}>
-            <Link className={styles.setupLink} icon="Build">
-              Builder
+            <Link to="/builder">
+              <BasicLink className={styles.setupLink} icon="Build">
+                Builder
+              </BasicLink>
             </Link>
           </div>
           <div className={styles.userPreferences}>
-            {setups.map((setup, index) => (
-              <SetupCard
-                key={generateKey(setup.title, index)}
-                image={setup.image}
-                title={setup.title}
-                description={setup.description}
-              />
-            ))}
+            {setups.map((setup, index) => {
+              return (
+                <SetupCard
+                  id={setup.id}
+                  title={setup.title}
+                  description={setup.description}
+                  cpu={setup.cpu}
+                  gpu={setup.gpu}
+                  motherboard={setup.motherboard}
+                  ram={setup.ram}
+                  image={setup.image}
+                  powerSupply={setup.powerSupply}
+                  key={generateKey(setup.title, index)}
+                />
+              );
+            })}
           </div>
         </>
       ) : (

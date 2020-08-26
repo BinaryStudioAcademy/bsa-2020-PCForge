@@ -1,9 +1,6 @@
-import { width } from '@material-ui/system';
 import { roundToNearest } from 'common/helpers/math.helper';
 import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
-import { Ram } from 'common/models/ram';
-import { Setup } from 'common/models/setup';
 import { IReport } from 'common/models/setupPerformance';
 import React, { useState } from 'react';
 import sharedStyles from '../styles.module.scss';
@@ -23,11 +20,11 @@ interface UIRequirement {
 interface Props {
   cpu: Cpu;
   gpu: Gpu;
-  ram: Ram;
+  ramSize: number;
   report: IReport;
 }
 
-const GameMatcherPerformanceReport: React.FC<Props> = ({ cpu, gpu, ram, report }): JSX.Element => {
+const GameMatcherPerformanceReport: React.FC<Props> = ({ cpu, gpu, ramSize, report }): JSX.Element => {
   const RECOMMENDED_REQUIREMENT_ID = 2;
   const MINIMAL_REQUIREMENT_ID = 1;
   const MAXIMUM_REPORT_VALUE = Math.max(
@@ -52,7 +49,7 @@ const GameMatcherPerformanceReport: React.FC<Props> = ({ cpu, gpu, ram, report }
   const componentItems = [
     { title: 'Processor', description: cpu.name },
     { title: 'Graphics', description: gpu.name },
-    { title: 'RAM', description: `${ram.memorySize}GB` },
+    { title: 'RAM', description: `${ramSize}GB` },
   ];
 
   const getRequirementDiagram = (req: UIRequirement) => {

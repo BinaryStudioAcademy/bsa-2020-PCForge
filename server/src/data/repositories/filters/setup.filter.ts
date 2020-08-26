@@ -6,9 +6,14 @@ export class ISetupFilter extends IFilter {
     super();
   }
 
+  authorId?: string = null;
+
   static schema: SwaggerSchema = {
     type: 'object',
     properties: {
+      authorId: {
+        type: 'string',
+      },
       ...IFilter.schema.properties,
     },
   };

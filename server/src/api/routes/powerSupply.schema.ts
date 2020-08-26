@@ -1,11 +1,11 @@
 import { FastifyRequest } from 'fastify';
 import { PowerSupplyCreationAttributes } from '../../data/models/powersupply';
-import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserAttributes } from '../../data/models/user';
+import { IPowerSupplyFilter } from '../../data/repositories/filters/powerSupply.filter';
 
 export type GetOnePowerSuppliesRequest = FastifyRequest<{
-  Querystring: IFilter;
+  Querystring: IPowerSupplyFilter;
 }> & { user: UserAttributes };
 
 export type GetOnePowerSupplyRequest = FastifyRequest<{

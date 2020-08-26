@@ -1,7 +1,23 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
-import { GetAllAddRequests, GetOneAddRequest, PostAddRequestRequest, PutAddRequestRequest, DeleteAddRequestRequest, GetAllAddRequest, AddRequestSchema, UpdateAddRequestSchema, CreateAddRequestSchema } from './addRequest.schema';
-import { getMultipleQuery, getOneQuery, createOneQuery, updateOneQuery, deleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  GetAllAddRequests,
+  GetOneAddRequest,
+  PostAddRequestRequest,
+  PutAddRequestRequest,
+  DeleteAddRequestRequest,
+  GetAllAddRequest,
+  AddRequestSchema,
+  UpdateAddRequestSchema,
+  CreateAddRequestSchema,
+} from './addRequest.schema';
+import {
+  getMultipleQuery,
+  getOneQuery,
+  createOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IAddRequestFilter } from '../../data/repositories/filters/addRequest.filter';
 import { AddRequestMiddleware } from '../middlewares/addRequest.middleware';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
