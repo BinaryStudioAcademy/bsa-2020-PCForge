@@ -21,10 +21,10 @@ export const loadAllSelectsInitialValues = (
   },
 });
 
-export const loadError = (error: string): GameFormAction => ({
+export const loadError = (errorMessage: string): GameFormAction => ({
   type: GameFormActionTypes.GET_INITIAL_VALUES_ERROR,
   payload: {
-    error,
+    errorMessage,
   },
 });
 

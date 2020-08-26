@@ -52,6 +52,13 @@ const GroupComponent = ({
   const [name, setName] = useState('');
   const [range, setRange] = useState({} as TypeRange);
 
+  const fltersUseEffect = [
+    filtersUsed[FilterName.socket] ? filter.socketIdSet : null,
+    filtersUsed[FilterName.ramtype] ? filter.ramTypeIdSet : null,
+    filtersUsed[FilterName.hdd] ? filter.sata : null,
+    filtersUsed[FilterName.hdd] ? filter.m2 : null,
+  ];
+
   const getFilters = () => {
     const keyRamType = groupName === GroupName.ram ? 'typeId' : 'ramTypeId';
     const querySocketId = filter.socketIdSet.size ? { socketId: [Array.from(filter.socketIdSet)].join(',') } : {};
@@ -60,6 +67,7 @@ const GroupComponent = ({
       : {};
     const querySata = filter.sata.size ? { sata: [Array.from(filter.sata)].join(',') } : {};
     const queryM2 = filter.m2.size ? { m2: true } : {};
+    const queryName = name ? { name } : {};
     const queryFilter = {
       ...querySocketId,
       ...queryRamTypeId,
@@ -73,16 +81,16 @@ const GroupComponent = ({
         [`${filterRangeInfo[groupName].key}[maxValue]`]: range.maxValue,
       };
     }
-    return { pagination, queryFilter, queryRange };
+    return { pagination, queryFilter, queryRange, queryName };
   };
 
   const getComponents = async () => {
     setLoad(true);
 
-    const { pagination, queryFilter, queryRange } = getFilters();
+    const { pagination, queryFilter, queryRange, queryName } = getFilters();
 
     try {
-      const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, name });
+      const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, ...queryName });
       setComponents(res.data);
       setCount(res.meta.countAfterFiltering);
     } catch (err) {
@@ -94,7 +102,7 @@ const GroupComponent = ({
 
   useEffect(() => {
     getComponents();
-  }, [filter, name, range, pagination]);
+  }, [...fltersUseEffect, name, range, pagination]);
 
   useEffect(() => {
     if (selectedComponent) {

@@ -3,10 +3,7 @@ $cardButtonColor: #EB3D55;
 
 .contentWrapper {
   margin-bottom: 30px;
-
-  @media (max-width: 768px) {
-    height: 2000px;
-  }
+  padding: 30px;
 }
 
 .buildsHeading {
@@ -17,10 +14,14 @@ $cardButtonColor: #EB3D55;
   @media (max-width: 1200px) {
     margin-left: 30px;
   }
+
+  @media (max-width: 768px) {
+   margin-left: 0;
+   text-align: center;
+  }
 }
 
 .cardDisplay {
-  height: 690px;
   width: 86vw;
   margin-bottom: 30px;
   display: flex;
@@ -28,19 +29,18 @@ $cardButtonColor: #EB3D55;
 
   @media (max-width: 1200px) {
     flex-direction: row;
-    height: 1400px;
   }
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: center;
-    height: 1400px;
   }
 
   .topSetup {
     width: 35%;
     height: 100%;
     margin-right: 80px;
+    padding:10px;
 
     @media (max-width: 1200px) {
       height: 500px;
@@ -48,51 +48,68 @@ $cardButtonColor: #EB3D55;
       margin-left: 20px;
       width: 50%;
       margin-top: 15px;
-    }
+      padding:0;
 
-    @media (max-width: 768px) {
-      width:80%;
-    }
-  }
-
-  .smallerCards {
-    width: 60%;
-    height: 690px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: center;
-    align-content: space-evenly;
-    flex-direction: column;
-    flex-shrink: 1;
-
-    @media (max-width: 1200px) {
-      display: block;
-      width: 50%;
-      margin-right: 20px;
-
-      &>div {
-        margin-bottom: 15px !important;
-        margin-top: 15px !important;
+      > div {
+        min-width: 275px;
       }
     }
 
     @media (max-width: 768px) {
       width:80%;
+      margin-left: 5px;
+      margin-right: 5px;
+     
+      & > div {
+        width:100%;
+        min-width: 200px;
+        margin-right: 0;
+        margin-left: 0;
+      }
     }
+  }
+
+  .smallerCards {
+    width: 60%;
+    min-height: 690px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: baseline;
+
+    & > div {
+      width: 45%;
+    }
+
+    @media (max-width: 1200px) {
+      width: 55%;
+      margin-right: 20px;
+     
+      &>div {
+        margin-bottom: 15px !important;
+        margin-top: 15px !important;
+        width:80%;
+        min-width: 275px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      width:80%;
+      margin-right: 5px;
+      margin-left: 5px;
     
-
-    &>div:nth-child(2n) {
-      margin-bottom: 0;
+      & > div {
+        width:100%;
+        min-width: 200px;
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 20px;
+      }
     }
-
-    &>div:nth-child(2n+1) {
-      margin-top: 0;
-    }
-
+  
     .cardButton {
       height: 335px;
-      width: 50%;
+      width: 45%;
       background-color: $cardButtonColor;
       margin: 10px;
       border-radius: 6px;
@@ -103,17 +120,23 @@ $cardButtonColor: #EB3D55;
 
       @media (max-width: 1200px) {
         width: 100%;
+        width:80%;
+        min-width: 275px;
       }
 
       @media (max-width: 1200px) {
         margin-left: 0;
       }
 
+      @media (max-width: 768px) {
+        width: 100%;
+        min-width: 200px;
+        margin-right: 0;
+      }
+
       &:hover {
         cursor: pointer;
       }
-
-
 
       svg {
         font-size: 20px;

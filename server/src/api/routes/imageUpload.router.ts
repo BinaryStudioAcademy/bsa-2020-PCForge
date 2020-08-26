@@ -7,7 +7,7 @@ import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   //Example how to use image Upload
   const { UploadImageService } = fastify.services;
-  const singleUpload = UploadImageService.single('image');
+  const singleUpload = UploadImageService.multer.single('image');
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 

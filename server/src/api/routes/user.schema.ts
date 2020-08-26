@@ -114,7 +114,7 @@ export const CreateUserSchema: SwaggerSchema = {
     },
     password: {
       type: 'string',
-      minLength: 1,
+      minLength: 5,
       example: '**********',
       nullable: false,
       maxLength: 50,
@@ -141,7 +141,7 @@ export const UpdateUserSchema: SwaggerSchema = {
     },
     password: {
       type: 'string',
-      minLength: 1,
+      minLength: 5,
       nullable: false,
       maxLength: 50,
     },

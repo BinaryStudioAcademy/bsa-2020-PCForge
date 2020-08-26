@@ -1,5 +1,5 @@
 import React from 'react';
-import SetupCard, { SetupCardProps } from './../SetupCard';
+import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import { getIcon } from 'common/helpers/icon.helper';
 import styles from './styles.module.scss';
 

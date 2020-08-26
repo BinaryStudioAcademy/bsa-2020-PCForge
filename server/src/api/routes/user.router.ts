@@ -44,6 +44,9 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const createSchema = createOneQuery(CreateUserSchema, UserSchema, false);
   fastify.post('/', createSchema, async (request: PostUserRequest, reply) => {
     const user = await UserService.createUser(request.body);
+    if (!user) {
+      triggerServerError('User with given email already exist', 403);
+    }
     reply.send(user);
   });
 

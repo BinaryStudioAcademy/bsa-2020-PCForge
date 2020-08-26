@@ -31,6 +31,11 @@ const theme = createMuiTheme({
         color: '#cbcfd4',
       },
     },
+    MuiInputBase: {
+      input: {
+        padding: '0', //'0.3rem 1rem 0.5rem',
+      },
+    },
   },
 });
 
@@ -50,9 +55,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
   const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
 
-  const [alertText, setAlertText] = useState<string | null>(null);
-  const [alertType, setAlertType] = useState<AlertType>();
-  //const [error, setError] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -72,30 +75,24 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
   const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
-      console.log(image);
     }
   };
 
   const onPublish = () => {
-    // validate intered values here
+    // validate intered values
     const imageData = (imageInputRef.current?.files && imageInputRef.current?.files[0]) || undefined;
-    console.log(imageData);
     if (!name || !year || !description || !recRamSize || !minRamSize || !recCPU || !minCPU || !recGPU || !minGPU) {
-      setAlertText('Error: Please choose hardware components');
-      setAlertType(AlertType.error);
+      setValidationError('Error: Please choose hardware components');
       return;
     }
     if (!imageData) {
-      setAlertText('Error: Please upload image');
-      setAlertType(AlertType.error);
+      setValidationError('Error: Please upload image');
       return;
     }
     if (+minRamSize > +recRamSize) {
-      setAlertText('Error: Minimal RAM size can not be bigger than recommended RAM size');
-      setAlertType(AlertType.error);
+      setValidationError('Error: Minimal RAM size can not be bigger than recommended RAM size');
       return;
-    }
-    setAlertText('');
+    } else setValidationError(null);
 
     const game: GameCreationAttributes = {
       name,
@@ -108,7 +105,6 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
       recommendedGpuId: recGPU as number,
       minimalGpuId: recGPU as number,
     };
-    console.log(game);
     createGame(game, imageData);
   };
   const onCancel = () => {
@@ -143,21 +139,26 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     };
   };
   console.log(props.state);
-  if (props.state.error && !alertText) {
-    setAlertText(props.state.error);
-    setAlertType(AlertType.error);
-  }
-  if (props.state.gameName && !alertText) {
-    setAlertText(`Success: Game ${props.state.gameName} was created.`);
-    setAlertType(AlertType.success);
+
+  let notificationMessage: string | undefined = undefined;
+  let notificationType: AlertType | undefined = undefined;
+  if (validationError) {
+    notificationMessage = validationError;
+    notificationType = AlertType.error;
+  } else if (props.state.errorMessage) {
+    notificationMessage = `Error: ${props.state.errorMessage}`;
+    notificationType = props.state.alertType;
+  } else if (props.state.gameName) {
+    notificationMessage = `Success : ${props.state.gameName} has been created`;
+    notificationType = props.state.alertType;
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className={styles.contentMain}>
-        <div className={styles.leftContent}>
-          <div className={styles.formFields}>
-            {alertText ? <Alert alertType={alertType}>{alertText}</Alert> : null}
+    <div className={styles.contentMain}>
+      <div className={styles.leftContent}>
+        <div className={styles.formFields}>
+          {notificationMessage && <Alert alertType={notificationType}>{notificationMessage}</Alert>}
+          <ThemeProvider theme={theme}>
             <div className={styles.inputItem}>
               <InputForm
                 name={GameFields.Name}
@@ -307,43 +308,43 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
                 </div>
               </div>
             </div>
-          </div>
-          <div className={styles.buttonContainer}>
-            <div className={styles.buttonWrapper}>
-              <Button buttonType={ButtonType.primary} onClick={onPublish}>
-                Publish
-              </Button>
-            </div>
-            <div className={styles.buttonWrapper}>
-              <Button buttonType={ButtonType.secondary} onClick={onCancel}>
-                Cancel
-              </Button>
-            </div>
-          </div>
+          </ThemeProvider>
         </div>
-        <div className={styles.rightContent}>
-          <div className={styles.imageUpload}>
-            <img src={image || emptyImage} alt="add-item-icon" />
-            <input
-              type="file"
-              id="imageInput"
-              name="image"
-              accept="image/*"
-              ref={imageInputRef}
-              onChange={handleChangeImage}
-              hidden
-            />
-            <Button
-              buttonType={ButtonType.secondary}
-              className={styles.imageButton}
-              onClick={() => imageInputRef.current?.click()}
-            >
-              Select Image
+        <div className={styles.buttonContainer}>
+          <div className={styles.buttonWrapper}>
+            <Button buttonType={ButtonType.primary} onClick={onPublish}>
+              Publish
+            </Button>
+          </div>
+          <div className={styles.buttonWrapper}>
+            <Button buttonType={ButtonType.secondary} onClick={onCancel}>
+              Cancel
             </Button>
           </div>
         </div>
       </div>
-    </ThemeProvider>
+      <div className={styles.rightContent}>
+        <div className={styles.imageUpload}>
+          <img src={image || emptyImage} alt="add-item-icon" />
+          <input
+            type="file"
+            id="imageInput"
+            name="image"
+            accept="image/*"
+            ref={imageInputRef}
+            onChange={handleChangeImage}
+            hidden
+          />
+          <Button
+            buttonType={ButtonType.secondary}
+            className={styles.imageButton}
+            onClick={() => imageInputRef.current?.click()}
+          >
+            Select Image
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -4,7 +4,7 @@ import { RouteShorthandOptions } from 'fastify/types/route';
 export function getOneQuery(
   schema: SwaggerSchema,
   querystring?: SwaggerSchema,
-  isProtected: boolean = true
+  isProtected = true
 ): RouteShorthandOptions {
   return {
     schema: {
@@ -25,7 +25,7 @@ export function getOneQuery(
 export function createOneQuery(
   request: SwaggerSchema,
   response: SwaggerSchema,
-  isProtected: boolean = true
+  isProtected = true
 ): RouteShorthandOptions {
   return {
     schema: {
@@ -42,7 +42,7 @@ export function createOneQuery(
 export function updateOneQuery(
   toUpdate: SwaggerSchema,
   newData: SwaggerSchema,
-  isProtected: boolean = true
+  isProtected = true
 ): RouteShorthandOptions {
   return {
     schema: {
@@ -64,7 +64,7 @@ export function updateOneQuery(
   };
 }
 
-export function deleteOneQuery(schema?: SwaggerSchema, isProtected: boolean = true): RouteShorthandOptions {
+export function deleteOneQuery(schema?: SwaggerSchema, isProtected = true): RouteShorthandOptions {
   return {
     schema: {
       ...(isProtected && getProtectionHeader()),
@@ -87,7 +87,7 @@ export function deleteOneQuery(schema?: SwaggerSchema, isProtected: boolean = tr
 export function getMultipleQuery(
   schema: SwaggerSchema,
   querystring?: SwaggerSchema,
-  isProtected: boolean = true
+  isProtected = true
 ): RouteShorthandOptions {
   return {
     schema: {

@@ -1,14 +1,24 @@
 import { TypeUser } from 'common/models/typeUser';
-import { UserActionTypes, LOAD_USER_SUCCESS, UPDATE_USER_SUCCESS, SHOW_SPINNER, HIDE_SPINNER } from './actionTypes';
+import { SetupType } from 'common/models/typeSetup';
+import {
+  UserActionTypes,
+  LOAD_USER_SUCCESS,
+  UPDATE_USER_SUCCESS,
+  LOAD_SETUPS_SUCCESS,
+  SHOW_SPINNER,
+  HIDE_SPINNER,
+} from './actionTypes';
 
 export interface IUserState {
   loadedUser: TypeUser | null;
   showSpinner: boolean;
+  setups: SetupType[];
 }
 
 const initialState: IUserState = {
   loadedUser: null,
   showSpinner: true,
+  setups: [],
 };
 
 function UserReducer(state = initialState, action: UserActionTypes): IUserState {
@@ -32,6 +42,11 @@ function UserReducer(state = initialState, action: UserActionTypes): IUserState 
       return {
         ...state,
         loadedUser: action.payload,
+      };
+    case LOAD_SETUPS_SUCCESS:
+      return {
+        ...state,
+        setups: action.payload,
       };
     default:
       return state;
