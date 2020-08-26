@@ -1,9 +1,10 @@
 const bcrypt = require('bcrypt');
-import { UserModel, UserCreationAttributes } from '../../data/models/user';
+import { UserModel, UserCreationAttributes, UserAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 import { IWithMeta } from '../../data/repositories/base.repository';
+import { encryptSync } from '../../helpers/crypto.helper';
 
 interface UserCreateAttributes {
   name: string;
@@ -57,7 +58,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return user;
   }
 
-  async updateUser(id: string, inputUser: UserCreateAttributes): Promise<UserModel> {
+  async updateUser(id: string | number, inputUser: UserCreateAttributes): Promise<UserModel> {
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
       triggerServerError('User with id: ${id} does not exists', 404);
@@ -68,11 +69,21 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     const userAttributes: UserCreationAttributes = {
       ...inputUser,
       isAdmin: false,
-      password: this.hash(inputUser.password),
+      password: inputUser.password,
       verifyEmailToken: null,
       resetPasswordToken: null,
     };
     const user = await this.repository.updateById(id, userAttributes);
+    return user;
+  }
+
+  async setUserById(id: string | number, newUser: UserCreationAttributes): Promise<UserModel> {
+    const user = await this.repository.updateById(id, newUser);
+    return user;
+  }
+
+  async getByEmail(email: string): Promise<UserModel> {
+    const user = await this.repository.get({ email });
     return user;
   }
 
@@ -81,7 +92,6 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   }
 
   hash(password: string): string {
-    const saltRounds = 10;
-    return bcrypt.hashSync(password, saltRounds);
+    return encryptSync(password);
   }
 }
