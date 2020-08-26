@@ -100,6 +100,11 @@ const GroupComponent = ({
     }
   };
 
+  function onAddComponentHandler(componentId: number) {
+    onAddComponent(groupName, componentId);
+    onChangeExpanded(false);
+  }
+
   useEffect(() => {
     getComponents();
   }, [...fltersUseEffect, name, range, pagination]);
@@ -133,7 +138,8 @@ const GroupComponent = ({
       /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
       // @ts-ignore
       specifications={SpecificationComponent[groupName]({ component })}
-      onAddComponent={() => onAddComponent(groupName, component.id)}
+      // onAddComponent={() => onAddComponent(groupName, component.id)}
+      onAddComponent={() => onAddComponentHandler(component.id)}
     />
   ));
 
