@@ -19,18 +19,20 @@ const UserPage = (props: Props) => {
   useEffect(() => {
     loadUser(parseInt(id));
     loadSetups(parseInt(id));
-  }, []);
+  }, [id]);
 
   const renderContent = () => {
     if (showSpinner) {
       return <Spinner load />;
     } else if (loadedUser) {
-      return (<UserInfo
-        user={loadedUser}
-        updateUser={userUpdate}
-        setups={setups}
-        isCurrentUser={id.toString() === currentUserId?.toString()}
-      />);
+      return (
+        <UserInfo
+          user={loadedUser}
+          updateUser={userUpdate}
+          setups={setups}
+          isCurrentUser={id.toString() === currentUserId?.toString()}
+        />
+      );
     } else {
       return <Redirect to="/404" />;
     }
