@@ -22,7 +22,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
       throw { error: `You are missing login or password`, status: 400 };
     }
     const user = await this.repository.getUserByUserNameOrEmail(login);
-    const isPasswordValidForUser = user ? await bcrypt.compare(password, user.password) : 0;
+    const isPasswordValidForUser = user ? await bcrypt.compare(password.toLowerCase(), user.password.toLowerCase()) : 0;
     if (!isPasswordValidForUser) {
       throw {
         error: `Invalid login or password`,
