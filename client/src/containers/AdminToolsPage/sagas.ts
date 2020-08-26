@@ -1,6 +1,6 @@
 import { getAllUsersRequsts, deleteUserRequest } from 'api/services/addUserRequestService';
 import { getAllUsers } from 'api/services/userService';
-import { getTopSetups } from 'api/services/setupService';
+import { getAllSetups } from 'api/services/setupsService';
 import { getAllGames } from 'api/services/gameService';
 import { getAllCpu } from 'api/services/cpuService';
 import { getAllGpu } from 'api/services/gpuService';
@@ -72,8 +72,8 @@ function* getAllTotalCount(action: ITotalCountsAction) {
     yield put(updateTotalsLoadingComponentStatus(false));
     // update after fix bug about user API^
     //const { meta: usersCount } = yield call(getAllUsers, {});
-    const users = yield call(getAllUsers);
-    const { meta: setupsCount } = yield call(getTopSetups, {});
+    const { meta: usersCount } = yield call(getAllUsers);
+    const { meta: setupsCount } = yield call(getAllSetups);
 
     const { meta: MotherboardCount } = yield call(getAllMotherboard, {});
     const { meta: PowersuppliesCount } = yield call(getAllPowersupplies, {});
@@ -90,7 +90,9 @@ function* getAllTotalCount(action: ITotalCountsAction) {
       CPUCount.globalCount;
 
     const { meta: gamesCount } = yield call(getAllGames, {});
-    yield put(loadAllTotalCounts(users.length, setupsCount.globalCount, hardwareCount, gamesCount.globalCount));
+    yield put(
+      loadAllTotalCounts(usersCount.globalCount, setupsCount.globalCount, hardwareCount, gamesCount.globalCount)
+    );
   } catch (error) {
     yield put(loadError(error));
   } finally {
