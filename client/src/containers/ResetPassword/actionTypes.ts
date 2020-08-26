@@ -46,5 +46,7 @@ export type ResetPasswordErrors = IErrorAction;
 export type ResetPasswordActions = ResetPasswordRequests | ResetPasswordSuccess | ResetPasswordErrors;
 
 export interface ResetPasswordState {
-  error: string;
+  error: string | null;
+  loading: boolean;
+  success: boolean | null;
 }
