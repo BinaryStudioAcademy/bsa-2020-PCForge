@@ -25,9 +25,14 @@ export class AuthService {
     return response;
   }
 
-  async resetPassword(email: string): Promise<void> {
+  async resetPasswordRequest(email: string): Promise<void> {
     const apiRoute = '/auth/reset-password/request';
     await api.post(apiRoute, { email });
+  }
+
+  async resetPassword(data: { userId: string; token: string; newPassword: string }): Promise<void> {
+    const apiRoute = '/auth/reset-password';
+    await api.post(apiRoute, data);
   }
 }
 

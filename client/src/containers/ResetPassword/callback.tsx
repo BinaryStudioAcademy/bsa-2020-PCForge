@@ -1,13 +1,14 @@
 import { RootState } from 'redux/rootReducer';
 import { ConnectedProps, connect } from 'react-redux';
-import { sendResetPasswordRequest } from './actions';
+import { sendResetPassword } from './actions';
 
 import React from 'react';
 import styles from 'containers/ResetPassword/styles.module.scss';
 import { Container, createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
 import InputWithValidation from 'components/InputWithValidation';
-import EmailSchema from 'common/validation/email';
+import PasswordSchema from 'common/validation/password';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import { RouteComponentProps } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const ResetPasswordCallback: React.FC<Props> = ({
-  sendResetPasswordRequest: propsSendResetPasswordRequest,
+  sendResetPassword: propsSendResetPassword,
+  history,
+  match,
 }): JSX.Element => {
   const materialStyles = useStyles();
   const [password1, setPassword1] = React.useState<string>('');
@@ -29,12 +32,18 @@ const ResetPasswordCallback: React.FC<Props> = ({
   const validate = (password1: string) => (password2: string): [boolean, string?] => {
     const isEqual = password1 === password2;
     const error = isEqual ? '' : 'passwords must be equal';
-    return [isEqual, error];
+    try {
+      PasswordSchema.password.validateSync(password1);
+      return [isEqual, error];
+    } catch (err) {
+      return [false, err.message];
+    }
   };
-  const isValid = validate(password1)(password2)[0];
+  const [isValid, error] = validate(password1)(password2);
 
   const onSubmitClick = () => {
-    console.log('click');
+    const { userId, token } = match.params;
+    propsSendResetPassword({ userId, token, newPassword: password1 });
   };
 
   return (
@@ -47,20 +56,10 @@ const ResetPasswordCallback: React.FC<Props> = ({
             </div>
           </Grid>
           <Grid item>
-            <InputWithValidation
-              onChange={setPassword1}
-              isValid={isValid}
-              error="passwords must be equal"
-              label="Password"
-            />
+            <InputWithValidation onChange={setPassword1} isValid={isValid} error={error} label="Password" />
           </Grid>
           <Grid item>
-            <InputWithValidation
-              onChange={setPassword2}
-              isValid={isValid}
-              error="passwords must be equal"
-              label="Confirm Password"
-            />
+            <InputWithValidation onChange={setPassword2} isValid={isValid} error={error} label="Confirm Password" />
           </Grid>
           <Grid container justify="center">
             <Button
@@ -82,11 +81,15 @@ const ResetPasswordCallback: React.FC<Props> = ({
 const mapState = (state: RootState) => ({});
 
 const mapDispatch = {
-  sendResetPasswordRequest,
+  sendResetPassword,
 };
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
-type Props = PropsFromRedux;
+type Props = PropsFromRedux &
+  RouteComponentProps<{
+    userId: string;
+    token: string;
+  }>;
 
 export default connector(ResetPasswordCallback);
