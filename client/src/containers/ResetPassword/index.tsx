@@ -1,5 +1,8 @@
-import React from 'react';
+import { RootState } from 'redux/rootReducer';
+import { ConnectedProps, connect } from 'react-redux';
+import { sendResetPasswordRequest } from './actions';
 
+import React from 'react';
 import styles from 'containers/ResetPassword/styles.module.scss';
 import { Container, createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
 import InputWithValidation from 'components/InputWithValidation';
@@ -16,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const ResetPassword: React.FC = (): JSX.Element => {
+const ResetPassword: React.FC<Props> = ({ sendResetPasswordRequest: propsSendResetPasswordRequest }): JSX.Element => {
   const materialStyles = useStyles();
   const [email, setEmail] = React.useState<string>('');
   const onEmailInputChange = (newEmail: string) => {
@@ -29,6 +32,10 @@ const ResetPassword: React.FC = (): JSX.Element => {
     } catch (err) {
       return [false, err.message];
     }
+  };
+
+  const onSendRequestClick = () => {
+    propsSendResetPasswordRequest(email);
   };
 
   return (
@@ -50,6 +57,7 @@ const ResetPassword: React.FC = (): JSX.Element => {
               disabled={validateEmail(email)[0] ? false : true}
               className={materialStyles.sendButton}
               buttonType={validateEmail(email)[0] ? ButtonType.secondary : ButtonType.error}
+              onClick={onSendRequestClick}
             >
               Send
             </Button>
@@ -60,4 +68,14 @@ const ResetPassword: React.FC = (): JSX.Element => {
   );
 };
 
-export default ResetPassword;
+const mapState = (state: RootState) => ({});
+
+const mapDispatch = {
+  sendResetPasswordRequest,
+};
+
+const connector = connect(mapState, mapDispatch);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux;
+
+export default connector(ResetPassword);

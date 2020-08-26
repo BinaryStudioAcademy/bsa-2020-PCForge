@@ -24,6 +24,11 @@ export class AuthService {
     const response = await api.post(apiRoute, request);
     return response;
   }
+
+  async resetPassword(email: string): Promise<void> {
+    const apiRoute = '/auth/reset-password/request';
+    await api.post(apiRoute, { email });
+  }
 }
 
 export const authService = new AuthService();
