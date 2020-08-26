@@ -17,7 +17,7 @@ import { CommentService } from './comment.service';
 import { AddRequestService } from './addRequest.service';
 import { UploadService } from './imageUpload.service';
 import { PerformanceService } from './performance.service';
-import { UserGameService } from './usergame.service';
+import { UserGameService } from './userGame.service';
 import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
