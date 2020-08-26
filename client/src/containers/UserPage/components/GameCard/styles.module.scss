@@ -3,7 +3,7 @@
 $bgGameCard:rgb(19, 18, 18);
 
 .gameCard {
-  // height: auto;
+  min-height: 180px;
   width: 280px;
   display: flex;
   flex-direction: column;
@@ -41,8 +41,29 @@ $bgGameCard:rgb(19, 18, 18);
     right: 0;
     padding: 15px;
     font-size: 16px;
+    word-wrap: break-word;
     text-overflow: ellipsis;
     color: rgb(228, 225, 225);
+   
+    div {
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;  
+      overflow: hidden;
+    }
+
+    .cardButton {
+      position: absolute;
+      bottom: 10px;
+      right: 0;
+
+      svg {
+        color: $colorOrange;
+      }
+      svg:hover{
+        color: #b92f0d;
+      }
+    }
   }
 
   .gameDescription {
@@ -53,14 +74,16 @@ $bgGameCard:rgb(19, 18, 18);
     display: flex;
     font-size: 16px;
     color: $colorTextGray;
-    justify-content: space-around;
     align-items: center;
+    padding: 5px 10px;
+    flex-wrap: wrap;
     width: 100%;
+    height:100%;
 
 
     .gameTitle {
-      font-size: 22px;
-      margin-bottom: 5px;
+      font-size: 16px;
+      margin-right: 10px;
     }
   }
 }
