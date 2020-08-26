@@ -151,8 +151,9 @@ function* watchDeleteUserGame() {
 function* deleteUserGame(action: deleteUserGameActionType) {
   yield put(showSpinner());
   try {
-    yield call(deleteUserGameService, action.payload.id, action.payload.gameId);
+    const deletedGame = yield call(deleteUserGameService, action.payload.id, action.payload.gameId);
     yield put(loadUserGamesAction(action.payload.id));
+    notification.success(`You have deleted ${deletedGame.game.name}`);
   } catch (error) {
     notification.error('Could not delete the game, try again later');
   }

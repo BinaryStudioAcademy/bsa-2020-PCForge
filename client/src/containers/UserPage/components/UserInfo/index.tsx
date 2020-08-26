@@ -42,7 +42,6 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     deleteUserGame,
     setups,
   } = props;
-  
 
   const initialErrorMessages = {
     emailErrorMessage: null,

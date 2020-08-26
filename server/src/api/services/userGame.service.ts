@@ -19,7 +19,7 @@ export class UserGameService {
     return await this.repository.findOrCreateUserGame(inputUserGame);
   }
 
-  async deleteUserGame(inputUserGame: UserGameDeleteAttributes): Promise<number> {
+  async deleteUserGame(inputUserGame: UserGameDeleteAttributes): Promise<UserGameModel> {
     return await this.repository.deleteUserGame(inputUserGame);
   }
 }

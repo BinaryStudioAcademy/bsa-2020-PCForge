@@ -47,7 +47,19 @@ export class UserGameRepository extends BaseRepository<UserGameModel, IFilter> {
     };
   }
 
-  async deleteUserGame(inputUserGame: UserGameDeleteAttributes): Promise<number> {
-    return await this.model.destroy({ where: { userId: inputUserGame.userId, gameId: inputUserGame.gameId } });
+  async deleteUserGame(inputUserGame: UserGameDeleteAttributes): Promise<UserGameModel> {
+    const where = { userId: inputUserGame.userId, gameId: inputUserGame.gameId };
+    const game = await this.model.findOne({
+      include: [
+        {
+          model: this.gameModel,
+        },
+      ],
+      where,
+    });
+    if (game) {
+      await this.model.destroy({ where });
+    }
+    return game;
   }
 }
