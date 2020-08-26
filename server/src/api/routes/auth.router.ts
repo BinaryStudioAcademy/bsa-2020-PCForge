@@ -12,6 +12,7 @@ import {
   ResetPasswordRequest,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { MailService, UserService } = fastify.services;
@@ -60,6 +61,9 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
               password: '',
               avatar: userData.picture,
             });
+            if (!user) {
+              triggerServerError('User with given email exists', 403);
+            }
             response.send({ logged_in: true, user });
           }
         } catch (err) {

@@ -11,6 +11,7 @@ const oAuth2Client = new OAuth2Client(
 );
 
 export const userRequestMiddleware = (fastify: FastifyInstance) => {
+  const { UserService } = fastify.services;
   return async (request: CustomRequest, reply: FastifyReply, done: FastifyDone): Promise<void> => {
     const token = request.headers?.authorization?.replace('Bearer ', '') || '';
     if (!token) {
@@ -28,7 +29,12 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
     if (!decodedData) {
       try {
         const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
-        request.user = userData;
+        try {
+          const user = await UserService.getUserByLoginOrEmail(userData.email, '');
+          request.user = user;
+        } catch (err) {
+          /* eslint-disable */
+        }
       } catch (e) {
         /* eslint-disable */
       }
