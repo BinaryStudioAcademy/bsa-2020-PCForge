@@ -2,7 +2,7 @@ import React from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
-import SetupCard, { SetupCardProps } from '../SetupCard';
+import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import styles from './styles.module.scss';
 
 export interface UserPreferencesProps {
@@ -52,14 +52,21 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
             </Link>
           </div>
           <div className={styles.userPreferences}>
-            {setups.map((setup, index) => (
-              <SetupCard
-                key={generateKey(setup.title, index)}
-                image={setup.image}
-                title={setup.title}
-                description={setup.description}
-              />
-            ))}
+            {setups.map((setup, index) => {
+              return (
+                <SetupCard
+                  title={setup.title}
+                  description={setup.description}
+                  cpu={setup.cpu}
+                  gpu={setup.gpu}
+                  motherboard={setup.motherboard}
+                  ram={setup.ram}
+                  image={setup.image}
+                  powerSupply={setup.powerSupply}
+                  key={generateKey(setup.title, index)}
+                />
+              );
+            })}
           </div>
         </>
       ) : (

@@ -11,7 +11,13 @@ import {
   TopGameSchema,
   UpdateTopGameSchema,
 } from './topGame.schema';
-import { createOneQuery, getMultipleQuery, getOneQuery, updateOneQuery, deleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  createOneQuery,
+  getMultipleQuery,
+  getOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAdmin, allowForAuthorized } from '../middlewares/allowFor.middleware';
@@ -37,7 +43,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   const createOneSchema = createOneQuery(CreateTopGameSchema, TopGameSchema);
-  fastify.post('/', createOneSchema , async (request: PostTopGameRequest, reply) => {
+  fastify.post('/', createOneSchema, async (request: PostTopGameRequest, reply) => {
     allowForAdmin(request);
     const TopGame = await TopGameService.createTopGame(request.body);
     reply.send(TopGame);

@@ -17,9 +17,17 @@ export interface ITopSetupFilter {
   count?: number;
 }
 
+export interface IUserSetupFilter {
+  authorId: number;
+}
+
 const endpoint = '/setups';
 
 export const getTopSetups = async (filter: ITopSetupFilter): Promise<TypeResponseAll> => {
+  return await webApi.get(endpoint, filter);
+};
+
+export const getUserSetups = async (filter: IUserSetupFilter): Promise<TypeResponseAll> => {
   return await webApi.get(endpoint, filter);
 };
 

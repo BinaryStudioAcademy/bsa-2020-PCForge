@@ -48,13 +48,12 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const createOneSchema = createOneQuery(CreateSetupSchema, DetailedSetupSchema);
   fastify.post('/', createOneSchema, async (request: PostSetupRequest, reply) => {
-      allowForAuthorized(request);
-      request.body.authorId = request.user.id;
-      const data = { ...request.body };
-      const setup = await SetupService.createSetup(data, setupMiddleware);
-      reply.send(setup);
-    }
-  );
+    allowForAuthorized(request);
+    request.body.authorId = request.user.id;
+    const data = { ...request.body };
+    const setup = await SetupService.createSetup(data, setupMiddleware);
+    reply.send(setup);
+  });
 
   const updateOneSchema = updateOneQuery(UpdateSetupSchema, DetailedSetupSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutSetupRequest, reply) => {
