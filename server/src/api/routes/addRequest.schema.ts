@@ -95,14 +95,8 @@ export const GetAllAddRequest: SwaggerSchema = {
 
 export const CreateAddRequestSchema: SwaggerSchema = {
   type: 'object',
-  required: ['userId', 'requestType', 'requestBody'],
+  required: ['requestType', 'requestBody'],
   properties: {
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
-      nullable: false,
-    },
     requestedType: {
       type: 'string',
       minLength: 1,
@@ -121,14 +115,8 @@ export const CreateAddRequestSchema: SwaggerSchema = {
 
 export const UpdateAddRequestSchema: SwaggerSchema = {
   type: 'object',
-  required: ['userId', 'requestType', 'requestBody'],
+  required: ['requestType', 'requestBody'],
   properties: {
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
-      nullable: true,
-    },
     requestedType: {
       type: 'string',
       minLength: 1,
