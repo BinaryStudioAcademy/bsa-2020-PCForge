@@ -21,6 +21,7 @@ import { UserGameService } from './usergame.service';
 import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
+import { AuthService } from './auth.service';
 
 export interface Services {
   RamTypeService: RamTypeService;
@@ -43,6 +44,7 @@ export interface Services {
   HddService: HddService;
   SsdService: SsdService;
   MailService: MailService;
+  AuthService: AuthService;
   UserGameService: UserGameService;
 }
 
@@ -74,6 +76,7 @@ export default fp(async (fastify, opts, next) => {
     const mailService = new MailService(nodemailer);
     const userGameService = new UserGameService(repositories.UserGameRepository);
     const uploadService = new UploadService();
+    const authService = new AuthService(mailService, usersService);
     const services: Services = {
       AddRequestService: addRequestService,
       RamTypeService: ramTypeService,
@@ -95,6 +98,7 @@ export default fp(async (fastify, opts, next) => {
       HddService: hddService,
       SsdService: ssdService,
       MailService: mailService,
+      AuthService: authService,
       UserGameService: userGameService,
     };
     fastify.decorate('services', services);
