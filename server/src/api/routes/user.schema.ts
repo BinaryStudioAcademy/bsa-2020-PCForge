@@ -2,7 +2,6 @@ import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { GameSchema } from './game.schema';
 import { IFilter } from '../../data/repositories/filters/base.filter';
-import { SwaggerOptions } from 'fastify-swagger';
 import { UserAttributes } from '../../data/models/user';
 
 export type GetOneUserRequest = FastifyRequest<{
@@ -236,14 +235,14 @@ export const GetUserGamesSchema: SwaggerSchema = {
 export type GetUserGamesRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: IFilter;
-}>;
+}> & { user: UserAttributes };
 
 export type CreateUserGameRequest = FastifyRequest<{
   Params: { id: string };
   Body: {
     id: string;
   };
-}>;
+}> & { user: UserAttributes };
 
 export const CreateUserGameResponse: SwaggerSchema = {
   type: 'object',
@@ -258,4 +257,4 @@ export const CreateUserGameResponse: SwaggerSchema = {
 
 export type DeleteUserGameRequest = FastifyRequest<{
   Params: { id: string; gameId: string };
-}>;
+}> & { user: UserAttributes };
