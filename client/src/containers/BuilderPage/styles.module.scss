@@ -1,21 +1,9 @@
 .builderWrapper {
   width: 100%;
-  padding: 3rem;
+}
 
-  .contentWrapper {
-    display: flex;
-    width: 100%;
-
-    .componentsWrapper {
-      flex-grow: 1;
-      margin-right: 3rem;
-    }
-
-    .summaryWrapper {
-      position: sticky;
-      height: fit-content;
-      top: 20px;
-      min-width: 25%;
-    }
-  }
+.summary {
+  height: fit-content;
+  position: sticky;
+  top: 20px;
 }

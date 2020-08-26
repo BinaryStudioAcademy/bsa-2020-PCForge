@@ -62,6 +62,8 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
       return {
         ...state,
         ...action.payload,
+        email: '',
+        password: '',
       };
     case AUTH_LOGIN_FAILURE:
       return {

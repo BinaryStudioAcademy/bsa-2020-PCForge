@@ -1,8 +1,8 @@
 import { NewsCreationAttributes, NewsModel, NewsStatic } from '../models/news';
-import { BaseRepository, RichModel } from './base.repository';
+import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { IFilter } from './filters/base.filter';
 
-export class NewsRepository extends BaseRepository<NewsModel, IFilter> {
+export class NewsRepository extends BaseRepository<NewsModel, NewsCreationAttributes, IFilter> {
   constructor(private model: NewsStatic) {
     super(<RichModel>model, IFilter);
   }
@@ -12,9 +12,9 @@ export class NewsRepository extends BaseRepository<NewsModel, IFilter> {
     return news;
   }
 
-  async getAllNews(): Promise<NewsModel[]> {
+  async getAllNews(): Promise<IWithMeta<NewsModel>> {
     const news = await this.getAll();
-    return news.data;
+    return news;
   }
 
   async createNews(inputNews: NewsCreationAttributes): Promise<NewsModel> {

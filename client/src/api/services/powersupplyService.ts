@@ -1,8 +1,9 @@
 import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
+import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 
-type TypeResponseAll = {
+export type TypeResponseAll = {
   meta: {
     globalCount: number;
     countAfterFiltering: number;
@@ -26,4 +27,7 @@ export const updatePowersupplies = async (request: TypePowersupplies): Promise<T
 
 export const deletePowersupplies = async (id: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}`);
+};
+export const postPowerSupply = async (request: PowerSupplyCreationAttributes): Promise<TypePowersupplies> => {
+  return await webApi.post(endpoint, request);
 };

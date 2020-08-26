@@ -8,6 +8,7 @@ import PasswordInput from 'components/PasswordInput/PasswordInput';
 import UserPreferences from '../UserPreferences';
 import { SetErrorMessages, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'common/models/typeUser';
+import { SetupType } from 'common/models/typeSetup';
 import { UserActionTypes } from '../../logic/actionTypes';
 import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
 import { Game } from 'common/models/typeUserGame';
@@ -21,6 +22,7 @@ interface IUserInfoProps {
   user: TypeUser;
   userGames: Game[];
   updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
+  setups: SetupType[];
   isCurrentUser: boolean;
   addUserGame: (id: number, gameId: number) => UserActionTypes;
   deleteUserGame: (id: number, gameId: number) => UserActionTypes;
@@ -38,64 +40,9 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     loadFilteredGames,
     addUserGame,
     deleteUserGame,
+    setups,
   } = props;
-
-  const setupsArray = [
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-    {
-      image:
-        'https://cdn2.iconfinder.com/data/icons/testing-software-2-filled-outline/128/Testing_Software_2_-_Ps_Style_-_1-01-512.png',
-      title: 'My Title',
-      description: 'Here is my super cool setting for all the bloody cool games',
-    },
-  ];
+  
 
   const initialErrorMessages = {
     emailErrorMessage: null,
@@ -226,6 +173,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           <Input
             disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
+            placeholder="Name"
             icon="Face"
             value={name || ''}
             inputType={errorMessages.nameErrorMessage ? InputType.error : undefined}
@@ -237,6 +185,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
             icon="Email"
+            placeholder="Email"
             value={email}
             inputType={errorMessages.emailErrorMessage ? InputType.error : undefined}
             onChange={handleEmailChange}
@@ -306,7 +255,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             loadFilteredGames={loadFilteredGames}
           />
         )}
-        {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setupsArray} />}
+        {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setups} />}
       </div>
     </div>
   );

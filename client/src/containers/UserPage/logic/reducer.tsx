@@ -1,5 +1,6 @@
 import { TypeUser } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
+import { SetupType } from 'common/models/typeSetup';
 import {
   UserActionTypes,
   LOAD_USER_SUCCESS,
@@ -8,6 +9,7 @@ import {
   HIDE_SPINNER,
   LOAD_USER_GAMES_SUCCESS,
   LOAD_FILTERED_GAMES_SUCCESS,
+  LOAD_SETUPS_SUCCESS,
 } from './actionTypes';
 
 export interface IUserState {
@@ -15,6 +17,7 @@ export interface IUserState {
   userGames: UserGame[];
   filteredGames: Game[];
   showSpinner: boolean;
+  setups: SetupType[];
 }
 
 const initialState: IUserState = {
@@ -22,6 +25,7 @@ const initialState: IUserState = {
   showSpinner: true,
   userGames: [],
   filteredGames: [],
+  setups: [],
 };
 
 function UserReducer(state = initialState, action: UserActionTypes): IUserState {
@@ -55,6 +59,11 @@ function UserReducer(state = initialState, action: UserActionTypes): IUserState 
       return {
         ...state,
         filteredGames: action.payload,
+      };
+    case LOAD_SETUPS_SUCCESS:
+      return {
+        ...state,
+        setups: action.payload,
       };
     default:
       return state;

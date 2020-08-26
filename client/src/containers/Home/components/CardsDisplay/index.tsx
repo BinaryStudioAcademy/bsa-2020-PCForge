@@ -1,5 +1,5 @@
 import React from 'react';
-import SetupCard, { SetupCardProps } from './../SetupCard';
+import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import { getIcon } from 'common/helpers/icon.helper';
 import styles from './styles.module.scss';
 
@@ -24,6 +24,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
       <div className={styles.cardDisplay}>
         <div className={styles.topSetup}>
           <SetupCard
+            id={topSetup.id}
             title={topSetup.title}
             description={topSetup.description}
             image={topSetup.image}
@@ -40,6 +41,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
           {ordinarySetups.map((setup, index) => {
             return (
               <SetupCard
+                id={setup.id}
                 title={setup.title}
                 description={setup.description}
                 cpu={setup.cpu}

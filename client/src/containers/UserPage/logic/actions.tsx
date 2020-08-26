@@ -4,6 +4,8 @@ import {
   LOAD_USER_SUCCESS,
   UPDATE_USER,
   UPDATE_USER_SUCCESS,
+  LOAD_SETUPS,
+  LOAD_SETUPS_SUCCESS,
   SHOW_SPINNER,
   HIDE_SPINNER,
   LOAD_USER_GAMES,
@@ -17,6 +19,7 @@ import {
 import { TypeUser } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
 import { User } from 'common/models/user';
+import { SetupType } from 'common/models/typeSetup';
 
 export const loadUser = (id: number): UserActionTypes => ({
   type: LOAD_USER,
@@ -69,6 +72,16 @@ export const addUserGame = (id: number, gameId: number): UserActionTypes => ({
 export const deleteUserGame = (id: number, gameId: number): UserActionTypes => ({
   type: DELETE_USER_GAME,
   payload: { id, gameId },
+});
+
+export const loadSetups = (authorId: number): UserActionTypes => ({
+  type: LOAD_SETUPS,
+  payload: { authorId },
+});
+
+export const loadSetupsSuccess = (data: SetupType[]): UserActionTypes => ({
+  type: LOAD_SETUPS_SUCCESS,
+  payload: data,
 });
 
 export const showSpinner = (): UserActionTypes => ({

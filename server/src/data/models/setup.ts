@@ -2,6 +2,8 @@ import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
 import { CpuAttributes } from './cpu';
 import { GpuAttributes } from './gpu';
 import { RamAttributes } from './ram';
+import { HddAttributes } from './hdd';
+import { SsdAttributes } from './ssd';
 
 export interface SetupAttributes {
   id: number;
@@ -12,6 +14,8 @@ export interface SetupAttributes {
   cpu: CpuAttributes;
   gpu: GpuAttributes;
   ram: RamAttributes;
+  hdd: HddAttributes;
+  ssd: SsdAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -26,6 +30,8 @@ export interface SetupCreationAttributes {
   motherboardId: number;
   ramId: number;
   powerSupplyId: number;
+  hddId: number;
+  ssdId: number;
 }
 
 export interface SetupModel extends Model<SetupAttributes>, SetupAttributes {}

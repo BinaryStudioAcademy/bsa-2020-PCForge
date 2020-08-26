@@ -1,28 +1,29 @@
 import { FastifyRequest } from 'fastify';
 import { PowerSupplyCreationAttributes } from '../../data/models/powersupply';
-import { IFilter } from '../../data/repositories/filters/base.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
+import { UserAttributes } from '../../data/models/user';
+import { IPowerSupplyFilter } from '../../data/repositories/filters/powerSupply.filter';
 
 export type GetOnePowerSuppliesRequest = FastifyRequest<{
-  Querystring: IFilter;
-}>;
+  Querystring: IPowerSupplyFilter;
+}> & { user: UserAttributes };
 
 export type GetOnePowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export type PostPowerSupplyRequest = FastifyRequest<{
   Body: PowerSupplyCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type PutPowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
   Body: PowerSupplyCreationAttributes;
-}>;
+}> & { user: UserAttributes };
 
 export type DeletePowerSupplyRequest = FastifyRequest<{
   Params: { id: string };
-}>;
+}> & { user: UserAttributes };
 
 export const PowerSupplySchema: SwaggerSchema = {
   type: 'object',
@@ -31,10 +32,11 @@ export const PowerSupplySchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
-      nullable: false
+      nullable: false,
     },
     name: {
       type: 'string',
+      minLength: 1,
       example: 'yam name',
       nullable: false,
     },
@@ -42,54 +44,59 @@ export const PowerSupplySchema: SwaggerSchema = {
       type: 'integer',
       example: 750,
       minimum: 0,
-      nullable: false
+      nullable: false,
     },
     createdAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
-      format: 'date-time'
+      format: 'date-time',
     },
     updatedAt: {
       type: 'string',
+      minLength: 1,
       nullable: false,
-      format: 'date-time'
-    }
-  }
-}
+      format: 'date-time',
+    },
+  },
+};
 
 export const CreatePowerSupplySchema: SwaggerSchema = {
   type: 'object',
+  required: ['name', 'power'],
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Power supply name',
-      nullable: false
+      nullable: false,
     },
     power: {
       type: 'integer',
       example: 750,
       minimum: 0,
-      nullable: false
-    }
-  }
-}
+      nullable: false,
+    },
+  },
+};
 
 export const UpdatePowerSupplySchema: SwaggerSchema = {
   type: 'object',
   properties: {
     name: {
       type: 'string',
+      minLength: 1,
       example: 'Power supply name',
-      nullable: true
+      nullable: true,
     },
     power: {
       type: 'integer',
       example: 750,
       minimum: 0,
-      nullable: true
-    }
+      nullable: true,
+    },
   },
-}
+};
 
 export const GetAllPowerSuppliesResponse: SwaggerSchema = {
   type: 'object',
@@ -99,17 +106,17 @@ export const GetAllPowerSuppliesResponse: SwaggerSchema = {
       properties: {
         globalCount: {
           type: 'integer',
-          nullable: false
+          nullable: false,
         },
         countAfterFiltering: {
           type: 'integer',
-          nullable: false
-        }
-      }
+          nullable: false,
+        },
+      },
     },
     data: {
       type: 'array',
-      items: PowerSupplySchema
-    }
-  }
-}
+      items: PowerSupplySchema,
+    },
+  },
+};

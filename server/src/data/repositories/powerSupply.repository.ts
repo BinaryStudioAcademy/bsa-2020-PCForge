@@ -2,8 +2,10 @@ import { PowerSupplyCreationAttributes, PowerSupplyModel, PowerSupplyStatic } fr
 import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
+import { IPowerSupplyFilter } from './filters/powerSupply.filter';
+import { Op } from 'sequelize';
 
-export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, IFilter> {
+export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, PowerSupplyCreationAttributes, IFilter> {
   constructor(private model: PowerSupplyStatic) {
     super(<RichModel>model, IFilter);
   }
@@ -13,28 +15,20 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, IFil
     return powerSupply;
   }
 
-  async getAllPowerSupplies(inputFilter: IFilter): Promise<IWithMeta<PowerSupplyModel>> {
-    const filter = mergeFilters<IFilter>(new IFilter(), inputFilter);
+  async getAllPowerSupplies(inputFilter: IPowerSupplyFilter): Promise<IWithMeta<PowerSupplyModel>> {
+    const filter = mergeFilters<IPowerSupplyFilter>(new IPowerSupplyFilter(), inputFilter);
     const powerSupplies = await this.getAll(
       {
         group: ['powerSupply.id'],
+        where: {
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+          power: {
+            [Op.between]: [filter.power.minValue, filter.power.maxValue],
+          },
+        },
       },
       filter
     );
     return powerSupplies;
-  }
-
-  async createPowerSupply(inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
-    const powerSupply = await this.model.create(inputPowerSupply);
-    return powerSupply;
-  }
-
-  async updatePowerSupplyById(id: string, inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
-    const powerSupply = await this.updateById(id, inputPowerSupply);
-    return powerSupply;
-  }
-
-  async deletePowerSupplyById(id: string): Promise<void> {
-    await this.deleteById(id);
   }
 }

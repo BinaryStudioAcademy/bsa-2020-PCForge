@@ -103,6 +103,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
           className={styles.inputContainer}
           placeholder={placeholder}
           id={inputId}
+          autoComplete="off"
           classes={{ input: styles.input }}
           onInput={(e: ChangeEvent<HTMLInputElement>) => this.onInputValueChange(e.target.value)}
           value={this.state.inputValue}

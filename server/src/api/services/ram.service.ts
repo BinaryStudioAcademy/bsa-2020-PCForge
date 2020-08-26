@@ -3,14 +3,17 @@ import { IWithMeta } from '../../data/repositories/base.repository';
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 import { RamRepository } from '../../data/repositories/ram.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
 
-export class RamService {
-  constructor(private repository: RamRepository) {}
+export class RamService extends BaseService<RamModel, RamCreationAttributes, RamRepository> {
+  constructor(private repository: RamRepository) {
+    super(repository);
+  }
 
   async getRamById(id: string): Promise<RamModel> {
     const ram = await this.repository.getRamById(id);
     if (!ram) {
-      triggerServerError(`Ram with id: ${id} does not exists`, 404)
+      triggerServerError(`Ram with id: ${id} does not exists`, 404);
     }
     return ram;
   }
@@ -21,22 +24,16 @@ export class RamService {
   }
 
   async createRam(inputRam: RamCreationAttributes): Promise<RamModel> {
-    const ram = await this.repository.createRam(inputRam);
+    const ram = await super.create(inputRam);
     return ram;
   }
 
-  async updateRamById(inputRam: { id: string; data: RamCreationAttributes }): Promise<RamModel> {
-    const { id, data } = inputRam;
-    const oldRam = await this.repository.getRamById(id);
-    if (!oldRam) {
-      triggerServerError(`Ram with id: ${id} does not exists`, 404)
-    }
-    const ram = await this.repository.updateRamById(id, data);
+  async updateRamById({ id, data }: { id: string; data: RamCreationAttributes }): Promise<RamModel> {
+    const ram = await super.updateById(id, data);
     return ram;
   }
 
-  async deleteRamById(inputRam: { id: string }): Promise<void> {
-    const { id } = inputRam;
-    await this.repository.deleteRamById(id);
+  async deleteRamById(id: string): Promise<RamModel> {
+    return await super.deleteById(id);
   }
 }

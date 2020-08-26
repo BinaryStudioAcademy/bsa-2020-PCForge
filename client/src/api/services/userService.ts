@@ -27,3 +27,7 @@ export const addUserGame = async (id: number, gameId: number): Promise<Game> => 
 export const deleteUserGame = async (id: number, gameId: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}/games/${gameId}`);
 };
+
+export const getAllUsers = async (): Promise<Array<TypeUser>> => {
+  return await webApi.get(`${endpoint}`);
+};

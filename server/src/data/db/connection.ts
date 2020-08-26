@@ -18,9 +18,10 @@ import { UserStatic } from '../models/user';
 import { UserGameStatic } from '../models/usergame';
 import { initializeModels } from '../models/index';
 import { initializeRepositories, Repositories } from '../repositories';
-import { initializeServices, Services } from '../../api/services';
 import { TopGameStatic } from '../models/topgame';
 import { AddRequestStatic } from '../models/addRequest';
+import { HddStatic } from '../models/hdd';
+import { SsdStatic } from '../models/ssd';
 
 export interface Models {
   AddRequest: AddRequestStatic;
@@ -39,6 +40,8 @@ export interface Models {
   User: UserStatic;
   UserGame: UserGameStatic;
   TopGame: TopGameStatic;
+  Hdd: HddStatic;
+  Ssd: SsdStatic;
 }
 
 export interface Db {
@@ -57,13 +60,13 @@ export default fp(async (fastify, opts, next) => {
 
     const models: Models = initializeModels(sequelize);
     const repositories: Repositories = initializeRepositories(models);
-    const services: Services = initializeServices(repositories);
 
     fastify.decorate('db', { models });
-    fastify.decorate('services', services);
+    fastify.decorate('repositories', repositories);
+    console.log('repositories were successfully initialized');
+    next();
   } catch (err) {
     console.error('Unable to connect to the database:', err);
-  } finally {
-    next();
+    next(err);
   }
 });

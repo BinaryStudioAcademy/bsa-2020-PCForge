@@ -1,6 +1,7 @@
 import { TypeUser } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
 import { deleteUserGame } from 'api/services/userService';
+import { SetupType } from 'common/models/typeSetup';
 
 export const LOAD_USER = 'LOAD_USER';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
@@ -14,6 +15,8 @@ export const LOAD_FILTERED_GAMES = 'LOAD_FILTERED_GAMES';
 export const LOAD_FILTERED_GAMES_SUCCESS = 'LOAD_FILTERED_GAMES_SUCCESS';
 export const ADD_USER_GAME = 'ADD_USER_GAME';
 export const DELETE_USER_GAME = 'DELETE_USER_GAME';
+export const LOAD_SETUPS = 'LOAD_SETUPS';
+export const LOAD_SETUPS_SUCCESS = 'LOAD_SETUPS_SUCCES';
 
 export interface loadUser {
   type: typeof LOAD_USER;
@@ -24,6 +27,18 @@ export interface loadUser {
 export interface loadUserSuccess {
   type: typeof LOAD_USER_SUCCESS;
   payload: TypeUser;
+}
+
+export interface loadSetups {
+  type: typeof LOAD_SETUPS;
+  payload: {
+    authorId: number;
+  };
+}
+
+export interface loadSetupsSuccess {
+  type: typeof LOAD_SETUPS_SUCCESS;
+  payload: SetupType[];
 }
 
 export interface updateUser {
@@ -89,4 +104,6 @@ export type UserActionTypes =
   | loadFilteredGames
   | loadFilteredGamesSuceess
   | addUserGame
-  | deleteUserGame;
+  | deleteUserGame
+  | loadSetups
+  | loadSetupsSuccess;

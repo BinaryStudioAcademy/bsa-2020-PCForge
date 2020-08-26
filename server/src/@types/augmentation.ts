@@ -5,6 +5,8 @@ import { RawServerBase, RawServerDefault, RawRequestDefaultExpression, RawReplyD
 import { Db } from '../data/db/connection';
 import { RouteGenericInterface } from 'fastify/types/route';
 import { File as MulterFile } from 'fastify-multer/lib/interfaces';
+import Mail from 'nodemailer/lib/mailer';
+import { Repositories } from '../data/repositories';
 
 interface File extends MulterFile {
   bucket: string;
@@ -27,8 +29,10 @@ declare module 'fastify' {
     Logger = FastifyLoggerInstance
   > {
     db: Db;
+    repositories: Repositories;
     services: Services;
     googleOAuth2: OAuth2Namespace;
+    nodemailer: Mail;
   }
 
   export interface FastifyRequest<

@@ -6,11 +6,16 @@ import {
   LoginSchema,
   GoogleAuthSchema,
   IsAuthenticatedSchema,
+  ResetPasswordRequestRequest,
+  ResetPasswordRequestSchema,
+  ResetPasswordSchema,
+  ResetPasswordRequest,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { UserService } = fastify.services;
+  const { MailService, UserService } = fastify.services;
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -45,16 +50,48 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
       if (err) {
         try {
           //Return object with information about user
-          await oAuth2Client.verifyIdToken({ idToken: token });
-          response.send({ logged_in: true });
+          const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
+          try {
+            const user = await UserService.getUserByLoginOrEmail(userData.email, '');
+            response.send({ logged_in: true, user });
+          } catch (err) {
+            const user = await UserService.createUser({
+              name: userData.name,
+              email: userData.email,
+              password: '',
+              avatar: userData.picture,
+            });
+            if (!user) {
+              triggerServerError('User with given email exists', 403);
+            }
+            response.send({ logged_in: true, user });
+          }
         } catch (err) {
           response.send({ logged_in: false });
         }
       } else {
-        const user = await UserService.getUser(decoded.user.id);
+        const user = decoded.user;
         response.send({ logged_in: true, user });
       }
     });
+  });
+
+  fastify.post(
+    '/reset-password/request',
+    ResetPasswordRequestSchema,
+    async (request: ResetPasswordRequestRequest, reply) => {
+      const { email } = request.body;
+      const resetPasswordToken = 'Ajkdjahkjh227d8asjasd'; //generate reset password token and save it to user.resetPasswordToken in DB
+      const user = { id: 22 }; //get user by email from DB
+      const status = await MailService.sendResetPassword({ to: email, userId: user.id, token: resetPasswordToken });
+      reply.send(status);
+    }
+  );
+
+  fastify.post('/reset-password', ResetPasswordSchema, async (request: ResetPasswordRequest, reply) => {
+    const { userId, token, newPassword } = request.body;
+    // check if token valid and change password if needed
+    reply.send({});
   });
 
   next();

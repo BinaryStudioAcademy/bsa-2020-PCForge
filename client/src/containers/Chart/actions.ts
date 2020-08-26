@@ -1,5 +1,6 @@
+import { Cpu } from 'common/models/cpu';
 import { Game } from 'common/models/game';
-import { Setup } from 'common/models/setup';
+import { Gpu } from 'common/models/gpu';
 import { ISetupPerformance } from 'common/models/setupPerformance';
 import { TopGame } from 'common/models/topGame';
 import { SetupChartActions, SetupChartTypes } from './actionTypes';
@@ -19,17 +20,17 @@ export const fetchTopGames = (): SetupChartActions => ({
   },
 });
 
-export const fetchSetup = (id: number): SetupChartActions => ({
-  type: SetupChartTypes.FETCH_SETUP_REQUEST,
-  payload: {
-    id,
-  },
-});
-
-export const fetchPerformanceAnalysis = (setupId: number, gameId: number): SetupChartActions => ({
+export const fetchPerformanceAnalysis = (
+  cpuId: number,
+  gpuId: number,
+  ramSize: number,
+  gameId: number
+): SetupChartActions => ({
   type: SetupChartTypes.FETCH_PERFORMANCE_REQUEST,
   payload: {
-    setupId,
+    cpuId,
+    gpuId,
+    ramSize,
     gameId,
   },
 });
@@ -38,13 +39,6 @@ export const setGames = (games: Game[]): SetupChartActions => ({
   type: SetupChartTypes.FETCH_GAMES_SUCCESS,
   payload: {
     games,
-  },
-});
-
-export const setSetup = (setup: Setup): SetupChartActions => ({
-  type: SetupChartTypes.FETCH_SETUP_SUCCESS,
-  payload: {
-    setup,
   },
 });
 
@@ -59,6 +53,27 @@ export const setPerformance = (performance: ISetupPerformance): SetupChartAction
   type: SetupChartTypes.FETCH_PERFORMANCE_SUCCESS,
   payload: {
     performance,
+  },
+});
+
+export const setCpu = (cpu: Cpu): SetupChartActions => ({
+  type: SetupChartTypes.SET_CPU,
+  payload: {
+    cpu,
+  },
+});
+
+export const setGpu = (gpu: Gpu): SetupChartActions => ({
+  type: SetupChartTypes.SET_GPU,
+  payload: {
+    gpu,
+  },
+});
+
+export const setRamSize = (ramSize: number): SetupChartActions => ({
+  type: SetupChartTypes.SET_RAM,
+  payload: {
+    ramSize,
   },
 });
 

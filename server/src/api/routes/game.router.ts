@@ -11,43 +11,58 @@ import {
   CreateGameSchema,
   updateGameSchema,
 } from './game.schema';
-import { GetMultipleQuery, GetOneQuery, CreateOneQuery, UpdateOneQuery, DeleteOneQuery } from '../../helpers/swagger.helper';
+import {
+  getMultipleQuery,
+  getOneQuery,
+  createOneQuery,
+  updateOneQuery,
+  deleteOneQuery,
+} from '../../helpers/swagger.helper';
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
+import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { GameService } = fastify.services;
+  const preHandler = userRequestMiddleware(fastify);
+  fastify.addHook('preHandler', preHandler);
 
-  const getAllSchema = GetMultipleQuery(GetAllGamesResponse, IGameFilter.schema)
+  const getAllSchema = getMultipleQuery(GetAllGamesResponse, IGameFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllGamesRequest, reply) => {
+    allowForAuthorized(request);
     const games = await GameService.getAllGames(request.query);
     reply.send(games);
   });
 
-  const getOneSchema = GetOneQuery(GameSchema);
+  const getOneSchema = getOneQuery(GameSchema);
   fastify.get('/:id', getOneSchema, async (request: GetOneGameRequest, reply) => {
+    allowForAuthorized(request);
     const { id } = request.params;
     const game = await GameService.getGameById(id);
     reply.send(game);
   });
 
-  const createOneSchema = CreateOneQuery(CreateGameSchema, GameSchema);
+  const createOneSchema = createOneQuery(CreateGameSchema, GameSchema);
   fastify.post('/', createOneSchema, async (request: PostGameRequest, reply) => {
+    allowForAdmin(request);
     const game = await GameService.createGame(request.body);
     reply.send(game);
   });
 
-  const updateOneSchema = UpdateOneQuery(updateGameSchema, GameSchema);
+  const updateOneSchema = updateOneQuery(updateGameSchema, GameSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutGameRequest, reply) => {
+    allowForAdmin(request);
     const { id } = request.params;
     const newGame = await GameService.updateGameById({ id, data: request.body });
     reply.send(newGame);
   });
 
-  const deleteOneSchema = DeleteOneQuery();
+  const deleteOneSchema = deleteOneQuery(GameSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteGameRequest, reply) => {
+    allowForAdmin(request);
     const { id } = request.params;
-    await GameService.deleteGameById(id);
-    reply.send({});
+    const game = await GameService.deleteGameById(id);
+    reply.send(game);
   });
 
   next();

@@ -56,7 +56,7 @@ export const passwordValid = (
 
 export const nameValid = (name: string, errorMessages: IErrorMessage, setErrorMessages: SetErrorMessages): boolean => {
   let nameMessage = null;
-  const regex = /^[a-zA-Z0-9._-]{3,30}$/;
+  const regex = /^[\sa-zA-Zа-яА-Я0-9._-]{3,50}$/;
   if (!regex.test(name)) {
     if (!name) {
       nameMessage = 'Please, tell us your name';

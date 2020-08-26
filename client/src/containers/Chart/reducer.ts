@@ -1,10 +1,12 @@
-import { defaultPerformance, defaultSetup } from 'common/models/defaults';
+import { defaultCpu, defaultGpu, defaultPerformance, defaultRam, defaultSetup } from 'common/models/defaults';
 import { SetupChartActions, SetupChartState, SetupChartTypes } from './actionTypes';
 
 const initialState: SetupChartState = {
   searchedGames: [],
   topGames: [],
-  setup: defaultSetup,
+  cpu: null,
+  gpu: null,
+  ramSize: null,
   performance: defaultPerformance,
   error: '',
 };
@@ -32,10 +34,24 @@ export function SetupChartReducer(state = initialState, action: SetupChartAction
       };
     }
 
-    case SetupChartTypes.FETCH_SETUP_SUCCESS: {
+    case SetupChartTypes.SET_CPU: {
       return {
         ...state,
-        setup: action.payload.setup,
+        cpu: action.payload.cpu,
+      };
+    }
+
+    case SetupChartTypes.SET_GPU: {
+      return {
+        ...state,
+        gpu: action.payload.gpu,
+      };
+    }
+
+    case SetupChartTypes.SET_RAM: {
+      return {
+        ...state,
+        ramSize: action.payload.ramSize,
       };
     }
 

@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
+import { BaseService } from './base.service';
+import { IWithMeta } from '../../data/repositories/base.repository';
 
 interface UserCreateAttributes {
   name: string;
@@ -10,11 +12,13 @@ interface UserCreateAttributes {
   avatar: string;
 }
 
-export class UserService {
-  constructor(private repository: UserRepository) {}
+export class UserService extends BaseService<UserModel, UserCreationAttributes, UserRepository> {
+  constructor(private repository: UserRepository) {
+    super(repository);
+  }
 
   async getUserByLoginOrEmail(login: string, password: string): Promise<UserModel> {
-    if (!login || !password) {
+    if (!login || (!password && password !== '')) {
       throw { error: `You are missing login or password`, status: 400 };
     }
     const user = await this.repository.getUserByUserNameOrEmail(login);
@@ -28,7 +32,7 @@ export class UserService {
     return user;
   }
 
-  async getUsers(): Promise<UserModel[]> {
+  async getUsers(): Promise<IWithMeta<UserModel>> {
     const users = await this.repository.getAllUsers();
     return users;
   }
@@ -36,7 +40,7 @@ export class UserService {
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getUserById(id);
     if (!user) {
-      triggerServerError('User with id: ${id} does not exists', 404);
+      triggerServerError(`User with id: ${id} does not exists`, 404);
     }
     return user;
   }
@@ -49,7 +53,7 @@ export class UserService {
       verifyEmailToken: null,
       resetPasswordToken: null,
     };
-    const user = await this.repository.create(userAttributes);
+    const user = await super.create(userAttributes);
     return user;
   }
 
@@ -61,12 +65,19 @@ export class UserService {
     if (inputUser.password) {
       inputUser.password = this.hash(inputUser.password);
     }
-    const user = await this.repository.updateById(id, inputUser);
+    const userAttributes: UserCreationAttributes = {
+      ...inputUser,
+      isAdmin: false,
+      password: this.hash(inputUser.password),
+      verifyEmailToken: null,
+      resetPasswordToken: null,
+    };
+    const user = await this.repository.updateById(id, userAttributes);
     return user;
   }
 
-  async deleteUser(id: string): Promise<void> {
-    await this.repository.deleteById(id);
+  async deleteUser(id: string): Promise<UserModel> {
+    return await super.deleteById(id);
   }
 
   hash(password: string): string {
