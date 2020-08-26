@@ -39,6 +39,7 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
     },
     name: {
       allowNull: true,
+      unique: true,
       type: DataTypes.STRING(150),
     },
     password: {
@@ -47,6 +48,7 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
     },
     email: {
       allowNull: false,
+      unique: true,
       type: DataTypes.STRING(50),
     },
     isAdmin: {

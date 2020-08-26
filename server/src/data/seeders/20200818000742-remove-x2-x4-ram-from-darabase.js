@@ -10,4 +10,7 @@ module.exports = {
       console.log(`Seeding error: ${err}`);
     }
   },
+  down: async (queryInterface, Sequelize) => {
+    /* eslint-disable */
+  },
 };

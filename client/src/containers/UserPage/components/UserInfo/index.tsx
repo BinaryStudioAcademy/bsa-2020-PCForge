@@ -248,6 +248,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           <Input
             disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
+            placeholder="Name"
             icon="Face"
             value={name || ''}
             inputType={errorMessages.nameErrorMessage ? InputType.error : undefined}
@@ -259,6 +260,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
             icon="Email"
+            placeholder="Email"
             value={email}
             inputType={errorMessages.emailErrorMessage ? InputType.error : undefined}
             onChange={handleEmailChange}

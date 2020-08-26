@@ -2,7 +2,7 @@ import { authService } from 'api/services/auth.service';
 import { IRegPayload } from './interfaces';
 import { User } from 'common/models/user';
 import { call, put, takeLatest, all } from 'redux-saga/effects';
-import { AUTH_REGISTER_REQUEST, registerRequestAction } from './actionTypes';
+import { AUTH_REGISTER_REQUEST, registerRequestAction, AUTH_REGISTRATION_ERROR } from './actionTypes';
 import { changeLoadingStatus, validationError, registered } from './actions';
 
 export function* registerUser(action: registerRequestAction) {
@@ -12,7 +12,10 @@ export function* registerUser(action: registerRequestAction) {
     const data: User = yield call<(data: IRegPayload) => void>(authService.register, newUser);
     yield put(registered(false));
   } catch (error) {
-    yield put(validationError(error));
+    yield put(validationError(error?.message))
+    // yield put({ type: AUTH_REGISTRATION_ERROR, payload: {
+    //   message: error.message === 'Bad '
+    // }});
   } finally {
     yield put(changeLoadingStatus(false));
   }

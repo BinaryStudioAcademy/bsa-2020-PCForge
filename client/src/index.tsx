@@ -9,6 +9,9 @@ import history from './browserHistory';
 import * as serviceWorker from './serviceWorker';
 import 'styles/index.scss';
 import { theme } from 'assets/jss/theme';
+import SentryInstance from './sentry';
+
+SentryInstance.run();
 
 ReactDOM.render(
   <Provider store={store}>
