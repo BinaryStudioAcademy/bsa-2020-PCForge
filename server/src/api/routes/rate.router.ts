@@ -55,6 +55,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const createOneSchema = createOneQuery(CreateRateSchema, RateSchema);
   fastify.post('/', createOneSchema, async (request: PostRateRequest, reply) => {
     allowForAuthorized(request);
+    request.body.userId = request.user.id;
     const rate = await RateService.createRate(request.body, rateMiddleware);
     reply.send(rate);
   });
@@ -63,6 +64,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', updateOneSchema, async (request: PutRateRequest, reply) => {
     allowForAuthorized(request);
     const { id } = request.params;
+    request.body.userId = request.user.id;
     const newRate = await RateService.updateRateById({ id, data: request.body }, rateMiddleware, request.user);
     reply.send(newRate);
   });

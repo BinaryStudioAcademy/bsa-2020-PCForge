@@ -49,7 +49,6 @@ export const CommentSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
-    user: UserSchema,
     commentableId: {
       type: 'integer',
       example: 1,
@@ -77,6 +76,14 @@ export const CommentSchema: SwaggerSchema = {
   },
 };
 
+const makeDetailedSchema = () => {
+  const schema: SwaggerSchema = JSON.parse(JSON.stringify(CommentSchema));
+  schema.properties.user = UserSchema;
+  return schema;
+};
+
+export const DetailedCommentSchema = makeDetailedSchema();
+
 export const GetAllComments: SwaggerSchema = {
   type: 'object',
   properties: {
@@ -95,14 +102,15 @@ export const GetAllComments: SwaggerSchema = {
     },
     data: {
       type: 'array',
-      items: CommentSchema,
+      items: DetailedCommentSchema,
     },
   },
 };
 
 export const CreateCommentSchema: SwaggerSchema = {
   type: 'object',
-  required: ['commentableType', 'commentableId', 'userId', 'token', 'value'],
+  required: ['commentableType', 'commentableId', 'value'],
+  additionalProperties: false,
   properties: {
     commentableType: {
       type: 'string',
@@ -117,20 +125,6 @@ export const CreateCommentSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
-    userId: {
-      type: 'integer',
-      nullable: false,
-      example: 1,
-      minimum: 1,
-    },
-    token: {
-      type: 'string',
-      minLength: 1,
-      description: 'This is token that u get while loging in',
-      nullable: false,
-      example:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc4NjQ5MjQsImV4cCI6MTU5Nzk1MTMyNH0.V8oy05YtI8elNEOl5Z_1hiCZFwD3Fq_ck1bZ4_UXI3o',
-    },
     value: {
       type: 'string',
       minLength: 1,
@@ -142,19 +136,14 @@ export const CreateCommentSchema: SwaggerSchema = {
 
 export const UpdateCommentSchema: SwaggerSchema = {
   type: 'object',
-  required: ['commentableType', 'commentableId', 'userId', 'token', 'value'],
+  required: ['commentableType', 'commentableId', 'value'],
+  additionalProperties: false,
   properties: {
     commentableType: {
       type: 'string',
       minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
-      nullable: true,
-    },
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
       nullable: true,
     },
     commentableId: {
