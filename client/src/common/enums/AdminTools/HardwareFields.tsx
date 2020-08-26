@@ -14,6 +14,8 @@ enum HardwareFields {
   power = 'Power',
   frequency = 'Frequency',
   typeRam = 'Type',
+  sata = 'Sata',
+  m2 = 'M2',
 }
 
 export { HardwareFields };

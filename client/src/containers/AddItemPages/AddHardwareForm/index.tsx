@@ -7,6 +7,7 @@ import InputForm from 'components/BasicComponents/InputForm';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import Select from 'components/BasicComponents/Select';
+import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
 import styles from './styles.module.scss';
 
 import { connect } from 'react-redux';
@@ -19,7 +20,7 @@ import { CpuCreationAttributes } from 'common/models/cpu';
 import { GpuCreationAttributes } from 'common/models/gpu';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
-import { memorySizeOptions, classCpuOptions } from './interfaces';
+import { memorySizeOptions, classCpuOptions, sataOptions } from './interfaces';
 
 const theme = createMuiTheme({
   overrides: {
@@ -80,6 +81,8 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const [classCpu, setClassCpu] = useState('');
   const [interfaceGpu, setInterfaceGpu] = useState('');
   const [memorySize, setMemorySize] = useState('');
+  const [sata, setSata] = useState<number>();
+  const [m2, setM2] = useState(true);
   const [coreClocks, setCoreClocks] = useState('');
   const [directX, setDirectX] = useState('');
   const [openGl, setOpenGl] = useState('');
@@ -152,9 +155,14 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const handleChangeMemorySize = (event: React.ChangeEvent<{ value: unknown }>) => {
     setMemorySize(event.target.value as string);
   };
+  const handleChangeSata = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSata(event.target.value as number);
+  };
+  const handleChangeM2 = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setM2(event.target.checked);
+  };
 
   const onCancel = () => {
-    console.log('cancel');
     goBack();
   };
   const onPublish = () => {
@@ -174,7 +182,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.Motherboard: {
-        if (!name || !socket || !ram) {
+        if (!name || !socket || !ram || !sata) {
           setAlertText('Error: Please fill all hardware components');
           setAlertType(AlertType.error);
           return;
@@ -184,6 +192,8 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
           name,
           socketId: socket,
           ramTypeId: ram,
+          sata: +sata,
+          m2,
         };
         createMotherboard(motherBoard);
         break;
@@ -294,6 +304,8 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
       {
         fieldsMap.set(HardwareFields.socket, true);
         fieldsMap.set(HardwareFields.ram, true);
+        fieldsMap.set(HardwareFields.sata, true);
+        fieldsMap.set(HardwareFields.m2, true);
       }
       break;
     case HardwareTypes.GPU:
@@ -490,6 +502,19 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
                 />
               </div>
             ) : null}
+            {fieldsMap.get(HardwareFields.sata) ? (
+              <div className={styles.selectItem}>
+                <Select
+                  inputLabel={HardwareFields.sata}
+                  placeholder="Select a Sata"
+                  value={sata}
+                  onChange={handleChangeSata}
+                  inputOptions={sataOptions}
+                  labelClassName={styles.selectItemHeader}
+                  required
+                />
+              </div>
+            ) : null}
           </div>
           <div className={styles.additionalFieldRight}>
             {fieldsMap.get(HardwareFields.power) && typeHardWare !== HardwareTypes.PowerSupply ? (
@@ -625,6 +650,11 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
                   labelClassName={styles.selectItemHeader}
                   required
                 />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.m2) ? (
+              <div className={styles.labelContainer}>
+                <Checkbox checkboxType={CheckboxType.primary} label={'M2'} checked={m2} onChange={handleChangeM2} />
               </div>
             ) : null}
           </div>

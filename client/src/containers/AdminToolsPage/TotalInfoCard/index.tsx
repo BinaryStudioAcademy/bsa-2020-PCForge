@@ -28,7 +28,7 @@ export const TotalInfoCard = (props: ITotalInfoCard): JSX.Element => {
           <Box>{count}</Box>
         </Box>
         <Box className={countOfRequests && countOfRequests > 0 ? styles.boxBadget : ''}>
-          {count && count > 0 ? (
+          {countOfRequests && countOfRequests > 0 ? (
             <Tooltip title={`You have new ${countOfRequests} requests of ${name}`} placement="right-start" arrow>
               <Badge color="primary" badgeContent={countOfRequests}>
                 <div className={styles.icon}>{icon}</div>
