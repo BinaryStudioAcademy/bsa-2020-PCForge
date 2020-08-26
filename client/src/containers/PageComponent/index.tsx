@@ -19,6 +19,7 @@ interface IProps {
 const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -42,6 +43,7 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
       });
       const isAuthenticated = await response.json();
       console.log('checkIsUserAuthenticated -> isAuthenticated', isAuthenticated);
+      setIsAdmin(isAuthenticated.user.isAdmin);
       if (!isAuthenticated.logged_in) {
         await clearToken();
       }
@@ -59,12 +61,12 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
     <Redirect to={Routes.LOGIN} />
   ) : (
     <div className={classes.rootComponent}>
-        <TopBar />
-        <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} />
-        <div className={classes.contentWrapper}>
-          {children}
-          <Footer />
-        </div>
+      <TopBar />
+      <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} isAdmin={isAdmin} />
+      <div className={classes.contentWrapper}>
+        {children}
+        <Footer />
+      </div>
     </div>
   );
 };
