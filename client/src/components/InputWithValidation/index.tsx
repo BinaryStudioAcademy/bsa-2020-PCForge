@@ -13,6 +13,7 @@ interface Props {
   error?: string;
   label: string;
   defaultValue?: string;
+  type?: 'text' | 'password';
   // eslint-disable-next-line @typescript-eslint/ban-types
   classes?: object;
 }
@@ -25,6 +26,7 @@ const InputWithValidation: React.FC<Props> = ({
   defaultValue,
   error = '',
   isValid = true,
+  type = 'text',
 }): JSX.Element => {
   const [validationResult, setValidationResult] = React.useState<IValidationResult>({ isValid: true, error: '' });
   const onInputChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -51,6 +53,7 @@ const InputWithValidation: React.FC<Props> = ({
       fullWidth={true}
       onChange={onInputChange}
       classes={classes}
+      type={type}
     />
   );
 };
