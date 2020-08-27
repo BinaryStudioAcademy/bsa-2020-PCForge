@@ -36,4 +36,3 @@ export const deleteUserRequest = async (id: number): Promise<void> => {
 export const postUserRequest = async (request: TypeUsersRequestsCreationAttributes): Promise<TypeUsersRequests> => {
   return await webApi.post(`${endpoint}`, request);
 };
-

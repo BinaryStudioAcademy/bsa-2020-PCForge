@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import PageComponent from 'containers/PageComponent';
 import ListItem from '@material-ui/core/ListItem';
@@ -25,6 +25,9 @@ import { UsersRequestState, UsersRequestActions } from './actionsTypes';
 
 import styles from './styles.module.scss';
 
+import ModalAddRequest from 'containers/AddUserRequest';
+import Button, { ButtonType } from 'components/BasicComponents/Button';
+
 interface IPropsAdminToolsPage {
   state: UsersRequestState;
   historyPage: History;
@@ -34,6 +37,17 @@ interface IPropsAdminToolsPage {
 }
 
 const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
+  const [displayAddRequestOpen, setDisplayAddRequestOpen] = useState(false);
+  const showDetails = () => {
+    setDisplayAddRequestOpen(true);
+  };
+  const hideDetails = () => {
+    setDisplayAddRequestOpen(false);
+  };
+  const handleDetailsWindow = () => {
+    displayAddRequestOpen ? hideDetails() : showDetails();
+  };
+
   const { getUsersRequests, deleteUserRequest, getTotalCounts } = props;
   useEffect(() => {
     getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.hardware }]);
@@ -97,7 +111,15 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
               <Spinner />
             )}
           </div>
-          <div className={styles.chartContainer}></div> {/*TO DO*/}
+          <div className={styles.chartContainer}>
+            {displayAddRequestOpen ? (
+              <ModalAddRequest onClose={hideDetails} requestType={UserRequestedType.hardware} />
+            ) : null}
+            <Button buttonType={ButtonType.secondary} className={styles.buttonRequest} onClick={handleDetailsWindow}>
+              Add Request New
+            </Button>
+          </div>{' '}
+          {/*TO DO*/}
           <div className={styles.notificationsContainer}>
             {props.state.dataUserRequestsIsLoaded ? (
               <RequestContaner usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />

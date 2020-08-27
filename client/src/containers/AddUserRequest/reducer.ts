@@ -7,9 +7,9 @@ const initialState: AddRequestState = {
   errorMessage: '',
   loadingStatus: true,
   sendingStatus: false,
-}
+};
 
-export default function AddRequestReducer (state=initialState, action: AddRequestActions): AddRequestState {
+export default function AddRequestReducer(state = initialState, action: AddRequestActions): AddRequestState {
   switch (action.type) {
     case AddRequestActionTypes.GET_USERS_REQUESTS_SUCCESS: {
       return {
@@ -33,7 +33,7 @@ export default function AddRequestReducer (state=initialState, action: AddReques
       return {
         ...state,
         sendingStatus: action.payload.sendingStatus,
-      }
+      };
     }
     default:
       return state;

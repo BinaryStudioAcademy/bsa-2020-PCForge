@@ -28,7 +28,7 @@ const RootReducer = combineReducers({
   setupChart: SetupChartReducer,
   gameForm: GameFormReducer,
   hardwareForm: HardwareFormReducer,
-  addRequestReducer: AddRequestReducer,
+  addRequest: AddRequestReducer,
 });
 
 export default RootReducer;

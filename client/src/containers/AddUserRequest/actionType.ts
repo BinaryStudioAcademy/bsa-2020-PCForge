@@ -42,13 +42,13 @@ export interface IUserSendRequestActiont {
   type: AddRequestActionTypes.POST_USER_REQUEST_ACTION;
   payload: {
     userRequest: TypeUsersRequestsCreationAttributes;
-  }
+  };
 }
 export interface IUserSendRequestSuccess {
   type: AddRequestActionTypes.POST_USER_REQUEST_SUCCESS;
   payload: {
     sendingStatus: boolean;
-  }
+  };
 }
 
 export interface AddRequestState {
@@ -59,10 +59,9 @@ export interface AddRequestState {
 }
 
 export type AddRequestActions =
-| IUserSendRequestActiont
-| IUserSendRequestActiont
-| IUsersRequestActionLoading
-| IUsersRequestActionError
-| IGetRequestActionSuccess
-| IGetActualUsersRequestAction
-| IUserSendRequestSuccess;
+  | IUserSendRequestActiont
+  | IUsersRequestActionLoading
+  | IUsersRequestActionError
+  | IGetRequestActionSuccess
+  | IGetActualUsersRequestAction
+  | IUserSendRequestSuccess;
