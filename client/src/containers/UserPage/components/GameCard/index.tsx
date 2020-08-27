@@ -4,6 +4,7 @@ import Link from 'components/BasicComponents/Link';
 import { UserActionTypes } from '../../logic/actionTypes';
 import { useParams } from 'react-router';
 import { deleteUserGame } from 'api/services/userService';
+import Image from 'components/BasicComponents/Image';
 
 export interface GameCardProps {
   image: string;
@@ -29,7 +30,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
   return (
     <div className={styles.gameCard}>
       <div className={styles.gameImage}>
-        <img src={image} alt="" />
+        <Image src={image} alt="" />
       </div>
       <div className={styles.gameFooter}>
         <div className={styles.gameTitle}>{name}</div>
