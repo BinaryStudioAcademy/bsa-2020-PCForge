@@ -133,19 +133,14 @@ export const GetAllRates: SwaggerSchema = {
 
 export const CreateRateSchema: SwaggerSchema = {
   type: 'object',
-  required: ['ratebleType', 'userId', 'ratebleId', 'value'],
+  required: ['ratebleType', 'ratebleId', 'value'],
+  additionalProperties: false,
   properties: {
     ratebleType: {
       type: 'string',
       minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
-      nullable: false,
-    },
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
       nullable: false,
     },
     ratebleId: {
@@ -165,18 +160,14 @@ export const CreateRateSchema: SwaggerSchema = {
 
 export const UpdateRateSchema: SwaggerSchema = {
   type: 'object',
-  required: ['ratebleType', 'userId', 'ratebleId', 'value'],
+  required: ['ratebleType', 'ratebleId', 'value'],
+  additionalProperties: false,
   properties: {
     ratebleType: {
       type: 'string',
       minLength: 1,
       example: 'game',
       enum: ['news', 'game', 'setup'],
-      nullable: true,
-    },
-    userId: {
-      type: 'integer',
-      example: 1,
       nullable: true,
     },
     ratebleId: {

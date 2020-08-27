@@ -22,7 +22,7 @@ $cardButtonColor: #EB3D55;
 }
 
 .cardDisplay {
-  width: 86vw;
+  //width: 86vw;
   margin-bottom: 30px;
   display: flex;
   margin: 10px;
@@ -59,7 +59,7 @@ $cardButtonColor: #EB3D55;
       width:80%;
       margin-left: 5px;
       margin-right: 5px;
-     
+
       & > div {
         width:100%;
         min-width: 200px;
@@ -84,7 +84,7 @@ $cardButtonColor: #EB3D55;
     @media (max-width: 1200px) {
       width: 55%;
       margin-right: 20px;
-     
+
       &>div {
         margin-bottom: 15px !important;
         margin-top: 15px !important;
@@ -97,7 +97,7 @@ $cardButtonColor: #EB3D55;
       width:80%;
       margin-right: 5px;
       margin-left: 5px;
-    
+
       & > div {
         width:100%;
         min-width: 200px;
@@ -106,7 +106,7 @@ $cardButtonColor: #EB3D55;
         margin-bottom: 20px;
       }
     }
-  
+
     .cardButton {
       height: 335px;
       width: 45%;

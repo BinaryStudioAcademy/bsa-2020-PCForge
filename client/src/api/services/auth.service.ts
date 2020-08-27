@@ -13,9 +13,9 @@ export class AuthService {
     return response.user;
   }
 
-  async createUser(data: IAuthPayload): Promise<User> {
-    const apiRoute = '/users';
-    const response = await api.post(apiRoute, data);
+  async verifyEmail({token}: { token: string }): Promise<{verified: boolean, user: User}> {
+    const apiRoute = `/auth/verify-email/${token}`;
+    const response = await api.get(apiRoute);
     return response;
   }
 
@@ -23,6 +23,16 @@ export class AuthService {
     const apiRoute = '/users';
     const response = await api.post(apiRoute, request);
     return response;
+  }
+
+  async resetPasswordRequest(email: string): Promise<void> {
+    const apiRoute = '/auth/reset-password/request';
+    await api.post(apiRoute, { email });
+  }
+
+  async resetPassword(data: { userId: string; token: string; newPassword: string }): Promise<void> {
+    const apiRoute = '/auth/reset-password';
+    await api.post(apiRoute, data);
   }
 }
 
