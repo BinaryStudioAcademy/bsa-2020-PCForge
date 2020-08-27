@@ -44,6 +44,10 @@ const LoginForm = ({
     history.push(Routes.DEFAULT);
   };
 
+  const onForgotPasswordClick = () => {
+    history.push(Routes.RESET_PASSWORD_REQUEST);
+  };
+
   return (
     <div className={styles.loginWrapper}>
       <form className={styles.loginForm}>
@@ -64,7 +68,9 @@ const LoginForm = ({
           required
         />
         <PasswordInput inputHandler={handleChangePassword} blurHandler={validate} />
-        <span className={[styles.forgotPassword, 'link'].join(' ')}>Forgot password?</span>
+        <span className={[styles.forgotPassword, 'link'].join(' ')} onClick={onForgotPasswordClick}>
+          Forgot password?
+        </span>
         <div className={styles.loginButtonBox}>
           <Checkbox
             onChange={handleChangeCheckbox}

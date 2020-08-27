@@ -48,6 +48,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const createOneSchema = createOneQuery(CreateAddRequestSchema, AddRequestSchema);
   fastify.post('/', createOneSchema, async (request: PostAddRequestRequest, reply) => {
     allowForAuthorized(request);
+    request.body.userId = request.user.id;
     const comment = await AddRequestService.createAddRequest(request.body, addRequestMiddleware);
     reply.send(comment);
   });
@@ -56,6 +57,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', deleteOneSchema, async (request: PutAddRequestRequest, reply) => {
     allowForAuthorized(request);
     const { id } = request.params;
+    request.body.userId = request.user.id;
     const newComment = await AddRequestService.updateAddRequestById({ id, data: request.body }, addRequestMiddleware);
     reply.send(newComment);
   });

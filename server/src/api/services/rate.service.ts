@@ -27,7 +27,7 @@ export class RateService extends BaseService<RateModel, RateCreationAttributes, 
   async createRate(inputRate: RateCreationAttributes, rateMiddleware: IRateMiddleware): Promise<RateModel> {
     await rateMiddleware(inputRate);
 
-    const oldUserRate = await this.repository.getRateByUserAndRateable(
+    const oldUserRate = await this.repository.getRateByUserAndRateble(
       inputRate.userId,
       inputRate.ratebleId,
       inputRate.ratebleType

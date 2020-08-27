@@ -15,3 +15,7 @@ export const triggerServerError = (message: string, statusCode: number): never =
     status: statusCode,
   };
 };
+
+export const removeNonUrlChars = (source: string): string => {
+  return source.replace(/\//g, '_').replace(/\+/g, '-').replace(/\./g, '-');
+};

@@ -10,12 +10,14 @@ import {
   ResetPasswordRequestSchema,
   ResetPasswordSchema,
   ResetPasswordRequest,
+  VerifyEmailRequest,
+  verifyEmailRequest,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
 import { triggerServerError } from '../../helpers/global.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { MailService, UserService } = fastify.services;
+  const { MailService, UserService, AuthService } = fastify.services;
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -76,22 +78,25 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     });
   });
 
+  fastify.get('/verify-email/:token', verifyEmailRequest, async (request: VerifyEmailRequest, reply) => {
+    const { token } = request.params;
+    const user = await AuthService.verifyEmail(token);
+    reply.send({ user, verified: true });
+  });
+
   fastify.post(
     '/reset-password/request',
     ResetPasswordRequestSchema,
     async (request: ResetPasswordRequestRequest, reply) => {
       const { email } = request.body;
-      const resetPasswordToken = 'Ajkdjahkjh227d8asjasd'; //generate reset password token and save it to user.resetPasswordToken in DB
-      const user = { id: 22 }; //get user by email from DB
-      const status = await MailService.sendResetPassword({ to: email, userId: user.id, token: resetPasswordToken });
+      const status = await AuthService.resetPasswordByEmail(email);
       reply.send(status);
     }
   );
 
   fastify.post('/reset-password', ResetPasswordSchema, async (request: ResetPasswordRequest, reply) => {
-    const { userId, token, newPassword } = request.body;
-    // check if token valid and change password if needed
-    reply.send({});
+    const status = await AuthService.resetPassword(request.body);
+    reply.send(status);
   });
 
   next();

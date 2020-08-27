@@ -1,7 +1,6 @@
 export interface RateCreationAttributes {
   ratebleId: number;
   ratebleType: 'game' | 'setup' | '';
-  userId: number;
   value: number;
 }
 
