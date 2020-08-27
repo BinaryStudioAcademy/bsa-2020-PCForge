@@ -60,7 +60,6 @@ export interface AddRequestState {
 
 export type AddRequestActions =
   | IUserSendRequestActiont
-  | IUserSendRequestActiont
   | IUsersRequestActionLoading
   | IUsersRequestActionError
   | IGetRequestActionSuccess

@@ -13,8 +13,7 @@ export type TypeUsersRequests = {
 
 export type TypeUsersRequestsCreationAttributes = {
   requestBody: string;
-  requestedType: string;
+  requestType: string;
   requestedHardwareType: string;
   userId: number;
-  user?: User;
 };

@@ -23,14 +23,21 @@ export const loadError = (errorMessage: string): AddRequestActions => ({
   },
 });
 
-export const sendDataToAdmin = (userRequest: TypeUsersRequestsCreationAttributes) => ({
+export const sendDataToAdmin = (userRequest: TypeUsersRequestsCreationAttributes): AddRequestActions => ({
   type: AddRequestActionTypes.POST_USER_REQUEST_ACTION,
   payload: {
     userRequest,
   },
 });
 
-export const updateLoadingStatus = (loadingStatus: boolean) => ({
+export const updateSendingStatus = (sendingStatus: boolean): AddRequestActions => ({
+  type: AddRequestActionTypes.POST_USER_REQUEST_SUCCESS,
+  payload: {
+    sendingStatus,
+  },
+});
+
+export const updateLoadingStatus = (loadingStatus: boolean): AddRequestActions => ({
   type: AddRequestActionTypes.LOADING_USER_REQUESTS,
   payload: {
     loadingStatus,
