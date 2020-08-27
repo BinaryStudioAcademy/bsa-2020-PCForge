@@ -13,7 +13,7 @@ export class AuthService {
     return response.user;
   }
 
-  async verifyEmail({token}: { token: string }): Promise<{verified: boolean, user: User}> {
+  async verifyEmail({ token }: { token: string }): Promise<{ verified: boolean; user: User }> {
     const apiRoute = `/auth/verify-email/${token}`;
     const response = await api.get(apiRoute);
     return response;

@@ -70,6 +70,13 @@ export const setGpu = (gpu: Gpu): SetupChartActions => ({
   },
 });
 
+export const setGame = (game: Game): SetupChartActions => ({
+  type: SetupChartTypes.SET_GAME,
+  payload: {
+    game,
+  },
+});
+
 export const setRamSize = (ramSize: number): SetupChartActions => ({
   type: SetupChartTypes.SET_RAM,
   payload: {

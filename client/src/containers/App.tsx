@@ -15,10 +15,12 @@ import AdminToolsPage from 'containers/AdminToolsPage';
 import AddItemPages from 'containers/AddItemPages';
 import Notification from 'containers/Notification';
 import GamePage from 'containers/GamePage';
-import EmailVerificationPage from './EmailVerificationPage'
+import * as Sentry from '@sentry/react';
+import EmailVerificationPage from './EmailVerificationPage';
 import ResetPasswordRequest from './ResetPassword/request';
 import ResetPasswordCallback from './ResetPassword/callback';
 import NewsPage from 'containers/NewsPage';
+import * as Sentry from '@sentry/react'
 
 const SentryRoute = Sentry.withSentryRouting(Route);
 
