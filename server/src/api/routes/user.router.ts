@@ -18,8 +18,10 @@ import {
   GetUserGamesSchema,
   UserGameSchema,
 } from './user.schema';
-
+<<<<<<< HEAD
+=======
 import { GameSchema } from './game.schema';
+>>>>>>> develop
 import {
   getOneQuery,
   getMultipleQuery,
@@ -27,8 +29,10 @@ import {
   updateOneQuery,
   deleteOneQuery,
 } from '../../helpers/swagger.helper';
-
+<<<<<<< HEAD
+=======
 import { IFilter } from '../../data/repositories/filters/base.filter';
+>>>>>>> develop
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { triggerServerError } from '../../helpers/global.helper';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
