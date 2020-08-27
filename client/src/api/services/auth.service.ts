@@ -13,9 +13,9 @@ export class AuthService {
     return response.user;
   }
 
-  async createUser(data: IAuthPayload): Promise<User> {
-    const apiRoute = '/users';
-    const response = await api.post(apiRoute, data);
+  async verifyEmail({ token }: { token: string }): Promise<{ verified: boolean; user: User }> {
+    const apiRoute = `/auth/verify-email/${token}`;
+    const response = await api.get(apiRoute);
     return response;
   }
 

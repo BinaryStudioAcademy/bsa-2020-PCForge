@@ -11,7 +11,7 @@ interface Props {
 
 const TopGames: React.FC<Props> = ({
   topGames,
-  selected: selectedIndex,
+  selected: selectedIndex = -1,
   onGameSelected: onGameSelectedProps = () => {},
 }): JSX.Element => {
   const gameView = (topGame: TopGame, isSelected: boolean) => (

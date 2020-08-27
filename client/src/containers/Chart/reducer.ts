@@ -1,9 +1,10 @@
-import { defaultCpu, defaultGpu, defaultPerformance, defaultRam, defaultSetup } from 'common/models/defaults';
+import { defaultGame, defaultPerformance } from 'common/models/defaults';
 import { SetupChartActions, SetupChartState, SetupChartTypes } from './actionTypes';
 
 const initialState: SetupChartState = {
   searchedGames: [],
   topGames: [],
+  game: defaultGame,
   cpu: null,
   gpu: null,
   ramSize: null,
@@ -52,6 +53,13 @@ export function SetupChartReducer(state = initialState, action: SetupChartAction
       return {
         ...state,
         ramSize: action.payload.ramSize,
+      };
+    }
+
+    case SetupChartTypes.SET_GAME: {
+      return {
+        ...state,
+        game: action.payload.game,
       };
     }
 
