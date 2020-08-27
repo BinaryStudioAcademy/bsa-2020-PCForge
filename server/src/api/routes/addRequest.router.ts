@@ -49,6 +49,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.post('/', createOneSchema, async (request: PostAddRequestRequest, reply) => {
     allowForAuthorized(request);
     request.body.userId = request.user.id;
+    console.log(request.body);
     const comment = await AddRequestService.createAddRequest(request.body, addRequestMiddleware);
     console.log(comment);
     reply.send(comment);

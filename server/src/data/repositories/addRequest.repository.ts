@@ -37,6 +37,8 @@ export class AddRequestRepository extends BaseRepository<
   }
 
   async createAddRequest(inputAddRequest: AddRequestCreationAttributes): Promise<AddRequestModel> {
+    console.log('inputAddRequest');
+    console.log(inputAddRequest);
     return this.model.create(inputAddRequest);
   }
 
