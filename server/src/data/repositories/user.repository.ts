@@ -22,6 +22,7 @@ export class UserRepository extends BaseRepository<UserModel, UserCreationAttrib
     const user = await this.model.findOne({
       where: {
         ...(filter.emailVerificationToken !== undefined && { verifyEmailToken: filter.emailVerificationToken }),
+        ...(filter.email !== undefined && { email: filter.email }),
       },
     });
     return user;
