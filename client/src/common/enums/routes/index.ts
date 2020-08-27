@@ -7,6 +7,7 @@ enum Routes {
   SETUP = '/setup/:id',
   SETUPS = '/setups',
   USER = '/user/:id',
+  EMAIL_VERIFICATION = '/verify-email/:token',
   ADMINTOOLS = '/admintools',
   ADDITEM = '/additem',
   ADDHARDWARE = '/addharware',

@@ -12,21 +12,23 @@ import gameFormSagas from 'containers/AddItemPages/AddGameForm/saga';
 import hardwareFormSagas from 'containers/AddItemPages/AddHardwareForm/saga';
 import setupChartSagas from 'containers/Chart/sagas';
 import setupsSagas from 'containers/SetupsPage/sagas';
+import emailVerificationActions from 'containers/EmailVerificationPage/sagas';
 
 export default function* rootSaga() {
   yield all([
     authSagas(),
+    builderSagas(),
+    emailVerificationActions(),
+    hardwareFormSagas(),
+    homePageSagas(),
+    gameFormSagas(),
+    matcherSagas(),
+    quickMatcherSagas(),
     registrationSaga(),
+    setupChartSagas(),
+    setupSagas(),
+    setupsSagas(),
     userSagas(),
     userRequestsSagas(),
-    builderSagas(),
-    quickMatcherSagas(),
-    homePageSagas(),
-    matcherSagas(),
-    setupSagas(),
-    gameFormSagas(),
-    hardwareFormSagas(),
-    setupChartSagas(),
-    setupsSagas(),
   ]);
 }

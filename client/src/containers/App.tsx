@@ -16,6 +16,7 @@ import AddItemPages from 'containers/AddItemPages';
 import Notification from 'containers/Notification';
 import GamePage from 'containers/GamePage';
 import * as Sentry from '@sentry/react'
+import EmailVerificationPage from './EmailVerificationPage'
 
 const SentryRoute = Sentry.withSentryRouting(Route);
 
@@ -35,6 +36,7 @@ class App extends Component {
           <SentryRoute exact path={Routes.ADMINTOOLS} component={AdminToolsPage} />
           <SentryRoute exact path={`${Routes.ADDITEM}/:item`} component={AddItemPages} />
           <SentryRoute exact path={Routes.GAME} component={GamePage} />
+          <SentryRoute exact path={Routes.EMAIL_VERIFICATION} component={EmailVerificationPage} />
           <SentryRoute path="*" exact={true} component={NotFound} />
         </Switch>
         <Notification />

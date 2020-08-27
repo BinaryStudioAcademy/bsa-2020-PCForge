@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest, FastifyInstance } from 'fastify';
 import { FastifyDone } from '../routes/fastifyTypes';
 import { UserAttributes } from '../../data/models/user';
-import { OAuth2Client, TokenPayload } from 'google-auth-library';
-type CustomRequest = FastifyRequest & { user: UserAttributes | TokenPayload };
+import { OAuth2Client } from 'google-auth-library';
+type CustomRequest = FastifyRequest & { user: UserAttributes };
 
 const oAuth2Client = new OAuth2Client(
   process.env.GOOGLE_OAUTH_CLIENT_ID,

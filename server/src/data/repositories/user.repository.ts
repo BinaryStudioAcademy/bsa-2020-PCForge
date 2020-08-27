@@ -2,6 +2,7 @@ import { UserModel, UserStatic, UserCreationAttributes } from '../models/user';
 import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { Op } from 'sequelize';
 import { IFilter } from './filters/base.filter';
+import { UserFilter } from './filters/user.filter';
 
 export class UserRepository extends BaseRepository<UserModel, UserCreationAttributes, IFilter> {
   constructor(private model: UserStatic) {
@@ -14,6 +15,15 @@ export class UserRepository extends BaseRepository<UserModel, UserCreationAttrib
   }
   async getUserById(id: string): Promise<UserModel> {
     const user = await this.getById(id);
+    return user;
+  }
+
+  async getOneByFilter(filter?: UserFilter): Promise<UserModel | null> {
+    const user = await this.model.findOne({
+      where: {
+        ...(filter.emailVerificationToken !== undefined && { verifyEmailToken: filter.emailVerificationToken }),
+      },
+    });
     return user;
   }
 

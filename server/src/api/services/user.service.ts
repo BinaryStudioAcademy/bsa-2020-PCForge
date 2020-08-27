@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+import genRandomString from 'crypto-random-string';
 import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
@@ -50,7 +51,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
       ...inputUser,
       isAdmin: false,
       password: this.hash(inputUser.password),
-      verifyEmailToken: null,
+      verifyEmailToken: genRandomString(33),
       resetPasswordToken: null,
     };
     const user = await super.create(userAttributes);
@@ -60,18 +61,17 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   async updateUser(id: string, inputUser: UserCreateAttributes): Promise<UserModel> {
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
-      triggerServerError('User with id: ${id} does not exists', 404);
+      triggerServerError(`User with id: ${id} does not exist`, 404);
     }
     if (inputUser.password) {
       inputUser.password = this.hash(inputUser.password);
     }
-    const userAttributes: UserCreationAttributes = {
+    const userAttributes = {
       ...inputUser,
       isAdmin: false,
       password: this.hash(inputUser.password),
-      verifyEmailToken: null,
       resetPasswordToken: null,
-    };
+    } as UserCreationAttributes;
     const user = await this.repository.updateById(id, userAttributes);
     return user;
   }
