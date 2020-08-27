@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-import { UserModel, UserCreationAttributes, UserAttributes } from '../../data/models/user';
+import { UserCreationAttributes, UserModel } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
@@ -47,15 +47,19 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   }
 
   async createUser(inputUser: UserCreateAttributes): Promise<UserModel> {
-    const userAttributes: UserCreationAttributes = {
-      ...inputUser,
-      isAdmin: false,
-      password: this.hash(inputUser.password),
-      verifyEmailToken: null,
-      resetPasswordToken: null,
-    };
-    const user = await super.create(userAttributes);
-    return user;
+    const user = await this.getByEmail(inputUser.email);
+    if (user) {
+      triggerServerError('User with given email exists', 403);
+    } else {
+      const userAttributes: UserCreationAttributes = {
+        ...inputUser,
+        isAdmin: false,
+        password: this.hash(inputUser.password),
+        verifyEmailToken: null,
+        resetPasswordToken: null,
+      };
+      return await super.create(userAttributes);
+    }
   }
 
   async updateUser(id: string | number, inputUser: UserCreateAttributes): Promise<UserModel> {

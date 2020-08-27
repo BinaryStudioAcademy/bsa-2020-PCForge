@@ -67,7 +67,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
             response.send({ logged_in: true, user });
           }
         } catch (err) {
-          response.send({ logged_in: false });
+          response.send({ logged_in: false, user: {} });
         }
       } else {
         const user = decoded.user;
