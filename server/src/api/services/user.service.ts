@@ -72,7 +72,6 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     const userAttributes = {
       ...inputUser,
       isAdmin: false,
-      password: this.hash(inputUser.password),
       resetPasswordToken: null,
     } as UserCreationAttributes;
     const user = await this.repository.updateById(id, userAttributes);
