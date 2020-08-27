@@ -22,12 +22,14 @@ export const passwordValid = (
 ): boolean => {
   let passwordMessage = null;
   let confirmedMessage = null;
-  const regex = /^[a-zA-Z0-9@\-%$_.+]{5,30}$/;
+  const regex = /^[a-zA-Z0-9@\-%$_.+]{4,30}$/;
   if (password === '' && confirmedPassword) {
     confirmedMessage = 'Enter your new password to confirm';
   }
   if (password !== '') {
-    if (!regex.test(password)) {
+    if (password.length < 5 || password.length > 30) {
+      passwordMessage = 'Password must be between 5 and 30 characters long';
+    } else if (!regex.test(password)) {
       passwordMessage = 'Password can include only A-Z, a-z, А-Я, а-я, 0-9, symbols: @,-,%,$,_,.,+';
     } else if (password !== confirmedPassword) {
       confirmedMessage = 'Passwords do not match';

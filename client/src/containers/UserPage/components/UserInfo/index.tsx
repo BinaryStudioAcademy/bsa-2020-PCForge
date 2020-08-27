@@ -119,6 +119,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
 
   const handleCancel = (event: React.MouseEvent) => {
     setEditableInput(false);
+    setValidate(false);
     setAvatar(initialAvatar);
     setName(user.name);
     setEmail(user.email);
