@@ -1,6 +1,5 @@
 import { call, put, takeEvery, all, select } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
-import { push } from 'react-router-redux';
 import history from '../../browserHistory';
 import {
   ADD_COMPONENT_TO_SETUP,
