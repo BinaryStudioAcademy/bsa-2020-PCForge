@@ -8,7 +8,7 @@ import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import { MenuItems, Routes } from 'common/enums';
 import * as actions from './actions';
-import { setCpu, setGpu, setRamSize } from '../Chart/actions';
+import { setCpu, setGpu, setRamSize, setGame } from '../Chart/actions';
 import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
@@ -36,6 +36,12 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
       setAlertValue({ type: AlertType.error, message: 'Error: Please choose hardware components' });
       return;
     }
+    const game = props.state.games.find((game) => game.id === selectedGame);
+    if (!game) {
+      setAlertValue({ type: AlertType.error, message: 'Error: Please choose game' });
+      return;
+    }
+    props.setGame(game);
     props.history.push(Routes.CHART);
   };
 
@@ -158,6 +164,7 @@ const mapDispatchToProps = {
   setCpu,
   setGpu,
   setRamSize,
+  setGame,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameMatcherPage);
