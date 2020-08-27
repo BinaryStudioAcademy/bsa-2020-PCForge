@@ -6,7 +6,7 @@ const initialState: SetupChartState = {
   topGames: [],
   cpu: null,
   gpu: null,
-  ram: null,
+  ramSize: null,
   performance: defaultPerformance,
   error: '',
 };
@@ -51,7 +51,7 @@ export function SetupChartReducer(state = initialState, action: SetupChartAction
     case SetupChartTypes.SET_RAM: {
       return {
         ...state,
-        ram: action.payload.ram,
+        ramSize: action.payload.ramSize,
       };
     }
 

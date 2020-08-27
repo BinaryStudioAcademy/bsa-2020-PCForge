@@ -6,11 +6,16 @@ import {
   LoginSchema,
   GoogleAuthSchema,
   IsAuthenticatedSchema,
+  ResetPasswordRequestRequest,
+  ResetPasswordRequestSchema,
+  ResetPasswordSchema,
+  ResetPasswordRequest,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
+import { triggerServerError } from '../../helpers/global.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { UserService } = fastify.services;
+  const { UserService, AuthService } = fastify.services;
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -56,6 +61,9 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
               password: '',
               avatar: userData.picture,
             });
+            if (!user) {
+              triggerServerError('User with given email exists', 403);
+            }
             response.send({ logged_in: true, user });
           }
         } catch (err) {
@@ -66,6 +74,21 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
         response.send({ logged_in: true, user });
       }
     });
+  });
+
+  fastify.post(
+    '/reset-password/request',
+    ResetPasswordRequestSchema,
+    async (request: ResetPasswordRequestRequest, reply) => {
+      const { email } = request.body;
+      const status = await AuthService.resetPasswordByEmail(email);
+      reply.send(status);
+    }
+  );
+
+  fastify.post('/reset-password', ResetPasswordSchema, async (request: ResetPasswordRequest, reply) => {
+    const status = await AuthService.resetPassword(request.body);
+    reply.send(status);
   });
 
   next();

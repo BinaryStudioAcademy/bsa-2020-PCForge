@@ -15,8 +15,6 @@ export const MATCHER_ADD_CPUS = 'MATCHER_ADD_CPUS';
 export const MATCHER_REPLACE_CPUS = 'MATCHER_REPLACE_CPUS';
 export const MATCHER_ADD_GPUS = 'MATCHER_ADD_GPUS';
 export const MATCHER_REPLACE_GPUS = 'MATCHER_REPLACE_GPUS';
-export const MATCHER_ADD_RAMS = 'MATCHER_ADD_RAMS';
-export const MATCHER_REPLACE_RAMS = 'MATCHER_REPLACE_RAMS';
 
 export const SET_ALERT_MESSAGE = 'SET_ALERT_MESSAGE';
 
@@ -60,14 +58,6 @@ export interface IMatcherReplaceGpus {
   type: typeof MATCHER_REPLACE_GPUS;
   payload: Gpu[];
 }
-export interface IMatcherAddRams {
-  type: typeof MATCHER_ADD_RAMS;
-  payload: Ram[];
-}
-export interface IMatcherReplaceRams {
-  type: typeof MATCHER_REPLACE_RAMS;
-  payload: Ram[];
-}
 
 export interface ISetMessage {
   type: typeof SET_ALERT_MESSAGE;
@@ -85,19 +75,15 @@ export type MatcherActionTypes =
   | IMatcherReplaceCpus
   | IMatcherAddGpus
   | IMatcherReplaceGpus
-  | IMatcherAddRams
-  | IMatcherReplaceRams
   | ISetMessage;
 
 export const MatcherServerActions = {
   MATCHER_ADD_CPUS,
   MATCHER_ADD_GPUS,
-  MATCHER_ADD_RAMS,
   MATCHER_ADD_GAMES,
   MATCHER_REPLACE_CPUS,
   MATCHER_REPLACE_GPUS,
   MATCHER_REPLACE_GAMES,
-  MATCHER_REPLACE_RAMS,
 };
 
 export type MatcherServerActions = typeof MatcherServerActions;

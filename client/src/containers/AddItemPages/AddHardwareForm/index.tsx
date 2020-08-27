@@ -30,6 +30,11 @@ const theme = createMuiTheme({
         color: '#cbcfd4',
       },
     },
+    MuiInputBase: {
+      input: {
+        padding: '0', //'0.3rem 1rem 0.5rem',
+      },
+    },
   },
 });
 

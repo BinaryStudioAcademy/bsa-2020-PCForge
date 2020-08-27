@@ -36,5 +36,5 @@ export interface GameMatcherProps {
 
   setCpu: (cpu: Cpu) => void;
   setGpu: (gpu: Gpu) => void;
-  setRam: (ram: Ram) => void;
+  setRamSize: (ramSize: number) => void;
 }

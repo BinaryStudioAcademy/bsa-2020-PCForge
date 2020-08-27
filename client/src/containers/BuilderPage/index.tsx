@@ -170,12 +170,11 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           onSaveSetup={showModal}
         />
         <Grid container spacing={5}>
-          <Grid item xs={12} lg={9} xl={10}>
+          <Grid item xs={12} lg={8} xl={9}>
             {groups}
           </Grid>
-          <Grid item xs={12} lg={3} xl={2}>
+          <Grid item xs={12} lg={4} xl={3} className={styles.summary}>
             <BuilderSummary setup={setup} />
-            {console.log(setup.cpu, setup.gpu, setup.ram)}
             {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
           </Grid>
         </Grid>

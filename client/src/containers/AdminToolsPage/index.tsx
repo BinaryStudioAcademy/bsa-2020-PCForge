@@ -14,6 +14,7 @@ import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import { Routes } from 'common/enums';
 import { History } from 'history';
+import Alert, { AlertType } from 'components/BasicComponents/Alert';
 
 import { UserRequestedType, UserRequestedHardwareType } from 'common/enums/UserRequestedType';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
@@ -49,6 +50,9 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
   };
 
   const { getUsersRequests, deleteUserRequest, getTotalCounts } = props;
+  const [alertText, setAlertText] = useState<string | null>(null);
+  const [alertType, setAlertType] = useState<AlertType>();
+
   useEffect(() => {
     getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.hardware }]);
     getTotalCounts();
@@ -82,6 +86,10 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
   ];
 
   console.log(props.state);
+  if (props.state.error && !alertText) {
+    setAlertText(props.state.error);
+    setAlertType(AlertType.error);
+  }
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
@@ -91,6 +99,7 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
         </div>
         <div className={styles.contentMain}>
           <div className={styles.totalBlockContainer}>
+            {alertText ? <Alert alertType={alertType}>{alertText}</Alert> : null}
             {props.state.dataTotalsIsLoaded ? (
               <>
                 {cardsList.map((item: ITotalInfoCard, key) => (

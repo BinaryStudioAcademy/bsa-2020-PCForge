@@ -14,6 +14,7 @@ import NotFound from 'containers/NotFound';
 import Spinner from 'components/Spinner';
 import Snackbar from 'components/BasicComponents/Snackbar';
 import { AlertType } from 'components/BasicComponents/Alert';
+import * as Sentry from '@sentry/react';
 
 class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   constructor(props: ISetupProps) {

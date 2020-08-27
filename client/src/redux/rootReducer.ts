@@ -13,6 +13,7 @@ import { SetupChartReducer } from 'containers/Chart/reducer';
 import { GameFormReducer } from 'containers/AddItemPages/AddGameForm/reducer';
 import { HardwareFormReducer } from 'containers/AddItemPages/AddHardwareForm/reducer';
 import AddRequestReducer from 'containers/AddUserRequest/reducer';
+import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -29,6 +30,7 @@ const RootReducer = combineReducers({
   gameForm: GameFormReducer,
   hardwareForm: HardwareFormReducer,
   addRequest: AddRequestReducer,
+  resetPassword: ResetPasswordReducer,
 });
 
 export default RootReducer;

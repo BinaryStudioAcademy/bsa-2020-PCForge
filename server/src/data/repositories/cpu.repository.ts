@@ -29,6 +29,9 @@ export class CpuRepository extends BaseRepository<CpuModel, CpuCreationAttribute
         group: ['cpu.id', 'socket.id'],
         where: {
           ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+          clockspeed: {
+            [Op.between]: [filter.clockspeed.minValue, filter.clockspeed.maxValue],
+          },
         },
         include: [
           {
