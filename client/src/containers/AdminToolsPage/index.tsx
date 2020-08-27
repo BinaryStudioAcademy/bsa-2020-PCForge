@@ -15,7 +15,7 @@ import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import { Routes } from 'common/enums';
 import { History } from 'history';
 
-import { UserRequestedType } from 'common/enums/UserRequestedType';
+import { UserRequestedType, UserRequestedHardwareType } from 'common/enums/UserRequestedType';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
@@ -36,7 +36,7 @@ interface IPropsAdminToolsPage {
 const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
   const { getUsersRequests, deleteUserRequest, getTotalCounts } = props;
   useEffect(() => {
-    getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.cpu }]);
+    getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.hardware }]);
     getTotalCounts();
   }, []);
 
@@ -66,6 +66,8 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
       onAdd: () => props.historyPage.push(`${Routes.ADDITEM}/games`),
     },
   ];
+
+  console.log(props.state);
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>

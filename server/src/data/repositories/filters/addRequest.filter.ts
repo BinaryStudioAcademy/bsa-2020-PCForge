@@ -6,6 +6,7 @@ export class IAddRequestFilter extends IFilter {
   constructor() {
     super();
   }
+
   requestedType: FilterByNameType = notNull;
 
   static schema: SwaggerSchema = {
@@ -14,7 +15,7 @@ export class IAddRequestFilter extends IFilter {
       ...IFilter.schema.properties,
       requestedType: {
         type: 'string',
-        enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
+        enum: ['hardware', 'game'],
         nullable: true,
       },
     },
