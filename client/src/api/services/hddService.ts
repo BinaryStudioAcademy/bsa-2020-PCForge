@@ -1,6 +1,7 @@
 import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeHdd } from 'common/models/typeHdd';
+import { HddCreationAttributes } from 'common/models/hdd';
 
 export type TypeResponseAllHdds = {
   meta: {
@@ -26,4 +27,8 @@ export const updateHdd = async (request: TypeHdd): Promise<TypeHdd> => {
 
 export const deleteHdd = async (id: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}`);
+};
+
+export const postHdd = async (request: HddCreationAttributes): Promise<void> => {
+  return await webApi.post(`${endpoint}`, request);
 };

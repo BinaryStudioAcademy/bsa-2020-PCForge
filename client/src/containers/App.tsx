@@ -15,7 +15,6 @@ import AdminToolsPage from 'containers/AdminToolsPage';
 import AddItemPages from 'containers/AddItemPages';
 import Notification from 'containers/Notification';
 import GamePage from 'containers/GamePage';
-import * as Sentry from '@sentry/react'
 import EmailVerificationPage from './EmailVerificationPage'
 import ResetPasswordRequest from './ResetPassword/request';
 import ResetPasswordCallback from './ResetPassword/callback';
