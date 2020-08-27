@@ -11,8 +11,8 @@ import Spinner from 'components/Spinner';
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const Home = (props: Props): JSX.Element => {
-  const { setups, loadTopSetups: topSetupsLoad, showSpinner } = props;
+const Home: React.FC<Props> = (props): JSX.Element => {
+  const { setups, loadTopSetups: topSetupsLoad, showSpinner, children } = props;
 
   useEffect(() => {
     topSetupsLoad();
@@ -25,6 +25,7 @@ const Home = (props: Props): JSX.Element => {
       return (
         <>
           <Title />
+          {children}
           {setups && setups.length && <CardDisplay setups={setups} />}
         </>
       );
