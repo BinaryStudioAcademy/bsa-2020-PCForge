@@ -16,7 +16,7 @@ import { Routes } from 'common/enums';
 import { History } from 'history';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 
-import { UserRequestedType } from 'common/enums/UserRequestedType';
+import { UserRequestedType, UserRequestedHardwareType } from 'common/enums/UserRequestedType';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
@@ -40,7 +40,7 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
   const [alertType, setAlertType] = useState<AlertType>();
 
   useEffect(() => {
-    getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.cpu }]);
+    getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.hardware }]);
     getTotalCounts();
   }, []);
 
