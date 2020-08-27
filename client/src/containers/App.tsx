@@ -20,6 +20,7 @@ import EmailVerificationPage from './EmailVerificationPage';
 import ResetPasswordRequest from './ResetPassword/request';
 import ResetPasswordCallback from './ResetPassword/callback';
 import NewsPage from 'containers/NewsPage';
+import * as Sentry from '@sentry/react'
 
 const SentryRoute = Sentry.withSentryRouting(Route);
 

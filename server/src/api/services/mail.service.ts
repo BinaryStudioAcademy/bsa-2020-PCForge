@@ -49,7 +49,9 @@ export class MailService {
         from: 'PC forge',
         to,
         subject: 'Password reset',
-        text: `Here is your reset password link: http://localhost:3000/reset-password/${userId}/${token}`,
+        text: `Here is your reset password link: ${
+          process.env.APP_CLIENT_URL || 'http://localhost:3000'
+        }/reset-password/${userId}/${token}`,
       });
       return status;
     } catch (err) {
