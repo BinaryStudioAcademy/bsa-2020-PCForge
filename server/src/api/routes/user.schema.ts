@@ -126,6 +126,7 @@ export const CreateUserSchema: SwaggerSchema = {
 
 export const UpdateUserSchema: SwaggerSchema = {
   type: 'object',
+  // required: ['oldPassword'],
   properties: {
     name: {
       type: 'string',
@@ -146,6 +147,12 @@ export const UpdateUserSchema: SwaggerSchema = {
       nullable: false,
       maxLength: 50,
     },
+    // oldPassword: {
+    //   type: 'string',
+    //   minLength: 1,
+    //   nullable: true,
+    //   maxLength: 50,
+    // },
     avatar: {
       type: 'string',
       nullable: true,
