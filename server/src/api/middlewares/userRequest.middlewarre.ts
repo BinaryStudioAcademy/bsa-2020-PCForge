@@ -7,7 +7,7 @@ type CustomRequest = FastifyRequest & { user: UserAttributes };
 const oAuth2Client = new OAuth2Client(
   process.env.GOOGLE_OAUTH_CLIENT_ID,
   process.env.GOOGLE_OAUTH_CLIENT_SECRET,
-  'http://localhost:5001/api/auth/google/callback'
+  `${'https://pcforge.herokuapp.com' || 'http://localhost:5001'}/api/auth/google/callback`
 );
 
 export const userRequestMiddleware = (fastify: FastifyInstance) => {
