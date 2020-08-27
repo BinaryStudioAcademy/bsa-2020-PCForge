@@ -14,6 +14,7 @@ import { GameFormReducer } from 'containers/AddItemPages/AddGameForm/reducer';
 import { HardwareFormReducer } from 'containers/AddItemPages/AddHardwareForm/reducer';
 import { EmailVerifyReducer } from 'containers/EmailVerificationPage/reducer';
 import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
+import NewsReducer from 'containers/NewsPage/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -31,6 +32,7 @@ const RootReducer = combineReducers({
   setupChart: SetupChartReducer,
   user: UserReducer,
   userRequests: UserRequestsReducer,
+  news: NewsReducer,
 });
 
 export default RootReducer;

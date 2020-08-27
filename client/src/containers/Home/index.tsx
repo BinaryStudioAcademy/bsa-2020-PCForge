@@ -7,6 +7,8 @@ import CardDisplay from './components/CardsDisplay';
 import { RootState } from 'redux/rootReducer';
 import { loadTopSetups } from './logic/actions';
 import Spinner from 'components/Spinner';
+import Grid from '@material-ui/core/Grid';
+import PewsPage from 'containers/NewsPage';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -25,8 +27,15 @@ const Home: React.FC<Props> = (props): JSX.Element => {
       return (
         <>
           <Title />
-          {children}
-          {setups && setups.length && <CardDisplay setups={setups} />}
+          <Grid container spacing={5}>
+            <Grid item xs={12} lg={8} xl={9}>
+              {children}
+              {!!setups && !!setups.length && <CardDisplay setups={setups} />}
+            </Grid>
+            <Grid item xs={12} lg={4} xl={3}>
+              <PewsPage role="aside" countNews={2} />
+            </Grid>
+          </Grid>
         </>
       );
     }

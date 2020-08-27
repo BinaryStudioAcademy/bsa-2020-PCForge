@@ -14,6 +14,7 @@ import setupChartSagas from 'containers/Chart/sagas';
 import setupsSagas from 'containers/SetupsPage/sagas';
 import emailVerificationActions from 'containers/EmailVerificationPage/sagas';
 import resetPasswordSagas from 'containers/ResetPassword/sagas';
+import newsSagas from 'containers/NewsPage/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -32,5 +33,6 @@ export default function* rootSaga() {
     setupsSagas(),
     userSagas(),
     userRequestsSagas(),
+    newsSagas(),
   ]);
 }
