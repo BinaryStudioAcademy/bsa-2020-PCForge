@@ -5,11 +5,16 @@ import { GpuCreationAttributes } from 'common/models/gpu';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 import { RamCreationAttributes } from 'common/models/ram';
+import { SsdCreationAttributes } from 'common/models/ssd';
+import { HddCreationAttributes } from 'common/models/hdd';
+import { AlertType } from 'components/BasicComponents/Alert';
 
 export enum HardwareFormActionTypes {
   GET_INITIAL_VALUES_ERROR = 'GET_INITIAL_VALUES_ERROR',
   UPLOAD_MORE_VALUES = 'UPLOAD_MORE_VALUES',
   CREATE_NEW_HARDWARE_SUCCESS = 'CREATE_NEW_HARDWARE_SUCCESS',
+  UPDATE_STATE_TO_INIT_ACTION = 'UPDATE_STATE_TO_INIT_ACTION',
+  UPDATE_STATE_TO_INIT_SUCCESS = 'UPDATE_STATE_TO_INIT_SUCCESS',
 
   GET_INITIAL_VALUES_MOTHERBOARD_ACTION = 'GET_INITIAL_VALUES_MOTHERBOARD_ACTION',
   GET_INITIAL_VALUES_MOTHERBOARD_SUCCESS = 'GET_INITIAL_VALUES_MOTHERBOARD_SUCCESS',
@@ -32,6 +37,9 @@ export enum HardwareFormActionTypes {
 
   CREATE_NEW_CPU_ACTION = 'CREATE_NEW_CPU_ACTION',
   CREATE_NEW_CPU_SUCCESS = 'CREATE_NEW_CPU_SUCCESS',
+
+  CREATE_NEW_SSD_ACTION = 'CREATE_NEW_SSD_ACTION',
+  CREATE_NEW_HDD_ACTION = 'CREATE_NEW_HDD_ACTION',
 
   UPLOAD_MORE_SOCKET_VALUES = 'UPLOAD_MORE_SOCKET_VALUES',
   UPLOAD_MORE_ENTERED_SOCKET_VALUES = 'UPLOAD_MORE_ENTERED_SOCKET_VALUES',
@@ -119,6 +127,19 @@ export interface ICreateCPUAction {
   };
 }
 
+export interface ICreateSSDAction {
+  type: HardwareFormActionTypes.CREATE_NEW_SSD_ACTION;
+  payload: {
+    ssd: SsdCreationAttributes;
+  };
+}
+export interface ICreateHDDAction {
+  type: HardwareFormActionTypes.CREATE_NEW_HDD_ACTION;
+  payload: {
+    hdd: HddCreationAttributes;
+  };
+}
+
 export interface ICreateHardwareSuccess {
   type: HardwareFormActionTypes.CREATE_NEW_HARDWARE_SUCCESS;
   payload: {
@@ -129,7 +150,8 @@ export interface ICreateHardwareSuccess {
 export interface ILoadHardwareFormError {
   type: HardwareFormActionTypes.GET_INITIAL_VALUES_ERROR;
   payload: {
-    error: string;
+    errorMessage: string;
+    //alertType?: AlertType;
   };
 }
 
@@ -177,12 +199,25 @@ export interface IUploadMoreEnteredRamtype {
   };
 }
 
+export interface IUpdateStateToInitAction {
+  type: HardwareFormActionTypes.UPDATE_STATE_TO_INIT_ACTION;
+}
+
+export interface IUpdateStateToInitSuccess {
+  type: HardwareFormActionTypes.UPDATE_STATE_TO_INIT_SUCCESS;
+  payload: {
+    errorMessage: string;
+    createdHardwareName: string;
+  };
+}
+
 export interface HardwareFormState {
   socketList: SelectOption[];
   RAMList: SelectOption[];
   RAMtypeList: SelectOption[];
-  error: string;
+  errorMessage: string;
   createdHardwareName: string;
+  //alertType?: AlertType;
 }
 
 export type HardWareFormAction =
@@ -198,6 +233,8 @@ export type HardWareFormAction =
   | ICreateMotherboardAction
   | ICreateGPUAction
   | ICreateCPUAction
+  | ICreateSSDAction
+  | ICreateHDDAction
   | ICreateHardwareSuccess
   | ILoadHardwareFormError
   | IUploadMoreItemsAction
@@ -206,4 +243,6 @@ export type HardWareFormAction =
   | IUploadMoreRAM
   | IUploadMoreEnteredRAM
   | IUploadMoreRAMtype
-  | IUploadMoreEnteredRamtype;
+  | IUploadMoreEnteredRamtype
+  | IUpdateStateToInitAction
+  | IUpdateStateToInitSuccess;
