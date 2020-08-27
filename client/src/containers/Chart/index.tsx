@@ -25,7 +25,7 @@ const GameMatcherResult: React.FC<Props> = ({
   games,
   cpu,
   gpu,
-  ramSize
+  ramSize,
 }) => {
   const [topGameSelected, setTopGameSelected] = React.useState<number>(0);
   React.useEffect(() => {
