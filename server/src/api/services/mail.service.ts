@@ -31,7 +31,6 @@ export class MailService {
       });
       return status;
     } catch (e) {
-      console.log(e);
       triggerServerError(`User with mail ${to} does not exist`, 400);
     }
   }
