@@ -13,6 +13,7 @@ import { validateBody } from './helpers/bodyValidator.helper';
 import nodemailer from './api/plugins/nodemailer';
 import services from './api/services';
 import routes from './api/routes/index';
+import { Z_PARTIAL_FLUSH } from 'zlib';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
 const server = fastify({
@@ -50,7 +51,10 @@ server.register(routes, { prefix: '/api' });
 
 server.ready((err) => {
   if (err) throw err;
-  server.swagger();
+  const spec = server.swagger();
+  ((spec as unknown) as Record<string, string>).openapi = '3.0';
+  delete spec.paths['/api/auth/google'];
+  delete spec.paths['/api/auth/google/callback'];
 });
 
 server.listen(port, '0.0.0.0', (err, address) => {

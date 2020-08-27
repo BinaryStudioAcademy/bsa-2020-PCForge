@@ -13,6 +13,7 @@ export class ISetupFilter extends IFilter {
     properties: {
       authorId: {
         type: 'string',
+        nullable: true,
       },
       ...IFilter.schema.properties,
     },
