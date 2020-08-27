@@ -27,10 +27,9 @@ export const passwordValid = (
     confirmedMessage = 'Enter your new password to confirm';
   }
   if (password !== '') {
-    if (password.length < 5 || password.length > 30) {
-      passwordMessage = 'Password must be between 5 and 30 characters long';
-    } else if (!regex.test(password)) {
-      passwordMessage = 'Password can include only A-Z, a-z, А-Я, а-я, 0-9, symbols: @,-,%,$,_,.,+';
+    if (!regex.test(password)) {
+      passwordMessage =
+        'Password must be 5-30 characters long. It can include only A-Z, a-z, А-Я, а-я, 0-9, symbols: @,-,%,$,_,.,+';
     } else if (password !== confirmedPassword) {
       confirmedMessage = 'Passwords do not match';
     }
