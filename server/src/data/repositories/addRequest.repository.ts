@@ -1,5 +1,6 @@
 import { BaseRepository, RichModel, IWithMeta } from './base.repository';
-import { AddRequestModel, AddRequestStatic, AddRequestCreationAttributes } from '../models/addRequest';
+import { AddRequestModel, AddRequestStatic, AddRequestCreationAttributes, AddRequest } from '../models/addRequest';
+import { UserStatic } from '../models/user';
 import { mergeFilters } from './filters/helper';
 import { IAddRequestFilter } from './filters/addRequest.filter';
 
@@ -8,7 +9,7 @@ export class AddRequestRepository extends BaseRepository<
   AddRequestCreationAttributes,
   IAddRequestFilter
 > {
-  constructor(private model: AddRequestStatic) {
+  constructor(private model: AddRequestStatic, private userModel: UserStatic) {
     super(<RichModel>model, IAddRequestFilter);
   }
 
@@ -20,7 +21,13 @@ export class AddRequestRepository extends BaseRepository<
     const filter = mergeFilters<IAddRequestFilter>(new IAddRequestFilter(), inputFilter);
     return await this.getAll(
       {
-        group: ['addRequest.id'],
+        group: ['addRequest.id', 'user.id'],
+        include: [
+          {
+            model: this.userModel,
+            as: 'user',
+          },
+        ],
         where: {
           requestedType: filter.requestedType,
         },
