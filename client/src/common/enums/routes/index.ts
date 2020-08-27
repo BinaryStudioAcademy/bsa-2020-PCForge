@@ -12,6 +12,7 @@ enum Routes {
   ADDHARDWARE = '/addharware',
   ADDGAME = '/addgame',
   GAME = '/game/:id',
+  NEWS = '/news',
 }
 
 export { Routes };
