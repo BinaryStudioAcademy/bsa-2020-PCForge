@@ -74,9 +74,9 @@ export default fp(async (fastify, opts, next) => {
     const hddService = new HddService(repositories.HddRepository);
     const ssdService = new SsdService(repositories.SsdRepository);
     const mailService = new MailService(nodemailer);
-    const authService = new AuthService(repositories.UserRepository);
     const userGameService = new UserGameService(repositories.UserGameRepository);
     const uploadService = new UploadService();
+    const authService = new AuthService(mailService, usersService);
     const services: Services = {
       AuthService: authService,
       AddRequestService: addRequestService,

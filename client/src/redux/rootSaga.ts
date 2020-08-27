@@ -13,6 +13,7 @@ import hardwareFormSagas from 'containers/AddItemPages/AddHardwareForm/saga';
 import setupChartSagas from 'containers/Chart/sagas';
 import setupsSagas from 'containers/SetupsPage/sagas';
 import emailVerificationActions from 'containers/EmailVerificationPage/sagas';
+import resetPasswordSagas from 'containers/ResetPassword/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -25,6 +26,7 @@ export default function* rootSaga() {
     matcherSagas(),
     quickMatcherSagas(),
     registrationSaga(),
+    resetPasswordSagas(),
     setupChartSagas(),
     setupSagas(),
     setupsSagas(),

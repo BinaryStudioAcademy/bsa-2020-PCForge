@@ -13,6 +13,7 @@ import { SetupChartReducer } from 'containers/Chart/reducer';
 import { GameFormReducer } from 'containers/AddItemPages/AddGameForm/reducer';
 import { HardwareFormReducer } from 'containers/AddItemPages/AddHardwareForm/reducer';
 import { EmailVerifyReducer } from 'containers/EmailVerificationPage/reducer';
+import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -23,6 +24,7 @@ const RootReducer = combineReducers({
   matcher: MatcherReducer,
   notification: NotificationReducer,
   quickMatcher: QuickMatcherReducer,
+  resetPassword: ResetPasswordReducer,
   setup: builderReducer,
   setups: SetupsReducer,
   setupPage: SetupReducer,

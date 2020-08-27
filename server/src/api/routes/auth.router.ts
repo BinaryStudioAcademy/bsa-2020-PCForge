@@ -89,17 +89,14 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     ResetPasswordRequestSchema,
     async (request: ResetPasswordRequestRequest, reply) => {
       const { email } = request.body;
-      const resetPasswordToken = 'Ajkdjahkjh227d8asjasd'; //generate reset password token and save it to user.resetPasswordToken in DB
-      const user = { id: 22 }; //get user by email from DB
-      const status = await MailService.sendResetPassword({ to: email, userId: user.id, token: resetPasswordToken });
+      const status = await AuthService.resetPasswordByEmail(email);
       reply.send(status);
     }
   );
 
   fastify.post('/reset-password', ResetPasswordSchema, async (request: ResetPasswordRequest, reply) => {
-    const { userId, token, newPassword } = request.body;
-    // check if token valid and change password if needed
-    reply.send({});
+    const status = await AuthService.resetPassword(request.body);
+    reply.send(status);
   });
 
   next();
