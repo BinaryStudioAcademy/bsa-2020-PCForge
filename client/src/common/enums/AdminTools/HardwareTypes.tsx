@@ -4,6 +4,8 @@ enum HardwareTypes {
   CPU = 'CPU',
   RAM = 'RAM',
   GPU = 'GPU',
+  HDD = 'HDD',
+  SSD = 'SSD',
 }
 
 export { HardwareTypes };

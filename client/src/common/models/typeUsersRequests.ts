@@ -10,3 +10,11 @@ export type TypeUsersRequests = {
   createdAt: Date;
   updatedAt: Date;
 };
+
+export type TypeUsersRequestsCreationAttributes = {
+  requestBody: string;
+  requestedType: string;
+  requestedHardwareType: string;
+  userId: number;
+  user?: User;
+};
