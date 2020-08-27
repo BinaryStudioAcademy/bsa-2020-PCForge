@@ -3,7 +3,7 @@ $cardButtonColor: #EB3D55;
 
 .contentWrapper {
   margin-bottom: 30px;
-  padding: 30px;
+  // padding: 30px;
 }
 
 .buildsHeading {
@@ -39,7 +39,7 @@ $cardButtonColor: #EB3D55;
   .topSetup {
     width: 35%;
     height: 100%;
-    margin-right: 80px;
+    // margin-right: 80px;
     padding:10px;
 
     @media (max-width: 1200px) {
@@ -70,7 +70,7 @@ $cardButtonColor: #EB3D55;
   }
 
   .smallerCards {
-    width: 60%;
+    width: 65%;
     min-height: 690px;
     display: flex;
     flex-wrap: wrap;
