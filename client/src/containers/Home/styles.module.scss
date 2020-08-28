@@ -1,97 +1,203 @@
-
-// .homeContentContainer {
-//     display: flex;
-
-//     @media (max-width: 1360px){
-//         display: grid;
-//     }
-// }
-
-// .cardsDisplay {
-//     width: 80%;
-// }
-
-// .newsDisplay {
-//     width:30%;
-//     min-height: 690px;
-//     padding-top:10px;
-
-//     h2 {
-//         font-size: 28px;
-//     }
-
-// > div > div > div {
-//     height: 335px;
-//     border-radius: 6px;
-//     margin:10px;
-//     @media (max-width: 1200px) {
-//         margin:15px;
-//     }
-
-//     > div {
-//         padding-top: 10px !important;
-//     }
-// }
-//     img {
-//         max-height:150px;
-//     }
-// }
-
 .homeContentContainer {
-    display: grid;
-    grid-template-columns: 25% 50% 23%;
-    grid-template-rows: 60px 1fr;
-    grid-template-areas:
+  display: grid;
+  margin-bottom: 30px;
+  column-gap: 1%;
+  row-gap:1%;
+  background-color: rgb(231, 166, 196);
+  grid-template-columns: 33% 41% 21%;
+  grid-template-rows: 60px 1fr;
+  grid-template-areas:
     "title             title        gridNewsDisplay"
-     "gridTopCard gridOrdinaryCards gridNewsDisplay";
+    "gridTopCard gridOrdinaryCards gridNewsDisplay";
+
+  @media(max-width: 1400px) {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 60px 1fr 1fr;
+    grid-column-gap: 15px;
+    grid-template-areas:
+      "title        gridNewsDisplay"
+      "gridTopCard  gridNewsDisplay"
+      "gridOrdinaryCards gridOrdinaryCards";
+
+   
+
+    .gridOrdinaryCards {
+      grid-template-columns: repeat(2, 40%);
+      grid-column-gap:20px;
+    }
+
+    .gridNewsDisplay {
+    //   margin-top: 10px;
+      >div>div>div {
+       
+        
+        margin:15px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+
+  }
+
+  /////////// max 800
+
+  @media(max-width: 800px) {
+    grid-template-columns: minmax(300px, 1fr);
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    row-gap: 10px;
+    grid-template-areas:
+      "title"
+      "gridTopCard"
+      "gridOrdinaryCards"
+      "gridNewsDisplay";
+
+
+    h2 {
+      margin-left: 0;
+      display: block;
+      text-align: center;
+    }
+
+    .gridTopCard {
+      justify-self: center;
+      margin-left: 0;
+
+      >div>div {
+        width: 100%;
+        max-width: 400px;
+
+        @media(max-width: 590px) {
+          margin-left: 0;
+        }
+      }
+    }
+
+    .gridOrdinaryCards {
+      >div {
+        display: block;
+      }
+    }
+
+    .gridNewsDisplay {
+      width: 100%;
+      margin-left: 0;
+
+      >div {
+        text-align: center;
+      }
+
+      >div>div {
+        justify-content: center;
+      }
+
+      img {
+        height: 300px;
+      }
+
+      >div>div>div {
+        max-height: 500px;
+        width: 100%;
+
+
+      }
+    }
+
+  }
 }
 
+/////////////// end of max 800
 h2 {
-    grid-area: title;
-    margin-bottom: 0;
-    font-size:28px;
-    margin-left: 10px;
+  grid-area: title;
+  margin-bottom: 0;
+  font-size: 28px;
 }
+
 .gridTopCard {
-    grid-area: gridTopCard;
-    > div > div{
-        height: 690px;
-    }
+  grid-area: gridTopCard;
+  // margin-top: 10px;
+
+  >div>div {
+    height: 690px;
+
+    // @media (max-width: 1400px) {
+    //   width: 92%;
+    // }
+  }
 }
 
 .gridOrdinaryCards {
-    grid-area: gridOrdinaryCards;
-    min-height: 690px;
-    > div{
-        display: flex;
-        flex-wrap: wrap;
-        
-        > div{
-            width:45%;
-        }
-    }
+  // margin-top: 10px;
+  grid-area: gridOrdinaryCards;
+  min-height: 690px;
+
+  >div {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: auto;
+    grid-column-gap: 15px;
+    row-gap: 15px;
+  }
+
 }
 
-.gridNewsDisplay{
-    grid-area: gridNewsDisplay;
-    margin-top: 20px;
+.gridNewsDisplay {
+  grid-area: gridNewsDisplay;
+  margin-top: 20px;
 
-    h2 {
-        margin-left:10px;
+  @media (max-width: 1400px) {
+
+
+    &>div>div {
+      justify-content: flex-start;
     }
-    > div > div > div {
-            height: 335px;
-            border-radius: 6px;
-            margin:10px;
-            @media (max-width: 1200px) {
-                margin:15px;
-            }
-        
-            > div {
-                padding-top: 10px !important;
-            }
-        }
-            img {
-                max-height:150px;
-            }
+    
+  }
+
+  h2 {
+    margin-left: 10px;
+  }
+
+  h3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+  }
+
+  >div>div>div {
+    height: 335px;
+    border-radius: 6px;
+    margin:8px;
+
+    & div {
+      @media(max-width: 1260px) {
+        padding: 15px !important;
+      }
+    }
+
+    // @media (max-width: 1260px) {
+    //   margin-right: 15px;
+    // }
+
+    @media (min-width: 1850px) {
+      h3 {
+        font-size: 20px !important;
+        line-height: 1.5 !important;
+      }
+    }
+  }
+
+  img {
+    max-height: 150px;
+
+    @media (max-width: 1260px) {
+      max-height: 175px;
+    }
+  }
+}
 }

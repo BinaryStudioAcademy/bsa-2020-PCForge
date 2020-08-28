@@ -44,7 +44,7 @@ const showButton = setups.length <= 4;
             <>
             <div className={styles.homeContentContainer}>
             <h2>Setups</h2>
-              <div className={styles.gridTopCard}> <CardDisplay setups={topSetup} /></div>
+              <div className={styles.gridTopCard}> <CardDisplay setups={topSetup} big /></div>
               <div className={styles.gridOrdinaryCards}> <CardDisplay setups={ordinarySetups} showButton={showButton}/></div>
               <div className={styles.gridNewsDisplay}>
                 <PewsPage role="aside" countNews={2} />

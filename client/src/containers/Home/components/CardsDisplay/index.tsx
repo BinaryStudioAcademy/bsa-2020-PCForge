@@ -8,10 +8,11 @@ interface ICardDisplayProps {
   setups: SetupCardProps[];
   className?: string;
   showButton?: boolean;
+  big?:boolean;
 }
 
 const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
-  const { showButton, setups, className } = props;
+  const { showButton, setups, className, big } = props;
  
 
   const generateKey = (pre: string, index: number) => {
@@ -33,6 +34,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
                 image={setup.image}
                 powerSupply={setup.powerSupply}
                 key={generateKey(setup.title, index)}
+                big={big}
               />
             );
           })}
