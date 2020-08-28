@@ -13,6 +13,7 @@ import { validateBody } from './helpers/bodyValidator.helper';
 import nodemailer from './api/plugins/nodemailer';
 import services from './api/services';
 import routes from './api/routes/index';
+import redis from './api/plugins/redis';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
 const server = fastify({
@@ -39,6 +40,10 @@ server.register(nodemailer, {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASSWORD,
   },
+});
+server.register(redis, {
+  port: 6379,
+  host: '127.0.0.1',
 });
 server.register(services);
 server.register(fastifyStatic, {
