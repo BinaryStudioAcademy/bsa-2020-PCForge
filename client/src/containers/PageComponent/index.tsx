@@ -63,10 +63,8 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
     <div className={classes.rootComponent}>
       <TopBar />
       <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} isAdmin={isAdmin} />
-      <div className={classes.contentWrapper}>
-        {children}
-        <Footer />
-      </div>
+      <div className={classes.contentWrapper}>{children}</div>
+      <Footer />
     </div>
   );
 };
