@@ -17,6 +17,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
     super(props);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
     this.validate = this.validate.bind(this);
     this.handleChangeCheckbox = this.handleChangeCheckbox.bind(this);
     this.sendData = this.sendData.bind(this);
@@ -36,18 +37,35 @@ class Auth extends Component<IAuthProps, IAuthState> {
     target.value !== state.password && this.props.changePassword(target.value);
   }
 
-  validate() {
-    UserSchema.email
-      .validate(this.props.authState.email)
-      .then(() => {
-        this.props.validationError('');
+  handleChangeConfirmPassword(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) {
+    const state = this.props.authState;
+    const target: HTMLInputElement = event.target as HTMLInputElement;
+    target.value !== state.confirmPassword && this.props.changeConfirmPassword(target.value);
+  }
 
-        UserSchema.password
-          .validate(this.props.authState.password)
-          .then(() => this.props.validationError(''))
-          .catch((err) => this.props.validationError(err.message));
-      })
-      .catch((err) => this.props.validationError(err.message));
+  validate() {
+    return new Promise((resolve, reject) => {
+      UserSchema.email
+        .validate(this.props.authState.email)
+        .then(() => {
+          this.props.validationError('');
+
+          UserSchema.password
+            .validate(this.props.authState.password)
+            .then(() => {
+              this.props.validationError('');
+              resolve();
+            })
+            .catch((err) => {
+              this.props.validationError(err.message);
+              reject();
+            });
+        })
+        .catch((err) => {
+          this.props.validationError(err.message);
+          reject();
+        });
+    });
   }
 
   handleChangeCheckbox() {
@@ -57,14 +75,24 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   sendData(event: React.FormEvent<HTMLButtonElement>) {
     event.preventDefault();
-    const state = this.props.authState;
-    if (state.email && state.password) {
-      state.isRegistration
-        ? this.props.registerRequest(state.email, state.password)
-        : this.props.loginRequest(state.email, state.password, state.keepSignedIn);
-    } else {
-      this.props.validationError('All fields must be filled in.');
-    }
+    this.validate()
+      .then((promise) => {
+        const state = this.props.authState;
+        if (state.email && state.password) {
+          if (state.isRegistration) {
+            if (state.password !== state.confirmPassword) {
+              this.props.validationError('Passwords must match.');
+              return;
+            }
+            this.props.registerRequest(state.email, state.password);
+          } else {
+            this.props.loginRequest(state.email, state.password, state.keepSignedIn);
+          }
+        } else {
+          this.props.validationError('All fields must be filled in.');
+        }
+      })
+      .catch(() => null);
   }
 
   switchToRegistration(event: React.MouseEvent) {
@@ -113,7 +141,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
                     isLoading={state.isLoading}
                     handleChangeEmail={this.handleChangeEmail}
                     handleChangePassword={this.handleChangePassword}
-                    validate={this.validate}
+                    handleChangeConfirmPassword={this.handleChangeConfirmPassword}
                     register={this.sendData}
                     switchToLogin={this.switchToLogin}
                   />
@@ -126,7 +154,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
                   isLoading={state.isLoading}
                   handleChangeEmail={this.handleChangeEmail}
                   handleChangePassword={this.handleChangePassword}
-                  validate={this.validate}
                   handleChangeCheckbox={this.handleChangeCheckbox}
                   login={this.sendData}
                   switchToRegistration={this.switchToRegistration}

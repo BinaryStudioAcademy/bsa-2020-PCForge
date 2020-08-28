@@ -1,6 +1,5 @@
 .passwordBox {
   position: relative;
-  margin-bottom: 32px;
 }
 
 svg.passwordPreviewIcon {
@@ -25,6 +24,6 @@ svg.passwordPreviewIcon:active {
 .passwordInput {
   width: 100%;
   input {
-    width: calc(100% - 40px);
+    width: calc(100% - 45px);
   }
 }

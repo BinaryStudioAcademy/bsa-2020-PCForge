@@ -18,7 +18,6 @@ interface ILoginFormProps {
   isLoading: boolean;
   handleChangeEmail: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleChangePassword: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  validate: () => void;
   handleChangeCheckbox: () => void;
   login: (event: React.FormEvent<HTMLButtonElement>) => void;
   switchToRegistration: (event: React.MouseEvent) => void;
@@ -31,7 +30,6 @@ const LoginForm = ({
   errorMessage,
   handleChangeEmail,
   handleChangePassword,
-  validate,
   handleChangeCheckbox,
   login,
   switchToRegistration,
@@ -61,13 +59,12 @@ const LoginForm = ({
           name="Email"
           className={styles.emailInput}
           onChange={handleChangeEmail}
-          onBlur={validate}
           value={email}
           placeholder="Email"
           type="text"
           required
         />
-        <PasswordInput inputHandler={handleChangePassword} blurHandler={validate} />
+        <PasswordInput className={styles.passwordBox} inputHandler={handleChangePassword} />
         <span className={[styles.forgotPassword, 'link'].join(' ')} onClick={onForgotPasswordClick}>
           Forgot password?
         </span>
@@ -80,7 +77,7 @@ const LoginForm = ({
             label="Keep me signed in"
             checkboxType={CheckboxType.primary}
           />
-          <Button type="submit" onClick={login} disabled={isLoading}>
+          <Button type="submit" onClick={login} disabled={isLoading || errorMessage !== ''}>
             Login
           </Button>
         </div>

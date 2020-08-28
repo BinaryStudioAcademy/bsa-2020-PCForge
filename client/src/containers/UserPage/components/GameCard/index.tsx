@@ -19,7 +19,6 @@ export interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isCurrentUser, id, deleteUserGame }) => {
   let { id: userId } = useParams();
   userId = parseInt(userId);
-  console.log(id);
 
   const handleDeleteGame: () => void = () => {
     if (deleteUserGame && typeof id == 'number') {
