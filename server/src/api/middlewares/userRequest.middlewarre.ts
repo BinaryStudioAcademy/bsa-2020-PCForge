@@ -39,6 +39,11 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
         return;
       }
     }
+
+    if (decodedData) {
+      const user = await UserService.getByEmail(decodedData.user.email);
+      request.user = user;
+    }
   };
 };
 

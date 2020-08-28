@@ -14,7 +14,6 @@ import NotFound from 'containers/NotFound';
 import Spinner from 'components/Spinner';
 import Snackbar from 'components/BasicComponents/Snackbar';
 import { AlertType } from 'components/BasicComponents/Alert';
-import * as Sentry from '@sentry/react';
 
 class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   constructor(props: ISetupProps) {
@@ -69,14 +68,14 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
         <div className={styles.setupPageRoot}>
           <h1>PC setup</h1>
           <Snackbar
-            open={!!(this.props.state.snackbarMessage && this.state.snackbarMessageType)}
+            open={!!(this.props.state.snackbarMessage)}
             alertProps={{
-              alertTitle: this.state.snackbarMessageType === AlertType.error ? 'Error' : '',
-              alertType: this.state.snackbarMessageType,
+              alertTitle: this.props.state.snackbarMessageType === AlertType.error ? 'Error' : '',
+              alertType: this.props.state.snackbarMessageType,
             }}
             onClose={this.onSnackBarClose}
           >
-            <span>{this.state.snackbarMessage}</span>
+            <span>{this.props.state.snackbarMessage}</span>
           </Snackbar>
           <div className={styles.contentWrapper}>
             <div className={styles.setupsDetails}>
