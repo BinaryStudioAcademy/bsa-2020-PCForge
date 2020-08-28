@@ -13,6 +13,7 @@ interface UserCreateAttributes {
   password: string;
   email: string;
   avatar: string;
+  emailVerified?: boolean;
 }
 
 export class UserService extends BaseService<UserModel, UserCreationAttributes, UserRepository> {
@@ -27,10 +28,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     const user = await this.repository.getUserByUserNameOrEmail(login);
     const isPasswordValidForUser = user ? await bcrypt.compare(password, user.password) : 0;
     if (!isPasswordValidForUser) {
-      throw {
-        error: `Invalid login or password`,
-        status: 401,
-      };
+      triggerServerError('Invalid login or password', 401);
     }
     return user;
   }
@@ -53,7 +51,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
       ...inputUser,
       isAdmin: false,
       password: this.hash(inputUser.password),
-      verifyEmailToken: genRandomString(33),
+      verifyEmailToken: inputUser.emailVerified ? null : genRandomString(33),
       resetPasswordToken: null,
     };
     const user = await super.create(userAttributes);

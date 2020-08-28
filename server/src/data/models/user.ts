@@ -7,6 +7,7 @@ export interface UserAttributes {
   email: string;
   isAdmin: boolean;
   avatar: string | null;
+  emailVerified: boolean;
   verifyEmailToken: string | null;
   resetPasswordToken: string | null;
   createdAt: Date;

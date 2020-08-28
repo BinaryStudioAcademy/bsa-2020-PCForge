@@ -21,7 +21,7 @@ import {
 } from '../../helpers/swagger.helper';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
-import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { allowForAuthorized, allowForAdmin, allowForVerified } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { CommentService } = fastify.services;
@@ -47,7 +47,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const createOneSchema = createOneQuery(UpdateCommentSchema, CommentSchema);
   fastify.post('/', { ...createOneSchema }, async (request: PostCommentRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
     request.body.userId = request.user.id;
     const comment = await CommentService.createComment(request.body, commentMiddleware);
     reply.send(comment);
@@ -55,7 +55,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const updateOneSchema = updateOneQuery(UpdateCommentSchema, CommentSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutCommentRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
     const { id } = request.params;
     request.body.userId = request.user.id;
     const newComment = await CommentService.updateCommentById(
@@ -68,7 +68,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const deleteOneSchema = deleteOneQuery(CommentSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteCommentRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
     const { id } = request.params;
     const comment = await CommentService.deleteCommentById(id);
     reply.send(comment);
