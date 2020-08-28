@@ -77,7 +77,7 @@ const LoginForm = ({
             label="Keep me signed in"
             checkboxType={CheckboxType.primary}
           />
-          <Button type="submit" onClick={login} disabled={isLoading}>
+          <Button type="submit" onClick={login} disabled={isLoading || errorMessage !== ''}>
             Login
           </Button>
         </div>

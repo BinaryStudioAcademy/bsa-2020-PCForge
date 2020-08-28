@@ -51,7 +51,7 @@ const LoginForm = ({
           placeholder="Confirm password"
         />
         <div className={styles.registerButtonBox}>
-          <Button type="submit" onClick={register} disabled={isLoading}>
+          <Button type="submit" onClick={register} disabled={isLoading || errorMessage !== ''}>
             Register
           </Button>
         </div>
