@@ -51,9 +51,7 @@ server.register(routes, { prefix: '/api' });
 server.ready((err) => {
   if (err) throw err;
   const spec = server.swagger();
-  ((spec as unknown) as Record<string, string>).openapi = '3.0';
-  delete spec.paths['/api/auth/google'];
-  delete spec.paths['/api/auth/google/callback'];
+  delete spec.paths['api/auth/google/callback'];
 });
 
 server.listen(port, '0.0.0.0', (err, address) => {

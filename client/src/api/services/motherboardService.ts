@@ -14,6 +14,7 @@ export type TypeResponseAll = {
 const endpoint = '/motherboards';
 
 export const getAllMotherboard = async (filter: TypeFilter): Promise<TypeResponseAll> => {
+  console.log(console.log(filter.ramTypeId));
   return await webApi.get(endpoint, filter);
 };
 

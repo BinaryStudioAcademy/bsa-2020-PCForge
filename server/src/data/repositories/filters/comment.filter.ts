@@ -20,19 +20,16 @@ export class ICommentFilter extends IFilter {
         nullable: true,
       },
       commentableId: {
-        oneOf: [
-          {
-            type: 'integer',
-            minimum: 1,
-          },
-          {
-            type: 'array',
-            items: {
-              type: 'integer',
-              minimum: 1,
-            },
-          },
-        ],
+        type: 'integer',
+        minimum: 1,
+        nullable: true,
+      },
+      commentableIds: {
+        type: 'array',
+        items: {
+          type: 'integer',
+          minimum: 1,
+        },
         nullable: true,
       },
     },
