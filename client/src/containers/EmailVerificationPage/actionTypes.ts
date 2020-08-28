@@ -17,7 +17,4 @@ export interface IVerifyEmailFailure {
   type: typeof VERIFY_EMAIL_FAILURE;
 }
 
-export type IVerifyEmailActions =
-  | IVerifyEmail
-  | IVerifyEmailSuccess
-  | IVerifyEmailFailure
+export type IVerifyEmailActions = IVerifyEmail | IVerifyEmailSuccess | IVerifyEmailFailure;

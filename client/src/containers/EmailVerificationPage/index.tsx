@@ -8,17 +8,17 @@ import { IEmailVerificationState } from './reducer';
 import { RootState } from 'redux/rootReducer';
 import { RouteComponentProps } from 'react-router-dom';
 
-interface Props extends RouteComponentProps<{token: string}> {
+interface Props extends RouteComponentProps<{ token: string }> {
   verificationState: 'loading' | 'verified' | 'error';
-  verifyEmail: (payload: {token: string}) => void;
+  verifyEmail: (payload: { token: string }) => void;
 }
 
 class EmailVerificationPage extends React.PureComponent<Props> {
-  public componentDidMount(){
+  public componentDidMount() {
     const token: string = this.props.match.params.token;
     console.log(this.props, 'this is props');
     console.log(token);
-    this.props.verifyEmail({token});
+    this.props.verifyEmail({ token });
   }
 
   public render(): JSX.Element {
@@ -27,24 +27,24 @@ class EmailVerificationPage extends React.PureComponent<Props> {
         <Home>
           <div className={styles.alertWrapper}>
             {this.props.verificationState === 'loading' && null}
-            {this.props.verificationState === 'verified' &&
+            {this.props.verificationState === 'verified' && (
               <Alert alertType={AlertType.success}>Congratulations! Your email has been successfully verified!</Alert>
-            }
-            {this.props.verificationState === 'error' &&
+            )}
+            {this.props.verificationState === 'error' && (
               <Alert alertType={AlertType.error}>An error occurred. Please check link correctness and try later</Alert>
-            }
+            )}
           </div>
         </Home>
       </>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state: RootState): IEmailVerificationState => {
   return {
     verificationState: state.emailVerification.verificationState,
-  }
-}
+  };
+};
 
 const connector = connect(mapStateToProps, EmailVerificationActions);
 

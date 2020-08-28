@@ -49,15 +49,19 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   }
 
   async createUser(inputUser: UserCreateAttributes): Promise<UserModel> {
-    const userAttributes: UserCreationAttributes = {
-      ...inputUser,
-      isAdmin: false,
-      password: this.hash(inputUser.password),
-      verifyEmailToken: genRandomString(33),
-      resetPasswordToken: null,
-    };
-    const user = await super.create(userAttributes);
-    return user;
+    const user = await this.getByEmail(inputUser.email);
+    if (user) {
+      triggerServerError('User with given email exists', 403);
+    } else {
+      const userAttributes: UserCreationAttributes = {
+        ...inputUser,
+        isAdmin: false,
+        password: this.hash(inputUser.password),
+        verifyEmailToken: genRandomString(33),
+        resetPasswordToken: null,
+      };
+      return await super.create(userAttributes);
+    }
   }
 
   async updateUser(id: string | number, inputUser: UserCreateAttributes): Promise<UserModel> {

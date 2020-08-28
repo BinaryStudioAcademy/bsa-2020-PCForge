@@ -1,6 +1,6 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { fetchTopGames, fetchPerformanceAnalysis, fetchGamesByName } from 'containers/Chart/actions';
+import { fetchTopGames, fetchPerformanceAnalysis, fetchGamesByName, setGame } from 'containers/Chart/actions';
 
 import React from 'react';
 import GameMatcherSystemOverview from 'components/ChartComponents/SystemOverview';
@@ -20,33 +20,32 @@ const GameMatcherResult: React.FC<Props> = ({
   fetchTopGames: propsFetchTopGames,
   fetchPerformanceAnalysis: propsFetchPerformanceAnalysis,
   fetchGamesByName: fetchGames,
+  setGame: propsSetGame,
   performance,
   topGames,
   games,
   cpu,
   gpu,
   ramSize,
+  game: initialSelected,
 }) => {
-  const [topGameSelected, setTopGameSelected] = React.useState<number>(0);
   React.useEffect(() => {
     propsFetchTopGames();
     fetchGames('');
-  }, []);
-
-  React.useEffect(() => {
-    if (topGames.length > 0 && cpu && gpu && ramSize) {
-      propsFetchPerformanceAnalysis(cpu.id, gpu.id, ramSize, topGames[0].id);
+    if (cpu && gpu && ramSize && initialSelected) {
+      propsFetchPerformanceAnalysis(cpu.id, gpu.id, ramSize, initialSelected.id);
     }
-  }, [topGames]);
+  }, []);
 
   const onTopGameSelected = (topGame: TopGame) => {
     if (cpu && gpu && ramSize) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ramSize, topGame.game.id);
-    const index = topGames.findIndex((_topGame) => _topGame.id === topGame.id);
-    setTopGameSelected(index);
+    const foundTopGame = topGames.find((_topGame) => _topGame.id === topGame.id);
+    if (foundTopGame) propsSetGame(foundTopGame.game);
   };
 
   const onGameSelected = (game: Game) => {
     if (cpu && gpu && ramSize) propsFetchPerformanceAnalysis(cpu.id, gpu.id, ramSize, game.id);
+    propsSetGame(game);
   };
 
   if (!cpu || !gpu || !ramSize) return <Redirect to={Routes.MATCHER} />;
@@ -58,13 +57,19 @@ const GameMatcherResult: React.FC<Props> = ({
           <h1 className={[sharedStyles.mainHeader, styles.pageHeader].join(' ')}>System overview</h1>
           <div className={styles.gameMatcherContentWrapper}>
             <main>
-              <GameMatcherSystemOverview cpu={cpu} gpu={gpu} ramSize={ramSize} overall={performance.overall} />
+              <GameMatcherSystemOverview
+                cpu={cpu}
+                gpu={gpu}
+                ramSize={ramSize}
+                game={initialSelected}
+                overall={performance.overall}
+              />
               <GameMatcherPerformanceReport cpu={cpu} gpu={gpu} ramSize={ramSize} report={performance.report} />
               <GameMatcherFpsAnalysis fpsAnalysis={performance.fpsAnalysis} />
             </main>
 
             <div className={styles.asideItems}>
-              <TopGames topGames={topGames} selected={topGameSelected} onGameSelected={onTopGameSelected} />
+              <TopGames topGames={topGames} onGameSelected={onTopGameSelected} />
               <TestDifferentGame games={games} onGameChanged={onGameSelected} onInputChanged={fetchGames} />
             </div>
           </div>
@@ -81,12 +86,14 @@ const mapState = (state: RootState) => ({
   gpu: state.setupChart.gpu,
   ramSize: state.setupChart.ramSize,
   games: state.setupChart.searchedGames,
+  game: state.setupChart.game,
 });
 
 const mapDispatch = {
   fetchTopGames,
   fetchPerformanceAnalysis,
   fetchGamesByName,
+  setGame,
 };
 
 const connector = connect(mapState, mapDispatch);

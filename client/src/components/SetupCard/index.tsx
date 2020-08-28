@@ -6,6 +6,7 @@ import ModeCommentIcon from '@material-ui/icons/ModeComment';
 import { Cpu } from 'common/models/cpu';
 import { Link } from 'react-router-dom';
 import { Routes } from 'common/enums';
+import Image from 'components/BasicComponents/Image';
 
 interface I_Props {
   id: number;
@@ -29,7 +30,7 @@ const SetupCard: React.FC<I_Props> = ({
 }) => {
   return (
     <div className={classes.setupCard}>
-      <img className={classes.setupCardImage} src={imageSource} alt={setupName} />
+      <Image className={classes.setupCardImage} src={imageSource} alt={setupName} />
       <ul className={classes.characteristicList}>
         <li className={classes.commentItem}>
           {/* <span className={classes.commentItemValue}>{comments}</span> */}

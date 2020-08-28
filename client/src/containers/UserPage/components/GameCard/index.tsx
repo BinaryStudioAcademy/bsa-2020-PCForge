@@ -4,6 +4,7 @@ import Link from 'components/BasicComponents/Link';
 import { UserActionTypes } from '../../logic/actionTypes';
 import { useParams } from 'react-router';
 import { deleteUserGame } from 'api/services/userService';
+import Image from 'components/BasicComponents/Image';
 
 export interface GameCardProps {
   image: string;
@@ -18,7 +19,6 @@ export interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isCurrentUser, id, deleteUserGame }) => {
   let { id: userId } = useParams();
   userId = parseInt(userId);
-  console.log(id);
 
   const handleDeleteGame: () => void = () => {
     if (deleteUserGame && typeof id == 'number') {
@@ -29,7 +29,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
   return (
     <div className={styles.gameCard}>
       <div className={styles.gameImage}>
-        <img src={image} alt="" />
+        <Image src={image} alt="" />
       </div>
       <div className={styles.gameFooter}>
         <div className={styles.gameTitle}>{name}</div>

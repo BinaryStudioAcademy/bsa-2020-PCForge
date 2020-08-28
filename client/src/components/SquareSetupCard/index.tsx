@@ -8,6 +8,7 @@ import { Gpu } from 'common/models/gpu';
 import { Ram } from 'common/models/ram';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { Link } from 'react-router-dom';
+import Image from 'components/BasicComponents/Image';
 
 export interface SetupCardProps {
   id: number;
@@ -47,7 +48,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
   return (
     <div className={setupStyle}>
       <div className={styles.setupImage}>
-        <img src={image} alt="" />
+        <Image src={image} alt="" />
       </div>
       <div className={styles.setupTitle}>{title}</div>
       <RatingBox ratingValue={5} disabled={false} name={title} />

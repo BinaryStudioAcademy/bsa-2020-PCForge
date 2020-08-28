@@ -1,4 +1,5 @@
 import {
+  AUTH_CHANGE_CONFIRM_PASSWORD,
   AUTH_CHANGE_EMAIL,
   AUTH_CHANGE_PASSWORD,
   AUTH_KEEP_SIGN_IN,
@@ -22,6 +23,13 @@ export const changeEmail = (value: string): AuthActionTypes => ({
 
 export const changePassword = (value: string): AuthActionTypes => ({
   type: AUTH_CHANGE_PASSWORD,
+  payload: {
+    value,
+  },
+});
+
+export const changeConfirmPassword = (value: string): AuthActionTypes => ({
+  type: AUTH_CHANGE_CONFIRM_PASSWORD,
   payload: {
     value,
   },
