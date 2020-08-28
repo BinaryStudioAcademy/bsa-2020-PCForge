@@ -31,8 +31,6 @@ export default function* rootSaga() {
     setupChartSagas(),
     setupSagas(),
     setupsSagas(),
-    userSagas(),
-    userRequestsSagas(),
     newsSagas(),
   ]);
 }
