@@ -59,7 +59,7 @@ const ModalAddRequest = (props: IPropsDisplayModel): JSX.Element => {
   const onSend = () => {
     const requestData: TypeUsersRequestsCreationAttributes = {
       requestBody: description,
-      requestType: requestType,
+      requestedType: requestType,
       requestedHardwareType: typeHardWare as string,
       userId: 20, // get from token
     };
