@@ -2,8 +2,7 @@
   display: grid;
   margin-bottom: 30px;
   column-gap: 1%;
-  row-gap:1%;
-  background-color: rgb(231, 166, 196);
+  row-gap: 1%;
   grid-template-columns: 33% 41% 21%;
   grid-template-rows: 60px 1fr;
   grid-template-areas:
@@ -19,23 +18,9 @@
       "gridTopCard  gridNewsDisplay"
       "gridOrdinaryCards gridOrdinaryCards";
 
-   
-
-    .gridOrdinaryCards {
-      grid-template-columns: repeat(2, 40%);
-      grid-column-gap:20px;
-    }
-
-    .gridNewsDisplay {
-    //   margin-top: 10px;
-      >div>div>div {
-       
-        
-        margin:15px;
-    }
-    h2 {
-      margin-bottom: 10px;
-    }
+      .gridTopCard {
+        margin-right: 5px;
+      }
 
   }
 
@@ -54,7 +39,7 @@
 
 
     h2 {
-      margin-left: 0;
+      margin: 0;
       display: block;
       text-align: center;
     }
@@ -62,6 +47,8 @@
     .gridTopCard {
       justify-self: center;
       margin-left: 0;
+      margin-right: 0;
+      margin-bottom: 15px;
 
       >div>div {
         width: 100%;
@@ -74,9 +61,8 @@
     }
 
     .gridOrdinaryCards {
-      >div {
-        display: block;
-      }
+      margin: 0 auto;
+    
     }
 
     .gridNewsDisplay {
@@ -98,11 +84,8 @@
       >div>div>div {
         max-height: 500px;
         width: 100%;
-
-
       }
     }
-
   }
 }
 
@@ -115,19 +98,13 @@ h2 {
 
 .gridTopCard {
   grid-area: gridTopCard;
-  // margin-top: 10px;
 
   >div>div {
     height: 690px;
-
-    // @media (max-width: 1400px) {
-    //   width: 92%;
-    // }
   }
 }
 
 .gridOrdinaryCards {
-  // margin-top: 10px;
   grid-area: gridOrdinaryCards;
   min-height: 690px;
 
@@ -139,6 +116,17 @@ h2 {
     grid-auto-rows: auto;
     grid-column-gap: 15px;
     row-gap: 15px;
+    
+        @media(max-width: 1400px) {
+          gap:25px;
+        }
+
+    @media(max-width: 800px) {
+      grid-template-columns: minmax(300px, 400px);
+      grid-template-rows: 1fr;
+      margin: 0 auto;
+      gap:15px;
+    }
   }
 
 }
@@ -148,12 +136,19 @@ h2 {
   margin-top: 20px;
 
   @media (max-width: 1400px) {
-
+    margin-top: 30px;
 
     &>div>div {
       justify-content: flex-start;
     }
-    
+
+  }
+
+  @media (max-width: 800px) {
+    &>div>div {
+      justify-content: center;
+    }
+
   }
 
   h2 {
@@ -172,17 +167,13 @@ h2 {
   >div>div>div {
     height: 335px;
     border-radius: 6px;
-    margin:8px;
+    margin: 8px;
 
     & div {
       @media(max-width: 1260px) {
         padding: 15px !important;
       }
     }
-
-    // @media (max-width: 1260px) {
-    //   margin-right: 15px;
-    // }
 
     @media (min-width: 1850px) {
       h3 {
@@ -199,5 +190,4 @@ h2 {
       max-height: 175px;
     }
   }
-}
 }
