@@ -24,6 +24,7 @@ import {
 import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { renameQuery } from '../middlewares/rename.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { RamService } = fastify.services;
@@ -33,6 +34,9 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllRamResponse, IRamFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllRamsRequest, reply) => {
     allowForAuthorized(request);
+    console.log(request.query);
+    renameQuery(request, ['typeIds', 'typeId']);
+    console.log(request.query);
     const rams = await RamService.getAllRams(request.query);
     reply.send(rams);
   });
@@ -45,14 +49,14 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(ram);
   });
 
-  const createOneSchema = createOneQuery(CreateRamSchema, DetailedRamSchema);
+  const createOneSchema = createOneQuery(CreateRamSchema, RamSchema);
   fastify.post('/', createOneSchema, async (request: PostRamRequest, reply) => {
     allowForAdmin(request);
     const ram = await RamService.createRam(request.body);
     reply.send(ram);
   });
 
-  const updateOneSchema = updateOneQuery(UpdateRamSchema, DetailedRamSchema);
+  const updateOneSchema = updateOneQuery(UpdateRamSchema, RamSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutRamRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
@@ -60,7 +64,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     reply.send(newRam);
   });
 
-  const deleteOneSchema = deleteOneQuery(DetailedRamSchema);
+  const deleteOneSchema = deleteOneQuery(RamSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteRamRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;

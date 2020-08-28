@@ -24,14 +24,6 @@ export class IRateFilter extends IFilter {
         minimum: 1,
         nullable: true,
       },
-      ratebleIds: {
-        type: 'array',
-        items: {
-          type: 'integer',
-          minimum: 1,
-        },
-        nullable: true,
-      },
     },
   };
 }

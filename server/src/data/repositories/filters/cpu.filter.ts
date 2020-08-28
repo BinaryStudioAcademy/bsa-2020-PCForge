@@ -7,6 +7,7 @@ export class ICpuFilter extends IFilter {
     super();
   }
   socketId: FilterByIdType = notNull;
+  sockerIds?: number[];
   clockspeed: FilterRangeType<number> = {
     minValue: 0,
     maxValue: 10000,
@@ -18,13 +19,13 @@ export class ICpuFilter extends IFilter {
     properties: {
       ...IFilter.schema.properties,
       socketId: {
-        type: 'string',
+        type: 'integer',
         nullable: true,
       },
       socketIds: {
         type: 'array',
         items: {
-          type: 'string',
+          type: 'integer',
           minimum: 1,
         },
         nullable: true,

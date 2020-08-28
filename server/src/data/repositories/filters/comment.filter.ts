@@ -24,14 +24,6 @@ export class ICommentFilter extends IFilter {
         minimum: 1,
         nullable: true,
       },
-      commentableIds: {
-        type: 'array',
-        items: {
-          type: 'integer',
-          minimum: 1,
-        },
-        nullable: true,
-      },
     },
   };
 }
