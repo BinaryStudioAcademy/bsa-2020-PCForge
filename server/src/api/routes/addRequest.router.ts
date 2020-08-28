@@ -50,7 +50,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     allowForAuthorized(request);
     request.body.userId = request.user.id;
     const comment = await AddRequestService.createAddRequest(request.body, addRequestMiddleware);
-    console.log(comment);
     reply.send(comment);
   });
 
