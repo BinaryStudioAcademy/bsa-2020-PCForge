@@ -2,6 +2,7 @@ import { User } from 'common/models/user';
 
 export const AUTH_CHANGE_EMAIL = 'AUTH_CHANGE_EMAIL';
 export const AUTH_CHANGE_PASSWORD = 'AUTH_CHANGE_PASSWORD';
+export const AUTH_CHANGE_CONFIRM_PASSWORD = 'AUTH_CHANGE_CONFIRM_PASSWORD';
 export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
 export const AUTH_LOGIN_FAILURE = 'AUTH_LOGIN_FAILURE';
@@ -22,6 +23,13 @@ interface changeEmailAction {
 
 interface changePasswordAction {
   type: typeof AUTH_CHANGE_PASSWORD;
+  payload: {
+    value: string;
+  };
+}
+
+interface changeConfirmPasswordAction {
+  type: typeof AUTH_CHANGE_CONFIRM_PASSWORD;
   payload: {
     value: string;
   };
@@ -103,6 +111,7 @@ export interface registrationError {
 export type AuthActionTypes =
   | changeEmailAction
   | changePasswordAction
+  | changeConfirmPasswordAction
   | loginRequestAction
   | loginRequestSuccess
   | loginRequestFailure

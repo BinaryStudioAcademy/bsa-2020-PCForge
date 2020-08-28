@@ -9,7 +9,7 @@ const schema = {
   name: string().min(3).max(50).test('name', 'Name can include only A-Z, a-z, А-Я, а-я, 0-9, symbols: _,-,.', name),
   email: string()
     .required('Email field is required')
-    .email('Email field must be a valid field')
+    .email('Email must be a example@example.com format')
     .min(5, 'Email must be at least 5 characters')
     .max(50, 'Email must be max 50 characters'),
   password: string()
