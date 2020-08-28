@@ -1,5 +1,4 @@
 import { all } from 'redux-saga/effects';
-import registrationSaga from '../containers/Auth/registrationSagas';
 import userSagas from 'containers/UserPage/logic/sagas';
 import builderSagas from 'containers/BuilderPage/sagas';
 import authSagas from 'containers/Auth/sagas';
@@ -19,6 +18,8 @@ import newsSagas from 'containers/NewsPage/sagas';
 export default function* rootSaga() {
   yield all([
     authSagas(),
+    userSagas(),
+    userRequestsSagas(),
     builderSagas(),
     emailVerificationActions(),
     hardwareFormSagas(),
@@ -26,13 +27,10 @@ export default function* rootSaga() {
     gameFormSagas(),
     matcherSagas(),
     quickMatcherSagas(),
-    registrationSaga(),
     resetPasswordSagas(),
     setupChartSagas(),
     setupSagas(),
     setupsSagas(),
-    userSagas(),
-    userRequestsSagas(),
     newsSagas(),
   ]);
 }

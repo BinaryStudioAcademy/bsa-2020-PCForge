@@ -30,13 +30,13 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
       try {
         const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
         try {
-          const user = await UserService.getUserByLoginOrEmail(userData.email, '');
+          const user = await UserService.getByEmail(userData.email);
           request.user = user;
         } catch (err) {
-          /* eslint-disable */
+          return;
         }
       } catch (e) {
-        /* eslint-disable */
+        return;
       }
     }
   };

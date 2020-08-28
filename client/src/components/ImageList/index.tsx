@@ -2,6 +2,7 @@
 import React from 'react';
 import { GridList, GridListTile } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Image from 'components/BasicComponents/Image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -104,7 +105,7 @@ const ImageList: React.FC<IImageListProps> = ({
             className={styles.tile}
             onClick={() => onSelect(tile)}
           >
-            <img src={tile.image} alt={tile.title} />
+            <Image src={tile.image} alt={tile.title} />
           </GridListTile>
         ))}
       </GridList>
