@@ -1,6 +1,7 @@
 import React from 'react';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import ButtonCard from '../ButtonCard';
+import { Link } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 
@@ -38,7 +39,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
               />
             );
           })}
-          {showButton && <ButtonCard />}
+          {showButton && <Link className={styles.buttonLinkStyle} to="/setups"><ButtonCard /></Link>}
       </div>
    
   );
