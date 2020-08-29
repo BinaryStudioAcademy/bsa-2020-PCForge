@@ -18,7 +18,7 @@ const testRedis = (opts: RedisClientOptions) => {
           console.log('Redis testing value:', value);
           if (value !== 'test_value')
             return reject(new Error(`Redis get returns ${value} when should return test_value`));
-          console.log('redis connected successfully');
+          console.log('redis is connected successfully');
           resolve();
         });
       });
@@ -35,7 +35,7 @@ const testPromisedRedis = async (opts: RedisClientOptions) => {
   console.log('PromisedRedis testing value:', value);
   if (value !== 'test_value_promised')
     throw new Error(`PromisedRedis get returns ${value} when should return test_value_promised`);
-  console.log('redis promised successfully');
+  console.log('redis is promised successfully');
 };
 
 export const connect = async (opts: RedisClientOptions): Promise<PromisedRedis> => {
