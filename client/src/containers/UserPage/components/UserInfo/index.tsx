@@ -7,6 +7,7 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
 import UserPreferences from '../UserPreferences';
+import { getIcon } from 'common/helpers/icon.helper';
 import { SetErrorMessage, passwordValid, nameValid, emailValid } from '../../helpers/validation';
 import { TypeUser } from 'common/models/typeUser';
 import { SetupType } from 'common/models/typeSetup';
@@ -67,6 +68,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     initialErrorMessages.confirmedPasswordErrorMessage
   );
   const [validate, setValidate] = useState(false);
+  const [showPasswords, setShowPasswords] = useState(false);
 
   const inputRef = React.createRef<HTMLInputElement>();
   const imageInputRef = React.createRef<HTMLInputElement>();
@@ -105,18 +107,16 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
         }
 
         const avatarData = (imageInputRef.current?.files && imageInputRef.current?.files[0]) || undefined;
-
         updateUser(dataToUpdate, avatarData);
-
         setEditableInput(false);
         setPassword('');
         setConfirmedPassword('');
+        setShowPasswords(false);
       }
     } else {
       setEditableInput(true);
     }
   };
-
   const handleCancel = (event: React.MouseEvent) => {
     setEditableInput(false);
     setValidate(false);
@@ -125,6 +125,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     setEmail(user.email);
     setPassword('');
     setConfirmedPassword('');
+    setShowPasswords(false);
 
     setNameErrorMessage(initialErrorMessages.nameErrorMessage);
     setEmailErrorMessage(initialErrorMessages.emailErrorMessage);
@@ -172,6 +173,45 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     setAvatar('');
   };
 
+  const handlePasswordShow = (event: React.MouseEvent) => {
+    setShowPasswords(true);
+  };
+
+  const passwordFields = (
+    <>
+    <div className={styles.passwordSeparationLine}></div>
+      <div className={styles.passwordInputHolder + (passwordErrorMessage ? ` ${styles.holderError}` : '')}>
+        <PasswordInput
+          icon="VpnKey"
+          inputHandler={handlePasswordChange}
+          value={password}
+          inputType={passwordErrorMessage ? InputType.error : undefined}
+          helperText={passwordErrorMessage || ''}
+        />
+      </div>
+      <div className={styles.passwordInputHolder + (confirmedPasswordErrorMessage ? ` ${styles.holderError}` : '')}>
+        <PasswordInput
+          icon="VpnKey"
+          placeholder="Confirm password"
+          inputHandler={handleConfirmedPasswordChange}
+          value={confirmedPassword}
+          inputType={confirmedPasswordErrorMessage ? InputType.error : undefined}
+          helperText={confirmedPasswordErrorMessage || ''}
+        />
+      </div>
+      <div className={styles.passwordInputHolder + (passwordErrorMessage ? ` ${styles.holderError}` : '')}>
+        <PasswordInput
+          icon="VpnKey"
+          inputHandler={handlePasswordChange}
+          value={password}
+          inputType={passwordErrorMessage ? InputType.error : undefined}
+          helperText={passwordErrorMessage || ''}
+          placeholder="Current password"
+        />
+      </div>
+    </>
+  );
+
   return (
     <div className={styles.userPageContainer}>
       <div className={styles.userInfo}>
@@ -218,31 +258,11 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             onChange={handleEmailChange}
             helperText={emailErrorMessage || ''}
           />
-          {editableInput && (
-            <div className={styles.passwordInputHolder + (passwordErrorMessage ? ` ${styles.holderError}` : '')}>
-              <PasswordInput
-                icon="VpnKey"
-                inputHandler={handlePasswordChange}
-                value={password}
-                inputType={passwordErrorMessage ? InputType.error : undefined}
-                helperText={passwordErrorMessage || ''}
-              />
-            </div>
-          )}
-          {editableInput && (
-            <div
-              className={styles.passwordInputHolder + (confirmedPasswordErrorMessage ? ` ${styles.holderError}` : '')}
-            >
-              <PasswordInput
-                icon="VpnKey"
-                placeholder="Confirm password"
-                inputHandler={handleConfirmedPasswordChange}
-                value={confirmedPassword}
-                inputType={confirmedPasswordErrorMessage ? InputType.error : undefined}
-                helperText={confirmedPasswordErrorMessage || ''}
-              />
-            </div>
-          )}
+
+          {!showPasswords && editableInput && <Link onClick={handlePasswordShow}>Change Password</Link>}
+
+          {showPasswords && editableInput && passwordFields}
+
           {isCurrentUser && (
             <div className={styles.buttonsContainer}>
               <Button onClick={handleSetEditable} buttonType={ButtonType.primary}>
