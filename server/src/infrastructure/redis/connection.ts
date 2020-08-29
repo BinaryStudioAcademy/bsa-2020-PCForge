@@ -3,22 +3,26 @@ import { promisedRedisFactory } from './factory';
 import { PromisedRedis, RedisClientOptions } from './interfaces';
 
 const testRedis = (opts: RedisClientOptions) => {
-  const redis = Redis.createClient(opts);
-  redis.on('error', (err) => {
-    throw err;
-  });
-  redis.on('connect', () => {
-    redis.set('test_key', 'test_value', (err) => {
-      console.log('Redis set testing value to test_value...');
-      if (err) throw err;
+  return new Promise((resolve, reject) => {
+    const redis = Redis.createClient(opts);
+    redis.on('error', (err) => {
+      return reject(err);
     });
-    redis.get('test_key', (err, value) => {
-      console.log('Redis get testing value...');
-      if (err) throw err;
-      console.log('Redis testing value:', value);
-      if (value !== 'test_value') throw new Error(`Redis get returns ${value} when should return test_value`);
+    redis.on('connect', () => {
+      redis.set('test_key', 'test_value', (err) => {
+        console.log('Redis set testing value to test_value...');
+        if (err) return reject(err);
+        redis.get('test_key', (err, value) => {
+          console.log('Redis get testing value...');
+          if (err) return reject(err);
+          console.log('Redis testing value:', value);
+          if (value !== 'test_value')
+            return reject(new Error(`Redis get returns ${value} when should return test_value`));
+          console.log('redis connected successfully');
+          resolve();
+        });
+      });
     });
-    console.log('redis connected successfully');
   });
 };
 
@@ -35,7 +39,7 @@ const testPromisedRedis = async (opts: RedisClientOptions) => {
 };
 
 export const connect = async (opts: RedisClientOptions): Promise<PromisedRedis> => {
-  testRedis(opts);
+  await testRedis(opts);
   await testPromisedRedis(opts);
   const promisedRedis = promisedRedisFactory();
   return promisedRedis;

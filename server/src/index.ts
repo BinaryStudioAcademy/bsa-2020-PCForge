@@ -28,7 +28,6 @@ server.register(cors, {
   origin: process.env.APP_CLIENT_URL,
   optionsSuccessStatus: 200,
 });
-
 server.register(swagger, SwaggerMainSchema);
 server.register(db);
 server.register(multer.contentParser);

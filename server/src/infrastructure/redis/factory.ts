@@ -39,6 +39,18 @@ export const promisedRedisFactory = (): PromisedRedis => {
         });
       });
     },
+    end: (opts: RedisClientOptions): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        const client = Redis.createClient(opts);
+        client.on('error', (err) => reject(err));
+        client.on('connect', () => {
+          client.send_command('SHUTDOWN', (err, value) => {
+            console.log('Redis disconnected successfully');
+            resolve();
+          });
+        });
+      });
+    },
   };
   return promisedRedis;
 };

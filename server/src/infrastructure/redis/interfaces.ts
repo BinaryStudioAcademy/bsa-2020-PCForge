@@ -4,6 +4,7 @@ export type RedisClientOptions = Redis.ClientOpts;
 
 export interface PromisedRedis {
   createClient: (opts: Redis.ClientOpts) => Promise<PromisedRedisClient>;
+  end: (opts: Redis.ClientOpts) => Promise<void>;
 }
 
 export interface PromisedRedisClient {
