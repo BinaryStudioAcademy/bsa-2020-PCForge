@@ -14,6 +14,7 @@ import nodemailer from './api/plugins/nodemailer';
 import services from './api/services';
 import routes from './api/routes/index';
 import redis from './api/plugins/redis';
+import websocket from './api/plugins/websocket';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
 const server = fastify({
@@ -50,6 +51,7 @@ server.register(fastifyStatic, {
   prefix: '/',
 });
 
+server.register(websocket, { port });
 server.register(routes, { prefix: '/api' });
 
 server.ready((err) => {
