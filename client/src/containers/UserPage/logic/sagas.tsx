@@ -74,8 +74,7 @@ function* updateUser(action: updateUserAction) {
     yield put(updateUserSuccess(updatedUser));
     notification.success('Your data has been successfully updated');
   } catch (error) {
-    console.log(error);
-    notification.error('Something went wrong, please try again later');
+    notification.error(error.message || 'Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
