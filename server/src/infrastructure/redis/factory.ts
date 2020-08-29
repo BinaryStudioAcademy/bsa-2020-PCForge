@@ -20,16 +20,56 @@ const promisedRedisClientFactory = async (client: Redis.RedisClient): Promise<Pr
     });
   };
 
+  const rpush = (key: string, value: string | string[]): Promise<void | never> => {
+    return new Promise((resolve, reject) => {
+      client.rpush(key, value, (err) => {
+        if (err) reject(err);
+        resolve();
+      });
+    });
+  };
+
+  const lpop = (key: string): Promise<void | never> => {
+    return new Promise((resolve, reject) => {
+      client.lpop(key, (err) => {
+        if (err) reject(err);
+        resolve();
+      });
+    });
+  };
+
+  const lrange = (key: string, start: number, stop: number): Promise<string[] | null | never> => {
+    return new Promise((resolve, reject) => {
+      client.lrange(key, start, stop, (err, value) => {
+        if (err) reject(err);
+        resolve(value);
+      });
+    });
+  };
+
+  const ltrim = (key: string, start: number, stop: number): Promise<void | never> => {
+    return new Promise((resolve, reject) => {
+      client.ltrim(key, start, stop, (err) => {
+        if (err) reject(err);
+        resolve();
+      });
+    });
+  };
+
   const promisedRedisClient: PromisedRedisClient = {
     get,
     set,
+    rpush,
+    lpop,
+    lrange,
+    ltrim,
   };
   return promisedRedisClient;
 };
 
-export const promisedRedisFactory = (): PromisedRedis => {
+export const promisedRedisFactory = (opts: RedisClientOptions): PromisedRedis => {
   const promisedRedis: PromisedRedis = {
-    createClient: (opts: RedisClientOptions): Promise<PromisedRedisClient | never> => {
+    createClient: (): Promise<PromisedRedisClient | never> => {
       return new Promise((resolve, reject) => {
         const client = Redis.createClient(opts);
         client.on('error', (err) => reject(err));
@@ -39,7 +79,7 @@ export const promisedRedisFactory = (): PromisedRedis => {
         });
       });
     },
-    end: (opts: RedisClientOptions): Promise<void> => {
+    end: (): Promise<void> => {
       return new Promise((resolve, reject) => {
         const client = Redis.createClient(opts);
         client.on('error', (err) => reject(err));

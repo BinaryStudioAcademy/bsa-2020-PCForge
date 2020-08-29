@@ -6,7 +6,7 @@ export default fp(async (fastify, opts: RedisClientOptions, next) => {
   try {
     const promisedRedis = await connect(opts);
     fastify.decorate('redis', promisedRedis).addHook('onClose', async (fastify, done) => {
-      await fastify.redis.end(opts);
+      await fastify.redis.end();
       done();
     });
   } catch (err) {

@@ -27,7 +27,7 @@ const testRedis = (opts: RedisClientOptions) => {
 };
 
 const testPromisedRedis = async (opts: RedisClientOptions) => {
-  const redis = await promisedRedisFactory().createClient(opts);
+  const redis = await promisedRedisFactory(opts).createClient();
   console.log('PromisedRedis set testing value to test_value_promised...');
   await redis.set('test_key_promised', 'test_value_promised');
   console.log('PromisedRedis get testing value...');
@@ -41,6 +41,6 @@ const testPromisedRedis = async (opts: RedisClientOptions) => {
 export const connect = async (opts: RedisClientOptions): Promise<PromisedRedis> => {
   await testRedis(opts);
   await testPromisedRedis(opts);
-  const promisedRedis = promisedRedisFactory();
+  const promisedRedis = promisedRedisFactory(opts);
   return promisedRedis;
 };
