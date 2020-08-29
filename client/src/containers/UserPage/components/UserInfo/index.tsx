@@ -8,7 +8,7 @@ import Link from 'components/BasicComponents/Link';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
 import UserPreferences from '../UserPreferences';
 import { getIcon } from 'common/helpers/icon.helper';
-import { SetErrorMessage, passwordValid, nameValid, emailValid } from '../../helpers/validation';
+import { SetErrorMessage, passwordValid, nameValid, emailValid, currentPasswordPresent} from '../../helpers/validation';
 import { TypeUser } from 'common/models/typeUser';
 import { SetupType } from 'common/models/typeSetup';
 import { UserActionTypes } from '../../logic/actionTypes';
@@ -50,6 +50,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     passwordErrorMessage: null,
     nameErrorMessage: null,
     confirmedPasswordErrorMessage: null,
+    currentPasswordErrorMessage: null,
   };
 
   const initialAvatar = user.avatar;
@@ -61,12 +62,15 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const [avatar, setAvatar] = useState(initialAvatar);
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
   const [nameErrorMessage, setNameErrorMessage] = useState(initialErrorMessages.nameErrorMessage);
   const [emailErrorMessage, setEmailErrorMessage] = useState(initialErrorMessages.emailErrorMessage);
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(initialErrorMessages.passwordErrorMessage);
   const [confirmedPasswordErrorMessage, setConfirmedPasswordErrorMessage] = useState(
     initialErrorMessages.confirmedPasswordErrorMessage
   );
+  const [currentPasswordErrorMessage, setCurrentPasswordErrorMessage] = useState(initialErrorMessages.currentPasswordErrorMessage);
+
   const [validate, setValidate] = useState(false);
   const [showPasswords, setShowPasswords] = useState(false);
 
@@ -94,7 +98,8 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
         setConfirmedPasswordErrorMessage as SetErrorMessage
       );
       const validName = nameValid(name, setNameErrorMessage as SetErrorMessage);
-      if (validEmail && validPassword && validName) {
+      const presentCurrentPassword = currentPasswordPresent(currentPassword, setCurrentPasswordErrorMessage as SetErrorMessage);
+      if (validEmail && validPassword && validName && presentCurrentPassword) {
         const dataToUpdate = {
           id: user.id,
           name,
@@ -102,15 +107,19 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           avatar,
         } as TypeUser;
 
-        if (password) {
+        if (password && currentPassword) {
           dataToUpdate.password = password;
+          dataToUpdate.currentPassword = currentPassword;
         }
+
+        console.log(dataToUpdate);
 
         const avatarData = (imageInputRef.current?.files && imageInputRef.current?.files[0]) || undefined;
         updateUser(dataToUpdate, avatarData);
         setEditableInput(false);
         setPassword('');
         setConfirmedPassword('');
+        setCurrentPassword('');
         setShowPasswords(false);
       }
     } else {
@@ -131,6 +140,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     setEmailErrorMessage(initialErrorMessages.emailErrorMessage);
     setPasswordErrorMessage(initialErrorMessages.passwordErrorMessage);
     setConfirmedPasswordErrorMessage(initialErrorMessages.confirmedPasswordErrorMessage);
+    setCurrentPasswordErrorMessage(initialErrorMessages.currentPasswordErrorMessage);
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -162,6 +172,11 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
         setConfirmedPasswordErrorMessage as SetErrorMessage
       );
   };
+  const handleCurrentPasswordChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target = event.target as HTMLInputElement;
+    setCurrentPassword(target.value);
+    validate && currentPasswordPresent(target.value, setCurrentPasswordErrorMessage as SetErrorMessage);
+  }
 
   const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -199,13 +214,13 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           helperText={confirmedPasswordErrorMessage || ''}
         />
       </div>
-      <div className={styles.passwordInputHolder + (passwordErrorMessage ? ` ${styles.holderError}` : '')}>
+      <div className={styles.passwordInputHolder + (currentPasswordErrorMessage ? ` ${styles.holderError}` : '')}>
         <PasswordInput
           icon="VpnKey"
-          inputHandler={handlePasswordChange}
-          value={password}
-          inputType={passwordErrorMessage ? InputType.error : undefined}
-          helperText={passwordErrorMessage || ''}
+          inputHandler={handleCurrentPasswordChange}
+          value={currentPassword}
+          inputType={currentPasswordErrorMessage ? InputType.error : undefined}
+          helperText={currentPasswordErrorMessage || ''}
           placeholder="Current password"
         />
       </div>

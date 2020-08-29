@@ -4,4 +4,5 @@ export type TypeUser = {
   email: string;
   avatar?: string;
   password?: string;
+  currentPassword?: string;
 };
