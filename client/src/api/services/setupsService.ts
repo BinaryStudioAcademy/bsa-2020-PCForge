@@ -11,5 +11,7 @@ export type TypeResponseSetups = {
 };
 
 export const getAllSetups = async (): Promise<TypeResponseSetups> => {
-  return await webApi.get(endpoint);
+  const setups = await webApi.get(endpoint);
+  console.log('setup', setups);
+  return setups;
 };

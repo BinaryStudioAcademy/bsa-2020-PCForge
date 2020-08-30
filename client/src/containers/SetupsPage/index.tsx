@@ -30,8 +30,8 @@ const SetupPage: React.FC<PropsFromRedux> = ({ setups, fetchSetups, fetchTopSetu
           processor={setup.cpu.name}
           gpu={setup.gpu.name}
           ram={setup.ram.name}
-          // comments={setup.comments}
-          // rating={setup.rating}
+          comments={Number(setup.commentCount)}
+          rating={setup.rating | 0}
         />
       );
     });

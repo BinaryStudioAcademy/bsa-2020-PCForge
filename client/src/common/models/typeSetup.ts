@@ -9,6 +9,8 @@ export type SetupType = {
   title: string;
   description: string;
   image: string;
+  comments: string;
+  rating: number;
   cpu: Cpu;
   gpu: Gpu;
   ram: Ram;
