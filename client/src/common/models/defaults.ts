@@ -62,7 +62,7 @@ export const defaultSetup: Setup = {
   rating: 0,
   title: '',
   image: '',
-  commentCount: '',
+  comments_count: '',
   description: '',
   cpu: defaultCpu,
   gpu: defaultGpu,

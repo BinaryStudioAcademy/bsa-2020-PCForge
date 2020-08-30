@@ -10,12 +10,12 @@ export type TypeResponseSetups = {
   data: Setup[];
 };
 
-type Sort = 'mostRated' | 'newest' | 'oldest' | 'commendable';
+export type Sort = 'mostRated' | 'newest' | 'oldest' | 'commendable';
 
 export interface ISetupFilter {
   from?: number;
   count?: number;
-  sort?: Sort;
+  sort?: string;
 }
 
 export const getAllSetups = async (filter?: ISetupFilter): Promise<TypeResponseSetups> => {

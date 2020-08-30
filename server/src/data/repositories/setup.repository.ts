@@ -40,7 +40,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       case 'oldest':
         return ['createdAt', 'ASC'];
       case 'commendable':
-        return [sequelize.literal('commentCount'), 'DESC'];
+        return [sequelize.literal('comments_count'), 'DESC'];
       default:
         return [sequelize.literal('rating'), 'DESC NULLS LAST'];
     }
@@ -52,12 +52,11 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     if (filter.authorId) {
       where.authorId = filter.authorId;
     }
-
     const result = await this.model.findAndCountAll({
       group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id', 'hdd.id', 'ssd.id'],
       attributes: {
         include: [
-          [sequelize.fn('COUNT', sequelize.col('comments.id')), 'commentCount'],
+          [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
         ],
       },
@@ -98,7 +97,9 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         {
           model: this.reteModel,
           on: {
-            ratebleId: { [Op.col]: 'setup.id' },
+            ratebleId: {
+              [Op.col]: 'setup.id',
+            },
             ratebleType: 'setup',
           },
           attributes: [],
@@ -109,13 +110,17 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       offset: filter.from,
       limit: filter.count,
     });
-    // console.log('SetupRepository -> result', result.rows[0].dataValues);
 
-    const globalCount = result.count;
+    // here is a bug in sequelize: it returns array instead of number, so instead of result.count there was used this.model.count();
+    // https://github.com/sequelize/sequelize/issues/9109
+    const globalCount = await this.model.count();
     const countAfterFiltering = result.rows.length;
 
     return {
-      meta: { globalCount, countAfterFiltering },
+      meta: {
+        globalCount,
+        countAfterFiltering,
+      },
       data: result.rows,
     };
   }

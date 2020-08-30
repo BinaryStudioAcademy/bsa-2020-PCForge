@@ -9,7 +9,7 @@ export interface Setup {
   title: string;
   rating: number;
   description: string;
-  commentCount: string;
+  comments_count: string;
   image: string;
   cpu: Cpu;
   gpu: Gpu;

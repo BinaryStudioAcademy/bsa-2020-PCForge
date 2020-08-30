@@ -10,7 +10,7 @@ export interface SetupAttributes {
   id: number;
   title: string;
   description: string;
-  commentCount: string;
+  comments_count: number;
   image: string;
   authorId: number;
   cpu: CpuAttributes;
