@@ -13,7 +13,6 @@ import SetupPage from 'containers/SetupsPage';
 import BuilderPage from 'containers/BuilderPage';
 import AdminToolsPage from 'containers/AdminToolsPage';
 import AddItemPages from 'containers/AddItemPages';
-import Notification from 'containers/Notification';
 import GamePage from 'containers/GamePage';
 import * as Sentry from '@sentry/react';
 import EmailVerificationPage from './EmailVerificationPage';
@@ -45,7 +44,6 @@ class App extends Component {
           <SentryRoute exact path={Routes.NEWS} component={NewsPage} />
           <SentryRoute path="*" exact={true} component={NotFound} />
         </Switch>
-        <Notification />
       </RootComponent>
     );
   }
