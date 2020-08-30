@@ -1,9 +1,29 @@
 @import 'styles/index';
+.setupSuperHolder {
+  position: relative;
+  margin:10px;
+  background-color: #3c444d;
+
+  .setupExtraInfo {
+    background-color: rgb(17, 17, 17);
+    display: flex;
+    height:40px;
+    
+
+    .forkIcon {
+      margin-left: auto;
+    }
+
+    .setupCardRatingBox {
+      display: none;
+    }
+  }
+}
+
 
 .setupCard {
   height: 335px;
   background-color: $colorBackgroundGray;
-  margin: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -11,6 +31,16 @@
   border-radius: 6px;
   position: relative;
   transition: all 0.5s;
+
+  &:hover {
+      .setupBack {
+        display: flex;
+      }
+      & + .setupExtraInfo {
+       opacity:0;
+       pointer-events: none;
+      }
+  }
 
   @media (max-width: 1200px) {
     margin-left: 0;
@@ -44,16 +74,10 @@
     font-size: 20px;
   }
 
+ 
+
   .setupBack {
-    display: none;
-  }
-
-
-  &:hover {
-    cursor: pointer;
-
-    .setupBack {
-      display: block;
+      display: none;
       position: absolute;
       top: 0;
       left: 0;
@@ -61,7 +85,6 @@
       bottom: 0;
       z-index: 100;
       background-color: $colorBackgroundGray;
-      display: flex;
       flex-direction: column;
       padding: 25px 20px;
 
@@ -93,18 +116,20 @@
        @media (max-width: $phone) {
          padding:10px;
        }
-      }
-    }
-    .backBottomWrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-      svg {
-        color: $colorOrange;
-      }
-      svg:hover{
-        color: #b92f0d;
-      }
-    }
+      
+       .backBottomWrapper {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         margin-top: auto;
+         margin-bottom: -25px;
+         svg {
+           color: $colorOrange;
+         }
+         svg:hover{
+           color: #b92f0d;
+         }
+       }
+  }
+
   }

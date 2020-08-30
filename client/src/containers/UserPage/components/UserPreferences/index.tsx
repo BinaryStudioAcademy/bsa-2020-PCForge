@@ -119,6 +119,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   motherboard={setup.motherboard}
                   ram={setup.ram}
                   image={setup.image}
+                  createdAt={setup.createdAt}
                   powerSupply={setup.powerSupply}
                   key={generateKey(setup.title, index)}
                   deleteUserSetup={deleteUserSetup}

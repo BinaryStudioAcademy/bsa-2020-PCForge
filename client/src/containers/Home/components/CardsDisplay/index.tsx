@@ -25,6 +25,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
         <div className={styles.topSetup}>
           <SetupCard
             id={topSetup.id}
+            createdAt={topSetup.createdAt}
             title={topSetup.title}
             description={topSetup.description}
             image={topSetup.image}
@@ -42,6 +43,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
             return (
               <SetupCard
                 id={setup.id}
+                createdAt={setup.createdAt}
                 title={setup.title}
                 description={setup.description}
                 cpu={setup.cpu}
