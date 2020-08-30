@@ -53,7 +53,9 @@ export const initializeRepositories = (models: Models): Repositories => {
     models.Ram,
     models.PowerSupply,
     models.Hdd,
-    models.Ssd
+    models.Ssd,
+    models.Comment,
+    models.Rate
   );
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
   const gpuRepository = new GpuRepository(models.Gpu);

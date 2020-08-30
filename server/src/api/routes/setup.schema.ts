@@ -41,6 +41,19 @@ export const SetupSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    rating: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
+      maximum: 5,
+      nullable: true,
+    },
+    commentCount: {
+      type: 'string',
+      minLength: 1,
+      example: '1',
+      nullable: false,
+    },
     title: {
       type: 'string',
       minLength: 1,
@@ -137,6 +150,7 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
   schema.properties.ram = RamSchema;
   schema.properties.motherboard = MotherBoardSchema;
   schema.properties.powerSupply = PowerSupplySchema;
+
   schema.properties.hdd = {
     ...HddSchema,
     nullable: true,

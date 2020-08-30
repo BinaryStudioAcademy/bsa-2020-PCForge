@@ -10,6 +10,9 @@ import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { mergeFilters } from './filters/helper';
 import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
+import { CommentStatic } from '../models/comment';
+import { RateStatic } from '../models/rate';
+import sequelize, { Op } from 'sequelize';
 
 export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
   constructor(
@@ -20,7 +23,9 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     private ramModel: RamStatic,
     private powerSupplyModel: PowerSupplyStatic,
     private hddModel: HddStatic,
-    private ssdModel: SsdStatic
+    private ssdModel: SsdStatic,
+    private commentModel: CommentStatic,
+    private reteModel: RateStatic
   ) {
     super(<RichModel>model, IFilter);
   }
@@ -33,33 +38,60 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     }
 
     const result = await this.model.findAndCountAll({
+      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id', 'hdd.id', 'ssd.id'],
+      attributes: {
+        include: [
+          [sequelize.fn('COUNT', sequelize.col('comments.id')), 'commentCount'],
+          [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+        ],
+      },
       include: [
         {
           model: this.cpuModel,
+          as: 'cpu',
         },
         {
           model: this.gpuModel,
+          // as: 'gpu',
         },
         {
           model: this.motherBoardModel,
+          // as: 'motherboard',
         },
         {
           model: this.ramModel,
+          // as: 'ram',
         },
         {
           model: this.powerSupplyModel,
+          // as: 'powerSupply',
         },
         {
           model: this.hddModel,
+          // as: 'hdd',
         },
         {
           model: this.ssdModel,
+          // as: 'ssd',
+        },
+        {
+          model: this.commentModel,
+          attributes: [],
+        },
+        {
+          model: this.reteModel,
+          on: {
+            ratebleId: { [Op.col]: 'setup.id' },
+            ratebleType: 'setup',
+          },
+          attributes: [],
         },
       ],
       where,
       offset: filter.from,
-      limit: filter.count,
+      // limit: filter.count,
     });
+    // console.log('SetupRepository -> result', result.rows[0].dataValues);
 
     const globalCount = result.count;
     const countAfterFiltering = result.rows.length;
