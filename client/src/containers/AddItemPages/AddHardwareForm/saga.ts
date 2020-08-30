@@ -1,6 +1,4 @@
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
-import { TypeCpu } from 'common/models/typeCpu';
-import { TypeGpu } from 'common/models/typeGpu';
 import { TypeSocket } from 'common/models/typeSocket';
 import { TypeRamType } from 'common/models/typeRamType';
 import { TypeRam } from 'common/models/typeRam';

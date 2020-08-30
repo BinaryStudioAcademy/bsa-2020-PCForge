@@ -17,7 +17,6 @@ export interface AddRequestCreationAttributes {
   requestedType: string;
   requestedHardwareType: string;
   userId: number;
-  //userRequested: UserAttributes;
 }
 
 export interface AddRequestModel extends Model<AddRequestAttributes>, AddRequestAttributes {}

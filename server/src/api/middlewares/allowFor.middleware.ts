@@ -1,6 +1,7 @@
 import { FastifyRequest } from 'fastify';
 import { UserAttributes } from '../../data/models/user';
 import { triggerServerError } from '../../helpers/global.helper';
+// eslint-disable-next-line @typescript-eslint/ban-types
 type CustomRequest = FastifyRequest<{}> & { user?: UserAttributes };
 
 export function allowForAdmin(request: CustomRequest): void {

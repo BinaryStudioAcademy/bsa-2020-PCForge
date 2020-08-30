@@ -104,7 +104,7 @@ export const GetAllAddRequest: SwaggerSchema = {
 
 export const CreateAddRequestSchema: SwaggerSchema = {
   type: 'object',
-  required: ['requestedType', 'requestBody', 'requestedHardwareType'],
+  required: ['requestedType', 'requestBody'],
   properties: {
     requestedType: {
       type: 'string',

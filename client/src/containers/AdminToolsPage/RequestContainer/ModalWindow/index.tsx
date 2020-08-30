@@ -3,7 +3,7 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { TypeUsersRequests } from 'common/models/typeUsersRequests';
 import Modal from 'components/BasicComponents/Modal';
 import styles from './styles.module.scss';
-import { UserRequestedType, UserRequestedHardwareType } from 'common/enums/UserRequestedType';
+import { UserRequestedType } from 'common/enums/UserRequestedType';
 
 interface IDisplayModel {
   displayInfo: TypeUsersRequests;
