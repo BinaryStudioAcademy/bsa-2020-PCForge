@@ -9,6 +9,7 @@ import { Ram } from 'common/models/ram';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { Link } from 'react-router-dom';
 import Image from 'components/BasicComponents/Image';
+import { getIcon } from 'common/helpers/icon.helper';
 
 export interface SetupCardProps {
   id: number;
@@ -52,7 +53,6 @@ const SetupCard: React.FC<SetupCardProps> = ({
       </div>
       <div className={styles.setupTitle}>{title}</div>
       <RatingBox ratingValue={5} disabled={false} name={title} />
-
       <div className={styles.setupBack}>
         <div className={styles.textHolder}>
           <div className={styles.setupDescription}>{description}</div>

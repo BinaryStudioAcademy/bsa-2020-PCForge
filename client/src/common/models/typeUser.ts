@@ -8,4 +8,4 @@ export type TypeUser = {
 
 export type TypeUserUpdate = TypeUser & {
   currentPassword?: string;
-}
+};

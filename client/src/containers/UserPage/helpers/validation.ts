@@ -39,7 +39,10 @@ export const passwordValid = (
   return !(passwordMessage || confirmedMessage);
 };
 
-export const currentPasswordPresent = (currentPassword: string, setCurrentPasswordErrorMessage: SetErrorMessage): boolean => {
+export const currentPasswordPresent = (
+  currentPassword: string,
+  setCurrentPasswordErrorMessage: SetErrorMessage
+): boolean => {
   let currentPasswordMessage = null;
   if (currentPassword == '') {
     currentPasswordMessage = 'Current password is required';
@@ -50,7 +53,7 @@ export const currentPasswordPresent = (currentPassword: string, setCurrentPasswo
   }
   setCurrentPasswordErrorMessage(currentPasswordMessage);
   return !currentPasswordMessage;
-}
+};
 
 export const nameValid = (name: string, setErrorMessage: SetErrorMessage): boolean => {
   let nameMessage = null;
