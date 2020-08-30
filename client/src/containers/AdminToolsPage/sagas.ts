@@ -59,7 +59,7 @@ function* deleteUserRequestSaga(action: IUsersRequestDeleteAction) {
 }
 
 function* watchDeleteUserRequest() {
-  yield takeEvery(UsersRequestActionTypes.DELETE_USER_REQUESTS, deleteUserRequestSaga);
+  yield takeEvery(UsersRequestActionTypes.DELETE_USER_ADDED_REQUESTS, deleteUserRequestSaga);
 }
 
 function* watchGetAllTotalCount() {

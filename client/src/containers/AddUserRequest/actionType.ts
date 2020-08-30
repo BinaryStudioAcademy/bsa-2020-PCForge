@@ -1,38 +1,40 @@
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
-import { TypeUsersRequests, TypeUsersRequestsCreationAttributes } from 'common/models/typeUsersRequests';
+import { TypeUsersRequestsCreationAttributes } from 'common/models/typeUsersRequests';
 
 export enum AddRequestActionTypes {
-  GET_USERS_REQUESTS = 'GET_USER_REQUESTS',
-  GET_USERS_REQUESTS_SUCCESS = 'GET_USER_REQUESTS_SUCCESS',
-  GET_USERS_REQUESTS_ERROR = 'GET_USER_REQUESTS_ERROR',
-  LOADING_USER_REQUESTS = 'LOADING_USER_REQUESTS',
+  GET_COUNT_USERS_REQUESTS = 'GET_COUNT_USERS_REQUESTS',
+  GET_COUNT_USERS_REQUESTS_SUCCESS = 'GET_COUNT_USER_REQUESTS_SUCCESS',
+  GET_COUNT_USERS_REQUESTS_ERROR = 'GET_COUNT_USER_REQUESTS_ERROR',
+  LOADING_COUNT_USER_REQUESTS = 'LOADING_COUNT_USER_REQUESTS',
   POST_USER_REQUEST_ACTION = 'POST_USER_REQUEST_ACTION',
   POST_USER_REQUEST_SUCCESS = 'POST_USER_REQUEST_SUCCESS',
+  CLEAR_STATE_VALUES_ACTION = 'CLEAR_STATE_VALUES_ACTION',
+  CLEAR_STATE_VALUES_SUCCESS = 'CLEAR_STATE_VALUES_SUCCESS',
 }
 
 export interface IGetActualUsersRequestAction {
-  type: AddRequestActionTypes.GET_USERS_REQUESTS;
+  type: AddRequestActionTypes.GET_COUNT_USERS_REQUESTS;
   payload: {
     filter: IUserRequestFilter;
   };
 }
 
 export interface IGetRequestActionSuccess {
-  type: AddRequestActionTypes.GET_USERS_REQUESTS_SUCCESS;
+  type: AddRequestActionTypes.GET_COUNT_USERS_REQUESTS_SUCCESS;
   payload: {
-    userRequests: TypeUsersRequests[];
+    countAlreadySentRequests: number;
   };
 }
 
 export interface IUsersRequestActionError {
-  type: AddRequestActionTypes.GET_USERS_REQUESTS_ERROR;
+  type: AddRequestActionTypes.GET_COUNT_USERS_REQUESTS_ERROR;
   payload: {
-    errorMessage: string;
+    errorMessage: string | null;
   };
 }
 
 export interface IUsersRequestActionLoading {
-  type: AddRequestActionTypes.LOADING_USER_REQUESTS;
+  type: AddRequestActionTypes.LOADING_COUNT_USER_REQUESTS;
   payload: {
     loadingStatus: boolean;
   };
@@ -51,9 +53,16 @@ export interface IUserSendRequestSuccess {
   };
 }
 
+export interface IClearStateValuesAction {
+  type: AddRequestActionTypes.CLEAR_STATE_VALUES_ACTION;
+}
+export interface IClearStateValuesSuccess {
+  type: AddRequestActionTypes.CLEAR_STATE_VALUES_SUCCESS;
+}
+
 export interface AddRequestState {
-  userRequests: TypeUsersRequests[];
-  errorMessage: string;
+  countAlreadySentRequests: number;
+  errorMessage: string | null;
   loadingStatus: boolean;
   sendingStatus: boolean;
 }
@@ -64,4 +73,6 @@ export type AddRequestActions =
   | IUsersRequestActionError
   | IGetRequestActionSuccess
   | IGetActualUsersRequestAction
-  | IUserSendRequestSuccess;
+  | IUserSendRequestSuccess
+  | IClearStateValuesAction
+  | IClearStateValuesSuccess;

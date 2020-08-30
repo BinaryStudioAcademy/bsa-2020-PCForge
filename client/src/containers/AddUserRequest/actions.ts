@@ -2,22 +2,22 @@ import { AddRequestActions, AddRequestActionTypes } from './actionType';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
 import { TypeUsersRequests, TypeUsersRequestsCreationAttributes } from 'common/models/typeUsersRequests';
 
-export const getUsersRequests = (filter: IUserRequestFilter): AddRequestActions => ({
-  type: AddRequestActionTypes.GET_USERS_REQUESTS,
+export const getCountUsersRequests = (filter: IUserRequestFilter): AddRequestActions => ({
+  type: AddRequestActionTypes.GET_COUNT_USERS_REQUESTS,
   payload: {
     filter,
   },
 });
 
-export const loadAllUsersRequests = (userRequests: TypeUsersRequests[]): AddRequestActions => ({
-  type: AddRequestActionTypes.GET_USERS_REQUESTS_SUCCESS,
+export const loadAllUsersRequests = (countAlreadySentRequests: number): AddRequestActions => ({
+  type: AddRequestActionTypes.GET_COUNT_USERS_REQUESTS_SUCCESS,
   payload: {
-    userRequests,
+    countAlreadySentRequests,
   },
 });
 
 export const loadError = (errorMessage: string): AddRequestActions => ({
-  type: AddRequestActionTypes.GET_USERS_REQUESTS_ERROR,
+  type: AddRequestActionTypes.GET_COUNT_USERS_REQUESTS_ERROR,
   payload: {
     errorMessage,
   },
@@ -38,8 +38,16 @@ export const updateSendingStatus = (sendingStatus: boolean): AddRequestActions =
 });
 
 export const updateLoadingStatus = (loadingStatus: boolean): AddRequestActions => ({
-  type: AddRequestActionTypes.LOADING_USER_REQUESTS,
+  type: AddRequestActionTypes.LOADING_COUNT_USER_REQUESTS,
   payload: {
     loadingStatus,
   },
+});
+
+export const clearStateValues = (): AddRequestActions => ({
+  type: AddRequestActionTypes.CLEAR_STATE_VALUES_ACTION,
+});
+
+export const clearingStateValues = (): AddRequestActions => ({
+  type: AddRequestActionTypes.CLEAR_STATE_VALUES_SUCCESS,
 });

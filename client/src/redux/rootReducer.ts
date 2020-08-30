@@ -34,7 +34,7 @@ const RootReducer = combineReducers({
   user: UserReducer,
   userRequests: UserRequestsReducer,
   news: NewsReducer,
-  addRequestReducer: AddRequestReducer,
+  addRequest: AddRequestReducer,
 });
 
 export default RootReducer;

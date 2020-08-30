@@ -62,7 +62,7 @@ export const loadError = (error: string): UsersRequestActions => ({
   },
 });
 export const deleteUserRequest = (id: number): UsersRequestActions => ({
-  type: UsersRequestActionTypes.DELETE_USER_REQUESTS,
+  type: UsersRequestActionTypes.DELETE_USER_ADDED_REQUESTS,
   payload: {
     id,
   },

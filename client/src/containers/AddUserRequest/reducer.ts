@@ -1,29 +1,27 @@
 import { AddRequestActions, AddRequestActionTypes, AddRequestState } from './actionType';
-import { IUserRequestFilter } from 'api/services/addUserRequestService';
-import { TypeUsersRequests, TypeUsersRequestsCreationAttributes } from 'common/models/typeUsersRequests';
 
 const initialState: AddRequestState = {
-  userRequests: [],
-  errorMessage: '',
+  countAlreadySentRequests: 0,
+  errorMessage: null,
   loadingStatus: true,
   sendingStatus: false,
 };
 
 export default function AddRequestReducer(state = initialState, action: AddRequestActions): AddRequestState {
   switch (action.type) {
-    case AddRequestActionTypes.GET_USERS_REQUESTS_SUCCESS: {
+    case AddRequestActionTypes.GET_COUNT_USERS_REQUESTS_SUCCESS: {
       return {
         ...state,
-        userRequests: action.payload.userRequests,
+        countAlreadySentRequests: action.payload.countAlreadySentRequests,
       };
     }
-    case AddRequestActionTypes.LOADING_USER_REQUESTS: {
+    case AddRequestActionTypes.LOADING_COUNT_USER_REQUESTS: {
       return {
         ...state,
         loadingStatus: action.payload.loadingStatus,
       };
     }
-    case AddRequestActionTypes.GET_USERS_REQUESTS_ERROR: {
+    case AddRequestActionTypes.GET_COUNT_USERS_REQUESTS_ERROR: {
       return {
         ...state,
         errorMessage: action.payload.errorMessage,
@@ -33,6 +31,15 @@ export default function AddRequestReducer(state = initialState, action: AddReque
       return {
         ...state,
         sendingStatus: action.payload.sendingStatus,
+      };
+    }
+    case AddRequestActionTypes.CLEAR_STATE_VALUES_SUCCESS: {
+      return {
+        ...state,
+        countAlreadySentRequests: 0,
+        errorMessage: null,
+        loadingStatus: true,
+        sendingStatus: false,
       };
     }
     default:
