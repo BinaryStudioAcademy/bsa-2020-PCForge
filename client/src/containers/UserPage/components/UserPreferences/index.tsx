@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import { getIcon } from 'common/helpers/icon.helper';
 import BasicLink from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
@@ -9,6 +10,7 @@ import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import { Game } from 'common/models/typeUserGame';
 import { UserActionTypes } from '../../logic/actionTypes';
 import { addUserGame } from 'containers/UserPage/logic/actions';
+import { UserPageTabs } from 'containers/UserPage/index';
 import { Link } from 'react-router-dom';
 
 export interface UserPreferencesProps {
@@ -17,8 +19,10 @@ export interface UserPreferencesProps {
   isCurrentUser: boolean;
   addUserGame?: (id: number, gameId: number) => UserActionTypes;
   deleteUserGame?: (id: number, gameId: number) => UserActionTypes;
+  deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
   filteredGames?: Game[];
   loadFilteredGames?: (searchString: string) => UserActionTypes;
+  setTab?: (tab: UserPageTabs) => UserActionTypes;
 }
 
 const generateKey = (pre: string, index: number) => {
@@ -26,7 +30,17 @@ const generateKey = (pre: string, index: number) => {
 };
 
 const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
-  const { games, setups, isCurrentUser, filteredGames, loadFilteredGames, addUserGame, deleteUserGame } = props;
+  const {
+    games,
+    setups,
+    isCurrentUser,
+    filteredGames,
+    loadFilteredGames,
+    addUserGame,
+    deleteUserGame,
+    deleteUserSetup,
+    setTab,
+  } = props;
   const [showGameSearch, setShowGameSearch] = useState(false);
   const handleAddGameClick = async () => {
     setShowGameSearch(true);
@@ -88,10 +102,9 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
       {setups ? (
         <>
           <div className={styles.buttonPlacement}>
-            <Link to="/builder">
-              <BasicLink className={styles.setupLink} icon="Build">
-                Builder
-              </BasicLink>
+            <Link className={styles.setupLink} to="/builder">
+              Builder
+              {getIcon('Build')}
             </Link>
           </div>
           <div className={styles.userPreferences}>
@@ -108,6 +121,9 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   image={setup.image}
                   powerSupply={setup.powerSupply}
                   key={generateKey(setup.title, index)}
+                  deleteUserSetup={deleteUserSetup}
+                  own
+                  setTab={setTab}
                 />
               );
             })}

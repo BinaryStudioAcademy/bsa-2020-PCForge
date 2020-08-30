@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router';
 import styles from './styles.module.scss';
 import RatingBox from 'components/RatingBox';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
@@ -8,7 +9,10 @@ import { Gpu } from 'common/models/gpu';
 import { Ram } from 'common/models/ram';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { Link } from 'react-router-dom';
+import BasicLink from 'components/BasicComponents/Link';
 import Image from 'components/BasicComponents/Image';
+import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
+import { UserPageTabs } from 'containers/UserPage/index';
 
 export interface SetupCardProps {
   id: number;
@@ -22,6 +26,9 @@ export interface SetupCardProps {
   ram: Ram;
   big?: boolean;
   className?: string;
+  own?: boolean;
+  setTab?: (tab: UserPageTabs) => UserActionTypes;
+  deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
 }
 
 const SetupCard: React.FC<SetupCardProps> = ({
@@ -36,7 +43,20 @@ const SetupCard: React.FC<SetupCardProps> = ({
   ram,
   big,
   className,
+  own,
+  setTab,
+  deleteUserSetup,
 }) => {
+  let { id: userId } = useParams();
+  userId = parseInt(userId);
+
+  const handleDeleteSetup: () => void = () => {
+    if (deleteUserSetup && setTab) {
+      deleteUserSetup(userId, id);
+      setTab(UserPageTabs.Setups);
+    }
+  };
+
   let setupStyle = styles.setupCard;
   if (className) {
     setupStyle += ` ${className}`;
@@ -63,12 +83,15 @@ const SetupCard: React.FC<SetupCardProps> = ({
           <div>Power Supply: {powerSupply.name}</div>
         </div>
 
-        <Link to={`/setup/${id}`}>
-          <Button icon="ArrowForward" buttonType={ButtonType.primary}>
-            {' '}
-            Find out more{' '}
-          </Button>
-        </Link>
+        <div className={styles.backBottomWrapper}>
+          <Link to={`/setup/${id}`}>
+            <Button icon="ArrowForward" buttonType={ButtonType.primary}>
+              {' '}
+              Find out more{' '}
+            </Button>
+          </Link>
+          <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
+        </div>
       </div>
     </div>
   );

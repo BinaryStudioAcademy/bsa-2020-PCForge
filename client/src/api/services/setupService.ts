@@ -35,3 +35,8 @@ export const getSetup = async (id: number): Promise<TypeResponseOne> => {
   const url = `${endpoint}/${id}`;
   return await webApi.get(url);
 };
+
+export const deleteUserSetup = async (setupId: number): Promise<TypeResponseOne> => {
+  const url = `${endpoint}/${setupId}`;
+  return await webApi.delete(url);
+};
