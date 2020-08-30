@@ -90,6 +90,7 @@ export const initializeModels = (orm: Sequelize) => {
   SetupModel.belongsTo(SsdModel);
   SetupModel.hasMany(CommentModel, { foreignKey: 'commentableId', constraints: false });
   SetupModel.hasMany(RateModel, { foreignKey: 'ratebleId', constraints: false });
+  SetupModel.belongsTo(SetupModel, { foreignKey: 'parentId' });
 
   CpuModel.belongsTo(SocketModel, { foreignKey: 'socketId' });
   CpuModel.hasMany(SetupModel);

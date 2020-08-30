@@ -106,4 +106,23 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     });
     return setup;
   }
+
+  async forkSetup(id: string, userId: number): Promise<SetupModel> {
+    const setup = await this.model.findByPk(id);
+    const dataToInsert = {
+      parentId: setup.id,
+      authorId: userId,
+      title: setup.title,
+      description: setup.description,
+      image: setup.image,
+      cpuId: setup.get('cpuId'),
+      gpuId: setup.get('gpuId'),
+      powerSupplyId: setup.get('powerSupplyId'),
+      hddId: setup.get('hddId'),
+      ssdId: setup.get('ssdId'),
+      ramId: setup.get('ramId'),
+      motherboardId: setup.get('motherboardId'),
+    };
+    return await this.model.create(dataToInsert);
+  }
 }

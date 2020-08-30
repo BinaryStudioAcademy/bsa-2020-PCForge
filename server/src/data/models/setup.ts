@@ -16,6 +16,7 @@ export interface SetupAttributes {
   ram: RamAttributes;
   hdd: HddAttributes;
   ssd: SsdAttributes;
+  parentId: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -69,6 +70,10 @@ export function SetupFactory(sequelize: Sequelize): SetupStatic {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
+    },
+    parentId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
   });
 }

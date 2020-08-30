@@ -32,6 +32,10 @@ export type DeleteSetupRequest = FastifyRequest<{
   Params: { id: string };
 }> & { user: UserAttributes };
 
+export type ForkSetupRequest = FastifyRequest<{
+  Body: { setupId: string };
+}> & { user: UserAttributes };
+
 export const SetupSchema: SwaggerSchema = {
   type: 'object',
   properties: {
@@ -304,6 +308,18 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+  },
+};
+
+export const ForkSetupSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    setupId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: false,
     },
   },
 };
