@@ -45,13 +45,13 @@ server.register(redis, {
   port: 6379,
   host: '127.0.0.1',
 });
+server.register(websocket);
 server.register(services);
 server.register(fastifyStatic, {
   root: path.join(__dirname, '..', '..', 'client', 'build'),
   prefix: '/',
 });
 
-server.register(websocket, { port });
 server.register(routes, { prefix: '/api' });
 
 server.ready((err) => {

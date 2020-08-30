@@ -6,8 +6,9 @@ export default fp((fastify, opts: WebSocket.ServerOptions, next) => {
   try {
     const ws = new WebSocket.Server({
       ...opts,
+      server: fastify.server,
       verifyClient: (info, next) => {
-        if (!info.req.headers['authorization']) return next(false);
+        if (!info.req.headers['sec-websocket-protocol']) return next(false);
         next(true);
       },
     });
