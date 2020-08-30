@@ -1,7 +1,7 @@
 import WebSocket from 'ws';
 import { MyEmitter } from '../../helpers/typedEmitter.types';
 
-export class WebSocketService extends MyEmitter<{ connection: { id: number } }> {
+export class WebSocketService extends MyEmitter<{ newConnection: { id: number } }> {
   private clients: Map<number, WebSocket>;
   constructor(private ws: WebSocket.Server) {
     super();
@@ -11,7 +11,7 @@ export class WebSocketService extends MyEmitter<{ connection: { id: number } }> 
       if (!userId) ws.close();
       else {
         this.clients.set(userId, ws);
-        this.emit('connection', { id: userId });
+        this.emit('newConnection', { id: userId });
       }
     });
   }
@@ -21,11 +21,26 @@ export class WebSocketService extends MyEmitter<{ connection: { id: number } }> 
     return 1; //mocked id
   }
 
-  public async sendMessage(userId: number, message: string): Promise<void> {
+  public async sendMessage(userId: number, message: Message): Promise<void | never> {
     if (this.clients.has(userId)) return;
     const client = this.clients.get(userId);
-    client.send(message, (err) => {
-      if (err) console.error(err);
+    client.send(message.toString(), (err) => {
+      if (err) {
+        console.error(err);
+        throw err;
+      }
     });
+  }
+}
+
+export enum MessageType {
+  INITIAL_NOTIFICATIONS,
+  NEW_NOTIFICATION,
+}
+
+export class Message {
+  constructor(private text: string, private type: MessageType = MessageType.NEW_NOTIFICATION) {}
+  public toString(): string {
+    return JSON.stringify({ type: this.type, text: this.text });
   }
 }

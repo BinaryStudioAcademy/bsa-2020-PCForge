@@ -1,6 +1,6 @@
+import { toNumber } from 'lodash';
 import { PromisedRedis, PromisedRedisClient } from '../../infrastructure/redis/interfaces';
-import { parseInt } from '../../helpers/global.helper';
-import { WebSocketService } from '../socket/websocket.service';
+import { Message, MessageType, WebSocketService } from '../socket/websocket.service';
 
 export const notificationServiceFactory = async (
   redis: PromisedRedis,
@@ -18,25 +18,27 @@ export class NotificationService {
 
   public async initialize(): Promise<void> {
     this.publisher = await this.redis.createClient();
-    this.ws.on('connection', async ({ id: userId }) => {
+    this.ws.on('newConnection', async ({ id: userId }) => {
       const notifications = await this.getNotifications(userId);
-      await this.notifyUserById(userId, notifications);
+      const notificationsString = JSON.stringify(notifications);
+      await this.ws.sendMessage(userId, new Message(notificationsString, MessageType.INITIAL_NOTIFICATIONS));
     });
   }
 
   public async notifyUserById(userId: string | number, notifications: Notification[]): Promise<void | never> {
-    // send via socket
-    await this.pushNotification(parseInt(userId), notifications);
+    const notificationsString = JSON.stringify(notifications);
+    await this.ws.sendMessage(toNumber(userId), new Message(notificationsString));
+    await this.pushNotification(toNumber(userId), notifications);
   }
 
-  private async pushNotification(userId: string, notifications: Notification[]): Promise<void | never> {
+  private async pushNotification(userId: string | number, notifications: Notification[]): Promise<void | never> {
     const stringifiedNotifications = notifications.map((notification) => notification.toString());
-    this.publisher.rpush(userId, stringifiedNotifications);
-    this.publisher.ltrim(userId, 0, this.CHANNEL_NOTIFICATIONS_LIMIT);
+    this.publisher.rpush(userId.toString(), stringifiedNotifications);
+    this.publisher.ltrim(userId.toString(), 0, this.CHANNEL_NOTIFICATIONS_LIMIT);
   }
 
   private async getNotifications(userId: string | number): Promise<Notification[] | never> {
-    const notificationJsonStrings = await this.publisher.lrange(parseInt(userId), 0, -1);
+    const notificationJsonStrings = await this.publisher.lrange(userId.toString(), 0, -1);
     const notifications = notificationJsonStrings.map((notification) => Notification.fromJSON(notification));
     return notifications;
   }

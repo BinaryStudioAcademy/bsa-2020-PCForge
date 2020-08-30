@@ -19,8 +19,3 @@ export const triggerServerError = (message: string, statusCode: number): never =
 export const removeNonUrlChars = (source: string): string => {
   return source.replace(/\//g, '_').replace(/\+/g, '-').replace(/\./g, '-');
 };
-
-export const parseInt = (value: string | number): string => {
-  if (typeof value === 'string') return value;
-  else return parseInt(value);
-};
