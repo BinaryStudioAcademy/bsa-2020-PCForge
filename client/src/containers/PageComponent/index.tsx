@@ -9,6 +9,7 @@ import TopBar from 'containers/TopBar';
 import { getToken, clearToken } from 'helpers/tokenHelper';
 import { useDispatch } from 'react-redux';
 import { loginRequestSuccess } from '../Auth/actions';
+import WithNotifications from 'containers/Notifications';
 import * as Sentry from '@sentry/react';
 
 interface IProps {
@@ -61,7 +62,9 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
     <Redirect to={Routes.LOGIN} />
   ) : (
     <div className={classes.rootComponent}>
-      <TopBar />
+      <WithNotifications>
+        <TopBar />
+      </WithNotifications>
       <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} isAdmin={isAdmin} />
       <div className={classes.contentWrapper}>
         {children}
