@@ -9,6 +9,11 @@
     "title             title        gridNewsDisplay"
     "gridTopCard gridOrdinaryCards gridNewsDisplay";
 
+  @media(min-width: 1200px) and (max-width: 1400px) {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+
   @media(max-width: 1400px) {
     grid-template-columns: 50% 50%;
     grid-template-rows: 60px 1fr 1fr;
@@ -17,18 +22,10 @@
       "title        gridNewsDisplay"
       "gridTopCard  gridNewsDisplay"
       "gridOrdinaryCards gridOrdinaryCards";
-
-      .gridTopCard {
-        margin-right: 5px;
-      }
-
   }
 
-  /////////// max 800
-
   @media(max-width: 800px) {
-    grid-template-columns: minmax(300px, 1fr);
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(300px, 500px);
     grid-template-rows: 1fr;
     row-gap: 10px;
     grid-template-areas:
@@ -36,64 +33,19 @@
       "gridTopCard"
       "gridOrdinaryCards"
       "gridNewsDisplay";
-
-
-    h2 {
-      margin: 0;
-      display: block;
-      text-align: center;
-    }
-
-    .gridTopCard {
-      justify-self: center;
-      margin-left: 0;
-      margin-right: 0;
-      margin-bottom: 15px;
-
-      >div>div {
-        width: 100%;
-        max-width: 400px;
-
-        @media(max-width: 590px) {
-          margin-left: 0;
-        }
-      }
-    }
-
-    .gridOrdinaryCards {
-      margin: 0 auto;
-    
-    }
-
-    .gridNewsDisplay {
-      width: 100%;
-      margin-left: 0;
-
-      >div {
-        text-align: center;
-      }
-
-      >div>div {
-        justify-content: center;
-      }
-
-      img {
-        height: 300px;
-      }
-
-      >div>div>div {
-        max-height: 500px;
-        width: 100%;
-      }
-    }
   }
 }
 
-/////////////// end of max 800
 h2 {
   grid-area: title;
   margin-bottom: 0;
   font-size: 28px;
+
+  @media(max-width: 800px) {
+    margin: 0;
+    display: block;
+    text-align: center;
+  }
 }
 
 .gridTopCard {
@@ -101,6 +53,29 @@ h2 {
 
   >div>div {
     height: 690px;
+  }
+
+  @media(max-width: 1400px) {
+    margin-right: 5px;
+  }
+
+  @media(max-width: 800px) {
+    justify-self: center;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 15px;
+
+    >div>div {
+      width: 100%;
+    }
+  }
+
+  @media(max-width: 590px) {
+    margin-left: 0;
+  }
+
+  @media(min-width:1400px) {
+    margin-right: 10px;
   }
 }
 
@@ -111,24 +86,26 @@ h2 {
   >div {
 
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: auto;
     grid-column-gap: 20px;
     row-gap: 20px;
-    
-        @media(max-width: 1400px) {
-          gap:25px;
-        }
+
+    @media(max-width: 1400px) {
+      gap: 25px;
+    }
 
     @media(max-width: 800px) {
-      grid-template-columns: minmax(300px, 400px);
+      grid-template-columns: minmax(300px, 500px);
       grid-template-rows: 1fr;
       margin: 0 auto;
-      gap:15px;
+      gap: 25px;
     }
   }
 
+  @media(max-width: 800px) {
+    margin: 0 auto;
+  }
 }
 
 .gridNewsDisplay {
@@ -137,22 +114,14 @@ h2 {
 
   @media (max-width: 1400px) {
     margin-top: 25px;
-
-    &>div>div {
-      justify-content: flex-start;
-    }
-
-    & > div > div > div {
-      margin: 8px;
-    }
-
   }
 
-  @media (max-width: 800px) {
-    &>div>div {
+  &>div>div {
+    justify-content: flex-start;
+
+    @media (max-width: 800px) {
       justify-content: center;
     }
-
   }
 
   h2 {
@@ -173,6 +142,21 @@ h2 {
     border-radius: 6px;
     margin: 10px;
 
+    @media (max-width:1400px) {
+      margin: 10px;
+      max-width: 600px;
+      margin-top: 10px;
+      margin-left: 5px;
+      margin-right: 0;
+    }
+
+    @media (max-width:800px) {
+      margin-bottom: 15px;
+      margin-left: 0;
+      max-width: 500px;
+      height: auto;
+    }
+
     & div {
       @media(max-width: 1260px) {
         padding: 15px !important;
@@ -190,8 +174,24 @@ h2 {
   img {
     max-height: 150px;
 
+
+    @media (max-width: 1400px) {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    @media(min-width:800px) and (max-width:1100px) {
+      width: auto;
+      // background-color: #fff;
+    }
+
     @media (max-width: 1260px) {
       max-height: 175px;
+    }
+
+    @media (max-width: 800px) {
+      max-height: 250px;
+      width: auto;
     }
   }
 }
