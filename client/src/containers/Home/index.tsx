@@ -43,7 +43,7 @@ const showButton = setups.length <= 4;
           {!!setups && !!setups.length && (
             <>
             <div className={styles.homeContentContainer}>
-            <h2>Setups</h2>
+            <h2>Most Popular Setups</h2>
               <div className={styles.gridTopCard}> <CardDisplay setups={topSetup} big /></div>
               <div className={styles.gridOrdinaryCards}> <CardDisplay setups={ordinarySetups} showButton={showButton}/></div>
               <div className={styles.gridNewsDisplay}>
