@@ -1,13 +1,18 @@
 import WebSocket from 'ws';
+import { MyEmitter } from '../../helpers/typedEmitter.types';
 
-export class WebSocketService {
+export class WebSocketService extends MyEmitter<{ connection: { id: number } }> {
   private clients: Map<number, WebSocket>;
   constructor(private ws: WebSocket.Server) {
+    super();
     ws.on('connection', async (ws, request) => {
       const credentials = request.headers.authorization;
       const userId = await this.authorize(credentials);
       if (!userId) ws.close();
-      else this.clients.set(userId, ws);
+      else {
+        this.clients.set(userId, ws);
+        this.emit('connection', { id: userId });
+      }
     });
   }
 
