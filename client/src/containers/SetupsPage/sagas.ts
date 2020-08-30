@@ -6,7 +6,7 @@ import { getTopSetups } from 'api/services/setupService';
 
 function* fetchSetups(action: IFetchSetupsRequest) {
   try {
-    const { data: setups } = yield call(getAllSetups);
+    const { data: setups } = yield call(getAllSetups, { sort: 'newest' });
     yield put(setSetups(setups));
   } catch (error) {
     yield put(setError(error));

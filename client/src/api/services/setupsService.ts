@@ -10,8 +10,15 @@ export type TypeResponseSetups = {
   data: Setup[];
 };
 
-export const getAllSetups = async (): Promise<TypeResponseSetups> => {
-  const setups = await webApi.get(endpoint);
-  console.log('setup', setups);
+type Sort = 'mostRated' | 'newest' | 'oldest' | 'commendable';
+
+export interface ISetupFilter {
+  from?: number;
+  count?: number;
+  sort?: Sort;
+}
+
+export const getAllSetups = async (filter?: ISetupFilter): Promise<TypeResponseSetups> => {
+  const setups = await webApi.get(endpoint, filter);
   return setups;
 };

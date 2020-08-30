@@ -7,7 +7,7 @@ export class ISetupFilter extends IFilter {
   }
 
   authorId?: string = null;
-  orderBy?: string = 'mostRated';
+  sort?: string = 'mostRated';
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -15,7 +15,7 @@ export class ISetupFilter extends IFilter {
       authorId: {
         type: 'string',
       },
-      orderBy: {
+      sort: {
         type: 'string',
       },
       ...IFilter.schema.properties,

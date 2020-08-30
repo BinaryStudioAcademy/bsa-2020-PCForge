@@ -61,7 +61,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
         ],
       },
-      order: [this.getOrderProperty(filter.orderBy)],
+      order: [this.getOrderProperty(filter.sort)],
       include: [
         {
           model: this.cpuModel,
