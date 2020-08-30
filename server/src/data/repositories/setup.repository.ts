@@ -12,7 +12,8 @@ import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
 import { CommentStatic } from '../models/comment';
 import { RateStatic } from '../models/rate';
-import sequelize, { Op } from 'sequelize';
+import sequelize, { Op, OrderItem } from 'sequelize';
+import { group } from 'console';
 
 export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
   constructor(
@@ -30,6 +31,21 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     super(<RichModel>model, IFilter);
   }
 
+  getOrderProperty(orderBy: string): OrderItem {
+    switch (orderBy) {
+      case 'mostRated':
+        return [sequelize.literal('rating'), 'DESC NULLS LAST'];
+      case 'newest':
+        return ['createdAt', 'DESC'];
+      case 'oldest':
+        return ['createdAt', 'ASC'];
+      case 'commendable':
+        return [sequelize.literal('commentCount'), 'DESC'];
+      default:
+        return [sequelize.literal('rating'), 'DESC NULLS LAST'];
+    }
+  }
+
   async getSetups(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
     const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
     const where: { authorId?: string } = {};
@@ -45,6 +61,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
         ],
       },
+      order: [this.getOrderProperty(filter.orderBy)],
       include: [
         {
           model: this.cpuModel,
@@ -88,8 +105,9 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         },
       ],
       where,
+      subQuery: false,
       offset: filter.from,
-      // limit: filter.count,
+      limit: filter.count,
     });
     // console.log('SetupRepository -> result', result.rows[0].dataValues);
 

@@ -15,6 +15,7 @@ export type TypeResponseOne = Setup;
 export interface ITopSetupFilter {
   from?: number;
   count?: number;
+  sort?: string;
 }
 
 export interface IUserSetupFilter {
