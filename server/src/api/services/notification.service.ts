@@ -44,16 +44,25 @@ export class NotificationService {
   }
 }
 
+export enum NotificationType {
+  INFO = 'INFO',
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+  WARNING = 'WARNING',
+}
+
 export class Notification {
-  constructor(public readonly value: string) {}
+  constructor(public readonly value: string, public readonly type: NotificationType = NotificationType.INFO) {}
   public toString(): string {
-    return JSON.stringify({ value: this.value });
+    return JSON.stringify({ type: this.type, value: this.value });
   }
   public static fromJSON(json: string): Notification | never {
     const obj = JSON.parse(json);
     if (typeof obj.value !== 'string')
       throw new Error(`Notification value must be string type, got: [${typeof obj.value}](${obj.value})`);
-    const notification = new Notification(obj.value);
+    if (typeof obj.type !== 'string' || !Object.keys(NotificationType).find((type) => type === obj.type))
+      throw new Error(`Notification type must be string NotificationType, got: [${typeof obj.type}](${obj.type})`);
+    const notification = new Notification(obj.value, obj.type);
     return notification;
   }
 }

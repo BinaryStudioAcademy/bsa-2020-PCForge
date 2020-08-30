@@ -13,6 +13,10 @@ export class WebSocketService extends MyEmitter<{ newConnection: { id: number } 
         this.clients.set(userId, ws);
         this.emit('newConnection', { id: userId });
       }
+      ws.on('close', () => {
+        console.log(this.clients.keys.length);
+        this.clients.delete(userId);
+      });
     });
   }
 
@@ -34,13 +38,13 @@ export class WebSocketService extends MyEmitter<{ newConnection: { id: number } 
 }
 
 export enum MessageType {
-  INITIAL_NOTIFICATIONS,
-  NEW_NOTIFICATION,
+  INITIAL_NOTIFICATIONS = 'INITIAL_NOTIFICATIONS',
+  NEW_NOTIFICATION = 'NEW_NOTIFICATION',
 }
 
 export class Message {
-  constructor(private text: string, private type: MessageType = MessageType.NEW_NOTIFICATION) {}
+  constructor(private payload: string, private type: MessageType = MessageType.NEW_NOTIFICATION) {}
   public toString(): string {
-    return JSON.stringify({ type: this.type, text: this.text });
+    return JSON.stringify({ type: this.type, payload: this.payload });
   }
 }
