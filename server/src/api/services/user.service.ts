@@ -65,6 +65,9 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   async updateUser(id: string | number, inputUser: UserCreateAttributes): Promise<UserModel> {
     id = id.toString();
     const oldUser = await this.repository.getById(id);
+    if (!Object.keys(inputUser).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     if (!oldUser) {
       triggerServerError(`User with id: ${id} does not exist`, 404);
     }

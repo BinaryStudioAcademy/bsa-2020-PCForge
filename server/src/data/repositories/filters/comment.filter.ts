@@ -16,7 +16,7 @@ export class ICommentFilter extends IFilter {
       commentableType: {
         type: 'string',
         minLength: 1,
-        enum: ['news', 'game', 'setup'],
+        enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
         nullable: true,
       },
       commentableId: {

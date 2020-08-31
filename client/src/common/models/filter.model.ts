@@ -1,12 +1,12 @@
 export type CommentFilter = {
   from?: number;
   count?: number;
-  commentableType: 'game' | 'setup' | '';
+  commentableType: 'game' | 'setup' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
   commentableId: number;
 };
 
 export type RateFilter = {
-  ratebleType: 'game' | 'setup' | '';
+  ratebleType: 'game' | 'setup' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
   ratebleId: number;
 };
 

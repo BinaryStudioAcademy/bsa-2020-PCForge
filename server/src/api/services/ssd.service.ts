@@ -34,6 +34,9 @@ export class SsdService extends BaseService<SsdModel, SsdCreationAttributes, Ssd
     if (!oldSsd) {
       triggerServerError(`Ssd with id: ${id} does not exists`, 404);
     }
+    if (!Object.keys(data).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     const ssd = await this.repository.updateSsdById(id, data);
     return ssd;
   }

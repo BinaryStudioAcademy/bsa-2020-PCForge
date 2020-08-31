@@ -26,7 +26,6 @@ import { PCSetup } from 'common/models/setup';
 import { getAllComments, createComment } from 'api/services/comment.service';
 import { Comment, CommentCreationAttributes } from 'common/models/comment';
 import { CommentFilter } from 'common/models/filter.model';
-import { getToken } from 'helpers/tokenHelper';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
 

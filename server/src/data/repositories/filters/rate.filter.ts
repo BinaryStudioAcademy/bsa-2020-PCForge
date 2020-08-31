@@ -16,7 +16,7 @@ export class IRateFilter extends IFilter {
       ratebleType: {
         type: 'string',
         minLength: 1,
-        enum: ['news', 'game', 'setup'],
+        enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
         nullable: true,
       },
       ratebleId: {

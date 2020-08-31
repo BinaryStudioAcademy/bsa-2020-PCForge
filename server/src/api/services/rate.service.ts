@@ -51,7 +51,9 @@ export class RateService extends BaseService<RateModel, RateCreationAttributes, 
     initiator: UserAttributes
   ): Promise<RateModel> {
     await rateMiddleware(data);
-
+    if (!Object.keys(data).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     const oldRate = await this.repository.getRateById(id);
     if (!oldRate) {
       triggerServerError(`Rate with id: ${id} does not exists`, 404);

@@ -5,7 +5,7 @@ export const ramSchema: HardwareSchema = {
   memorySize: { as: 'Memory', postfix: ' GB' },
   frequency: { as: 'Frequency', postfix: ' MHz' },
   power: { as: 'Power' },
-  type: {
+  ramType: {
     embedded: {
       name: { as: 'RAM Type', key: 'ramName' },
     },

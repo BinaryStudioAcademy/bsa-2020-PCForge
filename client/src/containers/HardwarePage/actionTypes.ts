@@ -24,7 +24,7 @@ export const SET_HARDWARE_RATE_FAILURE = 'HARDWARE_PAGESET_HARDWARE_RATE_FAILURE
 
 export const HARDWARE_WIPE_SNACKBAR_DATA = 'HARDWARE_PAGEHARDWARE_WIPE_SNACKBAR_DATA';
 
-export type hardwareTypes = 'motherboards' | 'powersupplies' | 'rams' | 'cpus' | 'gpus' | 'ssds' | 'hdds';
+export type hardwareTypes = 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
 
 export interface IGetHardware {
   type: typeof GET_HARDWARE;
@@ -79,7 +79,6 @@ export interface ICreateHardwareComment {
 
 export interface ICreateHardwareCommentSuccess {
   type: typeof CREATE_HARDWARE_COMMENT_SUCCESS;
-  payload;
 }
 
 export interface ICreateHardwareCommentFailure {

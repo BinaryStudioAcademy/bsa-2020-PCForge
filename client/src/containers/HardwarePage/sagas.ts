@@ -17,6 +17,7 @@ import {
   SET_HARDWARE_RATE_FAILURE,
   SET_HARDWARE_RATE,
   GET_HARDWARE_SUCCESS,
+  CREATE_HARDWARE_COMMENT_SUCCESS,
 } from './actionTypes';
 import { getGpu } from 'api/services/gpuService';
 import { getCpu } from 'api/services/cpuService';
@@ -35,23 +36,24 @@ function* getHardware(action: IGetHardware) {
   let data: Record<string, string> = null!;
   try {
     switch (action.payload.type) {
-      case 'cpus': {
+      case 'cpu': {
         data = yield call(getCpu, id);
         break;
       }
-      case 'gpus': {
+      case 'gpu': {
         data = yield call(getGpu, id);
         break;
       }
-      case 'rams': {
+      case 'ram': {
         data = yield call(getRam, id);
+        console.log('saga data', data);
         break;
       }
-      case 'motherboards': {
+      case 'motherboard': {
         data = yield call(getMotherboard, id);
         break;
       }
-      case 'powersupplies': {
+      case 'powersupply': {
         data = yield call(getPowersupplies, id);
         break;
       }
@@ -72,7 +74,7 @@ function* getHardwareComments(action: IGetComments) {
   try {
     const filter: CommentFilter = {
       commentableId: action.payload.id,
-      commentableType: 'setup',
+      commentableType: action.payload.type,
       from: action.payload.from,
       count: action.payload.count,
     };
@@ -95,13 +97,19 @@ function* watchGetHardwareComments() {
 function* createHardwareComment(action: ICreateHardwareComment) {
   try {
     const commentData: CommentCreationAttributes = {
-      commentableType: 'setup',
+      commentableType: action.payload.type,
       commentableId: action.payload.id,
       value: action.payload.value,
     };
     yield call(createComment, commentData);
-    yield put({ type: GET_HARDWARE_COMMENTS_SUCCESS });
-    yield put({ type: GET_HARDWARE_COMMENTS, payload: { id: action.payload.id } });
+    yield put({ type: CREATE_HARDWARE_COMMENT_SUCCESS });
+    yield put({
+      type: GET_HARDWARE_COMMENTS,
+      payload: {
+        id: action.payload.id,
+        type: action.payload.type,
+      },
+    });
   } catch (e) {
     yield put({
       type: CREATE_HARDWARE_COMMENT_FAILURE,
@@ -120,7 +128,7 @@ function* getHardwareRate(action: IGetHardwareRate) {
   try {
     const response: { average: number } = yield call(getAverageRate, {
       ratebleId: action.payload.id,
-      ratebleType: 'setup',
+      ratebleType: action.payload.type,
     });
     yield put({ type: GET_HARDWARE_RATE_SUCCESS, payload: response });
   } catch (e) {
@@ -141,7 +149,7 @@ function* addHardwareRate(action: ISetHardwareRate) {
   try {
     const data: RateCreationAttributes = {
       ratebleId: action.payload.id,
-      ratebleType: 'setup',
+      ratebleType: action.payload.type,
       value: action.payload.value,
     };
     const response = yield call(addRate, data);

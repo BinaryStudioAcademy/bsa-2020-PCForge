@@ -39,7 +39,7 @@ export const RateSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: false,
     },
     userId: {
@@ -56,6 +56,7 @@ export const RateSchema: SwaggerSchema = {
     },
     value: {
       type: 'number',
+      maximum: 5,
       example: 4.5,
       minimum: 0,
       nullable: false,
@@ -83,7 +84,7 @@ export const GetRatesAverage = {
         ratebleType: {
           type: 'string',
           minLength: 1,
-          enum: ['news', 'game', 'setup'],
+          enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
           nullable: false,
         },
         ratebleId: {
@@ -140,7 +141,7 @@ export const CreateRateSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: false,
     },
     ratebleId: {
@@ -151,6 +152,7 @@ export const CreateRateSchema: SwaggerSchema = {
     },
     value: {
       type: 'number',
+      maximum: 5,
       example: 4.5,
       minimum: 0,
       nullable: false,
@@ -160,14 +162,14 @@ export const CreateRateSchema: SwaggerSchema = {
 
 export const UpdateRateSchema: SwaggerSchema = {
   type: 'object',
-  required: ['ratebleType', 'ratebleId', 'value'],
+  required: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
   additionalProperties: false,
   properties: {
     ratebleType: {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: true,
     },
     ratebleId: {
