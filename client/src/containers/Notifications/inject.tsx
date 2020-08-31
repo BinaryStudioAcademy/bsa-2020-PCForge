@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { connect, ConnectedProps } from 'react-redux';
-import { setNotifications, addNotification, deleteNotification } from './redux/actions';
+import { setNotifications, addNotification, deleteNotification, closeNotification } from './redux/actions';
 import { RootState } from 'redux/rootReducer';
 import { NotificationService } from './notification.service';
 
@@ -43,7 +43,10 @@ const InjectNotifications: React.FC<Props> = ({
   return (
     <>
       {children}
-      <NotificationsContainer notifications={activeNotifications} />
+      <NotificationsContainer
+        notifications={activeNotifications}
+        closeNotification={notificationActions.closeNotification}
+      />
     </>
   );
 };
@@ -57,6 +60,7 @@ const mapDispatch = {
   setNotifications,
   addNotification,
   deleteNotification,
+  closeNotification,
 };
 
 const connector = connect(mapState, mapDispatch);

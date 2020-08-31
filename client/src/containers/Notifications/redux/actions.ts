@@ -21,3 +21,10 @@ export const deleteNotification = (notificationId: string): NotificationsActions
     notificationId,
   },
 });
+
+export const closeNotification = (notificationId: string): NotificationsActions => ({
+  type: NotificationsActionTypes.CLOSE_NOTIFICATION,
+  payload: {
+    notificationId,
+  },
+});

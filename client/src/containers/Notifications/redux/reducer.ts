@@ -32,6 +32,15 @@ export function NotificationsReducer(state = initialState, action: Notifications
       };
     }
 
+    case NotificationsActionTypes.CLOSE_NOTIFICATION: {
+      return {
+        ...state,
+        activeNotifications: state.activeNotifications.filter(
+          (notification) => notification.id !== action.payload.notificationId
+        ),
+      };
+    }
+
     default:
       return state;
   }

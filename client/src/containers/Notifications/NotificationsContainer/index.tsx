@@ -5,13 +5,14 @@ import styles from './styles.module.scss';
 
 interface Props {
   notifications: INotification[];
+  closeNotification: (notificationId: string) => void;
 }
 
-const NotificationsContainer: React.FC<Props> = ({ notifications }): JSX.Element => {
+const NotificationsContainer: React.FC<Props> = ({ notifications, closeNotification }): JSX.Element => {
   return (
     <div className={styles.notificationContainer}>
       {notifications.map((notification) => (
-        <Notification notification={notification} key={notification.id} />
+        <Notification notification={notification} onClose={closeNotification} key={notification.id} />
       ))}
     </div>
   );

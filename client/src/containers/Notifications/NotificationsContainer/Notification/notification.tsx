@@ -6,12 +6,14 @@ import CheckIcon from '@material-ui/icons/Check';
 import WarningIcon from '@material-ui/icons/Warning';
 import CloseIcon from '@material-ui/icons/Close';
 import styles from './styles.module.scss';
+import { Button, IconButton } from '@material-ui/core';
 
 interface Props {
   notification: INotification;
+  onClose: (notificationId: string) => void;
 }
 
-const Notification: React.FC<Props> = ({ notification }): JSX.Element => {
+const Notification: React.FC<Props> = ({ notification, onClose }): JSX.Element => {
   const getIcon = () => {
     switch (notification.type) {
       case NotificationType.INFO:
@@ -44,8 +46,10 @@ const Notification: React.FC<Props> = ({ notification }): JSX.Element => {
     <div className={`${styles.notificationContainer} ${getClassName()}`}>
       <div className={styles.icon}>{getIcon()}</div>
       <div className={styles.text}>{notification.text}</div>
-      <div className={styles.close}>
-        <CloseIcon />
+      <div className={styles.close} onClick={() => onClose(notification.id)}>
+        <IconButton size="small">
+          <CloseIcon />
+        </IconButton>
       </div>
     </div>
   );
