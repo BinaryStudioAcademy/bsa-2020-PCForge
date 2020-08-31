@@ -68,44 +68,38 @@ const SetupCard: React.FC<SetupCardProps> = ({
   }
 
   return (
-    <div className={styles.setupSuperHolder}>
-    
+    <div className={setupStyle}>
+      <div className={styles.setupImage}>
+        <Image src={image} alt="" />
+      </div>
+      <div className={styles.setupTitle}>{title}</div>
+      <div className={styles.createdAt}>Created:{createdAt}</div>
+      <div className={styles.setupCardRatingBox}>
+        <RatingBox ratingValue={5} disabled={false} name={title} />
+      </div>
 
-      <div className={setupStyle}>
-        <div className={styles.setupHoverable}>
-          <div className={styles.createdAt}>{createdAt}</div>
-          <div className={styles.setupImage}>
-            <Image src={image} alt="" />
-          </div>
-          <div className={styles.setupTitle}>{title}</div>
+      <div className={styles.setupBack}>
+        <div className={styles.textHolder}>
+          <div className={styles.setupDescription}>{description}</div>
+          <div>CPU: {cpu.name}</div>
+          <div>Motherboard: {motherboard.name}</div>
+          <div>GPU: {gpu.name}</div>
+          <div>RAM: {ram.name}</div>
+          <div>Power Supply: {powerSupply.name}</div>
         </div>
-        <div className={styles.setupBack}>
-          <div className={styles.textHolder}>
-            <div className={styles.setupDescription}>{description}</div>
-            <div>CPU: {cpu.name}</div>
-            <div>Motherboard: {motherboard.name}</div>
-            <div>GPU: {gpu.name}</div>
-            <div>RAM: {ram.name}</div>
-            <div>Power Supply: {powerSupply.name}</div>
-          </div>
 
-          <div className={styles.backBottomWrapper}>
-            <Link to={`/setup/${id}`}>
-              <Button icon="ArrowForward" buttonType={ButtonType.primary}>
-                {' '}
-                Find out more{' '}
-              </Button>
-            </Link>
-            <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
-          </div>
+        <div className={styles.backBottomWrapper}>
+          <Link to={`/setup/${id}`}>
+            <Button icon="ArrowForward" buttonType={ButtonType.primary}>
+              {' '}
+              Find out more{' '}
+            </Button>
+          </Link>
+          <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
         </div>
       </div>
-      <div className={styles.setupExtraInfo}>
-        <BasicLink className={styles.forkIcon} icon="GetApp"></BasicLink>
-        <div className={styles.setupCardRatingBox}>
-          <RatingBox ratingValue={5} disabled={false} name={title} />
-        </div>
-      </div>
+
+      <div className={styles.setupExtraInfo}></div>
     </div>
   );
 };

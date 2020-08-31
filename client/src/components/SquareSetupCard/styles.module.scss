@@ -1,30 +1,10 @@
 @import 'styles/index';
-.setupSuperHolder {
-  position: relative;
-  margin:10px;
-  background-color: #3c444d;
-
-  .setupExtraInfo {
-    background-color: rgb(17, 17, 17);
-    display: flex;
-    height:40px;
-    
-
-    .forkIcon {
-      margin-left: auto;
-    }
-
-    .setupCardRatingBox {
-      display: none;
-    }
-  }
-}
-
 
 .setupCard {
   height: 335px;
   background-color: $colorBackgroundGray;
   display: flex;
+  margin:10px;
   flex-direction: column;
   justify-content: space-between;
   padding: 45px 30px;
@@ -35,10 +15,6 @@
   &:hover {
       .setupBack {
         display: flex;
-      }
-      & + .setupExtraInfo {
-       opacity:0;
-       pointer-events: none;
       }
   }
 
@@ -122,7 +98,6 @@
          justify-content: space-between;
          align-items: center;
          margin-top: auto;
-         margin-bottom: -25px;
          svg {
            color: $colorOrange;
          }

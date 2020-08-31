@@ -24,6 +24,8 @@ export const SET_SETUP_RATE_FAILURE = 'SET_SETUP_RATE_FAILURE';
 
 export const SETUP_WIPE_SNACKBAR_DATA = 'SETUP_WIPE_SNACKBAR_DATA';
 
+export const FORK_SETUP = 'FORK_SETUP';
+
 export interface IGetSetup {
   type: typeof GET_SETUP;
   payload: {
@@ -128,6 +130,13 @@ export interface ISetupWipeSnackbarData {
   type: typeof SETUP_WIPE_SNACKBAR_DATA;
 }
 
+export interface IForkSetup {
+  type: typeof FORK_SETUP;
+  payload: {
+    setupId: number;
+  }
+}
+
 export type SetupActionTypes =
   | IGetSetup
   | IGetSetupSuccess
@@ -144,4 +153,5 @@ export type SetupActionTypes =
   | ISetSetupRate
   | ISetSetupRateSuccess
   | ISetSetupRateFailure
-  | ISetupWipeSnackbarData;
+  | ISetupWipeSnackbarData
+  | IForkSetup;
