@@ -1,4 +1,5 @@
 import { toNumber } from 'lodash';
+import { createUUID } from '../../helpers/uuid.helper';
 import { PromisedRedis, PromisedRedisClient } from '../../infrastructure/redis/interfaces';
 import { Message, MessageType, WebSocketService } from '../socket/websocket.service';
 
@@ -22,18 +23,19 @@ export class NotificationService {
       const notifications = await this.getNotifications(userId);
       const notificationsString = JSON.stringify(notifications);
       await this.ws.sendMessage(userId, new Message(notificationsString, MessageType.INITIAL_NOTIFICATIONS));
+      await this.notifyUserById(userId, new Notification('hello'));
     });
   }
 
-  public async notifyUserById(userId: string | number, notifications: Notification[]): Promise<void | never> {
-    const notificationsString = JSON.stringify(notifications);
+  public async notifyUserById(userId: string | number, notification: Notification): Promise<void | never> {
+    const notificationsString = JSON.stringify(notification);
     await this.ws.sendMessage(toNumber(userId), new Message(notificationsString));
-    await this.pushNotification(toNumber(userId), notifications);
+    await this.pushNotification(toNumber(userId), notification);
   }
 
-  private async pushNotification(userId: string | number, notifications: Notification[]): Promise<void | never> {
-    const stringifiedNotifications = notifications.map((notification) => notification.toString());
-    this.publisher.rpush(userId.toString(), stringifiedNotifications);
+  private async pushNotification(userId: string | number, notification: Notification): Promise<void | never> {
+    const stringifiedNotification = notification.toString();
+    this.publisher.rpush(userId.toString(), stringifiedNotification);
     this.publisher.ltrim(userId.toString(), 0, this.CHANNEL_NOTIFICATIONS_LIMIT);
   }
 
@@ -52,7 +54,10 @@ export enum NotificationType {
 }
 
 export class Notification {
-  constructor(public readonly value: string, public readonly type: NotificationType = NotificationType.INFO) {}
+  public readonly id: string;
+  constructor(public readonly value: string, public readonly type: NotificationType = NotificationType.INFO) {
+    this.id = createUUID();
+  }
   public toString(): string {
     return JSON.stringify({ type: this.type, value: this.value });
   }
