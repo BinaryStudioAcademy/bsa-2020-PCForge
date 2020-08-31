@@ -12,6 +12,7 @@ export class WebSocketService extends MyEmitter<{ newConnection: { id: number };
       if (!userId) ws.close();
       else {
         this.clients.set(userId, ws);
+        console.log('new socket connection, userId: ', userId);
         this.emit('newConnection', { id: userId });
       }
       ws.on('message', (data) => {
@@ -21,7 +22,7 @@ export class WebSocketService extends MyEmitter<{ newConnection: { id: number };
         }
       });
       ws.on('close', () => {
-        console.log(this.clients.keys.length);
+        console.log('socket disconnection, userId: ', userId);
         this.clients.delete(userId);
       });
     });
