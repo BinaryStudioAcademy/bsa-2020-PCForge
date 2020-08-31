@@ -17,6 +17,8 @@ import redis from './api/plugins/redis';
 import websocket from './api/plugins/websocket';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
+const redisPort = parseInt(process.env.REDIS_PORT, 10) || 6379;
+const redisHost = process.env.REDIS_HOST || '127.0.0.1';
 const server = fastify({
   querystringParser: (str) => {
     const parsed = qs.parse(str, { comma: true });
@@ -42,8 +44,8 @@ server.register(nodemailer, {
   },
 });
 server.register(redis, {
-  port: 6379,
-  host: '127.0.0.1',
+  port: redisPort,
+  host: redisHost,
 });
 server.register(websocket);
 server.register(services);
