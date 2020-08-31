@@ -4,6 +4,7 @@ import { GpuAttributes } from './gpu';
 import { RamAttributes } from './ram';
 import { HddAttributes } from './hdd';
 import { SsdAttributes } from './ssd';
+import { UserAttributes } from './user';
 
 export interface SetupAttributes {
   id: number;
@@ -16,6 +17,7 @@ export interface SetupAttributes {
   ram: RamAttributes;
   hdd: HddAttributes;
   ssd: SsdAttributes;
+  author: UserAttributes;
   parentId: number;
   createdAt: Date;
   updatedAt: Date;

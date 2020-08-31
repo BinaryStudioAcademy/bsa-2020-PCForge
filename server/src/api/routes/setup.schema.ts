@@ -10,6 +10,7 @@ import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { UserAttributes } from '../../data/models/user';
 import { HddSchema } from './hdd.schema';
 import { SsdSchema } from './ssd.schema';
+import { UserSchema } from './user.schema';
 
 export type GetSetupsRequest = FastifyRequest<{
   Querystring: ISetupFilter;
@@ -131,6 +132,7 @@ export const SetupSchema: SwaggerSchema = {
     motherboard: MotherBoardSchema,
     ram: RamSchema,
     powerSupply: PowerSupplySchema,
+    author: UserSchema,
   },
 };
 
@@ -149,6 +151,7 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
     ...SsdSchema,
     nullable: true,
   };
+  schema.properties.author = UserSchema;
   return schema;
 };
 export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
