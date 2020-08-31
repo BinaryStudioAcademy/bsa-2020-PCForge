@@ -55,19 +55,19 @@ export enum NotificationType {
 
 export class Notification {
   public readonly id: string;
-  constructor(public readonly value: string, public readonly type: NotificationType = NotificationType.INFO) {
+  constructor(public readonly text: string, public readonly type: NotificationType = NotificationType.INFO) {
     this.id = createUUID();
   }
   public toString(): string {
-    return JSON.stringify({ type: this.type, value: this.value });
+    return JSON.stringify({ type: this.type, text: this.text });
   }
   public static fromJSON(json: string): Notification | never {
     const obj = JSON.parse(json);
-    if (typeof obj.value !== 'string')
-      throw new Error(`Notification value must be string type, got: [${typeof obj.value}](${obj.value})`);
+    if (typeof obj.text !== 'string')
+      throw new Error(`Notification text must be string type, got: [${typeof obj.text}](${obj.text})`);
     if (typeof obj.type !== 'string' || !Object.keys(NotificationType).find((type) => type === obj.type))
       throw new Error(`Notification type must be string NotificationType, got: [${typeof obj.type}](${obj.type})`);
-    const notification = new Notification(obj.value, obj.type);
+    const notification = new Notification(obj.text, obj.type);
     return notification;
   }
 }

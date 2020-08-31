@@ -5,8 +5,14 @@ import { RootState } from 'redux/rootReducer';
 import { NotificationService } from './notification.service';
 
 import React from 'react';
+import NotificationsContainer from './NotificationsContainer';
 
-const InjectNotifications: React.FC<Props> = ({ children, userId, ...notificationActions }): JSX.Element => {
+const InjectNotifications: React.FC<Props> = ({
+  children,
+  userId,
+  activeNotifications,
+  ...notificationActions
+}): JSX.Element => {
   React.useEffect(() => {
     if (!canOpenSocket()) return;
     const ws = new WebSocket(process.env.REACT_APP_WS_SERVER_ADDRESS!, userId!.toString(10));
@@ -20,7 +26,7 @@ const InjectNotifications: React.FC<Props> = ({ children, userId, ...notificatio
     return () => {
       ws.close();
     };
-  });
+  }, []);
 
   const canOpenSocket = (): boolean => {
     if (!process.env.REACT_APP_WS_SERVER_ADDRESS) {
@@ -34,11 +40,17 @@ const InjectNotifications: React.FC<Props> = ({ children, userId, ...notificatio
     return true;
   };
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <NotificationsContainer notifications={activeNotifications} />
+    </>
+  );
 };
 
 const mapState = (state: RootState) => ({
   userId: state.auth.user?.id,
+  activeNotifications: state.notifications.activeNotifications,
 });
 
 const mapDispatch = {
