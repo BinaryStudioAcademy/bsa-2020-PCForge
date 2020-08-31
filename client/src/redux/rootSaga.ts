@@ -14,23 +14,25 @@ import setupsSagas from 'containers/SetupsPage/sagas';
 import emailVerificationActions from 'containers/EmailVerificationPage/sagas';
 import resetPasswordSagas from 'containers/ResetPassword/sagas';
 import newsSagas from 'containers/NewsPage/sagas';
+import hardwareSagas from 'containers/HardwarePage/sagas';
 
 export default function* rootSaga() {
   yield all([
     authSagas(),
-    userSagas(),
-    userRequestsSagas(),
     builderSagas(),
     emailVerificationActions(),
+    hardwareSagas(),
     hardwareFormSagas(),
     homePageSagas(),
     gameFormSagas(),
+    newsSagas(),
     matcherSagas(),
     quickMatcherSagas(),
     resetPasswordSagas(),
     setupChartSagas(),
     setupSagas(),
     setupsSagas(),
-    newsSagas(),
+    userSagas(),
+    userRequestsSagas(),
   ]);
 }

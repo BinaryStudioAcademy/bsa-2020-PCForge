@@ -1,0 +1,23 @@
+@import '../../styles/variables.scss';
+
+.hardwareRoot {
+  margin: 3rem 0;
+  display: flex;
+  width: 100%;
+}
+
+.contentWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  background-color: $colorBlack;
+  padding: 2rem;
+}
+
+.asideItems {
+  margin-left: 6rem;
+}
+
+.commentsWrapper {
+  margin-top: 3rem;
+}

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { Cpu } from 'common/models/cpu';
 import { Motherboard } from 'common/models/motherboard';

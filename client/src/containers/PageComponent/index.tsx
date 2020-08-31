@@ -9,7 +9,6 @@ import TopBar from 'containers/TopBar';
 import { getToken, clearToken } from 'helpers/tokenHelper';
 import { useDispatch } from 'react-redux';
 import { loginRequestSuccess } from '../Auth/actions';
-import * as Sentry from '@sentry/react';
 
 interface IProps {
   selectedMenuItemNumber?: MenuItems;

@@ -69,7 +69,6 @@ function* watchGetSetupComments() {
 
 function* createSetupComment(action: ICreateSetupComment) {
   try {
-    const token: string = yield call(getToken);
     const commentData: CommentCreationAttributes = {
       commentableType: 'setup',
       commentableId: action.payload.id,
@@ -136,7 +135,7 @@ function* watchAddSetupRate() {
   yield takeEvery(SET_SETUP_RATE, addSetupRate);
 }
 
-export default function* authSagas() {
+export default function* setupSagas() {
   yield all([
     watchGetSetup(),
     watchGetSetupComments(),

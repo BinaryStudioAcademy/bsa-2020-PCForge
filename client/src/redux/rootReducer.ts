@@ -15,11 +15,13 @@ import { HardwareFormReducer } from 'containers/AddItemPages/AddHardwareForm/red
 import { EmailVerifyReducer } from 'containers/EmailVerificationPage/reducer';
 import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
 import NewsReducer from 'containers/NewsPage/reducer';
+import { HardwareReducer } from 'containers/HardwarePage/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
   emailVerification: EmailVerifyReducer,
   gameForm: GameFormReducer,
+  hardware: HardwareReducer,
   hardwareForm: HardwareFormReducer,
   homePage: HomePageReducer,
   matcher: MatcherReducer,

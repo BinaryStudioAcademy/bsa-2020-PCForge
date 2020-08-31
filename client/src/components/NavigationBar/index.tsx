@@ -80,7 +80,7 @@ const listHeader: Array<IListNavigatinBar> = [
   {
     name: 'Hardware',
     icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
-    link: '#',
+    link: Routes.HARDWARES,
   },
   {
     name: 'Admin Tools',
@@ -137,7 +137,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     {
       name: 'Hardware',
       icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
-      link: '#',
+      link: Routes.HARDWARES,
     },
   ];
 

@@ -1,0 +1,32 @@
+@import '../../../styles/variables.scss';
+
+.ratingBoxesWrapper {
+  display: flex;
+  // width: 100%;
+  align-items: stretch;
+}
+
+.ratingBoxWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.ratingBoxContent {
+  position: absolute;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background: #3C444D;
+  z-index: 1;
+  top: 0;
+  left: 100%;
+}
+
+.verticalDivider {
+  width: 2px;
+  min-height: 100%;
+  background: $colorGray;
+  margin: 0 5px;
+}
