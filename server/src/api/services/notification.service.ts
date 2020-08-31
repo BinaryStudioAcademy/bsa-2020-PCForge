@@ -39,7 +39,10 @@ export class NotificationService {
   private async pushNotification(userId: string | number, notification: Notification): Promise<void | never> {
     const stringifiedNotification = notification.toString();
     this.publisher.rpush(userId.toString(), stringifiedNotification);
-    this.publisher.ltrim(userId.toString(), 0, this.CHANNEL_NOTIFICATIONS_LIMIT);
+    const notificationsCount = await this.publisher.llen(userId.toString());
+    if (notificationsCount > this.CHANNEL_NOTIFICATIONS_LIMIT) {
+      this.publisher.lpop(userId.toString());
+    }
   }
 
   private async getNotifications(userId: string | number): Promise<Notification[] | never> {

@@ -14,4 +14,5 @@ export interface PromisedRedisClient {
   lpop: (key: string) => Promise<void | never>;
   lrange: (key: string, start: number, stop: number) => Promise<string[] | null | never>;
   ltrim: (key: string, start: number, stop: number) => Promise<void | never>;
+  llen: (key: string) => Promise<number | never>;
 }
