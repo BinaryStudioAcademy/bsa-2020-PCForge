@@ -65,6 +65,15 @@ const promisedRedisClientFactory = async (client: Redis.RedisClient): Promise<Pr
     });
   };
 
+  const lrem = (key: string, count: number, value: string): Promise<void | never> => {
+    return new Promise((resolve, reject) => {
+      client.lrem(key, count, value, (err) => {
+        if (err) reject(err);
+        resolve();
+      });
+    });
+  };
+
   const promisedRedisClient: PromisedRedisClient = {
     get,
     set,
@@ -73,6 +82,7 @@ const promisedRedisClientFactory = async (client: Redis.RedisClient): Promise<Pr
     lrange,
     ltrim,
     llen,
+    lrem,
   };
   return promisedRedisClient;
 };

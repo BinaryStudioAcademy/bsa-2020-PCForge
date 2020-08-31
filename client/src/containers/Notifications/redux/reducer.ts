@@ -3,6 +3,7 @@ import { NotificationsActions, NotificationsActionTypes, NotificationsState } fr
 const initialState: NotificationsState = {
   notifications: [],
   activeNotifications: [],
+  NotificationService: null,
 };
 
 export function NotificationsReducer(state = initialState, action: NotificationsActions): NotificationsState {
@@ -38,6 +39,13 @@ export function NotificationsReducer(state = initialState, action: Notifications
         activeNotifications: state.activeNotifications.filter(
           (notification) => notification.id !== action.payload.notificationId
         ),
+      };
+    }
+
+    case NotificationsActionTypes.SET_NOTIFICATION_SERVICE: {
+      return {
+        ...state,
+        NotificationService: action.payload.notificationService,
       };
     }
 

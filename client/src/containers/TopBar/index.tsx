@@ -36,7 +36,7 @@ const StyledMenu = withStyles({
   />
 ));
 
-const TopBar: React.FC<Props> = ({ notifications, deleteNotification }) => {
+const TopBar: React.FC<Props> = ({ notifications, deleteNotification, NotificationService, user }) => {
   const [searchValue, setSearchValue] = useState('');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const ITEM_HEIGHT = 64;
@@ -48,11 +48,13 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (notification: INotification) => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
   const handleDelete = (notification: INotification) => {
+    if (!user?.id) return;
+    NotificationService?.deleteNotification(user.id.toString(), notification.id);
     deleteNotification(notification.id);
   };
 
@@ -111,6 +113,8 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification }) => {
 
 const mapState = (state: RootState) => ({
   notifications: state.notifications.notifications,
+  NotificationService: state.notifications.NotificationService,
+  user: state.auth.user,
 });
 
 const mapDispatch = {

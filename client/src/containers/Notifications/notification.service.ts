@@ -9,6 +9,7 @@ interface IActions {
 enum MessageType {
   INITIAL_NOTIFICATIONS = 'INITIAL_NOTIFICATIONS',
   NEW_NOTIFICATION = 'NEW_NOTIFICATION',
+  DELETE_NOTIFICATION = 'DELETE_NOTIFICATION',
 }
 
 interface IMessage {
@@ -17,7 +18,7 @@ interface IMessage {
 }
 
 export class NotificationService {
-  constructor(private readonly reduxActions: IActions) {}
+  constructor(private readonly reduxActions: IActions, private readonly ws: WebSocket) {}
 
   public handleMessage(messageJSON: string): void {
     const message = JSON.parse(messageJSON) as IMessage;
@@ -29,6 +30,18 @@ export class NotificationService {
       case MessageType.NEW_NOTIFICATION:
         return this.handleNewMessage(message);
     }
+  }
+
+  public deleteNotification(userId: string, notificationId: string): void {
+    const message = JSON.stringify({
+      type: MessageType.DELETE_NOTIFICATION,
+      payload: {
+        userId,
+        notificationId,
+      },
+    });
+    this.ws.send(message);
+    console.log('ws send message', message);
   }
 
   private handleInitialMessage(message: IMessage) {

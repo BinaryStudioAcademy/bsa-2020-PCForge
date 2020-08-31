@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { connect, ConnectedProps } from 'react-redux';
-import { setNotifications, addNotification, deleteNotification, closeNotification } from './redux/actions';
+import {
+  setNotifications,
+  addNotification,
+  deleteNotification,
+  closeNotification,
+  setNotificationService,
+} from './redux/actions';
 import { RootState } from 'redux/rootReducer';
 import { NotificationService } from './notification.service';
 
@@ -11,12 +17,14 @@ const InjectNotifications: React.FC<Props> = ({
   children,
   userId,
   activeNotifications,
+  setNotificationService,
   ...notificationActions
 }): JSX.Element => {
   React.useEffect(() => {
     if (!canOpenSocket()) return;
     const ws = new WebSocket(process.env.REACT_APP_WS_SERVER_ADDRESS!, userId!.toString(10));
-    const notificationService = new NotificationService(notificationActions);
+    const notificationService = new NotificationService(notificationActions, ws);
+    setNotificationService(notificationService);
     ws.onopen = () => console.log('WebSocket opened');
     ws.onmessage = (messageEvent) => {
       const { data } = messageEvent;
@@ -61,6 +69,7 @@ const mapDispatch = {
   addNotification,
   deleteNotification,
   closeNotification,
+  setNotificationService,
 };
 
 const connector = connect(mapState, mapDispatch);

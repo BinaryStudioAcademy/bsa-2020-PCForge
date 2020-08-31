@@ -1,7 +1,8 @@
 import WebSocket from 'ws';
 import { MyEmitter } from '../../helpers/typedEmitter.types';
 
-export class WebSocketService extends MyEmitter<{ newConnection: { id: number } }> {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export class WebSocketService extends MyEmitter<{ newConnection: { id: number }; inboundMessage: Message }> {
   private clients: Map<number, WebSocket> = new Map();
   constructor(private ws: WebSocket.Server) {
     super();
@@ -13,6 +14,12 @@ export class WebSocketService extends MyEmitter<{ newConnection: { id: number } 
         this.clients.set(userId, ws);
         this.emit('newConnection', { id: userId });
       }
+      ws.on('message', (data) => {
+        const message = JSON.parse(data.toString());
+        if (inboundMessageTypes.includes(message.type)) {
+          this.emit('inboundMessage', Message.fromJSON(data.toString()));
+        }
+      });
       ws.on('close', () => {
         console.log(this.clients.keys.length);
         this.clients.delete(userId);
@@ -40,11 +47,24 @@ export class WebSocketService extends MyEmitter<{ newConnection: { id: number } 
 export enum MessageType {
   INITIAL_NOTIFICATIONS = 'INITIAL_NOTIFICATIONS',
   NEW_NOTIFICATION = 'NEW_NOTIFICATION',
+  DELETE_NOTIFICATION = 'DELETE_NOTIFICATION', //inbound message
 }
 
+const inboundMessageTypes = [MessageType.DELETE_NOTIFICATION];
+
 export class Message {
-  constructor(private payload: string, private type: MessageType = MessageType.NEW_NOTIFICATION) {}
+  constructor(
+    public readonly payload: string | Record<string, unknown>,
+    public readonly type: MessageType = MessageType.NEW_NOTIFICATION
+  ) {}
   public toString(): string {
     return JSON.stringify({ type: this.type, payload: this.payload });
+  }
+  public static fromJSON(json: string): Message {
+    const obj = JSON.parse(json);
+    if (typeof obj.type !== 'string' || !Object.keys(MessageType).find((type) => type === obj.type))
+      throw new Error(`Inbound message type must be string MessageType, got: [${typeof obj.type}](${obj.type})`);
+    const message = new Message(obj.payload, obj.type);
+    return message;
   }
 }

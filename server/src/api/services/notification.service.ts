@@ -20,13 +20,10 @@ export class NotificationService {
   public async initialize(): Promise<void> {
     this.publisher = await this.redis.createClient();
     this.ws.on('newConnection', async ({ id: userId }) => {
+      this.registerInboundMessageHandlers();
       const notifications = await this.getNotifications(userId);
       const notificationsString = JSON.stringify(notifications);
       await this.ws.sendMessage(userId, new Message(notificationsString, MessageType.INITIAL_NOTIFICATIONS));
-      await this.notifyUserById(userId, new Notification('info', NotificationType.INFO));
-      await this.notifyUserById(userId, new Notification('error', NotificationType.ERROR));
-      await this.notifyUserById(userId, new Notification('success', NotificationType.SUCCESS));
-      await this.notifyUserById(userId, new Notification('warning', NotificationType.WARNING));
     });
   }
 
@@ -50,6 +47,32 @@ export class NotificationService {
     const notifications = notificationJsonStrings.map((notification) => Notification.fromJSON(notification));
     return notifications;
   }
+
+  public async deleteNotification(userId: string, notificationId: string): Promise<void | never> {
+    const notifications = await this.publisher.lrange(userId, 0, -1);
+    const notification = notifications
+      .map((notification) => Notification.fromJSON(notification))
+      .find((notification) => notification.id === notificationId);
+    if (notification) await this.publisher.lrem(userId, 1, notification.toString());
+  }
+
+  private registerInboundMessageHandlers = () => {
+    this.ws.on('inboundMessage', async (message) => {
+      const handleDeleteNotification = async (message: Message): Promise<void> => {
+        if (typeof message.payload === 'string') return;
+        if (message.payload.userId && message.payload.notificationId) {
+          const { userId, notificationId } = message.payload;
+          await this.deleteNotification(userId as string, notificationId as string);
+        }
+      };
+
+      switch (message.type) {
+        case MessageType.DELETE_NOTIFICATION: {
+          return handleDeleteNotification(message);
+        }
+      }
+    });
+  };
 }
 
 export enum NotificationType {
@@ -60,12 +83,13 @@ export enum NotificationType {
 }
 
 export class Notification {
-  public readonly id: string;
-  constructor(public readonly text: string, public readonly type: NotificationType = NotificationType.INFO) {
-    this.id = createUUID();
-  }
+  constructor(
+    public readonly text: string,
+    public readonly type: NotificationType = NotificationType.INFO,
+    public readonly id: string = createUUID()
+  ) {}
   public toString(): string {
-    return JSON.stringify({ type: this.type, text: this.text });
+    return JSON.stringify({ type: this.type, text: this.text, id: this.id });
   }
   public static fromJSON(json: string): Notification | never {
     const obj = JSON.parse(json);
@@ -73,7 +97,9 @@ export class Notification {
       throw new Error(`Notification text must be string type, got: [${typeof obj.text}](${obj.text})`);
     if (typeof obj.type !== 'string' || !Object.keys(NotificationType).find((type) => type === obj.type))
       throw new Error(`Notification type must be string NotificationType, got: [${typeof obj.type}](${obj.type})`);
-    const notification = new Notification(obj.text, obj.type);
+    if (typeof obj.id !== 'string')
+      throw new Error(`Notification id must be string type, got: [${typeof obj.id}](${obj.id})`);
+    const notification = new Notification(obj.text, obj.type, obj.id);
     return notification;
   }
 }

@@ -1,4 +1,5 @@
 import { INotification } from '../interfaces';
+import { NotificationService } from '../notification.service';
 import { NotificationsActionTypes, NotificationsActions } from './actionTypes';
 
 export const setNotifications = (notifications: INotification[]): NotificationsActions => ({
@@ -26,5 +27,12 @@ export const closeNotification = (notificationId: string): NotificationsActions 
   type: NotificationsActionTypes.CLOSE_NOTIFICATION,
   payload: {
     notificationId,
+  },
+});
+
+export const setNotificationService = (notificationService: NotificationService): NotificationsActions => ({
+  type: NotificationsActionTypes.SET_NOTIFICATION_SERVICE,
+  payload: {
+    notificationService,
   },
 });
