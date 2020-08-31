@@ -12,12 +12,13 @@ import {
   ResetPasswordRequest,
   VerifyEmailRequest,
   verifyEmailRequest,
+  GoogleAuthRequest,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
 import { triggerServerError } from '../../helpers/global.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { MailService, UserService, AuthService } = fastify.services;
+  const { UserService, AuthService } = fastify.services;
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -40,9 +41,28 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     }
   });
 
-  fastify.get('/google/callback', GoogleAuthSchema, async function (request, response) {
-    const token = await fastify.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request);
-    response.send({ token: token.access_token });
+  fastify.post('/google-auth', {}, async (request: GoogleAuthRequest, response) => {
+    const token: string = request.body.token;
+    try {
+      const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
+      try {
+        const user = await UserService.getByEmail(userData.email);
+        const token = fastify.jwt.sign({ user }, { expiresIn: 86400 });
+        response.send({ token, user });
+      } catch (err) {
+        const user = await UserService.createUser({
+          name: userData.name,
+          email: userData.email,
+          password: '',
+          avatar: userData.picture,
+        });
+        const token = fastify.jwt.sign({ user }, { expiresIn: 86400 });
+        response.send({ token, user });
+      }
+    } catch (e) {
+      triggerServerError('An error occured, please check token correctness', 400);
+      console.log('error occurred', e);
+    }
   });
 
   fastify.post('/logged_in', IsAuthenticatedSchema, async function (request: IsUserAuthenticated, response) {
@@ -50,27 +70,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     const token = body.token;
     fastify.jwt.verify(token, async (err, decoded) => {
       if (err) {
-        try {
-          //Return object with information about user
-          const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
-          try {
-            const user = await UserService.getByEmail(userData.email);
-            response.send({ logged_in: true, user });
-          } catch (err) {
-            const user = await UserService.createUser({
-              name: userData.name,
-              email: userData.email,
-              password: '',
-              avatar: userData.picture,
-            });
-            if (!user) {
-              triggerServerError('User with given email exists', 403);
-            }
-            response.send({ logged_in: true, user });
-          }
-        } catch (err) {
-          response.send({ logged_in: false, user: {} });
-        }
+        response.send({ logged_in: false, user: {} });
       } else {
         const user = decoded.user;
         response.send({ logged_in: true, user });

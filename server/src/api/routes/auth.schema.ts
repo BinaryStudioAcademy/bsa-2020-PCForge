@@ -29,6 +29,10 @@ export type ResetPasswordRequest = FastifyRequest<{
   };
 }>;
 
+export type GoogleAuthRequest = FastifyRequest<{
+  Body: { token: string };
+}>;
+
 export type VerifyEmailRequest = FastifyRequest<{
   Params: { token: string };
 }>;

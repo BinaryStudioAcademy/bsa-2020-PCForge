@@ -22,22 +22,11 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
     fastify.jwt.verify(token, (err, decoded) => {
       if (!err && decoded) {
         decodedData = decoded;
-        request.user = decoded.user;
       }
     });
-
-    if (!decodedData) {
-      try {
-        const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
-        try {
-          const user = await UserService.getByEmail(userData.email);
-          request.user = user;
-        } catch (err) {
-          return;
-        }
-      } catch (e) {
-        return;
-      }
+    if (decodedData) {
+      const user = await UserService.getByEmail(decodedData.user.email);
+      request.user = user as UserAttributes;
     }
   };
 };

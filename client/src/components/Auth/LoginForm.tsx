@@ -20,6 +20,7 @@ interface ILoginFormProps {
   handleChangePassword: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleChangeCheckbox: () => void;
   login: (event: React.FormEvent<HTMLButtonElement>) => void;
+  onGoogleAuth: (response: GoogleLoginResponse) => void;
   switchToRegistration: (event: React.MouseEvent) => void;
 }
 
@@ -32,14 +33,13 @@ const LoginForm = ({
   handleChangePassword,
   handleChangeCheckbox,
   login,
+  onGoogleAuth,
   switchToRegistration,
 }: ILoginFormProps): JSX.Element => {
   const googleClientId = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!;
 
   const googleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    setToken((response as GoogleLoginResponse).tokenId);
-    setTokenType(TokenType.google);
-    history.push(Routes.DEFAULT);
+    onGoogleAuth(response as GoogleLoginResponse);
   };
 
   const onForgotPasswordClick = () => {
