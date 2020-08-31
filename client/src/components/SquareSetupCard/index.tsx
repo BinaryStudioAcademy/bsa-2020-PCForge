@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { useParams } from 'react-router';
 import styles from './styles.module.scss';
 import RatingBox from 'components/RatingBox';
@@ -52,6 +53,8 @@ const SetupCard: React.FC<SetupCardProps> = ({
   let { id: userId } = useParams();
   userId = parseInt(userId);
 
+  let setupCreatedAt = moment(createdAt).format("D MMM YYYY");
+
   const handleDeleteSetup: () => void = () => {
     if (deleteUserSetup && setTab) {
       deleteUserSetup(userId, id);
@@ -73,7 +76,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
         <Image src={image} alt="" />
       </div>
       <div className={styles.setupTitle}>{title}</div>
-      <div className={styles.createdAt}>Created:{createdAt}</div>
+      <div className={styles.createdAt}>Created on {setupCreatedAt}</div>
       <div className={styles.setupCardRatingBox}>
         <RatingBox ratingValue={5} disabled={false} name={title} />
       </div>
