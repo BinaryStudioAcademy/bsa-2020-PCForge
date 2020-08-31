@@ -6,9 +6,10 @@ import { Redirect } from 'react-router-dom';
 import { MenuItems, Routes } from 'common/enums';
 import Spinner from 'components/Spinner';
 import TopBar from 'containers/TopBar';
-import { getToken, clearToken } from 'helpers/tokenHelper';
+import { clearToken } from 'helpers/tokenHelper';
 import { useDispatch } from 'react-redux';
 import { loginRequestSuccess } from '../Auth/actions';
+import { authService } from 'api/services/auth.service';
 import * as Sentry from '@sentry/react';
 
 interface IProps {
@@ -28,29 +29,21 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
   }, []);
 
   const checkIsUserAuthenticated = async () => {
-    const currentToken: string = (await getToken()) || '';
-    console.log('checkIsUserAuthenticated -> currentToken', currentToken);
-    if (currentToken) {
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
-      const response = await fetch(`${apiUrl}/auth/logged_in`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token: currentToken,
-        }),
-      });
-      const isAuthenticated = await response.json();
-      console.log('checkIsUserAuthenticated -> isAuthenticated', isAuthenticated);
-      setIsAdmin(isAuthenticated.user.isAdmin);
+    try {
+      const isAuthenticated = await authService.getUserByToken();
+      setIsAuthenticated(isAuthenticated.logged_in);
       if (!isAuthenticated.logged_in) {
         await clearToken();
       }
-      setIsAuthenticated(isAuthenticated.logged_in);
-      dispatch(loginRequestSuccess(isAuthenticated.user));
+      if (isAuthenticated.user) {
+        setIsAdmin(isAuthenticated.user.isAdmin);
+        dispatch(loginRequestSuccess(isAuthenticated.user));
+      }
+    } catch (e) {
+      // message
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return isLoading ? (
