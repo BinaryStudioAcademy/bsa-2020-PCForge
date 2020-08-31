@@ -23,7 +23,10 @@ export class NotificationService {
       const notifications = await this.getNotifications(userId);
       const notificationsString = JSON.stringify(notifications);
       await this.ws.sendMessage(userId, new Message(notificationsString, MessageType.INITIAL_NOTIFICATIONS));
-      await this.notifyUserById(userId, new Notification('hello'));
+      await this.notifyUserById(userId, new Notification('info', NotificationType.INFO));
+      await this.notifyUserById(userId, new Notification('error', NotificationType.ERROR));
+      await this.notifyUserById(userId, new Notification('success', NotificationType.SUCCESS));
+      await this.notifyUserById(userId, new Notification('warning', NotificationType.WARNING));
     });
   }
 

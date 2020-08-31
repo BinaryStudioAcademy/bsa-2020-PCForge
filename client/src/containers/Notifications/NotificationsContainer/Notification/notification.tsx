@@ -39,8 +39,6 @@ const Notification: React.FC<Props> = ({ notification, onClose }): JSX.Element =
         return styles.warning;
     }
   };
-  // ADADDDDDDDDDDDD DDDDDDDDDDDDDDDDDDD DDDDDDDDDDD DDDDDDDDDDDDDDDDDDDD
-  //
 
   return (
     <div className={`${styles.notificationContainer} ${getClassName()}`}>
