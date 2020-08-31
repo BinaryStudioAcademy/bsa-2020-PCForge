@@ -40,7 +40,7 @@ const showButton = setups.length <= 4;
        <>
           <Title />
           {children}
-          {!!setups && !!setups.length && (
+          {!!setups?.length && (
             <>
             <div className={styles.homeContentContainer}>
             <h2>Most Popular Setups</h2>
