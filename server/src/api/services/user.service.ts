@@ -101,6 +101,10 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return await super.deleteById(id);
   }
 
+  async activateDeactivateUser(id: string): Promise<UserModel> {
+    return await this.repository.activateDeactivate(id);
+  }
+
   hash(password: string): string {
     return encryptSync(password);
   }
