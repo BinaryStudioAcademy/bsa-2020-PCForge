@@ -68,11 +68,13 @@ function UserReducer(state = initialState, action: UserActionTypes): IUserState 
       return {
         ...state,
         filteredGames: action.payload,
+        showSpinner: false,
       };
     case LOAD_SETUPS_SUCCESS:
       return {
         ...state,
         setups: action.payload,
+        showSpinner: false,
       };
     default:
       return state;

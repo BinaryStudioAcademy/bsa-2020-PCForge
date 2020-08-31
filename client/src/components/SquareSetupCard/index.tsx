@@ -56,7 +56,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
   let { id: userId } = useParams();
   userId = parseInt(userId);
 
-  let setupCreatedAt = moment(createdAt).format('D MMM YYYY');
+  const setupCreatedAt = moment(createdAt).format('D MMM YYYY');
 
   const handleDeleteSetup: () => void = () => {
     if (deleteUserSetup && setTab) {
@@ -79,8 +79,9 @@ const SetupCard: React.FC<SetupCardProps> = ({
         <Image src={image} alt="" />
       </div>
       <div className={styles.setupTitle}>{title}</div>
+
       <div className={styles.createdAt}>
-        Created on {setupCreatedAt} by {author.name}
+        Created on {setupCreatedAt} {!own && <>by {author.name}</>}
       </div>
       <div className={styles.setupCardRatingBox}>
         <RatingBox ratingValue={5} disabled={false} name={title} />

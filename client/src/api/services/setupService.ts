@@ -43,5 +43,5 @@ export const deleteUserSetup = async (setupId: number): Promise<TypeResponseOne>
 
 export const forkUserSetup = async (setupId: number): Promise<TypeResponseOne> => {
   const url = `${endpoint}/forks`;
-  return await webApi.post(url, {setupId});
-}
+  return await webApi.post(url, { setupId });
+};

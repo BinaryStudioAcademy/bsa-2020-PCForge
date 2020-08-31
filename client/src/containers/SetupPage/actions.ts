@@ -40,5 +40,5 @@ export const wipeSnackbarData = (): SetupActionTypes => ({
 
 export const forkSetup = (setupId: number): SetupActionTypes => ({
   type: FORK_SETUP,
-  payload: {setupId}
+  payload: { setupId },
 });

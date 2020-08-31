@@ -134,7 +134,7 @@ export interface IForkSetup {
   type: typeof FORK_SETUP;
   payload: {
     setupId: number;
-  }
+  };
 }
 
 export type SetupActionTypes =

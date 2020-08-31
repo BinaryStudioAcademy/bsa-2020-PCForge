@@ -143,7 +143,7 @@ function* addUserGame(action: addUserGameActionType) {
       notification.warning('Looks like you already have this game');
     }
   } catch (error) {
-    notification.error('Something went wrong, please try again later');
+    notification.error(error.message || 'Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
@@ -159,9 +159,9 @@ function* deleteUserGame(action: deleteUserGameActionType) {
     yield put(loadUserGamesAction(action.payload.id));
     notification.success(`You have deleted ${deletedGame.game.name}`);
   } catch (error) {
-    notification.error('Could not delete the game, try again later');
+    yield put(hideSpinner());
+    notification.error(error.message || 'Could not delete the game, try again later');
   }
-  yield put(hideSpinner());
 }
 
 function* watchDeleteUserSetup() {
@@ -172,10 +172,10 @@ function* deleteUserSetup(action: deleteUserSetupActionType) {
   yield put(showSpinner());
   try {
     const deletedSetup = yield call(deleteUserSetupService, action.payload.setupId);
-    console.log(deletedSetup);
     yield put(loadSetupsAction(action.payload.userId));
+    notification.success(`You have deleted "${deletedSetup.title}"`);
   } catch (error) {
+    yield put(hideSpinner());
     notification.error(error.message || 'Could not delete the setup, try again later');
   }
-  yield put(hideSpinner());
 }
