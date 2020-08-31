@@ -40,7 +40,7 @@ export class CommentService extends BaseService<CommentModel, CommentCreationAtt
   ): Promise<CommentModel> {
     await CommentMiddleware(data);
     const oldComment = await this.repository.getCommentById(id);
-    if (!(oldComment.userId === initiator.id || !initiator.isAdmin)) {
+    if (!(oldComment.userId === initiator.id || initiator.isAdmin)) {
       triggerServerError('Access forbidden', 403);
     }
     const newComment = this.repository.updateById(id, data);
