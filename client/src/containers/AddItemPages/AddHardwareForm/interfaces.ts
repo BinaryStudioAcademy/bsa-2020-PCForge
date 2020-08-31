@@ -5,6 +5,7 @@ export interface IinputOptions {
   title: string;
 }
 
+export const validationErrorEmptyFields = 'Error: Please fill all hardware components';
 export const storage = 'Storage';
 export const HardwareTypesValues = [
   { value: HardwareTypes.PowerSupply, title: HardwareTypes.PowerSupply },

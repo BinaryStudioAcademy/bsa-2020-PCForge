@@ -1,3 +1,5 @@
+@import 'styles/variables.scss';
+
 .formControl {
   min-width: 200px !important;
   width: 100% !important;
@@ -19,6 +21,20 @@
     //padding: 10px;
     padding: 0.3rem 1rem 0.5rem;
     filter: none;
+
+    &:required:invalid {
+      color: #8e8e8e;
+    }
+    option[value=""][disabled] {
+      display: none;
+    }
+    option {
+      color: black;
+    }
+
+    option:not(:first-of-type) {
+      color: black;
+    }
 
     &:-webkit-autofill,
     &:-webkit-autofill:hover,

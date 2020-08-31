@@ -1,9 +1,12 @@
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
-import { TypeCpu } from 'common/models/typeCpu';
-import { TypeGpu } from 'common/models/typeGpu';
+
+import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
+
 import { TypeSocket } from 'common/models/typeSocket';
 import { TypeRamType } from 'common/models/typeRamType';
 import { TypeRam } from 'common/models/typeRam';
+import { FilterModel } from 'common/models/filter.model';
+
 import { postCpu } from 'api/services/cpuService';
 import { postGpu } from 'api/services/gpuService';
 import { postMotherBoard } from 'api/services/motherboardService';
@@ -13,9 +16,8 @@ import { postHdd } from 'api/services/hddService';
 import { getAllRam, postRam, TypeResponseAllRams } from 'api/services/ramService';
 import { getAllRamType, TypeResponseAll as TypeResponseAllRamType } from 'api/services/ramTypeService';
 import { getAllSocket, TypeResponseAll as TypeResponseAllSocket } from 'api/services/socketService';
+
 import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
-import { FilterModel } from 'common/models/filter.model';
-import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
 
 import {
   loadError,
@@ -38,11 +40,15 @@ import {
 } from './actionsTypes';
 
 // get initials values
-function* getInitialValues() {
-  yield put(updateStateToInitSuccess('', ''));
+function* clearStateValues() {
+  try {
+    yield put(updateStateToInitSuccess());
+  } catch (error) {
+    yield put(loadError(error.message));
+  }
 }
-function* watchGetInitialValues() {
-  yield takeEvery(HardwareFormActionTypes.UPDATE_STATE_TO_INIT_ACTION, getInitialValues);
+function* watchClearStateValues() {
+  yield takeEvery(HardwareFormActionTypes.UPDATE_STATE_TO_INIT_ACTION, clearStateValues);
 }
 
 function* getInitialValuesMotherBoard() {
@@ -100,10 +106,8 @@ function* watchGetInitialValuesCPU() {
 function* createPowerSupply(action: ICreatePowerSupplyAction) {
   try {
     const powerSupplyNew = yield call(postPowerSupply, action.payload.powerSupply);
-    //notification.success(`New Power supply has been created`);
     yield put(loadCreatedHardware(powerSupplyNew.name));
   } catch (error) {
-    //notification.error(error);
     yield put(loadError(error.message));
   }
 }
@@ -113,7 +117,9 @@ function* watchCreatePowerSupply() {
 
 function* createMotherBoard(action: ICreateMotherboardAction) {
   try {
+    console.log(action.payload.motherboard);
     const motherBoardNew = yield call(postMotherBoard, action.payload.motherboard);
+    console.log(motherBoardNew);
     yield put(loadCreatedHardware(motherBoardNew.name));
   } catch (error) {
     yield put(loadError(error.message));
@@ -238,6 +244,6 @@ export default function* hardwareFormSagas() {
     watchCreateGPU(),
     watchCreateSSD(),
     watchCreateHDD(),
-    watchGetInitialValues(),
+    watchClearStateValues(),
   ]);
 }
