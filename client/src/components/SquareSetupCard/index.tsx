@@ -12,6 +12,7 @@ import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { Link } from 'react-router-dom';
 import BasicLink from 'components/BasicComponents/Link';
 import Image from 'components/BasicComponents/Image';
+import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
 import { UserPageTabs } from 'containers/UserPage/index';
 
@@ -25,9 +26,10 @@ export interface SetupCardProps {
   motherboard: Motherboard;
   powerSupply: TypePowersupplies;
   ram: Ram;
-  big?: boolean;
+  author: TypeUser;
   createdAt: Date;
   className?: string;
+  big?: boolean;
   own?: boolean;
   setTab?: (tab: UserPageTabs) => UserActionTypes;
   deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
@@ -43,6 +45,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
   motherboard,
   powerSupply,
   ram,
+  author,
   big,
   createdAt,
   className,
@@ -53,7 +56,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
   let { id: userId } = useParams();
   userId = parseInt(userId);
 
-  let setupCreatedAt = moment(createdAt).format("D MMM YYYY");
+  let setupCreatedAt = moment(createdAt).format('D MMM YYYY');
 
   const handleDeleteSetup: () => void = () => {
     if (deleteUserSetup && setTab) {
@@ -76,7 +79,9 @@ const SetupCard: React.FC<SetupCardProps> = ({
         <Image src={image} alt="" />
       </div>
       <div className={styles.setupTitle}>{title}</div>
-      <div className={styles.createdAt}>Created on {setupCreatedAt}</div>
+      <div className={styles.createdAt}>
+        Created on {setupCreatedAt} by {author.name}
+      </div>
       <div className={styles.setupCardRatingBox}>
         <RatingBox ratingValue={5} disabled={false} name={title} />
       </div>

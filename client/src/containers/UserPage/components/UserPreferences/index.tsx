@@ -9,7 +9,6 @@ import { useParams } from 'react-router';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import { Game } from 'common/models/typeUserGame';
 import { UserActionTypes } from '../../logic/actionTypes';
-import { addUserGame } from 'containers/UserPage/logic/actions';
 import { UserPageTabs } from 'containers/UserPage/index';
 import { Link } from 'react-router-dom';
 
@@ -121,6 +120,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   image={setup.image}
                   createdAt={setup.createdAt}
                   powerSupply={setup.powerSupply}
+                  author={setup.author}
                   key={generateKey(setup.title, index)}
                   deleteUserSetup={deleteUserSetup}
                   own

@@ -1,5 +1,6 @@
 import React from 'react';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
+import { SetupType } from 'common/models/typeSetup';
 import { getIcon } from 'common/helpers/icon.helper';
 import styles from './styles.module.scss';
 
@@ -33,6 +34,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
             gpu={topSetup.gpu}
             motherboard={topSetup.motherboard}
             ram={topSetup.ram}
+            author={topSetup.author}
             powerSupply={topSetup.powerSupply}
             big
             key={generateKey(topSetup.title, 0)}
@@ -52,6 +54,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
                 ram={setup.ram}
                 image={setup.image}
                 powerSupply={setup.powerSupply}
+                author={setup.author}
                 key={generateKey(setup.title, index)}
               />
             );
