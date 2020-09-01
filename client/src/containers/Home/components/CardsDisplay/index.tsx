@@ -1,47 +1,28 @@
 import React from 'react';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
-import { SetupType } from 'common/models/typeSetup';
-import { getIcon } from 'common/helpers/icon.helper';
+import ButtonCard from '../ButtonCard';
+import { Link } from 'react-router-dom';
+
 import styles from './styles.module.scss';
 
 interface ICardDisplayProps {
   setups: SetupCardProps[];
+  className?: string;
+  showButton?: boolean;
+  big?:boolean;
 }
 
 const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
-  const { setups } = props;
-  const topSetup = setups[0];
-  const ordinarySetups = setups.filter((setup, index) => {
-    return index !== 0;
-  });
+  const { showButton, setups, className, big } = props;
+ 
 
   const generateKey = (pre: string, index: number) => {
     return `${pre}_${new Date().getTime()}_${index}`;
   };
 
   return (
-    <div className={styles.contentWrapper}>
-      <h2 className={styles.buildsHeading}>Most popular builds</h2>
-      <div className={styles.cardDisplay}>
-        <div className={styles.topSetup}>
-          <SetupCard
-            id={topSetup.id}
-            createdAt={topSetup.createdAt}
-            title={topSetup.title}
-            description={topSetup.description}
-            image={topSetup.image}
-            cpu={topSetup.cpu}
-            gpu={topSetup.gpu}
-            motherboard={topSetup.motherboard}
-            ram={topSetup.ram}
-            author={topSetup.author}
-            powerSupply={topSetup.powerSupply}
-            big
-            key={generateKey(topSetup.title, 0)}
-          />
-        </div>
-        <div className={styles.smallerCards}>
-          {ordinarySetups.map((setup, index) => {
+        <div>
+          {setups.map((setup, index) => {
             return (
               <SetupCard
                 id={setup.id}
@@ -56,18 +37,13 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
                 powerSupply={setup.powerSupply}
                 author={setup.author}
                 key={generateKey(setup.title, index)}
+                big={big}
               />
             );
           })}
-          <div className={styles.cardButton}>
-            {getIcon('Visibility')}
-            <p>Show all computers</p>
-
-            {getIcon('ArrowForward')}
-          </div>
-        </div>
+          {showButton && <Link className={styles.buttonLinkStyle} to="/setups"><ButtonCard /></Link>}
       </div>
-    </div>
+   
   );
 };
 
