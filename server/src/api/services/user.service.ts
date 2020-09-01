@@ -68,7 +68,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     }
   }
 
-  async updateUser(id: string | number, inputUser: UserCreateAttributes): Promise<UserModel> {
+  async updateUser(id: string | number, inputUser: UserUpdateAttributes): Promise<UserModel> {
     if (!Object.keys(inputUser).length) {
       triggerServerError('No valid fields to update specified', 400);
     }
