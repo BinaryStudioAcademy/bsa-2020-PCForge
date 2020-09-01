@@ -30,7 +30,6 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
     if (decodedData && request.params.id) {
       if (decodedData.user.id !== parseInt(request.params.id, 10)) {
         triggerServerError(`Authorized user has different id from querystring userId`, 400);
-        console.log('AAA');
       }
     }
 
