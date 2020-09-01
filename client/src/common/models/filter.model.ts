@@ -6,7 +6,7 @@ export interface BaseFilter {
 export interface CommentFilter extends BaseFilter {
   commentableType: 'game' | 'setup' | '';
   commentableId: number;
-};
+}
 
 export type RateFilter = {
   ratebleType: 'game' | 'setup' | '';
@@ -17,8 +17,8 @@ export interface CpuFilter extends BaseFilter {
   socketId?: string;
   socketIds?: string;
   clockspeed?: {
-    minValue: number,
-    maxValue: number,
+    minValue: number;
+    maxValue: number;
   };
   name?: string;
 }
@@ -40,4 +40,4 @@ export interface RamFilter extends BaseFilter {
 
 export interface FilterModel extends BaseFilter {
   name?: string;
-};
+}

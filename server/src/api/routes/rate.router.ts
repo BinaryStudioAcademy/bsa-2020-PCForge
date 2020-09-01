@@ -22,7 +22,7 @@ import {
 } from '../../helpers/swagger.helper';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
-import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { RateService } = fastify.services;

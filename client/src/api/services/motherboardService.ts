@@ -27,8 +27,8 @@ export const getAllMotherboard = async (filter: MotherboardFilter): Promise<Type
     ...(ramTypeMultiple && { ramTypeIds: filter.ramTypeId }),
     ...(!ramTypeMultiple && { ramTypeId: filter.ramTypeId }),
     ...(socketIdMultiple && { socketIds: filter.socketId }),
-    ...(!socketIdMultiple && { socketId: filter.socketId })
-  }
+    ...(!socketIdMultiple && { socketId: filter.socketId }),
+  };
 
   return await webApi.get(endpoint, serverFilter);
 };

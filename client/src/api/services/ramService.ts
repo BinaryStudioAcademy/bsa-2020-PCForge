@@ -20,9 +20,9 @@ export const getAllRam = async (filter: RamFilter): Promise<TypeResponseAllRams>
   const serverFilter: RamFilter = {
     from: filter.from,
     count: filter.count,
-    ...(isMultipleType && {typeIds: filter.typeId}),
-    ...(!isMultipleType && {typeId: filter.typeId}),
-  }
+    ...(isMultipleType && { typeIds: filter.typeId }),
+    ...(!isMultipleType && { typeId: filter.typeId }),
+  };
 
   return await webApi.get(endpoint, serverFilter);
 };

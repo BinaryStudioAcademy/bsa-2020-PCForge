@@ -34,9 +34,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllRamResponse, IRamFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllRamsRequest, reply) => {
     allowForAuthorized(request);
-    console.log(request.query);
     renameQuery(request, ['typeIds', 'typeId']);
-    console.log(request.query);
     const rams = await RamService.getAllRams(request.query);
     reply.send(rams);
   });

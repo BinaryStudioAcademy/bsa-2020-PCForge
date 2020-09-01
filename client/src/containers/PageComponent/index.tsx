@@ -29,7 +29,6 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
 
   const checkIsUserAuthenticated = async () => {
     const currentToken: string = (await getToken()) || '';
-    console.log('checkIsUserAuthenticated -> currentToken', currentToken);
     if (currentToken) {
       const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
       const response = await fetch(`${apiUrl}/auth/logged_in`, {
@@ -42,7 +41,6 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
         }),
       });
       const isAuthenticated = await response.json();
-      console.log('checkIsUserAuthenticated -> isAuthenticated', isAuthenticated);
       setIsAdmin(isAuthenticated.user.isAdmin);
       if (!isAuthenticated.logged_in) {
         await clearToken();
