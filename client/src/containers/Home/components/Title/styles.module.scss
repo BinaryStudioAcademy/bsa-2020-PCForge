@@ -3,8 +3,16 @@
     align-self: flex-start;
     position: relative;
     bottom: 80px;
-    left: 3rem;
 
+    @media(min-width:1200px) and (max-width:1400px) {
+        padding-left:5rem;
+    }
+
+    @media(max-width:768px) {
+       bottom:0;
+       align-self: center;
+       text-align: center;
+    }
     h1 {
         margin-bottom: 0;
     }

@@ -7,7 +7,6 @@ import CardDisplay from './components/CardsDisplay';
 import { RootState } from 'redux/rootReducer';
 import { loadTopSetups } from './logic/actions';
 import Spinner from 'components/Spinner';
-import Grid from '@material-ui/core/Grid';
 import PewsPage from 'containers/NewsPage';
 import styles from './styles.module.scss';
 
@@ -27,10 +26,6 @@ const showButton = setups.length <= 4;
   const ordinarySetups = setups.filter((setup, index) => {
     return index !== 0;
   });
-
-  
-
-
 
   const renderContent = () => {
     if (showSpinner) {

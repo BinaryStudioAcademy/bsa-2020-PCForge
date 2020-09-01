@@ -28,7 +28,7 @@ $link-default-hover-color: rgb(246, 243, 243);
     justify-content: center;
 
     >div {
-      width: 80%;
+      width: 100%;
     }
   }
 
@@ -40,6 +40,13 @@ $link-default-hover-color: rgb(246, 243, 243);
 
 .addGameButton {
   margin: 20px 30px 20px !important;
+}
+
+.builderButton {
+  svg {
+    margin-bottom: 7px;
+    margin-right: 7px;
+  }
 }
 
 .setupLink {

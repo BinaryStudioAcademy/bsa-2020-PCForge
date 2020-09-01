@@ -1,9 +1,11 @@
 .homeContentContainer {
   display: grid;
+  width:100%;
   margin-bottom: 30px;
   column-gap: 1%;
   row-gap: 1%;
   grid-template-columns: 33% 41% 21%;
+  grid-template-columns: minmax(400px,1.5fr) minmax(450px,2fr) minmax(200px,1fr);
   grid-template-rows: 60px 1fr;
   grid-template-areas:
     "title             title        gridNewsDisplay"
@@ -11,11 +13,10 @@
 
   @media(min-width: 1200px) and (max-width: 1400px) {
     padding-left: 5rem;
-    padding-right: 5rem;
   }
 
   @media(max-width: 1400px) {
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 49% 49%;
     grid-template-rows: 60px 1fr 1fr;
     grid-column-gap: 15px;
     grid-template-areas:
@@ -25,6 +26,7 @@
   }
 
   @media(max-width: 800px) {
+    justify-content: center;
     grid-template-columns: minmax(300px, 500px);
     grid-template-rows: 1fr;
     row-gap: 10px;
@@ -154,7 +156,7 @@ h2 {
       margin-bottom: 15px;
       margin-left: 0;
       max-width: 500px;
-      height: auto;
+      // height: auto;
     }
 
     & div {
