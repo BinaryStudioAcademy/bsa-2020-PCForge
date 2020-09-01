@@ -19,6 +19,11 @@ export class TopGameService extends BaseService<TopGameModel, TopGameCreationAtt
     return topGame;
   }
 
+  async getTopGameByGameId(id: string): Promise<TopGameModel> {
+    const topGame = await this.repository.getTopGameByGameId(id);
+    return topGame;
+  }
+
   async getAllTopGames(filter: IFilter): Promise<IWithMeta<TopGameModel>> {
     const topGames = await this.repository.getAllTopGames(filter);
     return topGames;

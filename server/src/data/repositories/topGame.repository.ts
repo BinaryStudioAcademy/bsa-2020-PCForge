@@ -53,6 +53,46 @@ export class TopGameRepository extends BaseRepository<TopGameModel, TopGameCreat
     return topGame;
   }
 
+  async getTopGameByGameId(id: string): Promise<TopGameModel> {
+    const topGame = await this.model.findOne({
+      group: [
+        'topGame.id',
+        'game.id',
+        'game->recommendedCpu.id',
+        'game->minimalCpu.id',
+        'game->recommendedGpu.id',
+        'game->minimalGpu.id',
+      ],
+      where: {
+        gameId: id,
+      },
+      include: [
+        {
+          model: this.gameModel,
+          include: [
+            {
+              model: this.cpuModel,
+              as: 'recommendedCpu',
+            },
+            {
+              model: this.cpuModel,
+              as: 'minimalCpu',
+            },
+            {
+              model: this.gpuModel,
+              as: 'recommendedGpu',
+            },
+            {
+              model: this.gpuModel,
+              as: 'minimalGpu',
+            },
+          ],
+        },
+      ],
+    });
+    return topGame;
+  }
+
   async getAllTopGames(inputFilter: IFilter): Promise<IWithMeta<TopGameModel>> {
     const filter = mergeFilters<IFilter>(new IFilter(), inputFilter);
     const topGames = await this.getAll(
