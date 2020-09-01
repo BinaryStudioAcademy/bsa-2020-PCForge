@@ -22,6 +22,7 @@ import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
 import { AuthService } from './auth.service';
+import { CommentRateService } from './commentRate.service';
 
 export interface Services {
   AuthService: AuthService;
@@ -46,6 +47,7 @@ export interface Services {
   UploadImageService: UploadService;
   UserGameService: UserGameService;
   UserService: UserService;
+  CommentRateService: CommentRateService;
 }
 
 export default fp(async (fastify, opts, next) => {
@@ -65,6 +67,7 @@ export default fp(async (fastify, opts, next) => {
     const newsService = new NewsService(repositories.NewsRepository);
     const rateService = new RateService(repositories.RateRepository);
     const commentService = new CommentService(repositories.CommentRepository);
+    const commentRateService = new CommentRateService(repositories.CommentRateRepository);
     const performanceService = new PerformanceService(
       repositories.CpuRepository,
       repositories.GpuRepository,
@@ -100,6 +103,7 @@ export default fp(async (fastify, opts, next) => {
       UploadImageService: uploadService,
       UserGameService: userGameService,
       UserService: usersService,
+      CommentRateService: commentRateService,
     };
     fastify.decorate('services', services);
     console.log('services were successfully initialized');

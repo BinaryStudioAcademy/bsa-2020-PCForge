@@ -17,6 +17,7 @@ import { UserGameFactory } from './usergame';
 import { AddRequestFactory } from './addRequest';
 import { HddFactory } from './hdd';
 import { SsdFactory } from './ssd';
+import { CommentRateFactory } from './commentRates';
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const initializeModels = (orm: Sequelize) => {
@@ -38,11 +39,13 @@ export const initializeModels = (orm: Sequelize) => {
   const AddRequestModel = AddRequestFactory(orm);
   const HddModel = HddFactory(orm);
   const SsdModel = SsdFactory(orm);
+  const CommentRateModel = CommentRateFactory(orm);
 
   CommentModel.belongsTo(UserModel);
   CommentModel.belongsTo(SetupModel, { foreignKey: 'commentableId', constraints: false });
   CommentModel.belongsTo(NewsModel, { foreignKey: 'commentableId', constraints: false });
   CommentModel.belongsTo(GameModel, { foreignKey: 'commentableId', constraints: false });
+  CommentModel.hasMany(CommentRateModel, { foreignKey: 'commentId', constraints: false });
 
   CpuModel.belongsTo(SocketModel);
   CpuModel.hasMany(SetupModel);
@@ -80,6 +83,9 @@ export const initializeModels = (orm: Sequelize) => {
   RateModel.belongsTo(NewsModel, { foreignKey: 'ratebleId', constraints: false });
   RateModel.belongsTo(GameModel, { foreignKey: 'ratebleId', constraints: false });
 
+  CommentRateModel.belongsTo(UserModel);
+  CommentRateModel.belongsTo(CommentModel, { foreignKey: 'commentId', constraints: false });
+
   SetupModel.belongsTo(UserModel, { foreignKey: 'authorId', constraints: false });
   SetupModel.belongsTo(CpuModel);
   SetupModel.belongsTo(GpuModel);
@@ -99,6 +105,7 @@ export const initializeModels = (orm: Sequelize) => {
 
   UserModel.hasMany(RateModel);
   UserModel.hasMany(CommentModel);
+  UserModel.hasMany(CommentRateModel);
   UserModel.hasMany(SetupModel, { foreignKey: 'authorId', constraints: false });
   UserModel.hasMany(UserGameModel);
 
@@ -130,5 +137,6 @@ export const initializeModels = (orm: Sequelize) => {
     TopGame: TopGameModel,
     Hdd: HddModel,
     Ssd: SsdModel,
+    CommentRate: CommentRateModel,
   };
 };
