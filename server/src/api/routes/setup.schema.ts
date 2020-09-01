@@ -90,6 +90,11 @@ export const SetupSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    ramCapacity: {
+      type: 'integer',
+      example: 4,
+      nullable: false,
+    },
     powerSupplyId: {
       type: 'integer',
       example: 1,
@@ -174,7 +179,17 @@ export const GetAllSetupsResponse: SwaggerSchema = {
 
 export const CreateSetupSchema: SwaggerSchema = {
   type: 'object',
-  required: ['title', 'description', 'image', 'cpuId', 'gpuId', 'motherboardId', 'ramId', 'powerSupplyId'],
+  required: [
+    'title',
+    'description',
+    'image',
+    'cpuId',
+    'gpuId',
+    'motherboardId',
+    'ramId',
+    'ramCapacity',
+    'powerSupplyId',
+  ],
   properties: {
     title: {
       type: 'string',
@@ -215,6 +230,11 @@ export const CreateSetupSchema: SwaggerSchema = {
     ramId: {
       type: 'integer',
       example: 1,
+      nullable: false,
+    },
+    ramCapacity: {
+      type: 'integer',
+      example: 4,
       nullable: false,
     },
     hddId: {
@@ -284,6 +304,11 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+    ramCapacity: {
+      type: 'integer',
+      example: 4,
+      nullable: false,
     },
     hddId: {
       type: 'integer',

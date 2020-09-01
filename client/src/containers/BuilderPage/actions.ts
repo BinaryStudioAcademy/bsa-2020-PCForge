@@ -5,6 +5,7 @@ import {
   REMOVE_COMPONENT_FROM_SETUP,
   BUILDER_RESET_SETUP,
   SAVE_SETUP_REQUEST,
+  SET_RAM_CAPACITY,
 } from './actionTypes';
 import { SetupItem } from 'common/models/setup';
 import { GroupName } from './config';
@@ -32,5 +33,12 @@ export const saveSetupRequest = (data: SetupItem, image: Blob): AnyAction => ({
   payload: {
     data,
     image,
+  },
+});
+
+export const setRamCapacity = (value: number) => ({
+  type: SET_RAM_CAPACITY,
+  payload: {
+    value,
   },
 });

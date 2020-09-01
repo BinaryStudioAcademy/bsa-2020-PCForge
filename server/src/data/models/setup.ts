@@ -14,6 +14,7 @@ export interface SetupAttributes {
   cpu: CpuAttributes;
   gpu: GpuAttributes;
   ram: RamAttributes;
+  ramCapacity: number;
   hdd: HddAttributes;
   ssd: SsdAttributes;
   createdAt: Date;
@@ -29,6 +30,7 @@ export interface SetupCreationAttributes {
   gpuId: number;
   motherboardId: number;
   ramId: number;
+  ramCapacity: number;
   powerSupplyId: number;
   hddId: number;
   ssdId: number;

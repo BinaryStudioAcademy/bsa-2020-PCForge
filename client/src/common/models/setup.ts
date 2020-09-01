@@ -37,4 +37,5 @@ export interface SetupItem {
   motherboardId: number;
   ramId: number;
   powerSupplyId: number;
+  ramCapacity: string;
 }

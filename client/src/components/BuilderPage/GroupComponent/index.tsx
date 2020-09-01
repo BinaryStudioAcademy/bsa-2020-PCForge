@@ -26,6 +26,8 @@ type PropsType = {
   onRemoveSelectedComponent: (group: GroupName) => void;
   expanded: GroupName | false;
   onChangeExpanded: (expanded: GroupName | false) => void;
+  setRamCapacity: (value: number) => void;
+  ramCapacity: string;
 };
 
 type TypeRange = {
@@ -43,6 +45,8 @@ const GroupComponent = ({
   onRemoveSelectedComponent,
   expanded,
   onChangeExpanded,
+  setRamCapacity,
+  ramCapacity,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [components, setComponents] = useState([] as TypeComponent[]);
@@ -102,7 +106,7 @@ const GroupComponent = ({
 
   function onAddComponentHandler(componentId: number) {
     onAddComponent(groupName, componentId);
-    onChangeExpanded(false);
+    // onChangeExpanded(false);
   }
 
   useEffect(() => {
@@ -134,11 +138,16 @@ const GroupComponent = ({
   const listComponentElements = components?.map((component) => (
     <ListComponentsItem
       key={component.id}
+      isRam={component.hasOwnProperty('ramType')}
+      id={component.id}
+      selectedComponentId={selectedComponent?.id}
       title={component.name}
       /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
       // @ts-ignore
       specifications={SpecificationComponent[groupName]({ component })}
       onAddComponent={() => onAddComponentHandler(component.id)}
+      setRamCapacity={setRamCapacity}
+      ramCapacity={ramCapacity}
     />
   ));
 

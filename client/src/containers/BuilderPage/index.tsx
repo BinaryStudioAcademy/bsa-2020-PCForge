@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import { Box } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
@@ -19,6 +19,7 @@ import {
   initSetupAction,
   removeComponentFromSetupAction,
   resetSetupAction,
+  setRamCapacity,
 } from 'containers/BuilderPage/actions';
 
 import { FilterName, GroupName } from './config';
@@ -28,9 +29,10 @@ import QuickMatcher from 'containers/QuickMatcher';
 
 type PropsType = {
   className?: string;
+  ramCapacity: string;
 };
 
-const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
+const BuilderPage = ({ ramCapacity, className = '' }: PropsType): JSX.Element => {
   const [expanded, setExpanded] = useState<false | GroupName>(false);
   const [filter, setFilter] = useState<TypeFilterBuilder>({
     socketIdSet: new Set() as Set<number>,
@@ -154,6 +156,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
       onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
       expanded={expanded}
       onChangeExpanded={setExpanded}
+      setRamCapacity={(capacity) => dispatch(setRamCapacity(capacity))}
+      ramCapacity={ramCapacity}
     />
   ));
 
@@ -183,4 +187,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   );
 };
 
-export default BuilderPage;
+const mapStateToProps = (state: { setup: TypeSetup }) => ({
+  ramCapacity: state.setup.ramCapacity,
+});
+
+export default connect(mapStateToProps)(BuilderPage);

@@ -21,6 +21,8 @@ const BuilderSummary = ({ setup }: IProps): JSX.Element => {
 
   const partsCount = Object.values(setup).length;
 
+  delete setup.ramCapacity;
+
   const buildProgress =
     (Object.values(setup).reduce((progress, item) => {
       item && (progress += 1);
