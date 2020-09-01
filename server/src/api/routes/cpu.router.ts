@@ -32,9 +32,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllCpusResponse, ICpuFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllCpusRequest, reply) => {
     allowForAuthorized(request);
-    console.log(request.query);
     renameQuery(request, ['socketIds', 'socketId']);
-    console.log(request.query);
     const cpus = await CpuService.getAllCpus(request.query);
     reply.send(cpus);
   });
