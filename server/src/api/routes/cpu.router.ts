@@ -56,7 +56,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', updateOneSchema, async (request: PutCpuRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
-    console.log(request.body);
     const newCpu = await CpuService.updateCpuById({ id, data: request.body });
     reply.send(newCpu);
   });
