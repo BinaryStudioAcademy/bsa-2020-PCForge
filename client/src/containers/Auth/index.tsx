@@ -115,7 +115,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-    if (state.user && getTokenSync()) {
+    if (getTokenSync()) {
       return <Redirect to={'/'} />;
     }
 
