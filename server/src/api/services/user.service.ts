@@ -33,7 +33,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     if (!isPasswordValidForUser) {
       throw {
         error: `Invalid login or password`,
-        status: 401,
+        status: 403,
       };
     }
     return user;
