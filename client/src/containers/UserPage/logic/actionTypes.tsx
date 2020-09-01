@@ -1,4 +1,4 @@
-import { TypeUser } from 'common/models/typeUser';
+import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
 import { deleteUserGame } from 'api/services/userService';
 import { SetupType } from 'common/models/typeSetup';
@@ -47,7 +47,7 @@ export interface loadSetupsSuccess {
 export interface updateUser {
   type: typeof UPDATE_USER;
   payload: {
-    data: TypeUser;
+    data: TypeUserUpdate;
     avatarData?: Blob;
   };
 }

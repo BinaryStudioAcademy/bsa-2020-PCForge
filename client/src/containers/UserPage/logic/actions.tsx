@@ -18,7 +18,7 @@ import {
   SET_TAB,
 } from './actionTypes';
 
-import { TypeUser } from 'common/models/typeUser';
+import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
 import { User } from 'common/models/user';
 import { SetupType } from 'common/models/typeSetup';
@@ -34,7 +34,7 @@ export const loadUserSuccess = (data: TypeUser): UserActionTypes => ({
   payload: data,
 });
 
-export const updateUser = (data: TypeUser, avatarData?: Blob): UserActionTypes => ({
+export const updateUser = (data: TypeUserUpdate, avatarData?: Blob): UserActionTypes => ({
   type: UPDATE_USER,
   payload: {
     data,
