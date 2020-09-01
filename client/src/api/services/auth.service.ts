@@ -36,9 +36,8 @@ export class AuthService {
     await api.post(apiRoute, data);
   }
 
-  async getUserByToken(): Promise<TypeLoggedUser> {
+  async getUserByToken(token: string): Promise<TypeLoggedUser> {
     const apiRoute = 'auth/logged_in';
-    const token = getToken();
     const response = await api.post(apiRoute, { token });
     return response;
   }
