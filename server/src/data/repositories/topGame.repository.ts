@@ -5,6 +5,7 @@ import { BaseRepository, IWithMeta, RichModel } from './base.repository';
 import { GameStatic } from '../models/game';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
+import { orderBy } from 'lodash';
 
 export class TopGameRepository extends BaseRepository<TopGameModel, TopGameCreationAttributes, IFilter> {
   constructor(
@@ -127,6 +128,10 @@ export class TopGameRepository extends BaseRepository<TopGameModel, TopGameCreat
               },
             ],
           },
+        ],
+        order: [
+          ['updatedAt', 'DESC'],
+          ['createdAt', 'DESC'],
         ],
       },
       filter
