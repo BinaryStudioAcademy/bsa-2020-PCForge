@@ -47,7 +47,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getUserById(id);
     if (!user) {
-      triggerServerError(`User with id: ${id} does not exists`, 404);
+      triggerServerError(`User with id: ${id} does not exists`, 400);
     }
     return user;
   }

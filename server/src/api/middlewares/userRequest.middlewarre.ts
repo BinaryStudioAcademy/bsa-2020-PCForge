@@ -27,12 +27,6 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
       }
     });
 
-    if (decodedData && request.params.id) {
-      if (decodedData.user.id !== parseInt(request.params.id, 10)) {
-        triggerServerError(`Authorized user has different id from querystring userId`, 400);
-      }
-    }
-
     if (!decodedData) {
       try {
         const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
@@ -43,6 +37,13 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
         request.user = user;
       } catch (err) {
         triggerServerError(err, 400);
+      }
+    }
+
+    if (request.params.id) {
+      const user = await UserService.getUser(request.params.id);
+      if (!user) {
+        triggerServerError(`User with id ${request.params.id} does not exists`, 400);
       }
     }
   };
