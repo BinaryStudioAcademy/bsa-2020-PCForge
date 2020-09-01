@@ -1,4 +1,6 @@
 @import 'styles/index';
+$link-default-color: rgb(223, 217, 217);
+$link-default-hover-color: rgb(246, 243, 243);
 
 .userPreferences {
   display: flex;
@@ -10,30 +12,23 @@
   padding: 15px;
   border-top: 1px solid rgb(102, 102, 102);
 
-  & > {
+  &> {
     min-width: 335px;
   }
 
   @media(min-width: $tablet) {
-    & > div {
-      width:25%;
+    &>div {
+      width: 25%;
       min-width: 335px;
     }
   }
-
-  // @media(min-width: $desktop) {
-  //   & > div {
-  //     width:25%;
-  //     min-width: 335px;
-  //   }
-  // }
 
   @media (max-width: 768px) {
     overflow: auto;
     justify-content: center;
 
-    > div {
-      width:80%;
+    >div {
+      width: 80%;
     }
   }
 
@@ -51,6 +46,18 @@
   margin: 20px 30px 20px !important;
   display: inline-block;
   font-size: 22px;
+  text-decoration: none;
+  color: $link-default-color;
+
+  svg {
+    position: relative;
+    left: 8px;
+    top: 4px;
+  }
+
+  &:hover {
+    color: $link-default-hover-color;
+  }
 }
 
 .buttonPlacement {
@@ -58,10 +65,12 @@
   label {
     display: none;
   }
-  & > div > div {
+
+  &>div>div {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
   }
+
   @media(max-width: 768px) {
     display: flex;
     justify-content: center;

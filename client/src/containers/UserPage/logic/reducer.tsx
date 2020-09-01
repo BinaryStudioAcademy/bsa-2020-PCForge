@@ -10,7 +10,9 @@ import {
   LOAD_USER_GAMES_SUCCESS,
   LOAD_FILTERED_GAMES_SUCCESS,
   LOAD_SETUPS_SUCCESS,
+  SET_TAB,
 } from './actionTypes';
+import { UserPageTabs } from 'containers/UserPage/index';
 
 export interface IUserState {
   loadedUser: TypeUser | null;
@@ -18,6 +20,7 @@ export interface IUserState {
   filteredGames: Game[];
   showSpinner: boolean;
   setups: SetupType[];
+  openTab: UserPageTabs;
 }
 
 const initialState: IUserState = {
@@ -26,6 +29,7 @@ const initialState: IUserState = {
   userGames: [],
   filteredGames: [],
   setups: [],
+  openTab: UserPageTabs.Games,
 };
 
 function UserReducer(state = initialState, action: UserActionTypes): IUserState {
@@ -39,6 +43,11 @@ function UserReducer(state = initialState, action: UserActionTypes): IUserState 
       return {
         ...state,
         showSpinner: false,
+      };
+    case SET_TAB:
+      return {
+        ...state,
+        openTab: action.payload.tab,
       };
     case LOAD_USER_SUCCESS:
       return {
@@ -59,11 +68,13 @@ function UserReducer(state = initialState, action: UserActionTypes): IUserState 
       return {
         ...state,
         filteredGames: action.payload,
+        showSpinner: false,
       };
     case LOAD_SETUPS_SUCCESS:
       return {
         ...state,
         setups: action.payload,
+        showSpinner: false,
       };
     default:
       return state;

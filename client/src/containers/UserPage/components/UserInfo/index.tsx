@@ -20,11 +20,7 @@ import { SetupType } from 'common/models/typeSetup';
 import { UserActionTypes } from '../../logic/actionTypes';
 import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
 import { Game } from 'common/models/typeUserGame';
-
-enum UserPageTabs {
-  Games = 0,
-  Setups = 1,
-}
+import { UserPageTabs } from 'containers/UserPage/index';
 
 interface IUserInfoProps {
   user: TypeUser;
@@ -34,8 +30,11 @@ interface IUserInfoProps {
   isCurrentUser: boolean;
   addUserGame: (id: number, gameId: number) => UserActionTypes;
   deleteUserGame: (id: number, gameId: number) => UserActionTypes;
+  deleteUserSetup: (userId: number, setupId: number) => UserActionTypes;
   filteredGames: Game[];
   loadFilteredGames: (searchString: string) => UserActionTypes;
+  setTab: (tab: UserPageTabs) => UserActionTypes;
+  openTab: UserPageTabs;
 }
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
@@ -48,7 +47,10 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     loadFilteredGames,
     addUserGame,
     deleteUserGame,
+    deleteUserSetup,
     setups,
+    openTab,
+    setTab,
   } = props;
 
   const initialErrorMessages = {
@@ -61,7 +63,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
 
   const initialAvatar = user.avatar;
 
-  const [selectedTab, setSelectedTab] = useState(0);
+  // const [selectedTab, setSelectedTab] = useState(0);
   const [editableInput, setEditableInput] = useState(false);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
@@ -91,8 +93,8 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     }
   }, [editableInput]);
 
-  const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: number) => {
-    setSelectedTab(newValue);
+  const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: UserPageTabs) => {
+    setTab(newValue);
   };
 
   const handleSetEditable = (event: React.MouseEvent) => {
@@ -307,12 +309,12 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
 
       <div className={styles.preferencesSection}>
         <AppBar position="static" className={styles.tabsBar}>
-          <Tabs value={selectedTab} onChange={handleTabChange}>
+          <Tabs value={openTab} onChange={handleTabChange}>
             <Tab label="Games" />
             <Tab label="Setups" />
           </Tabs>
         </AppBar>
-        {selectedTab === UserPageTabs.Games && (
+        {openTab === UserPageTabs.Games && (
           <UserPreferences
             isCurrentUser={isCurrentUser}
             games={userGames}
@@ -322,7 +324,14 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             loadFilteredGames={loadFilteredGames}
           />
         )}
-        {selectedTab === UserPageTabs.Setups && <UserPreferences isCurrentUser={isCurrentUser} setups={setups} />}
+        {openTab === UserPageTabs.Setups && (
+          <UserPreferences
+            isCurrentUser={isCurrentUser}
+            setups={setups}
+            deleteUserSetup={deleteUserSetup}
+            setTab={setTab}
+          />
+        )}
       </div>
     </div>
   );
