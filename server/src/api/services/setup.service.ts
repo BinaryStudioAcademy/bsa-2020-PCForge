@@ -60,4 +60,8 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     await this.repository.deleteById(id);
     return setup;
   }
+
+  async forkSetupById(id: string, userId: number): Promise<SetupModel> {
+    return await this.repository.forkSetup(id, userId);
+  }
 }

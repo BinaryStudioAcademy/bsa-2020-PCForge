@@ -1,4 +1,6 @@
 import React from 'react';
+import moment from 'moment';
+import { useParams } from 'react-router';
 import styles from './styles.module.scss';
 import RatingBox from 'components/RatingBox';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
@@ -8,7 +10,11 @@ import { Gpu } from 'common/models/gpu';
 import { Ram } from 'common/models/ram';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { Link } from 'react-router-dom';
+import BasicLink from 'components/BasicComponents/Link';
 import Image from 'components/BasicComponents/Image';
+import { TypeUser } from 'common/models/typeUser';
+import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
+import { UserPageTabs } from 'containers/UserPage/index';
 
 export interface SetupCardProps {
   id: number;
@@ -20,8 +26,13 @@ export interface SetupCardProps {
   motherboard: Motherboard;
   powerSupply: TypePowersupplies;
   ram: Ram;
-  big?: boolean;
+  author: TypeUser;
+  createdAt: Date;
   className?: string;
+  big?: boolean;
+  own?: boolean;
+  setTab?: (tab: UserPageTabs) => UserActionTypes;
+  deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
 }
 
 const SetupCard: React.FC<SetupCardProps> = ({
@@ -34,9 +45,26 @@ const SetupCard: React.FC<SetupCardProps> = ({
   motherboard,
   powerSupply,
   ram,
+  author,
   big,
+  createdAt,
   className,
+  own,
+  setTab,
+  deleteUserSetup,
 }) => {
+  let { id: userId } = useParams();
+  userId = parseInt(userId);
+
+  const setupCreatedAt = moment(createdAt).format('D MMM YYYY');
+
+  const handleDeleteSetup: () => void = () => {
+    if (deleteUserSetup && setTab) {
+      deleteUserSetup(userId, id);
+      setTab(UserPageTabs.Setups);
+    }
+  };
+
   let setupStyle = styles.setupCard;
   if (className) {
     setupStyle += ` ${className}`;
@@ -53,7 +81,13 @@ const SetupCard: React.FC<SetupCardProps> = ({
         <Image src={image} alt="" />
       </div>
       <div className={styles.setupTitle}>{title}</div>
-      <RatingBox ratingValue={5} disabled={false} name={title} />
+
+      <div className={styles.createdAt}>
+        Created on {setupCreatedAt} {!own && <>by {author.name}</>}
+      </div>
+      <div className={styles.setupCardRatingBox}>
+        <RatingBox ratingValue={5} disabled={false} name={title} />
+      </div>
 
       <div className={styles.setupBack}>
         <div className={styles.textHolder}>
@@ -65,13 +99,18 @@ const SetupCard: React.FC<SetupCardProps> = ({
           <div>Power Supply: {powerSupply.name}</div>
         </div>
 
-        <Link to={`/setup/${id}`}>
-          <Button icon="ArrowForward" buttonType={ButtonType.primary}>
-            {' '}
-            Find out more{' '}
-          </Button>
-        </Link>
+        <div className={styles.backBottomWrapper}>
+          <Link to={`/setup/${id}`}>
+            <Button icon="ArrowForward" buttonType={ButtonType.primary}>
+              {' '}
+              Find out more{' '}
+            </Button>
+          </Link>
+          <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
+        </div>
       </div>
+
+      <div className={styles.setupExtraInfo}></div>
     </div>
   );
 };

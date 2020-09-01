@@ -26,6 +26,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
             return (
               <SetupCard
                 id={setup.id}
+                createdAt={setup.createdAt}
                 title={setup.title}
                 description={setup.description}
                 cpu={setup.cpu}
@@ -34,6 +35,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
                 ram={setup.ram}
                 image={setup.image}
                 powerSupply={setup.powerSupply}
+                author={setup.author}
                 key={generateKey(setup.title, index)}
                 big={big}
               />
