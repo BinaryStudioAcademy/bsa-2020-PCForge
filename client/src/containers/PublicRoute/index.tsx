@@ -7,7 +7,7 @@ import { RootState } from 'redux/rootReducer';
 import * as Sentry from '@sentry/react';
 
 type PropsType = {
-  component: any;
+  component: any; //what type?
   exact?: boolean;
   path: Routes | string;
   className?: string;

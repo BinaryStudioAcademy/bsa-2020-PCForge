@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginByTokenRequest } from 'containers/Auth/actions';
 import { Routes } from 'common/enums/routes';
 import { RootState } from 'redux/rootReducer';
 import * as Sentry from '@sentry/react';
-import Spinner from '../../components/Spinner';
+import Spinner from 'components/Spinner';
 
 type PropsType = {
-  component: any;
+  component: any; //what type?
   exact?: boolean;
   path: Routes | string;
   className?: string;
@@ -34,7 +34,7 @@ const PrivateRoute = ({ component: Component, ...rest }: PropsType) => {
   return (
     <SentryRoute
       {...rest}
-      render={(props) =>
+      render={(props: RouteComponentProps) =>
         isFirstLoading ? (
           <Spinner page={true} />
         ) : isAuthorized || isLoading ? (
