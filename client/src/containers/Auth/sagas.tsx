@@ -38,21 +38,14 @@ function* watchLogin() {
   yield takeLatest(AUTH_LOGIN_REQUEST, login);
 }
 function* loginByToken(action: loginByTokenRequestAction) {
-  yield put(changeLoadingStatus(false));
+  yield put(changeLoadingStatus(true));
   try {
     const token = yield call(getToken);
-    if (token) {
-      const loggedUser: TypeLoggedUser = yield call(authService.getUserByToken, token);
-      const user = loggedUser.user?.id ? loggedUser.user : null;
-      yield put({ type: AUTH_LOGIN_SUCCESS, payload: { user } });
-    }
+    const loggedUser: TypeLoggedUser = yield call(authService.getUserByToken, token);
+    const user = loggedUser.user?.id ? loggedUser.user : null;
+    yield put({ type: AUTH_LOGIN_SUCCESS, payload: { user } });
   } catch (e) {
-    yield put({
-      type: AUTH_LOGIN_FAILURE,
-      payload: {
-        message: e.message,
-      },
-    });
+    // message
   } finally {
     yield put(changeLoadingStatus(false));
   }
