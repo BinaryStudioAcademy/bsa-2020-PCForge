@@ -62,6 +62,11 @@ export function SetupFactory(sequelize: Sequelize): SetupStatic {
       allowNull: false,
       type: DataTypes.STRING(200),
     },
+    ramCapacity: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+    },
     createdAt: {
       type: DataTypes.DATE,
       allowNull: false,
