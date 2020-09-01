@@ -14,7 +14,7 @@ import setupsSagas from 'containers/SetupsPage/sagas';
 import emailVerificationActions from 'containers/EmailVerificationPage/sagas';
 import resetPasswordSagas from 'containers/ResetPassword/sagas';
 import newsSagas from 'containers/NewsPage/sagas';
-import hardwareSagas from 'containers/HardwarePage/sagas';
+import hardwareSagas from 'containers/HardwaresPage/HardwareSidebarView/sagas';
 
 export default function* rootSaga() {
   yield all([

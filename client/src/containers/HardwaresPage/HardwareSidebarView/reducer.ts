@@ -1,4 +1,4 @@
-import { IHardwareState } from 'containers/HardwarePage/interfaces';
+import { IHardwareState } from 'containers/HardwaresPage/HardwareSidebarView/interfaces';
 import {
   GET_HARDWARE_SUCCESS,
   GET_HARDWARE_FAILURE,
@@ -16,6 +16,7 @@ import { AlertType } from 'components/BasicComponents/Alert';
 const initialState: IHardwareState = {
   hardware: null,
   comments: [],
+  hardwareMeta: null,
   rate: 0,
   commentsPerPage: 20,
   commentsCountTotal: 0,

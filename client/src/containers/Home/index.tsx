@@ -26,7 +26,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
       return <Spinner load />;
     } else {
       return (
-        <>
+        <div>
           <Title />
           <Grid container spacing={5}>
             <Grid item xs={12} lg={9} xl={9}>
@@ -37,7 +37,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
               <PewsPage role="aside" countNews={2} />
             </Grid>
           </Grid>
-        </>
+        </div>
       );
     }
   };

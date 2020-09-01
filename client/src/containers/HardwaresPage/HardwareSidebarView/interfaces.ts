@@ -4,7 +4,7 @@ import { Comment } from 'common/models/comment';
 import { AlertType } from 'components/BasicComponents/Alert';
 import { ReactText } from 'react';
 
-export interface IHardwareProps extends RouteComponentProps<{ id: string; type: hardwareTypes }> {
+export interface IHardwareProps {
   state: IHardwareState;
   getHardware: (payload: { id: number; type: hardwareTypes }) => HardwareActionTypes;
   getHardwareComments: (payload: {
@@ -21,6 +21,10 @@ export interface IHardwareProps extends RouteComponentProps<{ id: string; type: 
 
 export interface IHardwareState {
   hardware: Record<string, ReactText> | null;
+  hardwareMeta: {
+    id: string;
+    type: hardwareTypes;
+  } | null;
   comments: Comment[] | null;
   commentsCountTotal: number;
   commentsPerPage: number;

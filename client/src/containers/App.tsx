@@ -20,7 +20,6 @@ import EmailVerificationPage from './EmailVerificationPage';
 import ResetPasswordRequest from './ResetPassword/request';
 import ResetPasswordCallback from './ResetPassword/callback';
 import NewsPage from 'containers/NewsPage';
-import HardwarePage from './HardwarePage';
 import HardwaresPage from './HardwaresPage';
 
 const SentryRoute = Sentry.withSentryRouting(Route);
@@ -45,7 +44,6 @@ class App extends Component {
           <SentryRoute exact path={Routes.RESET_PASSWORD_REQUEST} component={ResetPasswordRequest} />
           <SentryRoute exact path={Routes.RESET_PASSWORD} component={ResetPasswordCallback} />
           <SentryRoute exact path={Routes.NEWS} component={NewsPage} />
-          <SentryRoute exact path={Routes.HARDWARE} component={HardwarePage} />
           <SentryRoute exact path={Routes.HARDWARES} component={HardwaresPage} />
           <SentryRoute path="*" exact={true} component={NotFound} />
         </Switch>

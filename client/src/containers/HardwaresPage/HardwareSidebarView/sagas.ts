@@ -3,6 +3,7 @@ import {
   IGetHardware,
   GET_HARDWARE_FAILURE,
   GET_HARDWARE,
+  GET_HARDWARE_COMMENTS_FAILURE,
   IGetComments,
   GET_HARDWARE_COMMENTS_SUCCESS,
   GET_HARDWARE_COMMENTS,
@@ -26,7 +27,6 @@ import { getMotherboard } from 'api/services/motherboardService';
 import { getPowersupplies } from 'api/services/powersupplyService';
 import { CommentFilter } from 'common/models/filter.model';
 import { getAllComments, createComment } from 'api/services/comment.service';
-import { GET_HARDWARE_COMMENTS_FAILURE } from 'containers/HardwarePage/actionTypes';
 import { CommentCreationAttributes } from 'common/models/comment';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';

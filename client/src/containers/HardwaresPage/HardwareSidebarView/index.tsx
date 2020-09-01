@@ -8,8 +8,6 @@ import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import { cpuSchema, gpuSchema, ramSchema, motherboardSchema, powerSupplySchema } from './schemas';
 import HardwareView, { HardwareSchema } from 'components/HardwareView';
-import PageComponent from 'containers/PageComponent';
-import { MenuItems } from 'common/enums';
 import Comments from 'components/Comments';
 import TopGames from 'components/ChartComponents/TopGames';
 import NotFound from 'containers/NotFound';
@@ -30,7 +28,7 @@ interface State {
   hardware: Record<string, ReactText> | null;
 }
 
-class HardwarePage extends React.PureComponent<IHardwareProps, State> {
+class HardwareSidebarView extends React.PureComponent<IHardwareProps, State> {
   constructor(props: IHardwareProps) {
     super(props);
     this.state = {
@@ -38,7 +36,8 @@ class HardwarePage extends React.PureComponent<IHardwareProps, State> {
       schema: null,
       title: '',
       fullSchema: null,
-      type: this.props.match.params.type,
+      type: 'cpu',
+      // type: this.props.state.type,
     };
     this.plainSchema = this.plainSchema.bind(this);
     this.onCreateComment = this.onCreateComment.bind(this);
@@ -49,38 +48,38 @@ class HardwarePage extends React.PureComponent<IHardwareProps, State> {
 
   componentDidMount() {
     this.setState({
-      schema: this.useSchema(),
+      // schema: this.useSchema(),
     });
-    const type = this.props.match.params.type;
-    const id: number = +this.props.match.params.id;
-    this.props.getHardware({ id, type });
-    this.props.getHardwareRate({ id, type });
-    this.props.getHardwareComments({ id, type, count: 20, from: 0 });
+    // const type = this.props.state.hardwareMeta.type;
+    // const id: number = +this.props.state.type;
+    // this.props.getHardware({ id, type });
+    // this.props.getHardwareRate({ id, type });
+    // this.props.getHardwareComments({ id, type, count: 20, from: 0 });
   }
 
   public useSchema() {
-    const type = this.props.match.params.type;
-    if (type === 'cpu') {
-      this.setState({ title: 'CPU' });
-      return this.plainSchema(cpuSchema);
-    }
-    if (type === 'gpu') {
-      this.setState({ title: 'GPU' });
-      return this.plainSchema(gpuSchema);
-    }
-    if (type === 'ram') {
-      this.setState({ title: 'RAM' });
-      return this.plainSchema(ramSchema);
-    }
-    if (type === 'motherboard') {
-      this.setState({ title: 'Motherboard' });
-      return this.plainSchema(motherboardSchema);
-    }
-    if (type === 'powersupply') {
-      this.setState({ title: 'Power Supply' });
-      return this.plainSchema(powerSupplySchema);
-    }
-    return null;
+    // const type = this.props.match.params.type;
+    // if (type === 'cpu') {
+    //   this.setState({ title: 'CPU' });
+    //   return this.plainSchema(cpuSchema);
+    // }
+    // if (type === 'gpu') {
+    //   this.setState({ title: 'GPU' });
+    //   return this.plainSchema(gpuSchema);
+    // }
+    // if (type === 'ram') {
+    //   this.setState({ title: 'RAM' });
+    //   return this.plainSchema(ramSchema);
+    // }
+    // if (type === 'motherboard') {
+    //   this.setState({ title: 'Motherboard' });
+    //   return this.plainSchema(motherboardSchema);
+    // }
+    // if (type === 'powersupply') {
+    //   this.setState({ title: 'Power Supply' });
+    //   return this.plainSchema(powerSupplySchema);
+    // }
+    // return null;
   }
 
   static getDerivedStateFromProps(props: IHardwareProps, state: State) {
@@ -126,17 +125,17 @@ class HardwarePage extends React.PureComponent<IHardwareProps, State> {
   }
 
   public onCreateComment(value: string) {
-    const id: number = +this.props.match.params.id;
-    this.props.createHardwareComment({ id, value, type: this.state.type });
+    // const id: number = +this.props.match.params.id;
+    // this.props.createHardwareComment({ id, value, type: this.state.type });
   }
 
   public getHardwareComments(meta: { count: number; from: number }) {
-    const id: number = +this.props.match.params.id;
-    this.props.getHardwareComments({ id, type: this.state.type, ...meta });
+    // const id: number = +this.props.match.params.id;
+    // this.props.getHardwareComments({ id, type: this.state.type, ...meta });
   }
 
   public onRatingSet(value: number) {
-    this.props.setHardwareRate({ id: +this.props.match.params.id, value, type: this.state.type });
+    // this.props.setHardwareRate({ id: +this.props.match.params.id, value, type: this.state.type });
   }
 
   public onSnackBarClose() {
@@ -147,8 +146,8 @@ class HardwarePage extends React.PureComponent<IHardwareProps, State> {
     const { hardware, schema, title } = this.state;
     const { commentsPerPage, commentsCountTotal, hasErrorDuringHardwareFetch } = this.props.state;
 
-    if (hasErrorDuringHardwareFetch || !schema) {
-      return <NotFound history={this.props.history} location={this.props.location} match={this.props.match} />;
+    if (!this.props.state.hardwareMeta) {
+      return null;
     }
 
     if (!hardware) {
@@ -156,46 +155,44 @@ class HardwarePage extends React.PureComponent<IHardwareProps, State> {
     }
 
     return (
-      <PageComponent selectedMenuItemNumber={MenuItems.Hardware}>
-        <div className={styles.hardwareRoot}>
-          <Snackbar
-            open={!!this.props.state.snackbarMessage}
-            alertProps={{
-              alertTitle: this.props.state.snackbarMessageType === AlertType.error ? 'Error' : '',
-              alertType: this.props.state.snackbarMessageType,
-            }}
-            onClose={this.onSnackBarClose}
-          >
-            <span>{this.props.state.snackbarMessage}</span>
-          </Snackbar>
-          <div className={styles.contentWrapper}>
-            <div className={styles.ratingBoxWrapper}>
-              <RatingBox
-                name="hardware-card"
-                ratingValue={this.props.state.rate}
-                disabled={false}
-                onValueSet={this.onRatingSet}
-              />
-            </div>
-            <HardwareView title={title} schema={schema} hardware={hardware}></HardwareView>
-            <div className={styles.commentsWrapper}>
-              {this.props.state?.comments && (
-                <Comments
-                  commentsPerPage={commentsPerPage}
-                  commentsTotal={commentsCountTotal}
-                  comments={this.props.state.comments}
-                  rootClassName={styles.commentsRoot}
-                  onCreateComment={this.onCreateComment}
-                  onPaginationToggle={this.getHardwareComments}
-                />
-              )}
-            </div>
+      <div className={styles.hardwareRoot}>
+        <Snackbar
+          open={!!this.props.state.snackbarMessage}
+          alertProps={{
+            alertTitle: this.props.state.snackbarMessageType === AlertType.error ? 'Error' : '',
+            alertType: this.props.state.snackbarMessageType,
+          }}
+          onClose={this.onSnackBarClose}
+        >
+          <span>{this.props.state.snackbarMessage}</span>
+        </Snackbar>
+        <div className={styles.contentWrapper}>
+          <div className={styles.ratingBoxWrapper}>
+            <RatingBox
+              name="hardware-card"
+              ratingValue={this.props.state.rate}
+              disabled={false}
+              onValueSet={this.onRatingSet}
+            />
           </div>
-          <div className={styles.asideItems}>
-            <TopGames topGames={[]} />
+          {/* <HardwareView title={title} schema={schema} hardware={hardware}></HardwareView> */}
+          <div className={styles.commentsWrapper}>
+            {this.props.state?.comments && (
+              <Comments
+                commentsPerPage={commentsPerPage}
+                commentsTotal={commentsCountTotal}
+                comments={this.props.state.comments}
+                rootClassName={styles.commentsRoot}
+                onCreateComment={this.onCreateComment}
+                onPaginationToggle={this.getHardwareComments}
+              />
+            )}
           </div>
         </div>
-      </PageComponent>
+        <div className={styles.asideItems}>
+          <TopGames topGames={[]} />
+        </div>
+      </div>
     );
   }
 }
@@ -208,4 +205,4 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = HardwareActions;
 
-export default connect(mapStateToProps, mapDispatchToProps)(HardwarePage);
+export default connect(mapStateToProps, mapDispatchToProps)(HardwareSidebarView);
