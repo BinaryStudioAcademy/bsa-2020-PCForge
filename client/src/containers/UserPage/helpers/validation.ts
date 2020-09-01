@@ -39,6 +39,22 @@ export const passwordValid = (
   return !(passwordMessage || confirmedMessage);
 };
 
+export const currentPasswordPresent = (
+  currentPassword: string,
+  setCurrentPasswordErrorMessage: SetErrorMessage
+): boolean => {
+  let currentPasswordMessage = null;
+  if (currentPassword == '') {
+    currentPasswordMessage = 'Current password is required';
+  } else if (currentPassword.length < 5) {
+    currentPasswordMessage = 'Your current password cannot have fewer than 5 characters';
+  } else if (currentPassword.length > 30) {
+    currentPasswordMessage = 'Your current password cannot have more than 30 characters';
+  }
+  setCurrentPasswordErrorMessage(currentPasswordMessage);
+  return !currentPasswordMessage;
+};
+
 export const nameValid = (name: string, setErrorMessage: SetErrorMessage): boolean => {
   let nameMessage = null;
   const regex = /^[\sa-zA-Zа-яА-Я0-9._-]{2,50}$/;
