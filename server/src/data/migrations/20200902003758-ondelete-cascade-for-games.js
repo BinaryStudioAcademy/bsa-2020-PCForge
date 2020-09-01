@@ -25,21 +25,9 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     await queryInterface.changeColumn('userGames', 'gameId', {
       type: Sequelize.INTEGER,
-      references: {
-        model: 'games',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL',
     });
     await queryInterface.changeColumn('topGames', 'gameId', {
       type: Sequelize.INTEGER,
-      references: {
-        model: 'games',
-        key: 'id',
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'SET NULL',
     });
   },
 };
