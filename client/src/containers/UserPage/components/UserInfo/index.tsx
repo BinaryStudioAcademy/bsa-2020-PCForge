@@ -20,7 +20,11 @@ import { SetupType } from 'common/models/typeSetup';
 import { UserActionTypes } from '../../logic/actionTypes';
 import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
 import { Game } from 'common/models/typeUserGame';
-import { UserPageTabs } from 'containers/UserPage/index';
+
+enum UserPageTabs {
+  Games = 0,
+  Setups = 1,
+}
 
 interface IUserInfoProps {
   user: TypeUser;
@@ -192,6 +196,8 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     validate && currentPasswordPresent(target.value, setCurrentPasswordErrorMessage as SetErrorMessage);
   };
 
+  const emailVerified = user.emailVerified;
+
   const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       setAvatar(URL.createObjectURL(event.target.files[0]));
@@ -287,7 +293,6 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             onChange={handleEmailChange}
             helperText={emailErrorMessage || ''}
           />
-
           {!showPasswords && editableInput && <Link onClick={handlePasswordShow}>Change Password</Link>}
 
           {showPasswords && editableInput && passwordFields}

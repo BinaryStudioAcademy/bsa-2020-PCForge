@@ -21,7 +21,7 @@ import {
 } from '../../helpers/swagger.helper';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
-import { allowForAuthorized, allowForAdmin, allowForVerified } from '../middlewares/allowFor.middleware';
+import { allowForAuthorized, allowForVerified } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { CommentService } = fastify.services;
@@ -48,7 +48,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const createOneSchema = createOneQuery(UpdateCommentSchema, CommentSchema);
   fastify.post('/', { ...createOneSchema }, async (request: PostCommentRequest, reply) => {
     allowForVerified(request);
-    console.log('somment', request.body);
     request.body.userId = request.user.id;
     const comment = await CommentService.createComment(request.body, commentMiddleware);
     reply.send(comment);

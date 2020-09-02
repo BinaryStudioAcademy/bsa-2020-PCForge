@@ -103,9 +103,6 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const [typeRam, setTypeRam] = useState<number>();
   const [socket, setSocket] = useState<number>();
 
-  console.log(props.state);
-  console.log(alertText);
-
   useEffect(() => {
     //updateStateToInit();
     //setAlertText(null);

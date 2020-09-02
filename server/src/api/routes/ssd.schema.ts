@@ -48,13 +48,13 @@ export const SsdSchema: SwaggerSchema = {
     capacity: {
       type: 'integer',
       example: 1024,
-      minimum: 0,
+      minimum: 1,
       nullable: false,
     },
     size: {
       type: 'number',
       example: 3.5,
-      minimum: 0,
+      minimum: 0.1,
       nullable: false,
     },
     m2: {
@@ -92,13 +92,13 @@ export const CreateSsdSchema: SwaggerSchema = {
     capacity: {
       type: 'integer',
       example: 1024,
-      minimum: 0,
+      minimum: 1,
       nullable: false,
     },
     size: {
       type: 'number',
       example: 3.5,
-      minimum: 0,
+      minimum: 0.1,
       nullable: false,
     },
     m2: {
@@ -126,13 +126,13 @@ export const UpdateSsdSchema: SwaggerSchema = {
     capacity: {
       type: 'integer',
       example: 1024,
-      minimum: 0,
+      minimum: 1,
       nullable: false,
     },
     size: {
       type: 'number',
       example: 3.5,
-      minimum: 0,
+      minimum: 0.1,
       nullable: false,
     },
     m2: {

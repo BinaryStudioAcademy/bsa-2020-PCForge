@@ -23,7 +23,6 @@ export class AuthService {
   public async resetPasswordByEmail(email: string): Promise<void | never> {
     const user = await this.userService.getByEmail(email);
     if (!user) triggerServerError(`User with email ${email} was not found`, 400);
-    console.log(user.name);
     const token = removeNonUrlChars(getRandomStringToken());
     await this.userService.setUserById(user.id, { ...user, resetPasswordToken: token });
     await this.mailService.sendResetPassword({ to: email, userId: user.id, token: token });

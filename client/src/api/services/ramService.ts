@@ -2,6 +2,7 @@ import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeRam } from 'common/models/typeRam';
 import { RamCreationAttributes } from 'common/models/ram';
+import { RamFilter } from 'common/models/filter.model';
 
 export type TypeResponseAllRams = {
   meta: {
@@ -13,8 +14,17 @@ export type TypeResponseAllRams = {
 
 const endpoint = '/rams';
 
-export const getAllRam = async (filter: TypeFilter): Promise<TypeResponseAllRams> => {
-  return await webApi.get(endpoint, filter);
+export const getAllRam = async (filter: RamFilter): Promise<TypeResponseAllRams> => {
+  const isMultipleType: boolean = filter.typeId?.includes(',') || false;
+
+  const serverFilter: RamFilter = {
+    from: filter.from,
+    count: filter.count,
+    ...(isMultipleType && { typeIds: filter.typeId }),
+    ...(!isMultipleType && { typeId: filter.typeId }),
+  };
+
+  return await webApi.get(endpoint, serverFilter);
 };
 
 export const getRam = async (id: number): Promise<TypeRam> => {
