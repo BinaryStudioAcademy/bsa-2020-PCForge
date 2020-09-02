@@ -1,7 +1,8 @@
 import { User } from 'common/models/user';
 import { IAuthPayload, IRegPayload } from 'containers/Auth/interfaces';
-import { setToken } from 'helpers/tokenHelper';
+import { getToken, setToken } from 'helpers/tokenHelper';
 import api from 'api/webApiHelper';
+import { TypeLoggedUser } from 'common/models/typeLoggedUser';
 
 export class AuthService {
   async login(data: IAuthPayload): Promise<User> {
@@ -33,6 +34,12 @@ export class AuthService {
   async resetPassword(data: { userId: string; token: string; newPassword: string }): Promise<void> {
     const apiRoute = '/auth/reset-password';
     await api.post(apiRoute, data);
+  }
+
+  async getUserByToken(token: string): Promise<TypeLoggedUser> {
+    const apiRoute = 'auth/logged_in';
+    const response = await api.post(apiRoute, { token });
+    return response;
   }
 }
 

@@ -21,6 +21,13 @@ const Home: React.FC<Props> = (props): JSX.Element => {
     topSetupsLoad();
   }, []);
 
+  const showButton = setups.length <= 4;
+
+  const topSetup = [setups[0]];
+  const ordinarySetups = setups.filter((setup, index) => {
+    return index !== 0;
+  });
+
   const renderContent = () => {
     if (showSpinner) {
       return <Spinner load />;
@@ -28,15 +35,25 @@ const Home: React.FC<Props> = (props): JSX.Element => {
       return (
         <>
           <Title />
-          <Grid container spacing={5}>
-            <Grid item xs={12} lg={9} xl={9}>
-              {children}
-              {!!setups && !!setups.length && <CardDisplay setups={setups} />}
-            </Grid>
-            <Grid className={styles.newsComponent} item xs={12} lg={3} xl={3}>
-              <PewsPage role="aside" countNews={2} />
-            </Grid>
-          </Grid>
+          {children}
+          {!!setups?.length && (
+            <>
+              <div className={styles.homeContentContainer}>
+                <h2>Most Popular Setups</h2>
+                <div className={styles.gridTopCard}>
+                  {' '}
+                  <CardDisplay setups={topSetup} big />
+                </div>
+                <div className={styles.gridOrdinaryCards}>
+                  {' '}
+                  <CardDisplay setups={ordinarySetups} showButton={showButton} />
+                </div>
+                <div className={styles.gridNewsDisplay}>
+                  <PewsPage role="aside" countNews={2} />
+                </div>
+              </div>
+            </>
+          )}
         </>
       );
     }
@@ -57,3 +74,5 @@ const mapDispatch = {
 const connector = connect(mapState, mapDispatch);
 
 export default connector(Home);
+
+// className={styles.cardsDisplay}

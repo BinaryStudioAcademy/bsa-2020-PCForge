@@ -1,7 +1,7 @@
 import { FastifyRequest } from 'fastify';
 import { UserAttributes } from '../../data/models/user';
 import { triggerServerError } from '../../helpers/global.helper';
-type CustomRequest = FastifyRequest<{}> & { user?: UserAttributes };
+type CustomRequest = FastifyRequest & { user?: UserAttributes };
 
 export function allowForAdmin(request: CustomRequest): void {
   if (!request.user?.isAdmin) {

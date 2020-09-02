@@ -1,16 +1,17 @@
 import {
+  AUTH_CHANGE_CONFIRM_PASSWORD,
   AUTH_CHANGE_EMAIL,
   AUTH_CHANGE_PASSWORD,
   AUTH_KEEP_SIGN_IN,
-  AUTH_LOADING_STATUS,
+  AUTH_LOADING_STATUS, AUTH_LOGIN_BY_TOKEN_REQUEST,
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_REGISTER_REQUEST,
   AUTH_REGISTRATION_SUCCESS,
   AUTH_SWITCH_AUTH_PAGE,
   AUTH_VALIDATION_ERROR,
-  AuthActionTypes,
-} from 'containers/Auth/actionTypes';
+  AuthActionTypes
+} from "containers/Auth/actionTypes";
 import { User } from '../../common/models/user';
 
 export const changeEmail = (value: string): AuthActionTypes => ({
@@ -27,6 +28,13 @@ export const changePassword = (value: string): AuthActionTypes => ({
   },
 });
 
+export const changeConfirmPassword = (value: string): AuthActionTypes => ({
+  type: AUTH_CHANGE_CONFIRM_PASSWORD,
+  payload: {
+    value,
+  },
+});
+
 export const loginRequest = (email: string, password: string, keepSignedIn: boolean): AuthActionTypes => ({
   type: AUTH_LOGIN_REQUEST,
   payload: {
@@ -34,6 +42,10 @@ export const loginRequest = (email: string, password: string, keepSignedIn: bool
     password,
     keepSignedIn,
   },
+});
+
+export const loginByTokenRequest = (): AuthActionTypes => ({
+  type: AUTH_LOGIN_BY_TOKEN_REQUEST,
 });
 
 export const loginRequestSuccess = (user: User): AuthActionTypes => ({

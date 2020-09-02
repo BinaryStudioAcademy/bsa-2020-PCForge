@@ -2,7 +2,8 @@ import { FastifyReply, FastifyRequest, FastifyInstance } from 'fastify';
 import { FastifyDone } from '../routes/fastifyTypes';
 import { UserAttributes } from '../../data/models/user';
 import { OAuth2Client } from 'google-auth-library';
-type CustomRequest = FastifyRequest & { user: UserAttributes };
+import { triggerServerError } from '../../helpers/global.helper';
+type CustomRequest = FastifyRequest<{ Params: { id: string } }> & { user: UserAttributes };
 
 const oAuth2Client = new OAuth2Client(
   process.env.GOOGLE_OAUTH_CLIENT_ID,
@@ -15,7 +16,7 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
   return async (request: CustomRequest, reply: FastifyReply, done: FastifyDone): Promise<void> => {
     const token = request.headers?.authorization?.replace('Bearer ', '') || '';
     if (!token) {
-      return;
+      triggerServerError(`Authorization token is not defined`, 400);
     }
 
     let decodedData: undefined | { user: UserAttributes };
@@ -29,24 +30,21 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
     if (!decodedData) {
       try {
         const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
-        try {
-          const user = await UserService.getUserByLoginOrEmail(userData.email, '');
-          request.user = user;
-        } catch (err) {
-          /* eslint-disable */
+        const user = await UserService.getByEmail(userData.email);
+        if (!user) {
+          triggerServerError(`User with email ${userData.email} is not defined`, 400);
         }
-      } catch (e) {
-        /* eslint-disable */
+        request.user = user;
+      } catch (err) {
+        triggerServerError(err, 400);
+      }
+    }
+
+    if (request.params.id) {
+      const user = await UserService.getUser(request.params.id);
+      if (!user) {
+        triggerServerError(`User with id ${request.params.id} does not exists`, 400);
       }
     }
   };
 };
-
-//UsageExample
-// fastify.post(
-//   '/route',
-//   {
-//     preHandler: [userRequestMiddleware(fastify)],
-//   },
-//   handler()
-// )

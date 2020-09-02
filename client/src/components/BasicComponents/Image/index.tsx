@@ -34,7 +34,7 @@ class Image extends React.PureComponent<Props, State> {
         alt={this.props.alt}
         className={this.props.className || ''}
         onError={this.onLoadingError}
-      ></img>
+      />
     );
   }
 }
