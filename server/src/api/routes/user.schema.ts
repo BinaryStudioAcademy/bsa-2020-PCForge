@@ -57,6 +57,10 @@ export const UserSchema: SwaggerSchema = {
       nullable: false,
       maxLength: 50,
     },
+    isActive: {
+      type: 'boolean',
+      nullable: false,
+    },
     isAdmin: {
       type: 'boolean',
       nullable: false,
