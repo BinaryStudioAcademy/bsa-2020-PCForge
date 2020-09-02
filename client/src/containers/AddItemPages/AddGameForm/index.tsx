@@ -138,7 +138,6 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
       uploadMoreItems(filter);
     };
   };
-  console.log(props.state);
 
   let notificationMessage: string | undefined = undefined;
   let notificationType: AlertType | undefined = undefined;

@@ -8,6 +8,7 @@ import * as Sentry from '@sentry/react';
 import Spinner from 'components/Spinner';
 
 type PropsType = {
+  // eslint-disable-next-line
   component: any; //what type?
   exact?: boolean;
   path: Routes | string;
