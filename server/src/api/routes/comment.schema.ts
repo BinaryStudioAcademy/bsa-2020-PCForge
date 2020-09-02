@@ -40,7 +40,7 @@ export const CommentSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: false,
     },
     userId: {
@@ -115,7 +115,7 @@ export const CreateCommentSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: false,
     },
     commentableId: {
@@ -141,7 +141,7 @@ export const UpdateCommentSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: true,
     },
     commentableId: {

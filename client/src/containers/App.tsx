@@ -21,6 +21,7 @@ import ResetPasswordCallback from './ResetPassword/callback';
 import NewsPage from 'containers/NewsPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import HardwaresPage from './HardwaresPage';
 
 class App extends Component {
   render(): JSX.Element {
@@ -42,6 +43,7 @@ class App extends Component {
           <PrivateRoute exact path={Routes.RESET_PASSWORD_REQUEST} component={ResetPasswordRequest} />
           <PrivateRoute exact path={Routes.RESET_PASSWORD} component={ResetPasswordCallback} />
           <PrivateRoute exact path={Routes.NEWS} component={NewsPage} />
+          <PrivateRoute exact path={Routes.HARDWARES} component={HardwaresPage} />
           <PrivateRoute path="*" exact={true} component={NotFound} />
         </Switch>
         <Notification />

@@ -1,6 +1,7 @@
 import { FastifyRequest, RouteShorthandOptions } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserSchema } from './user.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type PostAuthRequest = FastifyRequest<{
   Body: {
@@ -32,6 +33,8 @@ export type ResetPasswordRequest = FastifyRequest<{
 export type VerifyEmailRequest = FastifyRequest<{
   Params: { token: string };
 }>;
+
+export type OneMoreVerificationRequest = FastifyRequest & { user: UserAttributes };
 
 const LoginRequest: SwaggerSchema = {
   type: 'object',
@@ -123,6 +126,37 @@ export const verifyEmailRequest: RouteShorthandOptions = {
           },
         },
         nullable: false,
+      },
+    },
+  },
+};
+
+export const verifyEmailMessageSchema: RouteShorthandOptions = {
+  schema: {
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          ok: {
+            type: 'boolean',
+            nullable: false,
+          },
+        },
+      },
+      400: {
+        type: 'object',
+        properties: {
+          error: {
+            type: 'string',
+            nullable: false,
+            example: 'Bad Request',
+          },
+          status: {
+            type: 'integer',
+            nullable: false,
+            example: 404,
+          },
+        },
       },
     },
   },

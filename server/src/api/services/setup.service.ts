@@ -38,7 +38,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
   ): Promise<SetupModel> {
     const { id, data } = inputSetup;
     if (!Object.keys(data).length) {
-      triggerServerError('No valid fields to update specified', 400);
+      triggerServerError('You should specify at least one valid field to update', 400);
     }
     const oldSetup = await this.repository.getById(id);
     if (!oldSetup) {

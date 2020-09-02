@@ -3,13 +3,15 @@ export interface BaseFilter {
   from?: number;
 }
 
-export interface CommentFilter extends BaseFilter {
-  commentableType: 'game' | 'setup' | '';
-  commentableId: number;
+export interface CommentFilter {
+  from?: number;
+  count?: number;
+  commentableId?: number;
+  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
 }
 
 export type RateFilter = {
-  ratebleType: 'game' | 'setup' | '';
+  ratebleType: 'game' | 'setup' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
   ratebleId: number;
 };
 
