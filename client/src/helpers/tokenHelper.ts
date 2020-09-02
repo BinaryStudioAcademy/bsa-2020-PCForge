@@ -6,7 +6,6 @@ const keyToken = 'access_token';
 const keyTokenType = 'access_token_type';
 
 export const getToken = (): string | null => {
-  console.log(keyToken, window.localStorage.getItem(keyToken), 'tihs iis token');
   return window.localStorage.getItem(keyToken);
 };
 
