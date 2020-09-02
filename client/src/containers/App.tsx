@@ -18,7 +18,6 @@ import EmailVerificationPage from './EmailVerificationPage';
 import ResetPasswordRequest from './ResetPassword/request';
 import ResetPasswordCallback from './ResetPassword/callback';
 import NewsPage from 'containers/NewsPage';
-const SentryRoute = Sentry.withSentryRouting(Route);
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
