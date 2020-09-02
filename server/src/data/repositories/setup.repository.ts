@@ -14,6 +14,7 @@ import { CommentStatic } from '../models/comment';
 import { RateStatic } from '../models/rate';
 import sequelize, { Op, OrderItem } from 'sequelize';
 import { group } from 'console';
+import { UserStatic } from '../models/user';
 
 export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
   constructor(
@@ -26,7 +27,8 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     private hddModel: HddStatic,
     private ssdModel: SsdStatic,
     private commentModel: CommentStatic,
-    private reteModel: RateStatic
+    private reteModel: RateStatic,
+    private userModel: UserStatic
   ) {
     super(<RichModel>model, IFilter);
   }
@@ -104,6 +106,10 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           },
           attributes: [],
         },
+        {
+          model: this.userModel,
+          as: 'author',
+        },
       ],
       where,
       subQuery: false,
@@ -115,7 +121,6 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     // https://github.com/sequelize/sequelize/issues/9109
     const globalCount = await this.model.count();
     const countAfterFiltering = result.rows.length;
-
     return {
       meta: {
         globalCount,
@@ -127,7 +132,17 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
 
   async getOneSetup(id: string): Promise<SetupModel> {
     const setup = await this.model.findByPk(id, {
-      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id', 'hdd.id', 'ssd.id'],
+      group: [
+        'setup.id',
+        'cpu.id',
+        'gpu.id',
+        'ram.id',
+        'powerSupply.id',
+        'motherboard.id',
+        'hdd.id',
+        'ssd.id',
+        'author.id',
+      ],
       include: [
         {
           model: this.cpuModel,
@@ -157,8 +172,32 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           model: this.ssdModel,
           as: 'ssd',
         },
+        {
+          model: this.userModel,
+          as: 'author',
+        },
       ],
     });
     return setup;
+  }
+
+  async forkSetup(id: string, userId: number): Promise<SetupModel> {
+    const setup = await this.model.findByPk(id);
+    const dataToInsert = {
+      parentId: setup.id,
+      authorId: userId,
+      title: setup.title,
+      description: setup.description,
+      image: setup.image,
+      cpuId: setup.get('cpuId'),
+      gpuId: setup.get('gpuId'),
+      powerSupplyId: setup.get('powerSupplyId'),
+      hddId: setup.get('hddId'),
+      ssdId: setup.get('ssdId'),
+      ramId: setup.get('ramId'),
+      motherboardId: setup.get('motherboardId'),
+    };
+    const forkedSetup = await this.model.create(dataToInsert);
+    return forkedSetup;
   }
 }

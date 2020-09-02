@@ -10,6 +10,7 @@ import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { UserAttributes } from '../../data/models/user';
 import { HddSchema } from './hdd.schema';
 import { SsdSchema } from './ssd.schema';
+import { UserSchema } from './user.schema';
 
 export type GetSetupsRequest = FastifyRequest<{
   Querystring: ISetupFilter;
@@ -30,6 +31,10 @@ export type PutSetupRequest = FastifyRequest<{
 
 export type DeleteSetupRequest = FastifyRequest<{
   Params: { id: string };
+}> & { user: UserAttributes };
+
+export type ForkSetupRequest = FastifyRequest<{
+  Body: { setupId: string };
 }> & { user: UserAttributes };
 
 export const SetupSchema: SwaggerSchema = {
@@ -140,6 +145,7 @@ export const SetupSchema: SwaggerSchema = {
     motherboard: MotherBoardSchema,
     ram: RamSchema,
     powerSupply: PowerSupplySchema,
+    author: UserSchema,
   },
 };
 
@@ -159,6 +165,7 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
     ...SsdSchema,
     nullable: true,
   };
+  schema.properties.author = UserSchema;
   return schema;
 };
 export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
@@ -318,6 +325,18 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+  },
+};
+
+export const ForkSetupSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    setupId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: false,
     },
   },
 };

@@ -3,6 +3,7 @@ import { Gpu } from './gpu';
 import { Ram } from './ram';
 import { Motherboard } from './motherboard';
 import { PowerSupply } from './powerSupply';
+import { TypeUser } from './typeUser';
 
 export type SetupType = {
   id: number;
@@ -16,6 +17,7 @@ export type SetupType = {
   ram: Ram;
   motherboard: Motherboard;
   powerSupply: PowerSupply;
+  author: TypeUser;
   createdAt: Date;
   updatedAt: Date;
 };
