@@ -75,6 +75,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
             response.send({ logged_in: true, user });
           }
         } catch (err) {
+          response.code(400);
           response.send({ logged_in: false, user: {} });
         }
       } else {

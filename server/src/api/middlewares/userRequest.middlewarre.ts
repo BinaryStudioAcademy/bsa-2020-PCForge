@@ -39,17 +39,5 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
         triggerServerError(err, 400);
       }
     }
-
-    if (request.params.id) {
-      const user = await UserService.getUser(request.params.id);
-      if (!user) {
-        triggerServerError(`User with id ${request.params.id} does not exists`, 400);
-      }
-    }
-
-    if (decodedData) {
-      const user = await UserService.getByEmail(decodedData.user.email);
-      request.user = user;
-    }
   };
 };
