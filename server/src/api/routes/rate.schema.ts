@@ -162,7 +162,7 @@ export const CreateRateSchema: SwaggerSchema = {
 
 export const UpdateRateSchema: SwaggerSchema = {
   type: 'object',
-  required: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
+  required: ['ratebleType', 'ratebleId', 'value'],
   additionalProperties: false,
   properties: {
     ratebleType: {
