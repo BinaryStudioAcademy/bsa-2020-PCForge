@@ -29,6 +29,9 @@ export class HddService extends BaseService<HddModel, HddCreationAttributes, Hdd
   }
 
   async updateHddById(inputHdd: { id: string; data: HddCreationAttributes }): Promise<HddModel> {
+    if (!Object.keys(inputHdd.data).length) {
+      triggerServerError('No valid fields to update specified', 400);
+    }
     const { id, data } = inputHdd;
     const oldHdd = await this.repository.getHddById(id);
     if (!oldHdd) {
