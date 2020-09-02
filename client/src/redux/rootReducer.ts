@@ -12,27 +12,25 @@ import { SetupReducer } from 'containers/SetupPage/reducer';
 import { SetupChartReducer } from 'containers/Chart/reducer';
 import { GameFormReducer } from 'containers/AddItemPages/AddGameForm/reducer';
 import { HardwareFormReducer } from 'containers/AddItemPages/AddHardwareForm/reducer';
-import { EmailVerifyReducer } from 'containers/EmailVerificationPage/reducer';
+import AddRequestReducer from 'containers/AddUserRequest/reducer';
 import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
-import NewsReducer from 'containers/NewsPage/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
-  emailVerification: EmailVerifyReducer,
-  gameForm: GameFormReducer,
-  hardwareForm: HardwareFormReducer,
   homePage: HomePageReducer,
+  user: UserReducer,
   matcher: MatcherReducer,
-  notification: NotificationReducer,
-  quickMatcher: QuickMatcherReducer,
-  resetPassword: ResetPasswordReducer,
   setup: builderReducer,
+  quickMatcher: QuickMatcherReducer,
+  notification: NotificationReducer,
+  userRequests: UserRequestsReducer,
   setups: SetupsReducer,
   setupPage: SetupReducer,
   setupChart: SetupChartReducer,
-  user: UserReducer,
-  userRequests: UserRequestsReducer,
-  news: NewsReducer,
+  gameForm: GameFormReducer,
+  hardwareForm: HardwareFormReducer,
+  addRequest: AddRequestReducer,
+  resetPassword: ResetPasswordReducer,
 });
 
 export default RootReducer;

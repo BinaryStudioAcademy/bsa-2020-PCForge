@@ -1,6 +1,5 @@
 import { call, put, takeEvery, all, select } from 'redux-saga/effects';
 import { AnyAction } from 'redux';
-import history from '../../browserHistory';
 import {
   ADD_COMPONENT_TO_SETUP,
   FETCH_COMPONENT_SUCCESS,
@@ -94,7 +93,6 @@ export function* saveSetup(action: AnyAction) {
     const data = action.payload.data;
     data.image = yield call(uploadImage, action.payload.image);
     const savedSetup = yield call(createSetup, data);
-    history.push(`setup/${savedSetup.id}`);
   } catch (error) {
     console.log(error);
   }

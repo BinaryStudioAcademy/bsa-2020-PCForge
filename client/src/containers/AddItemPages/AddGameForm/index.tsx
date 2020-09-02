@@ -33,7 +33,7 @@ const theme = createMuiTheme({
     },
     MuiInputBase: {
       input: {
-        padding: '0',
+        padding: '0', //'0.3rem 1rem 0.5rem',
       },
     },
   },

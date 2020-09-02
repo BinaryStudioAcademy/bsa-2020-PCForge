@@ -76,7 +76,7 @@ export function deleteOneQuery(schema?: SwaggerSchema, isProtected = true): Rout
         },
       },
       response: {
-        ...(!!schema && { 200: schema }),
+        200: schema,
         404: getNotFoundHeader(),
         ...(isProtected && { 403: getForbiddenHeader() }),
       },

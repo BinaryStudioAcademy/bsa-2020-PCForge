@@ -26,6 +26,7 @@ const AddItemPage = (): JSX.Element => {
   let renderForm = false;
 
   const { item } = useParams();
+  console.log(item);
   for (const card in CardsName) {
     if (card.toLowerCase() == item.toLowerCase()) {
       addItemType = card;

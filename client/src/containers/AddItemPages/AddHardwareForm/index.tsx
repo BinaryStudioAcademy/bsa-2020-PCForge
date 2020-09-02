@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { HardwareTypes } from 'common/enums/AdminTools/HardwareTypes';
 import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
@@ -7,7 +7,6 @@ import InputForm from 'components/BasicComponents/InputForm';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import Select from 'components/BasicComponents/Select';
-import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
 import styles from './styles.module.scss';
 
 import { connect } from 'react-redux';
@@ -20,9 +19,7 @@ import { CpuCreationAttributes } from 'common/models/cpu';
 import { GpuCreationAttributes } from 'common/models/gpu';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
-import { SsdCreationAttributes } from 'common/models/ssd';
-import { HardwareTypesValues, memorySizeOptions, classCpuOptions, sataOptions, ramValueOptions } from './interfaces';
-import { HddCreationAttributes } from 'common/models/hdd';
+import { memorySizeOptions, classCpuOptions } from './interfaces';
 
 const theme = createMuiTheme({
   overrides: {
@@ -35,11 +32,19 @@ const theme = createMuiTheme({
     },
     MuiInputBase: {
       input: {
-        padding: '0',
+        padding: '0', //'0.3rem 1rem 0.5rem',
       },
     },
   },
 });
+
+const HardwareTypesValues = [
+  { value: HardwareTypes.PowerSupply, title: HardwareTypes.PowerSupply },
+  { value: HardwareTypes.Motherboard, title: HardwareTypes.Motherboard },
+  { value: HardwareTypes.RAM, title: HardwareTypes.RAM },
+  { value: HardwareTypes.CPU, title: HardwareTypes.CPU },
+  { value: HardwareTypes.GPU, title: HardwareTypes.GPU },
+];
 
 interface IPropsAddHardwareForm {
   state: HardwareFormState;
@@ -52,9 +57,6 @@ interface IPropsAddHardwareForm {
   createMotherboard: (motherboard: MotherboardCreationAttributes) => HardWareFormAction;
   createGPU: (gpu: GpuCreationAttributes) => HardWareFormAction;
   createCPU: (cpu: CpuCreationAttributes) => HardWareFormAction;
-  createSSD: (ssd: SsdCreationAttributes) => HardWareFormAction;
-  createHDD: (hdd: HddCreationAttributes) => HardWareFormAction;
-  updateStateToInit: () => HardWareFormAction;
   goBack: () => void;
 }
 
@@ -70,14 +72,10 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
     createMotherboard,
     createGPU,
     createCPU,
-    createSSD,
-    createHDD,
-    updateStateToInit,
   } = props;
 
   const [alertText, setAlertText] = useState<string | null>(null);
   const [alertType, setAlertType] = useState<AlertType>();
-  //const [validationError, setValidationError] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [typeHardWare, setTypeHardWare] = useState<string | unknown>();
   const [performance, setPerformance] = useState('');
@@ -87,15 +85,9 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const [classCpu, setClassCpu] = useState('');
   const [interfaceGpu, setInterfaceGpu] = useState('');
   const [memorySize, setMemorySize] = useState('');
-  const [sata, setSata] = useState<number>();
-  const [m2, setM2] = useState(true);
   const [coreClocks, setCoreClocks] = useState('');
   const [directX, setDirectX] = useState('');
   const [openGl, setOpenGl] = useState('');
-  const [capacity, setCapacity] = useState('');
-  const [size, setSize] = useState('');
-  const [rpm, setRpm] = useState('');
-  const [ramValue, setRamValue] = useState('');
 
   const [power, setPower] = useState('');
   const [frequency, setFrequency] = useState('');
@@ -110,11 +102,12 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    setAlertText('');
   };
   const handleChangeType = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTypeHardWare(event.target.value as string);
     setAlertText('');
+    console.log(typeHardWare);
+    console.log(event.target.value);
     switch (event.target.value) {
       case HardwareTypes.Motherboard: {
         getAllSelectsInitialValuesMotherboard();
@@ -160,12 +153,6 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const handleChangeCores = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCores(event.target.value);
   };
-  const handleChangeRPM = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRpm(event.target.value);
-  };
-  const handleChangeRamValue = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setRamValue(event.target.value as string);
-  };
 
   const handleChangeClassCpu = (event: React.ChangeEvent<{ value: unknown }>) => {
     setClassCpu(event.target.value as string);
@@ -173,20 +160,9 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const handleChangeMemorySize = (event: React.ChangeEvent<{ value: unknown }>) => {
     setMemorySize(event.target.value as string);
   };
-  const handleChangeSata = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSata(event.target.value as number);
-  };
-  const handleChangeM2 = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setM2(event.target.checked);
-  };
-  const handleChangeCapacity = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCapacity(event.target.value);
-  };
-  const handleChangeSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSize(event.target.value);
-  };
 
   const onCancel = () => {
+    console.log('cancel');
     goBack();
   };
   const onPublish = () => {
@@ -206,7 +182,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.Motherboard: {
-        if (!name || !socket || !ram || !sata) {
+        if (!name || !socket || !ram) {
           setAlertText('Error: Please fill all hardware components');
           setAlertType(AlertType.error);
           return;
@@ -216,8 +192,6 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
           name,
           socketId: socket,
           ramTypeId: ram,
-          sata: +sata,
-          m2,
         };
         createMotherboard(motherBoard);
         break;
@@ -277,41 +251,6 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         createGPU(newGPU);
         break;
       }
-      case HardwareTypes.SSD: {
-        if (!name || !capacity || !size || !sata || !m2) {
-          setAlertText('Error: Please fill all hardware components');
-          setAlertType(AlertType.error);
-          return;
-        }
-        setAlertText('');
-        const ssd: SsdCreationAttributes = {
-          name,
-          capacity: +capacity,
-          size: +size,
-          sata: +sata,
-          m2,
-        };
-        createSSD(ssd);
-        break;
-      }
-      case HardwareTypes.HDD: {
-        if (!name || !capacity || !size || !sata || !rpm || !ramValue) {
-          setAlertText('Error: Please fill all hardware components');
-          setAlertType(AlertType.error);
-          return;
-        }
-        setAlertText('');
-        const hdd: HddCreationAttributes = {
-          name,
-          capacity: +capacity,
-          size: +size,
-          sata: +sata,
-          rpm: +rpm,
-          ram: +ramValue,
-        };
-        createHDD(hdd);
-        break;
-      }
     }
   };
 
@@ -363,8 +302,6 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
       {
         fieldsMap.set(HardwareFields.socket, true);
         fieldsMap.set(HardwareFields.ram, true);
-        fieldsMap.set(HardwareFields.sata, true);
-        fieldsMap.set(HardwareFields.m2, true);
       }
       break;
     case HardwareTypes.GPU:
@@ -388,62 +325,182 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         fieldsMap.set(HardwareFields.classCpu, true);
       }
       break;
-    case HardwareTypes.SSD:
-      {
-        fieldsMap.set(HardwareFields.capacity, true);
-        fieldsMap.set(HardwareFields.size, true);
-        fieldsMap.set(HardwareFields.sata, true);
-        fieldsMap.set(HardwareFields.m2, true);
-      }
-      break;
-    case HardwareTypes.HDD:
-      {
-        fieldsMap.set(HardwareFields.capacity, true);
-        fieldsMap.set(HardwareFields.size, true);
-        fieldsMap.set(HardwareFields.sata, true);
-        fieldsMap.set(HardwareFields.rpm, true);
-        fieldsMap.set(HardwareFields.ramValue, true);
-      }
-      break;
   }
 
-  if (props.state.errorMessage && !alertText) {
-    setAlertText(props.state.errorMessage);
+  if (props.state.error && !alertText) {
+    setAlertText(props.state.error);
     setAlertType(AlertType.error);
   }
   if (props.state.createdHardwareName && !alertText) {
     setAlertText(`Success: Hardware ${props.state.createdHardwareName} was created.`);
     setAlertType(AlertType.success);
   }
+
   return (
-    <div className={styles.contentMain}>
-      <div className={styles.leftContent}>
-        <div className={styles.formFields}>
-          {alertText && <Alert alertType={alertType}>{alertText}</Alert>}
-          <ThemeProvider theme={theme}>
-            <div className={styles.inputItem}>
-              <InputForm
-                name="Name"
-                inputLabel="Name"
-                type="text"
-                placeholder="Input a name of hardware"
-                onChange={handleChangeName}
-                value={name}
-                required
-              />
-            </div>
-            <div className={styles.selectItem}>
-              <Select
-                inputLabel="Hardware's type"
-                placeholder="Select a type of hardware"
-                value={typeHardWare}
-                onChange={handleChangeType}
-                inputOptions={HardwareTypesValues}
-                labelClassName={styles.selectItemHeader}
-                required
-              />
-            </div>
-            {fieldsMap.get(HardwareFields.power) && typeHardWare === HardwareTypes.PowerSupply ? (
+    <ThemeProvider theme={theme}>
+      <div className={styles.formFields}>
+        {alertText ? <Alert alertType={alertType}>{alertText}</Alert> : null}
+        <div className={styles.inputItem}>
+          <InputForm
+            name="Name"
+            inputLabel="Name"
+            type="text"
+            placeholder="Input a name of hardware"
+            onChange={handleChangeName}
+            value={name}
+            required
+          />
+        </div>
+        <div className={styles.selectItem}>
+          <Select
+            inputLabel="Hardware's type"
+            placeholder="Select a type of hardware"
+            value={typeHardWare}
+            onChange={handleChangeType}
+            inputOptions={HardwareTypesValues}
+            labelClassName={styles.selectItemHeader}
+            required
+          />
+        </div>
+        {fieldsMap.get(HardwareFields.power) && typeHardWare === HardwareTypes.PowerSupply ? (
+          <div className={styles.inputItem}>
+            <InputForm
+              name={HardwareFields.power}
+              inputLabel={HardwareFields.power}
+              type="number"
+              placeholder="Input a Power"
+              onChange={handleChangePower}
+              value={power}
+              InputProps={{ inputProps: { min: 1 } }}
+            />
+          </div>
+        ) : null}
+        <div className={styles.additionalFieldsContainer}>
+          <div className={styles.additionalFieldLeft}>
+            {fieldsMap.get(HardwareFields.frequency) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.frequency}
+                  inputLabel={HardwareFields.frequency}
+                  type="number"
+                  placeholder="Input a Frequency"
+                  onChange={handleChangeFrequency}
+                  value={frequency}
+                  InputProps={{ inputProps: { min: 1 } }}
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.perfomance) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.perfomance}
+                  inputLabel={HardwareFields.perfomance}
+                  type="number"
+                  placeholder="Input a Performance"
+                  onChange={handleChangePerformance}
+                  value={performance}
+                  InputProps={{ inputProps: { min: 1 } }}
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.memorySize) && typeHardWare === HardwareTypes.GPU ? (
+              <div className={styles.selectItem}>
+                <Select
+                  inputLabel={HardwareFields.memorySize}
+                  placeholder="Select a Memory Size"
+                  value={memorySize}
+                  onChange={handleChangeMemorySize}
+                  inputOptions={memorySizeOptions}
+                  labelClassName={styles.selectItemHeader}
+                  required
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.tdp) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.tdp}
+                  inputLabel={HardwareFields.tdp}
+                  type="number"
+                  placeholder="Input a TDP"
+                  onChange={handleChangeTdp}
+                  value={tdp}
+                  InputProps={{ inputProps: { min: 1 } }}
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.openGL) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.openGL}
+                  inputLabel={HardwareFields.openGL}
+                  type="text" // number?
+                  placeholder="Input an OpenGL"
+                  onChange={handleChangeOpenGl}
+                  value={openGl}
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.cores) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.cores}
+                  inputLabel={HardwareFields.cores}
+                  type="number"
+                  placeholder="Input a Cores"
+                  onChange={handleChangeCores}
+                  value={cores}
+                  InputProps={{ inputProps: { min: 1 } }}
+                />
+              </div>
+            ) : null}
+            {/* { selectType }
+            { select socket } */}
+            {fieldsMap.get(HardwareFields.typeRam) ? (
+              <div className={styles.selectItem}>
+                <InputBasedSelect
+                  label={HardwareFields.typeRam}
+                  labelClassName={styles.labelBaseSelect}
+                  placeholder="Select a type of RAM"
+                  inputId={HardwareFields.typeRam}
+                  options={props.state.RAMtypeList}
+                  debounceTime={300}
+                  onSelect={(id: number) => setTypeRam(id)}
+                  onInputChange={createUploadMoreItems(
+                    HardwareFields.typeRam,
+                    HardwareFormActionTypes.UPLOAD_MORE_ENTERED_RAMTYPE_VALUES
+                  )}
+                  onSeeMoreClick={createUploadMoreItems(
+                    HardwareFields.typeRam,
+                    HardwareFormActionTypes.UPLOAD_MORE_RAMTYPE_VALUES
+                  )}
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.socket) && typeHardWare === HardwareTypes.Motherboard ? (
+              <div className={styles.selectItem}>
+                <InputBasedSelect
+                  label={HardwareFields.socket}
+                  labelClassName={styles.labelBaseSelect}
+                  placeholder="Select a socket"
+                  inputId={HardwareFields.socket}
+                  options={props.state.socketList}
+                  debounceTime={300}
+                  onSelect={(id: number) => setSocket(id)}
+                  onInputChange={createUploadMoreItems(
+                    HardwareFields.socket,
+                    HardwareFormActionTypes.UPLOAD_MORE_ENTERED_SOCKET_VALUES
+                  )}
+                  onSeeMoreClick={createUploadMoreItems(
+                    HardwareFields.socket,
+                    HardwareFormActionTypes.UPLOAD_MORE_SOCKET_VALUES
+                  )}
+                />
+              </div>
+            ) : null}
+          </div>
+          <div className={styles.additionalFieldRight}>
+            {fieldsMap.get(HardwareFields.power) && typeHardWare !== HardwareTypes.PowerSupply ? (
               <div className={styles.inputItem}>
                 <InputForm
                   name={HardwareFields.power}
@@ -456,354 +513,144 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
                 />
               </div>
             ) : null}
-            <div className={styles.additionalFieldsContainer}>
-              <div className={styles.additionalFieldLeft}>
-                {fieldsMap.get(HardwareFields.frequency) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.frequency}
-                      inputLabel={HardwareFields.frequency}
-                      type="number"
-                      placeholder="Input a Frequency"
-                      onChange={handleChangeFrequency}
-                      value={frequency}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.perfomance) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.perfomance}
-                      inputLabel={HardwareFields.perfomance}
-                      type="number"
-                      placeholder="Input a Performance"
-                      onChange={handleChangePerformance}
-                      value={performance}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.memorySize) && typeHardWare === HardwareTypes.GPU ? (
-                  <div className={styles.selectItem}>
-                    <Select
-                      inputLabel={HardwareFields.memorySize}
-                      placeholder="Select a Memory Size"
-                      value={memorySize}
-                      onChange={handleChangeMemorySize}
-                      inputOptions={memorySizeOptions}
-                      labelClassName={styles.selectItemHeader}
-                      required
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.tdp) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.tdp}
-                      inputLabel={HardwareFields.tdp}
-                      type="number"
-                      placeholder="Input a TDP"
-                      onChange={handleChangeTdp}
-                      value={tdp}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.openGL) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.openGL}
-                      inputLabel={HardwareFields.openGL}
-                      type="text" // number?
-                      placeholder="Input an OpenGL"
-                      onChange={handleChangeOpenGl}
-                      value={openGl}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.cores) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.cores}
-                      inputLabel={HardwareFields.cores}
-                      type="number"
-                      placeholder="Input a Cores"
-                      onChange={handleChangeCores}
-                      value={cores}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  </div>
-                ) : null}
-                {/* { selectType }
-                { select socket } */}
-                {fieldsMap.get(HardwareFields.typeRam) ? (
-                  <div className={styles.selectItem}>
-                    <InputBasedSelect
-                      label={HardwareFields.typeRam}
-                      labelClassName={styles.labelBaseSelect}
-                      placeholder="Select a type of RAM"
-                      inputId={HardwareFields.typeRam}
-                      options={props.state.RAMtypeList}
-                      debounceTime={300}
-                      onSelect={(id: number) => setTypeRam(id)}
-                      onInputChange={createUploadMoreItems(
-                        HardwareFields.typeRam,
-                        HardwareFormActionTypes.UPLOAD_MORE_ENTERED_RAMTYPE_VALUES
-                      )}
-                      onSeeMoreClick={createUploadMoreItems(
-                        HardwareFields.typeRam,
-                        HardwareFormActionTypes.UPLOAD_MORE_RAMTYPE_VALUES
-                      )}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.socket) && typeHardWare === HardwareTypes.Motherboard ? (
-                  <div className={styles.selectItem}>
-                    <InputBasedSelect
-                      label={HardwareFields.socket}
-                      labelClassName={styles.labelBaseSelect}
-                      placeholder="Select a socket"
-                      inputId={HardwareFields.socket}
-                      options={props.state.socketList}
-                      debounceTime={300}
-                      onSelect={(id: number) => setSocket(id)}
-                      onInputChange={createUploadMoreItems(
-                        HardwareFields.socket,
-                        HardwareFormActionTypes.UPLOAD_MORE_ENTERED_SOCKET_VALUES
-                      )}
-                      onSeeMoreClick={createUploadMoreItems(
-                        HardwareFields.socket,
-                        HardwareFormActionTypes.UPLOAD_MORE_SOCKET_VALUES
-                      )}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.capacity) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.capacity}
-                      inputLabel={HardwareFields.capacity}
-                      type="number"
-                      placeholder={`Input a ${HardwareFields.capacity}`}
-                      onChange={handleChangeCapacity}
-                      value={capacity}
-                      InputProps={{ inputProps: { min: 0 } }}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.sata) ? (
-                  <div className={styles.selectItem}>
-                    <Select
-                      inputLabel={HardwareFields.sata}
-                      placeholder="Select a Sata"
-                      value={sata}
-                      onChange={handleChangeSata}
-                      inputOptions={sataOptions}
-                      labelClassName={styles.selectItemHeader}
-                      required
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.ramValue) ? (
-                  <div className={styles.selectItem}>
-                    <Select
-                      inputLabel={HardwareFields.ramValue}
-                      placeholder="Select a Ram"
-                      value={ramValue}
-                      onChange={handleChangeRamValue}
-                      inputOptions={ramValueOptions}
-                      labelClassName={styles.selectItemHeader}
-                      required
-                    />
-                  </div>
-                ) : null}
+            {fieldsMap.get(HardwareFields.interfaceGpu) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.interfaceGpu}
+                  inputLabel={HardwareFields.interfaceGpu}
+                  type="text"
+                  placeholder="Input an Interface"
+                  onChange={handleChangeInterfaceGpu}
+                  value={interfaceGpu}
+                />
               </div>
-              <div className={styles.additionalFieldRight}>
-                {fieldsMap.get(HardwareFields.power) && typeHardWare !== HardwareTypes.PowerSupply ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.power}
-                      inputLabel={HardwareFields.power}
-                      type="number"
-                      placeholder="Input a Power"
-                      onChange={handleChangePower}
-                      value={power}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.interfaceGpu) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.interfaceGpu}
-                      inputLabel={HardwareFields.interfaceGpu}
-                      type="text"
-                      placeholder="Input an Interface"
-                      onChange={handleChangeInterfaceGpu}
-                      value={interfaceGpu}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.coreClocks) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.coreClocks}
-                      inputLabel={HardwareFields.coreClocks}
-                      type="number"
-                      placeholder="Input a Core Clocks"
-                      onChange={handleChangeCoreClocks}
-                      value={coreClocks}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.directX) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.directX}
-                      inputLabel={HardwareFields.directX}
-                      type="text"
-                      placeholder="Input a DirectX"
-                      onChange={handleChangeDirectX}
-                      value={directX}
-                    />
-                  </div>
-                ) : null}
-                {/* { select memorySize for RAM }
-                { select ram}
-                { select socket for CPU } */}
-                {fieldsMap.get(HardwareFields.memorySize) && typeHardWare === HardwareTypes.RAM ? (
-                  <div className={styles.selectItem}>
-                    <Select
-                      inputLabel={HardwareFields.memorySize}
-                      placeholder="Select a Memory Size"
-                      value={memorySize}
-                      onChange={handleChangeMemorySize}
-                      inputOptions={memorySizeOptions}
-                      labelClassName={styles.selectItemHeader}
-                      required
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.ram) ? (
-                  <div className={styles.selectItem}>
-                    <InputBasedSelect
-                      label={HardwareFields.ram}
-                      labelClassName={styles.labelBaseSelect}
-                      placeholder="Select a RAM"
-                      inputId={HardwareFields.ram}
-                      options={props.state.RAMList}
-                      debounceTime={300}
-                      onSelect={(id: number) => setRam(id)}
-                      onInputChange={createUploadMoreItems(
-                        HardwareFields.ram,
-                        HardwareFormActionTypes.UPLOAD_MORE_ENTERED_RAM_VALUES
-                      )}
-                      onSeeMoreClick={createUploadMoreItems(
-                        HardwareFields.ram,
-                        HardwareFormActionTypes.UPLOAD_MORE_RAM_VALUES
-                      )}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.socket) && typeHardWare === HardwareTypes.CPU ? (
-                  <div className={styles.selectItem}>
-                    <InputBasedSelect
-                      label={HardwareFields.socket}
-                      labelClassName={styles.labelBaseSelect}
-                      placeholder="Select a socket"
-                      inputId={HardwareFields.socket}
-                      options={props.state.socketList}
-                      debounceTime={300}
-                      onSelect={(id: number) => setSocket(id)}
-                      onInputChange={createUploadMoreItems(
-                        HardwareFields.socket,
-                        HardwareFormActionTypes.UPLOAD_MORE_ENTERED_SOCKET_VALUES
-                      )}
-                      onSeeMoreClick={createUploadMoreItems(
-                        HardwareFields.socket,
-                        HardwareFormActionTypes.UPLOAD_MORE_SOCKET_VALUES
-                      )}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.clockSpeed) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.clockSpeed}
-                      inputLabel={HardwareFields.clockSpeed}
-                      type="number"
-                      placeholder="Input a Clock Speed"
-                      onChange={handleChangeClockSpeed}
-                      value={clockSpeed}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  </div>
-                ) : null}
-                {/* { select class} */}
-                {fieldsMap.get(HardwareFields.classCpu) ? (
-                  <div className={styles.selectItem}>
-                    <Select
-                      inputLabel={HardwareFields.classCpu}
-                      placeholder="Select a class"
-                      value={classCpu}
-                      onChange={handleChangeClassCpu}
-                      inputOptions={classCpuOptions}
-                      labelClassName={styles.selectItemHeader}
-                      required
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.size) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.size}
-                      inputLabel={HardwareFields.size}
-                      type="number"
-                      placeholder={`Input a ${HardwareFields.size}`}
-                      onChange={handleChangeSize}
-                      value={size}
-                      InputProps={{ inputProps: { min: 0 } }}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.rpm) ? (
-                  <div className={styles.inputItem}>
-                    <InputForm
-                      name={HardwareFields.rpm}
-                      inputLabel={HardwareFields.rpm}
-                      type="number"
-                      placeholder={`Input a ${HardwareFields.rpm}`}
-                      onChange={handleChangeRPM}
-                      value={rpm}
-                      InputProps={{ inputProps: { min: 1 } }}
-                    />
-                  </div>
-                ) : null}
-                {fieldsMap.get(HardwareFields.m2) ? (
-                  <div className={styles.labelContainer}>
-                    <Checkbox checkboxType={CheckboxType.primary} label={'M2'} checked={m2} onChange={handleChangeM2} />
-                  </div>
-                ) : null}
+            ) : null}
+            {fieldsMap.get(HardwareFields.coreClocks) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.coreClocks}
+                  inputLabel={HardwareFields.coreClocks}
+                  type="number"
+                  placeholder="Input a Core Clocks"
+                  onChange={handleChangeCoreClocks}
+                  value={coreClocks}
+                  InputProps={{ inputProps: { min: 1 } }}
+                />
               </div>
-            </div>
-          </ThemeProvider>
-          <div className={styles.buttonContainer}>
-            <div className={styles.buttonWrapper}>
-              <Button buttonType={ButtonType.primary} onClick={onPublish}>
-                Publish
-              </Button>
-            </div>
-            <div className={styles.buttonWrapper}>
-              <Button buttonType={ButtonType.secondary} onClick={onCancel}>
-                Cancel
-              </Button>
-            </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.directX) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.directX}
+                  inputLabel={HardwareFields.directX}
+                  type="text"
+                  placeholder="Input a DirectX"
+                  onChange={handleChangeDirectX}
+                  value={directX}
+                />
+              </div>
+            ) : null}
+            {/* { select memorySize for RAM }
+            { select ram}
+            { select socket for CPU } */}
+            {fieldsMap.get(HardwareFields.memorySize) && typeHardWare === HardwareTypes.RAM ? (
+              <div className={styles.selectItem}>
+                <Select
+                  inputLabel={HardwareFields.memorySize}
+                  placeholder="Select a Memory Size"
+                  value={memorySize}
+                  onChange={handleChangeMemorySize}
+                  inputOptions={memorySizeOptions}
+                  labelClassName={styles.selectItemHeader}
+                  required
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.ram) ? (
+              <div className={styles.selectItem}>
+                <InputBasedSelect
+                  label={HardwareFields.ram}
+                  labelClassName={styles.labelBaseSelect}
+                  placeholder="Select a RAM"
+                  inputId={HardwareFields.ram}
+                  options={props.state.RAMList}
+                  debounceTime={300}
+                  onSelect={(id: number) => setRam(id)}
+                  onInputChange={createUploadMoreItems(
+                    HardwareFields.ram,
+                    HardwareFormActionTypes.UPLOAD_MORE_ENTERED_RAM_VALUES
+                  )}
+                  onSeeMoreClick={createUploadMoreItems(
+                    HardwareFields.ram,
+                    HardwareFormActionTypes.UPLOAD_MORE_RAM_VALUES
+                  )}
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.socket) && typeHardWare === HardwareTypes.CPU ? (
+              <div className={styles.selectItem}>
+                <InputBasedSelect
+                  label={HardwareFields.socket}
+                  labelClassName={styles.labelBaseSelect}
+                  placeholder="Select a socket"
+                  inputId={HardwareFields.socket}
+                  options={props.state.socketList}
+                  debounceTime={300}
+                  onSelect={(id: number) => setSocket(id)}
+                  onInputChange={createUploadMoreItems(
+                    HardwareFields.socket,
+                    HardwareFormActionTypes.UPLOAD_MORE_ENTERED_SOCKET_VALUES
+                  )}
+                  onSeeMoreClick={createUploadMoreItems(
+                    HardwareFields.socket,
+                    HardwareFormActionTypes.UPLOAD_MORE_SOCKET_VALUES
+                  )}
+                />
+              </div>
+            ) : null}
+            {fieldsMap.get(HardwareFields.clockSpeed) ? (
+              <div className={styles.inputItem}>
+                <InputForm
+                  name={HardwareFields.clockSpeed}
+                  inputLabel={HardwareFields.clockSpeed}
+                  type="number"
+                  placeholder="Input a Clock Speed"
+                  onChange={handleChangeClockSpeed}
+                  value={clockSpeed}
+                  InputProps={{ inputProps: { min: 1 } }}
+                />
+              </div>
+            ) : null}
+            {/* { select class} */}
+            {fieldsMap.get(HardwareFields.classCpu) ? (
+              <div className={styles.selectItem}>
+                <Select
+                  inputLabel={HardwareFields.classCpu}
+                  placeholder="Select a class"
+                  value={classCpu}
+                  onChange={handleChangeClassCpu}
+                  inputOptions={classCpuOptions}
+                  labelClassName={styles.selectItemHeader}
+                  required
+                />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
-    </div>
+      <div className={styles.buttonContainer}>
+        <div className={styles.buttonWrapper}>
+          <Button buttonType={ButtonType.primary} onClick={onPublish}>
+            Publish
+          </Button>
+        </div>
+        <div className={styles.buttonWrapper}>
+          <Button buttonType={ButtonType.secondary} onClick={onCancel}>
+            Cancel
+          </Button>
+        </div>
+      </div>
+    </ThemeProvider>
   );
 };
 

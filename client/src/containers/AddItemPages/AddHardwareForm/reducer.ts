@@ -1,11 +1,10 @@
 import { HardWareFormAction, HardwareFormActionTypes, HardwareFormState } from './actionsTypes';
-import { AlertType } from 'components/BasicComponents/Alert';
 
 const initialState: HardwareFormState = {
   socketList: [],
   RAMList: [],
   RAMtypeList: [],
-  errorMessage: '',
+  error: '',
   createdHardwareName: '',
 };
 
@@ -14,14 +13,7 @@ export function HardwareFormReducer(state = initialState, action: HardWareFormAc
     case HardwareFormActionTypes.GET_INITIAL_VALUES_ERROR: {
       return {
         ...state,
-        errorMessage: action.payload.errorMessage,
-      };
-    }
-    case HardwareFormActionTypes.UPDATE_STATE_TO_INIT_SUCCESS: {
-      return {
-        ...state,
-        errorMessage: '',
-        createdHardwareName: '',
+        error: action.payload.error,
       };
     }
     // upload initial values
@@ -81,7 +73,6 @@ export function HardwareFormReducer(state = initialState, action: HardWareFormAc
         RAMList: action.payload.valuesList,
       };
     }
-    // uploade created hardware
     case HardwareFormActionTypes.CREATE_NEW_HARDWARE_SUCCESS: {
       return {
         ...state,

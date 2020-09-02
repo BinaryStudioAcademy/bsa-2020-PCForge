@@ -26,12 +26,8 @@ const BuilderTitle = ({
       <Box className={styles.builderTitleButtons}>
         {showResetFilter && <Button onClick={onResetFilter}>Reset Filters</Button>}
         {showResetSetup && <Button onClick={onResetSetup}>Reset Setup</Button>}
-        {isCanToSave ? (
-          <Button buttonType={ButtonType.primary} onClick={onSaveSetup} disabled={false}>
-            Save Setup
-          </Button>
-        ) : (
-          <Button buttonType={ButtonType.primary} onClick={onSaveSetup} disabled={true}>
+        {isCanToSave && (
+          <Button buttonType={ButtonType.primary} onClick={onSaveSetup}>
             Save Setup
           </Button>
         )}

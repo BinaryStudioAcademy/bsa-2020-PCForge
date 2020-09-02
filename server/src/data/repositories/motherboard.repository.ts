@@ -72,6 +72,7 @@ export class MotherboardRepository extends BaseRepository<
       },
       filter
     );
+    console.log(motherboards, 'this is motherboards');
     return motherboards;
   }
 }

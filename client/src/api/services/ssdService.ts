@@ -1,7 +1,6 @@
 import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeSsd } from 'common/models/typeSsd';
-import { SsdCreationAttributes } from 'common/models/ssd';
 
 export type TypeResponseAllSsds = {
   meta: {
@@ -27,8 +26,4 @@ export const updateSsd = async (request: TypeSsd): Promise<TypeSsd> => {
 
 export const deleteSsd = async (id: number): Promise<void> => {
   return await webApi.delete(`${endpoint}/${id}`);
-};
-
-export const postSsd = async (request: SsdCreationAttributes): Promise<void> => {
-  return await webApi.post(`${endpoint}`, request);
 };

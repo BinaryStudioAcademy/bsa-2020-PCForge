@@ -1,12 +1,14 @@
-$btn-primary: #eb3d55;
+$btn-primary: #EB3D55;
 $btn-secondary: #747577;
 $btn-warning: rgb(230, 201, 41);
 $btn-error: rgb(240, 68, 25);
+
 
 .btn {
   border-radius: 20px !important;
   height: 35px;
   color: white;
+
 
   & > span {
     color: white;
@@ -16,7 +18,7 @@ $btn-error: rgb(240, 68, 25);
     background-color: $btn-primary;
 
     &:hover {
-      background-color: darken($btn-primary, 10%);
+      background-color: darken($btn-primary, 10%)
     }
   }
 
@@ -24,7 +26,7 @@ $btn-error: rgb(240, 68, 25);
     background-color: $btn-secondary;
 
     &:hover {
-      background-color: darken($btn-secondary, 10%);
+      background-color: darken($btn-secondary, 10%)
     }
   }
 
@@ -32,7 +34,7 @@ $btn-error: rgb(240, 68, 25);
     background-color: $btn-warning;
 
     &:hover {
-      background-color: darken($btn-warning, 10%);
+      background-color: darken($btn-warning, 10%)
     }
   }
 
@@ -40,12 +42,7 @@ $btn-error: rgb(240, 68, 25);
     background-color: $btn-error;
 
     &:hover {
-      background-color: darken($btn-error, 10%);
+      background-color: darken($btn-error, 10%)
     }
-  }
-
-  &:disabled {
-    background-color: $btn-secondary;
-    opacity: 0.3;
   }
 }

@@ -11,7 +11,7 @@ import gameFormSagas from 'containers/AddItemPages/AddGameForm/saga';
 import hardwareFormSagas from 'containers/AddItemPages/AddHardwareForm/saga';
 import setupChartSagas from 'containers/Chart/sagas';
 import setupsSagas from 'containers/SetupsPage/sagas';
-import emailVerificationActions from 'containers/EmailVerificationPage/sagas';
+import AddRequestSagas from 'containers/AddUserRequest/sagas';
 import resetPasswordSagas from 'containers/ResetPassword/sagas';
 import newsSagas from 'containers/NewsPage/sagas';
 
@@ -21,16 +21,16 @@ export default function* rootSaga() {
     userSagas(),
     userRequestsSagas(),
     builderSagas(),
-    emailVerificationActions(),
-    hardwareFormSagas(),
-    homePageSagas(),
-    gameFormSagas(),
-    matcherSagas(),
     quickMatcherSagas(),
-    resetPasswordSagas(),
-    setupChartSagas(),
+    homePageSagas(),
+    matcherSagas(),
     setupSagas(),
+    gameFormSagas(),
+    hardwareFormSagas(),
+    setupChartSagas(),
     setupsSagas(),
+    AddRequestSagas(),
+    resetPasswordSagas(),
     newsSagas(),
   ]);
 }

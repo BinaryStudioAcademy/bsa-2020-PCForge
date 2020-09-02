@@ -26,7 +26,7 @@ export class RateRepository extends BaseRepository<RateModel, RateCreationAttrib
     );
   }
 
-  async getRateByUserAndRateble(userId: number, ratebleId: number, ratebleType: string): Promise<RateModel | null> {
+  async getRateByUserAndRateable(userId: number, ratebleId: number, ratebleType: string): Promise<RateModel | null> {
     return this.model.findOne({
       where: {
         ratebleType,

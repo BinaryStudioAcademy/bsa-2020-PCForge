@@ -17,35 +17,35 @@ import { CommentService } from './comment.service';
 import { AddRequestService } from './addRequest.service';
 import { UploadService } from './imageUpload.service';
 import { PerformanceService } from './performance.service';
-import { UserGameService } from './userGame.service';
+import { UserGameService } from './usergame.service';
 import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
 import { AuthService } from './auth.service';
 
 export interface Services {
-  AuthService: AuthService;
-  AddRequestService: AddRequestService;
-  CommentService: CommentService;
-  CpuService: CpuService;
-  HddService: HddService;
-  GameService: GameService;
-  GpuService: GpuService;
-  MailService: MailService;
-  MotherboardService: MotherboardService;
-  NewsService: NewsService;
-  PerformanceService: PerformanceService;
-  PowerSupplyService: PowerSupplyService;
-  RamService: RamService;
   RamTypeService: RamTypeService;
-  RateService: RateService;
-  SetupService: SetupService;
+  RamService: RamService;
+  PowerSupplyService: PowerSupplyService;
   SocketService: SocketService;
-  SsdService: SsdService;
-  TopGameService: TopGameService;
-  UploadImageService: UploadService;
-  UserGameService: UserGameService;
+  MotherboardService: MotherboardService;
+  GpuService: GpuService;
+  CpuService: CpuService;
   UserService: UserService;
+  GameService: GameService;
+  TopGameService: TopGameService;
+  NewsService: NewsService;
+  SetupService: SetupService;
+  RateService: RateService;
+  CommentService: CommentService;
+  AddRequestService: AddRequestService;
+  UploadImageService: UploadService;
+  PerformanceService: PerformanceService;
+  HddService: HddService;
+  SsdService: SsdService;
+  MailService: MailService;
+  AuthService: AuthService;
+  UserGameService: UserGameService;
 }
 
 export default fp(async (fastify, opts, next) => {
@@ -78,28 +78,28 @@ export default fp(async (fastify, opts, next) => {
     const uploadService = new UploadService();
     const authService = new AuthService(mailService, usersService);
     const services: Services = {
-      AuthService: authService,
       AddRequestService: addRequestService,
-      CommentService: commentService,
-      CpuService: cpuService,
-      HddService: hddService,
-      GameService: gameService,
-      GpuService: gpuService,
-      MailService: mailService,
-      MotherboardService: motherboardService,
-      NewsService: newsService,
-      PerformanceService: performanceService,
-      PowerSupplyService: powerSupplyService,
-      RamService: ramService,
       RamTypeService: ramTypeService,
-      RateService: rateService,
-      SetupService: setupService,
+      RamService: ramService,
+      PowerSupplyService: powerSupplyService,
       SocketService: socketService,
-      SsdService: ssdService,
-      TopGameService: topGameService,
-      UploadImageService: uploadService,
-      UserGameService: userGameService,
+      MotherboardService: motherboardService,
+      GpuService: gpuService,
+      CpuService: cpuService,
       UserService: usersService,
+      SetupService: setupService,
+      GameService: gameService,
+      TopGameService: topGameService,
+      NewsService: newsService,
+      RateService: rateService,
+      CommentService: commentService,
+      UploadImageService: uploadService,
+      PerformanceService: performanceService,
+      HddService: hddService,
+      SsdService: ssdService,
+      MailService: mailService,
+      AuthService: authService,
+      UserGameService: userGameService,
     };
     fastify.decorate('services', services);
     console.log('services were successfully initialized');

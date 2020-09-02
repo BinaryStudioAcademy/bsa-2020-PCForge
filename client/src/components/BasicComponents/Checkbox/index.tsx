@@ -38,7 +38,7 @@ const Checkbox: React.FC<CheckboxProps & ICheckboxProps> = (props) => {
   const CustomCheckbox = () => <MCheckbox className={classes.join(' ')} color="default" {...restProps} />;
 
   const LabelBox = label && (
-    <FormControlLabel className={labelClassName} label={label} control={<CustomCheckbox />} /> //label="Keep me signed in"
+    <FormControlLabel className={labelClassName} label="Keep me signed in" control={<CustomCheckbox />} />
   );
   return LabelBox ? LabelBox : <CustomCheckbox />;
 };

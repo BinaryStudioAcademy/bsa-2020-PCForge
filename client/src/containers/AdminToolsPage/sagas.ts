@@ -28,9 +28,9 @@ import { UserRequestedType } from 'common/enums/UserRequestedType';
 function* getAllUsersRequests(action: IUsersRequestAction) {
   try {
     yield put(updateUserRequestsLoadingComponentStatus(false));
-    const { data: usersRequests } = yield call(getAllUsersRequsts, action.payload.filter[0]);
-    const { meta: countGames } = yield call(getAllUsersRequsts, action.payload.filter[1]);
-    const { meta: countHardwares } = yield call(getAllUsersRequsts, action.payload.filter[2]);
+    const { data: usersRequests } = yield call(getAllUsersRequsts, {});
+    const { meta: countGames } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.game });
+    const { meta: countHardwares } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.hardware });
     yield put(loadAllUsersRequests(usersRequests, countGames.countAfterFiltering, countHardwares.countAfterFiltering));
   } catch (error) {
     yield put(loadError(error));
@@ -49,8 +49,7 @@ function* deleteUserRequestSaga(action: IUsersRequestDeleteAction) {
     yield call(deleteUserRequest, action.payload.id);
     const { data: usersRequests } = yield call(getAllUsersRequsts, {});
     const { meta: countGames } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.game });
-    //change in next cpu to hardware after updating user Requests API:
-    const { meta: countHardwares } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.cpu });
+    const { meta: countHardwares } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.hardware });
     yield put(loadAllUsersRequests(usersRequests, countGames.countAfterFiltering, countHardwares.countAfterFiltering));
   } catch (error) {
     yield put(loadError(error));
@@ -100,6 +99,6 @@ function* getAllTotalCount(action: ITotalCountsAction) {
   }
 }
 
-export default function* quickMatcherSagas() {
+export default function* AdminToolsSagas() {
   yield all([watchGetAllUsersRequests(), watchDeleteUserRequest(), watchGetAllTotalCount()]);
 }
