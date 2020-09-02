@@ -1,21 +1,20 @@
-import { call, put, takeEvery, all, takeLatest } from 'redux-saga/effects';
+import { call, put, all, takeLatest } from 'redux-saga/effects';
 import {
   loginRequestAction,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
   AUTH_LOGIN_REQUEST,
-  AUTH_LOADING_STATUS,
   AUTH_REGISTER_REQUEST,
   registerRequestAction,
   AUTH_LOGIN_BY_TOKEN_REQUEST,
   loginByTokenRequestAction,
-} from './actionTypes';
+} from 'containers/Auth/actionTypes';
 import { authService } from 'api/services/auth.service';
 import { User } from 'common/models/user';
-import { IAuthPayload, IRegPayload } from './interfaces';
-import { changeLoadingStatus, registered, validationError } from './actions';
-import { getToken } from '../../helpers/tokenHelper';
-import { TypeLoggedUser } from '../../common/models/typeLoggedUser';
+import { IAuthPayload, IRegPayload } from 'containers/Auth/interfaces';
+import { changeLoadingStatus, registered, validationError } from 'containers/Auth/actions';
+import { clearToken, getToken } from 'helpers/tokenHelper';
+import { TypeLoggedUser } from 'common/models/typeLoggedUser';
 
 function* login(action: loginRequestAction) {
   yield put(changeLoadingStatus(false));
@@ -45,7 +44,7 @@ function* loginByToken(action: loginByTokenRequestAction) {
     const user = loggedUser.user?.id ? loggedUser.user : null;
     yield put({ type: AUTH_LOGIN_SUCCESS, payload: { user } });
   } catch (e) {
-    // message
+    clearToken();
   } finally {
     yield put(changeLoadingStatus(false));
   }
