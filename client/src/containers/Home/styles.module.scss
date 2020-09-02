@@ -23,7 +23,7 @@
 
   @media(max-width: 768px) {
     justify-content: center;
-    grid-template-columns: minmax(300px, 500px);
+    grid-template-columns: minmax(250px, 500px);
     grid-template-rows: 1fr;
     row-gap: 10px;
     grid-template-areas:
@@ -95,7 +95,7 @@ h2 {
     }
 
     @media(max-width: 768px) {
-      grid-template-columns: minmax(300px, 500px);
+      grid-template-columns: minmax(250px, 500px);
       grid-template-rows: 1fr;
       margin: 0 auto;
       gap: 25px;
@@ -153,7 +153,6 @@ h2 {
       margin-bottom: 15px;
       margin-left: 0;
       max-width: 500px;
-      // height: auto;
     }
 
     & div {
@@ -177,19 +176,16 @@ h2 {
     @media (max-width: 1400px) {
       width: 100%;
       object-fit: cover;
-    }
-
-    @media(min-width:768px) and (max-width:1000px) {
-      width: auto;
+      max-height: 175px;
     }
 
     @media (max-width: 1260px) {
-      max-height: 175px;
+      height:175px;
+      max-height: 200px;
     }
 
     @media (max-width: 800px) {
       max-height: 250px;
-      width: auto;
     }
   }
 }

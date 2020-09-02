@@ -3,7 +3,6 @@
 .setupCard {
   height: 335px;
   background-color: $colorBackgroundGray;
-  // margin: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,6 +12,10 @@
   transition: all 0.5s;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
+  @media(max-width:768px) {
+    padding:20px;
+  }
+
   // Top SETUP
   &.bigCard {
     display: block;
@@ -20,6 +23,10 @@
     width: 100%;
     padding: 45px 35px;
     margin: 0;
+
+    @media(max-width:768px) {
+      padding:20px;
+    }
 
     .setupImage {
       height: 259px;
@@ -30,7 +37,9 @@
     }
 
     .setupBack {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      height:44%;
 
       .textHolder {
         max-height: 250px;
@@ -38,6 +47,10 @@
         text-overflow: ellipsis;
       }
 
+      .backBottomWrapper {
+        margin-top: auto;
+      }
+     
       & div {
         margin-bottom: 5px;
       }
