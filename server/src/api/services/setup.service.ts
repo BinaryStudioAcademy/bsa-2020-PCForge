@@ -37,6 +37,9 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     initiator?: UserAttributes
   ): Promise<SetupModel> {
     const { id, data } = inputSetup;
+    if (!Object.keys(data).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     const oldSetup = await this.repository.getById(id);
     if (!oldSetup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
@@ -59,5 +62,9 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     }
     await this.repository.deleteById(id);
     return setup;
+  }
+
+  async forkSetupById(id: string, userId: number): Promise<SetupModel> {
+    return await this.repository.forkSetup(id, userId);
   }
 }

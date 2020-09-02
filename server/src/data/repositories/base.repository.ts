@@ -75,7 +75,9 @@ export abstract class BaseRepository<M extends Model, C extends object, F extend
 
   // eslint-disable-next-line @typescript-eslint/ban-types
   async create(data: C): Promise<M> {
-    const model = this._model.create(data);
+    console.log('base repository', data, 1);
+    const model = await this._model.create(data);
+    console.log('base repository create', model, 2);
     return (model as unknown) as M;
   }
 }

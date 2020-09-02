@@ -8,9 +8,6 @@ import Title from 'components/Title';
 import { RootState } from 'redux/rootReducer';
 import { fetchSetups, fetchTopSetups } from 'containers/SetupsPage/actions';
 import { ConnectedProps, connect } from 'react-redux';
-import { Cpu } from 'common/models/cpu';
-import { Gpu } from 'common/models/gpu';
-import { Ram } from 'common/models/ram';
 
 const SetupPage: React.FC<PropsFromRedux> = ({ setups, fetchSetups, fetchTopSetups }) => {
   useEffect(() => {

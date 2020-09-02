@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import { RootState } from 'redux/rootReducer';
 import styles from 'containers/Auth/styles.module.scss';
@@ -115,7 +115,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-    if (state.user && getTokenSync()) {
+    if (getTokenSync()) {
       return <Redirect to={'/'} />;
     }
 

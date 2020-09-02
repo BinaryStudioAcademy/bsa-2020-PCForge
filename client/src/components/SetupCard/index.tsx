@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';
 import { Cpu } from 'common/models/cpu';
 import { Link } from 'react-router-dom';

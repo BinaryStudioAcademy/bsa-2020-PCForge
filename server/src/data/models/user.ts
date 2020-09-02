@@ -6,7 +6,9 @@ export interface UserAttributes {
   password: string;
   email: string;
   isAdmin: boolean;
+  isActive: boolean;
   avatar: string | null;
+  emailVerified: boolean;
   verifyEmailToken: string | null;
   resetPasswordToken: string | null;
   createdAt: Date;
@@ -18,6 +20,7 @@ export interface UserCreationAttributes {
   password: string;
   email: string;
   isAdmin: boolean;
+  isActive: boolean;
   avatar: string | null;
   emailVerified?: boolean;
   verifyEmailToken: string | null;
@@ -51,6 +54,11 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
       allowNull: false,
       unique: true,
       type: DataTypes.STRING(50),
+    },
+    isActive: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
     },
     isAdmin: {
       allowNull: false,

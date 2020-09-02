@@ -6,6 +6,7 @@ import {
   GET_SETUP_RATE,
   SET_SETUP_RATE,
   SETUP_WIPE_SNACKBAR_DATA,
+  FORK_SETUP,
 } from './actionTypes';
 
 export const getSetup = (payload: { id: number }): SetupActionTypes => ({
@@ -35,4 +36,9 @@ export const setSetupRate = (payload: { id: number; value: number }): SetupActio
 
 export const wipeSnackbarData = (): SetupActionTypes => ({
   type: SETUP_WIPE_SNACKBAR_DATA,
+});
+
+export const forkSetup = (setupId: number): SetupActionTypes => ({
+  type: FORK_SETUP,
+  payload: { setupId },
 });
