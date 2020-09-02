@@ -16,8 +16,6 @@ interface Props extends RouteComponentProps<{ token: string }> {
 class EmailVerificationPage extends React.PureComponent<Props> {
   public componentDidMount() {
     const token: string = this.props.match.params.token;
-    console.log(this.props, 'this is props');
-    console.log(token);
     this.props.verifyEmail({ token });
   }
 

@@ -1,6 +1,6 @@
 import webApi from 'api/webApiHelper';
 import { TypeCpu } from 'common/models/typeCpu';
-import { FilterModel } from 'common/models/filter.model';
+import { FilterModel, CpuFilter } from 'common/models/filter.model';
 import { CpuCreationAttributes } from 'common/models/cpu';
 
 export type TypeResponseAllCpus = {
@@ -13,8 +13,18 @@ export type TypeResponseAllCpus = {
 
 const endpoint = '/cpus';
 
-export const getAllCpu = async (filter: FilterModel): Promise<TypeResponseAllCpus> => {
-  const response = await webApi.get(endpoint, filter);
+export const getAllCpu = async (filter: CpuFilter): Promise<TypeResponseAllCpus> => {
+  const isMultipleSocketFilter: boolean = filter.socketId?.includes(',') || false;
+  const serverFilter: CpuFilter = {
+    count: filter.count,
+    from: filter.from,
+    name: filter.name,
+    clockspeed: filter.clockspeed,
+    ...(isMultipleSocketFilter && { socketIds: filter.socketId }),
+    ...(!isMultipleSocketFilter && { socketid: filter.socketId }),
+  };
+
+  const response = await webApi.get(endpoint, serverFilter);
   return response;
 };
 

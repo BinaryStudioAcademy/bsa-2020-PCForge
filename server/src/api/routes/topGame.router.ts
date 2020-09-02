@@ -21,9 +21,12 @@ import {
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAdmin, allowForAuthorized } from '../middlewares/allowFor.middleware';
+import { TopGameMiddleware } from '../middlewares/topGame.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { TopGameService } = fastify.services;
+
+  const topGameMiddleware = TopGameMiddleware(fastify);
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
@@ -45,7 +48,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const createOneSchema = createOneQuery(CreateTopGameSchema, TopGameSchema);
   fastify.post('/', createOneSchema, async (request: PostTopGameRequest, reply) => {
     allowForAdmin(request);
-    const TopGame = await TopGameService.createTopGame(request.body);
+    const TopGame = await TopGameService.createTopGame(request.body, topGameMiddleware);
     reply.send(TopGame);
   });
 
@@ -53,7 +56,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', updateOneSchema, async (request: PutTopGameRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
-    const newTopGame = await TopGameService.updateTopGameById({ id, data: request.body });
+    const data = { id, data: request.body };
+    const newTopGame = await TopGameService.updateTopGameById(data, topGameMiddleware);
     reply.send(newTopGame);
   });
 

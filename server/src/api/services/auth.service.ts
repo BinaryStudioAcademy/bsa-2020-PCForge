@@ -1,5 +1,5 @@
 import { UserCreationAttributes, UserModel } from '../../data/models/user';
-import { compare, getRandomStringToken } from '../../helpers/crypto.helper';
+import { getRandomStringToken } from '../../helpers/crypto.helper';
 import { removeNonUrlChars, triggerServerError } from '../../helpers/global.helper';
 import { UserFilter } from '../../data/repositories/filters/user.filter';
 
@@ -21,7 +21,6 @@ export class AuthService {
   public async resetPasswordByEmail(email: string): Promise<void | never> {
     const user = await this.userService.getByEmail(email);
     if (!user) triggerServerError(`User with email ${email} was not found`, 400);
-    console.log(user.name);
     const token = removeNonUrlChars(getRandomStringToken());
     await this.userService.setUserById(user.id, { ...user, resetPasswordToken: token });
     await this.mailService.sendResetPassword({ to: email, userId: user.id, token: token });
