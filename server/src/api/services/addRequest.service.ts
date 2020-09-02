@@ -26,9 +26,6 @@ export class AddRequestService extends BaseService<
   async getAllAddRequests(filter: IAddRequestFilter): Promise<IWithMeta<AddRequestModel>> {
     return await this.repository.getAllAddRequests(filter);
   }
-  async getUserRequests(filter: IAddRequestFilter): Promise<IWithMeta<AddRequestModel>> {
-    return await this.repository.getUserRequests(filter);
-  }
 
   async createAddRequest(
     inputAddRequest: AddRequestCreationAttributes,

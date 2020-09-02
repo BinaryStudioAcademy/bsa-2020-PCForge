@@ -32,7 +32,7 @@ import { triggerServerError } from '../../helpers/global.helper';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyDone): void {
-  const { UserService, GameService, UserGameService } = fastify.services;
+  const { UserService, GameService, UserGameService, MailService } = fastify.services;
   const preHandler = userRequestMiddleware(fastify);
 
   const getAllSchema = getMultipleQuery(GetAllUsersSchema);
@@ -56,6 +56,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     if (!user) {
       triggerServerError('User with given email already exist', 403);
     }
+    await MailService.sendEmailVerification(user.verifyEmailToken, user.email);
     reply.send(user);
   });
 

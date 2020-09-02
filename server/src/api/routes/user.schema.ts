@@ -130,7 +130,7 @@ export const CreateUserSchema: SwaggerSchema = {
 
 export const UpdateUserSchema: SwaggerSchema = {
   type: 'object',
-  required: ['oldPassword'],
+  // required: ['oldPassword'],
   properties: {
     name: {
       type: 'string',

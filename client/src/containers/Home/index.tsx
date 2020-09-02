@@ -14,8 +14,8 @@ import styles from './styles.module.scss';
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
 
-const Home = (props: Props): JSX.Element => {
-  const { setups, loadTopSetups: topSetupsLoad, showSpinner } = props;
+const Home: React.FC<Props> = (props): JSX.Element => {
+  const { setups, loadTopSetups: topSetupsLoad, showSpinner, children } = props;
 
   useEffect(() => {
     topSetupsLoad();

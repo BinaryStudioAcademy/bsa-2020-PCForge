@@ -21,6 +21,7 @@ export interface UserCreationAttributes {
   isAdmin: boolean;
   isActive: boolean;
   avatar: string | null;
+  emailVerified?: boolean;
   verifyEmailToken: string | null;
   resetPasswordToken: string | null;
 }
@@ -70,6 +71,11 @@ export function UserFactory(sequelize: Sequelize): UserStatic {
     },
     resetPasswordToken: {
       type: DataTypes.STRING(50),
+    },
+    emailVerified: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     createdAt: {
       type: DataTypes.DATE,

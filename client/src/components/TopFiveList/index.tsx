@@ -12,52 +12,9 @@ interface I_Info_Item {
   date?: string;
 }
 
-interface I_Props {
-  info: Array<I_Info_Item>;
-}
-//Add props types, when will we have props
-// const TopFiveList:React.FC<I_Info_Item> = () => {
-const TopFiveList: React.FC = () => {
-  //Remove const info it when we will have props
-  const info = [
-    {
-      title: 'Ultra fast setup #1',
-      description: 'This is one of tre best setup for hard gaming',
-      image:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBrDy91gTXsOI0FK4Tnh6ZSsKHu-kjRafm1OT-sbx3d5zqgIDHNeI92mgScR_PPIji2E1KUs6G&usqp=CAc',
-      id: '1',
-    },
-    {
-      title: 'Ultra fast setup #2',
-      description: 'This setup can run all games',
-      image: 'https://images-na.ssl-images-amazon.com/images/I/61QZtoddT-L._AC_UL160_SR160,160_.jpg',
-      id: '2',
-    },
-    {
-      title: 'Ultra fast setup #3',
-      description: 'With this setup you can go to space',
-      image:
-        'https://m.media-amazon.com/images/S/aplus-seller-content-images-us-east-1/A13V1IB3VIYZZH/AIAOKQBMTXAP/0e03f4e5-aa77-4364-89b8-a1f15ea83c6b._CR0,0,300,300_PT0_SX300__.jpg',
-      id: '3',
-    },
-    {
-      title: 'Ultra fast setup #4',
-      description: 'This computer is faster than Lamborghini',
-      image:
-        'https://www.newtechno.fr/newtechno/4939-large_default/ordinateur-gamer-msi-aegis-ti3-vr7rf-sli-046eu-4719072519612.jpg',
-      id: '4',
-    },
-    {
-      title: 'Ultra fast setup #5',
-      description: 'Best setup for Bitcoin mining',
-      image:
-        'https://m.media-amazon.com/images/S/aplus-seller-content-images-us-east-1/A13V1IB3VIYZZH/AIAOKQBMTXAP/0e03f4e5-aa77-4364-89b8-a1f15ea83c6b._CR0,0,300,300_PT0_SX300__.jpg',
-      id: '5',
-    },
-  ];
-
+const TopFiveList: React.FC<PropsFromRedux> = ({ setups }) => {
   const createTopFiveListItem = () => {
-    return info.map((item) => {
+    return setups.map((item) => {
       return (
         <div key={item.id} className={classes.itemWrapper}>
           <div className={classes.item}>
@@ -81,4 +38,11 @@ const TopFiveList: React.FC = () => {
   );
 };
 
-export default TopFiveList;
+const mapState = (state: RootState) => ({
+  setups: state.setups.topSetups,
+});
+
+const connector = connect(mapState);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(TopFiveList);

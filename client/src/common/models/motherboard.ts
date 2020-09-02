@@ -9,4 +9,6 @@ export interface MotherboardCreationAttributes {
   name: string;
   socketId: number;
   ramTypeId: number;
+  sata: number;
+  m2: boolean;
 }

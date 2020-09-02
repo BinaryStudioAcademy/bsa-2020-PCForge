@@ -7,6 +7,7 @@ enum Routes {
   SETUP = '/setup/:id',
   SETUPS = '/setups',
   USER = '/user/:id',
+  EMAIL_VERIFICATION = '/verify-email/:token',
   ADMINTOOLS = '/admintools',
   ADDITEM = '/additem',
   ADDHARDWARE = '/addharware',
@@ -14,6 +15,7 @@ enum Routes {
   GAME = '/game/:id',
   RESET_PASSWORD_REQUEST = '/reset-password',
   RESET_PASSWORD = '/reset-password/:userId/:token',
+  NEWS = '/news',
 }
 
 export { Routes };

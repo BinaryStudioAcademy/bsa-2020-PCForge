@@ -24,7 +24,7 @@ module.exports = {
       },
       requestBody: {
         allowNull: false,
-        type: Sequelize.DataTypes.TEXT,
+        type: Sequelize.DataTypes.TEXT
       },
       createdAt: {
         allowNull: false,

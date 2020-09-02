@@ -12,7 +12,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.addHook('preHandler', preHandler);
 
   fastify.post('/image', { preHandler: singleUpload, ...UploadImageSchema }, (request: UploadRequest, response) => {
-    allowForAuthorized(request);
     singleUpload(request, response, (error) => {
       if (error) {
         response.send({ error: error });
