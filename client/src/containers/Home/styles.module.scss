@@ -1,19 +1,15 @@
 .homeContentContainer {
   display: grid;
-  width:100%;
+  width: 100%;
   margin-bottom: 30px;
   column-gap: 1%;
   row-gap: 1%;
   grid-template-columns: 33% 41% 21%;
-  grid-template-columns: minmax(400px,1.5fr) minmax(450px,2fr) minmax(200px,1fr);
+  grid-template-columns: minmax(400px, 1.5fr) minmax(450px, 2fr) minmax(200px, 1fr);
   grid-template-rows: 60px 1fr;
   grid-template-areas:
     "title             title        gridNewsDisplay"
     "gridTopCard gridOrdinaryCards gridNewsDisplay";
-
-  @media(min-width: 1200px) and (max-width: 1400px) {
-    padding-left: 5rem;
-  }
 
   @media(max-width: 1400px) {
     grid-template-columns: 49% 49%;
@@ -25,7 +21,7 @@
       "gridOrdinaryCards gridOrdinaryCards";
   }
 
-  @media(max-width: 800px) {
+  @media(max-width: 768px) {
     justify-content: center;
     grid-template-columns: minmax(300px, 500px);
     grid-template-rows: 1fr;
@@ -43,10 +39,11 @@ h2 {
   margin-bottom: 0;
   font-size: 28px;
 
-  @media(max-width: 800px) {
+  @media(max-width: 768px) {
     margin: 0;
     display: block;
-    text-align: center;
+    font-size: 24px;
+
   }
 }
 
@@ -61,7 +58,7 @@ h2 {
     margin-right: 5px;
   }
 
-  @media(max-width: 800px) {
+  @media(max-width: 768px) {
     justify-self: center;
     margin-left: 0;
     margin-right: 0;
@@ -97,7 +94,7 @@ h2 {
       gap: 25px;
     }
 
-    @media(max-width: 800px) {
+    @media(max-width: 768px) {
       grid-template-columns: minmax(300px, 500px);
       grid-template-rows: 1fr;
       margin: 0 auto;
@@ -105,7 +102,7 @@ h2 {
     }
   }
 
-  @media(max-width: 800px) {
+  @media(max-width:768px) {
     margin: 0 auto;
   }
 }
@@ -121,7 +118,7 @@ h2 {
   &>div>div {
     justify-content: flex-start;
 
-    @media (max-width: 800px) {
+    @media (max-width: 768px) {
       justify-content: center;
     }
   }
@@ -152,7 +149,7 @@ h2 {
       margin-right: 0;
     }
 
-    @media (max-width:800px) {
+    @media (max-width:768px) {
       margin-bottom: 15px;
       margin-left: 0;
       max-width: 500px;
@@ -182,9 +179,8 @@ h2 {
       object-fit: cover;
     }
 
-    @media(min-width:800px) and (max-width:1000px) {
+    @media(min-width:768px) and (max-width:1000px) {
       width: auto;
-      // background-color: #fff;
     }
 
     @media (max-width: 1260px) {
