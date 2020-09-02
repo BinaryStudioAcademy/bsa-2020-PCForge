@@ -72,7 +72,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
   if (big) {
     setupStyle += ` ${styles.bigCard}`;
   } else {
-    setupStyle += ` ${styles.withHover}`
+    setupStyle += ` ${styles.withHover}`;
   }
 
   return (
