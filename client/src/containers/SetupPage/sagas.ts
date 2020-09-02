@@ -29,7 +29,6 @@ import { PCSetup } from 'common/models/setup';
 import { getAllComments, createComment } from 'api/services/comment.service';
 import { Comment, CommentCreationAttributes } from 'common/models/comment';
 import { CommentFilter } from 'common/models/filter.model';
-import { getToken } from 'helpers/tokenHelper';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
 import * as notification from 'common/services/notificationService';
@@ -73,7 +72,6 @@ function* watchGetSetupComments() {
 
 function* createSetupComment(action: ICreateSetupComment) {
   try {
-    const token: string = yield call(getToken);
     const commentData: CommentCreationAttributes = {
       commentableType: 'setup',
       commentableId: action.payload.id,
@@ -145,7 +143,6 @@ function* forkSetup(action: IForkSetup) {
     const forkedSetup = yield call(forkUserSetup, action.payload.setupId);
     notification.success(`You have forked '${forkedSetup.title}'. Check it out on your profile page.`);
   } catch (e) {
-    console.log(e);
     notification.error(e.message || 'Could not fork the setup');
   }
 }

@@ -21,7 +21,7 @@ export abstract class BaseService<M extends Model, C extends object, R extends B
 
   public async updateById(id: string, data: C): Promise<M | never> {
     if (!Object.keys(data).length) {
-      triggerServerError('No valid fields to update specified', 400);
+      triggerServerError('You should specify at least one valid field to update', 400);
     }
     const oldModel = await this._repository.getById(id);
     if (!oldModel) {

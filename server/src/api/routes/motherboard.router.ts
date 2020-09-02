@@ -7,10 +7,10 @@ import {
   GetAllMotherboardsRequest,
   GetOneMotherboardRequest,
   GetAllMotherBoardResponse,
-  MotherBoardSchema,
   CreateMotherBoardSchema,
   UpdateMotherBoardSchema,
   DetailedMotherBoardSchema,
+  MotherBoardSchema,
 } from './motherboard.schema';
 import {
   getMultipleQuery,
@@ -22,6 +22,7 @@ import {
 import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { renameQuery } from '../middlewares/rename.middleware';
 import { MotherboardMiddleware } from '../middlewares/motherboard.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -34,6 +35,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllMotherBoardResponse, IMotherboardFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllMotherboardsRequest, reply) => {
     allowForAuthorized(request);
+    renameQuery(request, ['socketIds', 'socketId'], ['ramTypeIds', 'ramTypeId']);
     const motherboards = await MotherboardService.getAllMotherboards(request.query);
     reply.send(motherboards);
   });

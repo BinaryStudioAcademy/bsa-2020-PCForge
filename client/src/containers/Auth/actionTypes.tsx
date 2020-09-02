@@ -14,6 +14,7 @@ export const AUTH_LOADING_STATUS = 'AUTH_LOADING_STATUS';
 export const AUTH_SWITCH_AUTH_PAGE = 'AUTH_SWITCH_AUTH_PAGE';
 export const AUTH_REGISTRATION_SUCCESS = 'AUTH_REGISTRATION_SUCCESS';
 export const AUTH_REGISTRATION_ERROR = 'AUTH_REGISTRATION_ERROR';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 interface changeEmailAction {
   type: typeof AUTH_CHANGE_EMAIL;
@@ -113,6 +114,10 @@ export interface registrationError {
   };
 }
 
+export interface logoutAction {
+  type: typeof AUTH_LOGOUT;
+}
+
 export type AuthActionTypes =
   | changeEmailAction
   | changePasswordAction
@@ -127,4 +132,5 @@ export type AuthActionTypes =
   | switchAuthPage
   | registrationSuccess
   | registrationError
-  | loginByTokenRequestAction;
+  | loginByTokenRequestAction
+  | logoutAction;

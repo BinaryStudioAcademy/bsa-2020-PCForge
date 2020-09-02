@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Card, CardContent } from '@material-ui/core';
 import { fetchNewsAction } from './actions';
-import Button, { ButtonType } from '../../components/BasicComponents/Button';
-import styles from './styles.module.scss';
+import Button, { ButtonType } from 'components/BasicComponents/Button';
+import styles from 'containers/NewsPage/styles.module.scss';
 
 type PropsType = {
   role?: 'page' | 'aside';
@@ -28,21 +28,21 @@ const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
       createdAt: new Date(),
     },
     {
-      id: 1,
+      id: 2,
       title: 'Lorem ipsum dolor sit amet.',
       content: '',
       image: 'https://i.pinimg.com/originals/a9/4f/13/a94f13979429b759ba85ef6ce5e7f620.jpg',
       createdAt: new Date(),
     },
     {
-      id: 1,
+      id: 3,
       title: 'Lorem ipsum dolor sit amet.',
       content: '',
       image: 'https://i.pinimg.com/originals/a9/4f/13/a94f13979429b759ba85ef6ce5e7f620.jpg',
       createdAt: new Date(),
     },
     {
-      id: 1,
+      id: 4,
       title: 'Lorem ipsum dolor sit amet.',
       content: '',
       image: 'https://i.pinimg.com/originals/a9/4f/13/a94f13979429b759ba85ef6ce5e7f620.jpg',

@@ -3,7 +3,7 @@ enum MenuItems {
   BuildSetup,
   Setup,
   GameMatcher,
-  Hardware,
+  Hardwares,
   AdminTools,
   LogOut,
   User,

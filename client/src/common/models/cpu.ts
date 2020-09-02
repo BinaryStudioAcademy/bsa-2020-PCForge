@@ -1,3 +1,5 @@
+import { TypeSocket } from './typeSocket';
+
 export interface Cpu {
   id: number;
   name: string;
@@ -5,6 +7,7 @@ export interface Cpu {
   clockspeed: number;
   tdp: number;
   cores: number;
+  socket?: TypeSocket;
   class: string;
   createdAt: Date;
   updatedAt: Date;

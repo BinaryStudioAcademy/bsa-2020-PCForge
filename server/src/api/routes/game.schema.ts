@@ -161,13 +161,13 @@ export const CreateGameSchema: SwaggerSchema = {
       type: 'integer',
       nullable: false,
       example: 4,
-      minimum: 0,
+      minimum: 1,
     },
     recommendedRamSize: {
       type: 'integer',
       nullable: false,
       example: 8,
-      minimum: 0,
+      minimum: 1,
     },
     minimalCpuId: {
       type: 'integer',
@@ -228,13 +228,13 @@ export const updateGameSchema: SwaggerSchema = {
       type: 'integer',
       nullable: true,
       example: 4,
-      minimum: 0,
+      minimum: 1,
     },
     recommendedRamSize: {
       type: 'integer',
       nullable: true,
       example: 8,
-      minimum: 0,
+      minimum: 1,
     },
     minimalCpuId: {
       type: 'integer',

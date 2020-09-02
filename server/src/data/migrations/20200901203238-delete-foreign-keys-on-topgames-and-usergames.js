@@ -21,16 +21,14 @@ module.exports = {
 
     userGamesFks &&
       userGamesFks.forEach((fk) => {
-        const dropFKSQL = queryInterface.QueryGenerator.dropForeignKeyQuery('userGames', fk.constraint_name);
-        return queryInterface.sequelize.query(dropFKSQL);
+        queryInterface.removeConstraint('userGames', fk.constraint_name);
       });
 
     const topGamesFks = await getForeignKeyNames('topGames', 'gameId', 1, { queryInterface });
 
     topGamesFks &&
       topGamesFks.forEach((fk) => {
-        const dropFKSQL = queryInterface.QueryGenerator.dropForeignKeyQuery('topGames', fk.constraint_name);
-        return queryInterface.sequelize.query(dropFKSQL);
+        queryInterface.removeConstraint('topGames', fk.constraint_name);
       });
   },
 

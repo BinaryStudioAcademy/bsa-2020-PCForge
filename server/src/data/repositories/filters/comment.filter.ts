@@ -16,23 +16,12 @@ export class ICommentFilter extends IFilter {
       commentableType: {
         type: 'string',
         minLength: 1,
-        enum: ['news', 'game', 'setup'],
+        enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
         nullable: true,
       },
       commentableId: {
-        oneOf: [
-          {
-            type: 'integer',
-            minimum: 1,
-          },
-          {
-            type: 'array',
-            items: {
-              type: 'integer',
-              minimum: 1,
-            },
-          },
-        ],
+        type: 'integer',
+        minimum: 1,
         nullable: true,
       },
     },

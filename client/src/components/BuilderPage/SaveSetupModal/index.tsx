@@ -1,8 +1,8 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Modal from 'components/BasicComponents/Modal';
 import Input from 'components/BasicComponents/Input';
 import { InputLabel } from '@material-ui/core';
-import styles from './styles.module.scss';
+import styles from 'components/BuilderPage/styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { getLocalSetupObjectForSave } from 'helpers/setupHelper';
 import { TypeSetupForPost } from 'containers/BuilderPage/reducer';
@@ -43,14 +43,12 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
   };
 
   const getBodyForSaveSetup = () => {
-    const setupForSave = {
+    return {
       ...computerComponents!,
       title,
       description,
       token: localStorage.getItem('access_token')!,
     };
-    console.log('sendRequest -> setupForSave', setupForSave);
-    return setupForSave;
   };
 
   const handleFileUpload = (e: FormEvent<HTMLFormElement>) => {
@@ -71,7 +69,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
               accept={acceptedTypes.toString()}
               className={styles.fileInputField}
               onChange={onChangeImage}
-            ></input>
+            />
             <label htmlFor="uploadFile" className={styles.fileInputLabel}>
               Select Image
             </label>
