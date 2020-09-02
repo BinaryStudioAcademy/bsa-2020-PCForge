@@ -24,7 +24,7 @@ export const userRequestMiddleware = (fastify: FastifyInstance) => {
         decodedData = decoded;
       }
     });
-    if (decodedData) {
+    if (decodedData?.user) {
       const user = await UserService.getByEmail(decodedData.user.email);
       request.user = user as UserAttributes;
     }
