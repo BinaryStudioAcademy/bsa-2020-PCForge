@@ -5,3 +5,7 @@ export type TypeUser = {
   avatar?: string;
   password?: string;
 };
+
+export type TypeUserUpdate = TypeUser & {
+  currentPassword?: string;
+};

@@ -1,7 +1,8 @@
-import { TypeUser } from 'common/models/typeUser';
+import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
 import { deleteUserGame } from 'api/services/userService';
 import { SetupType } from 'common/models/typeSetup';
+import { UserPageTabs } from 'containers/UserPage/index';
 
 export const LOAD_USER = 'LOAD_USER';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
@@ -15,8 +16,10 @@ export const LOAD_FILTERED_GAMES = 'LOAD_FILTERED_GAMES';
 export const LOAD_FILTERED_GAMES_SUCCESS = 'LOAD_FILTERED_GAMES_SUCCESS';
 export const ADD_USER_GAME = 'ADD_USER_GAME';
 export const DELETE_USER_GAME = 'DELETE_USER_GAME';
+export const DELETE_USER_SETUP = 'DELETE_USER_SETUP';
 export const LOAD_SETUPS = 'LOAD_SETUPS';
 export const LOAD_SETUPS_SUCCESS = 'LOAD_SETUPS_SUCCES';
+export const SET_TAB = 'SET_TAB';
 
 export interface loadUser {
   type: typeof LOAD_USER;
@@ -44,7 +47,7 @@ export interface loadSetupsSuccess {
 export interface updateUser {
   type: typeof UPDATE_USER;
   payload: {
-    data: TypeUser;
+    data: TypeUserUpdate;
     avatarData?: Blob;
   };
 }
@@ -92,6 +95,16 @@ export interface deleteUserGame {
   payload: { id: number; gameId: number };
 }
 
+export interface deleteUserSetup {
+  type: typeof DELETE_USER_SETUP;
+  payload: { userId: number; setupId: number };
+}
+
+export interface setTab {
+  type: typeof SET_TAB;
+  payload: { tab: UserPageTabs };
+}
+
 export type UserActionTypes =
   | hideSpinner
   | showSpinner
@@ -105,5 +118,7 @@ export type UserActionTypes =
   | loadFilteredGamesSuceess
   | addUserGame
   | deleteUserGame
+  | deleteUserSetup
   | loadSetups
+  | setTab
   | loadSetupsSuccess;
