@@ -56,44 +56,6 @@ const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultS
   );
 };
 
-const listHeader: Array<IListNavigatinBar> = [
-  {
-    name: 'Home',
-    icon: <SvgIcon component={HomeIcon} viewBox="0 0 31 31" />,
-    link: Routes.DEFAULT,
-  },
-  {
-    name: 'Build Setup',
-    icon: <SvgIcon component={BuildSetupIcon} />,
-    link: Routes.BUILDER,
-  },
-  {
-    name: 'Setup',
-    icon: <SvgIcon component={SetupIcon} viewBox="0 0 31 31" />,
-    link: Routes.SETUPS,
-  },
-  {
-    name: 'Game Matcher',
-    icon: <SvgIcon component={GameMatcherIcon} />,
-    link: Routes.MATCHER,
-  },
-  {
-    name: 'Hardware',
-    icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
-    link: '#',
-  },
-  {
-    name: 'Admin Tools',
-    icon: <BuildOutlinedIcon style={{ color: 'white' }} />,
-    link: Routes.ADMINTOOLS,
-  },
-  {
-    name: 'Log out',
-    icon: <SvgIcon component={LogOutIcon} viewBox="0 0 31 31" />,
-    link: '#',
-  },
-];
-
 interface selectedMenuProps {
   selectedMenuItemNumber?: number;
   isAdmin?: boolean;
@@ -135,9 +97,9 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
       link: Routes.MATCHER,
     },
     {
-      name: 'Hardware',
+      name: 'Hardwares',
       icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
-      link: '#',
+      link: Routes.HARDWARES,
     },
   ];
 

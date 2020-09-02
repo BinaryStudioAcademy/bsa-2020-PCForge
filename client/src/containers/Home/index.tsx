@@ -33,7 +33,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
       return <Spinner load />;
     } else {
       return (
-        <>
+        <div>
           <Title />
           {children}
           {!!setups?.length && (
@@ -54,7 +54,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
               </div>
             </>
           )}
-        </>
+        </div>
       );
     }
   };

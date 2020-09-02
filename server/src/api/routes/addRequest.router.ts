@@ -21,7 +21,7 @@ import {
 import { IAddRequestFilter } from '../../data/repositories/filters/addRequest.filter';
 import { AddRequestMiddleware } from '../middlewares/addRequest.middleware';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
-import { allowForAuthorized } from '../middlewares/allowFor.middleware';
+import { allowForAuthorized, allowForVerified } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { AddRequestService } = fastify.services;
@@ -51,7 +51,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const createOneSchema = createOneQuery(CreateAddRequestSchema, AddRequestSchema);
   fastify.post('/', createOneSchema, async (request: PostAddRequestRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
     request.body.userId = request.user.id;
     const comment = await AddRequestService.createAddRequest(request.body, addRequestMiddleware);
     reply.send(comment);
@@ -59,7 +59,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const deleteOneSchema = updateOneQuery(UpdateAddRequestSchema, AddRequestSchema);
   fastify.put('/:id', deleteOneSchema, async (request: PutAddRequestRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
     const { id } = request.params;
     request.body.userId = request.user.id;
     const newComment = await AddRequestService.updateAddRequestById({ id, data: request.body }, addRequestMiddleware);
@@ -68,7 +68,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const deleteCommentSchema = deleteOneQuery(AddRequestSchema);
   fastify.delete('/:id', deleteCommentSchema, async (request: DeleteAddRequestRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
     const { id } = request.params;
     const addRequest = await AddRequestService.deleteAddRequestById(id);
     reply.send(addRequest);

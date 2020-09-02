@@ -5,7 +5,7 @@ import PageComponent from 'containers/PageComponent';
 import { CardMedia, Container, Grid, Table, TableBody, TableCell, TableRow } from '@material-ui/core';
 import Divider from 'components/BasicComponents/Divider';
 import styles from 'containers/GamePage/styles.module.scss';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 import Comments from 'components/Comments';
 import { Comment } from 'common/models/comment';
 

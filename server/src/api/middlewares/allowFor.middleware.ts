@@ -10,6 +10,12 @@ export function allowForAdmin(request: CustomRequest): void {
   }
 }
 
+export function allowForVerified(request: CustomRequest): void {
+  if (!request.user?.emailVerified) {
+    triggerServerError('Access allowed only for users verified by email', 403);
+  }
+}
+
 export function allowForAuthorized(request: CustomRequest): void {
   if (!request.user) {
     triggerServerError('Access allowed only for authorized users', 403);

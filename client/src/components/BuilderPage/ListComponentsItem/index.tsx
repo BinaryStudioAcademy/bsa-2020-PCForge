@@ -2,7 +2,7 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonAdd from 'components/BuilderPage/ButtonAdd';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 import styles from './styles.module.scss';
 import defaultImg from 'assets/images/defaultImgComponent.png';
 
