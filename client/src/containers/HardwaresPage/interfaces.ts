@@ -9,5 +9,6 @@ export interface IHardwaresProps {
 
 export interface IHardwaresState {
   hardwares: Record<string, ReactText>[];
+  totalItems: number;
   errorMessage: string | null;
 }

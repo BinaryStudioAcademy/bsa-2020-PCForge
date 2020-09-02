@@ -6,7 +6,8 @@ import { ReactText } from 'react';
 
 export interface IHardwareProps {
   state: IHardwareState;
-  getHardware: (payload: { id: number; type: hardwareTypes }) => HardwareActionTypes;
+  hardware: Record<string, ReactText> | null;
+  type: hardwareTypes;
   getHardwareComments: (payload: {
     id: number;
     count: number;
@@ -20,11 +21,6 @@ export interface IHardwareProps {
 }
 
 export interface IHardwareState {
-  hardware: Record<string, ReactText> | null;
-  hardwareMeta: {
-    id: string;
-    type: hardwareTypes;
-  } | null;
   comments: Comment[] | null;
   commentsCountTotal: number;
   commentsPerPage: number;

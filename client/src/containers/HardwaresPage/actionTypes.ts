@@ -18,6 +18,7 @@ export interface IGetHardwaresSuccess {
   type: typeof HARDWARES_GET_HARDWARES_SUCESS;
   payload: {
     hardwares: Record<string, ReactText>[];
+    totalItemsCount: number;
   };
 }
 

@@ -44,6 +44,9 @@ const StyledRating = withStyles({
 const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name, iconColor, onValueSet }) => {
   const [value, setValue] = React.useState<number>(ratingValue);
   const [hover, setHover] = React.useState<number>(-1);
+  // if (value !== ratingValue) {
+  //   setValue(ratingValue)
+  // }
 
   const onRatingSet = (value: number) => {
     if (onValueSet) {

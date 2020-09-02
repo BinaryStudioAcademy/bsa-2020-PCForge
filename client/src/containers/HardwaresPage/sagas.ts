@@ -40,9 +40,11 @@ function* getHardwares(action: IGetHardwares) {
         break;
       case 'powersupply':
         response = yield call(getAllPowersupplies, query);
+        console.log('powerSupplies', response);
         break;
       case 'motherboard':
         response = yield call(getAllMotherboard, query);
+        console.log('motherboards', response);
         break;
       case 'ssd':
         response = yield call(getAllSsd, query);
@@ -51,7 +53,11 @@ function* getHardwares(action: IGetHardwares) {
         throw new Error();
     }
     console.log(response);
-    yield put({ type: HARDWARES_GET_HARDWARES_SUCESS, payload: { hardwares: response?.data || [] } });
+    const payload = {
+      hardwares: response?.data || [],
+      totalItemsCount: response?.meta.countAfterFiltering || 0,
+    };
+    yield put({ type: HARDWARES_GET_HARDWARES_SUCESS, payload });
   } catch (e) {
     yield put({ type: HARDWARES_GET_HARDWARES_FAILURE, payload: { message: 'Failed to load hardwares' } });
   }

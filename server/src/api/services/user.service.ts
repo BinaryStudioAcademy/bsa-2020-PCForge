@@ -58,6 +58,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
         verifyEmailToken: inputUser.emailVerified ? null : genRandomString(33),
         resetPasswordToken: null,
       };
+      console.log(userAttributes);
       return await super.create(userAttributes);
     }
   }

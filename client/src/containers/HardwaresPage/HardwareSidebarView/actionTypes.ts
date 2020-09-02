@@ -2,10 +2,6 @@ import { ReactText } from 'react';
 import { TypeResponseAllComments } from 'api/services/comment.service';
 import { Rate } from 'common/models/rate.model';
 
-export const GET_HARDWARE = 'HARDWARE_PAGE_GET_HARDWARE';
-export const GET_HARDWARE_SUCCESS = 'HARDWARE_PAGE_GET_HRDWARE_SUCCESS';
-export const GET_HARDWARE_FAILURE = 'HARDWARE_PAGE_GET_HARDWARE_FAILURE';
-
 export const GET_HARDWARE_COMMENTS = 'HARDWARE_PAGE_GET_HARDWARE_COMMENTS';
 export const GET_HARDWARE_COMMENTS_SUCCESS = 'HARDWARE_PAGE_GET_HARDWARE_COMMENTS_SUCCESS';
 export const GET_HARDWARE_COMMENTS_FAILURE = 'HARDWARE_PAGE_GET_HARDWARE_COMMENTS_FAILURE';
@@ -25,26 +21,6 @@ export const SET_HARDWARE_RATE_FAILURE = 'HARDWARE_PAGESET_HARDWARE_RATE_FAILURE
 export const HARDWARE_WIPE_SNACKBAR_DATA = 'HARDWARE_PAGEHARDWARE_WIPE_SNACKBAR_DATA';
 
 export type hardwareTypes = 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
-
-export interface IGetHardware {
-  type: typeof GET_HARDWARE;
-  payload: {
-    type: hardwareTypes;
-    id: number;
-  };
-}
-
-export interface IGetHardwareSuccess {
-  type: typeof GET_HARDWARE_SUCCESS;
-  payload: Record<string, ReactText>;
-}
-
-export interface IGetHardwareFailure {
-  type: typeof GET_HARDWARE_FAILURE;
-  payload: {
-    message: string;
-  };
-}
 
 export interface IGetComments {
   type: typeof GET_HARDWARE_COMMENTS;
@@ -136,9 +112,6 @@ export interface IHardwareWipeSnackbarData {
 }
 
 export type HardwareActionTypes =
-  | IGetHardware
-  | IGetHardwareSuccess
-  | IGetHardwareFailure
   | IGetComments
   | IGetCommentsSuccess
   | IGetCommentsFailure

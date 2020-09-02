@@ -30,6 +30,7 @@
   min-width: 400px;
   max-width: 600px;
   border-radius: 10px;
+  max-height: 100%;
 }
 
 .hardwareBar {
@@ -68,6 +69,18 @@
   align-items: center;
   border-radius: 10px;
   padding: 10px;
+  transition: all 0.4s;
+}
+
+.hardwareContainer:hover {
+  background: $colorGray;
+}
+
+.paginatorContainer {
+  width: 100%;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .hardwareHeader {

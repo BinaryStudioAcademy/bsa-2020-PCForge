@@ -1,8 +1,5 @@
 import { all, put, takeEvery, call } from 'redux-saga/effects';
 import {
-  IGetHardware,
-  GET_HARDWARE_FAILURE,
-  GET_HARDWARE,
   GET_HARDWARE_COMMENTS_FAILURE,
   IGetComments,
   GET_HARDWARE_COMMENTS_SUCCESS,
@@ -17,7 +14,6 @@ import {
   SET_HARDWARE_RATE_SUCCESS,
   SET_HARDWARE_RATE_FAILURE,
   SET_HARDWARE_RATE,
-  GET_HARDWARE_SUCCESS,
   CREATE_HARDWARE_COMMENT_SUCCESS,
 } from './actionTypes';
 import { getGpu } from 'api/services/gpuService';
@@ -30,45 +26,6 @@ import { getAllComments, createComment } from 'api/services/comment.service';
 import { CommentCreationAttributes } from 'common/models/comment';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
-
-function* getHardware(action: IGetHardware) {
-  const id = action.payload.id;
-  let data: Record<string, string> = null!;
-  try {
-    switch (action.payload.type) {
-      case 'cpu': {
-        data = yield call(getCpu, id);
-        break;
-      }
-      case 'gpu': {
-        data = yield call(getGpu, id);
-        break;
-      }
-      case 'ram': {
-        data = yield call(getRam, id);
-        console.log('saga data', data);
-        break;
-      }
-      case 'motherboard': {
-        data = yield call(getMotherboard, id);
-        break;
-      }
-      case 'powersupply': {
-        data = yield call(getPowersupplies, id);
-        break;
-      }
-      default:
-        throw new Error('Not found');
-    }
-    yield put({ type: GET_HARDWARE_SUCCESS, payload: data });
-  } catch (e) {
-    yield put({ type: GET_HARDWARE_FAILURE });
-  }
-}
-
-export function* watchGetHardware() {
-  yield takeEvery(GET_HARDWARE, getHardware);
-}
 
 function* getHardwareComments(action: IGetComments) {
   try {
@@ -130,6 +87,7 @@ function* getHardwareRate(action: IGetHardwareRate) {
       ratebleId: action.payload.id,
       ratebleType: action.payload.type,
     });
+    console.log(response, 'rate');
     yield put({ type: GET_HARDWARE_RATE_SUCCESS, payload: response });
   } catch (e) {
     yield put({
@@ -169,11 +127,5 @@ function* watchAddHardwareRate() {
 }
 
 export default function* hardwareSagas() {
-  yield all([
-    watchGetHardware(),
-    watchGetHardwareComments(),
-    watchCreateHardwareComment(),
-    watchGetHardwareRate(),
-    watchAddHardwareRate(),
-  ]);
+  yield all([watchGetHardwareComments(), watchCreateHardwareComment(), watchGetHardwareRate(), watchAddHardwareRate()]);
 }

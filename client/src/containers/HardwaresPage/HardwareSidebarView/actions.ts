@@ -1,6 +1,5 @@
 import {
   HardwareActionTypes,
-  GET_HARDWARE,
   GET_HARDWARE_COMMENTS,
   CREATE_HARDWARE_COMMENT,
   GET_HARDWARE_RATE,
@@ -8,11 +7,6 @@ import {
   HARDWARE_WIPE_SNACKBAR_DATA,
   hardwareTypes,
 } from './actionTypes';
-
-export const getHardware = (payload: { id: number; type: hardwareTypes }): HardwareActionTypes => ({
-  type: GET_HARDWARE,
-  payload,
-});
 
 export const getHardwareComments = (payload: {
   id: number;

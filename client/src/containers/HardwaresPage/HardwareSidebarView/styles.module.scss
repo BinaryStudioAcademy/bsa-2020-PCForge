@@ -1,7 +1,6 @@
 @import '../../../styles/variables.scss';
 
 .hardwareRoot {
-  margin: 3rem 0;
   display: flex;
   width: 100%;
 }
@@ -10,14 +9,14 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  background-color: $colorBlack;
-  padding: 2rem;
+  padding: 0.5rem;
 }
 
 .ratingBoxWrapper {
+  margin-top: 0.5rem;
   display: flex;
-  width: 100;
-  justify-content: flex-end;
+  width: 100%;
+  // justify-content: center;
 }
 
 .asideItems {
@@ -25,5 +24,9 @@
 }
 
 .commentsWrapper {
-  margin-top: 3rem;
+  margin-top: 0.5rem;
+}
+
+.addCommentButton.addCommentButton.addCommentButton.addCommentButton.addCommentButton {
+  width: 100%;
 }

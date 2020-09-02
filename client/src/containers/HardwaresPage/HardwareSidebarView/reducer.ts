@@ -1,7 +1,5 @@
 import { IHardwareState } from 'containers/HardwaresPage/HardwareSidebarView/interfaces';
 import {
-  GET_HARDWARE_SUCCESS,
-  GET_HARDWARE_FAILURE,
   HardwareActionTypes,
   GET_HARDWARE_COMMENTS_SUCCESS,
   GET_HARDWARE_RATE_SUCCESS,
@@ -14,9 +12,7 @@ import {
 import { AlertType } from 'components/BasicComponents/Alert';
 
 const initialState: IHardwareState = {
-  hardware: null,
   comments: [],
-  hardwareMeta: null,
   rate: 0,
   commentsPerPage: 20,
   commentsCountTotal: 0,
@@ -25,23 +21,14 @@ const initialState: IHardwareState = {
 
 export function HardwareReducer(state: IHardwareState = initialState, action: HardwareActionTypes): IHardwareState {
   switch (action.type) {
-    case GET_HARDWARE_SUCCESS:
-      return {
-        ...state,
-        hardware: action.payload,
-      };
     case GET_HARDWARE_COMMENTS_SUCCESS:
       return {
         ...state,
         comments: action.payload.data,
         commentsCountTotal: action.payload.meta.countAfterFiltering,
       };
-    case GET_HARDWARE_FAILURE:
-      return {
-        ...state,
-        hasErrorDuringHardwareFetch: true,
-      };
     case GET_HARDWARE_RATE_SUCCESS: {
+      console.log('redicer', action.payload);
       return {
         ...state,
         rate: action.payload.average,

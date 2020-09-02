@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactText } from 'react';
 import PageComponent from 'containers/PageComponent';
 import styles from './styles.module.scss';
 import { FormControl, InputLabel, Select, MenuItem, GridListTile, GridList } from '@material-ui/core';
@@ -8,20 +8,26 @@ import { RootState } from 'redux/rootReducer';
 import { hardwareTypes } from './HardwareSidebarView/actionTypes';
 import { IHardwaresProps } from './interfaces';
 import { connect } from 'react-redux';
+import Paginator from 'components/Paginator';
+import { MenuItems } from 'common/enums';
 
 interface State {
-  selectedHardware: hardwareTypes;
-  page: number;
+  hardware: Record<string, ReactText> | null;
+  type: hardwareTypes;
+  from: number;
   count: number;
+  itemsPerPage: number;
 }
 
-class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
+class HardwaresPage extends React.Component<IHardwaresProps, State> {
   constructor(props: IHardwaresProps) {
     super(props);
     this.state = {
-      selectedHardware: 'cpu',
-      page: 1,
+      hardware: null,
+      type: 'cpu',
+      from: 1,
       count: 20,
+      itemsPerPage: 21,
     };
 
     this.onSelect = this.onSelect.bind(this);
@@ -31,32 +37,44 @@ class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
   public hardwareTypes = [
     { title: 'Pcocessor', value: 'cpu' },
     { title: 'Graphics', value: 'gpu' },
-    { title: 'Motherboard', value: 'motheboard' },
-    { title: 'Power Supply', value: 'powerSupply' },
+    { title: 'Motherboard', value: 'motherboard' },
+    { title: 'Power Supply', value: 'powersupply' },
     { title: 'HDD', value: 'hdd' },
     { title: 'SSD', value: 'ssd' },
   ];
 
   public onSelect(e: React.ChangeEvent<{ name?: string; value: unknown }>): void {
     this.setState({
-      selectedHardware: e.target.value as hardwareTypes,
+      type: e.target.value as hardwareTypes,
+      hardware: null,
     });
+    const meta = {
+      count: this.state.count,
+      from: this.state.from,
+      type: e.target.value as hardwareTypes,
+    };
+    this.getHardwares(meta);
   }
 
-  public getHardwares(meta: { count: number; from: number }): void {
-    const { count, from } = meta;
-    const type: hardwareTypes = this.state.selectedHardware;
+  public getHardwares(meta: { count: number; from: number; type?: hardwareTypes }): void {
+    this.setState({ count: meta.count, from: meta.from });
+    const { count, from, type = this.state.type } = meta;
     this.props.getHardwares({ type, from, count });
   }
 
+  public onHardwareChoose(hardware: Record<string, ReactText>) {
+    this.setState({ hardware });
+    console.log(hardware);
+  }
+
   public componentDidMount(): void {
-    this.getHardwares({ count: 20, from: 0 });
+    this.getHardwares({ count: 21, from: 0 });
   }
 
   public render(): JSX.Element {
     const { hardwares } = this.props.state;
     return (
-      <PageComponent>
+      <PageComponent selectedMenuItemNumber={MenuItems.Hardwares}>
         <div className={styles.hardwaresRoot}>
           <FormControl variant="outlined">
             <InputLabel id="hardware-label" className={styles.selectLabel}>
@@ -65,7 +83,7 @@ class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
             <Select
               className={styles.hardwareSelect}
               labelId="hardware-label"
-              value={this.state.selectedHardware}
+              value={this.state.type}
               onChange={this.onSelect}
               label="Age"
             >
@@ -80,29 +98,30 @@ class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
             <div className={styles.mainContent}>
               <GridList className={styles.hardwaresList} cellHeight={80} cols={3}>
                 {hardwares.map((hardware) => (
-                  <GridListTile className={styles.hardwareItem} key={hardware.id}>
+                  <GridListTile
+                    className={styles.hardwareItem}
+                    key={hardware.id}
+                    onClick={() => this.onHardwareChoose(hardware)}
+                  >
                     <div className={styles.hardwareContainer}>
                       <h2 className={styles.listHardwareHeader}>{hardware.name}</h2>
                     </div>
                   </GridListTile>
                 ))}
-                {/* <GridListTile className={styles.hardwareItem}>
-                  <div className={styles.hardwareContainer}>
-                    <h2 className={styles.listHardwareHeader}>Tile</h2>
-                  </div>
-                </GridListTile>
-                <GridListTile className={styles.hardwareItem}>
-                  <div className={styles.hardwareContainer}>
-                    <h2 className={styles.listHardwareHeader}>Tile</h2>
-                  </div>
-                </GridListTile> */}
               </GridList>
+              <div className={styles.paginatorContainer}>
+                <Paginator
+                  setPagination={this.getHardwares}
+                  countComponents={this.props.state.totalItems}
+                  countComponentsOnPage={this.state.itemsPerPage}
+                />
+              </div>
             </div>
             <div className={styles.asideContent}>
               <div className={styles.hardwareBar}>
                 <h2 className={styles.hardwareHeader}>Selected hardware</h2>
                 <div className={styles.divider} />
-                <HardwareSidebarView></HardwareSidebarView>
+                <HardwareSidebarView hardware={this.state.hardware} type={this.state.type} />
               </div>
             </div>
           </div>
