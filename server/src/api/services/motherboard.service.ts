@@ -4,6 +4,7 @@ import { MotherboardRepository } from '../../data/repositories/motherboard.repos
 import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { IMotherboardMiddleware } from '../middlewares/motherboard.middleware';
 
 export class MotherboardService extends BaseService<
   MotherboardModel,
@@ -27,18 +28,24 @@ export class MotherboardService extends BaseService<
     return motherboards;
   }
 
-  async createMotherboard(inputMotherboard: MotherboardCreationAttributes): Promise<MotherboardModel> {
+  async createMotherboard(
+    inputMotherboard: MotherboardCreationAttributes,
+    motherboardMiddleware: IMotherboardMiddleware
+  ): Promise<MotherboardModel> {
+    await motherboardMiddleware(inputMotherboard);
     const motherboard = await super.create(inputMotherboard);
     return motherboard;
   }
 
-  async updateMotherboardById({
-    id,
-    data,
-  }: {
-    id: string;
-    data: MotherboardCreationAttributes;
-  }): Promise<MotherboardModel> {
+  async updateMotherboardById(
+    inputMotherboard: { id: string; data: MotherboardCreationAttributes },
+    motherboardMiddleware: IMotherboardMiddleware
+  ): Promise<MotherboardModel> {
+    const { id, data } = inputMotherboard;
+    if (!Object.keys(data).length) {
+      triggerServerError('No valid fields to update specified', 400);
+    }
+    await motherboardMiddleware(data);
     const motherboard = await super.updateById(id, data);
     return motherboard;
   }

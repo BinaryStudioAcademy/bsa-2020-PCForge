@@ -4,6 +4,7 @@ import { IFilter } from '../../data/repositories/filters/base.filter';
 import { TopGameRepository } from '../../data/repositories/topGame.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { ITopGamesMiddleware } from '../middlewares/topGame.middleware';
 
 export class TopGameService extends BaseService<TopGameModel, TopGameCreationAttributes, TopGameRepository> {
   constructor(private repository: TopGameRepository) {
@@ -18,17 +19,31 @@ export class TopGameService extends BaseService<TopGameModel, TopGameCreationAtt
     return topGame;
   }
 
+  async getTopGameByGameId(id: string): Promise<TopGameModel> {
+    const topGame = await this.repository.getTopGameByGameId(id);
+    return topGame;
+  }
+
   async getAllTopGames(filter: IFilter): Promise<IWithMeta<TopGameModel>> {
     const topGames = await this.repository.getAllTopGames(filter);
     return topGames;
   }
 
-  async createTopGame(inputTopGame: TopGameCreationAttributes): Promise<TopGameModel> {
+  async createTopGame(
+    inputTopGame: TopGameCreationAttributes,
+    topGameMiddleware: ITopGamesMiddleware
+  ): Promise<TopGameModel> {
+    await topGameMiddleware(inputTopGame);
     const topGame = await super.create(inputTopGame);
     return topGame;
   }
 
-  async updateTopGameById({ id, data }: { id: string; data: TopGameCreationAttributes }): Promise<TopGameModel> {
+  async updateTopGameById(
+    inputTopGame: { id: string; data: TopGameCreationAttributes },
+    topGameMiddleware: ITopGamesMiddleware
+  ): Promise<TopGameModel> {
+    const { id, data } = inputTopGame;
+    await topGameMiddleware(data);
     const topGame = await super.updateById(id, data);
     return topGame;
   }

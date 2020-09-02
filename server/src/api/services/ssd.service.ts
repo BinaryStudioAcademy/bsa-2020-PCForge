@@ -30,6 +30,9 @@ export class SsdService extends BaseService<SsdModel, SsdCreationAttributes, Ssd
 
   async updateSsdById(inputSsd: { id: string; data: SsdCreationAttributes }): Promise<SsdModel> {
     const { id, data } = inputSsd;
+    if (!Object.keys(data).length) {
+      triggerServerError('No valid fields to update specified', 400);
+    }
     const oldSsd = await this.repository.getSsdById(id);
     if (!oldSsd) {
       triggerServerError(`Ssd with id: ${id} does not exists`, 404);
