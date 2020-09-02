@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { Container, Grid } from '@material-ui/core';
 import { RootState } from 'redux/rootReducer';
 import styles from 'containers/Auth/styles.module.scss';
@@ -10,7 +9,6 @@ import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
 import UserSchema from 'common/validation/user';
-import { getTokenSync } from 'helpers/tokenHelper';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
@@ -115,9 +113,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-    if (state.user && getTokenSync()) {
-      return <Redirect to={'/'} />;
-    }
 
     return (
       <React.Fragment>
