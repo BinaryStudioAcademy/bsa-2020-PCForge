@@ -30,7 +30,7 @@ export class AuthService {
     const apiRoute = `/auth/google-auth`;
     const response = await api.post(apiRoute, data);
     setToken(response.token);
-    return response;
+    return response.user;
   }
 
   async resetPasswordRequest(email: string): Promise<void> {
