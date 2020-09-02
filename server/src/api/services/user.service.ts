@@ -63,6 +63,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
         password: this.hash(inputUser.password),
         verifyEmailToken: genRandomString(33),
         resetPasswordToken: null,
+        isActive: true,
       };
       return await super.create(userAttributes);
     }
