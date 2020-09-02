@@ -33,6 +33,7 @@ const UserPage = (props: Props) => {
     showSpinner,
     loadUser,
     currentUser,
+    userLoadFailed,
     updateUser: userUpdate,
     userGames,
     addUserGame: userGameAdd,
@@ -77,9 +78,13 @@ const UserPage = (props: Props) => {
         />
       );
     } else {
-      return <Redirect to="/404" />;
+      return <Spinner load />;
     }
   };
+
+  if (userLoadFailed) {
+    return <Redirect to="/404" />;
+  }
 
   return <PageComponent>{renderContent()}</PageComponent>;
 };
@@ -92,6 +97,7 @@ const mapState = (state: RootState) => ({
   userGames: state.user.userGames,
   filteredGames: state.user.filteredGames,
   openTab: state.user.openTab,
+  userLoadFailed: state.user.userLoadFailed,
 });
 
 const mapDispatch = {

@@ -6,6 +6,7 @@ import { UserPageTabs } from 'containers/UserPage/index';
 
 export const LOAD_USER = 'LOAD_USER';
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
 export const UPDATE_USER = 'UPDATE_USER';
 export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 export const SHOW_SPINNER = 'SHOW_SPINNER';
@@ -30,6 +31,10 @@ export interface loadUser {
 export interface loadUserSuccess {
   type: typeof LOAD_USER_SUCCESS;
   payload: TypeUser;
+}
+
+export interface loasUserFailure {
+  type: typeof LOAD_USER_FAILURE;
 }
 
 export interface loadSetups {
@@ -110,6 +115,7 @@ export type UserActionTypes =
   | showSpinner
   | loadUser
   | loadUserSuccess
+  | loasUserFailure
   | updateUser
   | updateUserSuccess
   | loadUserGames

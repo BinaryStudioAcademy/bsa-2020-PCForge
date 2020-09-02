@@ -12,6 +12,7 @@ interface Props {
 
 const UserProfile: React.FC<Props> = (props) => {
   const { state } = props;
+  console.log(state.user, 'this is user');
   const userId = state.user?.id?.toString() || '';
   const userAvatar =
     state.user?.avatar ||
