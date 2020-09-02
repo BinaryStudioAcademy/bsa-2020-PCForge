@@ -47,7 +47,7 @@ const UserPage = (props: Props) => {
   } = props;
   const gamesArray = userGames.map((game) => game.game);
 
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const currentUserId = currentUser?.id.toString();
 
   useEffect(() => {
