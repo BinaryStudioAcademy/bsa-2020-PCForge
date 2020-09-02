@@ -21,9 +21,12 @@ import {
 import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { GameMiddleware } from '../middlewares/game.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { GameService } = fastify.services;
+
+  const gameMiddleware = GameMiddleware(fastify);
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
@@ -45,7 +48,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const createOneSchema = createOneQuery(CreateGameSchema, GameSchema);
   fastify.post('/', createOneSchema, async (request: PostGameRequest, reply) => {
     allowForAdmin(request);
-    const game = await GameService.createGame(request.body);
+    const game = await GameService.createGame(request.body, gameMiddleware);
     reply.send(game);
   });
 
@@ -53,7 +56,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', updateOneSchema, async (request: PutGameRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
-    const newGame = await GameService.updateGameById({ id, data: request.body });
+    const data = { id, data: request.body };
+    const newGame = await GameService.updateGameById(data, gameMiddleware);
     reply.send(newGame);
   });
 
