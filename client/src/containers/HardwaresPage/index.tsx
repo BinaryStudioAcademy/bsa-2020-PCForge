@@ -64,7 +64,6 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
 
   public onHardwareChoose(hardware: Record<string, ReactText>) {
     this.setState({ hardware });
-    console.log(hardware);
   }
 
   public componentDidMount(): void {

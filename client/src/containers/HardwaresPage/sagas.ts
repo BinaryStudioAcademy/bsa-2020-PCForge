@@ -40,11 +40,9 @@ function* getHardwares(action: IGetHardwares) {
         break;
       case 'powersupply':
         response = yield call(getAllPowersupplies, query);
-        console.log('powerSupplies', response);
         break;
       case 'motherboard':
         response = yield call(getAllMotherboard, query);
-        console.log('motherboards', response);
         break;
       case 'ssd':
         response = yield call(getAllSsd, query);
