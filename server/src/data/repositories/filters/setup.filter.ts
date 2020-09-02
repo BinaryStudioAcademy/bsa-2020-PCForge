@@ -14,6 +14,7 @@ export class ISetupFilter extends IFilter {
     properties: {
       authorId: {
         type: 'string',
+        nullable: true,
       },
       sort: {
         type: 'string',

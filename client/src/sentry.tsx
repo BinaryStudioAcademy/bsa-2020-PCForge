@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 
 const SentryInstance = {
-  run() {
+  run(): void {
     if (sentryDns) {
       // there is no way to make sentry use typescript source maps on client
       // https://github.com/getsentry/sentry-javascript/issues/1835

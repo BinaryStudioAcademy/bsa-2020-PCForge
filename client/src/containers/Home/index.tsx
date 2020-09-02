@@ -21,39 +21,40 @@ const Home: React.FC<Props> = (props): JSX.Element => {
     topSetupsLoad();
   }, []);
 
-const showButton = setups.length <= 4;
+  const showButton = setups.length <= 4;
 
   const topSetup = [setups[0]];
   const ordinarySetups = setups.filter((setup, index) => {
     return index !== 0;
   });
 
-  
-
-
-
   const renderContent = () => {
     if (showSpinner) {
       return <Spinner load />;
     } else {
       return (
-       <>
+        <div>
           <Title />
           {children}
           {!!setups?.length && (
             <>
-            <div className={styles.homeContentContainer}>
-            <h2>Most Popular Setups</h2>
-              <div className={styles.gridTopCard}> <CardDisplay setups={topSetup} big /></div>
-              <div className={styles.gridOrdinaryCards}> <CardDisplay setups={ordinarySetups} showButton={showButton}/></div>
-              <div className={styles.gridNewsDisplay}>
-                <PewsPage role="aside" countNews={2} />
+              <div className={styles.homeContentContainer}>
+                <h2>Most Popular Setups</h2>
+                <div className={styles.gridTopCard}>
+                  {' '}
+                  <CardDisplay setups={topSetup} big />
+                </div>
+                <div className={styles.gridOrdinaryCards}>
+                  {' '}
+                  <CardDisplay setups={ordinarySetups} showButton={showButton} />
+                </div>
+                <div className={styles.gridNewsDisplay}>
+                  <PewsPage role="aside" countNews={2} />
+                </div>
               </div>
-            </div>
             </>
-            
           )}
-      </>
+        </div>
       );
     }
   };
@@ -74,5 +75,4 @@ const connector = connect(mapState, mapDispatch);
 
 export default connector(Home);
 
-
-// className={styles.cardsDisplay} 
+// className={styles.cardsDisplay}

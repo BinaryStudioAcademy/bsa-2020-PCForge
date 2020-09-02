@@ -12,12 +12,18 @@ import {
   ResetPasswordRequest,
   VerifyEmailRequest,
   verifyEmailRequest,
+  OneMoreVerificationRequest,
+  verifyEmailMessageSchema,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
 import { triggerServerError } from '../../helpers/global.helper';
+import { userInfo } from 'os';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
+import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { MailService, UserService, AuthService } = fastify.services;
+  const { UserService, AuthService } = fastify.services;
+  const preHandler = userRequestMiddleware(fastify);
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -29,7 +35,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     try {
       //return user
       const user = await UserService.getUserByLoginOrEmail(email, password);
-      console.log('functionrouter -> user', user);
       const token = fastify.jwt.sign({ user }, { expiresIn: 86400 });
       response.send({ token, user });
     } catch (error) {
@@ -62,6 +67,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
               email: userData.email,
               password: '',
               avatar: userData.picture,
+              emailVerified: true,
             });
             if (!user) {
               triggerServerError('User with given email exists', 403);
@@ -69,6 +75,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
             response.send({ logged_in: true, user });
           }
         } catch (err) {
+          response.code(400);
           response.send({ logged_in: false, user: {} });
         }
       } else {
@@ -77,6 +84,19 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
       }
     });
   });
+
+  fastify.get(
+    '/verify-email-message',
+    { ...verifyEmailMessageSchema, preHandler },
+    async (request: OneMoreVerificationRequest, reply) => {
+      allowForAuthorized(request);
+      if (request.user.emailVerified) {
+        triggerServerError('Bad request', 400);
+      }
+      const status = await AuthService.sendEmailConfirmation(request.user.id.toString());
+      reply.send({ ok: true });
+    }
+  );
 
   fastify.get('/verify-email/:token', verifyEmailRequest, async (request: VerifyEmailRequest, reply) => {
     const { token } = request.params;

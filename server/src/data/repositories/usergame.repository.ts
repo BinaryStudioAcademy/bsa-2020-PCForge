@@ -10,7 +10,7 @@ import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { mergeFilters } from './filters/helper';
 
-export class UserGameRepository extends BaseRepository<UserGameModel, IFilter> {
+export class UserGameRepository extends BaseRepository<UserGameModel, UserGameCreationAttributes, IFilter> {
   constructor(private model: UserGameStatic, private gameModel: GameStatic) {
     super(<RichModel>model, IFilter);
   }

@@ -7,6 +7,7 @@ import { RootState } from 'redux/rootReducer';
 import * as Sentry from '@sentry/react';
 
 type PropsType = {
+  // eslint-disable-next-line
   component: any; //what type?
   exact?: boolean;
   path: Routes | string;

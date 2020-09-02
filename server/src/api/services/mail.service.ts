@@ -1,5 +1,7 @@
 import Mail from 'nodemailer/lib/mailer';
-import { triggerServerError } from '../../helpers/global.helper';
+import mustache from 'mustache';
+import path from 'path';
+import { triggerServerError, readStringFile } from '../../helpers/global.helper';
 
 export interface SendMessageStatus {
   messageId: string;
@@ -7,6 +9,11 @@ export interface SendMessageStatus {
     to: string;
   };
 }
+
+const loginLink: string = process.env.APP_CLIENT_URL + '/login';
+const templatesPath = path.resolve(__dirname, '../', 'templates');
+const emailVerificationTemplate = readStringFile(templatesPath + '/verify-email.template.mustache');
+const resetPasswordTemplate = readStringFile(templatesPath + '/password-reset.template.mustache');
 
 export class MailService {
   constructor(private nodemailer: Mail) {}
@@ -22,12 +29,13 @@ export class MailService {
 
   public async sendEmailVerification(verificationToken: string, to: string): Promise<SendMessageStatus> {
     const verificationLink: string = process.env.APP_CLIENT_URL + '/verify-email/' + verificationToken;
+    const rendered = mustache.render(emailVerificationTemplate, { link: verificationLink, loginLink, email: to });
     try {
       const status = await this.sendMail({
         from: 'PC Forge',
         to,
         subject: 'Email verification',
-        html: `Thanks for signing up. Please, verify your email by clicking on this <a href="${verificationLink}">link</a>.`,
+        html: rendered,
       });
       return status;
     } catch (e) {
@@ -44,14 +52,17 @@ export class MailService {
     userId: number;
     token: string;
   }): Promise<SendMessageStatus | never> {
+    const renderData = {
+      loginLink,
+      link: `${process.env.APP_CLIENT_URL || 'http://localhost:3000'}/reset-password/${userId}/${token}`,
+    };
+    const rendered = mustache.render(resetPasswordTemplate, renderData);
     try {
       const status = await this.sendMail({
         from: 'PC forge',
         to,
         subject: 'Password reset',
-        text: `Here is your reset password link: ${
-          process.env.APP_CLIENT_URL || 'http://localhost:3000'
-        }/reset-password/${userId}/${token}`,
+        html: rendered,
       });
       return status;
     } catch (err) {
