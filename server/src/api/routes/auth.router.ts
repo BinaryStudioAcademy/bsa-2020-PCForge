@@ -68,6 +68,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.post('/logged_in', IsAuthenticatedSchema, async function (request: IsUserAuthenticated, response) {
     const body = request.body;
     const token = body.token;
+    console.log(body);
     fastify.jwt.verify(token, async (err, decoded) => {
       if (err) {
         response.send({ logged_in: false, user: {} });

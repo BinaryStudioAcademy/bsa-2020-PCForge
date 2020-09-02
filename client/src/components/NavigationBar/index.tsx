@@ -105,14 +105,6 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     history.push(Routes.LOGIN);
   };
 
-  const { signOut } = useGoogleLogout({
-    clientId: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!,
-    onLogoutSuccess: clearTokenAndRedirect,
-    onFailure: () => {
-      Notification.error('Could not log out from Google, try again later');
-    },
-  });
-
   const listHeader: Array<IListNavigatinBar> = [
     {
       name: 'Home',
@@ -154,13 +146,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     icon: <SvgIcon component={LogOutIcon} viewBox="0 0 31 31" />,
     link: '#',
     onClick: async () => {
-      switch (getTokenType()) {
-        case TokenType.google:
-          signOut();
-          break;
-        default:
-          clearTokenAndRedirect();
-      }
+      clearTokenAndRedirect();
     },
   });
 
