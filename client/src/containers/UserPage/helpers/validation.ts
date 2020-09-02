@@ -2,13 +2,7 @@ import { PASSWORD, NAME, EMAIL } from 'common/constants';
 
 export type SetErrorMessage = (message: string | null) => void;
 
-export type SetErrorMessages = (message: IErrorMessage) => void;
-
-export const emailValid = (
-  email: string,
-  errorMessages: IErrorMessage,
-  setErrorMessages: SetErrorMessages
-): boolean => {
+export const emailValid = (email: string, setErrorMessage: SetErrorMessage): boolean => {
   let emailMessage = null;
   if (!(email.length > 5 && email.length < 30)) {
     emailMessage = 'Email length: 5-30';
@@ -17,15 +11,15 @@ export const emailValid = (
       emailMessage = 'Wrong email format';
     }
   }
-  setErrorMessages({ ...errorMessages, emailErrorMessage: emailMessage });
+  setErrorMessage(emailMessage);
   return !emailMessage;
 };
 
 export const passwordValid = (
   password: string,
   confirmedPassword: string,
-  errorMessages: IErrorMessage,
-  setErrorMessages: SetErrorMessages
+  setPasswordErrorMessage: SetErrorMessage,
+  setConfirmedPasswordErrorMessage: SetErrorMessage
 ): boolean => {
   let passwordMessage = null;
   let confirmedMessage = null;
@@ -38,14 +32,10 @@ export const passwordValid = (
         'Password must be 5-30 characters long. It can include only A-Z, a-z, А-Я, а-я, 0-9, symbols: @,-,%,$,_,.,+';
     } else if (password !== confirmedPassword) {
       confirmedMessage = 'Passwords do not match';
-      console.log('do not match');
     }
   }
-  setErrorMessages({
-    ...errorMessages,
-    passwordErrorMessage: passwordMessage,
-    confirmedPasswordErrorMessage: confirmedMessage,
-  });
+  setPasswordErrorMessage(passwordMessage);
+  setConfirmedPasswordErrorMessage(confirmedMessage);
   return !(passwordMessage || confirmedMessage);
 };
 
@@ -70,10 +60,12 @@ export const nameValid = (name: string, setErrorMessage: SetErrorMessage): boole
   if (!NAME.test(name)) {
     if (!name) {
       nameMessage = 'Please, tell us your name';
+    } else if (name.length < 3 || name.length > 50) {
+      nameMessage = 'Name can be between 2 and 50 characters long';
     } else {
-      nameMessage = 'Wrong name format';
+      nameMessage = 'Name can include only A-Z, a-z, А-Я, а-я, 0-9, symbols: _,-,.';
     }
   }
-  setErrorMessages({ ...errorMessages, nameErrorMessage: nameMessage });
+  setErrorMessage(nameMessage);
   return !nameMessage;
 };

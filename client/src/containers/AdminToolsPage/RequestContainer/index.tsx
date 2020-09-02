@@ -12,14 +12,14 @@ interface IPropsRequestContainer {
 const RequestContaner = (props: IPropsRequestContainer): JSX.Element => {
   const { usersRequests, deleteUserRequest } = props;
 
-  const onDisapprove = (id: number, email: string) => {
+  const onDisapprove = (id: number, userEmail: string, userId: number) => {
     // send notification about disapprove to user
-    console.log(`send notification about disapproving to user with email ${email}`);
+    console.log(`send notification about disapproving to user with id ${userId}`);
     deleteUserRequest(id);
   };
-  const onApprove = (id: number, email: string) => {
+  const onApprove = (id: number, userEmail: string, userId: number) => {
     // send notification about approve to user
-    console.log(`send notification about approving to user with email ${email}`);
+    console.log(`send notification about approving to user with id ${userId}`);
     deleteUserRequest(id);
   };
   return (
@@ -30,7 +30,12 @@ const RequestContaner = (props: IPropsRequestContainer): JSX.Element => {
           <>
             {usersRequests.map((item: TypeUsersRequests) => (
               <ListItem key={`${item.id}-request-item`} className={styles.listItem}>
-                <RenderRequestItem item={item} onDisaproveHandler={onDisapprove} onApproveHandler={onApprove} />
+                <RenderRequestItem
+                  item={item}
+                  username={'Bill Gates'} // update after update user API
+                  onDisaproveHandler={onDisapprove}
+                  onApproveHandler={onApprove}
+                />
               </ListItem>
             ))}
           </>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs, Tab, AppBar } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
 import styles from './styles.module.scss';
 import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
@@ -145,6 +146,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   };
   const handleCancel = (event: React.MouseEvent) => {
     setEditableInput(false);
+    setValidate(false);
     setAvatar(initialAvatar);
     setName(user.name);
     setEmail(user.email);
@@ -160,21 +162,33 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   };
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    nameValid(event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
+    validate && nameValid(event.target.value, setNameErrorMessage as SetErrorMessage);
   };
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
-    emailValid(event.target.value, errorMessages, setErrorMessages as SetErrorMessages);
+    validate && emailValid(event.target.value, setEmailErrorMessage as SetErrorMessage);
   };
   const handlePasswordChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const target = event.target as HTMLInputElement;
     setPassword(target.value);
-    passwordValid(target.value, confirmedPassword, errorMessages, setErrorMessages as SetErrorMessages);
+    validate &&
+      passwordValid(
+        target.value,
+        confirmedPassword,
+        setPasswordErrorMessage as SetErrorMessage,
+        setConfirmedPasswordErrorMessage as SetErrorMessage
+      );
   };
   const handleConfirmedPasswordChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const target = event.target as HTMLInputElement;
     setConfirmedPassword(target.value);
-    passwordValid(password, target.value, errorMessages, setErrorMessages as SetErrorMessages);
+    validate &&
+      passwordValid(
+        password,
+        target.value,
+        setPasswordErrorMessage as SetErrorMessage,
+        setConfirmedPasswordErrorMessage as SetErrorMessage
+      );
   };
   const handleCurrentPasswordChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const target = event.target as HTMLInputElement;
@@ -264,10 +278,10 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             placeholder="Name"
             icon="Face"
             value={name || ''}
-            inputType={errorMessages.nameErrorMessage ? InputType.error : undefined}
+            inputType={nameErrorMessage ? InputType.error : undefined}
             onChange={handleNameChange}
             inputRef={inputRef}
-            helperText={errorMessages.nameErrorMessage || ''}
+            helperText={nameErrorMessage || ''}
           />
           <Input
             disabled={!editableInput}
@@ -275,9 +289,9 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             icon="Email"
             placeholder="Email"
             value={email}
-            inputType={errorMessages.emailErrorMessage ? InputType.error : undefined}
+            inputType={emailErrorMessage ? InputType.error : undefined}
             onChange={handleEmailChange}
-            helperText={errorMessages.emailErrorMessage || ''}
+            helperText={emailErrorMessage || ''}
           />
           {!showPasswords && editableInput && <Link onClick={handlePasswordShow}>Change Password</Link>}
 

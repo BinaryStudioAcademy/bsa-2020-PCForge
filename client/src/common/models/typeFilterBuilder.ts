@@ -7,5 +7,4 @@ export type TypeFilter = {
   count?: number;
   sata?: string;
   m2?: boolean;
-  userId?: number;
 };

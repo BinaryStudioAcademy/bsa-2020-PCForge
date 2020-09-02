@@ -1,10 +1,12 @@
 const bcrypt = require('bcrypt');
-import { UserModel, UserCreationAttributes, UserAttributes } from '../../data/models/user';
+import genRandomString from 'crypto-random-string';
+import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 import { IWithMeta } from '../../data/repositories/base.repository';
 import { encryptSync } from '../../helpers/crypto.helper';
+import { UserFilter } from '../../data/repositories/filters/user.filter';
 
 interface UserCreateAttributes {
   name: string;
@@ -73,7 +75,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     id = id.toString();
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
-      triggerServerError('User with id: ${id} does not exists', 404);
+      triggerServerError(`User with id: ${id} does not exist`, 404);
     }
     if (inputUser.password) {
       const validForPasswordUpdate =
@@ -90,21 +92,24 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     const userAttributes = {
       ...inputUser,
       isAdmin: false,
-      password: inputUser.password,
-      verifyEmailToken: null,
       resetPasswordToken: null,
-    };
+    } as UserCreationAttributes;
     const user = await this.repository.updateById(id, userAttributes);
     return user;
   }
 
   async setUserById(id: string | number, newUser: UserCreationAttributes): Promise<UserModel> {
+    id = id.toString();
     const user = await this.repository.updateById(id, newUser);
     return user;
   }
 
+  async getUserByFilter(filter: UserFilter): Promise<UserModel | null> {
+    return this.repository.getOneByFilter(filter);
+  }
+
   async getByEmail(email: string): Promise<UserModel> {
-    const user = await this.repository.get({ email });
+    const user = await this.repository.getOneByFilter({ email });
     return user;
   }
 

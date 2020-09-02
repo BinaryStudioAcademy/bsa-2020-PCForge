@@ -10,12 +10,14 @@ import {
   ResetPasswordRequestSchema,
   ResetPasswordSchema,
   ResetPasswordRequest,
+  VerifyEmailRequest,
+  verifyEmailRequest,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
 import { triggerServerError } from '../../helpers/global.helper';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { UserService, AuthService } = fastify.services;
+  const { MailService, UserService, AuthService } = fastify.services;
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -73,6 +75,12 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
         response.send({ logged_in: true, user });
       }
     });
+  });
+
+  fastify.get('/verify-email/:token', verifyEmailRequest, async (request: VerifyEmailRequest, reply) => {
+    const { token } = request.params;
+    const user = await AuthService.verifyEmail(token);
+    reply.send({ user, verified: true });
   });
 
   fastify.post(

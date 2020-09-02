@@ -6,15 +6,16 @@ import TopFiveList from 'components/TopFiveList';
 import { MenuItems } from 'common/enums';
 import Title from 'components/Title';
 import { RootState } from 'redux/rootReducer';
-import { fetchSetups } from 'containers/SetupsPage/actions';
+import { fetchSetups, fetchTopSetups } from 'containers/SetupsPage/actions';
 import { ConnectedProps, connect } from 'react-redux';
 import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
 import { Ram } from 'common/models/ram';
 
-const SetupPage: React.FC<PropsFromRedux> = ({ setups, fetchSetups }) => {
+const SetupPage: React.FC<PropsFromRedux> = ({ setups, fetchSetups, fetchTopSetups }) => {
   useEffect(() => {
     fetchSetups();
+    fetchTopSetups();
   }, []);
 
   const createCards = () => {
@@ -56,6 +57,7 @@ const mapState = (state: RootState) => ({
 });
 const mapDispatch = {
   fetchSetups,
+  fetchTopSetups,
 };
 
 const connector = connect(mapState, mapDispatch);
