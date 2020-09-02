@@ -5,6 +5,7 @@ export interface IAuthProps {
   authState: IAuthState;
   changeEmail: (value: string) => AuthActionTypes;
   changePassword: (value: string) => AuthActionTypes;
+  changeConfirmPassword: (value: string) => AuthActionTypes;
   loginRequest: (email: string, password: string, keepSignedIn: boolean) => AuthActionTypes;
   registerRequest: (email: string, password: string) => AuthActionTypes;
   validationError: (errorMessage: string) => AuthActionTypes;
@@ -16,6 +17,7 @@ export interface IAuthState {
   user: User | null;
   email: string;
   password: string;
+  confirmPassword: string;
   keepSignedIn: boolean;
   isRegistration: boolean;
   isLoading: boolean;

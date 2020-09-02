@@ -4,6 +4,7 @@ import { IGameFilter } from '../../data/repositories/filters/game.filter';
 import { GameRepository } from '../../data/repositories/game.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { IGamedMiddleware } from '../middlewares/game.middleware';
 
 export class GameService extends BaseService<GameModel, GameCreationAttributes, GameRepository> {
   constructor(private repository: GameRepository) {
@@ -23,12 +24,18 @@ export class GameService extends BaseService<GameModel, GameCreationAttributes, 
     return games;
   }
 
-  async createGame(inputGame: GameCreationAttributes): Promise<GameModel> {
+  async createGame(inputGame: GameCreationAttributes, gameMiddleware: IGamedMiddleware): Promise<GameModel> {
+    await gameMiddleware(inputGame);
     const game = await super.create(inputGame);
     return game;
   }
 
-  async updateGameById({ id, data }: { id: string; data: GameCreationAttributes }): Promise<GameModel> {
+  async updateGameById(
+    inputGame: { id: string; data: GameCreationAttributes },
+    gameMiddleware: IGamedMiddleware
+  ): Promise<GameModel> {
+    const { id, data } = inputGame;
+    await gameMiddleware(data);
     const game = await super.updateById(id, data);
     return game;
   }

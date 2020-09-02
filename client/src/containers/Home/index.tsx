@@ -7,6 +7,9 @@ import CardDisplay from './components/CardsDisplay';
 import { RootState } from 'redux/rootReducer';
 import { loadTopSetups } from './logic/actions';
 import Spinner from 'components/Spinner';
+import Grid from '@material-ui/core/Grid';
+import PewsPage from 'containers/NewsPage';
+import styles from './styles.module.scss';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -18,6 +21,13 @@ const Home = (props: Props): JSX.Element => {
     topSetupsLoad();
   }, []);
 
+  const showButton = setups.length <= 4;
+
+  const topSetup = [setups[0]];
+  const ordinarySetups = setups.filter((setup, index) => {
+    return index !== 0;
+  });
+
   const renderContent = () => {
     if (showSpinner) {
       return <Spinner load />;
@@ -25,7 +35,25 @@ const Home = (props: Props): JSX.Element => {
       return (
         <>
           <Title />
-          {setups && setups.length && <CardDisplay setups={setups} />}
+          {children}
+          {!!setups?.length && (
+            <>
+              <div className={styles.homeContentContainer}>
+                <h2>Most Popular Setups</h2>
+                <div className={styles.gridTopCard}>
+                  {' '}
+                  <CardDisplay setups={topSetup} big />
+                </div>
+                <div className={styles.gridOrdinaryCards}>
+                  {' '}
+                  <CardDisplay setups={ordinarySetups} showButton={showButton} />
+                </div>
+                <div className={styles.gridNewsDisplay}>
+                  <PewsPage role="aside" countNews={2} />
+                </div>
+              </div>
+            </>
+          )}
         </>
       );
     }
@@ -46,3 +74,5 @@ const mapDispatch = {
 const connector = connect(mapState, mapDispatch);
 
 export default connector(Home);
+
+// className={styles.cardsDisplay}

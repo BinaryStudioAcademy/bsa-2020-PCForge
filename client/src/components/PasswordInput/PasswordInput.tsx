@@ -9,6 +9,8 @@ interface IPasswordInputProps extends IInputProps {
   blurHandler?: () => void;
   placeholder?: string;
   helperText?: string;
+  wrapperClassName?: string;
+  className?: string;
 }
 
 interface IPasswordInputState {
@@ -33,11 +35,9 @@ class PasswordInput extends Component<IPasswordInputProps, IPasswordInputState> 
   }
   render(): JSX.Element {
     const Icon = this.state.preview ? VisibilityOffIcon : VisibilityOutlinedIcon;
-
-    const { inputHandler, blurHandler, value, placeholder, helperText, icon, inputType, ...restProps } = this.props;
-
+    const { inputHandler, blurHandler, value, placeholder, helperText, icon, inputType, className } = this.props;
     return (
-      <div className={styles.passwordBox} {...restProps}>
+      <div className={className ? [className, styles.passwordBox].join(' ') : styles.passwordBox}>
         <Input
           name="Password"
           value={value}

@@ -27,7 +27,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     try {
       //return user
       const user = await UserService.getUserByLoginOrEmail(email, password);
-      console.log('functionrouter -> user', user);
       const token = fastify.jwt.sign({ user }, { expiresIn: 86400 });
       response.send({ token, user });
     } catch (error) {
@@ -52,7 +51,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
           //Return object with information about user
           const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
           try {
-            const user = await UserService.getUserByLoginOrEmail(userData.email, '');
+            const user = await UserService.getByEmail(userData.email);
             response.send({ logged_in: true, user });
           } catch (err) {
             const user = await UserService.createUser({
@@ -67,7 +66,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
             response.send({ logged_in: true, user });
           }
         } catch (err) {
-          response.send({ logged_in: false });
+          response.send({ logged_in: false, user: {} });
         }
       } else {
         const user = decoded.user;

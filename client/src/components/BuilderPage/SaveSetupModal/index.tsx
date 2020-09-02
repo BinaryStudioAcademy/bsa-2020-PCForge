@@ -49,7 +49,6 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
       description,
       token: localStorage.getItem('access_token')!,
     };
-    console.log('sendRequest -> setupForSave', setupForSave);
     return setupForSave;
   };
 

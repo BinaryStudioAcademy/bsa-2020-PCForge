@@ -18,10 +18,7 @@ import {
   GetUserGamesSchema,
   UserGameSchema,
 } from './user.schema';
-<<<<<<< HEAD
-=======
 import { GameSchema } from './game.schema';
->>>>>>> develop
 import {
   getOneQuery,
   getMultipleQuery,
@@ -29,10 +26,7 @@ import {
   updateOneQuery,
   deleteOneQuery,
 } from '../../helpers/swagger.helper';
-<<<<<<< HEAD
-=======
 import { IFilter } from '../../data/repositories/filters/base.filter';
->>>>>>> develop
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { triggerServerError } from '../../helpers/global.helper';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
@@ -82,7 +76,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.delete('/:id', { ...deleteOneSchema, preHandler }, async (request: DeleteUserRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
-    const user = await UserService.deleteUser(id);
+    // const user = await UserService.deleteUser(id);
+    const user = await UserService.activateDeactivateUser(id);
     reply.send(user);
   });
 

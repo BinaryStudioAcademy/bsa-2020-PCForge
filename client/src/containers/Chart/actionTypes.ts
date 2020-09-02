@@ -1,8 +1,6 @@
 import { Cpu } from 'common/models/cpu';
 import { Game } from 'common/models/game';
 import { Gpu } from 'common/models/gpu';
-import { Ram } from 'common/models/ram';
-import { Setup } from 'common/models/setup';
 import { ISetupPerformance } from 'common/models/setupPerformance';
 import { TopGame } from 'common/models/topGame';
 
@@ -17,6 +15,7 @@ export enum SetupChartTypes {
   SET_CPU = 'SetupChart/SET_CPU',
   SET_GPU = 'SetupChart/SET_GPU',
   SET_RAM = 'SetupChart/SET_RAM',
+  SET_GAME = 'SetupChart/SET_GAME',
 }
 
 export interface IFetchPerformanceRequestAction {
@@ -86,6 +85,13 @@ interface ISetRamAction {
   };
 }
 
+interface ISetGameAction {
+  type: SetupChartTypes.SET_GAME;
+  payload: {
+    game: Game;
+  };
+}
+
 interface IErrorAction {
   type: SetupChartTypes.ERROR;
   payload: {
@@ -105,12 +111,14 @@ export type SetupChartActions =
   | SetupChartErrors
   | ISetCpuAction
   | ISetGpuAction
-  | ISetRamAction;
+  | ISetRamAction
+  | ISetGameAction;
 
 export interface SetupChartState {
   topGames: TopGame[];
   searchedGames: Game[];
   performance: ISetupPerformance;
+  game: Game;
   cpu: Cpu | null;
   gpu: Gpu | null;
   ramSize: number | null;

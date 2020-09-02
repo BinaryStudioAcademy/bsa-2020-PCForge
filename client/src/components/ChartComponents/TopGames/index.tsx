@@ -2,6 +2,7 @@
 import { TopGame } from 'common/models/topGame';
 import React from 'react';
 import styles from './styles.module.scss';
+import Image from 'components/BasicComponents/Image';
 
 interface Props {
   topGames: TopGame[];
@@ -11,7 +12,7 @@ interface Props {
 
 const TopGames: React.FC<Props> = ({
   topGames,
-  selected: selectedIndex,
+  selected: selectedIndex = -1,
   onGameSelected: onGameSelectedProps = () => {},
 }): JSX.Element => {
   const gameView = (topGame: TopGame, isSelected: boolean) => (
@@ -20,7 +21,7 @@ const TopGames: React.FC<Props> = ({
       key={topGame.id}
       onClick={() => onGameSelectedProps(topGame)}
     >
-      <img className={styles.gameImage} src={topGame.game.image} alt={topGame.game.name} />
+      <Image className={styles.gameImage} src={topGame.game.image} alt={topGame.game.name} />
       <div className={styles.gameDetails}>
         <span className={styles.gameName}>{topGame.game.name}</span>
         <span className={styles.gameDate}>{topGame.game.year}</span>

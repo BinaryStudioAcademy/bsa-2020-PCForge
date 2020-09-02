@@ -20,9 +20,12 @@ export abstract class BaseService<M extends Model, C extends object, R extends B
   }
 
   public async updateById(id: string, data: C): Promise<M | never> {
+    if (!Object.keys(data).length) {
+      triggerServerError('No valid fields to update specified', 400);
+    }
     const oldModel = await this._repository.getById(id);
     if (!oldModel) {
-      triggerServerError(`${this._repository._model.name} with id: ${id} does not exists`, 404);
+      triggerServerError(`${this._repository._model.name} with id: ${id} does not exists`, 400);
     }
     try {
       const newModel = await this._repository.updateById(id, data);
@@ -35,7 +38,7 @@ export abstract class BaseService<M extends Model, C extends object, R extends B
   public async deleteById(id: string): Promise<M | never> {
     const oldModel = await this._repository.getById(id);
     if (!oldModel) {
-      triggerServerError(`${this._repository._model.name} with id: ${id} does not exists`, 404);
+      triggerServerError(`${this._repository._model.name} with id: ${id} does not exists`, 400);
     }
     try {
       await this._repository.deleteById(id);

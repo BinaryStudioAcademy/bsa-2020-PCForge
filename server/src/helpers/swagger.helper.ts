@@ -54,7 +54,7 @@ export function updateOneQuery(
           minimum: 1,
         },
       },
-      body: { ...toUpdate, additionalProperties: false },
+      body: { ...toUpdate, additionalProperties: false, minProperties: 1 },
       response: {
         200: newData,
         404: getNotFoundHeader(),

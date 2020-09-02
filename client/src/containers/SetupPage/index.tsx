@@ -80,7 +80,12 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
           </Snackbar>
           <div className={styles.contentWrapper}>
             <div className={styles.setupsDetails}>
-              <SetupCard setup={setup} rate={this.props.state.rate} onRatingSet={this.onRatingSet} />
+              <SetupCard
+                setup={setup}
+                onForkClick={this.props.forkSetup}
+                rate={this.props.state.rate}
+                onRatingSet={this.onRatingSet}
+              />
               <PcComponentView
                 title="Processor"
                 pcComponent={cpu}

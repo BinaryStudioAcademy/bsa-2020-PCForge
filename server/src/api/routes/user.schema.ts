@@ -57,6 +57,10 @@ export const UserSchema: SwaggerSchema = {
       nullable: false,
       maxLength: 50,
     },
+    isActive: {
+      type: 'boolean',
+      nullable: false,
+    },
     isAdmin: {
       type: 'boolean',
       nullable: false,
@@ -147,7 +151,7 @@ export const UpdateUserSchema: SwaggerSchema = {
       nullable: false,
       maxLength: 50,
     },
-    oldPassword: {
+    currentPassword: {
       type: 'string',
       minLength: 1,
       nullable: true,

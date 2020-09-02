@@ -13,8 +13,15 @@ import {
   addUserGame,
   deleteUserGame,
   loadSetups,
+  deleteUserSetup,
+  setTab,
 } from './logic/actions';
 import Spinner from 'components/Spinner';
+
+export enum UserPageTabs {
+  Games = 0,
+  Setups = 1,
+}
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -32,11 +39,13 @@ const UserPage = (props: Props) => {
     loadFilteredGames,
     filteredGames,
     deleteUserGame,
+    deleteUserSetup,
     loadSetups,
     setups,
+    openTab,
+    setTab,
   } = props;
   const gamesArray = userGames.map((game) => game.game);
-  console.log(gamesArray);
 
   const { id } = useParams();
   const currentUserId = currentUser?.id.toString();
@@ -62,6 +71,9 @@ const UserPage = (props: Props) => {
           loadFilteredGames={loadFilteredGames}
           filteredGames={filteredGames}
           deleteUserGame={deleteUserGame}
+          deleteUserSetup={deleteUserSetup}
+          openTab={openTab}
+          setTab={setTab}
         />
       );
     } else {
@@ -79,6 +91,7 @@ const mapState = (state: RootState) => ({
   currentUser: state.auth.user,
   userGames: state.user.userGames,
   filteredGames: state.user.filteredGames,
+  openTab: state.user.openTab,
 });
 
 const mapDispatch = {
@@ -89,6 +102,8 @@ const mapDispatch = {
   addUserGame,
   deleteUserGame,
   loadSetups,
+  deleteUserSetup,
+  setTab,
 };
 
 const connector = connect(mapState, mapDispatch);

@@ -95,7 +95,10 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const [typeRam, setTypeRam] = useState<number>();
   const [socket, setSocket] = useState<number>();
 
-  console.log(props.state);
+  useEffect(() => {
+    //updateStateToInit();
+    //setAlertText(null);
+  }, []);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);

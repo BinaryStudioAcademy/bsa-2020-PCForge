@@ -1,5 +1,4 @@
 import { all } from 'redux-saga/effects';
-import registrationSaga from '../containers/Auth/registrationSagas';
 import userSagas from 'containers/UserPage/logic/sagas';
 import builderSagas from 'containers/BuilderPage/sagas';
 import authSagas from 'containers/Auth/sagas';
@@ -14,11 +13,11 @@ import setupChartSagas from 'containers/Chart/sagas';
 import setupsSagas from 'containers/SetupsPage/sagas';
 import AddRequestSagas from 'containers/AddUserRequest/sagas';
 import resetPasswordSagas from 'containers/ResetPassword/sagas';
+import newsSagas from 'containers/NewsPage/sagas';
 
 export default function* rootSaga() {
   yield all([
     authSagas(),
-    registrationSaga(),
     userSagas(),
     userRequestsSagas(),
     builderSagas(),
@@ -32,5 +31,6 @@ export default function* rootSaga() {
     setupsSagas(),
     AddRequestSagas(),
     resetPasswordSagas(),
+    newsSagas(),
   ]);
 }
