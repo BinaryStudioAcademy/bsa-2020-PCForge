@@ -54,8 +54,18 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     if (filter.authorId) {
       where.authorId = filter.authorId;
     }
-    const result = await this.model.findAndCountAll({
-      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id', 'hdd.id', 'ssd.id'],
+    const result = await this.getAll({
+      group: [
+        'setup.id',
+        'cpu.id',
+        'gpu.id',
+        'ram.id',
+        'powerSupply.id',
+        'motherboard.id',
+        'hdd.id',
+        'ssd.id',
+        'author.id',
+      ],
       attributes: {
         include: [
           [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
@@ -70,27 +80,21 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         },
         {
           model: this.gpuModel,
-          // as: 'gpu',
         },
         {
           model: this.motherBoardModel,
-          // as: 'motherboard',
         },
         {
           model: this.ramModel,
-          // as: 'ram',
         },
         {
           model: this.powerSupplyModel,
-          // as: 'powerSupply',
         },
         {
           model: this.hddModel,
-          // as: 'hdd',
         },
         {
           model: this.ssdModel,
-          // as: 'ssd',
         },
         {
           model: this.commentModel,
@@ -117,17 +121,12 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       limit: filter.count,
     });
 
+    console.log('result', result);
     // here is a bug in sequelize: it returns array instead of number, so instead of result.count there was used this.model.count();
     // https://github.com/sequelize/sequelize/issues/9109
     const globalCount = await this.model.count();
-    const countAfterFiltering = result.rows.length;
-    return {
-      meta: {
-        globalCount,
-        countAfterFiltering,
-      },
-      data: result.rows,
-    };
+    // const countAfterFiltering = result.rows.length;
+    return result;
   }
 
   async getOneSetup(id: string): Promise<SetupModel> {

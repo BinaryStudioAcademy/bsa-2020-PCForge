@@ -54,7 +54,7 @@ export const SetupSchema: SwaggerSchema = {
       nullable: true,
     },
     comments_count: {
-      type: 'string',
+      type: 'integer',
       minLength: 1,
       example: '1',
       nullable: false,
