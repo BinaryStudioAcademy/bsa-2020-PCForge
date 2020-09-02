@@ -6,7 +6,7 @@ import {
 } from './actionTypes';
 import { ReactText } from 'react';
 import { call, put, takeLatest, all } from 'redux-saga/effects';
-import { getAllCpu } from 'api/services/cpuService';
+import { getAllCpu, TypeResponseAllCpus } from 'api/services/cpuService';
 import { getAllGpu } from 'api/services/gpuService';
 import { getAllRam } from 'api/services/ramService';
 import { getAllHdd } from 'api/services/hddService';
@@ -50,7 +50,6 @@ function* getHardwares(action: IGetHardwares) {
       default:
         throw new Error();
     }
-    console.log(response);
     const payload = {
       hardwares: response?.data || [],
       totalItemsCount: response?.meta.countAfterFiltering || 0,

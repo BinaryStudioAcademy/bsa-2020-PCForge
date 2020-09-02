@@ -1,7 +1,13 @@
 export interface BaseFilter {
   count?: number;
-  commentableType: 'game' | 'setup' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
-  commentableId: number;
+  from?: number;
+}
+
+export interface CommentFilter {
+  from?: number;
+  count?: number;
+  commentableId?: number;
+  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
 }
 
 export type RateFilter = {
