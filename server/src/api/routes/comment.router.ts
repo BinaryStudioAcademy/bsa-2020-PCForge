@@ -21,7 +21,7 @@ import {
 } from '../../helpers/swagger.helper';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
-import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { CommentService } = fastify.services;

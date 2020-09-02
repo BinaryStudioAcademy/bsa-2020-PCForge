@@ -22,6 +22,7 @@ import {
 import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { renameQuery } from '../middlewares/rename.middleware';
 import { CpuMiddleware } from '../middlewares/cpu.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
@@ -34,6 +35,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllCpusResponse, ICpuFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllCpusRequest, reply) => {
     allowForAuthorized(request);
+    renameQuery(request, ['socketIds', 'socketId']);
     const cpus = await CpuService.getAllCpus(request.query);
     reply.send(cpus);
   });

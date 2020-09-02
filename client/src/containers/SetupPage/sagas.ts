@@ -145,7 +145,6 @@ function* forkSetup(action: IForkSetup) {
     const forkedSetup = yield call(forkUserSetup, action.payload.setupId);
     notification.success(`You have forked '${forkedSetup.title}'. Check it out on your profile page.`);
   } catch (e) {
-    console.log(e);
     notification.error(e.message || 'Could not fork the setup');
   }
 }
