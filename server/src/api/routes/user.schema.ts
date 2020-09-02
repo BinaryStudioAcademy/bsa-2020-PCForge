@@ -65,7 +65,7 @@ export const UserSchema: SwaggerSchema = {
       example: 'http://image-server.com/route',
       type: 'string',
       nullable: true,
-      minLength: 1,
+      minLength: 0,
       maxLength: 500,
     },
     createdAt: {
@@ -156,7 +156,7 @@ export const UpdateUserSchema: SwaggerSchema = {
     avatar: {
       type: 'string',
       nullable: true,
-      minLength: 1,
+      minLength: 0,
       maxLength: 500,
     },
   },
