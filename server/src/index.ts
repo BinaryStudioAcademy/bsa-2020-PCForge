@@ -50,8 +50,7 @@ server.register(routes, { prefix: '/api' });
 
 server.ready((err) => {
   if (err) throw err;
-  const spec = server.swagger();
-  delete spec.paths['api/auth/google/callback'];
+  server.swagger();
 });
 
 server.listen(port, '0.0.0.0', (err, address) => {
