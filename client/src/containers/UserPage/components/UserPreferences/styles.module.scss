@@ -12,14 +12,16 @@ $link-default-hover-color: rgb(246, 243, 243);
   padding: 15px;
   border-top: 1px solid rgb(102, 102, 102);
 
-  &> {
-    min-width: 335px;
+  &> div{
+    width:25%;
+    min-width: 275px;
+    margin:10px;
   }
 
   @media(min-width: $tablet) {
     &>div {
       width: 25%;
-      min-width: 335px;
+      // min-width: 335px;
     }
   }
 
