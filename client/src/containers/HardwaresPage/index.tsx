@@ -3,9 +3,11 @@ import PageComponent from 'containers/PageComponent';
 import styles from './styles.module.scss';
 import { FormControl, InputLabel, Select, MenuItem, GridListTile, GridList } from '@material-ui/core';
 import HardwareSidebarView from './HardwareSidebarView';
+import * as HardwaresActions from './actions';
 import { RootState } from 'redux/rootReducer';
 import { hardwareTypes } from './HardwareSidebarView/actionTypes';
 import { IHardwaresProps } from './interfaces';
+import { connect } from 'react-redux';
 
 interface State {
   selectedHardware: hardwareTypes;
@@ -23,6 +25,7 @@ class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
     };
 
     this.onSelect = this.onSelect.bind(this);
+    this.getHardwares = this.getHardwares.bind(this);
   }
 
   public hardwareTypes = [
@@ -40,13 +43,18 @@ class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
     });
   }
 
-  public getHardwares(meta: { count: number; page: number }): void {
-    const { count, page } = meta;
+  public getHardwares(meta: { count: number; from: number }): void {
+    const { count, from } = meta;
     const type: hardwareTypes = this.state.selectedHardware;
-    this.props.getHardwares({ type, page, count });
+    this.props.getHardwares({ type, from, count });
+  }
+
+  public componentDidMount(): void {
+    this.getHardwares({ count: 20, from: 0 });
   }
 
   public render(): JSX.Element {
+    const { hardwares } = this.props.state;
     return (
       <PageComponent>
         <div className={styles.hardwaresRoot}>
@@ -71,7 +79,14 @@ class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
           <div className={styles.contentWrapper}>
             <div className={styles.mainContent}>
               <GridList className={styles.hardwaresList} cellHeight={80} cols={3}>
-                <GridListTile className={styles.hardwareItem}>
+                {hardwares.map((hardware) => (
+                  <GridListTile className={styles.hardwareItem} key={hardware.id}>
+                    <div className={styles.hardwareContainer}>
+                      <h2 className={styles.listHardwareHeader}>{hardware.name}</h2>
+                    </div>
+                  </GridListTile>
+                ))}
+                {/* <GridListTile className={styles.hardwareItem}>
                   <div className={styles.hardwareContainer}>
                     <h2 className={styles.listHardwareHeader}>Tile</h2>
                   </div>
@@ -80,12 +95,7 @@ class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
                   <div className={styles.hardwareContainer}>
                     <h2 className={styles.listHardwareHeader}>Tile</h2>
                   </div>
-                </GridListTile>
-                <GridListTile className={styles.hardwareItem}>
-                  <div className={styles.hardwareContainer}>
-                    <h2 className={styles.listHardwareHeader}>Tile</h2>
-                  </div>
-                </GridListTile>
+                </GridListTile> */}
               </GridList>
             </div>
             <div className={styles.asideContent}>
@@ -104,8 +114,10 @@ class HardwaresPage extends React.PureComponent<IHardwaresProps, State> {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    // state: state.
+    state: state.hardwares,
   };
 };
 
-export default HardwaresPage;
+const mapDispatchToProps = HardwaresActions;
+
+export default connect(mapStateToProps, mapDispatchToProps)(HardwaresPage);

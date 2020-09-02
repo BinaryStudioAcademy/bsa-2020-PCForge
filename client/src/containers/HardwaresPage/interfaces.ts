@@ -3,10 +3,11 @@ import { hardwaresActionTypes } from './actionTypes';
 import { ReactText } from 'react';
 
 export interface IHardwaresProps {
-  getHardwares(payload: { count: number; page: number; type: hardwareTypes }): hardwaresActionTypes;
+  state: IHardwaresState;
+  getHardwares(payload: { count: number; from: number; type: hardwareTypes }): hardwaresActionTypes;
 }
 
 export interface IHardwaresState {
-  hardwares: Record<string, ReactText> | Record<string, Record<string, ReactText>>[];
+  hardwares: Record<string, ReactText>[];
   errorMessage: string | null;
 }

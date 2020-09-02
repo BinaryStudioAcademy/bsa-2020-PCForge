@@ -17,7 +17,7 @@ export interface IGetHardwares {
 export interface IGetHardwaresSuccess {
   type: typeof HARDWARES_GET_HARDWARES_SUCESS;
   payload: {
-    hardwares: Record<string, ReactText> | Record<string, Record<string, ReactText>>[];
+    hardwares: Record<string, ReactText>[];
   };
 }
 
