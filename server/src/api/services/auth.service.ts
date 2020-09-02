@@ -2,9 +2,11 @@ import { UserCreationAttributes, UserModel } from '../../data/models/user';
 import { getRandomStringToken } from '../../helpers/crypto.helper';
 import { removeNonUrlChars, triggerServerError } from '../../helpers/global.helper';
 import { UserFilter } from '../../data/repositories/filters/user.filter';
+import { SendMessageStatus } from './mail.service';
 
 interface IMailService {
   sendResetPassword: (obj: { to: string; userId: number; token: string }) => Promise<unknown>;
+  sendEmailVerification(verificationToken: string, to: string): Promise<SendMessageStatus>;
 }
 
 interface IUserService {
@@ -37,6 +39,14 @@ export class AuthService {
       verifyEmailToken: null,
     } as UserCreationAttributes;
     return this.userService.updateUser(idString, data);
+  }
+
+  async sendEmailConfirmation(id: string): Promise<SendMessageStatus> {
+    const user = await this.userService.getUser(id);
+    if (!user) {
+      triggerServerError('User does not exists', 400);
+    }
+    return this.mailService.sendEmailVerification(user.verifyEmailToken, user.email);
   }
 
   public async resetPassword({

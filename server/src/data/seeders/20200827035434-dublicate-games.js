@@ -1,6 +1,12 @@
 'use strict';
 
-const games = require('../seed-data/games.js');
+const usedGamesNames = {};
+const games = require('../seed-data/games.js').filter((game) => {
+  if (usedGamesNames[game.name]) {
+    return false;
+  }
+  return (usedGamesNames[game.name] = true);
+});
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

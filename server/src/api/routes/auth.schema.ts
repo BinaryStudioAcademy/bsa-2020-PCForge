@@ -1,6 +1,7 @@
 import { FastifyRequest, RouteShorthandOptions } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserSchema } from './user.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type PostAuthRequest = FastifyRequest<{
   Body: {
@@ -36,6 +37,8 @@ export type GoogleAuthRequest = FastifyRequest<{
 export type VerifyEmailRequest = FastifyRequest<{
   Params: { token: string };
 }>;
+
+export type OneMoreVerificationRequest = FastifyRequest & { user: UserAttributes };
 
 const LoginRequest: SwaggerSchema = {
   type: 'object',
@@ -169,6 +172,65 @@ export const verifyEmailRequest: RouteShorthandOptions = {
         nullable: false,
       },
     },
+  },
+};
+
+export const verifyEmailMessageSchema: RouteShorthandOptions = {
+  schema: {
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          ok: {
+            type: 'boolean',
+            nullable: false,
+          },
+        },
+      },
+      400: {
+        type: 'object',
+        properties: {
+          error: {
+            type: 'string',
+            nullable: false,
+            example: 'Bad Request',
+          },
+          status: {
+            type: 'integer',
+            nullable: false,
+            example: 404,
+          },
+        },
+      },
+    },
+  },
+};
+
+const GoogleAuthResponse: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    token: {
+      type: 'string',
+      minLength: 1,
+      nullable: false,
+      example:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
+    },
+    user: UserSchema,
+  },
+};
+
+const GoogleAuthRequest: SwaggerSchema = {
+  type: 'object',
+  additionalProperties: true,
+};
+
+export const GoogleAuthSchema = {
+  schema: {
+    response: {
+      200: GoogleAuthResponse,
+    },
+    body: GoogleAuthRequest,
   },
 };
 

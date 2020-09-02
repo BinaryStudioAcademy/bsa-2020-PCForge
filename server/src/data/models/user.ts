@@ -8,6 +8,7 @@ export interface UserAttributes {
   isAdmin: boolean;
   isActive: boolean;
   avatar: string | null;
+  emailVerified: boolean;
   verifyEmailToken: string | null;
   resetPasswordToken: string | null;
   createdAt: Date;

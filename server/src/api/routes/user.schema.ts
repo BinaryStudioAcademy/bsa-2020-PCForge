@@ -65,6 +65,10 @@ export const UserSchema: SwaggerSchema = {
       type: 'boolean',
       nullable: false,
     },
+    emailVerified: {
+      type: 'boolean',
+      nullable: false,
+    },
     avatar: {
       example: 'http://image-server.com/route',
       type: 'string',
@@ -130,7 +134,6 @@ export const CreateUserSchema: SwaggerSchema = {
 
 export const UpdateUserSchema: SwaggerSchema = {
   type: 'object',
-  // required: ['oldPassword'],
   properties: {
     name: {
       type: 'string',

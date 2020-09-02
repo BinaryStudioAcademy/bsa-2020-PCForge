@@ -11,12 +11,19 @@ import {
   ResetPasswordRequest,
   VerifyEmailRequest,
   verifyEmailRequest,
+  OneMoreVerificationRequest,
+  verifyEmailMessageSchema,
+  GoogleAuthRequestSchema,
+  GoogleAuthRequest,
 } from './auth.schema';
 import { OAuth2Client } from 'google-auth-library';
 import { triggerServerError } from '../../helpers/global.helper';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
+import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { UserService, AuthService } = fastify.services;
+  const preHandler = userRequestMiddleware(fastify);
   const oAuth2Client = new OAuth2Client(
     process.env.GOOGLE_OAUTH_CLIENT_ID,
     process.env.GOOGLE_OAUTH_CLIENT_SECRET,
@@ -38,6 +45,30 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     }
   });
 
+  fastify.post('/google-auth', GoogleAuthRequestSchema, async (request: GoogleAuthRequest, response) => {
+    const token: string = request.body.token;
+    try {
+      const userData = (await oAuth2Client.verifyIdToken({ idToken: token })).getPayload();
+      let user = await UserService.getByEmail(userData.email);
+      if (user) {
+        const token = fastify.jwt.sign({ user }, { expiresIn: 86400 });
+        response.send({ token, user });
+      }
+      if (!user) {
+        user = await UserService.createUser({
+          name: userData.name,
+          email: userData.email,
+          password: '',
+          avatar: userData.picture,
+        });
+        const token = fastify.jwt.sign({ user }, { expiresIn: 86400 });
+        response.send({ token, user });
+      }
+    } catch (e) {
+      triggerServerError('An error occured, please check token correctness', 400);
+    }
+  });
+
   fastify.post('/logged_in', IsAuthenticatedSchema, async function (request: IsUserAuthenticated, response) {
     const body = request.body;
     const token = body.token;
@@ -50,6 +81,19 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
       }
     });
   });
+
+  fastify.get(
+    '/verify-email-message',
+    { ...verifyEmailMessageSchema, preHandler },
+    async (request: OneMoreVerificationRequest, reply) => {
+      allowForAuthorized(request);
+      if (request.user.emailVerified) {
+        triggerServerError('Bad request', 400);
+      }
+      const status = await AuthService.sendEmailConfirmation(request.user.id.toString());
+      reply.send({ ok: true });
+    }
+  );
 
   fastify.get('/verify-email/:token', verifyEmailRequest, async (request: VerifyEmailRequest, reply) => {
     const { token } = request.params;
