@@ -10,6 +10,8 @@ import {
   UpdateSetupSchema,
   GetAllSetupsResponse,
   DetailedSetupSchema,
+  ForkSetupSchema,
+  ForkSetupRequest,
 } from './setup.schema';
 
 import { SetupMiddleware } from '../middlewares/setup.middleware';
@@ -70,6 +72,13 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     const { id } = request.params;
     const setup = await SetupService.deleteSetupById(id, request.user);
     reply.send(setup);
+  });
+
+  const forkSchema = createOneQuery(ForkSetupSchema, DetailedSetupSchema);
+  fastify.post('/forks', forkSchema, async (request: ForkSetupRequest, reply) => {
+    allowForAuthorized(request);
+    const forkedSetup = await SetupService.forkSetupById(request.body.setupId, request.user.id);
+    reply.send(forkedSetup);
   });
 
   next();

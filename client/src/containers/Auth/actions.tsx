@@ -4,6 +4,7 @@ import {
   AUTH_CHANGE_PASSWORD,
   AUTH_KEEP_SIGN_IN,
   AUTH_LOADING_STATUS,
+  AUTH_LOGIN_BY_TOKEN_REQUEST,
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
   AUTH_REGISTER_REQUEST,
@@ -13,6 +14,7 @@ import {
   AuthActionTypes,
   AUTH_GOOGLE_AUTH,
 } from 'containers/Auth/actionTypes';
+
 import { User } from '../../common/models/user';
 
 export const changeEmail = (value: string): AuthActionTypes => ({
@@ -43,6 +45,10 @@ export const loginRequest = (email: string, password: string, keepSignedIn: bool
     password,
     keepSignedIn,
   },
+});
+
+export const loginByTokenRequest = (): AuthActionTypes => ({
+  type: AUTH_LOGIN_BY_TOKEN_REQUEST,
 });
 
 export const loginRequestSuccess = (user: User): AuthActionTypes => ({

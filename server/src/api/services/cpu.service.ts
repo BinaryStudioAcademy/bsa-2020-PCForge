@@ -4,6 +4,7 @@ import { CpuRepository } from '../../data/repositories/cpu.repository';
 import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { ICpusMiddleware } from '../middlewares/cpu.middleware';
 
 export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, CpuRepository> {
   constructor(private repository: CpuRepository) {
@@ -23,12 +24,18 @@ export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, Cpu
     return cpus;
   }
 
-  async createCpu(inputCpu: CpuCreationAttributes): Promise<CpuModel> {
+  async createCpu(inputCpu: CpuCreationAttributes, cpuMiddleware: ICpusMiddleware): Promise<CpuModel> {
+    await cpuMiddleware(inputCpu);
     const cpu = await super.create(inputCpu);
     return cpu;
   }
 
-  async updateCpuById({ id, data }: { id: string; data: CpuCreationAttributes }): Promise<CpuModel> {
+  async updateCpuById(
+    inputCpu: { id: string; data: CpuCreationAttributes },
+    cpuMiddleware: ICpusMiddleware
+  ): Promise<CpuModel> {
+    const { id, data } = inputCpu;
+    await cpuMiddleware(data);
     const cpu = await super.updateById(id, data);
     return cpu;
   }

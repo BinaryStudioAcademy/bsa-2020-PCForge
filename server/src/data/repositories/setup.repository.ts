@@ -10,6 +10,7 @@ import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { mergeFilters } from './filters/helper';
 import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
+import { UserStatic } from '../models/user';
 
 export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
   constructor(
@@ -20,7 +21,8 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     private ramModel: RamStatic,
     private powerSupplyModel: PowerSupplyStatic,
     private hddModel: HddStatic,
-    private ssdModel: SsdStatic
+    private ssdModel: SsdStatic,
+    private userModel: UserStatic
   ) {
     super(<RichModel>model, IFilter);
   }
@@ -55,6 +57,10 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         {
           model: this.ssdModel,
         },
+        {
+          model: this.userModel,
+          as: 'author',
+        },
       ],
       where,
       offset: filter.from,
@@ -63,7 +69,6 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
 
     const globalCount = result.count;
     const countAfterFiltering = result.rows.length;
-
     return {
       meta: { globalCount, countAfterFiltering },
       data: result.rows,
@@ -72,7 +77,17 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
 
   async getOneSetup(id: string): Promise<SetupModel> {
     const setup = await this.model.findByPk(id, {
-      group: ['setup.id', 'cpu.id', 'gpu.id', 'ram.id', 'powerSupply.id', 'motherboard.id', 'hdd.id', 'ssd.id'],
+      group: [
+        'setup.id',
+        'cpu.id',
+        'gpu.id',
+        'ram.id',
+        'powerSupply.id',
+        'motherboard.id',
+        'hdd.id',
+        'ssd.id',
+        'author.id',
+      ],
       include: [
         {
           model: this.cpuModel,
@@ -102,8 +117,32 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           model: this.ssdModel,
           as: 'ssd',
         },
+        {
+          model: this.userModel,
+          as: 'author',
+        },
       ],
     });
     return setup;
+  }
+
+  async forkSetup(id: string, userId: number): Promise<SetupModel> {
+    const setup = await this.model.findByPk(id);
+    const dataToInsert = {
+      parentId: setup.id,
+      authorId: userId,
+      title: setup.title,
+      description: setup.description,
+      image: setup.image,
+      cpuId: setup.get('cpuId'),
+      gpuId: setup.get('gpuId'),
+      powerSupplyId: setup.get('powerSupplyId'),
+      hddId: setup.get('hddId'),
+      ssdId: setup.get('ssdId'),
+      ramId: setup.get('ramId'),
+      motherboardId: setup.get('motherboardId'),
+    };
+    const forkedSetup = await this.model.create(dataToInsert);
+    return forkedSetup;
   }
 }

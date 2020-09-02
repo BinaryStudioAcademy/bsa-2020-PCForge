@@ -6,6 +6,7 @@ export const AUTH_CHANGE_CONFIRM_PASSWORD = 'AUTH_CHANGE_CONFIRM_PASSWORD';
 export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
 export const AUTH_LOGIN_FAILURE = 'AUTH_LOGIN_FAILURE';
+export const AUTH_LOGIN_BY_TOKEN_REQUEST = 'AUTH_LOGIN_BY_TOKEN_REQUEST';
 export const AUTH_REGISTER_REQUEST = 'AUTH_REGISTER_REQUEST';
 export const AUTH_VALIDATION_ERROR = 'AUTH_VALIDATION_ERROR';
 export const AUTH_KEEP_SIGN_IN = 'AUTH_KEEP_SIGN_IN';
@@ -45,6 +46,10 @@ export interface loginRequestAction {
     password: string;
     keepSignedIn: boolean;
   };
+}
+
+export interface loginByTokenRequestAction {
+  type: typeof AUTH_LOGIN_BY_TOKEN_REQUEST;
 }
 
 export interface loginRequestSuccess {
@@ -148,4 +153,5 @@ export type AuthActionTypes =
   | registrationError
   | googleAuthAction
   | googleAuthSuccess
-  | googleAuthFailure;
+  | googleAuthFailure
+  | loginByTokenRequestAction;

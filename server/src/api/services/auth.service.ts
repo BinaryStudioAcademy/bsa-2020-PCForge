@@ -1,5 +1,5 @@
 import { UserCreationAttributes, UserModel } from '../../data/models/user';
-import { compare, getRandomStringToken } from '../../helpers/crypto.helper';
+import { getRandomStringToken } from '../../helpers/crypto.helper';
 import { removeNonUrlChars, triggerServerError } from '../../helpers/global.helper';
 import { UserFilter } from '../../data/repositories/filters/user.filter';
 

@@ -15,6 +15,10 @@ interface UserCreateAttributes {
   avatar: string;
 }
 
+interface UserUpdateAttributes extends UserCreateAttributes {
+  currentPassword?: string;
+}
+
 export class UserService extends BaseService<UserModel, UserCreationAttributes, UserRepository> {
   constructor(private repository: UserRepository) {
     super(repository);
@@ -29,7 +33,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     if (!isPasswordValidForUser) {
       throw {
         error: `Invalid login or password`,
-        status: 401,
+        status: 403,
       };
     }
     return user;
@@ -43,7 +47,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getUserById(id);
     if (!user) {
-      triggerServerError(`User with id: ${id} does not exists`, 404);
+      triggerServerError(`User with id: ${id} does not exists`, 400);
     }
     return user;
   }
@@ -64,15 +68,27 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     }
   }
 
-  async updateUser(id: string | number, inputUser: UserCreateAttributes): Promise<UserModel> {
+  async updateUser(id: string | number, inputUser: UserUpdateAttributes): Promise<UserModel> {
+    if (!Object.keys(inputUser).length) {
+      triggerServerError('No valid fields to update specified', 400);
+    }
     id = id.toString();
     const oldUser = await this.repository.getById(id);
     if (!oldUser) {
       triggerServerError(`User with id: ${id} does not exist`, 404);
     }
     if (inputUser.password) {
+      const validForPasswordUpdate =
+        inputUser.currentPassword && (await bcrypt.compare(inputUser.currentPassword, oldUser.password));
+      if (!validForPasswordUpdate) {
+        throw {
+          error: `Invalid current password`,
+          status: 401,
+        };
+      }
       inputUser.password = this.hash(inputUser.password);
     }
+
     const userAttributes = {
       ...inputUser,
       isAdmin: false,

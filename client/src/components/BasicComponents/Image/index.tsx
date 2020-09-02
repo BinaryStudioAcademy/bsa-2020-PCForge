@@ -23,7 +23,7 @@ class Image extends React.PureComponent<Props, State> {
 
   public defaultImage = 'https://www.streamscheme.com/wp-content/uploads/2020/04/purple-stream-room-mode-pc.jpg';
 
-  public onLoadingError(): void {
+  public onLoadingError() {
     this.setState({ showFallback: true });
   }
 

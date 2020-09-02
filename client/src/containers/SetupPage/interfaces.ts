@@ -12,6 +12,7 @@ export interface ISetupProps extends RouteComponentProps<{ id: string }> {
   createSetupComment: (payload: { id: number; value: string }) => SetupActionTypes;
   setSetupRate: (payload: { id: number; value: number }) => SetupActionTypes;
   wipeSnackbarData: () => SetupActionTypes;
+  forkSetup: (setupId: number) => SetupActionTypes;
 }
 
 export interface ISetupState {
