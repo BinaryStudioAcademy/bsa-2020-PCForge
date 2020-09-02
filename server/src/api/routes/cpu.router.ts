@@ -23,9 +23,12 @@ import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 import { renameQuery } from '../middlewares/rename.middleware';
+import { CpuMiddleware } from '../middlewares/cpu.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { CpuService } = fastify.services;
+
+  const cpuMiddleware = CpuMiddleware(fastify);
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
@@ -48,7 +51,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const createOneSchema = createOneQuery(CreateCpuSchema, CpuSchema);
   fastify.post('/', createOneSchema, async (request: PostCpuRequest, reply) => {
     allowForAdmin(request);
-    const cpu = await CpuService.createCpu(request.body);
+    const cpu = await CpuService.createCpu(request.body, cpuMiddleware);
     reply.send(cpu);
   });
 
@@ -56,7 +59,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', updateOneSchema, async (request: PutCpuRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
-    const newCpu = await CpuService.updateCpuById({ id, data: request.body });
+    const data = { id, data: request.body };
+    const newCpu = await CpuService.updateCpuById(data, cpuMiddleware);
     reply.send(newCpu);
   });
 

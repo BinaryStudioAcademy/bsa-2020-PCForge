@@ -4,6 +4,7 @@ import { IRamFilter } from '../../data/repositories/filters/ram.filter';
 import { RamRepository } from '../../data/repositories/ram.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { IRamsMiddleware } from '../middlewares/ram.middleware';
 
 export class RamService extends BaseService<RamModel, RamCreationAttributes, RamRepository> {
   constructor(private repository: RamRepository) {
@@ -23,12 +24,18 @@ export class RamService extends BaseService<RamModel, RamCreationAttributes, Ram
     return rams;
   }
 
-  async createRam(inputRam: RamCreationAttributes): Promise<RamModel> {
+  async createRam(inputRam: RamCreationAttributes, ramMiddleware: IRamsMiddleware): Promise<RamModel> {
+    await ramMiddleware(inputRam);
     const ram = await super.create(inputRam);
     return ram;
   }
 
-  async updateRamById({ id, data }: { id: string; data: RamCreationAttributes }): Promise<RamModel> {
+  async updateRamById(
+    inputRam: { id: string; data: RamCreationAttributes },
+    ramMiddleware: IRamsMiddleware
+  ): Promise<RamModel> {
+    const { id, data } = inputRam;
+    await ramMiddleware(data);
     const ram = await super.updateById(id, data);
     return ram;
   }

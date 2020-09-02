@@ -23,9 +23,12 @@ import { IMotherboardFilter } from '../../data/repositories/filters/motherboard.
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 import { renameQuery } from '../middlewares/rename.middleware';
+import { MotherboardMiddleware } from '../middlewares/motherboard.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { MotherboardService } = fastify.services;
+
+  const motherboardMiddleware = MotherboardMiddleware(fastify);
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
@@ -48,7 +51,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const createOneSchema = createOneQuery(CreateMotherBoardSchema, MotherBoardSchema);
   fastify.post('/', createOneSchema, async (request: PostMotherboardRequest, reply) => {
     allowForAdmin(request);
-    const motherboard = await MotherboardService.createMotherboard(request.body);
+    const motherboard = await MotherboardService.createMotherboard(request.body, motherboardMiddleware);
     reply.send(motherboard);
   });
 
@@ -56,7 +59,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.put('/:id', updateOneSchema, async (request: PutMotherboardRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
-    const newMotherboard = await MotherboardService.updateMotherboardById({ id, data: request.body });
+    const data = { id, data: request.body };
+    const newMotherboard = await MotherboardService.updateMotherboardById(data, motherboardMiddleware);
     reply.send(newMotherboard);
   });
 
