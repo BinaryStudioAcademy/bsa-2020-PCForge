@@ -9,6 +9,8 @@ import { CpuModel } from '../../data/models/cpu';
 import { RamModel } from '../../data/models/ram';
 import { MotherboardModel } from '../../data/models/motherboard';
 import { PowerSupplyModel } from '../../data/models/powersupply';
+import { HddModel } from '../../data/models/hdd';
+import { SsdModel } from '../../data/models/ssd';
 
 export type ICommentMiddleware = (inputComment: CommentCreationAttributes) => void;
 export type IInstance =
@@ -19,7 +21,9 @@ export type IInstance =
   | GpuModel
   | RamModel
   | MotherboardModel
-  | PowerSupplyModel;
+  | PowerSupplyModel
+  | HddModel
+  | SsdModel;
 
 export const CommentMiddleware = (fastify: FastifyInstance): ICommentMiddleware => {
   const {
@@ -31,6 +35,8 @@ export const CommentMiddleware = (fastify: FastifyInstance): ICommentMiddleware 
     MotherboardService,
     RamService,
     PowerSupplyService,
+    HddService,
+    SsdService,
   } = fastify.services;
 
   return async (inputComment: CommentCreationAttributes) => {
@@ -62,6 +68,12 @@ export const CommentMiddleware = (fastify: FastifyInstance): ICommentMiddleware 
         break;
       case 'motherboard':
         instance = await MotherboardService.getMotherboardById(stringCommentableId);
+        break;
+      case 'hdd':
+        instance = await HddService.getHddById(stringCommentableId);
+        break;
+      case 'ssd':
+        instance = await SsdService.getSsdById(stringCommentableId);
         break;
     }
     if (!instance) {

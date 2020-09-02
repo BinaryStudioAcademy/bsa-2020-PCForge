@@ -28,7 +28,6 @@ export function HardwareReducer(state: IHardwareState = initialState, action: Ha
         commentsCountTotal: action.payload.meta.countAfterFiltering,
       };
     case GET_HARDWARE_RATE_SUCCESS: {
-      console.log('redicer', action.payload);
       return {
         ...state,
         rate: action.payload.average,
