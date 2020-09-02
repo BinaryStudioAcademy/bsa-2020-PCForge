@@ -16,6 +16,10 @@ interface UserCreateAttributes {
   emailVerified?: boolean;
 }
 
+interface UserUpdateAttributes extends UserCreateAttributes {
+  currentPassword?: string;
+}
+
 export class UserService extends BaseService<UserModel, UserCreationAttributes, UserRepository> {
   constructor(private repository: UserRepository) {
     super(repository);
@@ -63,7 +67,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     }
   }
 
-  async updateUser(id: string | number, inputUser: UserCreateAttributes): Promise<UserModel> {
+  async updateUser(id: string | number, inputUser: UserUpdateAttributes): Promise<UserModel> {
     id = id.toString();
     const oldUser = await this.repository.getById(id);
     if (!Object.keys(inputUser).length) {
@@ -73,8 +77,17 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
       triggerServerError(`User with id: ${id} does not exist`, 404);
     }
     if (inputUser.password) {
+      const validForPasswordUpdate =
+        inputUser.currentPassword && (await bcrypt.compare(inputUser.currentPassword, oldUser.password));
+      if (!validForPasswordUpdate) {
+        throw {
+          error: `Invalid current password`,
+          status: 401,
+        };
+      }
       inputUser.password = this.hash(inputUser.password);
     }
+
     const userAttributes = {
       ...inputUser,
       isAdmin: false,
