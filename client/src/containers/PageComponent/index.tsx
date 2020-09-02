@@ -6,9 +6,6 @@ import classes from './styles.module.scss';
 import { MenuItems } from 'common/enums';
 import Spinner from 'components/Spinner';
 import TopBar from 'containers/TopBar';
-import { getToken, clearToken } from 'helpers/tokenHelper';
-import { useDispatch } from 'react-redux';
-import { loginRequestSuccess } from '../Auth/actions';
 import { RootState } from 'redux/rootReducer';
 
 interface IProps {
