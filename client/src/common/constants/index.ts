@@ -3,3 +3,5 @@ export const NAME = /^[а-яА-ЯёЁіІїЇґҐa-zA-Zàëäöïüâêĉĝĥĵ�
 export const PASSWORD = /^[a-zA-Zа-яА-ЯёЁіІїЇґҐ0-9@%$+._-]+$/;
 
 export const MAX_COUNT_USERS_REQUESTS = 10;
+export const MAX_IMAGE_SIZE = 5242880; //5MB
+

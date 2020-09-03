@@ -4,12 +4,14 @@ import { GpuAttributes } from './gpu';
 import { RamAttributes } from './ram';
 import { HddAttributes } from './hdd';
 import { SsdAttributes } from './ssd';
+import { CommentAttributes } from './comment';
 import { UserAttributes } from './user';
 
 export interface SetupAttributes {
   id: number;
   title: string;
   description: string;
+  comments_count: number;
   image: string;
   authorId: number;
   cpu: CpuAttributes;
