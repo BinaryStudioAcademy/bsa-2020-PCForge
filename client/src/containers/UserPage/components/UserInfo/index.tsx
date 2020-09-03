@@ -283,16 +283,18 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
             inputRef={inputRef}
             helperText={nameErrorMessage || ''}
           />
-          <Input
-            disabled={!editableInput}
-            className={editableInput ? styles.autoFocused : ''}
-            icon="Email"
-            placeholder="Email"
-            value={email}
-            inputType={emailErrorMessage ? InputType.error : undefined}
-            onChange={handleEmailChange}
-            helperText={emailErrorMessage || ''}
-          />
+          {isCurrentUser && (
+            <Input
+              disabled={!editableInput}
+              className={editableInput ? styles.autoFocused : ''}
+              icon="Email"
+              placeholder="Email"
+              value={email}
+              inputType={emailErrorMessage ? InputType.error : undefined}
+              onChange={handleEmailChange}
+              helperText={emailErrorMessage || ''}
+            />
+          )}
           {!showPasswords && editableInput && <Link onClick={handlePasswordShow}>Change Password</Link>}
 
           {showPasswords && editableInput && passwordFields}

@@ -88,6 +88,11 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         ...state,
         errorMessage: action.payload.message,
       };
+    case 'AUTH_LOGOUT':
+      return {
+        ...state,
+        user: null,
+      };
     default:
       return state;
   }

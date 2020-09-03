@@ -88,6 +88,5 @@
       "prettier --write",
       "eslint --fix"
     ]
-  },
-  "proxy": "http://localhost:5001"
+  }
 }

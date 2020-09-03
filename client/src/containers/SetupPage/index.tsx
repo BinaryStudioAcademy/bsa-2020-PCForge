@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { ReactText } from 'react';
 import styles from 'containers/SetupPage/styles.module.scss';
-import PcComponentView from 'components/SetupComponents/PcComponentView';
 import SetupCard from 'components/SetupComponents/SetupCard';
 import Comments from 'components/Comments';
-import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
 import { ISetupProps, ISetupState } from './interfaces';
@@ -14,7 +12,8 @@ import NotFound from 'containers/NotFound';
 import Spinner from 'components/Spinner';
 import Snackbar from 'components/BasicComponents/Snackbar';
 import { AlertType } from 'components/BasicComponents/Alert';
-import * as Sentry from '@sentry/react';
+import HardwareView from 'components/HardwareView';
+import TopGames from 'containers/TopGames';
 
 class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   constructor(props: ISetupProps) {
@@ -69,14 +68,14 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
         <div className={styles.setupPageRoot}>
           <h1>PC setup</h1>
           <Snackbar
-            open={!!(this.props.state.snackbarMessage && this.state.snackbarMessageType)}
+            open={!!this.props.state.snackbarMessage}
             alertProps={{
-              alertTitle: this.state.snackbarMessageType === AlertType.error ? 'Error' : '',
-              alertType: this.state.snackbarMessageType,
+              alertTitle: this.props.state.snackbarMessageType === AlertType.error ? 'Error' : '',
+              alertType: this.props.state.snackbarMessageType,
             }}
             onClose={this.onSnackBarClose}
           >
-            <span>{this.state.snackbarMessage}</span>
+            <span>{this.props.state.snackbarMessage}</span>
           </Snackbar>
           <div className={styles.contentWrapper}>
             <div className={styles.setupsDetails}>
@@ -86,36 +85,52 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                 rate={this.props.state.rate}
                 onRatingSet={this.onRatingSet}
               />
-              <PcComponentView
+              <HardwareView
                 title="Processor"
-                pcComponent={cpu}
-                neededProperties={{
-                  name: 'Name',
-                  cores: 'Cores',
-                  clockspeed: 'Clock Speed',
-                  class: 'Class',
-                  tdp: 'Thermal design power',
+                hardware={(cpu as unknown) as Record<string, ReactText>}
+                schema={{
+                  name: { as: 'Name' },
+                  cores: { as: 'Cores' },
+                  clockspeed: { as: 'ClockSpeed', postfix: ' MHz' },
+                  class: { as: 'Class' },
+                  tdp: { as: 'Thermal design power' },
                 }}
               />
-              <PcComponentView
+              <HardwareView
                 title="Graphics"
-                pcComponent={gpu}
-                neededProperties={{
-                  name: 'Name',
-                  interface: 'Interface',
-                  memorySize: 'Memory',
-                  opengl: 'OpenGL',
-                  tdp: 'Thermal design power',
+                hardware={(gpu as unknown) as Record<string, ReactText>}
+                schema={{
+                  name: { as: 'Name' },
+                  interface: { as: 'Interface' },
+                  memorySize: { as: 'Memory', postfix: ' GB' },
+                  opengl: { as: 'OpenGL' },
+                  tdp: { as: 'Thermal design power' },
                 }}
               />
-              <PcComponentView
+              <HardwareView
                 title="RAM"
-                pcComponent={ram}
-                neededProperties={{ name: 'Name', memorySize: 'Memory', frequency: 'Frequency' }}
+                hardware={(ram as unknown) as Record<string, ReactText>}
+                schema={{
+                  name: { as: 'Name' },
+                  memorySize: { as: 'Memory', postfix: ' GB' },
+                  frequency: { as: 'Frequency', postfix: ' MHz' },
+                }}
               />
-              <PcComponentView title="Motherboard" pcComponent={motherboard} neededProperties={{ name: 'Name' }} />
-              <PcComponentView title="Power Supply" pcComponent={powerSupply} neededProperties={{ name: 'Name' }} />
-
+              <HardwareView
+                title="Motherboard"
+                hardware={(motherboard as unknown) as Record<string, ReactText>}
+                schema={{
+                  name: { as: 'Name' },
+                }}
+              />
+              <HardwareView
+                title="Power Supply"
+                hardware={(powerSupply as unknown) as Record<string, ReactText>}
+                schema={{
+                  name: { as: 'Name' },
+                  power: { as: 'Power' },
+                }}
+              />
               {this.props.state?.comments && (
                 <Comments
                   commentsPerPage={commentsPerPage}
@@ -128,7 +143,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
               )}
             </div>
             <div className={styles.asideItems}>
-              <TopGames topGames={[]} />
+              <TopGames />
             </div>
           </div>
         </div>

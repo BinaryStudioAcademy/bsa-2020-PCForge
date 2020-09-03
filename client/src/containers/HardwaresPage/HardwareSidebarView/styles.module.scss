@@ -1,0 +1,32 @@
+@import '../../../styles/variables.scss';
+
+.hardwareRoot {
+  display: flex;
+  width: 100%;
+}
+
+.contentWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0.5rem;
+}
+
+.ratingBoxWrapper {
+  margin-top: 0.5rem;
+  display: flex;
+  width: 100%;
+  // justify-content: center;
+}
+
+.asideItems {
+  margin-left: 6rem;
+}
+
+.commentsWrapper {
+  margin-top: 0.5rem;
+}
+
+.addCommentButton.addCommentButton.addCommentButton.addCommentButton.addCommentButton {
+  width: 100%;
+}

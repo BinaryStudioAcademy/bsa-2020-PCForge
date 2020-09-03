@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import { RootState } from 'redux/rootReducer';
@@ -9,6 +10,7 @@ import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
 import UserSchema from 'common/validation/user';
+import { getTokenSync } from 'helpers/tokenHelper';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
@@ -113,7 +115,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-
     return (
       <React.Fragment>
         <div className={styles.bgContainer} />

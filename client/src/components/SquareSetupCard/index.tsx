@@ -1,8 +1,9 @@
 import React from 'react';
 import moment from 'moment';
+import history from 'browserHistory';
 import { useParams } from 'react-router';
 import styles from './styles.module.scss';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { Cpu } from 'common/models/cpu';
 import { Motherboard } from 'common/models/motherboard';
@@ -58,7 +59,13 @@ const SetupCard: React.FC<SetupCardProps> = ({
 
   const setupCreatedAt = moment(createdAt).format('D MMM YYYY');
 
-  const handleDeleteSetup: () => void = () => {
+  const handleCardClick: () => void = () => {
+    history.push(`/setup/${id}`);
+  };
+
+  const handleDeleteSetup: (e: React.MouseEvent<HTMLElement>) => void = (e) => {
+    e!.stopPropagation();
+
     if (deleteUserSetup && setTab) {
       deleteUserSetup(userId, id);
       setTab(UserPageTabs.Setups);
@@ -76,7 +83,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
   }
 
   return (
-    <div className={setupStyle}>
+    <div onClick={handleCardClick} className={setupStyle}>
       <div className={styles.setupImage}>
         <Image src={image} alt="" />
       </div>
@@ -100,17 +107,12 @@ const SetupCard: React.FC<SetupCardProps> = ({
         </div>
 
         <div className={styles.backBottomWrapper}>
-          <Link to={`/setup/${id}`}>
-            <Button icon="ArrowForward" buttonType={ButtonType.primary}>
-              {' '}
-              Find out more{' '}
-            </Button>
-          </Link>
+          <Button icon="ArrowForward" buttonType={ButtonType.primary}>
+            Find out more
+          </Button>
           <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
         </div>
       </div>
-
-      <div className={styles.setupExtraInfo}></div>
     </div>
   );
 };

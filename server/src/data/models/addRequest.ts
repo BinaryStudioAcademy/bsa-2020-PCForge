@@ -1,10 +1,13 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
+import { UserAttributes } from './user';
 
 export interface AddRequestAttributes {
   id: number;
   requestBody: string;
   requestedType: string;
+  requestedHardwareType: string;
   userId: number;
+  user: UserAttributes;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -12,6 +15,7 @@ export interface AddRequestAttributes {
 export interface AddRequestCreationAttributes {
   requestBody: string;
   requestedType: string;
+  requestedHardwareType: string;
   userId: number;
 }
 
@@ -39,6 +43,10 @@ export function AddRequestFactory(sequelize: Sequelize): AddRequestStatic {
     },
     requestedType: {
       allowNull: false,
+      type: DataTypes.STRING(50),
+    },
+    requestedHardwareType: {
+      allowNull: true,
       type: DataTypes.STRING(50),
     },
     requestBody: {
