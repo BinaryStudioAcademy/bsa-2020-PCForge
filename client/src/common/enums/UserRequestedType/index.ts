@@ -1,9 +1,15 @@
 enum UserRequestedType {
+  hardware = 'hardware',
+  game = 'game',
+}
+export { UserRequestedType };
+
+export enum UserRequestedHardwareType {
   cpu = 'cpu',
   gpu = 'gpu',
-  game = 'game',
   motherboard = 'motherboard',
   ram = 'ram',
   powerSupply = 'powerSupply',
+  ssd = 'ssd',
+  hdd = 'hdd',
 }
-export { UserRequestedType };

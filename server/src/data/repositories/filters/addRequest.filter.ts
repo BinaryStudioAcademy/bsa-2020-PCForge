@@ -1,12 +1,14 @@
 import { IFilter } from './base.filter';
-import { notNull, FilterByNameType } from './types';
+import { notNull, FilterByNameType, FilterByIdType } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IAddRequestFilter extends IFilter {
   constructor() {
     super();
   }
+
   requestedType: FilterByNameType = notNull;
+  userId?: FilterByIdType = null;
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -14,8 +16,11 @@ export class IAddRequestFilter extends IFilter {
       ...IFilter.schema.properties,
       requestedType: {
         type: 'string',
-        enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
+        enum: ['hardware', 'game'],
         nullable: true,
+      },
+      userId: {
+        type: 'string',
       },
     },
   };

@@ -1,5 +1,4 @@
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
-
 import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
 
 import { TypeSocket } from 'common/models/typeSocket';
@@ -117,9 +116,7 @@ function* watchCreatePowerSupply() {
 
 function* createMotherBoard(action: ICreateMotherboardAction) {
   try {
-    console.log(action.payload.motherboard);
     const motherBoardNew = yield call(postMotherBoard, action.payload.motherboard);
-    console.log(motherBoardNew);
     yield put(loadCreatedHardware(motherBoardNew.name));
   } catch (error) {
     yield put(loadError(error.message));
