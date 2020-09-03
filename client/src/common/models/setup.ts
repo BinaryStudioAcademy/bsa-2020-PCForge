@@ -8,6 +8,7 @@ export interface Setup {
   id: number;
   title: string;
   rating: number;
+  ratingCount:number;
   description: string;
   comments_count: string;
   image: string;

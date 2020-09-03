@@ -10,12 +10,12 @@ import { Motherboard } from 'common/models/motherboard';
 import { Gpu } from 'common/models/gpu';
 import { Ram } from 'common/models/ram';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
-import { Link } from 'react-router-dom';
 import BasicLink from 'components/BasicComponents/Link';
 import Image from 'components/BasicComponents/Image';
 import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
 import { UserPageTabs } from 'containers/UserPage/index';
+import ExtendedRatingBox from 'components/BasicComponents/ExtendedRatingBox';
 
 export interface SetupCardProps {
   id: number;
@@ -27,6 +27,8 @@ export interface SetupCardProps {
   motherboard: Motherboard;
   powerSupply: TypePowersupplies;
   ram: Ram;
+  rating: number;
+  ratingCount:number;
   author: TypeUser;
   createdAt: Date;
   className?: string;
@@ -47,6 +49,8 @@ const SetupCard: React.FC<SetupCardProps> = ({
   powerSupply,
   ram,
   author,
+  rating,
+  ratingCount,
   big,
   createdAt,
   className,
@@ -95,7 +99,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
           Created on {setupCreatedAt} {!own && <>by {author.name}</>}
         </div>
         <div className={styles.setupCardRatingBox}>
-          <RatingBox ratingValue={5} disabled={false} name={title} />
+          <ExtendedRatingBox ratingCount={ratingCount} averageValue={rating} name={title} />
         </div>
 
         <div className={styles.setupBack}>

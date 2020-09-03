@@ -8,14 +8,16 @@ import { withStyles } from '@material-ui/styles';
 interface Props {
   name: string;
   averageValue: number;
+  ratingCount: number;
   userValue?: number;
+  clickable?: boolean;
   onValueSet?: (value: number) => void;
 }
 
 interface State {
   userValue: number;
   averageRatingHovered: boolean;
-  userRatingHovered: boolean;
+  userRatingClicked: boolean;
 }
 
 const StyledRating = withStyles({
@@ -41,16 +43,12 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
     this.state = {
       userValue: this.props.userValue || 0,
       averageRatingHovered: false,
-      userRatingHovered: false,
+      userRatingClicked: false,
     };
 
-    this.onUserValueMouseEnter = this.onUserValueMouseEnter.bind(this);
-    this.onUserValueMouseLeave = this.onUserValueMouseLeave.bind(this);
+    this.openRating = this.openRating.bind(this);
     this.onRatingValueSet = this.onRatingValueSet.bind(this);
-    this.onUserValueClick = this.onUserValueClick.bind(this);
   }
-
-  userValueBlocked = false;
 
   public onRatingValueSet(value: number) {
     this.setState({
@@ -59,58 +57,61 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
     if (this.props.onValueSet) {
       this.props.onValueSet(value);
     }
+    this.closeRating();
   }
 
-  public onUserValueMouseEnter() {
-    this.setState({
-      userRatingHovered: true,
-    });
-  }
-
-  public onUserValueMouseLeave() {
-    if (!this.userValueBlocked) {
+  public openRating() {
+    if (this.props.clickable && !this.state.userRatingClicked) {
       this.setState({
-        userRatingHovered: false,
+        userRatingClicked: true,
       });
     }
   }
 
-  public onUserValueClick() {
-    this.userValueBlocked = !this.userValueBlocked;
+  public closeRating() {
+    this.setState({
+      userRatingClicked: false,
+    });
   }
 
   public render(): JSX.Element {
-    const { name, averageValue } = this.props;
+    const { name, averageValue, ratingCount, clickable } = this.props;
     const { userValue } = this.state;
     return (
       <div className={styles.ratingBoxesWrapper}>
         <div className={styles.ratingBoxWrapper} title={(averageValue || 0).toString()}>
           <StyledRating
             precision={0.1}
-            value={(averageValue || 0) / 5}
+            max={1}
             name={name + 'main-average'}
             disabled={true}
-            max={1}
+            value={(averageValue || 0) / 5}
             icon={<RatingIcon viewBox="0 0 24 10" color={'secondary'} />}
           />
         </div>
+        <div>
+          <div>{averageValue}/5</div>
+          <div>{ratingCount}</div>
+        </div>
+
         <div className={styles.verticalDivider} />
-        <div
-          className={styles.ratingBoxWrapper}
-          onMouseEnter={this.onUserValueMouseEnter}
-          onMouseLeave={this.onUserValueMouseLeave}
-        >
-          <div onClick={this.onUserValueClick} title={(userValue === 0 ? 0 : userValue || 'Not rated').toString()}>
-            <StyledRating
-              precision={0.1}
-              disabled={true}
-              name={name + 'main-user'}
-              value={userValue / 5}
-              max={1}
-              icon={<RatingIcon viewBox="0 0 24 10" color={'primary'} />}
-            />
-          </div>
-          {this.state.userRatingHovered && (
+
+        <div className={styles.ratingBoxWrapper} onClick={this.openRating}>
+          {!this.state.userRatingClicked && (
+            <div title={(userValue === 0 ? 0 : userValue || 'Not rated').toString()}>
+              <StyledRating
+                precision={0.1}
+                disabled={true}
+                name={name + 'main-user'}
+                value={userValue / 5}
+                max={1}
+                icon={<RatingIcon viewBox="0 0 24 10" color={'primary'} />}
+              />
+              {!this.props.userValue && <div>Rate Me</div>}
+            </div>
+          )}
+
+          {this.state.userRatingClicked && (
             <div className={styles.ratingBoxContent}>
               <RatingBox
                 disabled={false}

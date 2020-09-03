@@ -2,7 +2,7 @@ import React from 'react';
 import { PCSetup } from 'common/models/setup';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
-import RatingBox from 'components/BasicComponents/RatingBox';
+import ExtendedRatingBox from 'components/BasicComponents/ExtendedRatingBox';
 import styles from './styles.module.scss';
 import ZoomImage from 'components/ZoomImage';
 import defaultSetupImage from 'assets/images/defaultSetup.jpg';
@@ -11,13 +11,14 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 interface Props {
   setup: PCSetup;
   rate: number;
+  rateClickable: boolean;
   onRatingSet: (value: number) => void;
   onForkClick: (setupId: number) => void;
 }
 
 const SetupCard: React.FC<Props> = (props): JSX.Element => {
-  const { onRatingSet, onForkClick } = props;
-  const { title, description, image, id } = props.setup;
+  const { onRatingSet, onForkClick, rateClickable } = props;
+  const { title, description, image, id, rating, ratingCount } = props.setup;
 
   const handleForkClick = (event: React.MouseEvent) => {
     onForkClick(id);
@@ -35,7 +36,13 @@ const SetupCard: React.FC<Props> = (props): JSX.Element => {
             Fork Setup
           </Button>
           <div className={styles.ratingBoxWrapper}>
-            <RatingBox name="setup-card" ratingValue={props.rate} disabled={false} onValueSet={onRatingSet} />
+            <ExtendedRatingBox
+              name="setup-card"
+              ratingCount={ratingCount}
+              clickable={rateClickable}
+              averageValue={rating}
+              onValueSet={onRatingSet}
+            />
           </div>
         </div>
       </div>

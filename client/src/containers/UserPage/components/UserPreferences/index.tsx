@@ -119,6 +119,8 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   createdAt={setup.createdAt}
                   powerSupply={setup.powerSupply}
                   author={setup.author}
+                  rating={setup.rating}
+                  ratingCount={setup.ratingCount}
                   key={generateKey(setup.title, index)}
                   deleteUserSetup={deleteUserSetup}
                   own={isCurrentUser}

@@ -81,6 +81,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
             <div className={styles.setupsDetails}>
               <SetupCard
                 setup={setup}
+                rateClickable
                 onForkClick={this.props.forkSetup}
                 rate={this.props.state.rate}
                 onRatingSet={this.onRatingSet}
