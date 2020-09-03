@@ -6,6 +6,8 @@ export class ISsdFilter extends IFilter {
   constructor() {
     super();
   }
+  id: FilterByNumberType = notNull;
+  excludedId: FilterByNumberType = [];
   sata: FilterByNumberType = notNull;
   m2: FilterByBooleanType = notNull;
   capacity: FilterRangeType<number> = {
