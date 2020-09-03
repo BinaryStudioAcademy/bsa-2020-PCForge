@@ -13,7 +13,6 @@ import SetupPage from 'containers/SetupsPage';
 import BuilderPage from 'containers/BuilderPage';
 import AdminToolsPage from 'containers/AdminToolsPage';
 import AddItemPages from 'containers/AddItemPages';
-import Notification from 'containers/Notification';
 import GamePage from 'containers/GamePage';
 import EmailVerificationPage from './EmailVerificationPage';
 import ResetPasswordRequest from './ResetPassword/request';
@@ -46,7 +45,6 @@ class App extends Component {
           <PrivateRoute exact path={Routes.HARDWARES} component={HardwaresPage} />
           <PrivateRoute path="*" exact={true} component={NotFound} />
         </Switch>
-        <Notification />
       </RootComponent>
     );
   }

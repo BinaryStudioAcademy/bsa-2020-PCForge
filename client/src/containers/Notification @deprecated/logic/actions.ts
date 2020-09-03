@@ -1,5 +1,5 @@
 import { NotificationActionTypes, SHOW_NOTIFICATION, HIDE_NOTIFICATION } from './actionTypes';
-import { MessageSeverity } from './../components/Message';
+import { MessageSeverity } from '../components/Message';
 
 export const showSuccess = (message: string, icon?: string): NotificationActionTypes => ({
   type: SHOW_NOTIFICATION,
