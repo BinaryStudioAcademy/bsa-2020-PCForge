@@ -13,6 +13,7 @@ interface UserCreateAttributes {
   password: string;
   email: string;
   avatar: string;
+  emailVerified?: boolean;
 }
 
 interface UserUpdateAttributes extends UserCreateAttributes {
@@ -31,10 +32,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     const user = await this.repository.getUserByUserNameOrEmail(login);
     const isPasswordValidForUser = user ? await bcrypt.compare(password, user.password) : 0;
     if (!isPasswordValidForUser) {
-      throw {
-        error: `Invalid login or password`,
-        status: 403,
-      };
+      triggerServerError('Invalid login or password', 401);
     }
     return user;
   }
@@ -61,9 +59,11 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
         ...inputUser,
         isAdmin: false,
         password: this.hash(inputUser.password),
-        verifyEmailToken: genRandomString(33),
+        verifyEmailToken: inputUser.emailVerified ? null : genRandomString(33),
         resetPasswordToken: null,
+        isActive: true,
       };
+      console.log(userAttributes);
       return await super.create(userAttributes);
     }
   }
@@ -74,6 +74,9 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     }
     id = id.toString();
     const oldUser = await this.repository.getById(id);
+    if (!Object.keys(inputUser).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     if (!oldUser) {
       triggerServerError(`User with id: ${id} does not exist`, 404);
     }

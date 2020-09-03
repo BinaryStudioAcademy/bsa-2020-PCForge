@@ -1,8 +1,9 @@
 import React from 'react';
 import moment from 'moment';
+import history from 'browserHistory';
 import { useParams } from 'react-router';
 import styles from './styles.module.scss';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { Cpu } from 'common/models/cpu';
 import { Motherboard } from 'common/models/motherboard';
@@ -58,7 +59,14 @@ const SetupCard: React.FC<SetupCardProps> = ({
 
   const setupCreatedAt = moment(createdAt).format('D MMM YYYY');
 
-  const handleDeleteSetup: () => void = () => {
+  const handleCardClick: () => void = () => {
+    history.push(`/setup/${id}`);
+  }
+
+  const handleDeleteSetup: (e: React.MouseEvent<HTMLElement>) => void = (e) => {
+   
+      e!.stopPropagation();
+    
     if (deleteUserSetup && setTab) {
       deleteUserSetup(userId, id);
       setTab(UserPageTabs.Setups);
@@ -76,42 +84,38 @@ const SetupCard: React.FC<SetupCardProps> = ({
   }
 
   return (
-    <div className={setupStyle}>
-      <div className={styles.setupImage}>
-        <Image src={image} alt="" />
-      </div>
-      <div className={styles.setupTitle}>{title}</div>
+   
+      <div onClick={handleCardClick} className={setupStyle}>
+        <div className={styles.setupImage}>
+          <Image src={image} alt="" />
+        </div>
+        <div className={styles.setupTitle}>{title}</div>
 
-      <div className={styles.createdAt}>
-        Created on {setupCreatedAt} {!own && <>by {author.name}</>}
-      </div>
-      <div className={styles.setupCardRatingBox}>
-        <RatingBox ratingValue={5} disabled={false} name={title} />
-      </div>
-
-      <div className={styles.setupBack}>
-        <div className={styles.textHolder}>
-          <div className={styles.setupDescription}>{description}</div>
-          <div>CPU: {cpu.name}</div>
-          <div>Motherboard: {motherboard.name}</div>
-          <div>GPU: {gpu.name}</div>
-          <div>RAM: {ram.name}</div>
-          <div>Power Supply: {powerSupply.name}</div>
+        <div className={styles.createdAt}>
+          Created on {setupCreatedAt} {!own && <>by {author.name}</>}
+        </div>
+        <div className={styles.setupCardRatingBox}>
+          <RatingBox ratingValue={5} disabled={false} name={title} />
         </div>
 
-        <div className={styles.backBottomWrapper}>
-          <Link to={`/setup/${id}`}>
+        <div className={styles.setupBack}>
+          <div className={styles.textHolder}>
+            <div className={styles.setupDescription}>{description}</div>
+            <div>CPU: {cpu.name}</div>
+            <div>Motherboard: {motherboard.name}</div>
+            <div>GPU: {gpu.name}</div>
+            <div>RAM: {ram.name}</div>
+            <div>Power Supply: {powerSupply.name}</div>
+          </div>
+
+          <div className={styles.backBottomWrapper}>
             <Button icon="ArrowForward" buttonType={ButtonType.primary}>
-              {' '}
-              Find out more{' '}
+              Find out more
             </Button>
-          </Link>
-          <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
+            <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
+          </div>
         </div>
       </div>
-
-      <div className={styles.setupExtraInfo}></div>
-    </div>
   );
 };
 

@@ -13,6 +13,8 @@ enum Routes {
   ADDHARDWARE = '/addharware',
   ADDGAME = '/addgame',
   GAME = '/game/:id',
+  HARDWARES = '/hardwares',
+  HARDWARE = '/hardware/:type/:id',
   RESET_PASSWORD_REQUEST = '/reset-password',
   RESET_PASSWORD = '/reset-password/:userId/:token',
   NEWS = '/news',

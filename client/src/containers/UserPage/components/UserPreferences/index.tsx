@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { getIcon } from 'common/helpers/icon.helper';
-import BasicLink from 'components/BasicComponents/Link';
 import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import styles from './styles.module.scss';
@@ -9,7 +8,7 @@ import { useParams } from 'react-router';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import { Game } from 'common/models/typeUserGame';
 import { UserActionTypes } from '../../logic/actionTypes';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage';
 import { Link } from 'react-router-dom';
 
 export interface UserPreferencesProps {
@@ -102,8 +101,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
         <>
           <div className={styles.buttonPlacement}>
             <Link className={styles.setupLink} to="/builder">
-              Builder
-              {getIcon('Build')}
+              <Button className={styles.builderButton} icon="Build" buttonType={ButtonType.secondary}>Builder</Button>
             </Link>
           </div>
           <div className={styles.userPreferences}>
