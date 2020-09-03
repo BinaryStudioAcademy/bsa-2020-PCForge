@@ -11,7 +11,6 @@ import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
 import UserSchema from 'common/validation/user';
 import { getTokenSync } from 'helpers/tokenHelper';
-import { Redirect } from 'react-router-dom';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from '../PageComponent';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
