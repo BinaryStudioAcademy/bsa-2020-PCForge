@@ -11,6 +11,7 @@
   flex-direction: column;
   padding-right: 2rem;
   overflow: auto;
+  margin-bottom: 10px;
 }
 
 .ratingBoxWrapper {
@@ -29,5 +30,59 @@
   font-size: 16px;
   line-height: 22px;
   color: $colorTextWhite;
+  text-align: justify;
 }
 
+.commentMeta {
+  display: flex;
+  flex-direction: row;
+  justify-items: flex-start;
+
+  .commentButtonsHeader {
+    margin-left: auto;
+  }
+
+  .commentRateInfo {
+    display: flex;
+    flex-direction: column;
+    justify-items: flex-start;
+  }
+}
+.commentDateContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 5px;
+
+  .commentDate {
+    display: inline-block;
+    margin: 0 5px;
+    font-style: italic;
+    color: $colorLightGray;
+    font-size: .8em;
+  }
+}
+
+.commentFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 5px;
+
+  .likeContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 5px;
+  }
+}
+
+.commentIcons, .iconLike {
+  cursor: pointer;
+  margin: 0 5px;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}

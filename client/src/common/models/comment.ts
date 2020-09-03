@@ -4,9 +4,16 @@ export interface Comment {
   id: number;
   authorId: number;
   author?: string;
-  user?: User;
+  user: User;
   createdAt: Date;
+  updatedAt: Date;
   value: string;
+
+  countLikes: number;
+  countDislikes: number;
+  isLikedByUser?: boolean;
+  isDislikedByUser?: boolean;
+  userItemRate?: number;
 }
 
 export interface CommentCreationAttributes {
