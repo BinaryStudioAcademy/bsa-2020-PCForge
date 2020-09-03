@@ -53,6 +53,13 @@ export const SetupSchema: SwaggerSchema = {
       maximum: 5,
       nullable: true,
     },
+    ownRating: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
+      maximum: 5,
+      nullable: true,
+    },
     ratingCount: {
       type: 'number',
       example: 1,

@@ -48,7 +48,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     }
   }
 
-  async getSetups(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+  async getSetups(inputFilter: ISetupFilter, requestingUserId: number): Promise<IWithMeta<SetupModel>> {
     const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
     const where: { authorId?: string } = {};
     if (filter.authorId) {
@@ -71,6 +71,12 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
           [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
+          [
+            sequelize.literal(
+              `SUM(CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
+            ),
+            'ownRating',
+          ],
         ],
       },
       order: [this.getOrderProperty(filter.sort)],
@@ -130,7 +136,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     return result;
   }
 
-  async getOneSetup(id: string): Promise<SetupModel> {
+  async getOneSetup(id: string, requestingUserId: number): Promise<SetupModel> {
     const setup = await this.model.findByPk(id, {
       group: [
         'setup.id',
@@ -148,6 +154,12 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
           [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
+          [
+            sequelize.literal(
+              `SUM(CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
+            ),
+            'ownRating',
+          ],
         ],
       },
       include: [
