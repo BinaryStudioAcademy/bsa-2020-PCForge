@@ -12,14 +12,6 @@ export const fetchGamesByName = (name: string): SetupChartActions => ({
   },
 });
 
-export const fetchTopGames = (): SetupChartActions => ({
-  type: SetupChartTypes.FETCH_TOP_GAMES_REQUEST,
-  payload: {
-    from: 0,
-    count: 5,
-  },
-});
-
 export const fetchPerformanceAnalysis = (
   cpuId: number,
   gpuId: number,
@@ -39,13 +31,6 @@ export const setGames = (games: Game[]): SetupChartActions => ({
   type: SetupChartTypes.FETCH_GAMES_SUCCESS,
   payload: {
     games,
-  },
-});
-
-export const setTopGames = (topGames: TopGame[]): SetupChartActions => ({
-  type: SetupChartTypes.FETCH_TOP_GAMES_SUCCESS,
-  payload: {
-    topGames,
   },
 });
 

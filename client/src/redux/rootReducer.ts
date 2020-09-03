@@ -17,6 +17,7 @@ import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
 import NewsReducer from 'containers/NewsPage/reducer';
 import { HardwareReducer } from 'containers/HardwaresPage/HardwareSidebarView/reducer';
 import { HardwaresReducer } from 'containers/HardwaresPage/reducer';
+import { TopGamesReducer } from 'containers/TopGames/redux/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -37,6 +38,7 @@ const RootReducer = combineReducers({
   user: UserReducer,
   userRequests: UserRequestsReducer,
   news: NewsReducer,
+  topGames: TopGamesReducer,
 });
 
 export default RootReducer;
