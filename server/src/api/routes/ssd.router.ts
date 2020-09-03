@@ -23,7 +23,7 @@ import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { SsdService } = fastify.services;
+  const { SsdService, HardwareService } = fastify.services;
 
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
@@ -31,7 +31,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllSsdsResponse, ISsdFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllSsdsRequest, reply) => {
     allowForAuthorized(request);
-    const ssds = await SsdService.getAllSsds(request.query);
+    const ssds = await HardwareService.getTopSsds(request.query);
     reply.send(ssds);
   });
 

@@ -26,7 +26,7 @@ import { renameQuery } from '../middlewares/rename.middleware';
 import { MotherboardMiddleware } from '../middlewares/motherboard.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { MotherboardService } = fastify.services;
+  const { MotherboardService, HardwareService } = fastify.services;
 
   const motherboardMiddleware = MotherboardMiddleware(fastify);
   const preHandler = userRequestMiddleware(fastify);
@@ -36,7 +36,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetAllMotherboardsRequest, reply) => {
     allowForAuthorized(request);
     renameQuery(request, ['socketIds', 'socketId'], ['ramTypeIds', 'ramTypeId']);
-    const motherboards = await MotherboardService.getAllMotherboards(request.query);
+    const motherboards = await HardwareService.getTopMotherboards(request.query);
     reply.send(motherboards);
   });
 
