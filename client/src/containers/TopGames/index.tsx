@@ -3,18 +3,20 @@ import { TopGame } from 'common/models/topGame';
 import React from 'react';
 import styles from './styles.module.scss';
 import Image from 'components/BasicComponents/Image';
-
-interface Props {
-  topGames: TopGame[];
-  selected?: number;
-  onGameSelected?: (topGame: TopGame) => void;
-}
+import { RootState } from 'redux/rootReducer';
+import { fetchTopGames } from './redux/actions';
+import { connect, ConnectedProps } from 'react-redux';
 
 const TopGames: React.FC<Props> = ({
   topGames,
   selected: selectedIndex = -1,
+  fetchTopGames,
   onGameSelected: onGameSelectedProps = () => {},
 }): JSX.Element => {
+  React.useEffect(() => {
+    fetchTopGames();
+  }, []);
+
   const gameView = (topGame: TopGame, isSelected: boolean) => (
     <div
       className={`${styles.gameContainer} ${isSelected && styles.gameContainerSelected}`}
@@ -39,4 +41,20 @@ const TopGames: React.FC<Props> = ({
   );
 };
 
-export default TopGames;
+const mapState = (state: RootState) => ({
+  topGames: state.topGames.topGames,
+});
+
+const mapDispatch = {
+  fetchTopGames,
+};
+
+const connector = connect(mapState, mapDispatch);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+type Props = PropsFromRedux & {
+  topGames: TopGame[];
+  selected?: number;
+  onGameSelected?: (topGame: TopGame) => void;
+};
+
+export default connector(TopGames);
