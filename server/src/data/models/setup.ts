@@ -12,6 +12,8 @@ export interface SetupAttributes {
   title: string;
   description: string;
   comments_count: number;
+  ratingCount: number;
+  rating: number;
   image: string;
   authorId: number;
   cpu: CpuAttributes;

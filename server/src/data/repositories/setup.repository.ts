@@ -27,7 +27,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     private hddModel: HddStatic,
     private ssdModel: SsdStatic,
     private commentModel: CommentStatic,
-    private reteModel: RateStatic,
+    private rateModel: RateStatic,
     private userModel: UserStatic
   ) {
     super(<RichModel>model, IFilter);
@@ -70,6 +70,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         include: [
           [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+          [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
         ],
       },
       order: [this.getOrderProperty(filter.sort)],
@@ -101,7 +102,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           attributes: [],
         },
         {
-          model: this.reteModel,
+          model: this.rateModel,
           on: {
             ratebleId: {
               [Op.col]: 'setup.id',
@@ -142,6 +143,13 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         'ssd.id',
         'author.id',
       ],
+      attributes: {
+        include: [
+          [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
+          [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+          [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
+        ],
+      },
       include: [
         {
           model: this.cpuModel,
@@ -174,6 +182,20 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         {
           model: this.userModel,
           as: 'author',
+        },
+        {
+          model: this.commentModel,
+          attributes: [],
+        },
+        {
+          model: this.rateModel,
+          on: {
+            ratebleId: {
+              [Op.col]: 'setup.id',
+            },
+            ratebleType: 'setup',
+          },
+          attributes: [],
         },
       ],
     });
