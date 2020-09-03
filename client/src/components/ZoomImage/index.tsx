@@ -1,6 +1,5 @@
-import React, { useState, MouseEvent } from 'react';
-import Zoom from 'react-medium-image-zoom';
-import { Magnifier, SideBySideMagnifier } from 'react-image-magnifiers';
+import React from 'react';
+import { SideBySideMagnifier } from 'react-image-magnifiers';
 import styles from './styles.module.scss';
 
 interface Props {
