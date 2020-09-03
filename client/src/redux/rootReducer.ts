@@ -18,6 +18,7 @@ import { NotificationsReducer } from 'containers/Notifications/redux/reducer';
 import AddRequestReducer from 'containers/AddUserRequest/reducer';
 import { HardwareReducer } from 'containers/HardwaresPage/HardwareSidebarView/reducer';
 import { HardwaresReducer } from 'containers/HardwaresPage/reducer';
+import { TopGamesReducer } from 'containers/TopGames/redux/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -38,6 +39,7 @@ const RootReducer = combineReducers({
   user: UserReducer,
   userRequests: UserRequestsReducer,
   news: NewsReducer,
+  topGames: TopGamesReducer,
   notifications: NotificationsReducer,
   addRequest: AddRequestReducer,
 });
