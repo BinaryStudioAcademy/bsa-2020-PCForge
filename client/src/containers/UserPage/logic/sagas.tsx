@@ -56,12 +56,10 @@ function* watchLoadUser() {
 function* loadUser(action: loadUserAction) {
   yield put(showSpinner());
   try {
-    // console.log('loader', action.payload.id, 'user',);
     const user = yield call(getUser, action.payload.id);
     yield put(loadUserSuccess(user));
   } catch (error) {
     yield put(loadUserFailed());
-    console.log(error);
   } finally {
     yield put(hideSpinner());
   }

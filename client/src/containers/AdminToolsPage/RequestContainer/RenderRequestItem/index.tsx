@@ -3,15 +3,15 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 import ModalWindow from '../ModalWindow';
 import { TypeUsersRequests } from 'common/models/typeUsersRequests';
 import styles from './styles.module.scss';
+import { UserRequestedType, UserRequestedHardwareType } from 'common/enums/UserRequestedType';
 
 interface IPropsItem {
   item: TypeUsersRequests;
-  username: string;
-  onDisaproveHandler: (id: number, userEmail: string, userId: number) => void;
-  onApproveHandler: (id: number, userEmail: string, userId: number) => void;
+  onDisaproveHandler: (id: number, email: string) => void;
+  onApproveHandler: (id: number, email: string) => void;
 }
 
-const RenderRequestItem = ({ item, username, onDisaproveHandler, onApproveHandler }: IPropsItem): JSX.Element => {
+const RenderRequestItem = ({ item, onDisaproveHandler, onApproveHandler }: IPropsItem): JSX.Element => {
   const [displayDetailsOpen, setDisplayDetailsOpen] = useState(false);
   const date = new Date(item.createdAt);
 
@@ -26,20 +26,24 @@ const RenderRequestItem = ({ item, username, onDisaproveHandler, onApproveHandle
   };
   const onDisapprove = () => {
     // update next after changing user Requests API:
-    onDisaproveHandler(item.id, 'item.user.email', item.userId);
+    onDisaproveHandler(item.id, item.user.email);
   };
   const onApprove = () => {
     // update next after changing user Requests API:
-    onApproveHandler(item.id, 'item.user.email', item.userId);
+    onApproveHandler(item.id, item.user.email);
   };
+  const itemTitle =
+    item.requestedType === UserRequestedType.hardware
+      ? `New ${item.requestedHardwareType}`
+      : `New ${item.requestedType}`;
 
   return (
     <div className={styles.requestItem} key={item.id}>
-      <div className={styles.requestTitle}>{`New ${item.requestedType}`}</div>
+      <div className={styles.requestTitle}>{itemTitle}</div>
       <div className={styles.requestInfo}>{item.requestBody}</div>
       <div className={styles.requestExtraInfoContainer}>
         <div className={styles.requestExtraInfoItem}>{date.toLocaleString()}</div>
-        <div className={styles.requestExtraInfoItem}>{username}</div>
+        <div className={styles.requestExtraInfoItem}>{item.user.name}</div>
       </div>
       <div className={styles.buttonContainer}>
         {displayDetailsOpen ? <ModalWindow displayInfo={item} onClose={hideDetails} /> : null}

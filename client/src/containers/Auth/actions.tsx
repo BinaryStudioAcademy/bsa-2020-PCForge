@@ -7,6 +7,7 @@ import {
   AUTH_LOGIN_BY_TOKEN_REQUEST,
   AUTH_LOGIN_REQUEST,
   AUTH_LOGIN_SUCCESS,
+  AUTH_LOGOUT,
   AUTH_REGISTER_REQUEST,
   AUTH_REGISTRATION_SUCCESS,
   AUTH_SWITCH_AUTH_PAGE,
@@ -104,4 +105,8 @@ export const switchAuthPage = (isRegistration: boolean): AuthActionTypes => ({
   payload: {
     isRegistration,
   },
+});
+
+export const logout = (): AuthActionTypes => ({
+  type: AUTH_LOGOUT,
 });

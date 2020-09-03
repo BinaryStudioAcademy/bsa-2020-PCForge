@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
 import { MenuItems } from 'common/enums/MenuItems';
 import PageComponent from 'containers/PageComponent';
@@ -11,6 +12,10 @@ import GroupComponent from 'components/BuilderPage/GroupComponent';
 import Modal from 'components/BasicComponents/Modal';
 import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
 import { AssignmentReturn } from '@material-ui/icons';
+
+import ModalAddRequest from 'containers/AddUserRequest';
+import Button, { ButtonType } from 'components/BasicComponents/Button';
+import { UserRequestedType } from 'common/enums/UserRequestedType';
 
 import { TypeGroupConfig, TypeFilterBuilder } from './types';
 import { TypeSetup } from './reducer';
@@ -39,6 +44,16 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     m2: new Set() as Set<string>,
   });
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
+  const [displayAddRequestOpen, setDisplayAddRequestOpen] = useState(false);
+  const showAddHardwareModal = () => {
+    setDisplayAddRequestOpen(true);
+  };
+  const hideAddHardwareModal = () => {
+    setDisplayAddRequestOpen(false);
+  };
+  const handleAddHardwareWindow = () => {
+    displayAddRequestOpen ? hideAddHardwareModal() : showAddHardwareModal();
+  };
 
   const showModal = () => {
     setIsModalActive(true);
@@ -176,6 +191,21 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           <Grid item xs={12} lg={4} xl={3} className={styles.summary}>
             <BuilderSummary setup={setup} />
             {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
+            {displayAddRequestOpen ? (
+              <ModalAddRequest onClose={hideAddHardwareModal} requestType={UserRequestedType.hardware} />
+            ) : null}
+            <Box className={styles.buttonWrapper}>
+              <Tooltip
+                title={
+                  'If you can not find needed hardware, you can create a request to admin about adding it to site! '
+                }
+                arrow
+              >
+                <Button buttonType={ButtonType.secondary} onClick={handleAddHardwareWindow}>
+                  Add Hardware
+                </Button>
+              </Tooltip>
+            </Box>
           </Grid>
         </Grid>
       </Box>

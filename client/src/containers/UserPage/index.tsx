@@ -48,7 +48,7 @@ const UserPage = (props: Props) => {
   } = props;
   const gamesArray = userGames.map((game) => game.game);
 
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const currentUserId = currentUser?.id.toString();
 
   useEffect(() => {
@@ -57,11 +57,11 @@ const UserPage = (props: Props) => {
     loadSetups(parseInt(id));
   }, [id]);
 
-  const renderContent = () => {
-    if (showSpinner) {
-      return <Spinner load />;
-    } else if (loadedUser) {
-      return (
+  const renderContent = (): JSX.Element => (
+    <PageComponent>
+      {showSpinner ? (
+        <Spinner load />
+      ) : loadedUser ? (
         <UserInfo
           user={loadedUser}
           userGames={gamesArray}
@@ -76,11 +76,11 @@ const UserPage = (props: Props) => {
           openTab={openTab}
           setTab={setTab}
         />
-      );
-    } else {
-      return <Spinner load />;
-    }
-  };
+      ) : (
+        <Spinner />
+      )}
+    </PageComponent>
+  );
 
   if (userLoadFailed) {
     return <Redirect to="/404" />;

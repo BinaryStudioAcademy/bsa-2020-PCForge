@@ -17,6 +17,7 @@ export const AUTH_REGISTRATION_ERROR = 'AUTH_REGISTRATION_ERROR';
 export const AUTH_GOOGLE_AUTH = 'AUTH_GOOGLE_AUTH';
 export const AUTH_GOOGLE_AUTH_SUCCESS = 'AUTH_GOOGLE_AUTH_SUCCESS';
 export const AUTH_GOOGLE_AUTH_FAILURE = 'AUTH_GOOGLE_AUTH_FAILURE';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 interface changeEmailAction {
   type: typeof AUTH_CHANGE_EMAIL;
@@ -137,6 +138,10 @@ export interface googleAuthFailure {
   };
 }
 
+export interface logoutAction {
+  type: typeof AUTH_LOGOUT;
+}
+
 export type AuthActionTypes =
   | changeEmailAction
   | changePasswordAction
@@ -154,4 +159,6 @@ export type AuthActionTypes =
   | googleAuthAction
   | googleAuthSuccess
   | googleAuthFailure
-  | loginByTokenRequestAction;
+  | loginByTokenRequestAction
+  | loginByTokenRequestAction
+  | logoutAction;
