@@ -57,7 +57,7 @@ const UserPage = (props: Props) => {
   }, [id]);
 
   return (
-    <>
+    <PageComponent>
       {showSpinner ? (
         <Spinner load />
       ) : loadedUser ? (
@@ -78,7 +78,7 @@ const UserPage = (props: Props) => {
       ) : (
         <Redirect to="/404" />
       )}
-    </>
+    </PageComponent>
   );
 };
 
