@@ -1,5 +1,5 @@
 import React from 'react';
-import { INotification } from '../interfaces';
+import { INotification } from 'common/services/notification.service';
 import Notification from './Notification/notification';
 import styles from './styles.module.scss';
 

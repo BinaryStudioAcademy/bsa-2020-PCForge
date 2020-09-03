@@ -6,29 +6,34 @@ import {
   deleteNotification,
   closeNotification,
   setNotificationService,
+  setWebSocketService,
 } from './redux/actions';
 import { RootState } from 'redux/rootReducer';
-import { NotificationService } from './notification.service';
+import { NotificationService } from 'common/services/notification.service';
 
 import React from 'react';
 import NotificationsContainer from './NotificationsContainer';
+import { WebSocketService } from 'common/services/webscocket.service';
 
 const InjectNotifications: React.FC<Props> = ({
   children,
   userId,
   activeNotifications,
   setNotificationService,
+  setWebSocketService,
   ...notificationActions
 }): JSX.Element => {
   React.useEffect(() => {
     if (!canOpenSocket()) return;
     const ws = new WebSocket(process.env.REACT_APP_WS_SERVER_ADDRESS!, userId!.toString(10));
-    const notificationService = new NotificationService(notificationActions, ws);
+    const notificationService = new NotificationService(notificationActions);
     setNotificationService(notificationService);
+    const webSocketService = new WebSocketService(ws, notificationService);
+    setWebSocketService(webSocketService);
     ws.onopen = () => console.log('WebSocket opened');
     ws.onmessage = (messageEvent) => {
       const { data } = messageEvent;
-      notificationService.handleMessage(data);
+      webSocketService.handleMessage(data);
     };
     ws.onclose = () => console.log('WebSocket closed');
     return () => {
@@ -70,6 +75,7 @@ const mapDispatch = {
   deleteNotification,
   closeNotification,
   setNotificationService,
+  setWebSocketService,
 };
 
 const connector = connect(mapState, mapDispatch);

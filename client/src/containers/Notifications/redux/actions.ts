@@ -1,5 +1,6 @@
-import { INotification } from '../interfaces';
-import { NotificationService } from '../notification.service';
+import { INotification } from 'common/services/notification.service';
+import { NotificationService } from 'common/services/notification.service';
+import { WebSocketService } from 'common/services/webscocket.service';
 import { NotificationsActionTypes, NotificationsActions } from './actionTypes';
 
 export const setNotifications = (notifications: INotification[]): NotificationsActions => ({
@@ -34,5 +35,12 @@ export const setNotificationService = (notificationService: NotificationService)
   type: NotificationsActionTypes.SET_NOTIFICATION_SERVICE,
   payload: {
     notificationService,
+  },
+});
+
+export const setWebSocketService = (webSocketService: WebSocketService): NotificationsActions => ({
+  type: NotificationsActionTypes.SET_WEBSOCKET_SERVICE,
+  payload: {
+    webSocketService,
   },
 });

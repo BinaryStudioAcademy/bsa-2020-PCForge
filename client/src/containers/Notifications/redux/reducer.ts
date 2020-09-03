@@ -4,6 +4,7 @@ const initialState: NotificationsState = {
   notifications: [],
   activeNotifications: [],
   NotificationService: null,
+  WebSocketService: null,
 };
 
 export function NotificationsReducer(state = initialState, action: NotificationsActions): NotificationsState {
@@ -46,6 +47,13 @@ export function NotificationsReducer(state = initialState, action: Notifications
       return {
         ...state,
         NotificationService: action.payload.notificationService,
+      };
+    }
+
+    case NotificationsActionTypes.SET_WEBSOCKET_SERVICE: {
+      return {
+        ...state,
+        WebSocketService: action.payload.webSocketService,
       };
     }
 

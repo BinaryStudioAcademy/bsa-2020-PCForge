@@ -1,5 +1,6 @@
-import { INotification } from '../interfaces';
-import { NotificationService } from '../notification.service';
+import { INotification } from 'common/services/notification.service';
+import { NotificationService } from 'common/services/notification.service';
+import { WebSocketService } from 'common/services/webscocket.service';
 
 export enum NotificationsActionTypes {
   SET_NOTIFICATIONS = 'Notifications/SET_NOTIFICATIONS',
@@ -7,6 +8,7 @@ export enum NotificationsActionTypes {
   DELETE_NOTIFICATION = 'Notifications/DELETE_NOTIFICATION',
   CLOSE_NOTIFICATION = 'Notifications/CLOSE_NOTIFICATION',
   SET_NOTIFICATION_SERVICE = 'Notifications/SET_NOTIFICATION_SERVICE',
+  SET_WEBSOCKET_SERVICE = 'Notifications/SET_WEBSOCKET_SERVICE',
 }
 
 interface ISetNotificationsAction {
@@ -44,15 +46,24 @@ interface ISetNotificationServiceAction {
   };
 }
 
+interface ISetWebSocketServiceAction {
+  type: NotificationsActionTypes.SET_WEBSOCKET_SERVICE;
+  payload: {
+    webSocketService: WebSocketService;
+  };
+}
+
 export type NotificationsActions =
   | ISetNotificationsAction
   | IAddNotificationAction
   | IDeleteNotificationAction
   | ICloseNotificationAction
-  | ISetNotificationServiceAction;
+  | ISetNotificationServiceAction
+  | ISetWebSocketServiceAction;
 
 export interface NotificationsState {
   notifications: INotification[];
   activeNotifications: INotification[];
   NotificationService: NotificationService | null;
+  WebSocketService: WebSocketService | null;
 }

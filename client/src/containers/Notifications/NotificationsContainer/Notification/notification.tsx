@@ -1,12 +1,12 @@
 import React from 'react';
-import { INotification, NotificationType } from '../../interfaces';
+import { INotification, NotificationType } from 'common/services/notification.service';
 import InfoIcon from '@material-ui/icons/Info';
 import ErrorIcon from '@material-ui/icons/Error';
 import CheckIcon from '@material-ui/icons/Check';
 import WarningIcon from '@material-ui/icons/Warning';
 import CloseIcon from '@material-ui/icons/Close';
 import styles from './styles.module.scss';
-import { Button, IconButton } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 
 interface Props {
   notification: INotification;
