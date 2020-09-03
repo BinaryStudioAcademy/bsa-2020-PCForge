@@ -6,7 +6,6 @@ import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { TypeHdd } from 'common/models/typeHdd';
 import { TypeSsd } from 'common/models/typeSsd';
 import { GroupName } from './config';
-import { string } from 'yup';
 
 export type TypeBuild = {
   cpu: TypeCpu;
