@@ -44,7 +44,7 @@ const GroupItemSummary = ({
       id={`panel${id}-header`}
     >
       <div
-        style={{ display: 'flex', alignItems: 'center' }}
+        className={styles.wrapper}
         onClick={(event) => event.stopPropagation()}
         onFocus={(event) => event.stopPropagation()}
       >
