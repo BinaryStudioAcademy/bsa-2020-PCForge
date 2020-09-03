@@ -36,6 +36,7 @@ export class SsdRepository extends BaseRepository<SsdModel, SsdCreationAttribute
           capacity: {
             [Op.between]: [filter.capacity.minValue, filter.capacity.maxValue],
           },
+          id: { [Op.and]: { [Op.or]: filter.id, [Op.not]: filter.excludedId } },
         },
       },
       filter
