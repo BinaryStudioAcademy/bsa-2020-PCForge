@@ -22,6 +22,7 @@ import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
 import { AuthService } from './auth.service';
+import { NotificationService, notificationServiceFactory } from './notification.service';
 
 export interface Services {
   AuthService: AuthService;
@@ -46,11 +47,12 @@ export interface Services {
   UploadImageService: UploadService;
   UserGameService: UserGameService;
   UserService: UserService;
+  NotificationService: NotificationService;
 }
 
 export default fp(async (fastify, opts, next) => {
   try {
-    const { nodemailer, repositories } = fastify;
+    const { nodemailer, repositories, redis, websocket } = fastify;
     const ramTypeService = new RamTypeService(repositories.RamTypeRepository);
     const usersService = new UserService(repositories.UserRepository);
     const setupService = new SetupService(repositories.SetupRepository);
@@ -81,6 +83,7 @@ export default fp(async (fastify, opts, next) => {
     );
     const uploadService = new UploadService();
     const authService = new AuthService(mailService, usersService);
+    const notificationService = await notificationServiceFactory(redis, websocket);
     const services: Services = {
       AuthService: authService,
       AddRequestService: addRequestService,
@@ -104,6 +107,7 @@ export default fp(async (fastify, opts, next) => {
       UploadImageService: uploadService,
       UserGameService: userGameService,
       UserService: usersService,
+      NotificationService: notificationService,
     };
     fastify.decorate('services', services);
     console.log('services were successfully initialized');

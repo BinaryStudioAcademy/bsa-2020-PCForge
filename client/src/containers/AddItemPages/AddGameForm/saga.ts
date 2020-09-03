@@ -43,8 +43,6 @@ function* createGame(action: ICreateGameAction) {
     const { game, imageData } = action.payload;
     game.image = yield call(uploadImage, imageData);
     const gameCreated = yield call(postGame, game);
-    console.log(gameCreated);
-    //notification.success(`Game ${gameCreated.name} has been created`);
     yield put(loadCreatedGame(gameCreated.name));
   } catch (error) {
     yield put(loadError(error.message));
