@@ -75,6 +75,15 @@
   color: $colorTextWhite;
 }
 
+.asideBlock {
+  display: flex;
+  flex-direction: column;
+}
+.buttonWrapper{
+  margin: 2em 0;
+  align-self: center;
+}
+
 @media (max-width: 960px) {
   .mainContainer {
     margin-bottom: 40px;

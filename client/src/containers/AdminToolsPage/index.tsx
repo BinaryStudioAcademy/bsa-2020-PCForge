@@ -40,7 +40,7 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
   const [alertType, setAlertType] = useState<AlertType>();
 
   useEffect(() => {
-    getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.cpu }]);
+    getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.hardware }]);
     getTotalCounts();
   }, []);
 
@@ -105,7 +105,7 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
               <Spinner />
             )}
           </div>
-          <div className={styles.chartContainer}></div> {/*TO DO*/}
+          <div className={styles.chartContainer}>{/*TO DO*/}</div>
           <div className={styles.notificationsContainer}>
             {props.state.dataUserRequestsIsLoaded ? (
               <RequestContaner usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />
