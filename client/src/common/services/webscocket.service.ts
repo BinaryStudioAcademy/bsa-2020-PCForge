@@ -1,10 +1,5 @@
-import { INotification } from './interfaces';
-
-interface IActions {
-  setNotifications: (notifications: INotification[]) => void;
-  addNotification: (notification: INotification) => void;
-  deleteNotification: (notificationId: string) => void;
-}
+import { INotification } from './notification.service';
+import { NotificationService } from './notification.service';
 
 enum MessageType {
   INITIAL_NOTIFICATIONS = 'INITIAL_NOTIFICATIONS',
@@ -17,8 +12,8 @@ interface IMessage {
   payload: unknown;
 }
 
-export class NotificationService {
-  constructor(private readonly reduxActions: IActions, private readonly ws: WebSocket) {}
+export class WebSocketService {
+  constructor(private readonly ws: WebSocket, private readonly notificationService: NotificationService) {}
 
   public handleMessage(messageJSON: string): void {
     const message = JSON.parse(messageJSON) as IMessage;
@@ -46,11 +41,11 @@ export class NotificationService {
 
   private handleInitialMessage(message: IMessage) {
     if (message.type !== MessageType.INITIAL_NOTIFICATIONS) return;
-    this.reduxActions.setNotifications(message.payload as INotification[]);
+    this.notificationService.setNotifications(message.payload as INotification[]);
   }
 
   private handleNewMessage(message: IMessage) {
     if (message.type !== MessageType.NEW_NOTIFICATION) return;
-    this.reduxActions.addNotification(message.payload as INotification);
+    this.notificationService.addNotification(message.payload as INotification);
   }
 }
