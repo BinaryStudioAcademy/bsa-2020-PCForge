@@ -115,10 +115,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-    if (getTokenSync()) {
-      return <Redirect to={'/'} />;
-    }
-
     return (
       <React.Fragment>
         <div className={styles.bgContainer} />

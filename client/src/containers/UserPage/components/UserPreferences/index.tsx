@@ -43,7 +43,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   const handleAddGameClick = async () => {
     setShowGameSearch(true);
   };
-  const { id: userId } = useParams();
+  const { id: userId } = useParams<{ id: string }>();
 
   return (
     <>
@@ -69,7 +69,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                     placeholder="Choose a game"
                     inputId="game"
                     debounceTime={300}
-                    onSelect={(id: number) => addUserGame!(userId, id)}
+                    onSelect={(id: number) => addUserGame!(parseInt(userId, 10), id)}
                     options={filteredGames!.map((game) => ({ label: game.name, value: game.id }))}
                     onInputChange={({ value }) => loadFilteredGames!(value)}
                     hideSeeMore
@@ -121,7 +121,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   author={setup.author}
                   key={generateKey(setup.title, index)}
                   deleteUserSetup={deleteUserSetup}
-                  own
+                  own={isCurrentUser}
                   setTab={setTab}
                 />
               );
