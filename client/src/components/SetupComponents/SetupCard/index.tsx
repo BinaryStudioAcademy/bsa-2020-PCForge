@@ -2,7 +2,7 @@ import React from 'react';
 import { PCSetup } from 'common/models/setup';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 import styles from './styles.module.scss';
 import ZoomImage from 'components/ZoomImage';
 import defaultSetupImage from 'assets/images/defaultSetup.jpg';

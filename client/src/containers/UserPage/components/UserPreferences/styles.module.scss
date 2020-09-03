@@ -12,14 +12,16 @@ $link-default-hover-color: rgb(246, 243, 243);
   padding: 15px;
   border-top: 1px solid rgb(102, 102, 102);
 
-  &> {
-    min-width: 335px;
+  &> div{
+    width:25%;
+    min-width: 275px;
+    margin:10px;
   }
 
   @media(min-width: $tablet) {
     &>div {
       width: 25%;
-      min-width: 335px;
+      // min-width: 335px;
     }
   }
 
@@ -28,7 +30,7 @@ $link-default-hover-color: rgb(246, 243, 243);
     justify-content: center;
 
     >div {
-      width: 80%;
+      width: 100%;
     }
   }
 
@@ -40,6 +42,13 @@ $link-default-hover-color: rgb(246, 243, 243);
 
 .addGameButton {
   margin: 20px 30px 20px !important;
+}
+
+.builderButton {
+  svg {
+    margin-bottom: 7px;
+    margin-right: 7px;
+  }
 }
 
 .setupLink {

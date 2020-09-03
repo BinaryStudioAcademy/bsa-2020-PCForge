@@ -7,7 +7,6 @@ import CardDisplay from './components/CardsDisplay';
 import { RootState } from 'redux/rootReducer';
 import { loadTopSetups } from './logic/actions';
 import Spinner from 'components/Spinner';
-import Grid from '@material-ui/core/Grid';
 import PewsPage from 'containers/NewsPage';
 import styles from './styles.module.scss';
 
@@ -33,7 +32,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
       return <Spinner load />;
     } else {
       return (
-        <>
+        <div>
           <Title />
           {children}
           {!!setups?.length && (
@@ -54,7 +53,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
               </div>
             </>
           )}
-        </>
+        </div>
       );
     }
   };

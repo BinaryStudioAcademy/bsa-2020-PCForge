@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';
 import { Cpu } from 'common/models/cpu';
 import { Link } from 'react-router-dom';
@@ -15,25 +15,17 @@ interface I_Props {
   processor: string;
   gpu: string;
   ram: string;
-  // comments: number;
-  // rating: number;
+  comments: number;
+  rating: number;
 }
 
-const SetupCard: React.FC<I_Props> = ({
-  id,
-  imageSource,
-  setupName,
-  processor,
-  gpu,
-  ram,
-  // rating, comments
-}) => {
+const SetupCard: React.FC<I_Props> = ({ id, imageSource, setupName, processor, gpu, ram, comments, rating }) => {
   return (
     <div className={classes.setupCard}>
       <Image className={classes.setupCardImage} src={imageSource} alt={setupName} />
       <ul className={classes.characteristicList}>
         <li className={classes.commentItem}>
-          {/* <span className={classes.commentItemValue}>{comments}</span> */}
+          <span className={classes.commentItemValue}>{comments}</span>
           <ModeCommentIcon fontSize="small" />
         </li>
         <li className={classes.characteristicItem}>
@@ -49,7 +41,7 @@ const SetupCard: React.FC<I_Props> = ({
           <span className={classes.characteristicValue}>{ram}</span>
         </li>
       </ul>
-      {/* <RatingBox name={id} ratingValue={rating} disabled={false} /> */}
+      <RatingBox name={String(id)} ratingValue={rating} disabled={true} />
       <Link className={classes.viewMoreButton} to={`setup/${id}`}>
         <Button className={classes.setupCardButton} buttonType={ButtonType.primary}>
           VIEW MORE INFO

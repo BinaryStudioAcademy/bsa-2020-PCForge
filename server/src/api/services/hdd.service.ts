@@ -33,6 +33,9 @@ export class HddService extends BaseService<HddModel, HddCreationAttributes, Hdd
       triggerServerError('No valid fields to update specified', 400);
     }
     const { id, data } = inputHdd;
+    if (!Object.keys(data).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     const oldHdd = await this.repository.getHddById(id);
     if (!oldHdd) {
       triggerServerError(`Hdd with id: ${id} does not exists`, 404);
