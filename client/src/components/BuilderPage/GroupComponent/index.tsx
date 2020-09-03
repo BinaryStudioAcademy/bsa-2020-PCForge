@@ -26,6 +26,8 @@ type PropsType = {
   onRemoveSelectedComponent: (group: GroupName) => void;
   expanded: GroupName | false;
   onChangeExpanded: (expanded: GroupName | false) => void;
+  count?: string;
+  countHandler?: (value: string) => void;
 };
 
 type TypeRange = {
@@ -43,10 +45,12 @@ const GroupComponent = ({
   onRemoveSelectedComponent,
   expanded,
   onChangeExpanded,
+  count,
+  countHandler,
 }: PropsType): JSX.Element => {
   const countComponentsOnPage = 10;
   const [components, setComponents] = useState([] as TypeComponent[]);
-  const [count, setCount] = useState(0);
+  const [counter, setCounter] = useState(0);
   const [pagination, setPagination] = useState({ from: 0, count: countComponentsOnPage });
   const [load, setLoad] = useState(false);
   const [name, setName] = useState('');
@@ -92,7 +96,7 @@ const GroupComponent = ({
     try {
       const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, ...queryName });
       setComponents(res.data);
-      setCount(res.meta.countAfterFiltering);
+      setCounter(res.meta.countAfterFiltering);
     } catch (err) {
       console.log(err); // add notification
     } finally {
@@ -139,6 +143,7 @@ const GroupComponent = ({
       // @ts-ignore
       specifications={SpecificationComponent[groupName]({ component })}
       onAddComponent={() => onAddComponentHandler(component.id)}
+      isSelected={selectedComponent?.id === component.id}
     />
   ));
 
@@ -160,12 +165,14 @@ const GroupComponent = ({
       <GroupItemSummary
         id={groupName}
         title={groupName}
-        count={count}
+        count={counter}
         nameComponent={selectedComponent ? selectedComponent.name : ''}
         /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
         // @ts-ignore
         popupContent={selectedComponent ? SpecificationComponent[groupName]({ component: selectedComponent }) : false}
         onClear={() => onRemoveSelectedComponent(groupName)}
+        total={count}
+        totalHandler={countHandler}
       />
       <AccordionDetails className={styles.details}>
         <Grid container spacing={3}>
@@ -207,7 +214,7 @@ const GroupComponent = ({
             {listComponentElements}
             <Spinner load={load} />
             <Paginator
-              countComponents={count}
+              countComponents={counter}
               countComponentsOnPage={countComponentsOnPage}
               setPagination={setPagination}
             />

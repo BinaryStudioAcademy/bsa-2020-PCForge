@@ -6,6 +6,7 @@ import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { TypeHdd } from 'common/models/typeHdd';
 import { TypeSsd } from 'common/models/typeSsd';
 import { GroupName } from './config';
+import { string } from 'yup';
 
 export type TypeBuild = {
   cpu: TypeCpu;
@@ -49,6 +50,8 @@ export type TypeGroupConfig = {
       enable: boolean;
     };
   };
+  count?: string;
+  countHandler?: (value: string) => void;
 };
 
 export type TypeFilterRangeInfo = {
@@ -69,3 +72,5 @@ export enum ComponentGroups {
   motherboard,
   powersupply,
 }
+
+export type TypeAdditionalProps = { count?: string; countHandler?: (value: string) => void };

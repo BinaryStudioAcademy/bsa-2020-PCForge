@@ -27,7 +27,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
 
   async createSetup(inputSetup: SetupCreationAttributes, setupMiddleware: ISetupMiddleware): Promise<SetupModel> {
     await setupMiddleware(inputSetup);
-    const setup = await super.create(inputSetup);
+    const setup = await this.repository.create(inputSetup);
     return setup;
   }
 

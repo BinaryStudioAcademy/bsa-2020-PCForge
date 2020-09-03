@@ -12,11 +12,13 @@ import {
   BUILDER_RESET_SETUP,
   BUILDER_SET_SETUP,
 } from './actionTypes';
+import { setCount } from 'helpers/setupHelper';
 
 export type TypeSetup = {
   cpu: TypeCpu | null;
   gpu: TypeGpu | null;
   ram: TypeRam | null;
+  ramCount: string;
   motherboard: TypeMotherboard | null;
   powersupply: TypePowersupplies | null;
   hdd: TypeHdd | null;
@@ -28,6 +30,7 @@ export type TypeSetupForPost = {
   gpuId: number;
   motherboardId: number;
   ramId: number;
+  ramCount: string;
   powerSupplyId: number;
   hddId: number;
   ssdId: number;
@@ -37,6 +40,7 @@ const initialState = {
   cpu: null,
   gpu: null,
   ram: null,
+  ramCount: '0',
   motherboard: null,
   powersupply: null,
   hdd: null,
@@ -46,6 +50,7 @@ const initialState = {
 export default function (state = initialState, action: AnyAction): TypeSetup {
   switch (action.type) {
     case FETCH_COMPONENT_SUCCESS: {
+      if (typeof action.payload.component === 'string') setCount(action.payload.group, action.payload.component);
       return {
         ...state,
         [action.payload.group]: action.payload.component,

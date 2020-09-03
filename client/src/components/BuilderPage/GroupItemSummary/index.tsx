@@ -6,6 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Button from 'components/BasicComponents/Button';
 import defaultImg from 'assets/images/defaultImgGroup.png';
 import styles from './styles.module.scss';
+import TotalButtons from 'components/BuilderPage/TotalButtons';
 
 type PropsType = {
   id: string;
@@ -15,6 +16,8 @@ type PropsType = {
   popupContent?: JSX.Element | false;
   img?: string;
   onClear: () => void;
+  total?: string;
+  totalHandler?: (value: string) => void;
 };
 
 const GroupItemSummary = ({
@@ -25,6 +28,8 @@ const GroupItemSummary = ({
   popupContent = false,
   img = defaultImg,
   onClear,
+  total,
+  totalHandler,
 }: PropsType): JSX.Element => {
   const clear = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     event.stopPropagation();
@@ -38,15 +43,22 @@ const GroupItemSummary = ({
       aria-controls={`panel${id}-content`}
       id={`panel${id}-header`}
     >
-      <img src={img} alt="Image group" />
-      <Typography variant="h5" component="h2">
-        <span className={styles.groupItemSummaryTitle}>{title}</span>
-        <span className={styles.groupItemSummaryCount}>{count}</span>
-      </Typography>
-      <Tooltip title={popupContent} classes={{ tooltip: styles.popup }}>
-        <Typography className={styles.nameComponent}>{nameComponent}</Typography>
-      </Tooltip>
-      {!!nameComponent && <Button onClick={clear}>Clear</Button>}
+      <div
+        style={{ display: 'flex', alignItems: 'center' }}
+        onClick={(event) => event.stopPropagation()}
+        onFocus={(event) => event.stopPropagation()}
+      >
+        <img src={img} alt="Image group" />
+        <Typography variant="h5" component="h2">
+          <span className={styles.groupItemSummaryTitle}>{title}</span>
+          <span className={styles.groupItemSummaryCount}>{count}</span>
+        </Typography>
+        <Tooltip title={popupContent} classes={{ tooltip: styles.popup }}>
+          <Typography className={styles.nameComponent}>{nameComponent}</Typography>
+        </Tooltip>
+        {!!nameComponent && <Button onClick={clear}>Clear</Button>}
+        {total && totalHandler && <TotalButtons count={parseInt(total)} countHandler={totalHandler} />}
+      </div>
     </AccordionSummary>
   );
 };

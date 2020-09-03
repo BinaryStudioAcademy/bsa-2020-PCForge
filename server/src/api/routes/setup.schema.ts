@@ -108,6 +108,12 @@ export const SetupSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    ramCount: {
+      type: 'integer',
+      example: 2,
+      minimum: 1,
+      nullable: false,
+    },
     powerSupplyId: {
       type: 'integer',
       example: 1,
@@ -238,6 +244,11 @@ export const CreateSetupSchema: SwaggerSchema = {
       example: 1,
       nullable: false,
     },
+    ramCount: {
+      type: 'integer',
+      example: 1,
+      nullable: false,
+    },
     hddId: {
       type: 'integer',
       example: 1,
@@ -305,6 +316,11 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+    ramCount: {
+      type: 'integer',
+      example: 1,
+      nullable: false,
     },
     hddId: {
       type: 'integer',

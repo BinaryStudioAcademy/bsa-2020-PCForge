@@ -54,6 +54,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     request.body.authorId = request.user.id;
     const data = { ...request.body };
     const setup = await SetupService.createSetup(data, setupMiddleware);
+
     reply.send(setup);
   });
 

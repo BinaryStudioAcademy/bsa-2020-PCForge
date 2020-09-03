@@ -5,6 +5,7 @@ import {
   REMOVE_COMPONENT_FROM_SETUP,
   BUILDER_RESET_SETUP,
   SAVE_SETUP_REQUEST,
+  FETCH_COMPONENT_SUCCESS,
 } from './actionTypes';
 import { SetupItem } from 'common/models/setup';
 import { GroupName } from './config';
@@ -32,5 +33,13 @@ export const saveSetupRequest = (data: SetupItem, image: Blob): AnyAction => ({
   payload: {
     data,
     image,
+  },
+});
+
+export const setCounter = (group: string, component: string): AnyAction => ({
+  type: FETCH_COMPONENT_SUCCESS,
+  payload: {
+    group,
+    component,
   },
 });

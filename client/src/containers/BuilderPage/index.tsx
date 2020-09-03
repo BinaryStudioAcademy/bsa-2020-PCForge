@@ -17,13 +17,14 @@ import ModalAddRequest from 'containers/AddUserRequest';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 
-import { TypeGroupConfig, TypeFilterBuilder } from './types';
+import { TypeGroupConfig, TypeFilterBuilder, TypeAdditionalProps } from './types';
 import { TypeSetup } from './reducer';
 import {
   addComponentToSetupAction,
   initSetupAction,
   removeComponentFromSetupAction,
   resetSetupAction,
+  setCounter,
 } from 'containers/BuilderPage/actions';
 
 import { FilterName, GroupName } from './config';
@@ -63,6 +64,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   };
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
+  const ramCount = setup.ramCount;
   const dispatch = useDispatch();
 
   const resetFilter = () => {
@@ -116,6 +118,10 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           enable: !setup[GroupName.motherboard],
         },
       },
+      count: ramCount,
+      countHandler: (count) => {
+        dispatch(setCounter('ramCount', count));
+      },
     },
     {
       group: GroupName.motherboard,
@@ -157,20 +163,27 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     },
   ];
 
-  const groups = groupConfigs.map((config) => (
-    <GroupComponent
-      key={config.group}
-      groupName={config.group}
-      filter={config.filter}
-      filtersUsed={config.filters}
-      selectedComponent={setup[config.group]}
-      onUpdateFilter={(filter) => setFilter(filter)}
-      onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
-      onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
-      expanded={expanded}
-      onChangeExpanded={setExpanded}
-    />
-  ));
+  const groups = groupConfigs.map((config) => {
+    const additionalProps: TypeAdditionalProps = {};
+    if (config.count) additionalProps.count = config.count;
+    if (config.countHandler) additionalProps.countHandler = config.countHandler;
+
+    return (
+      <GroupComponent
+        key={config.group}
+        groupName={config.group}
+        filter={config.filter}
+        filtersUsed={config.filters}
+        selectedComponent={setup[config.group]}
+        onUpdateFilter={(filter) => setFilter(filter)}
+        onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
+        onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
+        expanded={expanded}
+        onChangeExpanded={setExpanded}
+        {...additionalProps}
+      />
+    );
+  });
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
