@@ -15,6 +15,7 @@ import { EmailVerifyReducer } from 'containers/EmailVerificationPage/reducer';
 import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
 import NewsReducer from 'containers/NewsPage/reducer';
 import { NotificationsReducer } from 'containers/Notifications/redux/reducer';
+import AddRequestReducer from 'containers/AddUserRequest/reducer';
 import { HardwareReducer } from 'containers/HardwaresPage/HardwareSidebarView/reducer';
 import { HardwaresReducer } from 'containers/HardwaresPage/reducer';
 
@@ -38,6 +39,7 @@ const RootReducer = combineReducers({
   userRequests: UserRequestsReducer,
   news: NewsReducer,
   notifications: NotificationsReducer,
+  addRequest: AddRequestReducer,
 });
 
 export default RootReducer;
