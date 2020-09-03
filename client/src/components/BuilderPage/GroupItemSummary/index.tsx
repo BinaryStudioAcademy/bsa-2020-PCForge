@@ -57,7 +57,9 @@ const GroupItemSummary = ({
           <Typography className={styles.nameComponent}>{nameComponent}</Typography>
         </Tooltip>
         {!!nameComponent && <Button onClick={clear}>Clear</Button>}
-        {total && totalHandler && <TotalButtons count={parseInt(total)} countHandler={totalHandler} />}
+        {nameComponent !== '' && total && totalHandler && (
+          <TotalButtons count={parseInt(total)} countHandler={totalHandler} />
+        )}
       </div>
     </AccordionSummary>
   );

@@ -5,7 +5,7 @@ import { Add, Remove } from '@material-ui/icons';
 type Props = { count: number; maxCount?: number; countHandler: (value: string) => void };
 const TotalButtons = ({ count, maxCount = 4, countHandler }: Props) => {
   const nextCount = count < maxCount ? count + 1 : count;
-  const prevCount = count ? count - 1 : 0;
+  const prevCount = count > 1 ? count - 1 : 1;
 
   return (
     <>

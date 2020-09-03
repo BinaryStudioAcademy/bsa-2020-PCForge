@@ -40,7 +40,7 @@ const initialState = {
   cpu: null,
   gpu: null,
   ram: null,
-  ramCount: '0',
+  ramCount: '1',
   motherboard: null,
   powersupply: null,
   hdd: null,
