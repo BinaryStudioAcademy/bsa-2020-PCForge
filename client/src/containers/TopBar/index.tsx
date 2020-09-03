@@ -9,7 +9,7 @@ import UserProfile from 'components/UserProfile';
 import { IconButton, ListItemIcon, ListItemText, Menu, MenuProps } from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MenuItem from '@material-ui/core/MenuItem';
-import { INotification, NotificationType } from 'containers/Notifications/interfaces';
+import { INotification, NotificationType } from 'common/services/notification.service';
 import InfoIcon from '@material-ui/icons/Info';
 import ErrorIcon from '@material-ui/icons/Error';
 import CheckIcon from '@material-ui/icons/Check';
@@ -36,7 +36,7 @@ const StyledMenu = withStyles({
   />
 ));
 
-const TopBar: React.FC<Props> = ({ notifications, deleteNotification, NotificationService, user }) => {
+const TopBar: React.FC<Props> = ({ notifications, deleteNotification, WebSocketService, user }) => {
   const [searchValue, setSearchValue] = useState('');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const ITEM_HEIGHT = 64;
@@ -54,7 +54,7 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, Notificati
 
   const handleDelete = (notification: INotification) => {
     if (!user?.id) return;
-    NotificationService?.deleteNotification(user.id.toString(), notification.id);
+    WebSocketService?.deleteNotification(user.id.toString(), notification.id);
     deleteNotification(notification.id);
   };
 
@@ -113,7 +113,7 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, Notificati
 
 const mapState = (state: RootState) => ({
   notifications: state.notifications.notifications,
-  NotificationService: state.notifications.NotificationService,
+  WebSocketService: state.notifications.WebSocketService,
   user: state.auth.user,
 });
 
