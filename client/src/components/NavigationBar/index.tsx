@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -21,16 +22,17 @@ import { ReactComponent as LogOutIcon } from 'assets/icons/logOut.svg';
 import history from 'browserHistory';
 import { Routes } from 'common/enums';
 
-import styles from './styles.module.scss';
+import styles from 'components/NavigationBar/styles.module.scss';
+import { logout } from 'containers/Auth/actions';
 
-interface IListNavigatinBar {
+interface IListNavigationBar {
   name: string;
   icon: ReactElement;
   link: string;
   onClick?: () => void;
 }
 
-const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultSelected: number | undefined) => {
+const NavigationBarRender: React.FC<Array<IListNavigationBar>> = (props, defaultSelected: number | undefined) => {
   const [selected, setSelected] = React.useState<number | undefined>(defaultSelected);
 
   return (
@@ -43,7 +45,7 @@ const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultS
               <ListItem
                 button
                 key={key}
-                className={`${styles.listItem} ${selected === key ? styles.selectedButon : ''}`}
+                className={`${styles.listItem} ${selected === key ? styles.selectedButton : ''}`}
                 onClick={() => setSelected(key)}
               >
                 <div className={styles.icon}>{item.icon}</div>
@@ -62,8 +64,11 @@ interface selectedMenuProps {
 }
 
 const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, isAdmin }) => {
+  const dispatch = useDispatch();
+
   const clearTokenAndRedirect = async () => {
     await clearToken();
+    await dispatch(logout());
     history.push(Routes.LOGIN);
   };
 
@@ -75,7 +80,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     },
   });
 
-  const listHeader: Array<IListNavigatinBar> = [
+  const listHeader: Array<IListNavigationBar> = [
     {
       name: 'Home',
       icon: <SvgIcon component={HomeIcon} viewBox="0 0 31 31" />,

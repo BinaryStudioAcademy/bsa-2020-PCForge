@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import { RootState } from 'redux/rootReducer';
@@ -115,10 +116,6 @@ class Auth extends Component<IAuthProps, IAuthState> {
 
   render() {
     const state = this.props.authState;
-    if (getTokenSync()) {
-      return <Redirect to={'/'} />;
-    }
-
     return (
       <React.Fragment>
         <div className={styles.bgContainer} />
