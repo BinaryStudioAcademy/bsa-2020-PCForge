@@ -8,6 +8,12 @@ export interface CommentAttributes {
   createdAt: Date;
   updatedAt: Date;
   value: string;
+
+  countLikes?: number;
+  countDislikes?: number;
+  isLikedByUser?: boolean;
+  isDislikedByUser?: boolean;
+  userItemRate?: number;
 }
 export interface CommentCreationAttributes {
   commentableType: string;

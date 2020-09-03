@@ -23,6 +23,8 @@ const Comments: React.FC<Props> = (props): JSX.Element => {
     props.onCreateComment(value);
     setValue('');
   };
+  console.log('comments:');
+  console.log(comments);
 
   return (
     <div className={[styles.commentsRoot, props.rootClassName].join(' ')}>

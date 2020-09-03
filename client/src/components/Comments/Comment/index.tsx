@@ -54,7 +54,7 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
         <div className={styles.commentDateContainer}>
           <div className={styles.commentDate}>
             {`Created on ${createdDate.toUTCString()}`}
-            {/* ${createdDate.toDateString()} at ${createdDate.toTimeString()} */}
+            {/*getIcon('ThumbUpAltRoundedIcon') ${createdDate.toDateString()} at ${createdDate.toTimeString()} */}
           </div>
           <div className={styles.commentDate}>{edited}</div>
         </div>

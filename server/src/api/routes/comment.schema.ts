@@ -61,6 +61,12 @@ export const CommentSchema: SwaggerSchema = {
       example: 'Comment body goes here...',
       nullable: false,
     },
+    countLikes: {
+      type: 'string',
+      minLength: 1,
+      example: '2',
+      nullable: true,
+    },
     createdAt: {
       type: 'string',
       minLength: 1,
