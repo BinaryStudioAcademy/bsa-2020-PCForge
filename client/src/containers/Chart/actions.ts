@@ -2,7 +2,6 @@ import { Cpu } from 'common/models/cpu';
 import { Game } from 'common/models/game';
 import { Gpu } from 'common/models/gpu';
 import { ISetupPerformance } from 'common/models/setupPerformance';
-import { TopGame } from 'common/models/topGame';
 import { SetupChartActions, SetupChartTypes } from './actionTypes';
 
 export const fetchGamesByName = (name: string): SetupChartActions => ({
