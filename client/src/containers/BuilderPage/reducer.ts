@@ -18,7 +18,7 @@ export type TypeSetup = {
   cpu: TypeCpu | null;
   gpu: TypeGpu | null;
   ram: TypeRam | null;
-  ramCount: string;
+  ramCount: number;
   motherboard: TypeMotherboard | null;
   powersupply: TypePowersupplies | null;
   hdd: TypeHdd | null;
@@ -30,7 +30,7 @@ export type TypeSetupForPost = {
   gpuId: number;
   motherboardId: number;
   ramId: number;
-  ramCount: string;
+  ramCount: number;
   powerSupplyId: number;
   hddId: number;
   ssdId: number;
@@ -40,7 +40,7 @@ const initialState = {
   cpu: null,
   gpu: null,
   ram: null,
-  ramCount: '1',
+  ramCount: 1,
   motherboard: null,
   powersupply: null,
   hdd: null,

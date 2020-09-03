@@ -16,8 +16,8 @@ type PropsType = {
   popupContent?: JSX.Element | false;
   img?: string;
   onClear: () => void;
-  total?: string;
-  totalHandler?: (value: string) => void;
+  total?: number;
+  totalHandler?: (value: number) => void;
 };
 
 const GroupItemSummary = ({
@@ -57,9 +57,7 @@ const GroupItemSummary = ({
           <Typography className={styles.nameComponent}>{nameComponent}</Typography>
         </Tooltip>
         {!!nameComponent && <Button onClick={clear}>Clear</Button>}
-        {nameComponent !== '' && total && totalHandler && (
-          <TotalButtons count={parseInt(total)} countHandler={totalHandler} />
-        )}
+        {nameComponent !== '' && total && totalHandler && <TotalButtons count={total} countHandler={totalHandler} />}
       </div>
     </AccordionSummary>
   );

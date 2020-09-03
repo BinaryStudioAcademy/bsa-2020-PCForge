@@ -49,8 +49,8 @@ export type TypeGroupConfig = {
       enable: boolean;
     };
   };
-  count?: string;
-  countHandler?: (value: string) => void;
+  count?: number;
+  countHandler?: (value: number) => void;
 };
 
 export type TypeFilterRangeInfo = {
@@ -72,4 +72,4 @@ export enum ComponentGroups {
   powersupply,
 }
 
-export type TypeAdditionalProps = { count?: string; countHandler?: (value: string) => void };
+export type TypeAdditionalProps = { count?: number; countHandler?: (value: number) => void };

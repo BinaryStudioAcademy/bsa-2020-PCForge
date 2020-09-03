@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@material-ui/core';
 import { Add, Remove } from '@material-ui/icons';
 
-type Props = { count: number; maxCount?: number; countHandler: (value: string) => void };
+type Props = { count: number; maxCount?: number; countHandler: (value: number) => void };
 const TotalButtons = ({ count, maxCount = 4, countHandler }: Props) => {
   const nextCount = count < maxCount ? count + 1 : count;
   const prevCount = count > 1 ? count - 1 : 1;
@@ -12,7 +12,7 @@ const TotalButtons = ({ count, maxCount = 4, countHandler }: Props) => {
       <Button
         aria-label="reduce"
         onClick={() => {
-          countHandler(prevCount.toString());
+          countHandler(prevCount);
         }}
       >
         <Remove fontSize="small" />
@@ -21,7 +21,7 @@ const TotalButtons = ({ count, maxCount = 4, countHandler }: Props) => {
       <Button
         aria-label="increase"
         onClick={() => {
-          countHandler(nextCount.toString());
+          countHandler(nextCount);
         }}
       >
         <Add fontSize="small" />

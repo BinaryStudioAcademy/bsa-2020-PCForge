@@ -36,7 +36,7 @@ export const saveSetupRequest = (data: SetupItem, image: Blob): AnyAction => ({
   },
 });
 
-export const setCounter = (group: string, component: string): AnyAction => ({
+export const setCounter = (group: string, component: number): AnyAction => ({
   type: FETCH_COMPONENT_SUCCESS,
   payload: {
     group,

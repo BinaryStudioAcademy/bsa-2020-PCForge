@@ -26,8 +26,8 @@ type PropsType = {
   onRemoveSelectedComponent: (group: GroupName) => void;
   expanded: GroupName | false;
   onChangeExpanded: (expanded: GroupName | false) => void;
-  count?: string;
-  countHandler?: (value: string) => void;
+  count?: number;
+  countHandler?: (value: number) => void;
 };
 
 type TypeRange = {
