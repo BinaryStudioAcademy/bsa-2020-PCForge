@@ -1,5 +1,4 @@
 import { HardWareFormAction, HardwareFormActionTypes, HardwareFormState } from './actionsTypes';
-import { AlertType } from 'components/BasicComponents/Alert';
 
 const initialState: HardwareFormState = {
   socketList: [],
@@ -22,6 +21,9 @@ export function HardwareFormReducer(state = initialState, action: HardWareFormAc
         ...state,
         errorMessage: '',
         createdHardwareName: '',
+        socketList: [],
+        RAMList: [],
+        RAMtypeList: [],
       };
     }
     // upload initial values
