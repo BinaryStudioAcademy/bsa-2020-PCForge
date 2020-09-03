@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import { getIcon } from 'common/helpers/icon.helper';
 import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import styles from './styles.module.scss';
