@@ -55,9 +55,9 @@ export class HardwareService {
 
   [Component.cpu] = this.cpuRepository.getAllCpus.bind(this.cpuRepository);
   [Component.gpu] = this.gpuRepository.getAllGpus.bind(this.gpuRepository);
-  [Component.ram] = this.ramRepository.getAllRams.bind(this.gpuRepository);
-  [Component.hdd] = this.hddRepository.getAllHdds.bind(this.gpuRepository);
-  [Component.ssd] = this.ssdRepository.getAllSsds.bind(this.gpuRepository);
+  [Component.ram] = this.ramRepository.getAllRams.bind(this.ramRepository);
+  [Component.hdd] = this.hddRepository.getAllHdds.bind(this.hddRepository);
+  [Component.ssd] = this.ssdRepository.getAllSsds.bind(this.ssdRepository);
   [Component.motherboard] = this.motherboardRepository.getAllMotherboards.bind(this.motherboardRepository);
   [Component.powerSupply] = this.powerSupplyRepository.getAllPowerSupplies.bind(this.powerSupplyRepository);
 
@@ -65,7 +65,8 @@ export class HardwareService {
     const topIdMap: Map<number, number> = new Map();
     const setups = await this.setupRepository.getSetups({ count: null, from: null });
     for (const setup of setups.data) {
-      const id = setup[component].id;
+      const id = setup[component]?.id;
+      if (!id && id !== 0) continue;
       if (topIdMap.has(id)) topIdMap.set(id, topIdMap.get(id) + 1);
       else topIdMap.set(id, 1);
     }
@@ -74,15 +75,13 @@ export class HardwareService {
 
     if (idsTop.length > filter.from) {
       const id = idsTop.slice(filter.from, filter.from + filter.count);
-      console.log('this[component]', this[component]);
-      const topComponents = await this[Component.cpu]({ ...filter, id });
-      console.log('topComponents', topComponents);
+      const topComponents = await this[component]({ ...filter, id });
       const components = {
         ...topComponents,
         data: topComponents.data.sort((a, b) => topIdMap.get(a.id) - topIdMap.get(b.id)),
       };
       if (id.length < filter.count) {
-        const addComponents = await this[Component.cpu]({
+        const addComponents = await this[component]({
           ...filter,
           excludedId: idsTop,
           from: 0,
@@ -94,7 +93,7 @@ export class HardwareService {
       }
       return components;
     } else {
-      const components = await this[Component.cpu]({
+      const components = await this[component]({
         ...filter,
         excludedId: idsTop,
         from: filter.from - idsTop.length,
@@ -106,42 +105,6 @@ export class HardwareService {
   async getTopCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
     const cpus = await this.getTopComponents<IWithMeta<CpuModel>>(Component.cpu, filter);
     return cpus;
-    // const topIdMap: Map<number, number> = new Map();
-    // const setups = await this.setupRepository.getSetups({ count: null, from: null });
-    // for (const setup of setups.data) {
-    //   const id = setup.cpu.id;
-    //   if (topIdMap.has(id)) topIdMap.set(id, topIdMap.get(id) + 1);
-    //   else topIdMap.set(id, 1);
-    // }
-    //
-    // const idsTop = [...topIdMap.entries()].sort((a, b) => a[1] - b[1]).map((e) => e[0]);
-    //
-    // if (idsTop.length > filter.from) {
-    //   const id = idsTop.slice(filter.from, filter.from + filter.count);
-    //   const topCpus = await this.cpuRepository.getAllCpus({ ...filter, id });
-    //   const cpus = {
-    //     ...topCpus,
-    //     data: topCpus.data.sort((a, b) => topIdMap.get(a.id) - topIdMap.get(b.id)),
-    //   };
-    //   if (id.length < filter.count) {
-    //     const addCpus = await this.cpuRepository.getAllCpus({
-    //       ...filter,
-    //       excludedId: idsTop,
-    //       from: 0,
-    //       count: filter.count - id.length,
-    //     });
-    //     cpus.meta.countAfterFiltering = cpus.meta.countAfterFiltering + addCpus.meta.countAfterFiltering;
-    //     cpus.data = cpus.data.concat(addCpus.data);
-    //   }
-    //   return cpus;
-    // } else {
-    //   const cpus = await this.cpuRepository.getAllCpus({
-    //     ...filter,
-    //     excludedId: idsTop,
-    //     from: filter.from - idsTop.length,
-    //   });
-    //   return cpus;
-    // }
   }
 
   async getTopGpus(filter: IGpuFilter): Promise<IWithMeta<GpuModel>> {
