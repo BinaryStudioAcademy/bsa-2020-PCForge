@@ -11,8 +11,6 @@ import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import NotFound from 'containers/NotFound';
 import Spinner from 'components/Spinner';
-import Snackbar from 'components/BasicComponents/Snackbar';
-import { AlertType } from 'components/BasicComponents/Alert';
 import HardwareView from 'components/HardwareView';
 
 class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
@@ -23,7 +21,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     this.getSetupComments = this.getSetupComments.bind(this);
     this.onCreateComment = this.onCreateComment.bind(this);
     this.onRatingSet = this.onRatingSet.bind(this);
-    this.onSnackBarClose = this.onSnackBarClose.bind(this);
   }
 
   public componentDidMount() {
@@ -47,10 +44,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     this.props.setSetupRate({ id: +this.props.match.params.id, value });
   }
 
-  public onSnackBarClose() {
-    this.props.wipeSnackbarData();
-  }
-
   public render() {
     const { setup, commentsPerPage, commentsCountTotal, hasErrorDuringSetupFetch } = this.props.state;
 
@@ -67,7 +60,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
       <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
         <div className={styles.setupPageRoot}>
           <h1>PC setup</h1>
-          <Snackbar
+          {/* <Snackbar
             open={!!this.props.state.snackbarMessage}
             alertProps={{
               alertTitle: this.props.state.snackbarMessageType === AlertType.error ? 'Error' : '',
@@ -76,7 +69,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
             onClose={this.onSnackBarClose}
           >
             <span>{this.props.state.snackbarMessage}</span>
-          </Snackbar>
+          </Snackbar> */}
           <div className={styles.contentWrapper}>
             <div className={styles.setupsDetails}>
               <SetupCard
