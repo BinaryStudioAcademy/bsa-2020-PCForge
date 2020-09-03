@@ -21,7 +21,7 @@ import {
 } from '../../helpers/swagger.helper';
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
-import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { CommentService } = fastify.services;
@@ -33,9 +33,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllComments, ICommentFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllCommentsRequest, reply) => {
     allowForAuthorized(request);
-    const comments = await CommentService.getAllComments(request.query);
-    console.log('comments');
-    console.log(comments.data);
+    const comments = await CommentService.getAllComments(request.query, request.user);
     reply.send(comments);
   });
 

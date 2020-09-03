@@ -11,9 +11,9 @@ export interface Comment {
 
   countLikes: number;
   countDislikes: number;
-  isLikedByUser?: boolean;
-  isDislikedByUser?: boolean;
-  userItemRate?: number;
+  isLikedByCurrentUser?: boolean;
+  isDislikedByCurrentUser?: boolean;
+  itemRateByAuthorComment?: number;
 }
 
 export interface CommentCreationAttributes {

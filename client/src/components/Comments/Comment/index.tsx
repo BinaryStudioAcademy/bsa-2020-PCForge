@@ -14,7 +14,6 @@ import UserAvatar from 'components/UserAvatar';
 import RatingBox from 'components/RatingBox';
 
 import styles from './styles.module.scss';
-import { divide } from 'lodash-es';
 
 interface Props {
   comment: Comment;
@@ -27,12 +26,6 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
 
   const differentMilisecondsBetweenDates = Math.abs(createdDate.getTime() - updatedDate.getTime());
   const edited = differentMilisecondsBetweenDates <= 10 ? null : 'Edited';
-
-  const likedCount = 10;
-  const dislikedCount = 5;
-  const isLikedByUser = true;
-  const isDislikedByUser = false;
-  const setupRate = 3.5;
   return (
     <li className={styles.commentRoot}>
       <div className={styles.commentWrapper}>
@@ -40,7 +33,9 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
           <UserAvatar user={comment.user} />
           <div className={styles.commentRateInfo}>
             <span className={styles.commentAuthor}>{comment.user!.name || comment.user!.email}</span>
-            <RatingBox ratingValue={setupRate} disabled={true} name={comment.id.toString()} />
+            {comment.itemRateByAuthorComment ? (
+              <RatingBox ratingValue={comment.itemRateByAuthorComment} disabled={true} name={comment.id.toString()} />
+            ) : null}
           </div>
           <div className={styles.commentButtonsHeader}>
             <Tooltip title={'Edit'} placement="left-start" arrow>
@@ -52,17 +47,14 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
           </div>
         </div>
         <div className={styles.commentDateContainer}>
-          <div className={styles.commentDate}>
-            {`Created on ${createdDate.toUTCString()}`}
-            {/*getIcon('ThumbUpAltRoundedIcon') ${createdDate.toDateString()} at ${createdDate.toTimeString()} */}
-          </div>
+          <div className={styles.commentDate}>{`Created on ${createdDate.toUTCString()}`}</div>
           <div className={styles.commentDate}>{edited}</div>
         </div>
         <p className={styles.commentBody}>{comment.value}</p>
         <div className={styles.commentFooter}>
           <div className={styles.likeContainer}>
-            <span>{likedCount}</span>
-            {isLikedByUser ? (
+            <span>{comment.countLikes}</span>
+            {comment.isLikedByCurrentUser ? (
               <Tooltip title={'Not useful anymore'} placement="left-start" arrow>
                 <ThumbUpAltRoundedIcon className={styles.iconLike} />
               </Tooltip>
@@ -73,7 +65,7 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
             )}
           </div>
           <div className={styles.likeContainer}>
-            {isDislikedByUser ? (
+            {comment.isDislikedByCurrentUser ? (
               <Tooltip title={'No longer useless'} placement="right-start" arrow>
                 <ThumbDownRoundedIcon className={styles.iconLike} />
               </Tooltip>
@@ -82,7 +74,7 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
                 <ThumbDownOutlinedIcon className={styles.iconLike} onClick={() => alert('Dislike!')} />
               </Tooltip>
             )}
-            <span>{dislikedCount}</span>
+            <span>{comment.countDislikes}</span>
           </div>
         </div>
       </div>

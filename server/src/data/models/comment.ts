@@ -1,4 +1,5 @@
 import { BuildOptions, DataTypes, Model, Sequelize } from 'sequelize';
+import { CommentRateAttributes } from './commentRates';
 
 export interface CommentAttributes {
   id: number;
@@ -11,9 +12,10 @@ export interface CommentAttributes {
 
   countLikes?: number;
   countDislikes?: number;
-  isLikedByUser?: boolean;
-  isDislikedByUser?: boolean;
-  userItemRate?: number;
+  isLikedByCurrentUser?: boolean;
+  isDislikedByCurrentUser?: boolean;
+  itemRateByAuthorComment?: number;
+  commentRates?: Array<CommentRateAttributes>;
 }
 export interface CommentCreationAttributes {
   commentableType: string;
