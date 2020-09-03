@@ -137,8 +137,8 @@ export class HardwareService {
     return ssds;
   }
 
-  async getTopStorages(filter: ISsdFilter): Promise<IWithMeta<HddModel>> {
-    const storages = await this.hddRepository.getAllHdds(filter);
+  async getTopStorages(filter: ISsdFilter): Promise<IWithMeta<SsdModel>> {
+    const storages = await this.getTopComponents<IWithMeta<SsdModel>>(Component.ssd, filter);
     return storages;
   }
 }
