@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import { getIcon } from 'common/helpers/icon.helper';
 import GameCard, { GameCardProps } from '../GameCard';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
 import styles from './styles.module.scss';
@@ -101,7 +100,9 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
         <>
           <div className={styles.buttonPlacement}>
             <Link className={styles.setupLink} to="/builder">
-              <Button className={styles.builderButton} icon="Build" buttonType={ButtonType.secondary}>Builder</Button>
+              <Button className={styles.builderButton} icon="Build" buttonType={ButtonType.secondary}>
+                Builder
+              </Button>
             </Link>
           </div>
           <div className={styles.userPreferences}>
