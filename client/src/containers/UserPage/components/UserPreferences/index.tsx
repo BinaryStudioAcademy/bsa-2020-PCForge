@@ -101,7 +101,9 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
         <>
           <div className={styles.buttonPlacement}>
             <Link className={styles.setupLink} to="/builder">
-              <Button className={styles.builderButton} icon="Build" buttonType={ButtonType.secondary}>Builder</Button>
+              <Button className={styles.builderButton} icon="Build" buttonType={ButtonType.secondary}>
+                Builder
+              </Button>
             </Link>
           </div>
           <div className={styles.userPreferences}>
