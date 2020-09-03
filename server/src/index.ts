@@ -43,10 +43,16 @@ server.register(nodemailer, {
     pass: process.env.EMAIL_PASSWORD,
   },
 });
-server.register(redis, {
-  port: redisPort,
-  host: redisHost,
-});
+const redisParams = process.env.REDIS_URL
+  ? {
+      url: process.env.REDIS_URL,
+    }
+  : {
+      port: redisPort,
+      host: redisHost,
+    };
+
+server.register(redis, redisParams);
 server.register(websocket);
 server.register(services);
 server.register(fastifyStatic, {
