@@ -21,7 +21,6 @@ $link-default-hover-color: rgb(246, 243, 243);
   @media(min-width: $tablet) {
     &>div {
       width: 25%;
-      // min-width: 335px;
     }
   }
 
@@ -41,7 +40,7 @@ $link-default-hover-color: rgb(246, 243, 243);
 }
 
 .addGameButton {
-  margin: 20px 30px 20px !important;
+  margin: 20px 25px 20px !important;
 }
 
 .builderButton {
@@ -52,7 +51,7 @@ $link-default-hover-color: rgb(246, 243, 243);
 }
 
 .setupLink {
-  margin: 20px 30px 20px !important;
+  margin: 20px 25px 20px !important;
   display: inline-block;
   font-size: 22px;
   text-decoration: none;
@@ -70,7 +69,6 @@ $link-default-hover-color: rgb(246, 243, 243);
 }
 
 .buttonPlacement {
-
   label {
     display: none;
   }

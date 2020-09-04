@@ -3,7 +3,6 @@ import { SetupChartActions, SetupChartState, SetupChartTypes } from './actionTyp
 
 const initialState: SetupChartState = {
   searchedGames: [],
-  topGames: [],
   game: defaultGame,
   cpu: null,
   gpu: null,
@@ -14,13 +13,6 @@ const initialState: SetupChartState = {
 
 export function SetupChartReducer(state = initialState, action: SetupChartActions): SetupChartState {
   switch (action.type) {
-    case SetupChartTypes.FETCH_TOP_GAMES_SUCCESS: {
-      return {
-        ...state,
-        topGames: action.payload.topGames,
-      };
-    }
-
     case SetupChartTypes.FETCH_GAMES_SUCCESS: {
       return {
         ...state,

@@ -7,6 +7,8 @@ import { RouteGenericInterface } from 'fastify/types/route';
 import { File as MulterFile } from 'fastify-multer/lib/interfaces';
 import Mail from 'nodemailer/lib/mailer';
 import { Repositories } from '../data/repositories';
+import { PromisedRedis } from '../infrastructure/redis/interfaces';
+import { WebSocketService } from '../api/socket/websocket.service';
 
 interface File extends MulterFile {
   bucket: string;
@@ -33,6 +35,8 @@ declare module 'fastify' {
     services: Services;
     googleOAuth2: OAuth2Namespace;
     nodemailer: Mail;
+    redis: PromisedRedis;
+    websocket: WebSocketService;
   }
 
   export interface FastifyRequest<

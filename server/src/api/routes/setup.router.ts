@@ -36,7 +36,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllSetupsResponse, ISetupFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetSetupsRequest, reply) => {
     allowForAuthorized(request);
-    const setups = await SetupService.getAllSetups(request.query);
+    const setups = await SetupService.getAllSetups(request.query, request.user.id);
     reply.send(setups);
   });
 
@@ -44,7 +44,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/:id', getOneSchema, async function (request: GetSetupRequest) {
     allowForAuthorized(request);
     const { id } = request.params;
-    const setup = await SetupService.getSetupById(id);
+    const setup = await SetupService.getSetupById(id, request.user.id);
     return setup;
   });
 

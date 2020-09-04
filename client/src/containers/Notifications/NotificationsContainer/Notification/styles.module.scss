@@ -1,0 +1,43 @@
+@import '../../../../styles/variables';
+
+.notificationContainer {
+  height: 75px;
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.text {
+  padding-left: 10px;
+  padding-right: 10px;
+  flex: 10;
+  // align-self: stretch;
+  word-wrap: break-word;
+}
+
+.icon {
+  flex: 1;
+}
+
+.info {
+  background-color: $colorBlue;
+}
+
+.success {
+  background-color: $colorGreen;
+}
+
+.warning {
+  background-color: $colorYellowDark;
+}
+
+.error {
+  background-color: $colorRed;
+}
+
+.close {
+  flex: 1;
+  align-self: flex-start;
+}
