@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import styles from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import TopGames from 'components/ChartComponents/TopGames';
+import Tooltip from '@material-ui/core/Tooltip';
 import PageComponent from '../PageComponent';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
@@ -15,6 +15,10 @@ import { GameMatcherProps } from './interfaces';
 import { MatcherSettableVariants, MatcherServerActions } from './actionTypes';
 import { RouteComponentProps } from 'react-router-dom';
 import { Box, Slider } from '@material-ui/core';
+import TopGames from 'containers/TopGames';
+
+import ModalAddRequest from 'containers/AddUserRequest';
+import { UserRequestedType } from 'common/enums/UserRequestedType';
 
 const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Element => {
   const { setAlertValue, getMatcherData } = props;
@@ -25,6 +29,17 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
   const [selectedCpu, setSelectedCpu] = useState<number | null>(null);
   const [selectedGpu, setSelectedGpu] = useState<number | null>(null);
   const [ramSize, setRamValue] = useState<number>(1);
+
+  const [displayAddRequestOpen, setDisplayAddRequestOpen] = useState(false);
+  const showAddGameModal = () => {
+    setDisplayAddRequestOpen(true);
+  };
+  const hideAddGameModal = () => {
+    setDisplayAddRequestOpen(false);
+  };
+  const handleAddGameWindow = () => {
+    displayAddRequestOpen ? hideAddGameModal() : showAddGameModal();
+  };
 
   const gameOptions = props.state.games.map((game) => ({ label: game.name, value: game.id }));
   const cpuOptions = props.state.cpus.map((cpu) => ({ label: cpu.name, value: cpu.id }));
@@ -148,7 +163,22 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
               </Box>
             </div>
           </div>
-          <TopGames topGames={[]} />
+          <div className={styles.asideBlock}>
+            <TopGames />
+            {displayAddRequestOpen ? (
+              <ModalAddRequest onClose={hideAddGameModal} requestType={UserRequestedType.game} />
+            ) : null}
+            <Box className={styles.buttonWrapper}>
+              <Tooltip
+                title={'If you can not find needed game, you can create a request to admin about adding it to site! '}
+                arrow
+              >
+                <Button buttonType={ButtonType.secondary} onClick={handleAddGameWindow}>
+                  Add Game
+                </Button>
+              </Tooltip>
+            </Box>
+          </div>
         </div>
       </main>
     </PageComponent>

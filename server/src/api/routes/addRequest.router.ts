@@ -33,6 +33,10 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllAddRequest, IAddRequestFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllAddRequests, reply) => {
     allowForAuthorized(request);
+    if (request.query.userId) {
+      const comments = await AddRequestService.getUserRequests(request.query);
+      reply.send(comments);
+    }
     const comments = await AddRequestService.getAllAddRequests(request.query);
     reply.send(comments);
   });

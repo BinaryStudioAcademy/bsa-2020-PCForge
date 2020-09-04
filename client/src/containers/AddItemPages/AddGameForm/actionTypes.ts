@@ -5,6 +5,8 @@ import { AlertType } from 'components/BasicComponents/Alert';
 export enum GameFormActionTypes {
   GET_INITIAL_VALUES = 'GET_INITIAL_VALUES',
   GET_INITIAL_VALUES_SUCCESS = 'GET_INITIAL_VALUES_SUCCESS',
+  CLEAR_GAME_STATE_VALUES_ACTION = 'CLEAR_GAME_STATE_VALUES_ACTION',
+  CLEAR_GAME_STATE_VALUES_SUCCESS = 'CLEAR_GAME_STATE_VALUES_SUCCESS',
   GET_INITIAL_VALUES_ERROR = 'GET_INITIAL_VALUES_ERROR',
   UPLOAD_MORE_VALUES = 'UPLOAD_MORE_VALUES',
   CREATE_NEW_GAME_ACTION = 'CREATE_NEW_GAME_ACTION',
@@ -60,6 +62,12 @@ export interface ILoadInitialValuesSuccess {
     minCPUList: SelectOption[];
     minGPUList: SelectOption[];
   };
+}
+export interface IClearStateValuesAction {
+  type: GameFormActionTypes.CLEAR_GAME_STATE_VALUES_ACTION;
+}
+export interface IClearStateValuesSuccess {
+  type: GameFormActionTypes.CLEAR_GAME_STATE_VALUES_SUCCESS;
 }
 
 export interface ICreateGameAction {
@@ -165,4 +173,6 @@ export type GameFormAction =
   | IUploadMoreMINCPU
   | IUploadMoreEnteredMINCPU
   | IUploadMoreMINGPU
-  | IUploadMoreEnteredMINGPU;
+  | IUploadMoreEnteredMINGPU
+  | IClearStateValuesAction
+  | IClearStateValuesSuccess;

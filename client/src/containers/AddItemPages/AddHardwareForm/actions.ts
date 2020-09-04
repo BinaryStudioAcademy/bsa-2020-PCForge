@@ -1,5 +1,3 @@
-import { HardWareFormAction, HardwareFormActionTypes, IHardwareFilter } from './actionsTypes';
-import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 import { CpuCreationAttributes } from 'common/models/cpu';
 import { GpuCreationAttributes } from 'common/models/gpu';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
@@ -7,6 +5,10 @@ import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 import { RamCreationAttributes } from 'common/models/ram';
 import { SsdCreationAttributes } from 'common/models/ssd';
 import { HddCreationAttributes } from 'common/models/hdd';
+
+import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
+
+import { HardWareFormAction, HardwareFormActionTypes, IHardwareFilter } from './actionsTypes';
 
 // load initial values
 export const getAllSelectsInitialValuesMotherboard = (): HardWareFormAction => ({
@@ -114,12 +116,8 @@ export const uploadMoreItems = (filter: IHardwareFilter): HardWareFormAction => 
 });
 
 export const updateStateToInit = (): HardWareFormAction => ({
-  type: HardwareFormActionTypes.GET_INITIAL_VALUES_CPU_ACTION,
+  type: HardwareFormActionTypes.UPDATE_STATE_TO_INIT_ACTION,
 });
-export const updateStateToInitSuccess = (errorMessage: string, createdHardwareName: string): HardWareFormAction => ({
+export const updateStateToInitSuccess = (): HardWareFormAction => ({
   type: HardwareFormActionTypes.UPDATE_STATE_TO_INIT_SUCCESS,
-  payload: {
-    errorMessage,
-    createdHardwareName,
-  },
 });

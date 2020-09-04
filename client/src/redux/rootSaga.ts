@@ -14,8 +14,10 @@ import setupsSagas from 'containers/SetupsPage/sagas';
 import emailVerificationActions from 'containers/EmailVerificationPage/sagas';
 import resetPasswordSagas from 'containers/ResetPassword/sagas';
 import newsSagas from 'containers/NewsPage/sagas';
+import addUserRequest from 'containers/AddUserRequest/sagas';
 import hardwareSagas from 'containers/HardwaresPage/HardwareSidebarView/sagas';
 import hardwaresSagas from 'containers/HardwaresPage/sagas';
+import topGamesSagas from 'containers/TopGames/redux/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -34,7 +36,9 @@ export default function* rootSaga() {
     setupChartSagas(),
     setupSagas(),
     setupsSagas(),
+    addUserRequest(),
     userSagas(),
     userRequestsSagas(),
+    topGamesSagas(),
   ]);
 }

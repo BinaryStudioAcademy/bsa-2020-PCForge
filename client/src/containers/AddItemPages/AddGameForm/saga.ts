@@ -7,15 +7,15 @@ import { uploadImage } from 'api/services/imageService';
 import { postGame } from 'api/services/gameService';
 import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 import { FilterModel } from 'common/models/filter.model';
-//import * as notification from 'common/services/notificationService';
 
-import { loadAllSelectsInitialValues, loadError, loadCreatedGame } from './actions';
+import { loadAllSelectsInitialValues, loadError, loadCreatedGame, clearingStateValues } from './actions';
 import {
   GameFormActionTypes,
   IGetInitialValueAction,
   IUploadMoreItemsAction,
   typesHardware,
   ICreateGameAction,
+  IClearStateValuesAction,
 } from './actionTypes';
 
 function* getAllSelectsInitialValuesRequests(action: IGetInitialValueAction) {
@@ -38,13 +38,23 @@ function* watchGetAllSelectsInitialValuesRequests() {
   yield takeEvery(GameFormActionTypes.GET_INITIAL_VALUES, getAllSelectsInitialValuesRequests);
 }
 
+function* clearStateValues(action: IClearStateValuesAction) {
+  try {
+    yield put(clearingStateValues());
+  } catch (error) {
+    yield put(loadError(error.message));
+  }
+}
+
+function* watchClearStateValues() {
+  yield takeEvery(GameFormActionTypes.CLEAR_GAME_STATE_VALUES_ACTION, clearStateValues);
+}
+
 function* createGame(action: ICreateGameAction) {
   try {
     const { game, imageData } = action.payload;
     game.image = yield call(uploadImage, imageData);
     const gameCreated = yield call(postGame, game);
-    console.log(gameCreated);
-    //notification.success(`Game ${gameCreated.name} has been created`);
     yield put(loadCreatedGame(gameCreated.name));
   } catch (error) {
     yield put(loadError(error.message));
@@ -91,5 +101,10 @@ function* watchUploadMoreItems() {
 }
 
 export default function* GameFormSagas() {
-  yield all([watchGetAllSelectsInitialValuesRequests(), watchUploadMoreItems(), watchCreateGame()]);
+  yield all([
+    watchGetAllSelectsInitialValuesRequests(),
+    watchUploadMoreItems(),
+    watchCreateGame(),
+    watchClearStateValues(),
+  ]);
 }
