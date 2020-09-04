@@ -5,6 +5,8 @@ import { fetchNewsAction } from './actions';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import styles from 'containers/NewsPage/styles.module.scss';
 import { TypeNewsState } from 'containers/NewsPage/reducer';
+import PageComponent from 'containers/PageComponent';
+import Title from 'components/Title';
 
 type PropsType = {
   role?: 'page' | 'aside';
@@ -36,10 +38,13 @@ const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
   ));
 
   return (
-    <Box className={styles.newsWrapper}>
-      {role === 'page' ? <h1>News</h1> : <h2>News</h2>}
-      <Box className={styles.cardsWrapper}>{newsElements}</Box>
-    </Box>
+    <PageComponent>
+      <Box className={styles.newsWrapper}>
+        <Title title={'News'} />
+        {/* {role === 'page' ? <h1>News</h1> : <h2>News</h2>} */}
+        <Box className={styles.cardsWrapper}>{newsElements}</Box>
+      </Box>
+    </PageComponent>
   );
 };
 

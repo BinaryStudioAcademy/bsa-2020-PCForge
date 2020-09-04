@@ -39,7 +39,7 @@ const Footer = (): JSX.Element => (
       </div>
     </div>
     <div className={classes.copyRights}>
-      <p className={classes.list}>&copy; 2020 PCForce. All Rights Reserved</p>
+      <p className={classes.list}>&copy; 2020 PCForge. All Rights Reserved</p>
     </div>
   </div>
 );
