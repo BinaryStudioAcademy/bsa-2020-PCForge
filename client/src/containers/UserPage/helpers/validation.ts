@@ -63,7 +63,7 @@ export const nameValid = (name: string, setErrorMessage: SetErrorMessage): boole
     } else if (name.length < 3 || name.length > 50) {
       nameMessage = 'Name can be between 2 and 50 characters long';
     } else {
-      nameMessage = 'Name can include only A-Z, a-z, А-Я, а-я, 0-9, symbols: _,-,.';
+      nameMessage = "Username may only contain alphanumeric characters, whitespaces and symbols: . _ \\ ' -";
     }
   }
   setErrorMessage(nameMessage);

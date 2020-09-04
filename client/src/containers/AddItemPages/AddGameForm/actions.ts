@@ -21,6 +21,13 @@ export const loadAllSelectsInitialValues = (
   },
 });
 
+export const clearStateValues = (): GameFormAction => ({
+  type: GameFormActionTypes.CLEAR_GAME_STATE_VALUES_ACTION,
+});
+export const clearingStateValues = (): GameFormAction => ({
+  type: GameFormActionTypes.CLEAR_GAME_STATE_VALUES_SUCCESS,
+});
+
 export const loadError = (errorMessage: string): GameFormAction => ({
   type: GameFormActionTypes.GET_INITIAL_VALUES_ERROR,
   payload: {
