@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootState } from 'redux/rootReducer';
+import moment from 'moment';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
@@ -37,11 +38,13 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
   const [isLikedByCurrentUser, setIsLikedByCurrentUser] = useState(comment.isLikedByCurrentUser);
   const [isDisLikedByCurrentUser, setIsDisLikedByCurrentUser] = useState(comment.isDislikedByCurrentUser);
 
-  const createdDate = new Date(comment.createdAt);
-  const updatedDate = new Date(comment.updatedAt);
+  const createdDateValue = new Date(comment.createdAt);
+  const updatedDateValue = new Date(comment.updatedAt);
 
-  const differentMilisecondsBetweenDates = Math.abs(createdDate.getTime() - updatedDate.getTime());
+  const differentMilisecondsBetweenDates = Math.abs(createdDateValue.getTime() - updatedDateValue.getTime());
   const edited = differentMilisecondsBetweenDates <= 10 ? null : 'Edited';
+  const createdDate = moment(comment.createdAt).fromNow();
+  const updatedDate = moment(comment.updatedAt).fromNow();
 
   const currentUserId = currentUser?.id;
   const isAuthor = currentUserId && currentUserId === comment.user.id;
@@ -60,28 +63,35 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
         <div className={styles.commentMeta}>
           <UserAvatar user={comment.user} />
           <div className={styles.commentRateInfo}>
-            <span className={styles.commentAuthor}>{comment.user!.name || comment.user!.email}</span>
-            {comment.itemRateByAuthorComment ? (
-              <RatingBox ratingValue={comment.itemRateByAuthorComment} disabled={true} name={comment.id.toString()} />
-            ) : null}
+            <div>
+              <span className={styles.commentAuthor}>{comment.user!.name || comment.user!.email}</span>
+              <div className={styles.commentDateContainer}>
+                <div className={styles.commentDate}>{`Created ${createdDate}`}</div>
+                <Tooltip title={updatedDate} placement="right-start" arrow>
+                  <div className={styles.commentDate}>{edited}</div>
+                </Tooltip>
+              </div>
+            </div>
+            <div>
+              {comment.itemRateByAuthorComment ? (
+                <RatingBox ratingValue={comment.itemRateByAuthorComment} disabled={true} name={comment.id.toString()} />
+              ) : null}
+            </div>
           </div>
           <div className={styles.commentButtonsHeader}>
             {isAuthor ? (
               <Tooltip title={'Edit'} placement="left-start" arrow>
-                <EditIcon fontSize="small" className={styles.commentIcons} onClick={() => alert('edit!')} />
+                <EditIcon fontSize="small" className={styles.commentIcons} onClick={() => alert('To do edit!')} />
               </Tooltip>
             ) : null}
             {isAuthor || currentUser?.isAdmin ? (
               <Tooltip title={'Delete'} placement="right-start" arrow>
-                <DeleteIcon fontSize="small" className={styles.commentIcons} onClick={() => alert('delete!')} />
+                <DeleteIcon fontSize="small" className={styles.commentIcons} onClick={() => alert('To do delete!')} />
               </Tooltip>
             ) : null}
           </div>
         </div>
-        <div className={styles.commentDateContainer}>
-          <div className={styles.commentDate}>{`Created on ${createdDate.toUTCString()}`}</div>
-          <div className={styles.commentDate}>{edited}</div>
-        </div>
+
         <p className={styles.commentBody}>{comment.value}</p>
         <div className={styles.commentFooter}>
           <div className={styles.likeContainer}>

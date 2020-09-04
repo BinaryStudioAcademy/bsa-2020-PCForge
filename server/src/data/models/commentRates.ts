@@ -37,7 +37,7 @@ export function CommentRateFactory(sequelize: Sequelize): CommentRateStatic {
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'user',
         key: 'id',
