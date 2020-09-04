@@ -25,6 +25,7 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, Powe
           power: {
             [Op.between]: [filter.power.minValue, filter.power.maxValue],
           },
+          id: { [Op.and]: { [Op.or]: filter.id, [Op.not]: filter.excludedId } },
         },
       },
       filter

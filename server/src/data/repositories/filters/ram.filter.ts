@@ -1,11 +1,13 @@
 import { IFilter } from './base.filter';
-import { FilterByIdType, FilterRangeType, FilterByNameType, notNull } from './types';
+import { FilterByIdType, FilterRangeType, FilterByNameType, notNull, FilterByNumberType } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IRamFilter extends IFilter {
   constructor() {
     super();
   }
+  id: FilterByNumberType = notNull;
+  excludedId: FilterByNumberType = [];
   typeId: FilterByIdType = notNull;
   memorySize: FilterRangeType<number> = {
     minValue: 0,
