@@ -9,14 +9,13 @@ interface Props {
   name: string;
   averageValue: number;
   ratingCount: number;
-  ownRating: number;
-  userValue?: number;
+  ownRating?: number;
   clickable?: boolean;
   onValueSet?: (value: number) => void;
 }
 
 interface State {
-  userValue: number;
+  ownRating: number;
   averageRatingHovered: boolean;
   userRatingClicked: boolean;
 }
@@ -42,7 +41,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      userValue: this.props.userValue || 0,
+      ownRating: this.props.ownRating || 0,
       averageRatingHovered: false,
       userRatingClicked: false,
     };
@@ -54,7 +53,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
 
   public onRatingValueSet(value: number) {
     this.setState({
-      userValue: value,
+      ownRating: value,
     });
     if (this.props.onValueSet) {
       this.props.onValueSet(value);
@@ -62,8 +61,8 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
     this.closeRating();
   }
 
-  public handleMouseLeave(event:React.MouseEvent<HTMLDivElement>) {
-   this.closeRating();
+  public handleMouseLeave(event: React.MouseEvent<HTMLDivElement>) {
+    this.closeRating();
   }
 
   public openRating() {
@@ -81,8 +80,8 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
   }
 
   public render(): JSX.Element {
-    const { name, averageValue, ratingCount, clickable, ownRating } = this.props;
-    const { userValue } = this.state;
+    const { name, averageValue, ratingCount, clickable } = this.props;
+    const { ownRating } = this.state;
     return (
       <div className={styles.ratingBoxesWrapper}>
         <div className={styles.ratingBoxWrapper} title={(averageValue || 0).toString()}>
@@ -92,12 +91,18 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
             name={name + 'main-average'}
             disabled={true}
             value={(averageValue || 0) / 5}
-            icon={<RatingIcon viewBox="0 0 24 10" color={'secondary'} fontSize="large"/>}
+            icon={<RatingIcon viewBox="0 0 24 10" color={'secondary'} fontSize="large" />}
           />
-        </div>
-        <div className={styles.ratingNumbersHolder}>
-          <div className={styles.topRatingNumber}>{averageValue}<span>/5</span></div>
-          <div className={styles.bottomRatingNumber}>{ratingCount}</div>
+          {!averageValue && <div className={styles.noRatingText}>Not Rated</div>}
+          {!!averageValue && (
+            <div className={styles.ratingNumbersHolder}>
+              <div className={styles.topRatingNumber}>
+                {averageValue}
+                <span>/5</span>
+              </div>
+              <div className={styles.bottomRatingNumber}>{ratingCount}</div>
+            </div>
+          )}
         </div>
 
         <div className={styles.verticalDivider} />
@@ -105,24 +110,24 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
         <div className={styles.ratingBoxWrapper} onClick={this.openRating}>
           {!this.state.userRatingClicked && (
             <>
-            <div className={styles.ratingBoxWrapper} title={(userValue === 0 ? 0 : userValue || 'Not rated').toString()}>
-              <StyledRating
-                precision={0.1}
-                disabled={true}
-                name={name + 'main-user'}
-                value={userValue / 5}
-                max={1}
-                icon={<RatingIcon viewBox="0 0 24 10" color={'secondary'} fontSize="large"/>}
-              />
-            </div>
-             {!ownRating && <div>Rate Me</div>}
-             {ownRating && (
-               <div className={styles.ratingNumbersHolder}>
-                 <div className={styles.topRatingNumber}>{ownRating}</div>
-                 <div className={styles.bottomRatingNumber}>You</div>
-               </div>
-             )}
-             </>
+              <div className={styles.ratingBoxWrapper} title={(ownRating === 0 ? 'Not rated' : ownRating).toString()}>
+                <StyledRating
+                  precision={0.1}
+                  disabled={true}
+                  name={name + 'main-user'}
+                  value={ownRating / 5}
+                  max={1}
+                  icon={<RatingIcon viewBox="0 0 24 10" color={'secondary'} fontSize="large" />}
+                />
+              </div>
+              {!ownRating && <div className={styles.noRatingText}>Rate Me</div>}
+              {!!ownRating && (
+                <div className={styles.ratingNumbersHolder}>
+                  <div className={styles.topRatingNumber}>{ownRating}</div>
+                  <div className={styles.bottomRatingNumber}>You</div>
+                </div>
+              )}
+            </>
           )}
 
           {this.state.userRatingClicked && (
@@ -131,7 +136,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
                 disabled={false}
                 name={'user-' + name}
                 iconColor="secondary"
-                ratingValue={userValue}
+                ratingValue={ownRating}
                 onValueSet={this.onRatingValueSet}
               />
             </div>

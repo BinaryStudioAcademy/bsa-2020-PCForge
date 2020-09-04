@@ -24,42 +24,35 @@ const SetupCard: React.FC<Props> = (props): JSX.Element => {
     onForkClick(id);
   };
   return (
-    
     <div className={styles.card}>
-     
-     <div>
-     <div className={styles.imageWrapper}>
-        <ZoomImage src={image} alt={title} rootClassName={styles.setupImage} fallbackImage={defaultSetupImage} />
-      </div>
-      <div>
-      <CardHeader title={title} className={styles.contentHeader} />
-        <div className={styles.cardContent}>
-          <Typography className={styles.cardText}>{description}</Typography>
+      <div className={styles.cardSetupIntro}>
+        <div className={styles.imageWrapper}>
+          <ZoomImage src={image} alt={title} rootClassName={styles.setupImage} fallbackImage={defaultSetupImage} />
         </div>
-      </div>
-      
-
-     </div>
-    
         <div>
-        <Button buttonType={ButtonType.secondary} onClick={handleForkClick} icon="GetApp">
-            Fork Setup
-          </Button>
-        <div className={styles.ratingBoxWrapper}>
-            <ExtendedRatingBox
-              name="setup-card"
-              ownRating={ownRating}
-              ratingCount={ratingCount}
-              clickable={rateClickable}
-              averageValue={rating}
-              onValueSet={onRatingSet}
-            />
+          <CardHeader title={title} className={styles.contentHeader} />
+          <div className={styles.cardContent}>
+            <Typography className={styles.cardText}>{description}</Typography>
           </div>
         </div>
-       
-    
+      </div>
+
+      <div className={styles.cardSetupExtra}>
+        <div className={styles.ratingBoxWrapper}>
+          <ExtendedRatingBox
+            name="setup-card"
+            ownRating={ownRating}
+            ratingCount={ratingCount}
+            clickable={rateClickable}
+            averageValue={rating}
+            onValueSet={onRatingSet}
+          />
+        </div>
+        <Button buttonType={ButtonType.secondary} onClick={handleForkClick} icon="GetApp">
+          Fork Setup
+        </Button>
+      </div>
     </div>
-  
   );
 };
 

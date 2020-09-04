@@ -41,7 +41,7 @@ const StyledRating = withStyles({
   },
 })(Rating);
 
-const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name, iconColor, onValueSet}) => {
+const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name, iconColor, onValueSet }) => {
   const [value, setValue] = React.useState<number>(ratingValue);
   const [hover, setHover] = React.useState<number>(-1);
 
@@ -62,7 +62,7 @@ const RatingBox: React.FC<IRatingBox> = ({ ratingValue, disabled, name, iconColo
           disabled={disabled}
           precision={disabled ? 0.1 : 0.5}
           icon={<RatingIcon viewBox="0 0 24 10" color={iconColor} />}
-          size="large"
+          size="small"
           onChange={(event: React.ChangeEvent<Record<string, unknown>>, newValue: number | null) => {
             if (newValue) {
               onRatingSet(newValue);

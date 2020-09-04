@@ -51,7 +51,7 @@ h2 {
   grid-area: gridTopCard;
 
   >div>div {
-    height: 690px;
+    height: 720px;
   }
 
   @media(max-width: 1400px) {
@@ -66,6 +66,7 @@ h2 {
 
     >div>div {
       width: 100%;
+      height:auto;
     }
   }
 
@@ -99,6 +100,10 @@ h2 {
       grid-template-rows: 1fr;
       margin: 0 auto;
       gap: 25px;
+
+      > div {
+        height:auto;
+      }
     }
   }
 
@@ -137,7 +142,7 @@ h2 {
   }
 
   >div>div>div {
-    height: 335px;
+    height: 350px;
     border-radius: 6px;
     margin: 10px;
 
