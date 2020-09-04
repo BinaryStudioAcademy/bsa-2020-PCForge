@@ -5,7 +5,8 @@ import { getAllNews } from 'api/services/newsService';
 
 function* fetchNews(action: AnyAction) {
   try {
-    const news = yield call(getAllNews);
+    const newsResp = yield call(getAllNews);
+    const news = newsResp.data;
     yield put({ type: FETCH_NEWS_SUCCESS, payload: news });
   } catch (error) {
     yield put({ type: FETCH_NEWS_FAILURE, payload: error.message });

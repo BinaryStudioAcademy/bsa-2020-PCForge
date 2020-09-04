@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Card, CardContent } from '@material-ui/core';
 import { fetchNewsAction } from './actions';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import styles from 'containers/NewsPage/styles.module.scss';
+import { TypeNewsState } from 'containers/NewsPage/reducer';
 
 type PropsType = {
   role?: 'page' | 'aside';
@@ -12,43 +13,12 @@ type PropsType = {
 };
 
 const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.Element => {
-  // const newsAll = useSelector((state: { news: TypeNewsState }) => state.news.news);
+  const newsAll = useSelector((state: { news: TypeNewsState }) => state.news.news);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchNewsAction());
   }, []);
-
-  const newsAll = [
-    {
-      id: 1,
-      title: 'Lorem ipsum dolor sit amet.',
-      content: '',
-      image: 'https://i.pinimg.com/originals/a9/4f/13/a94f13979429b759ba85ef6ce5e7f620.jpg',
-      createdAt: new Date(),
-    },
-    {
-      id: 2,
-      title: 'Lorem ipsum dolor sit amet.',
-      content: '',
-      image: 'https://i.pinimg.com/originals/a9/4f/13/a94f13979429b759ba85ef6ce5e7f620.jpg',
-      createdAt: new Date(),
-    },
-    {
-      id: 3,
-      title: 'Lorem ipsum dolor sit amet.',
-      content: '',
-      image: 'https://i.pinimg.com/originals/a9/4f/13/a94f13979429b759ba85ef6ce5e7f620.jpg',
-      createdAt: new Date(),
-    },
-    {
-      id: 4,
-      title: 'Lorem ipsum dolor sit amet.',
-      content: '',
-      image: 'https://i.pinimg.com/originals/a9/4f/13/a94f13979429b759ba85ef6ce5e7f620.jpg',
-      createdAt: new Date(),
-    },
-  ];
 
   const newsSlice = countNews ? newsAll.slice(0, countNews) : newsAll;
 
