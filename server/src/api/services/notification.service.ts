@@ -47,7 +47,6 @@ export class NotificationService {
       );
       this.publisher.ltrim(userId.toString(), -1, 0); //clear list
       notifications = notifications.slice(0, this.CHANNEL_NOTIFICATIONS_LIMIT);
-      console.log(notifications.length);
       notifications.forEach((_notification) => this.publisher.rpush(userId.toString(), JSON.stringify(_notification)));
     }
   }
@@ -177,7 +176,7 @@ export class Notification {
   }
   public static fromJSON(json: string): Notification | never {
     const obj = JSON.parse(json);
-    console.log(json);
+    console.log('JSON parsed', json);
     if (typeof obj.text !== 'string')
       throw new Error(`Notification text must be string type, got: [${typeof obj.text}](${obj.text})`);
     if (typeof obj.type !== 'string' || !Object.keys(NotificationType).find((type) => type === obj.type))
@@ -188,6 +187,7 @@ export class Notification {
       throw new Error(
         `Notification createdAt must be string(Date) type, got: [${typeof obj.createdAt}](${obj.createAt})`
       );
+    obj.createdAt = new Date(obj.createdAt);
     const notification = new Notification(obj);
     return notification;
   }
