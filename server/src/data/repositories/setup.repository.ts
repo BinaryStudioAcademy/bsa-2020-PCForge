@@ -12,7 +12,7 @@ import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
 import { CommentStatic } from '../models/comment';
 import { RateStatic } from '../models/rate';
-import sequelize, { Op, OrderItem } from 'sequelize';
+import sequelize, { Op, OrderItem, ProjectionAlias } from 'sequelize';
 import { group } from 'console';
 import { UserStatic } from '../models/user';
 
@@ -136,7 +136,18 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     return result;
   }
 
-  async getOneSetup(id: string, requestingUserId: number): Promise<SetupModel> {
+  async getOneSetup(id: string, requestingUserId?: number): Promise<SetupModel> {
+    const include: (string | ProjectionAlias)[] = [
+      [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
+      [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+      [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
+    ];
+    if (requestingUserId) {
+      include.push([
+        sequelize.literal(`SUM(CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`),
+        'ownRating',
+      ]);
+    }
     const setup = await this.model.findByPk(id, {
       group: [
         'setup.id',
@@ -150,17 +161,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         'author.id',
       ],
       attributes: {
-        include: [
-          [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
-          [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
-          [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
-          [
-            sequelize.literal(
-              `SUM(CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
-            ),
-            'ownRating',
-          ],
-        ],
+        include: include,
       },
       include: [
         {

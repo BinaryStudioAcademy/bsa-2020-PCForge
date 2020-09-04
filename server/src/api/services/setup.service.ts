@@ -12,7 +12,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     super(repository);
   }
 
-  async getSetupById(id: string, requestingUserId: number): Promise<SetupModel> {
+  async getSetupById(id: string, requestingUserId?: number): Promise<SetupModel> {
     const setup = await this.repository.getOneSetup(id, requestingUserId);
     if (!setup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
