@@ -36,6 +36,7 @@ function* login(action: loginRequestAction) {
 function* watchLogin() {
   yield takeLatest(AUTH_LOGIN_REQUEST, login);
 }
+
 function* loginByToken(action: loginByTokenRequestAction) {
   yield put(changeLoadingStatus(true));
   try {

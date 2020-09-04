@@ -1,3 +1,3 @@
 declare module '@env' {
-  const EXAMPLE: string;
+  const API_URL: string;
 }
