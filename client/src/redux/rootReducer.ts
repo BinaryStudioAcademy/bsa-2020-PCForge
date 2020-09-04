@@ -15,6 +15,7 @@ import { HardwareFormReducer } from 'containers/AddItemPages/AddHardwareForm/red
 import { EmailVerifyReducer } from 'containers/EmailVerificationPage/reducer';
 import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
 import NewsReducer from 'containers/NewsPage/reducer';
+import LikeCommentReducer from 'components/Comments/Comment/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -33,6 +34,7 @@ const RootReducer = combineReducers({
   user: UserReducer,
   userRequests: UserRequestsReducer,
   news: NewsReducer,
+  likeComment: LikeCommentReducer,
 });
 
 export default RootReducer;

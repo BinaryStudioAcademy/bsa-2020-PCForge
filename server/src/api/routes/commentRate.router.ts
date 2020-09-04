@@ -23,8 +23,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllCommentRatesSchema, ICommentRateFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllCommentRatesRequest, reply) => {
     allowForAuthorized(request);
-    console.log('request.query');
-    console.log(request.query);
     const commentRates = await CommentRateService.getAllCommentsRates(request.query);
     reply.send(commentRates);
   });
