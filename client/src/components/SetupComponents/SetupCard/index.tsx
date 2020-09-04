@@ -29,7 +29,7 @@ const SetupCard: React.FC<Props> = (props): JSX.Element => {
         <div className={styles.imageWrapper}>
           <ZoomImage src={image} alt={title} rootClassName={styles.setupImage} fallbackImage={defaultSetupImage} />
         </div>
-        <div>
+        <div className={styles.introText}>
           <CardHeader title={title} className={styles.contentHeader} />
           <div className={styles.cardContent}>
             <Typography className={styles.cardText}>{description}</Typography>

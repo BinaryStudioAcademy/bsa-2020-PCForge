@@ -20,6 +20,9 @@
  padding:20px;
 }
 
+.introText {
+  padding-left: 10px;
+}
 .cardSetupExtra {
   display: flex;
   justify-content: space-between;
@@ -62,6 +65,12 @@
 
 .ratingBoxWrapper {
   margin-left: 30px;
+  margin-bottom: 7px;
+
+  @media(max-width: 768px){
+    margin-left: 0;
+    margin-bottom: 7px;
+  }
 }
 
 .cardText {
