@@ -28,7 +28,7 @@ const server = fastify({
 server.addContentTypeParser('application/json', { parseAs: 'string' }, (req, body, done) => validateBody(body, done));
 
 server.register(cors, {
-  origin: process.env.APP_CLIENT_URL,
+  origin: false,
   optionsSuccessStatus: 200,
 });
 server.register(swagger, SwaggerMainSchema);
