@@ -14,10 +14,18 @@ const Footer = (): JSX.Element => (
         <div className={classes.item}>
           <h4 className={classes.title}>Explore</h4>
           <ul className={classes.list}>
-            <Link to="/" className={classes.listItem}>Home</Link>
-            <Link to="/builder" className={classes.listItem}>Build page</Link>
-            <Link to="/matcher" className={classes.listItem}>Game Matcher</Link>
-            <Link to="/hardwares" className={classes.listItem}>Hardware</Link>
+            <Link to="/" className={classes.listItem}>
+              Home
+            </Link>
+            <Link to="/builder" className={classes.listItem}>
+              Build page
+            </Link>
+            <Link to="/matcher" className={classes.listItem}>
+              Game Matcher
+            </Link>
+            <Link to="/hardwares" className={classes.listItem}>
+              Hardware
+            </Link>
           </ul>
         </div>
         <div className={classes.item}>
