@@ -48,10 +48,12 @@ export class WebSocketService extends MyEmitter<{ newConnection: { id: number };
 export enum MessageType {
   INITIAL_NOTIFICATIONS = 'INITIAL_NOTIFICATIONS',
   NEW_NOTIFICATION = 'NEW_NOTIFICATION',
+  UPDATE_NOTIFICATION = 'UPDATE_NOTIFICATION',
   DELETE_NOTIFICATION = 'DELETE_NOTIFICATION', //inbound message
+  READ_NOTIFICATION = 'READ_NOTIFICATION', //inbound message
 }
 
-const inboundMessageTypes = [MessageType.DELETE_NOTIFICATION];
+const inboundMessageTypes = [MessageType.DELETE_NOTIFICATION, MessageType.READ_NOTIFICATION];
 
 export class Message {
   constructor(

@@ -13,7 +13,7 @@ export const notificationServiceFactory = async (
 };
 
 export class NotificationService {
-  private readonly CHANNEL_NOTIFICATIONS_LIMIT = 50;
+  private readonly CHANNEL_NOTIFICATIONS_LIMIT = 5;
   private publisher: PromisedRedisClient;
   constructor(private redis: PromisedRedis, private ws: WebSocketService) {}
 
@@ -24,13 +24,16 @@ export class NotificationService {
       const notifications = await this.getNotifications(userId);
       const notificationsString = JSON.stringify(notifications);
       await this.ws.sendMessage(userId, new Message(notificationsString, MessageType.INITIAL_NOTIFICATIONS));
+      await this.notifyUserById(userId, new Notification({ text: new Date().toISOString() }));
+      await this.notifyUserById(userId, new Notification({ text: new Date().toISOString() }));
+      await this.notifyUserById(userId, new Notification({ text: new Date().toISOString() }));
     });
   }
 
   public async notifyUserById(userId: string | number, notification: Notification): Promise<void | never> {
     const notificationsString = JSON.stringify(notification);
-    await this.ws.sendMessage(toNumber(userId), new Message(notificationsString));
     await this.pushNotification(toNumber(userId), notification);
+    await this.ws.sendMessage(toNumber(userId), new Message(notificationsString));
   }
 
   private async pushNotification(userId: string | number, notification: Notification): Promise<void | never> {
@@ -38,7 +41,14 @@ export class NotificationService {
     this.publisher.rpush(userId.toString(), stringifiedNotification);
     const notificationsCount = await this.publisher.llen(userId.toString());
     if (notificationsCount > this.CHANNEL_NOTIFICATIONS_LIMIT) {
-      this.publisher.lpop(userId.toString());
+      let notifications = await this.getNotifications(userId);
+      notifications.sort(
+        (notification1, notification2) => notification1.createdAt.getTime() - notification2.createdAt.getTime()
+      );
+      this.publisher.ltrim(userId.toString(), -1, 0); //clear list
+      notifications = notifications.slice(0, this.CHANNEL_NOTIFICATIONS_LIMIT);
+      console.log(notifications.length);
+      notifications.forEach((_notification) => this.publisher.rpush(userId.toString(), JSON.stringify(_notification)));
     }
   }
 
@@ -48,12 +58,38 @@ export class NotificationService {
     return notifications;
   }
 
-  public async deleteNotification(userId: string, notificationId: string): Promise<void | never> {
+  private async getNotification(userId: string, notificationId: string): Promise<Notification | null | never> {
     const notifications = await this.publisher.lrange(userId, 0, -1);
     const notification = notifications
       .map((notification) => Notification.fromJSON(notification))
       .find((notification) => notification.id === notificationId);
+    return notification;
+  }
+
+  private async getNotificationIndex(userId: string, notificationId: string): Promise<number | null | never> {
+    const notifications = await this.publisher.lrange(userId, 0, -1);
+    const index = notifications
+      .map((notification) => Notification.fromJSON(notification))
+      .findIndex((notification) => notification.id === notificationId);
+    return index;
+  }
+
+  public async deleteNotification(userId: string, notificationId: string): Promise<void | never> {
+    const notification = await this.getNotification(userId, notificationId);
     if (notification) await this.publisher.lrem(userId, 1, notification.toString());
+  }
+
+  private async readNotification(userId: string, notificationId: string): Promise<void | never> {
+    const notification = await this.getNotification(userId, notificationId);
+    const notificationIndex = await this.getNotificationIndex(userId, notificationId);
+    if (notificationIndex > 0 && notification) {
+      notification.readAt = new Date();
+      await this.publisher.lset(userId, notificationIndex, notification.toString());
+      await this.ws.sendMessage(
+        parseInt(userId),
+        new Message(notification.toString(), MessageType.UPDATE_NOTIFICATION)
+      );
+    }
   }
 
   private registerInboundMessageHandlers = () => {
@@ -66,9 +102,20 @@ export class NotificationService {
         }
       };
 
+      const handleReadNotification = async (message: Message): Promise<void> => {
+        if (typeof message.payload === 'string') return;
+        if (message.payload.userId && message.payload.notificationId) {
+          const { userId, notificationId } = message.payload;
+          await this.readNotification(userId as string, notificationId as string);
+        }
+      };
+
       switch (message.type) {
         case MessageType.DELETE_NOTIFICATION: {
           return handleDeleteNotification(message);
+        }
+        case MessageType.READ_NOTIFICATION: {
+          return handleReadNotification(message);
         }
       }
     });
@@ -82,24 +129,66 @@ export enum NotificationType {
   WARNING = 'WARNING',
 }
 
+interface INotificationWithLinkPayload {
+  type: 'link';
+  value: string;
+}
+
+export type INotificationPayload = INotificationWithLinkPayload;
+
 export class Notification {
-  constructor(
-    public readonly text: string,
-    public readonly type: NotificationType = NotificationType.INFO,
-    public readonly id: string = createUUID()
-  ) {}
+  public readonly text: string;
+  public readonly type: NotificationType;
+  public readonly id: string;
+  public readonly createdAt: Date;
+  public readAt: Date | null;
+  public readonly payload: INotificationPayload;
+  constructor({
+    text,
+    type,
+    id,
+    createdAt,
+    readAt,
+    payload,
+  }: {
+    text: string;
+    type?: NotificationType;
+    id?: string;
+    createdAt?: Date;
+    readAt?: Date;
+    payload?: INotificationPayload;
+  }) {
+    this.text = text;
+    this.type = type || NotificationType.INFO;
+    this.id = id || createUUID();
+    this.createdAt = createdAt || new Date();
+    this.readAt = readAt || null;
+    this.payload = payload;
+  }
   public toString(): string {
-    return JSON.stringify({ type: this.type, text: this.text, id: this.id });
+    return JSON.stringify({
+      type: this.type,
+      text: this.text,
+      id: this.id,
+      createdAt: this.createdAt,
+      readAt: this.readAt,
+      payload: this.payload,
+    });
   }
   public static fromJSON(json: string): Notification | never {
     const obj = JSON.parse(json);
+    console.log(json);
     if (typeof obj.text !== 'string')
       throw new Error(`Notification text must be string type, got: [${typeof obj.text}](${obj.text})`);
     if (typeof obj.type !== 'string' || !Object.keys(NotificationType).find((type) => type === obj.type))
       throw new Error(`Notification type must be string NotificationType, got: [${typeof obj.type}](${obj.type})`);
     if (typeof obj.id !== 'string')
       throw new Error(`Notification id must be string type, got: [${typeof obj.id}](${obj.id})`);
-    const notification = new Notification(obj.text, obj.type, obj.id);
+    if (typeof obj.createdAt !== 'string')
+      throw new Error(
+        `Notification createdAt must be string(Date) type, got: [${typeof obj.createdAt}](${obj.createAt})`
+      );
+    const notification = new Notification(obj);
     return notification;
   }
 }
