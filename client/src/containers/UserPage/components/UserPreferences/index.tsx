@@ -120,6 +120,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   powerSupply={setup.powerSupply}
                   author={setup.author}
                   rating={setup.rating}
+                  ownRating={setup.ownRating}
                   ratingCount={setup.ratingCount}
                   key={generateKey(setup.title, index)}
                   deleteUserSetup={deleteUserSetup}

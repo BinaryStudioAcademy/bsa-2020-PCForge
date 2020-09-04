@@ -19,14 +19,41 @@
   display: flex;
   align-items: center;
   background: #3C444D;
+  background: #161416;
   z-index: 1;
-  top: 0;
+  top: 5px;
   left: 100%;
+  padding:0 10px;
+  
 }
 
 .verticalDivider {
-  width: 2px;
+  width: 1px;
   min-height: 100%;
   background: $colorGray;
   margin: 0 5px;
+  margin-left: 10px;
+}
+
+.ratingNumbersHolder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topRatingNumber {
+  font-size: 24px;
+  font-weight: bold;
+  span {
+    font-size:10px;
+    opacity:0.8;
+  }
+
+}
+
+.bottomRatingNumber {
+  position:relative;
+  font-size: 14px;
+  bottom:5px;
+  opacity: 0.8;
 }

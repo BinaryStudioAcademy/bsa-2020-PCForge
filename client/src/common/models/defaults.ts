@@ -60,6 +60,7 @@ export const defaultCpu: Cpu = {
 export const defaultSetup: Setup = {
   id: 0,
   rating: 0,
+  ownRating:0,
   ratingCount: 0,
   title: '',
   image: '',

@@ -18,26 +18,37 @@ interface Props {
 
 const SetupCard: React.FC<Props> = (props): JSX.Element => {
   const { onRatingSet, onForkClick, rateClickable } = props;
-  const { title, description, image, id, rating, ratingCount } = props.setup;
+  const { title, description, image, id, rating, ratingCount, ownRating } = props.setup;
 
   const handleForkClick = (event: React.MouseEvent) => {
     onForkClick(id);
   };
   return (
+    
     <div className={styles.card}>
-      <div className={styles.imageWrapper}>
+     
+     <div>
+     <div className={styles.imageWrapper}>
         <ZoomImage src={image} alt={title} rootClassName={styles.setupImage} fallbackImage={defaultSetupImage} />
       </div>
-      <div className={styles.cardContentWrapper}>
-        <CardHeader title={title} className={styles.contentHeader} />
+      <div>
+      <CardHeader title={title} className={styles.contentHeader} />
         <div className={styles.cardContent}>
           <Typography className={styles.cardText}>{description}</Typography>
-          <Button buttonType={ButtonType.secondary} onClick={handleForkClick} icon="GetApp">
+        </div>
+      </div>
+      
+
+     </div>
+    
+        <div>
+        <Button buttonType={ButtonType.secondary} onClick={handleForkClick} icon="GetApp">
             Fork Setup
           </Button>
-          <div className={styles.ratingBoxWrapper}>
+        <div className={styles.ratingBoxWrapper}>
             <ExtendedRatingBox
               name="setup-card"
+              ownRating={ownRating}
               ratingCount={ratingCount}
               clickable={rateClickable}
               averageValue={rating}
@@ -45,8 +56,10 @@ const SetupCard: React.FC<Props> = (props): JSX.Element => {
             />
           </div>
         </div>
-      </div>
+       
+    
     </div>
+  
   );
 };
 

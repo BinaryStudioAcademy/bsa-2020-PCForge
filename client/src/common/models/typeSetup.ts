@@ -12,6 +12,7 @@ export type SetupType = {
   image: string;
   comments: string;
   rating: number;
+  ownRating: number;
   ratingCount: number;
   cpu: Cpu;
   gpu: Gpu;
