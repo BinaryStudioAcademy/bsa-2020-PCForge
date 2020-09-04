@@ -10,6 +10,8 @@ import {
   UpdateSetupSchema,
   GetAllSetupsResponse,
   DetailedSetupSchema,
+  ForkSetupSchema,
+  ForkSetupRequest,
 } from './setup.schema';
 
 import { SetupMiddleware } from '../middlewares/setup.middleware';
@@ -34,7 +36,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllSetupsResponse, ISetupFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetSetupsRequest, reply) => {
     allowForAuthorized(request);
-    const setups = await SetupService.getAllSetups(request.query);
+    const setups = await SetupService.getAllSetups(request.query, request.user.id);
     reply.send(setups);
   });
 
@@ -42,7 +44,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/:id', getOneSchema, async function (request: GetSetupRequest) {
     allowForAuthorized(request);
     const { id } = request.params;
-    const setup = await SetupService.getSetupById(id);
+    const setup = await SetupService.getSetupById(id, request.user.id);
     return setup;
   });
 
@@ -52,6 +54,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     request.body.authorId = request.user.id;
     const data = { ...request.body };
     const setup = await SetupService.createSetup(data, setupMiddleware);
+
     reply.send(setup);
   });
 
@@ -70,6 +73,13 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     const { id } = request.params;
     const setup = await SetupService.deleteSetupById(id, request.user);
     reply.send(setup);
+  });
+
+  const forkSchema = createOneQuery(ForkSetupSchema, DetailedSetupSchema);
+  fastify.post('/forks', forkSchema, async (request: ForkSetupRequest, reply) => {
+    allowForAuthorized(request);
+    const forkedSetup = await SetupService.forkSetupById(request.body.setupId, request.user.id);
+    reply.send(forkedSetup);
   });
 
   next();

@@ -33,6 +33,7 @@ export class RamRepository extends BaseRepository<RamModel, RamCreationAttribute
           memorySize: {
             [Op.between]: [filter.memorySize.minValue, filter.memorySize.maxValue],
           },
+          id: { [Op.and]: { [Op.or]: filter.id, [Op.not]: filter.excludedId } },
         },
         include: [
           {

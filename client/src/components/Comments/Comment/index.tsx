@@ -16,7 +16,7 @@ import { Comment } from 'common/models/comment';
 import { User } from 'common/models/user';
 
 import UserAvatar from 'components/UserAvatar';
-import RatingBox from 'components/RatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 
 import * as actions from './actions';
 import { LikeCommentState, LikeCommentActionTypes, CommentLikeRequestAction } from './actionTypes';

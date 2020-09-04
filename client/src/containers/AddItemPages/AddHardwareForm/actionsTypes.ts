@@ -1,5 +1,5 @@
-import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
+
 import { CpuCreationAttributes } from 'common/models/cpu';
 import { GpuCreationAttributes } from 'common/models/gpu';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
@@ -7,7 +7,8 @@ import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 import { RamCreationAttributes } from 'common/models/ram';
 import { SsdCreationAttributes } from 'common/models/ssd';
 import { HddCreationAttributes } from 'common/models/hdd';
-import { AlertType } from 'components/BasicComponents/Alert';
+
+import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 
 export enum HardwareFormActionTypes {
   GET_INITIAL_VALUES_ERROR = 'GET_INITIAL_VALUES_ERROR',
@@ -205,10 +206,6 @@ export interface IUpdateStateToInitAction {
 
 export interface IUpdateStateToInitSuccess {
   type: HardwareFormActionTypes.UPDATE_STATE_TO_INIT_SUCCESS;
-  payload: {
-    errorMessage: string;
-    createdHardwareName: string;
-  };
 }
 
 export interface HardwareFormState {
@@ -217,7 +214,6 @@ export interface HardwareFormState {
   RAMtypeList: SelectOption[];
   errorMessage: string;
   createdHardwareName: string;
-  //alertType?: AlertType;
 }
 
 export type HardWareFormAction =

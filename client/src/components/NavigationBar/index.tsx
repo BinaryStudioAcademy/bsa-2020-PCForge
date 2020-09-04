@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -11,7 +12,6 @@ import * as Notification from 'common/services/notificationService';
 
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import { ReactComponent as NavigationLogo } from 'assets/icons/navigationLogo.svg';
-import { ReactComponent as HomeIcon } from 'assets/icons/home.svg';
 import { ReactComponent as BuildSetupIcon } from 'assets/icons/builderSetup.svg';
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import { ReactComponent as GameMatcherIcon } from 'assets/icons/gameMatcher.svg';
@@ -21,29 +21,32 @@ import { ReactComponent as LogOutIcon } from 'assets/icons/logOut.svg';
 import history from 'browserHistory';
 import { Routes } from 'common/enums';
 
-import styles from './styles.module.scss';
+import styles from 'components/NavigationBar/styles.module.scss';
+import { logout } from 'containers/Auth/actions';
 
-interface IListNavigatinBar {
+interface IListNavigationBar {
   name: string;
   icon: ReactElement;
   link: string;
   onClick?: () => void;
+  className?: string;
 }
 
-const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultSelected: number | undefined) => {
+const NavigationBarRender: React.FC<Array<IListNavigationBar>> = (props, defaultSelected: number | undefined) => {
   const [selected, setSelected] = React.useState<number | undefined>(defaultSelected);
 
   return (
     <Drawer variant="permanent" anchor="left" className={styles.navigationBar}>
       <List className={styles.listIcons}>
-        <SvgIcon component={NavigationLogo} viewBox="0 0 63 63" className={styles.logo} />
         {props.map((item, key) => (
           <Link key={`${key}-link`} to={item.link} onClick={item.onClick}>
             <Tooltip title={item.name} key={`${key}-tooltip`} placement="right-start">
               <ListItem
                 button
                 key={key}
-                className={`${styles.listItem} ${selected === key ? styles.selectedButon : ''}`}
+                className={`${styles.listItem} ${selected === key ? styles.selectedButton : ''} ${
+                  item.className ? item.className : ''
+                }`}
                 onClick={() => setSelected(key)}
               >
                 <div className={styles.icon}>{item.icon}</div>
@@ -56,52 +59,17 @@ const NavigationBarRender: React.FC<Array<IListNavigatinBar>> = (props, defaultS
   );
 };
 
-const listHeader: Array<IListNavigatinBar> = [
-  {
-    name: 'Home',
-    icon: <SvgIcon component={HomeIcon} viewBox="0 0 31 31" />,
-    link: Routes.DEFAULT,
-  },
-  {
-    name: 'Build Setup',
-    icon: <SvgIcon component={BuildSetupIcon} />,
-    link: Routes.BUILDER,
-  },
-  {
-    name: 'Setup',
-    icon: <SvgIcon component={SetupIcon} viewBox="0 0 31 31" />,
-    link: Routes.SETUPS,
-  },
-  {
-    name: 'Game Matcher',
-    icon: <SvgIcon component={GameMatcherIcon} />,
-    link: Routes.MATCHER,
-  },
-  {
-    name: 'Hardware',
-    icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
-    link: '#',
-  },
-  {
-    name: 'Admin Tools',
-    icon: <BuildOutlinedIcon style={{ color: 'white' }} />,
-    link: Routes.ADMINTOOLS,
-  },
-  {
-    name: 'Log out',
-    icon: <SvgIcon component={LogOutIcon} viewBox="0 0 31 31" />,
-    link: '#',
-  },
-];
-
 interface selectedMenuProps {
   selectedMenuItemNumber?: number;
   isAdmin?: boolean;
 }
 
 const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, isAdmin }) => {
+  const dispatch = useDispatch();
+
   const clearTokenAndRedirect = async () => {
     await clearToken();
+    await dispatch(logout());
     history.push(Routes.LOGIN);
   };
 
@@ -113,11 +81,12 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     },
   });
 
-  const listHeader: Array<IListNavigatinBar> = [
+  const listHeader: Array<IListNavigationBar> = [
     {
       name: 'Home',
-      icon: <SvgIcon component={HomeIcon} viewBox="0 0 31 31" />,
+      icon: <SvgIcon component={NavigationLogo} viewBox="0 0 63 63" className={styles.logo} />,
       link: Routes.DEFAULT,
+      className: styles.homeLink,
     },
     {
       name: 'Build Setup',
@@ -135,9 +104,9 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
       link: Routes.MATCHER,
     },
     {
-      name: 'Hardware',
+      name: 'Hardwares',
       icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
-      link: '#',
+      link: Routes.HARDWARES,
     },
   ];
 
@@ -159,7 +128,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
           signOut();
           break;
         default:
-          clearTokenAndRedirect();
+          await clearTokenAndRedirect();
       }
     },
   });

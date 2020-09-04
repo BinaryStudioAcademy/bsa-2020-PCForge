@@ -6,6 +6,8 @@ export class IHddFilter extends IFilter {
   constructor() {
     super();
   }
+  id: FilterByNumberType = notNull;
+  excludedId: FilterByNumberType = [];
   sata: FilterByNumberType = notNull;
   capacity: FilterRangeType<number> = {
     minValue: 0,

@@ -12,22 +12,22 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     super(repository);
   }
 
-  async getSetupById(id: string): Promise<SetupModel> {
-    const setup = await this.repository.getOneSetup(id);
+  async getSetupById(id: string, requestingUserId?: number): Promise<SetupModel> {
+    const setup = await this.repository.getOneSetup(id, requestingUserId);
     if (!setup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
     }
     return setup;
   }
 
-  async getAllSetups(filter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
-    const setups = await this.repository.getSetups(filter);
+  async getAllSetups(filter: ISetupFilter, requestingUserId: number): Promise<IWithMeta<SetupModel>> {
+    const setups = await this.repository.getSetups(filter, requestingUserId);
     return setups;
   }
 
   async createSetup(inputSetup: SetupCreationAttributes, setupMiddleware: ISetupMiddleware): Promise<SetupModel> {
     await setupMiddleware(inputSetup);
-    const setup = await super.create(inputSetup);
+    const setup = await this.repository.create(inputSetup);
     return setup;
   }
 
@@ -37,6 +37,9 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     initiator?: UserAttributes
   ): Promise<SetupModel> {
     const { id, data } = inputSetup;
+    if (!Object.keys(data).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     const oldSetup = await this.repository.getById(id);
     if (!oldSetup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
@@ -50,7 +53,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
   }
 
   async deleteSetupById(id: string, initiator?: UserAttributes): Promise<SetupModel> {
-    const setup = await this.repository.getOneSetup(id);
+    const setup = await this.repository.getOneSetup(id, initiator.id);
     if (!setup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
     }
@@ -59,5 +62,9 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     }
     await this.repository.deleteById(id);
     return setup;
+  }
+
+  async forkSetupById(id: string, userId: number): Promise<SetupModel> {
+    return await this.repository.forkSetup(id, userId);
   }
 }

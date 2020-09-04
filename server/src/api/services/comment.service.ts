@@ -50,6 +50,9 @@ export class CommentService extends BaseService<CommentModel, CommentCreationAtt
     initiator: UserAttributes
   ): Promise<CommentModel> {
     await CommentMiddleware(data);
+    if (!Object.keys(data).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     const oldComment = await this.repository.getCommentById(id);
     if (oldComment.userId !== initiator.id) {
       triggerServerError('Access forbidden', 403);

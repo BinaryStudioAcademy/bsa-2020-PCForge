@@ -77,7 +77,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.delete('/:id', { ...deleteOneSchema, preHandler }, async (request: DeleteUserRequest, reply) => {
     allowForAdmin(request);
     const { id } = request.params;
-    const user = await UserService.deleteUser(id);
+    // const user = await UserService.deleteUser(id);
+    const user = await UserService.activateDeactivateUser(id);
     reply.send(user);
   });
 

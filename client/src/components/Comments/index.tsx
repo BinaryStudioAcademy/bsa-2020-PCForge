@@ -11,20 +11,19 @@ interface Props {
   commentsPerPage: number;
   commentsTotal: number;
   rootClassName?: string;
+  buttonClassName?: string;
   onCreateComment: (value: string) => void;
   onPaginationToggle: (meta: { from: number; count: number }) => void;
 }
 
 const Comments: React.FC<Props> = (props): JSX.Element => {
-  const { comments } = props;
+  const { comments, buttonClassName = '' } = props;
   const [value, setValue] = useState('');
 
   const onCreateComment = () => {
     props.onCreateComment(value);
     setValue('');
   };
-  console.log('comments:');
-  console.log(comments);
 
   return (
     <div className={[styles.commentsRoot, props.rootClassName].join(' ')}>
@@ -42,7 +41,7 @@ const Comments: React.FC<Props> = (props): JSX.Element => {
         <div className={styles.userReviewBlock}>
           <Button
             buttonType={ButtonType.primary}
-            className={styles.addCommentButton}
+            className={[styles.addCommentButton, buttonClassName].join(' ')}
             title="Write a review"
             size="large"
             onClick={onCreateComment}

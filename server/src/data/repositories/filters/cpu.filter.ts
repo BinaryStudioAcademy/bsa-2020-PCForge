@@ -1,4 +1,4 @@
-import { FilterByIdType, notNull, FilterByNameType, FilterRangeType } from './types';
+import { FilterByIdType, notNull, FilterByNameType, FilterRangeType, FilterByNumberType } from './types';
 import { IFilter } from './base.filter';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
@@ -6,7 +6,10 @@ export class ICpuFilter extends IFilter {
   constructor() {
     super();
   }
+  id: FilterByNumberType = notNull;
+  excludedId: FilterByNumberType = [];
   socketId: FilterByIdType = notNull;
+  sockerIds?: number[];
   clockspeed: FilterRangeType<number> = {
     minValue: 0,
     maxValue: 10000,
@@ -18,19 +21,15 @@ export class ICpuFilter extends IFilter {
     properties: {
       ...IFilter.schema.properties,
       socketId: {
-        oneOf: [
-          {
-            type: 'integer',
-            minimum: 1,
-          },
-          {
-            type: 'array',
-            items: {
-              type: 'integer',
-              minimum: 1,
-            },
-          },
-        ],
+        type: 'integer',
+        nullable: true,
+      },
+      socketIds: {
+        type: 'array',
+        items: {
+          type: 'integer',
+          minimum: 1,
+        },
         nullable: true,
       },
       name: {

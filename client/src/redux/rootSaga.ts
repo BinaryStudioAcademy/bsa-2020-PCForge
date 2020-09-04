@@ -15,14 +15,18 @@ import emailVerificationActions from 'containers/EmailVerificationPage/sagas';
 import resetPasswordSagas from 'containers/ResetPassword/sagas';
 import newsSagas from 'containers/NewsPage/sagas';
 import likeCommentSaga from 'components/Comments/Comment/saga';
+import addUserRequest from 'containers/AddUserRequest/sagas';
+import hardwareSagas from 'containers/HardwaresPage/HardwareSidebarView/sagas';
+import hardwaresSagas from 'containers/HardwaresPage/sagas';
+import topGamesSagas from 'containers/TopGames/redux/sagas';
 
 export default function* rootSaga() {
   yield all([
     authSagas(),
-    userSagas(),
-    userRequestsSagas(),
     builderSagas(),
     emailVerificationActions(),
+    hardwareSagas(),
+    hardwaresSagas(),
     hardwareFormSagas(),
     homePageSagas(),
     gameFormSagas(),
@@ -34,5 +38,9 @@ export default function* rootSaga() {
     setupsSagas(),
     newsSagas(),
     likeCommentSaga(),
+    addUserRequest(),
+    userSagas(),
+    userRequestsSagas(),
+    topGamesSagas(),
   ]);
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Modal from 'components/BasicComponents/Modal';
 import Input from 'components/BasicComponents/Input';
 import { InputLabel } from '@material-ui/core';
@@ -8,6 +8,7 @@ import { getLocalSetupObjectForSave } from 'helpers/setupHelper';
 import { TypeSetupForPost } from 'containers/BuilderPage/reducer';
 import { useDispatch } from 'react-redux';
 import { saveSetupRequest } from 'containers/BuilderPage/actions';
+import { MAX_IMAGE_SIZE } from 'common/constants';
 
 interface IProps {
   onClose: () => void;
@@ -30,8 +31,14 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
   const dispatch = useDispatch();
 
   const onChangeImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(event.target.files![0] ? event.target.files![0] : null);
-    setFileName(event.target.files![0] ? event.target.files![0].name : '');
+    const file = event.target.files![0];
+
+    if (file.size < MAX_IMAGE_SIZE) {
+      setFile(file ? file : null);
+      setFileName(file ? file.name : '');
+    } else {
+      setFileName(`Image must be less than 5Mb bytes`);
+    }
   };
 
   const onChangeDescription = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -43,14 +50,12 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
   };
 
   const getBodyForSaveSetup = () => {
-    const setupForSave = {
+    return {
       ...computerComponents!,
       title,
       description,
       token: localStorage.getItem('access_token')!,
     };
-    console.log('sendRequest -> setupForSave', setupForSave);
-    return setupForSave;
   };
 
   const handleFileUpload = (e: FormEvent<HTMLFormElement>) => {
@@ -71,7 +76,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
               accept={acceptedTypes.toString()}
               className={styles.fileInputField}
               onChange={onChangeImage}
-            ></input>
+            />
             <label htmlFor="uploadFile" className={styles.fileInputLabel}>
               Select Image
             </label>

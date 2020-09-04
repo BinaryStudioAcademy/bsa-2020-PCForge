@@ -3,7 +3,8 @@ import PageComponent from 'containers/PageComponent';
 import { Redirect } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
-import UserInfo from './components/UserInfo';
+import { Box } from '@material-ui/core';
+import UserInfo from 'containers/UserPage/components/UserInfo';
 import { RootState } from 'redux/rootReducer';
 import {
   loadUser,
@@ -13,8 +14,16 @@ import {
   addUserGame,
   deleteUserGame,
   loadSetups,
-} from './logic/actions';
+  deleteUserSetup,
+  setTab,
+} from 'containers/UserPage/logic/actions';
 import Spinner from 'components/Spinner';
+import styles from 'containers/UserPage/styles.module.scss';
+
+export enum UserPageTabs {
+  Games = 0,
+  Setups = 1,
+}
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -32,12 +41,15 @@ const UserPage = (props: Props) => {
     loadFilteredGames,
     filteredGames,
     deleteUserGame,
+    deleteUserSetup,
     loadSetups,
     setups,
+    openTab,
+    setTab,
   } = props;
   const gamesArray = userGames.map((game) => game.game);
 
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const currentUserId = currentUser?.id.toString();
 
   useEffect(() => {
@@ -46,11 +58,13 @@ const UserPage = (props: Props) => {
     loadSetups(parseInt(id));
   }, [id]);
 
-  const renderContent = () => {
-    if (showSpinner) {
-      return <Spinner load />;
-    } else if (loadedUser) {
-      return (
+  return (
+    <PageComponent>
+      {showSpinner ? (
+        <Box className={styles.spinnerWrapper}>
+          <Spinner load />
+        </Box>
+      ) : loadedUser ? (
         <UserInfo
           user={loadedUser}
           userGames={gamesArray}
@@ -61,14 +75,15 @@ const UserPage = (props: Props) => {
           loadFilteredGames={loadFilteredGames}
           filteredGames={filteredGames}
           deleteUserGame={deleteUserGame}
+          deleteUserSetup={deleteUserSetup}
+          openTab={openTab}
+          setTab={setTab}
         />
-      );
-    } else {
-      return <Redirect to="/404" />;
-    }
-  };
-
-  return <PageComponent>{renderContent()}</PageComponent>;
+      ) : (
+        <Redirect to="/404" />
+      )}
+    </PageComponent>
+  );
 };
 
 const mapState = (state: RootState) => ({
@@ -78,6 +93,7 @@ const mapState = (state: RootState) => ({
   currentUser: state.auth.user,
   userGames: state.user.userGames,
   filteredGames: state.user.filteredGames,
+  openTab: state.user.openTab,
 });
 
 const mapDispatch = {
@@ -88,6 +104,8 @@ const mapDispatch = {
   addUserGame,
   deleteUserGame,
   loadSetups,
+  deleteUserSetup,
+  setTab,
 };
 
 const connector = connect(mapState, mapDispatch);

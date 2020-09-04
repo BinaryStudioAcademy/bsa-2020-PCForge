@@ -112,6 +112,17 @@ export const CreateMotherBoardSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    sata: {
+      type: 'integer',
+      example: 1,
+      minimum: 0,
+      nullable: false,
+    },
+    m2: {
+      type: 'boolean',
+      example: true,
+      nullable: false,
+    },
   },
 };
 

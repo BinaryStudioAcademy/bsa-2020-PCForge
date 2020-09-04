@@ -2,6 +2,7 @@ import webApi from 'api/webApiHelper';
 import { TypeFilter } from 'common/models/typeFilterBuilder';
 import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
+import { MotherboardFilter } from 'common/models/filter.model';
 
 export type TypeResponseAll = {
   meta: {
@@ -13,8 +14,23 @@ export type TypeResponseAll = {
 
 const endpoint = '/motherboards';
 
-export const getAllMotherboard = async (filter: TypeFilter): Promise<TypeResponseAll> => {
-  return await webApi.get(endpoint, filter);
+export const getAllMotherboard = async (filter: MotherboardFilter): Promise<TypeResponseAll> => {
+  const ramTypeMultiple: boolean = filter.ramTypeId?.includes(',') || false;
+  const socketIdMultiple: boolean = filter.socketId?.includes(',') || false;
+
+  const serverFilter: MotherboardFilter = {
+    count: filter.count,
+    from: filter.from,
+    m2: filter.m2,
+    name: filter.name,
+    sata: filter.sata,
+    ...(ramTypeMultiple && { ramTypeIds: filter.ramTypeId }),
+    ...(!ramTypeMultiple && { ramTypeId: filter.ramTypeId }),
+    ...(socketIdMultiple && { socketIds: filter.socketId }),
+    ...(!socketIdMultiple && { socketId: filter.socketId }),
+  };
+
+  return await webApi.get(endpoint, serverFilter);
 };
 
 export const getMotherboard = async (id: number): Promise<TypeMotherboard> => {

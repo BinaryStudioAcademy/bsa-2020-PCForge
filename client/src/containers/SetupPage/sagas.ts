@@ -5,6 +5,7 @@ import {
   IGetSetupRate,
   ICreateSetupComment,
   ISetSetupRate,
+  IForkSetup,
   GET_SETUP,
   GET_SETUP_SUCCESS,
   GET_SETUP_COMMENTS,
@@ -20,15 +21,17 @@ import {
   CREATE_SETUP_COMMENT_FAILURE,
   GET_SETUP_COMMENTS_FAILURE,
   CREATE_SETUP_COMMENT_SUCCESS,
+  FORK_SETUP,
 } from './actionTypes';
 import { getSetupById } from 'api/services/setups.service';
+import { forkUserSetup } from 'api/services/setupService';
 import { PCSetup } from 'common/models/setup';
 import { getAllComments, createComment } from 'api/services/comment.service';
 import { Comment, CommentCreationAttributes } from 'common/models/comment';
 import { CommentFilter } from 'common/models/filter.model';
-import { getToken } from 'helpers/tokenHelper';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
+import * as notification from 'common/services/notificationService';
 
 function* getSetup(action: IGetSetup) {
   try {
@@ -69,7 +72,6 @@ function* watchGetSetupComments() {
 
 function* createSetupComment(action: ICreateSetupComment) {
   try {
-    const token: string = yield call(getToken);
     const commentData: CommentCreationAttributes = {
       commentableType: 'setup',
       commentableId: action.payload.id,
@@ -120,8 +122,9 @@ function* addSetupRate(action: ISetSetupRate) {
       ratebleType: 'setup',
       value: action.payload.value,
     };
-    const response = yield call(addRate, data);
-    yield put({ type: SET_SETUP_RATE_SUCCESS, payload: response });
+    yield call(addRate, data);
+    const setup: PCSetup = yield call<(id: number) => void>(getSetupById, action.payload.id);
+    yield put({ type: SET_SETUP_RATE_SUCCESS, payload: setup });
   } catch (e) {
     yield put({
       type: SET_SETUP_RATE_FAILURE,
@@ -136,6 +139,19 @@ function* watchAddSetupRate() {
   yield takeEvery(SET_SETUP_RATE, addSetupRate);
 }
 
+function* forkSetup(action: IForkSetup) {
+  try {
+    const forkedSetup = yield call(forkUserSetup, action.payload.setupId);
+    notification.success(`You have forked '${forkedSetup.title}'. Check it out on your profile page.`);
+  } catch (e) {
+    notification.error(e.message || 'Could not fork the setup');
+  }
+}
+
+function* watchForkSetup() {
+  yield takeEvery(FORK_SETUP, forkSetup);
+}
+
 export default function* authSagas() {
   yield all([
     watchGetSetup(),
@@ -143,5 +159,6 @@ export default function* authSagas() {
     watchCreateSetupComment(),
     watchGetSetupRate(),
     watchAddSetupRate(),
+    watchForkSetup(),
   ]);
 }

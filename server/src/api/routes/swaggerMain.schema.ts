@@ -19,7 +19,7 @@ const SwaggerMainSchema: FastifyRegisterOptions<SwaggerOptions> = {
   swagger: {
     info: {
       title: 'pcforge',
-      version: '2',
+      version: '1.0.0',
     },
     definitions: {
       User: UserSchema,

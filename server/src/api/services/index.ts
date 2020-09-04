@@ -23,6 +23,8 @@ import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
 import { AuthService } from './auth.service';
 import { CommentRateService } from './commentRate.service';
+import { NotificationService, notificationServiceFactory } from './notification.service';
+import { HardwareService } from './hardware.service';
 
 export interface Services {
   AuthService: AuthService;
@@ -48,11 +50,13 @@ export interface Services {
   UserGameService: UserGameService;
   UserService: UserService;
   CommentRateService: CommentRateService;
+  NotificationService: NotificationService;
+  HardwareService: HardwareService;
 }
 
 export default fp(async (fastify, opts, next) => {
   try {
-    const { nodemailer, repositories } = fastify;
+    const { nodemailer, repositories, redis, websocket } = fastify;
     const ramTypeService = new RamTypeService(repositories.RamTypeRepository);
     const usersService = new UserService(repositories.UserRepository);
     const setupService = new SetupService(repositories.SetupRepository);
@@ -77,9 +81,24 @@ export default fp(async (fastify, opts, next) => {
     const hddService = new HddService(repositories.HddRepository);
     const ssdService = new SsdService(repositories.SsdRepository);
     const mailService = new MailService(nodemailer);
-    const userGameService = new UserGameService(repositories.UserGameRepository);
+    const userGameService = new UserGameService(
+      repositories.UserGameRepository,
+      repositories.UserRepository,
+      repositories.GameRepository
+    );
     const uploadService = new UploadService();
     const authService = new AuthService(mailService, usersService);
+    const notificationService = await notificationServiceFactory(redis, websocket);
+    const hardwareService = new HardwareService(
+      repositories.CpuRepository,
+      repositories.GpuRepository,
+      repositories.RamRepository,
+      repositories.MotherboardRepository,
+      repositories.PowerSupplyRepository,
+      repositories.HddRepository,
+      repositories.SsdRepository,
+      repositories.SetupRepository
+    );
     const services: Services = {
       AuthService: authService,
       AddRequestService: addRequestService,
@@ -104,6 +123,8 @@ export default fp(async (fastify, opts, next) => {
       UserGameService: userGameService,
       UserService: usersService,
       CommentRateService: commentRateService,
+      NotificationService: notificationService,
+      HardwareService: hardwareService,
     };
     fastify.decorate('services', services);
     console.log('services were successfully initialized');
