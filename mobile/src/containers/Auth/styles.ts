@@ -11,8 +11,13 @@ const styles = StyleSheet.create({
     item: {
         marginVertical: 10,
     },
+    input: {
+        borderBottomColor: '#3c444d',
+        borderBottomWidth: 2
+    },
     errorMessage: {
-        color: '#ff5a5a'
+        color: '#ff5a5a',
+        marginTop: 10
     }
 })
 

@@ -40,32 +40,38 @@ class Auth extends React.PureComponent<IAuthProps, State> {
     }
 
     public render(): JSX.Element | null {
-        if (this.props.state.user) {
-            this.props.navigation.navigate('Home');
-            return null;
-        }
+        setTimeout(() => {
+            if (this.props.state.user) {
+                this.props.navigation.navigate('Home');
+                return null;
+            }
+        });
+        
         return (
             <View style={styles.root}>
                 <TextInput
                     placeholder="Email"
                     value={this.state.email}
-                    style={styles.item}
+                    style={[styles.item, styles.input]}
                     onChangeText={this.onEmailInput}
                 />
                 <TextInput
                     placeholder="Password"
                     value={this.state.password}
-                    style={styles.item}
+                    style={[styles.item, styles.input]}
                     onChangeText={this.onPasswordInput}
                 />
                 <Button 
                     title="Login"
                     onPress={this.onFormSubmit}
                 ></Button>
-                {this.props.state.errorMessage && 
+                {this.props.state.errorMessage ? 
                     <Text
                         style={styles.errorMessage}
-                    >{this.props.state.errorMessage}</Text>
+                    >
+                        {'User with given credentials does not exists'}
+                    </Text>
+                : null
                 }
             </View>
         );
