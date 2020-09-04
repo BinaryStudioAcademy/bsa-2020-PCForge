@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from '../PageComponent';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
@@ -16,6 +15,7 @@ import { GameMatcherProps } from './interfaces';
 import { MatcherSettableVariants, MatcherServerActions } from './actionTypes';
 import { RouteComponentProps } from 'react-router-dom';
 import { Box, Slider } from '@material-ui/core';
+import TopGames from 'containers/TopGames';
 
 import ModalAddRequest from 'containers/AddUserRequest';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
@@ -164,7 +164,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
             </div>
           </div>
           <div className={styles.asideBlock}>
-            <TopGames topGames={[]} />
+            <TopGames />
             {displayAddRequestOpen ? (
               <ModalAddRequest onClose={hideAddGameModal} requestType={UserRequestedType.game} />
             ) : null}

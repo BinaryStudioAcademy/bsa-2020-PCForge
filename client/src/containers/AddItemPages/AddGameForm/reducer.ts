@@ -30,6 +30,18 @@ export function GameFormReducer(state = initialState, action: GameFormAction): G
         gameName: undefined,
       };
     }
+    case GameFormActionTypes.CLEAR_GAME_STATE_VALUES_SUCCESS: {
+      return {
+        ...state,
+        minCPUList: [],
+        minGPUList: [],
+        recCPUList: [],
+        recGPUList: [],
+        errorMessage: undefined,
+        gameName: undefined,
+        alertType: undefined,
+      };
+    }
     case GameFormActionTypes.CREATE_NEW_GAME_SUCCESS: {
       return {
         ...state,
