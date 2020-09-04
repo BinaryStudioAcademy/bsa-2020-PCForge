@@ -48,6 +48,7 @@ h2 {
 
 .gridTopCard {
   grid-area: gridTopCard;
+  cursor: pointer;
 
   >div>div {
     height: 690px;
@@ -103,6 +104,11 @@ h2 {
 
   @media(max-width:768px) {
     margin: 0 auto;
+  }
+
+  @media(min-width: 769px) and (max-width: 1400px) {
+    position: relative;
+    top:-15px;
   }
 }
 
