@@ -9,8 +9,9 @@ import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
 import UserSchema from 'common/validation/user';
+import { getTokenSync } from 'helpers/tokenHelper';
 
-class Auth extends Component<IAuthProps, IAuthState> {
+class Auth extends Component<IAuth, IAuthState> {
   constructor(props: IAuthProps) {
     super(props);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
