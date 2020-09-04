@@ -4,7 +4,6 @@
   margin-bottom: 30px;
   column-gap: 1%;
   row-gap: 1%;
-  grid-template-columns: 33% 41% 21%;
   grid-template-columns: minmax(400px, 1.5fr) minmax(450px, 2fr) minmax(200px, 1fr);
   grid-template-rows: 60px 1fr;
   grid-template-areas:
@@ -142,11 +141,8 @@ h2 {
     margin: 10px;
 
     @media (max-width:1400px) {
-      margin: 10px;
+      margin: 10px 0 10px 5px;
       max-width: 600px;
-      margin-top: 10px;
-      margin-left: 5px;
-      margin-right: 0;
     }
 
     @media (max-width:768px) {
