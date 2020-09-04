@@ -6,15 +6,11 @@ import React, { ChangeEvent, useState } from 'react';
 import styles from './styles.module.scss';
 import Search from 'components/Search';
 import UserProfile from 'components/UserProfile';
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuProps } from '@material-ui/core';
+import { IconButton, Menu, MenuProps } from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MenuItem from '@material-ui/core/MenuItem';
 import { INotification, NotificationType } from 'common/services/notification.service';
-import InfoIcon from '@material-ui/icons/Info';
-import ErrorIcon from '@material-ui/icons/Error';
-import CheckIcon from '@material-ui/icons/Check';
-import WarningIcon from '@material-ui/icons/Warning';
 import { withStyles } from '@material-ui/styles';
+import TopBarNotification from './topBarNotification';
 
 const StyledMenu = withStyles({
   paper: {
@@ -58,19 +54,6 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, WebSocketS
     deleteNotification(notification.id);
   };
 
-  const getIcon = (notification: INotification) => {
-    switch (notification.type) {
-      case NotificationType.INFO:
-        return <InfoIcon fontSize="small" />;
-      case NotificationType.ERROR:
-        return <ErrorIcon fontSize="small" />;
-      case NotificationType.SUCCESS:
-        return <CheckIcon fontSize="small" />;
-      case NotificationType.WARNING:
-        return <WarningIcon fontSize="small" />;
-    }
-  };
-
   const getNotifications = () => {
     if (notifications.length > 0) return notifications;
     else return [{ id: 'notification-id', text: 'no notifications', type: NotificationType.INFO }];
@@ -81,7 +64,7 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, WebSocketS
       <div className={styles.rightTopBar}>
         <Search value="" onChange={onInputChange} />
         <div className={styles.settingIconWrapper}>
-          <IconButton size="small" onClick={handleClick}>
+          <IconButton size="small" edge="start" onClick={handleClick}>
             <NotificationsIcon />
           </IconButton>
           <StyledMenu
@@ -98,10 +81,11 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, WebSocketS
             }}
           >
             {getNotifications().map((notification) => (
-              <MenuItem key={notification.id} onClick={() => handleDelete(notification)}>
-                <ListItemIcon>{getIcon(notification)}</ListItemIcon>
-                <ListItemText primary={notification.text} />
-              </MenuItem>
+              <TopBarNotification
+                key={notification.id}
+                notification={notification}
+                onDelete={() => handleDelete(notification)}
+              />
             ))}
           </StyledMenu>
         </div>
