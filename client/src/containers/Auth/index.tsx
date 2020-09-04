@@ -11,7 +11,7 @@ import Spinner from 'components/Spinner';
 import UserSchema from 'common/validation/user';
 import { getTokenSync } from 'helpers/tokenHelper';
 
-class Auth extends Component<IAuth, IAuthState> {
+class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
     super(props);
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
