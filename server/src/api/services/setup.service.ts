@@ -12,16 +12,16 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     super(repository);
   }
 
-  async getSetupById(id: string): Promise<SetupModel> {
-    const setup = await this.repository.getOneSetup(id);
+  async getSetupById(id: string, requestingUserId?: number): Promise<SetupModel> {
+    const setup = await this.repository.getOneSetup(id, requestingUserId);
     if (!setup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
     }
     return setup;
   }
 
-  async getAllSetups(filter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
-    const setups = await this.repository.getSetups(filter);
+  async getAllSetups(filter: ISetupFilter, requestingUserId: number): Promise<IWithMeta<SetupModel>> {
+    const setups = await this.repository.getSetups(filter, requestingUserId);
     return setups;
   }
 
@@ -53,7 +53,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
   }
 
   async deleteSetupById(id: string, initiator?: UserAttributes): Promise<SetupModel> {
-    const setup = await this.repository.getOneSetup(id);
+    const setup = await this.repository.getOneSetup(id, initiator.id);
     if (!setup) {
       triggerServerError(`Setup with id: ${id} does not exists`, 404);
     }
