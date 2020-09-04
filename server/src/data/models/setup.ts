@@ -37,6 +37,7 @@ export interface SetupCreationAttributes {
   gpuId: number;
   motherboardId: number;
   ramId: number;
+  ramCount: number;
   powerSupplyId: number;
   hddId: number;
   ssdId: number;
@@ -81,6 +82,11 @@ export function SetupFactory(sequelize: Sequelize): SetupStatic {
     parentId: {
       type: DataTypes.INTEGER,
       allowNull: true,
+    },
+    ramCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
     },
   });
 }
