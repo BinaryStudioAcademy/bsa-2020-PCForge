@@ -35,12 +35,15 @@ class Auth extends React.PureComponent<IAuthProps, State> {
     }
 
     public onFormSubmit() {
-        console.log(this.state, 'state', this.props);
         const { email, password } = this.state;
         this.props.loginRequest({ email, password });
     }
 
-    public render() {
+    public render(): JSX.Element | null {
+        if (this.props.state.user) {
+            this.props.navigation.navigate('Home');
+            return null;
+        }
         return (
             <View style={styles.root}>
                 <TextInput
@@ -59,6 +62,11 @@ class Auth extends React.PureComponent<IAuthProps, State> {
                     title="Login"
                     onPress={this.onFormSubmit}
                 ></Button>
+                {this.props.state.errorMessage && 
+                    <Text
+                        style={styles.errorMessage}
+                    >{this.props.state.errorMessage}</Text>
+                }
             </View>
         );
     }

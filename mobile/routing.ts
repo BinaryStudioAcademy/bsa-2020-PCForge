@@ -4,3 +4,9 @@ const Stack = createStackNavigator();
 
 export const Route = Stack.Screen;
 export const Router = Stack.Navigator;
+
+export interface RouterItemProps {
+    navigation: {
+        navigate(routeName: string): void;
+    }
+}

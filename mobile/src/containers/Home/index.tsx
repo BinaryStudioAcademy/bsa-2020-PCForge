@@ -6,7 +6,7 @@ export class Home extends React.PureComponent {
     public render(): JSX.Element {
         return (
             <View style={styles.root}>
-                <Text>Home</Text>
+                <Text>Here will be app content</Text>
             </View>
         )
     }

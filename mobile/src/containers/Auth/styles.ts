@@ -10,6 +10,9 @@ const styles = StyleSheet.create({
     },
     item: {
         marginVertical: 10,
+    },
+    errorMessage: {
+        color: '#ff5a5a'
     }
 })
 

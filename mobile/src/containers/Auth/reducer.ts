@@ -6,11 +6,11 @@ import {
 } from './actionTypes';
 
 const initialState: IAuthState = {
-//   user: null,
+  user: null,
   email: '',
   password: '',
+  errorMessage: '',
 //   confirmPassword: '',
-//   errorMessage: '',
 //   isRegistration: false,
 //   keepSignedIn: false,
 //   isLoading: false,
@@ -28,7 +28,7 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
     case AUTH_LOGIN_FAILURE:
       return {
         ...state,
-        // errorMessage: action.payload.message,
+        errorMessage: action.payload.message,
       };
     default:
       return state;
