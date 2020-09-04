@@ -8,14 +8,16 @@ import { withStyles } from '@material-ui/styles';
 interface Props {
   name: string;
   averageValue: number;
-  userValue?: number;
+  ratingCount: number;
+  ownRating?: number;
+  clickable?: boolean;
   onValueSet?: (value: number) => void;
 }
 
 interface State {
-  userValue: number;
+  ownRating: number;
   averageRatingHovered: boolean;
-  userRatingHovered: boolean;
+  userRatingClicked: boolean;
 }
 
 const StyledRating = withStyles({
@@ -30,7 +32,7 @@ const StyledRating = withStyles({
     color: '#EB3D55',
   },
   iconEmpty: {
-    opacity: 0.5,
+    opacity: 0.7,
     color: '#EB3D55',
   },
 })(Rating);
@@ -39,84 +41,102 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      userValue: this.props.userValue || 0,
+      ownRating: this.props.ownRating || 0,
       averageRatingHovered: false,
-      userRatingHovered: false,
+      userRatingClicked: false,
     };
 
-    this.onUserValueMouseEnter = this.onUserValueMouseEnter.bind(this);
-    this.onUserValueMouseLeave = this.onUserValueMouseLeave.bind(this);
+    this.openRating = this.openRating.bind(this);
+    this.handleMouseLeave = this.handleMouseLeave.bind(this);
     this.onRatingValueSet = this.onRatingValueSet.bind(this);
-    this.onUserValueClick = this.onUserValueClick.bind(this);
   }
-
-  userValueBlocked = false;
 
   public onRatingValueSet(value: number) {
     this.setState({
-      userValue: value,
+      ownRating: value,
     });
     if (this.props.onValueSet) {
       this.props.onValueSet(value);
     }
+    this.closeRating();
   }
 
-  public onUserValueMouseEnter() {
-    this.setState({
-      userRatingHovered: true,
-    });
+  public handleMouseLeave(event: React.MouseEvent<HTMLDivElement>) {
+    this.closeRating();
   }
 
-  public onUserValueMouseLeave() {
-    if (!this.userValueBlocked) {
+  public openRating() {
+    if (this.props.clickable && !this.state.userRatingClicked) {
       this.setState({
-        userRatingHovered: false,
+        userRatingClicked: true,
       });
     }
   }
 
-  public onUserValueClick() {
-    this.userValueBlocked = !this.userValueBlocked;
+  public closeRating() {
+    this.setState({
+      userRatingClicked: false,
+    });
   }
 
   public render(): JSX.Element {
-    const { name, averageValue } = this.props;
-    const { userValue } = this.state;
+    const { name, averageValue, ratingCount, clickable } = this.props;
+    const { ownRating } = this.state;
     return (
       <div className={styles.ratingBoxesWrapper}>
         <div className={styles.ratingBoxWrapper} title={(averageValue || 0).toString()}>
           <StyledRating
             precision={0.1}
-            value={(averageValue || 0) / 5}
+            max={1}
             name={name + 'main-average'}
             disabled={true}
-            max={1}
-            icon={<RatingIcon viewBox="0 0 24 10" color={'secondary'} />}
+            value={(averageValue || 0) / 5}
+            icon={<RatingIcon viewBox="0 0 24 10" color={'secondary'} fontSize="large" />}
           />
+          {!averageValue && <div className={styles.noRatingText}>Not Rated</div>}
+          {!!averageValue && (
+            <div className={styles.ratingNumbersHolder}>
+              <div className={styles.topRatingNumber}>
+                {averageValue}
+                <span>/5</span>
+              </div>
+              <div className={styles.bottomRatingNumber}>{ratingCount}</div>
+            </div>
+          )}
         </div>
+
         <div className={styles.verticalDivider} />
-        <div
-          className={styles.ratingBoxWrapper}
-          onMouseEnter={this.onUserValueMouseEnter}
-          onMouseLeave={this.onUserValueMouseLeave}
-        >
-          <div onClick={this.onUserValueClick} title={(userValue === 0 ? 0 : userValue || 'Not rated').toString()}>
-            <StyledRating
-              precision={0.1}
-              disabled={true}
-              name={name + 'main-user'}
-              value={userValue / 5}
-              max={1}
-              icon={<RatingIcon viewBox="0 0 24 10" color={'primary'} />}
-            />
-          </div>
-          {this.state.userRatingHovered && (
-            <div className={styles.ratingBoxContent}>
+
+        <div className={styles.ratingBoxWrapper} onClick={this.openRating}>
+          {!this.state.userRatingClicked && (
+            <>
+              <div className={styles.ratingBoxWrapper} title={(ownRating === 0 ? 'Not rated' : ownRating).toString()}>
+                <StyledRating
+                  precision={0.1}
+                  disabled={true}
+                  name={name + 'main-user'}
+                  value={ownRating / 5}
+                  max={1}
+                  icon={<RatingIcon viewBox="0 0 24 10" color={'secondary'} fontSize="large" />}
+                />
+              </div>
+              {!ownRating && <div className={styles.noRatingText}>Rate Me</div>}
+              {!!ownRating && (
+                <div className={styles.ratingNumbersHolder}>
+                  <div className={styles.topRatingNumber}>{ownRating}</div>
+                  <div className={styles.bottomRatingNumber}>You</div>
+                </div>
+              )}
+            </>
+          )}
+
+          {this.state.userRatingClicked && (
+            <div className={styles.ratingBoxContent} onMouseLeave={this.handleMouseLeave}>
               <RatingBox
                 disabled={false}
                 name={'user-' + name}
-                iconColor="primary"
-                ratingValue={userValue}
+                iconColor="secondary"
+                ratingValue={ownRating}
                 onValueSet={this.onRatingValueSet}
               />
             </div>

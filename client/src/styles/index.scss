@@ -36,3 +36,12 @@ body {
     color: $linkActiveColor
   }
 }
+
+.spinnerWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}

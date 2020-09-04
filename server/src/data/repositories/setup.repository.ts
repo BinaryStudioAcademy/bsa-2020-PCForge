@@ -12,7 +12,7 @@ import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
 import { CommentStatic } from '../models/comment';
 import { RateStatic } from '../models/rate';
-import sequelize, { Op, OrderItem } from 'sequelize';
+import sequelize, { Op, OrderItem, ProjectionAlias } from 'sequelize';
 import { group } from 'console';
 import { UserStatic } from '../models/user';
 
@@ -27,7 +27,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     private hddModel: HddStatic,
     private ssdModel: SsdStatic,
     private commentModel: CommentStatic,
-    private reteModel: RateStatic,
+    private rateModel: RateStatic,
     private userModel: UserStatic
   ) {
     super(<RichModel>model, IFilter);
@@ -48,7 +48,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     }
   }
 
-  async getSetups(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+  async getSetups(inputFilter: ISetupFilter, requestingUserId: number): Promise<IWithMeta<SetupModel>> {
     const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
     const where: { authorId?: string } = {};
     if (filter.authorId) {
@@ -70,6 +70,13 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         include: [
           [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+          [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
+          [
+            sequelize.literal(
+              `SUM(CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
+            ),
+            'ownRating',
+          ],
         ],
       },
       order: [this.getOrderProperty(filter.sort)],
@@ -101,7 +108,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           attributes: [],
         },
         {
-          model: this.reteModel,
+          model: this.rateModel,
           on: {
             ratebleId: {
               [Op.col]: 'setup.id',
@@ -129,7 +136,18 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     return result;
   }
 
-  async getOneSetup(id: string): Promise<SetupModel> {
+  async getOneSetup(id: string, requestingUserId?: number): Promise<SetupModel> {
+    const include: (string | ProjectionAlias)[] = [
+      [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
+      [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+      [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
+    ];
+    if (requestingUserId) {
+      include.push([
+        sequelize.literal(`SUM(CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`),
+        'ownRating',
+      ]);
+    }
     const setup = await this.model.findByPk(id, {
       group: [
         'setup.id',
@@ -142,6 +160,9 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         'ssd.id',
         'author.id',
       ],
+      attributes: {
+        include: include,
+      },
       include: [
         {
           model: this.cpuModel,
@@ -174,6 +195,20 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         {
           model: this.userModel,
           as: 'author',
+        },
+        {
+          model: this.commentModel,
+          attributes: [],
+        },
+        {
+          model: this.rateModel,
+          on: {
+            ratebleId: {
+              [Op.col]: 'setup.id',
+            },
+            ratebleType: 'setup',
+          },
+          attributes: [],
         },
       ],
     });

@@ -6,6 +6,8 @@ export class IMotherboardFilter extends IFilter {
   constructor() {
     super();
   }
+  id: FilterByNumberType = notNull;
+  excludedId: FilterByNumberType = [];
   socketId: FilterByIdType = notNull;
   ramTypeId: FilterByIdType = notNull;
   sata: FilterByNumberType = notNull;

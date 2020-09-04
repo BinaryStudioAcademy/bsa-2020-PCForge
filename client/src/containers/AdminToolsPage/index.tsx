@@ -6,7 +6,7 @@ import Spinner from 'components/Spinner';
 import { MenuItems } from 'common/enums';
 import Title from 'components/Title';
 import { TotalInfoCard, ITotalInfoCard } from 'containers/AdminToolsPage/TotalInfoCard';
-import RequestContaner from './RequestContainer';
+import RequestContainer from './RequestContainer';
 import { CardsName } from 'common/enums/AdminTools/CardsName';
 import PeopleIcon from '@material-ui/icons/People';
 import SportsEsportsOutlinedIcon from '@material-ui/icons/SportsEsportsOutlined';
@@ -25,6 +25,7 @@ import * as actions from './actions';
 import { UsersRequestState, UsersRequestActions } from './actionsTypes';
 
 import styles from './styles.module.scss';
+import { Box } from '@material-ui/core';
 
 interface IPropsAdminToolsPage {
   state: UsersRequestState;
@@ -82,10 +83,10 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
         <div className={styles.pageHeader}>
           <Title title="Admin tools" subtitle="Manage hardware and game content, get site statistic" />
         </div>
-        <div className={styles.contentMain}>
-          <div className={styles.totalBlockContainer}>
-            {alertText ? <Alert alertType={alertType}>{alertText}</Alert> : null}
-            {props.state.dataTotalsIsLoaded ? (
+        {props.state.dataTotalsIsLoaded ? (
+          <div className={styles.contentMain}>
+            <div className={styles.totalBlockContainer}>
+              {alertText ? <Alert alertType={alertType}>{alertText}</Alert> : null}
               <>
                 {cardsList.map((item: ITotalInfoCard, key) => (
                   <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
@@ -101,19 +102,23 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
                   </ListItem>
                 ))}
               </>
-            ) : (
-              <Spinner />
-            )}
+            </div>
+            <div className={styles.chartContainer}>{/*TO DO*/}</div>
+            <div className={styles.notificationsContainer}>
+              {props.state.dataUserRequestsIsLoaded ? (
+                <RequestContainer usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />
+              ) : (
+                <Box className="spinnerWrapper">
+                  <Spinner load />
+                </Box>
+              )}
+            </div>
           </div>
-          <div className={styles.chartContainer}>{/*TO DO*/}</div>
-          <div className={styles.notificationsContainer}>
-            {props.state.dataUserRequestsIsLoaded ? (
-              <RequestContaner usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />
-            ) : (
-              <Spinner />
-            )}
-          </div>
-        </div>
+        ) : (
+          <Box className="spinnerWrapper">
+            <Spinner load />
+          </Box>
+        )}
       </div>
     </PageComponent>
   );

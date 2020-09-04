@@ -63,7 +63,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
         resetPasswordToken: null,
         isActive: true,
       };
-      console.log(userAttributes);
+
       return await super.create(userAttributes);
     }
   }
