@@ -1,5 +1,5 @@
 import store from 'redux/store';
-import { showSuccess, showWarning, showInfo, showError } from 'containers/Notification @deprecated/logic/actions';
+import { showSuccess, showWarning, showInfo, showError } from 'containers/ToastNotifications/logic/actions';
 
 export const success = (message: string, icon?: string): void => {
   store.dispatch(showSuccess(message, icon));
