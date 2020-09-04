@@ -12,6 +12,7 @@ type PropsType = {
   rating?: number;
   specifications: JSX.Element;
   onAddComponent: () => void;
+  isSelected: boolean;
 };
 
 const ListComponentsItem = ({
@@ -20,6 +21,7 @@ const ListComponentsItem = ({
   rating = 0,
   specifications,
   onAddComponent,
+  isSelected,
 }: PropsType): JSX.Element => {
   return (
     <Paper className={styles.componentItem}>
@@ -33,7 +35,7 @@ const ListComponentsItem = ({
           <RatingBox ratingValue={3} disabled={false} name={title} />
         </div>
       </div>
-      <ButtonAdd className={styles.btnAdd} onClick={onAddComponent} />
+      {!isSelected && <ButtonAdd className={styles.btnAdd} onClick={onAddComponent} />}
     </Paper>
   );
 };

@@ -1,27 +1,8 @@
 import { getAllGames } from 'api/services/gameService';
 import { getPerformance } from 'api/services/performanceService';
-import { getAllTopGames } from 'api/services/topgameService';
 import { call, put, all, takeLatest } from 'redux-saga/effects';
-import { setError, setGames, setPerformance, setTopGames } from './actions';
-import {
-  IFetchGamesRequestAction,
-  IFetchPerformanceRequestAction,
-  IFetchTopGamesRequestAction,
-  SetupChartTypes,
-} from './actionTypes';
-
-function* fetchTopGames(action: IFetchTopGamesRequestAction) {
-  try {
-    const { data: topGames } = yield call(getAllTopGames, action.payload);
-    yield put(setTopGames(topGames));
-  } catch (error) {
-    yield put(setError(error));
-  }
-}
-
-function* watchFetchTopGames() {
-  yield takeLatest(SetupChartTypes.FETCH_TOP_GAMES_REQUEST, fetchTopGames);
-}
+import { setError, setGames, setPerformance } from './actions';
+import { IFetchGamesRequestAction, IFetchPerformanceRequestAction, SetupChartTypes } from './actionTypes';
 
 function* fetchGames(action: IFetchGamesRequestAction) {
   try {
@@ -50,5 +31,5 @@ function* watchFetchPerformanceAnalysis() {
 }
 
 export default function* setupChartSagas() {
-  yield all([watchFetchTopGames(), watchFetchPerformanceAnalysis(), watchFetchGames()]);
+  yield all([watchFetchPerformanceAnalysis(), watchFetchGames()]);
 }

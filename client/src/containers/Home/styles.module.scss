@@ -4,7 +4,6 @@
   margin-bottom: 30px;
   column-gap: 1%;
   row-gap: 1%;
-  grid-template-columns: 33% 41% 21%;
   grid-template-columns: minmax(400px, 1.5fr) minmax(450px, 2fr) minmax(200px, 1fr);
   grid-template-rows: 60px 1fr;
   grid-template-areas:
@@ -49,9 +48,10 @@ h2 {
 
 .gridTopCard {
   grid-area: gridTopCard;
+  cursor: pointer;
 
   >div>div {
-    height: 690px;
+    height: 720px;
   }
 
   @media(max-width: 1400px) {
@@ -66,6 +66,7 @@ h2 {
 
     >div>div {
       width: 100%;
+      height:auto;
     }
   }
 
@@ -99,11 +100,20 @@ h2 {
       grid-template-rows: 1fr;
       margin: 0 auto;
       gap: 25px;
+
+      > div {
+        height:auto;
+      }
     }
   }
 
   @media(max-width:768px) {
     margin: 0 auto;
+  }
+
+  @media(min-width: 769px) and (max-width: 1400px) {
+    position: relative;
+    top:-15px;
   }
 }
 
@@ -137,16 +147,13 @@ h2 {
   }
 
   >div>div>div {
-    height: 335px;
+    height: 350px;
     border-radius: 6px;
     margin: 10px;
 
     @media (max-width:1400px) {
-      margin: 10px;
+      margin: 10px 0 10px 5px;
       max-width: 600px;
-      margin-top: 10px;
-      margin-left: 5px;
-      margin-right: 0;
     }
 
     @media (max-width:768px) {

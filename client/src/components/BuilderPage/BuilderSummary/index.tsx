@@ -9,6 +9,8 @@ import {
   SpecificationMotherboard,
   SpecificationPowersupply,
   SpecificationRam,
+  SpecificationHdd,
+  SpecificationSsd,
 } from 'components/BuilderPage/Specifications';
 
 interface IProps {
@@ -17,12 +19,14 @@ interface IProps {
 
 const BuilderSummary = ({ setup }: IProps): JSX.Element => {
   const { cpu, gpu, ram, motherboard, powersupply } = setup;
+  const setupProgress = { cpu, gpu, ram, motherboard, powersupply };
+
   const isSetupEmpty = !Object.values(setup).some((value) => value);
 
   const partsCount = Object.values(setup).length;
 
   const buildProgress =
-    (Object.values(setup).reduce((progress, item) => {
+    (Object.values(setupProgress).reduce((progress, item) => {
       item && (progress += 1);
       return progress;
     }, 0) *
@@ -60,6 +64,14 @@ const BuilderSummary = ({ setup }: IProps): JSX.Element => {
             <ComponentItem
               title={powersupply ? powersupply.name : ''}
               specification={powersupply ? <SpecificationPowersupply component={powersupply} /> : null}
+            />
+            <ComponentItem
+              title={hdd ? hdd.name : ''}
+              specification={hdd ? <SpecificationHdd component={hdd} /> : null}
+            />
+            <ComponentItem
+              title={ssd ? ssd.name : ''}
+              specification={ssd ? <SpecificationSsd component={ssd} /> : null}
             />
           </Box>
         )}

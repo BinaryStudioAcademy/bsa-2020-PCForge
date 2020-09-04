@@ -36,7 +36,7 @@ const StyledRating = withStyles({
     color: '#EB3D55',
   },
   iconEmpty: {
-    opacity: 0.2,
+    opacity: 0.5,
     color: '#EB3D55',
   },
 })(Rating);

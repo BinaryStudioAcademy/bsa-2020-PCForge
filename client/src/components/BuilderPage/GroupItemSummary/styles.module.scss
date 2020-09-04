@@ -1,11 +1,16 @@
 @import '../../../styles/variables';
 
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
 div.groupItemSummary {
   padding: 8px 20px;
   background-color: $colorDarkGray;
 }
 
-.groupItemSummary>div {
+.groupItemSummary > div {
   display: flex;
   align-items: center;
 }

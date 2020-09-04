@@ -116,7 +116,7 @@ export interface ISetSetupRate {
 
 export interface ISetSetupRateSuccess {
   type: typeof SET_SETUP_RATE_SUCCESS;
-  payload: Rate;
+  payload: PCSetup;
 }
 
 export interface ISetSetupRateFailure {

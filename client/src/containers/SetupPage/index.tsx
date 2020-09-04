@@ -2,7 +2,6 @@ import React, { ReactText } from 'react';
 import styles from 'containers/SetupPage/styles.module.scss';
 import SetupCard from 'components/SetupComponents/SetupCard';
 import Comments from 'components/Comments';
-import TopGames from 'components/ChartComponents/TopGames';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
 import { ISetupProps, ISetupState } from './interfaces';
@@ -14,6 +13,7 @@ import Spinner from 'components/Spinner';
 import Snackbar from 'components/BasicComponents/Snackbar';
 import { AlertType } from 'components/BasicComponents/Alert';
 import HardwareView from 'components/HardwareView';
+import TopGames from 'containers/TopGames';
 
 class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   constructor(props: ISetupProps) {
@@ -81,6 +81,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
             <div className={styles.setupsDetails}>
               <SetupCard
                 setup={setup}
+                rateClickable
                 onForkClick={this.props.forkSetup}
                 rate={this.props.state.rate}
                 onRatingSet={this.onRatingSet}
@@ -143,7 +144,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
               )}
             </div>
             <div className={styles.asideItems}>
-              <TopGames topGames={[]} />
+              <TopGames />
             </div>
           </div>
         </div>

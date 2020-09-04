@@ -1,12 +1,12 @@
 @import 'styles/index';
 
 .setupCard {
-  height: 335px;
+  height: 350px;
   background-color: $colorBackgroundGray;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 45px 30px;
+  padding:30px;
   border-radius: 6px;
   position: relative;
   transition: all 0.5s;
@@ -14,6 +14,7 @@
 
   @media(max-width:768px) {
     padding:20px;
+    height:auto;
   }
 
   // Top SETUP
@@ -21,7 +22,7 @@
     display: block;
     position: relative;
     width: 100%;
-    padding: 45px 35px;
+    padding:35px;
     margin: 0;
 
     @media(max-width:768px) {
