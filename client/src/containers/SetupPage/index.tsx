@@ -10,8 +10,6 @@ import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import NotFound from 'containers/NotFound';
 import Spinner from 'components/Spinner';
-import Snackbar from 'components/BasicComponents/Snackbar';
-import { AlertType } from 'components/BasicComponents/Alert';
 import HardwareView from 'components/HardwareView';
 import TopGames from 'containers/TopGames';
 
@@ -67,16 +65,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
       <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
         <div className={styles.setupPageRoot}>
           <h1>PC setup</h1>
-          <Snackbar
-            open={!!this.props.state.snackbarMessage}
-            alertProps={{
-              alertTitle: this.props.state.snackbarMessageType === AlertType.error ? 'Error' : '',
-              alertType: this.props.state.snackbarMessageType,
-            }}
-            onClose={this.onSnackBarClose}
-          >
-            <span>{this.props.state.snackbarMessage}</span>
-          </Snackbar>
           <div className={styles.contentWrapper}>
             <div className={styles.setupsDetails}>
               <SetupCard

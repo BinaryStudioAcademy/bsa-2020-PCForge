@@ -127,12 +127,69 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       offset: filter.from,
       limit: filter.count,
     });
-
-    console.log('result', result);
     // here is a bug in sequelize: it returns array instead of number, so instead of result.count there was used this.model.count();
     // https://github.com/sequelize/sequelize/issues/9109
     const globalCount = await this.model.count();
-    // const countAfterFiltering = result.rows.length;
+    return result;
+  }
+
+  async getAllSetupsBasic(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+    const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
+    const where: { authorId?: string } = {};
+    if (filter.authorId) {
+      where.authorId = filter.authorId;
+    }
+    const result = await this.getAll({
+      group: [
+        'setup.id',
+        'cpu.id',
+        'gpu.id',
+        'ram.id',
+        'powerSupply.id',
+        'motherboard.id',
+        'hdd.id',
+        'ssd.id',
+        'author.id',
+      ],
+      order: [this.getOrderProperty('newest')],
+      include: [
+        {
+          model: this.cpuModel,
+          as: 'cpu',
+        },
+        {
+          model: this.gpuModel,
+        },
+        {
+          model: this.motherBoardModel,
+        },
+        {
+          model: this.ramModel,
+        },
+        {
+          model: this.powerSupplyModel,
+        },
+        {
+          model: this.hddModel,
+        },
+        {
+          model: this.ssdModel,
+        },
+        {
+          model: this.commentModel,
+          attributes: [],
+        },
+        {
+          model: this.userModel,
+          as: 'author',
+        },
+      ],
+      where,
+      subQuery: false,
+      offset: filter.from,
+      limit: filter.count,
+    });
+    const globalCount = await this.model.count();
     return result;
   }
 

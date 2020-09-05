@@ -16,9 +16,6 @@ import {
   GET_SETUP_RATE_SUCCESS,
   SET_SETUP_RATE_SUCCESS,
   SET_SETUP_RATE,
-  SET_SETUP_RATE_FAILURE,
-  GET_SETUP_RATE_FAILURE,
-  CREATE_SETUP_COMMENT_FAILURE,
   GET_SETUP_COMMENTS_FAILURE,
   CREATE_SETUP_COMMENT_SUCCESS,
   FORK_SETUP,
@@ -57,12 +54,7 @@ function* getSetupComments(action: IGetComments) {
     const comments: Comment[] = yield call(getAllComments, filter);
     yield put({ type: GET_SETUP_COMMENTS_SUCCESS, payload: comments });
   } catch (e) {
-    yield put({
-      type: GET_SETUP_COMMENTS_FAILURE,
-      payload: {
-        message: 'Failed to get setup comments',
-      },
-    });
+    notification.error(e.message || 'Failed to get setup comments');
   }
 }
 
@@ -81,12 +73,7 @@ function* createSetupComment(action: ICreateSetupComment) {
     yield put({ type: CREATE_SETUP_COMMENT_SUCCESS });
     yield put({ type: GET_SETUP_COMMENTS, payload: { id: action.payload.id } });
   } catch (e) {
-    yield put({
-      type: CREATE_SETUP_COMMENT_FAILURE,
-      payload: {
-        message: 'Failed to add setup rate',
-      },
-    });
+    notification.error(e?.message || 'Failed to add comment');
   }
 }
 
@@ -102,12 +89,7 @@ function* getSetupRate(action: IGetSetupRate) {
     });
     yield put({ type: GET_SETUP_RATE_SUCCESS, payload: response });
   } catch (e) {
-    yield put({
-      type: GET_SETUP_RATE_FAILURE,
-      payload: {
-        message: 'Failed to get setup rate',
-      },
-    });
+    notification.error(e?.message || 'Failed to get setup rate');
   }
 }
 
@@ -126,12 +108,7 @@ function* addSetupRate(action: ISetSetupRate) {
     const setup: PCSetup = yield call<(id: number) => void>(getSetupById, action.payload.id);
     yield put({ type: SET_SETUP_RATE_SUCCESS, payload: setup });
   } catch (e) {
-    yield put({
-      type: SET_SETUP_RATE_FAILURE,
-      payload: {
-        message: 'Failed to add setup rate',
-      },
-    });
+    notification.error(e.message || 'Failed to add setup rate');
   }
 }
 

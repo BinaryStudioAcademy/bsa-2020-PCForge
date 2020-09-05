@@ -53,6 +53,7 @@ export class MotherboardRepository extends BaseRepository<
             },
           ],
           id: { [Op.and]: { [Op.or]: filter.id, [Op.not]: filter.excludedId } },
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
         },
         include: [
           {
