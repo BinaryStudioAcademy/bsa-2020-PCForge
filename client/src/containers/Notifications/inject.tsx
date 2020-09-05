@@ -9,11 +9,11 @@ import {
   setWebSocketService,
 } from './redux/actions';
 import { RootState } from 'redux/rootReducer';
-import { NotificationService } from 'common/services/notification.service';
+import { NotificationService } from 'common/services/NotificationService/notification.service';
 
 import React from 'react';
 import NotificationsContainer from './NotificationsContainer';
-import { WebSocketService } from 'common/services/webscocket.service';
+import { WebSocketService } from 'common/services/NotificationService/WebSocketService/notification.service';
 
 const InjectNotifications: React.FC<Props> = ({
   children,

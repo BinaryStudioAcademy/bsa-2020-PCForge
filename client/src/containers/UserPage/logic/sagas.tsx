@@ -30,7 +30,7 @@ import {
   loadUserGamesSuccess,
   loadFilteredGamesSuceess,
 } from './actions';
-import * as notification from 'common/services/notification.service';
+import * as notification from 'common/services/NotificationService/notification.service';
 import { getAllGames } from 'api/services/gamesService';
 import { addUserGame as addUserGameService, deleteUserGame as deleteUserGameService } from 'api/services/userService';
 import { getUserSetups, deleteUserSetup as deleteUserSetupService, TypeResponseAll } from 'api/services/setupService';

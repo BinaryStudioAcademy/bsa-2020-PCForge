@@ -1,5 +1,5 @@
 import React from 'react';
-import { INotification, NotificationType } from 'common/services/notification.service';
+import { INotification, NotificationType } from 'common/services/NotificationService/notification';
 import InfoIcon from '@material-ui/icons/Info';
 import ErrorIcon from '@material-ui/icons/Error';
 import CheckIcon from '@material-ui/icons/Check';

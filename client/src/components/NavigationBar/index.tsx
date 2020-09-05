@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { clearToken, getTokenType, TokenType } from 'helpers/tokenHelper';
 import { useGoogleLogout } from 'react-google-login';
-import * as notification from 'common/services/notification.service';
+import * as notification from 'common/services/NotificationService/notification.service';
 
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import { ReactComponent as NavigationLogo } from 'assets/icons/navigationLogo.svg';

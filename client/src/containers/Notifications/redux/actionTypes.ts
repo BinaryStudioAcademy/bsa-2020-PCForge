@@ -1,6 +1,6 @@
-import { INotification } from 'common/services/notification.service';
-import { NotificationService } from 'common/services/notification.service';
-import { WebSocketService } from 'common/services/webscocket.service';
+import { INotification } from 'common/services/NotificationService/notification';
+import { NotificationService } from 'common/services/NotificationService/notification.service';
+import { WebSocketService } from 'common/services/NotificationService/WebSocketService/notification.service';
 
 export enum NotificationsActionTypes {
   SET_NOTIFICATIONS = 'Notifications/SET_NOTIFICATIONS',

@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootState } from 'redux/rootReducer';
 import * as actions from './actions';
-import * as notification from 'common/services/notification.service';
+import * as notification from 'common/services/NotificationService/notification.service';
 import {
   GameFormAction,
   GameFormState,

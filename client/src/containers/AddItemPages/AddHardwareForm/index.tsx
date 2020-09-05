@@ -15,7 +15,7 @@ import { HddCreationAttributes } from 'common/models/hdd';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 
-import * as notification from 'common/services/notification.service';
+import * as notification from 'common/services/NotificationService/notification.service';
 
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
