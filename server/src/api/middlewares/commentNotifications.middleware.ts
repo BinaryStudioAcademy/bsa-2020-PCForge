@@ -1,6 +1,6 @@
 import { CommentAttributes } from '../../data/models/comment';
 import { Services } from '../services';
-import { Notification } from '../services/notification.service';
+import { Notification } from '../services/NotificationService/notification';
 
 export const CommentNotificationMiddleware = ({ NotificationService, SetupService }: Services) => async (
   comment: CommentAttributes
@@ -9,7 +9,12 @@ export const CommentNotificationMiddleware = ({ NotificationService, SetupServic
     case 'setup': {
       const targetSetup = await SetupService.getSetupById(comment.commentableId.toString());
       const targetUserId = targetSetup.authorId;
-      return NotificationService.notifyUserById(targetUserId, new Notification('You have new comment on your setup'));
+      return NotificationService.notifyUserById(
+        targetUserId,
+        new Notification({
+          text: 'You have new comment on your setup',
+        })
+      );
     }
     default:
       return;

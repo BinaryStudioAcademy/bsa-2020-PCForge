@@ -22,7 +22,7 @@ import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
 import { AuthService } from './auth.service';
-import { NotificationService, notificationServiceFactory } from './notification.service';
+import { NotificationService, notificationServiceFactory } from './NotificationService/notification.service';
 
 export interface Services {
   AuthService: AuthService;
