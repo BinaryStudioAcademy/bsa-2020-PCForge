@@ -1,6 +1,5 @@
 export enum TokenType {
   simple = 'simple',
-  google = 'google',
 }
 
 const keyToken = 'access_token';

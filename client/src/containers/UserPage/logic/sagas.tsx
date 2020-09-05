@@ -1,4 +1,4 @@
-import { all, takeEvery, call, put } from 'redux-saga/effects';
+import { all, takeEvery, call, put, delay } from 'redux-saga/effects';
 import { getUser, updateUser as updateUserService, getUserGames } from 'api/services/userService';
 import { uploadImage } from 'api/services/imageService';
 import {
@@ -29,6 +29,7 @@ import {
   loadUserGames as loadUserGamesAction,
   loadUserGamesSuccess,
   loadFilteredGamesSuceess,
+  loadUserFailed,
 } from './actions';
 import * as notification from 'common/services/notificationService';
 import { getAllGames } from 'api/services/gamesService';
@@ -58,9 +59,10 @@ function* loadUser(action: loadUserAction) {
     const user = yield call(getUser, action.payload.id);
     yield put(loadUserSuccess(user));
   } catch (error) {
-    console.log(error);
+    yield put(loadUserFailed());
+  } finally {
+    yield put(hideSpinner());
   }
-  yield put(hideSpinner());
 }
 
 function* watchUpdateUser() {

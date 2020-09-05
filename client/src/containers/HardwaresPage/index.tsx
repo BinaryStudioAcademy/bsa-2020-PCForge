@@ -35,7 +35,7 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
   }
 
   public hardwareTypes = [
-    { title: 'Pcocessor', value: 'cpu' },
+    { title: 'Processor', value: 'cpu' },
     { title: 'Graphics', value: 'gpu' },
     { title: 'Motherboard', value: 'motherboard' },
     { title: 'Power Supply', value: 'powersupply' },

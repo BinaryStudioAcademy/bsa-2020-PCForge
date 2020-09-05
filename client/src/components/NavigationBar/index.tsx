@@ -64,6 +64,14 @@ interface selectedMenuProps {
   isAdmin?: boolean;
 }
 
+interface IListNavigatinBar {
+  name: string;
+  icon: JSX.Element;
+  link: string;
+  className?: string;
+  onClick?: () => void;
+}
+
 const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, isAdmin }) => {
   const dispatch = useDispatch();
 
@@ -73,15 +81,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     history.push(Routes.LOGIN);
   };
 
-  const { signOut } = useGoogleLogout({
-    clientId: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!,
-    onLogoutSuccess: clearTokenAndRedirect,
-    onFailure: () => {
-      Notification.error('Could not log out from Google, try again later');
-    },
-  });
-
-  const listHeader: Array<IListNavigationBar> = [
+  const listHeader: Array<IListNavigatinBar> = [
     {
       name: 'Home',
       icon: <SvgIcon component={NavigationLogo} viewBox="0 0 63 63" className={styles.logo} />,
@@ -124,9 +124,6 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     link: '#',
     onClick: async () => {
       switch (getTokenType()) {
-        case TokenType.google:
-          signOut();
-          break;
         default:
           await clearTokenAndRedirect();
       }
