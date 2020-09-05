@@ -34,7 +34,12 @@ const MyAlert: React.FC<Props> = ({ alert, onClose }): JSX.Element => {
   };
 
   return (
-    <Alert severity={getSeverity()} onClose={() => onClose(alert)} classes={{ root: materialStyles.root }}>
+    <Alert
+      variant="outlined"
+      severity={getSeverity()}
+      onClose={() => onClose(alert)}
+      classes={{ root: materialStyles.root }}
+    >
       {alert.text}
     </Alert>
   );

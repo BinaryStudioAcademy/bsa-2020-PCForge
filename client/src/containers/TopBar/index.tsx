@@ -5,7 +5,7 @@ import React, { ChangeEvent, useState } from 'react';
 import styles from './styles.module.scss';
 import Search from 'components/Search';
 import UserProfile from 'components/UserProfile';
-import { IconButton, Menu, MenuProps } from '@material-ui/core';
+import { Badge, IconButton, Menu, MenuProps } from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { withStyles } from '@material-ui/styles';
 import TopBarNotification from './TopBarNotification/topBarNotification';
@@ -35,6 +35,7 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
   const [searchValue, setSearchValue] = useState('');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const ITEM_HEIGHT = 64;
+  const unreadNotificationCount = notifications.filter((notification) => notification.readAt === null).length;
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
@@ -62,9 +63,11 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
       <div className={styles.rightTopBar}>
         <Search value="" onChange={onInputChange} />
         <div className={styles.settingIconWrapper}>
-          <IconButton size="small" edge="start" onClick={onClick}>
-            <NotificationsIcon />
-          </IconButton>
+          <Badge badgeContent={unreadNotificationCount} color="primary">
+            <IconButton size="small" edge="start" onClick={onClick}>
+              <NotificationsIcon />
+            </IconButton>
+          </Badge>
           <StyledMenu
             id="customized-menu"
             anchorEl={anchorEl}

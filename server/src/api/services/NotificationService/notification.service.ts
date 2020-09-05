@@ -29,7 +29,6 @@ export class NotificationService {
           payload: notifications,
         })
       );
-      await this.notifyUserById(userId, new Notification({ text: new Date().toISOString() }));
     });
   }
 
