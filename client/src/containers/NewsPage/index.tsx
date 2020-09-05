@@ -38,13 +38,11 @@ const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
   ));
 
   return (
-    <PageComponent>
-      <Box className={styles.newsWrapper}>
-        <Title title={'News'} />
-        {/* {role === 'page' ? <h1>News</h1> : <h2>News</h2>} */}
-        <Box className={styles.cardsWrapper}>{newsElements}</Box>
-      </Box>
-    </PageComponent>
+    <Box className={styles.newsWrapper}>
+      <Title title={'News'} />
+      {/* {role === 'page' ? <h1>News</h1> : <h2>News</h2>} */}
+      <Box className={styles.cardsWrapper}>{newsElements}</Box>
+    </Box>
   );
 };
 

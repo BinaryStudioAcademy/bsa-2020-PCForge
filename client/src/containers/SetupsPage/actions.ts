@@ -7,9 +7,10 @@ import {
   IFetchTopSetupsSuccess,
   IFetchTopSetupsFailure,
   IChangeSortingTypes,
+  IShowSpinner,
 } from './actionTypes';
 import { PCSetup } from 'common/models/setup';
-import { ISetupFilter, Sort } from 'api/services/setupsService';
+import { ISetupFilter } from 'api/services/setupsService';
 
 export const fetchSetups = (payload: ISetupFilter = {}): IFetchSetupsRequest => ({
   type: SetupsActionsTypes.FETCH_SETUPS_REQUEST,
@@ -46,5 +47,12 @@ export const setError = (error: string): IFetchSetupsFailure | IFetchTopSetupsFa
   type: SetupsActionsTypes.FETCH_SETUPS_FAILURE,
   payload: {
     error,
+  },
+});
+
+export const showSpinner = (showSpinner: boolean): IShowSpinner => ({
+  type: SetupsActionsTypes.SHOW_SPINNER,
+  payload: {
+    showSpinner,
   },
 });
