@@ -61,7 +61,7 @@ export class HardwareService {
   [Component.motherboard] = this.motherboardRepository.getAllMotherboards.bind(this.motherboardRepository);
   [Component.powerSupply] = this.powerSupplyRepository.getAllPowerSupplies.bind(this.powerSupplyRepository);
 
-  async getTopComponents<T>(component: Component, filter: TypeFilter): Promise<T> {
+  async getTopComponentsId(component: Component): Promise<Map<number, number>> {
     const topIdMap: Map<number, number> = new Map();
     const setups = await this.setupRepository.getSetups({ count: null, from: null }, null);
     for (const setup of setups.data) {
@@ -70,7 +70,11 @@ export class HardwareService {
       if (topIdMap.has(id)) topIdMap.set(id, topIdMap.get(id) + 1);
       else topIdMap.set(id, 1);
     }
+    return topIdMap;
+  }
 
+  async getTopComponents<T>(component: Component, filter: TypeFilter): Promise<T> {
+    const topIdMap = await this.getTopComponentsId(component);
     const idsTop = [...topIdMap.entries()].sort((a, b) => a[1] - b[1]).map((e) => e[0]);
 
     if (idsTop.length > filter.from) {
@@ -138,6 +142,8 @@ export class HardwareService {
   }
 
   async getTopStorages(filter: ISsdFilter): Promise<IWithMeta<SsdModel>> {
+    const topHddIdMap = await this.getTopComponents<IWithMeta<HddModel>>(Component.hdd, filter);
+    const topSsdIdMap = await this.getTopComponents<IWithMeta<SsdModel>>(Component.ssd, filter);
     const storages = await this.getTopComponents<IWithMeta<SsdModel>>(Component.ssd, filter);
     return storages;
   }
