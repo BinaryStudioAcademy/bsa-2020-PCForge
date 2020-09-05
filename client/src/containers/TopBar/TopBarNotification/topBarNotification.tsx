@@ -42,7 +42,9 @@ const TopBarNotification: React.FC<Props> = ({ notification, onRead: propsOnRead
     propsOnClick(notification);
   };
 
-  const onRead = () => {
+  const onRead = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    event.preventDefault();
+    event.stopPropagation();
     propsOnRead(notification);
   };
 

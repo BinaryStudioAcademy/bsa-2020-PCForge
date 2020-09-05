@@ -54,7 +54,6 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
 
   const onNotificationClick = (notification: INotification) => {
     if (!user?.id) return;
-    console.log('Notification clicked', notification);
   };
 
   return (

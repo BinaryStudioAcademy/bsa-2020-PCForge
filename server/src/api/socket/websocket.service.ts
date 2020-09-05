@@ -3,7 +3,10 @@ import { MyEmitter } from '../../helpers/typedEmitter.types';
 import { Message, MessageType } from './message';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export class WebSocketService extends MyEmitter<{ newConnection: { id: number }; inboundMessage: Message }> {
+export class WebSocketService extends MyEmitter<{
+  newConnection: { id: number };
+  inboundMessage: Message;
+}> {
   private clients: Map<number, WebSocket> = new Map();
   constructor(private ws: WebSocket.Server) {
     super();
@@ -24,6 +27,7 @@ export class WebSocketService extends MyEmitter<{ newConnection: { id: number };
       });
       ws.on('close', () => {
         console.log('socket disconnection, userId: ', userId);
+        this.clients.get(userId).close();
         this.clients.delete(userId);
       });
     });

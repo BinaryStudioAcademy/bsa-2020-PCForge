@@ -7,7 +7,6 @@ export class WebSocketService {
 
   public handleMessage(messageJSON: string): void {
     const message = JSON.parse(messageJSON) as IMessage;
-    console.log('ws message:', message);
     switch (message.type) {
       case MessageType.INITIAL_NOTIFICATIONS:
         return this.handleInitialMessage(message.payload);
@@ -29,7 +28,6 @@ export class WebSocketService {
       },
     });
     this.ws.send(message);
-    console.log('ws send message', message);
   }
 
   public readNotification(userId: string, notification: INotification): void {
@@ -41,7 +39,6 @@ export class WebSocketService {
       },
     });
     this.ws.send(message);
-    console.log('ws send message', message);
   }
 
   private handleDeleteNotificationMessage(notification: INotification) {

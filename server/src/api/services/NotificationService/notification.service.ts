@@ -20,8 +20,8 @@ export class NotificationService {
 
   public async initialize(): Promise<void> {
     this.publisher = await this.redis.createClient();
+    this.registerInboundMessageHandlers();
     this.ws.on('newConnection', async ({ id: userId }) => {
-      this.registerInboundMessageHandlers();
       const notifications = await this.getNotifications(userId);
       await this.ws.sendMessage(
         userId,
