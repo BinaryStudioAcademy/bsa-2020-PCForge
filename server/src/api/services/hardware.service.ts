@@ -61,28 +61,30 @@ export class HardwareService {
   [Component.motherboard] = this.motherboardRepository.getAllMotherboards.bind(this.motherboardRepository);
   [Component.powerSupply] = this.powerSupplyRepository.getAllPowerSupplies.bind(this.powerSupplyRepository);
 
-  async getTopComponentsId(component: Component): Promise<Map<number, number>> {
-    const topIdMap: Map<number, number> = new Map();
+  async getTopComponentsId(component: Component): Promise<Map<{ id: number; component: Component }, number>> {
+    const topIdMap: Map<{ id: number; component: Component }, number> = new Map();
     const setups = await this.setupRepository.getSetups({ count: null, from: null }, null);
     for (const setup of setups.data) {
       const id = setup[component]?.id;
       if (!id && id !== 0) continue;
-      if (topIdMap.has(id)) topIdMap.set(id, topIdMap.get(id) + 1);
-      else topIdMap.set(id, 1);
+      if (topIdMap.has({ id, component })) topIdMap.set({ id, component }, topIdMap.get({ id, component }) + 1);
+      else topIdMap.set({ id, component }, 1);
     }
     return topIdMap;
   }
 
   async getTopComponents<T>(component: Component, filter: TypeFilter): Promise<T> {
     const topIdMap = await this.getTopComponentsId(component);
-    const idsTop = [...topIdMap.entries()].sort((a, b) => a[1] - b[1]).map((e) => e[0]);
+    const idsTop = [...topIdMap.entries()].sort((a, b) => a[1] - b[1]).map((e) => e[0].id);
 
     if (idsTop.length > filter.from) {
       const id = idsTop.slice(filter.from, filter.from + filter.count);
       const topComponents = await this[component]({ ...filter, id });
       const components = {
         ...topComponents,
-        data: topComponents.data.sort((a, b) => topIdMap.get(a.id) - topIdMap.get(b.id)),
+        data: topComponents.data.sort(
+          (a, b) => topIdMap.get({ id: a.id, component }) - topIdMap.get({ id: b.id, component })
+        ),
       };
       if (id.length < filter.count) {
         const addComponents = await this[component]({
@@ -141,9 +143,15 @@ export class HardwareService {
     return ssds;
   }
 
+  async getTopStoragesId(): Promise<Map<{ id: number; component: Component }, number>> {
+    const topHddIdMap = await this.getTopComponentsId(Component.hdd);
+    const topSsdIdMap = await this.getTopComponentsId(Component.ssd);
+    const topStoragesIdMap = new Map([...topHddIdMap, ...topSsdIdMap]);
+    // todo: sort topStoragesIdMap
+    return topStoragesIdMap;
+  }
+
   async getTopStorages(filter: ISsdFilter): Promise<IWithMeta<SsdModel>> {
-    const topHddIdMap = await this.getTopComponents<IWithMeta<HddModel>>(Component.hdd, filter);
-    const topSsdIdMap = await this.getTopComponents<IWithMeta<SsdModel>>(Component.ssd, filter);
     const storages = await this.getTopComponents<IWithMeta<SsdModel>>(Component.ssd, filter);
     return storages;
   }
