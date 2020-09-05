@@ -70,6 +70,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
   const [minRamSize, setMinRAMSize] = useState<number | null>(null);
 
   useEffect(() => {
+    clearStateValues();
     getAllSelectsInitialValues();
     inputRef.current?.focus();
   }, []);

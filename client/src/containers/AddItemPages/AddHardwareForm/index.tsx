@@ -119,8 +119,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const [socket, setSocket] = useState<number>();
 
   useEffect(() => {
-    //updateStateToInit();
-    //setAlertText(null);
+    updateStateToInit();
   }, []);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -275,6 +274,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   };
 
   const onCancel = () => {
+    updateStateToInit();
     goBack();
   };
   const onPublish = () => {

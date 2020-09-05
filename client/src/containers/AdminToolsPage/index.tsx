@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import { History } from 'history';
+
+import { MenuItems } from 'common/enums';
+import { CardsName } from 'common/enums/AdminTools/CardsName';
+
+import { RootState } from 'redux/rootReducer';
 import PageComponent from 'containers/PageComponent';
 import ListItem from '@material-ui/core/ListItem';
-import Spinner from 'components/Spinner';
-import { MenuItems } from 'common/enums';
-import Title from 'components/Title';
-import { TotalInfoCard, ITotalInfoCard } from 'containers/AdminToolsPage/TotalInfoCard';
-import RequestContainer from './RequestContainer';
-import { CardsName } from 'common/enums/AdminTools/CardsName';
+
 import PeopleIcon from '@material-ui/icons/People';
 import SportsEsportsOutlinedIcon from '@material-ui/icons/SportsEsportsOutlined';
 import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
-import { Routes } from 'common/enums';
-import { History } from 'history';
-import Alert, { AlertType } from 'components/BasicComponents/Alert';
 
+import Spinner from 'components/Spinner';
+import Title from 'components/Title';
+import { TotalInfoCard, ITotalInfoCard } from 'containers/AdminToolsPage/TotalInfoCard';
+import * as notification from 'common/services/notificationService';
+import RequestContainer from './RequestContainer';
+
+import { Routes } from 'common/enums';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
-import { connect } from 'react-redux';
-import { bindActionCreators, Dispatch } from 'redux';
-import { RootState } from 'redux/rootReducer';
+
 import * as actions from './actions';
 import { UsersRequestState, UsersRequestActions } from './actionsTypes';
 
@@ -33,14 +38,14 @@ interface IPropsAdminToolsPage {
   getUsersRequests: (filters: IUserRequestFilter[]) => UsersRequestActions;
   deleteUserRequest: (id: number) => UsersRequestActions;
   getTotalCounts: () => UsersRequestActions;
+  clearStateValues: () => UsersRequestActions;
 }
 
 const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
-  const { getUsersRequests, deleteUserRequest, getTotalCounts } = props;
-  const [alertText, setAlertText] = useState<string | null>(null);
-  const [alertType, setAlertType] = useState<AlertType>();
+  const { getUsersRequests, deleteUserRequest, getTotalCounts, clearStateValues } = props;
 
   useEffect(() => {
+    clearStateValues();
     getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.hardware }]);
     getTotalCounts();
   }, []);
@@ -72,9 +77,13 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
     },
   ];
 
-  if (props.state.error && !alertText) {
-    setAlertText(props.state.error);
-    setAlertType(AlertType.error);
+  if (props.state.errorTotalInfo) {
+    notification.error(`Error in geting total information: ${props.state.errorTotalInfo}`);
+    clearStateValues();
+  }
+  if (props.state.errorUserRequest) {
+    notification.error(`Error in geting information about user requests: ${props.state.errorUserRequest}`);
+    clearStateValues();
   }
 
   return (
@@ -86,22 +95,19 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
         {props.state.dataTotalsIsLoaded ? (
           <div className={styles.contentMain}>
             <div className={styles.totalBlockContainer}>
-              {alertText ? <Alert alertType={alertType}>{alertText}</Alert> : null}
-              <>
-                {cardsList.map((item: ITotalInfoCard, key) => (
-                  <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
-                    {
-                      <TotalInfoCard
-                        name={item.name}
-                        count={item.count}
-                        icon={item.icon}
-                        countOfRequests={item.countOfRequests}
-                        onAdd={item.onAdd}
-                      />
-                    }
-                  </ListItem>
-                ))}
-              </>
+              {cardsList.map((item: ITotalInfoCard, key) => (
+                <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
+                  {
+                    <TotalInfoCard
+                      name={item.name}
+                      count={item.count}
+                      icon={item.icon}
+                      countOfRequests={item.countOfRequests}
+                      onAdd={item.onAdd}
+                    />
+                  }
+                </ListItem>
+              ))}
             </div>
             <div className={styles.chartContainer}>{/*TO DO*/}</div>
             <div className={styles.notificationsContainer}>

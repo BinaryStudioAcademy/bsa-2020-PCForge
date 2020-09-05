@@ -55,10 +55,16 @@ export const updateTotalsLoadingComponentStatus = (dataTotalsIsLoaded: boolean):
   },
 });
 
-export const loadError = (error: string): UsersRequestActions => ({
+export const loadTotalInfoError = (errorTotalInfo: string): UsersRequestActions => ({
+  type: UsersRequestActionTypes.GET_TOTAL_INFO_ERROR,
+  payload: {
+    errorTotalInfo,
+  },
+});
+export const loadUserRequestError = (errorUserRequest: string): UsersRequestActions => ({
   type: UsersRequestActionTypes.GET_USERS_REQUESTS_ERROR,
   payload: {
-    error,
+    errorUserRequest,
   },
 });
 export const deleteUserRequest = (id: number): UsersRequestActions => ({
@@ -66,4 +72,11 @@ export const deleteUserRequest = (id: number): UsersRequestActions => ({
   payload: {
     id,
   },
+});
+
+export const clearStateValues = (): UsersRequestActions => ({
+  type: UsersRequestActionTypes.CLEAR_ADMINPAGE_STATE_VALUES_ACTION,
+});
+export const clearingStateValues = (): UsersRequestActions => ({
+  type: UsersRequestActionTypes.CLEAR_ADMINPAGE_STATE_VALUES_SUCCESS,
 });
