@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootState } from 'redux/rootReducer';
 import * as actions from './actions';
-import * as notification from 'common/services/NotificationService/notification.service';
+import * as alert from 'common/services/AlertService/alert.service';
 import {
   GameFormAction,
   GameFormState,
@@ -166,7 +166,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
   } else if (props.state.gameName) {
     //notificationMessage = `Success : ${props.state.gameName} has been created`;
     //notificationType = props.state.alertType;
-    notification.success(`Game ${props.state.gameName} has been created`);
+    alert.success(`Game ${props.state.gameName} has been created`);
     getAllSelectsInitialValues();
     clearStateValues();
     if (name) setInitialFormValues();

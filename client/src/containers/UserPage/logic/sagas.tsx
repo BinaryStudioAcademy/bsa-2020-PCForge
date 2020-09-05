@@ -30,7 +30,7 @@ import {
   loadUserGamesSuccess,
   loadFilteredGamesSuceess,
 } from './actions';
-import * as notification from 'common/services/NotificationService/notification.service';
+import * as alert from 'common/services/AlertService/alert.service';
 import { getAllGames } from 'api/services/gamesService';
 import { addUserGame as addUserGameService, deleteUserGame as deleteUserGameService } from 'api/services/userService';
 import { getUserSetups, deleteUserSetup as deleteUserSetupService, TypeResponseAll } from 'api/services/setupService';
@@ -76,9 +76,9 @@ function* updateUser(action: updateUserAction) {
     }
     const updatedUser = yield call(updateUserService, data);
     yield put(updateUserSuccess(updatedUser));
-    notification.success('Your data has been successfully updated');
+    alert.success('Your data has been successfully updated');
   } catch (error) {
-    notification.error(error.message || 'Something went wrong, please try again later');
+    alert.error(error.message || 'Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
@@ -137,12 +137,12 @@ function* addUserGame(action: addUserGameActionType) {
     const data = yield call(addUserGameService, action.payload.id, action.payload.gameId);
     if (data.isNew) {
       yield put(loadUserGamesAction(action.payload.id));
-      notification.success(`You have added ${data.game.name}`);
+      alert.success(`You have added ${data.game.name}`);
     } else {
-      notification.warning('Looks like you already have this game');
+      alert.warning('Looks like you already have this game');
     }
   } catch (error) {
-    notification.error(error.message || 'Something went wrong, please try again later');
+    alert.error(error.message || 'Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
@@ -156,10 +156,10 @@ function* deleteUserGame(action: deleteUserGameActionType) {
   try {
     const deletedGame = yield call(deleteUserGameService, action.payload.id, action.payload.gameId);
     yield put(loadUserGamesAction(action.payload.id));
-    notification.success(`You have deleted ${deletedGame.game.name}`);
+    alert.success(`You have deleted ${deletedGame.game.name}`);
   } catch (error) {
     yield put(hideSpinner());
-    notification.error(error.message || 'Could not delete the game, try again later');
+    alert.error(error.message || 'Could not delete the game, try again later');
   }
 }
 
@@ -172,9 +172,9 @@ function* deleteUserSetup(action: deleteUserSetupActionType) {
   try {
     const deletedSetup = yield call(deleteUserSetupService, action.payload.setupId);
     yield put(loadSetupsAction(action.payload.userId));
-    notification.success(`You have deleted "${deletedSetup.title}"`);
+    alert.success(`You have deleted "${deletedSetup.title}"`);
   } catch (error) {
     yield put(hideSpinner());
-    notification.error(error.message || 'Could not delete the setup, try again later');
+    alert.error(error.message || 'Could not delete the setup, try again later');
   }
 }

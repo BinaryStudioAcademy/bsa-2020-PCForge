@@ -4,7 +4,6 @@ import {
   setNotifications,
   addNotification,
   deleteNotification,
-  closeNotification,
   setNotificationService,
   setWebSocketService,
   updateNotification,
@@ -13,13 +12,12 @@ import { RootState } from 'redux/rootReducer';
 import { NotificationService } from 'common/services/NotificationService/notification.service';
 
 import React from 'react';
-import NotificationsContainer from './NotificationsContainer';
+import AlertsContainer from 'containers/Alerts/AlertsContainer';
 import { WebSocketService } from 'common/services/NotificationService/WebSocketService/websocket.service';
 
 const InjectNotifications: React.FC<Props> = ({
   children,
   userId,
-  activeNotifications,
   setNotificationService,
   setWebSocketService,
   ...notificationActions
@@ -57,24 +55,19 @@ const InjectNotifications: React.FC<Props> = ({
   return (
     <>
       {children}
-      <NotificationsContainer
-        notifications={activeNotifications}
-        closeNotification={notificationActions.closeNotification}
-      />
+      <AlertsContainer />
     </>
   );
 };
 
 const mapState = (state: RootState) => ({
   userId: state.auth.user?.id,
-  activeNotifications: state.notifications.activeNotifications,
 });
 
 const mapDispatch = {
   setNotifications,
   addNotification,
   deleteNotification,
-  closeNotification,
   updateNotification,
   setNotificationService,
   setWebSocketService,

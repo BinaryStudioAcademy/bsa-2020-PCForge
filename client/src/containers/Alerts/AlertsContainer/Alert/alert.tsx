@@ -1,5 +1,5 @@
 import React from 'react';
-import { INotification, NotificationType } from 'common/services/NotificationService/notification';
+import { IAlert, AlertType } from 'common/services/AlertService/alert';
 import InfoIcon from '@material-ui/icons/Info';
 import ErrorIcon from '@material-ui/icons/Error';
 import CheckIcon from '@material-ui/icons/Check';
@@ -9,42 +9,42 @@ import styles from './styles.module.scss';
 import { IconButton } from '@material-ui/core';
 
 interface Props {
-  notification: INotification;
-  onClose: (notificationId: string) => void;
+  alert: IAlert;
+  onClose: (alert: IAlert) => void;
 }
 
-const Notification: React.FC<Props> = ({ notification, onClose }): JSX.Element => {
+const Alert: React.FC<Props> = ({ alert, onClose }): JSX.Element => {
   const getIcon = () => {
-    switch (notification.type) {
-      case NotificationType.INFO:
+    switch (alert.type) {
+      case AlertType.INFO:
         return <InfoIcon />;
-      case NotificationType.ERROR:
+      case AlertType.ERROR:
         return <ErrorIcon />;
-      case NotificationType.SUCCESS:
+      case AlertType.SUCCESS:
         return <CheckIcon />;
-      case NotificationType.WARNING:
+      case AlertType.WARNING:
         return <WarningIcon />;
     }
   };
 
   const getClassName = (): string => {
-    switch (notification.type) {
-      case NotificationType.INFO:
+    switch (alert.type) {
+      case AlertType.INFO:
         return styles.info;
-      case NotificationType.ERROR:
+      case AlertType.ERROR:
         return styles.error;
-      case NotificationType.SUCCESS:
+      case AlertType.SUCCESS:
         return styles.success;
-      case NotificationType.WARNING:
+      case AlertType.WARNING:
         return styles.warning;
     }
   };
 
   return (
-    <div className={`${styles.notificationContainer} ${getClassName()}`}>
+    <div className={`${styles.alertContainer} ${getClassName()}`}>
       <div className={styles.icon}>{getIcon()}</div>
-      <div className={styles.text}>{notification.text}</div>
-      <div className={styles.close} onClick={() => onClose(notification.id)}>
+      <div className={styles.text}>{alert.text}</div>
+      <div className={styles.close} onClick={() => onClose(alert)}>
         <IconButton size="small">
           <CloseIcon />
         </IconButton>
@@ -52,4 +52,4 @@ const Notification: React.FC<Props> = ({ notification, onClose }): JSX.Element =
     </div>
   );
 };
-export default Notification;
+export default Alert;

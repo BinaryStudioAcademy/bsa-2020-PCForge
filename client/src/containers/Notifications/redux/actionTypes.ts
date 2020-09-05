@@ -7,7 +7,6 @@ export enum NotificationsActionTypes {
   ADD_NOTIFICATION = 'Notifications/ADD_NOTIFICATION',
   UPDATE_NOTIFICATION = 'Notifications/UPDATE_NOTIFICATION',
   DELETE_NOTIFICATION = 'Notifications/DELETE_NOTIFICATION',
-  CLOSE_NOTIFICATION = 'Notifications/CLOSE_NOTIFICATION',
   SET_NOTIFICATION_SERVICE = 'Notifications/SET_NOTIFICATION_SERVICE',
   SET_WEBSOCKET_SERVICE = 'Notifications/SET_WEBSOCKET_SERVICE',
 }
@@ -19,31 +18,24 @@ interface ISetNotificationsAction {
   };
 }
 
-interface IAddNotificationAction {
+export interface IAddNotificationAction {
   type: NotificationsActionTypes.ADD_NOTIFICATION;
   payload: {
     notification: INotification;
   };
 }
 
-interface IDeleteNotificationAction {
+export interface IDeleteNotificationAction {
   type: NotificationsActionTypes.DELETE_NOTIFICATION;
   payload: {
     notification: INotification;
   };
 }
 
-interface IUpdateNotificationAction {
+export interface IUpdateNotificationAction {
   type: NotificationsActionTypes.UPDATE_NOTIFICATION;
   payload: {
     notification: INotification;
-  };
-}
-
-interface ICloseNotificationAction {
-  type: NotificationsActionTypes.CLOSE_NOTIFICATION;
-  payload: {
-    notificationId: string;
   };
 }
 
@@ -66,13 +58,11 @@ export type NotificationsActions =
   | IAddNotificationAction
   | IDeleteNotificationAction
   | IUpdateNotificationAction
-  | ICloseNotificationAction
   | ISetNotificationServiceAction
   | ISetWebSocketServiceAction;
 
 export interface NotificationsState {
   notifications: INotification[];
-  activeNotifications: INotification[];
   NotificationService: NotificationService | null;
   WebSocketService: WebSocketService | null;
 }

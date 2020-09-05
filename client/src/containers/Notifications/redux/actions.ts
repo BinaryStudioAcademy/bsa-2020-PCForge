@@ -31,13 +31,6 @@ export const updateNotification = (notification: INotification): NotificationsAc
   },
 });
 
-export const closeNotification = (notificationId: string): NotificationsActions => ({
-  type: NotificationsActionTypes.CLOSE_NOTIFICATION,
-  payload: {
-    notificationId,
-  },
-});
-
 export const setNotificationService = (notificationService: NotificationService): NotificationsActions => ({
   type: NotificationsActionTypes.SET_NOTIFICATION_SERVICE,
   payload: {

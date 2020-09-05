@@ -1,4 +1,3 @@
-import { toNumber } from 'lodash';
 import { PromisedRedis, PromisedRedisClient } from '../../../infrastructure/redis/interfaces';
 import { Message, MessageType } from '../../socket/message';
 import { WebSocketService } from '../../socket/websocket.service';
@@ -14,7 +13,7 @@ export const notificationServiceFactory = async (
 };
 
 export class NotificationService {
-  private readonly CHANNEL_NOTIFICATIONS_LIMIT = 5;
+  private readonly CHANNEL_NOTIFICATIONS_LIMIT = 50;
   private publisher: PromisedRedisClient;
   constructor(private redis: PromisedRedis, private ws: WebSocketService) {}
 
@@ -31,15 +30,13 @@ export class NotificationService {
         })
       );
       await this.notifyUserById(userId, new Notification({ text: new Date().toISOString() }));
-      await this.notifyUserById(userId, new Notification({ text: new Date().toISOString() }));
-      await this.notifyUserById(userId, new Notification({ text: new Date().toISOString() }));
     });
   }
 
   public async notifyUserById(userId: string | number, notification: Notification): Promise<void | never> {
-    await this.pushNotification(toNumber(userId), notification);
+    await this.pushNotification(Number(userId), notification);
     await this.ws.sendMessage(
-      toNumber(userId),
+      Number(userId),
       new Message({
         type: MessageType.NEW_NOTIFICATION,
         payload: notification,

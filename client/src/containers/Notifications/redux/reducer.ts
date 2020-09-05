@@ -2,7 +2,6 @@ import { NotificationsActions, NotificationsActionTypes, NotificationsState } fr
 
 const initialState: NotificationsState = {
   notifications: [],
-  activeNotifications: [],
   NotificationService: null,
   WebSocketService: null,
 };
@@ -20,18 +19,13 @@ export function NotificationsReducer(state = initialState, action: Notifications
       return {
         ...state,
         notifications: [...state.notifications, action.payload.notification],
-        activeNotifications: [...state.activeNotifications, action.payload.notification],
       };
     }
 
     case NotificationsActionTypes.DELETE_NOTIFICATION: {
-      console.log('DELETE', action.payload.notification.id);
       return {
         ...state,
         notifications: state.notifications.filter((notification) => notification.id !== action.payload.notification.id),
-        activeNotifications: state.activeNotifications.filter(
-          (notification) => notification.id !== action.payload.notification.id
-        ),
       };
     }
 
@@ -40,15 +34,6 @@ export function NotificationsReducer(state = initialState, action: Notifications
         ...state,
         notifications: state.notifications.map((notification) =>
           notification.id === action.payload.notification.id ? action.payload.notification : notification
-        ),
-      };
-    }
-
-    case NotificationsActionTypes.CLOSE_NOTIFICATION: {
-      return {
-        ...state,
-        activeNotifications: state.activeNotifications.filter(
-          (notification) => notification.id !== action.payload.notificationId
         ),
       };
     }

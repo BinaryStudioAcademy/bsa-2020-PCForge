@@ -38,7 +38,6 @@ const TopBarNotification: React.FC<Props> = ({ notification, onRead: propsOnRead
   const isRead = notification.readAt;
 
   const onCLick = () => {
-    propsOnRead(notification);
     propsOnClick(notification);
   };
 
