@@ -55,28 +55,9 @@ export const updateTotalsLoadingComponentStatus = (dataTotalsIsLoaded: boolean):
   },
 });
 
-export const loadTotalInfoError = (errorTotalInfo: string): UsersRequestActions => ({
-  type: UsersRequestActionTypes.GET_TOTAL_INFO_ERROR,
-  payload: {
-    errorTotalInfo,
-  },
-});
-export const loadUserRequestError = (errorUserRequest: string): UsersRequestActions => ({
-  type: UsersRequestActionTypes.GET_USERS_REQUESTS_ERROR,
-  payload: {
-    errorUserRequest,
-  },
-});
 export const deleteUserRequest = (id: number): UsersRequestActions => ({
   type: UsersRequestActionTypes.DELETE_USER_ADDED_REQUESTS,
   payload: {
     id,
   },
-});
-
-export const clearStateValues = (): UsersRequestActions => ({
-  type: UsersRequestActionTypes.CLEAR_ADMINPAGE_STATE_VALUES_ACTION,
-});
-export const clearingStateValues = (): UsersRequestActions => ({
-  type: UsersRequestActionTypes.CLEAR_ADMINPAGE_STATE_VALUES_SUCCESS,
 });

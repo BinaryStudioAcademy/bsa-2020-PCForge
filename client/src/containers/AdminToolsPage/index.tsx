@@ -19,7 +19,6 @@ import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import Spinner from 'components/Spinner';
 import Title from 'components/Title';
 import { TotalInfoCard, ITotalInfoCard } from 'containers/AdminToolsPage/TotalInfoCard';
-import * as notification from 'common/services/notificationService';
 import RequestContainer from './RequestContainer';
 
 import { Routes } from 'common/enums';
@@ -38,14 +37,12 @@ interface IPropsAdminToolsPage {
   getUsersRequests: (filters: IUserRequestFilter[]) => UsersRequestActions;
   deleteUserRequest: (id: number) => UsersRequestActions;
   getTotalCounts: () => UsersRequestActions;
-  clearStateValues: () => UsersRequestActions;
 }
 
 const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
-  const { getUsersRequests, deleteUserRequest, getTotalCounts, clearStateValues } = props;
+  const { getUsersRequests, deleteUserRequest, getTotalCounts } = props;
 
   useEffect(() => {
-    clearStateValues();
     getUsersRequests([{}, { requestedType: UserRequestedType.game }, { requestedType: UserRequestedType.hardware }]);
     getTotalCounts();
   }, []);
@@ -76,15 +73,6 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
       onAdd: () => props.historyPage.push(`${Routes.ADDITEM}/games`),
     },
   ];
-
-  if (props.state.errorTotalInfo) {
-    notification.error(`Error in geting total information: ${props.state.errorTotalInfo}`);
-    clearStateValues();
-  }
-  if (props.state.errorUserRequest) {
-    notification.error(`Error in geting information about user requests: ${props.state.errorUserRequest}`);
-    clearStateValues();
-  }
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>

@@ -8,23 +8,20 @@ import { getAllMotherboard } from 'api/services/motherboardService';
 import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { getAllRam } from 'api/services/ramService';
 import { getAllSocket } from 'api/services/socketService';
+import * as notification from 'common/services/notificationService';
 
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
 import {
   loadAllUsersRequests,
-  loadTotalInfoError,
-  loadUserRequestError,
   updateUserRequestsLoadingComponentStatus,
   updateTotalsLoadingComponentStatus,
   loadAllTotalCounts,
-  clearingStateValues,
 } from './actions';
 import {
   IUsersRequestDeleteAction,
   IUsersRequestAction,
   UsersRequestActionTypes,
   ITotalCountsAction,
-  IClearStateValuesAction,
 } from './actionsTypes';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 
@@ -34,11 +31,9 @@ function* getAllUsersRequests(action: IUsersRequestAction) {
     const { data: usersRequests } = yield call(getAllUsersRequsts, {});
     const { meta: countGames } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.game });
     const { meta: countHardwares } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.hardware });
-    console.log(countGames.countAfterFiltering);
-    console.log(countHardwares.countAfterFiltering);
     yield put(loadAllUsersRequests(usersRequests, countGames.countAfterFiltering, countHardwares.countAfterFiltering));
   } catch (error) {
-    yield put(loadUserRequestError(error.message));
+    notification.error(`Error in getting information about user requests: ${error.message}`);
   } finally {
     yield put(updateUserRequestsLoadingComponentStatus(true));
   }
@@ -57,7 +52,7 @@ function* deleteUserRequestSaga(action: IUsersRequestDeleteAction) {
     const { meta: countHardwares } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.hardware });
     yield put(loadAllUsersRequests(usersRequests, countGames.countAfterFiltering, countHardwares.countAfterFiltering));
   } catch (error) {
-    yield put(loadUserRequestError(error.message));
+    notification.error(`Error in getting information about user requests: ${error.message}`);
   } finally {
     yield put(updateUserRequestsLoadingComponentStatus(true));
   }
@@ -96,20 +91,12 @@ function* getAllTotalCount(action: ITotalCountsAction) {
       loadAllTotalCounts(usersCount.globalCount, setupsCount.globalCount, hardwareCount, gamesCount.globalCount)
     );
   } catch (error) {
-    yield put(loadTotalInfoError(error.message));
+    notification.error(`Error in getting total information: ${error.message}`);
   } finally {
     yield put(updateTotalsLoadingComponentStatus(true));
   }
 }
 
-function* clearStateValues(action: IClearStateValuesAction) {
-  yield put(clearingStateValues());
-}
-
-function* watchClearStateValues() {
-  yield takeEvery(UsersRequestActionTypes.CLEAR_ADMINPAGE_STATE_VALUES_ACTION, clearStateValues);
-}
-
 export default function* AdminToolsSagas() {
-  yield all([watchGetAllUsersRequests(), watchDeleteUserRequest(), watchGetAllTotalCount(), watchClearStateValues()]);
+  yield all([watchGetAllUsersRequests(), watchDeleteUserRequest(), watchGetAllTotalCount()]);
 }

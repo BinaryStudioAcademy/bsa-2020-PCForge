@@ -2,8 +2,6 @@ import { UsersRequestActions, UsersRequestState, UsersRequestActionTypes } from 
 
 const initialState: UsersRequestState = {
   userRequests: [],
-  errorUserRequest: '',
-  errorTotalInfo: '',
   dataTotalsIsLoaded: true,
   dataUserRequestsIsLoaded: true,
   countGamesRequests: 0,
@@ -24,25 +22,7 @@ export default function UserRequestsReducer(state = initialState, action: UsersR
         countHardwaresRequests: action.payload.countHardwaresRequests,
       };
     }
-    case UsersRequestActionTypes.GET_USERS_REQUESTS_ERROR: {
-      return {
-        ...state,
-        errorUserRequest: action.payload.errorUserRequest,
-      };
-    }
-    case UsersRequestActionTypes.GET_TOTAL_INFO_ERROR: {
-      return {
-        ...state,
-        errorTotalInfo: action.payload.errorTotalInfo,
-      };
-    }
-    case UsersRequestActionTypes.CLEAR_ADMINPAGE_STATE_VALUES_SUCCESS: {
-      return {
-        ...state,
-        errorUserRequest: '',
-        errorTotalInfo: '',
-      };
-    }
+
     case UsersRequestActionTypes.LOADING_USER_REQUESTS: {
       return {
         ...state,

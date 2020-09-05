@@ -120,15 +120,16 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
 
   useEffect(() => {
     updateStateToInit();
+    setAlertText('');
   }, []);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    setAlertText('');
   };
   const handleChangeType = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTypeHardWare(event.target.value as string);
     setAlertText('');
+    updateStateToInit();
     if (typeHardWare === storage) {
       setTypeStorage('');
     }
@@ -307,7 +308,6 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
           sata: +sata,
           m2,
         };
-        console.log(motherBoard);
         createMotherboard(motherBoard);
         break;
       }
