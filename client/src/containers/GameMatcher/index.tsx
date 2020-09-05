@@ -6,6 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import PageComponent from '../PageComponent';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
+import Link from 'components/BasicComponents/Link';
 import { MenuItems, Routes } from 'common/enums';
 import * as actions from './actions';
 import { setCpu, setGpu, setRamSize, setGame } from '../Chart/actions';
@@ -88,96 +89,99 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
       <main className={styles.gameMatcher} role="main">
         <h1 className={styles.pageHeader}>Can You Run It?</h1>
         <div className={styles.contentWrapper}>
-          <div className={styles.mainContainer}>
-            <div className={styles.configs}>
-              {alertMessage && <Alert alertType={alertMessageType}>{alertMessage}</Alert>}
-              <section>
-                <h2 className={styles.sectionHeader}>Choose a Game</h2>
-                <div className={styles.selectItem}>
-                  <InputBasedSelect
-                    label="Game's name"
-                    placeholder="Choose a game"
-                    inputId="game"
-                    options={gameOptions}
-                    errorMessage={gamesErrorMessage}
-                    labelClassName={styles.selectItemHeader}
-                    debounceTime={300}
-                    onSelect={(id: number) => setSelectedGame(id)}
-                    onInputChange={createHardwareGetter('games', MatcherServerActions.MATCHER_REPLACE_GAMES)}
-                    onSeeMoreClick={createHardwareGetter('games', MatcherServerActions.MATCHER_ADD_GAMES)}
+          <div>
+            <div className={styles.mainContainer}>
+              <div className={styles.configs}>
+                {alertMessage && <Alert alertType={alertMessageType}>{alertMessage}</Alert>}
+                <section>
+                  <h2 className={styles.sectionHeader}>Choose a Game</h2>
+                  <div className={styles.selectItem}>
+                    <InputBasedSelect
+                      label="Game's name"
+                      placeholder="Choose a game"
+                      inputId="game"
+                      options={gameOptions}
+                      errorMessage={gamesErrorMessage}
+                      labelClassName={styles.selectItemHeader}
+                      debounceTime={300}
+                      onSelect={(id: number) => setSelectedGame(id)}
+                      onInputChange={createHardwareGetter('games', MatcherServerActions.MATCHER_REPLACE_GAMES)}
+                      onSeeMoreClick={createHardwareGetter('games', MatcherServerActions.MATCHER_ADD_GAMES)}
+                    />
+                  </div>
+                </section>
+                <section>
+                  <h2 className={styles.sectionHeader}>Your Computer Hardware</h2>
+                  <div className={styles.selectItem}>
+                    <InputBasedSelect
+                      label="CPU"
+                      placeholder="Choose a processor"
+                      inputId="cpu"
+                      options={cpuOptions}
+                      errorMessage={cpusErrorMessage}
+                      labelClassName={styles.selectItemHeader}
+                      debounceTime={300}
+                      onSelect={selectCpu}
+                      onInputChange={createHardwareGetter('cpus', MatcherServerActions.MATCHER_REPLACE_CPUS)}
+                      onSeeMoreClick={createHardwareGetter('cpus', MatcherServerActions.MATCHER_ADD_CPUS)}
+                    />
+                  </div>
+                  <div className={styles.selectItem}>
+                    <InputBasedSelect
+                      label="GPU"
+                      placeholder="Choose a graphics"
+                      inputId="gpu"
+                      options={gpuOptions}
+                      errorMessage={gpusErrorMessage}
+                      debounceTime={300}
+                      labelClassName={styles.selectItemHeader}
+                      onSelect={selectGpu}
+                      onInputChange={createHardwareGetter('gpus', MatcherServerActions.MATCHER_REPLACE_GPUS)}
+                      onSeeMoreClick={createHardwareGetter('gpus', MatcherServerActions.MATCHER_ADD_GPUS)}
+                    />
+                  </div>
+                  <span className={styles.selectItemHeader}>RAM</span>
+                  <Slider
+                    value={ramSize}
+                    min={1}
+                    step={1}
+                    max={32}
+                    color="secondary"
+                    onChange={(e, value) => setRamValue(value as number)}
+                    valueLabelDisplay="auto"
+                    aria-labelledby="range-slider"
+                    getAriaValueText={(value) => value.toString()}
                   />
-                </div>
-              </section>
-              <section>
-                <h2 className={styles.sectionHeader}>Your Computer Hardware</h2>
-                <div className={styles.selectItem}>
-                  <InputBasedSelect
-                    label="CPU"
-                    placeholder="Choose a processor"
-                    inputId="cpu"
-                    options={cpuOptions}
-                    errorMessage={cpusErrorMessage}
-                    labelClassName={styles.selectItemHeader}
-                    debounceTime={300}
-                    onSelect={selectCpu}
-                    onInputChange={createHardwareGetter('cpus', MatcherServerActions.MATCHER_REPLACE_CPUS)}
-                    onSeeMoreClick={createHardwareGetter('cpus', MatcherServerActions.MATCHER_ADD_CPUS)}
-                  />
-                </div>
-                <div className={styles.selectItem}>
-                  <InputBasedSelect
-                    label="GPU"
-                    placeholder="Choose a graphics"
-                    inputId="gpu"
-                    options={gpuOptions}
-                    errorMessage={gpusErrorMessage}
-                    debounceTime={300}
-                    labelClassName={styles.selectItemHeader}
-                    onSelect={selectGpu}
-                    onInputChange={createHardwareGetter('gpus', MatcherServerActions.MATCHER_REPLACE_GPUS)}
-                    onSeeMoreClick={createHardwareGetter('gpus', MatcherServerActions.MATCHER_ADD_GPUS)}
-                  />
-                </div>
-                <span className={styles.selectItemHeader}>RAM</span>
-                <Slider
-                  value={ramSize}
-                  min={1}
-                  step={1}
-                  max={32}
-                  color="secondary"
-                  onChange={(e, value) => setRamValue(value as number)}
-                  valueLabelDisplay="auto"
-                  aria-labelledby="range-slider"
-                  getAriaValueText={(value) => value.toString()}
-                />
-              </section>
-              <Box className={styles.pageButtonWrapper}>
-                <Button
-                  buttonType={ButtonType.primary}
-                  className={styles.pageButton}
-                  classes={{ label: styles.buttonLabel }}
-                  onClick={onTestGame}
-                >
-                  Can I Run It
-                </Button>
-              </Box>
+                </section>
+                <Box className={styles.pageButtonWrapper}>
+                  <Button
+                    buttonType={ButtonType.primary}
+                    className={styles.pageButton}
+                    classes={{ label: styles.buttonLabel }}
+                    onClick={onTestGame}
+                  >
+                    Can I Run It
+                  </Button>
+                </Box>
+              </div>
+            </div>
+            <div>
+              {displayAddRequestOpen ? (
+                <ModalAddRequest onClose={hideAddGameModal} requestType={UserRequestedType.game} />
+              ) : null}
+              <div className={styles.addRequestBlock}>
+                <p>
+                  If you have not found the game you need, you can send a request to the administrator by this{' '}
+                  <Link onClick={handleAddGameWindow} className={styles.linkRequest}>
+                    link
+                  </Link>
+                  .
+                </p>
+              </div>
             </div>
           </div>
           <div className={styles.asideBlock}>
             <TopGames />
-            {displayAddRequestOpen ? (
-              <ModalAddRequest onClose={hideAddGameModal} requestType={UserRequestedType.game} />
-            ) : null}
-            <Box className={styles.buttonWrapper}>
-              <Tooltip
-                title={'If you can not find needed game, you can create a request to admin about adding it to site! '}
-                arrow
-              >
-                <Button buttonType={ButtonType.secondary} onClick={handleAddGameWindow}>
-                  Add Game
-                </Button>
-              </Tooltip>
-            </Box>
           </div>
         </div>
       </main>

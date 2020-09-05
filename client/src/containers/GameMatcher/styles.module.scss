@@ -83,6 +83,19 @@
   margin: 2em 0;
   align-self: center;
 }
+.addRequestBlock {
+  //width: fit-content;
+  text-align: justify;
+  margin: 1em 0;
+  margin-right: 3rem;
+
+  .linkRequest {
+    color: $colorDarkGray;
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+  }
+}
+
 
 @media (max-width: 960px) {
   .mainContainer {
