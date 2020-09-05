@@ -1,6 +1,5 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { deleteNotification } from 'containers/Notifications/redux/actions';
 
 import React, { ChangeEvent, useState } from 'react';
 import styles from './styles.module.scss';
@@ -8,9 +7,9 @@ import Search from 'components/Search';
 import UserProfile from 'components/UserProfile';
 import { IconButton, Menu, MenuProps } from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { INotification, NotificationType } from 'common/services/notification.service';
 import { withStyles } from '@material-ui/styles';
-import TopBarNotification from './topBarNotification';
+import TopBarNotification from './TopBarNotification/topBarNotification';
+import { INotification } from 'common/services/NotificationService/notification';
 
 const StyledMenu = withStyles({
   paper: {
@@ -32,7 +31,7 @@ const StyledMenu = withStyles({
   />
 ));
 
-const TopBar: React.FC<Props> = ({ notifications, deleteNotification, WebSocketService, user }) => {
+const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
   const [searchValue, setSearchValue] = useState('');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const ITEM_HEIGHT = 64;
@@ -40,23 +39,22 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, WebSocketS
     setSearchValue(e.target.value);
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const onClose = () => {
     setAnchorEl(null);
   };
 
-  const handleDelete = (notification: INotification) => {
+  const onRead = (notification: INotification) => {
     if (!user?.id) return;
-    WebSocketService?.deleteNotification(user.id.toString(), notification.id);
-    deleteNotification(notification.id);
+    WebSocketService?.readNotification(user.id.toString(), notification);
   };
 
-  const getNotifications = () => {
-    if (notifications.length > 0) return notifications;
-    else return [{ id: 'notification-id', text: 'no notifications', type: NotificationType.INFO }];
+  const onNotificationClick = (notification: INotification) => {
+    if (!user?.id) return;
+    console.log('Notification clicked', notification);
   };
 
   return (
@@ -64,7 +62,7 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, WebSocketS
       <div className={styles.rightTopBar}>
         <Search value="" onChange={onInputChange} />
         <div className={styles.settingIconWrapper}>
-          <IconButton size="small" edge="start" onClick={handleClick}>
+          <IconButton size="small" edge="start" onClick={onClick}>
             <NotificationsIcon />
           </IconButton>
           <StyledMenu
@@ -72,21 +70,24 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, WebSocketS
             anchorEl={anchorEl}
             keepMounted
             open={Boolean(anchorEl)}
-            onClose={handleClose}
+            onClose={onClose}
             PaperProps={{
               style: {
-                maxHeight: ITEM_HEIGHT * 4.5,
-                width: '30ch',
+                maxHeight: ITEM_HEIGHT * 4.5, // * 4.5
+                width: '50ch',
               },
             }}
           >
-            {getNotifications().map((notification) => (
-              <TopBarNotification
-                key={notification.id}
-                notification={notification}
-                onDelete={() => handleDelete(notification)}
-              />
-            ))}
+            {notifications.length > 0
+              ? notifications.map((notification) => (
+                  <TopBarNotification
+                    key={notification.id}
+                    notification={notification}
+                    onClick={onNotificationClick}
+                    onRead={onRead}
+                  />
+                ))
+              : 'Hello'}
           </StyledMenu>
         </div>
         <UserProfile />
@@ -101,9 +102,7 @@ const mapState = (state: RootState) => ({
   user: state.auth.user,
 });
 
-const mapDispatch = {
-  deleteNotification,
-};
+const mapDispatch = {};
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
