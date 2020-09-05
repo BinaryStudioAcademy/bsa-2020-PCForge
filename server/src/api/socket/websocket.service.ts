@@ -1,6 +1,6 @@
 import WebSocket from 'ws';
 import { MyEmitter } from '../../helpers/typedEmitter.types';
-import { Message } from './message';
+import { Message, MessageType } from './message';
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export class WebSocketService extends MyEmitter<{ newConnection: { id: number }; inboundMessage: Message }> {

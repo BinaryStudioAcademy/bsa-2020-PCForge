@@ -4,7 +4,8 @@ import { INotification, NotificationType } from './notification';
 interface IActions {
   setNotifications: (notifications: INotification[]) => void;
   addNotification: (notification: INotification) => void;
-  deleteNotification: (notificationId: string) => void;
+  deleteNotification: (notification: INotification) => void;
+  updateNotification: (notification: INotification) => void;
 }
 
 export class NotificationService {
@@ -19,7 +20,11 @@ export class NotificationService {
   }
 
   public deleteNotification(notification: INotification): void {
-    this.reduxActions.addNotification(notification);
+    this.reduxActions.deleteNotification(notification);
+  }
+
+  public readNotification(notification: INotification): void {
+    this.reduxActions.updateNotification(notification);
   }
 }
 

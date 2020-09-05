@@ -87,7 +87,7 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
                     onRead={onRead}
                   />
                 ))
-              : 'Hello'}
+              : "You don't have any notifications"}
           </StyledMenu>
         </div>
         <UserProfile />

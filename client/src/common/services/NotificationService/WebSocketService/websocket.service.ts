@@ -10,11 +10,13 @@ export class WebSocketService {
     console.log('ws message:', message);
     switch (message.type) {
       case MessageType.INITIAL_NOTIFICATIONS:
-        return this.handleInitialMessage(message);
+        return this.handleInitialMessage(message.payload);
       case MessageType.NEW_NOTIFICATION:
-        return this.handleNewMessage(message);
+        return this.handleNewMessage(message.payload);
       case MessageType.DELETE_NOTIFICATION:
-        return this.handleDeleteNotificationMessage(message);
+        return this.handleDeleteNotificationMessage(message.payload);
+      case MessageType.READ_NOTIFICATION:
+        return this.handleReadNotificationMessage(message.payload);
     }
   }
 
@@ -42,15 +44,19 @@ export class WebSocketService {
     console.log('ws send message', message);
   }
 
-  private handleDeleteNotificationMessage(message: IMessage) {
-    this.notificationService.deleteNotification(message.payload as INotification);
+  private handleDeleteNotificationMessage(notification: INotification) {
+    this.notificationService.deleteNotification(notification);
   }
 
-  private handleInitialMessage(message: IMessage) {
-    this.notificationService.setNotifications(message.payload as INotification[]);
+  private handleInitialMessage(notifications: INotification[]) {
+    this.notificationService.setNotifications(notifications);
   }
 
-  private handleNewMessage(message: IMessage) {
-    return this.notificationService.addNotification(message.payload as INotification);
+  private handleNewMessage(notification: INotification) {
+    this.notificationService.addNotification(notification);
+  }
+
+  private handleReadNotificationMessage(notification: INotification) {
+    this.notificationService.readNotification(notification);
   }
 }

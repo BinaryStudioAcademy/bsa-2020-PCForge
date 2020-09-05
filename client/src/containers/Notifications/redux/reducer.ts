@@ -25,11 +25,21 @@ export function NotificationsReducer(state = initialState, action: Notifications
     }
 
     case NotificationsActionTypes.DELETE_NOTIFICATION: {
+      console.log('DELETE', action.payload.notification.id);
       return {
         ...state,
-        notifications: state.notifications.filter((notification) => notification.id !== action.payload.notificationId),
+        notifications: state.notifications.filter((notification) => notification.id !== action.payload.notification.id),
         activeNotifications: state.activeNotifications.filter(
-          (notification) => notification.id !== action.payload.notificationId
+          (notification) => notification.id !== action.payload.notification.id
+        ),
+      };
+    }
+
+    case NotificationsActionTypes.UPDATE_NOTIFICATION: {
+      return {
+        ...state,
+        notifications: state.notifications.map((notification) =>
+          notification.id === action.payload.notification.id ? action.payload.notification : notification
         ),
       };
     }

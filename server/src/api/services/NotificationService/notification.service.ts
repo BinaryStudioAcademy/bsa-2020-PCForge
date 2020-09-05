@@ -54,7 +54,15 @@ export class NotificationService {
     if (notificationsCount > this.CHANNEL_NOTIFICATIONS_LIMIT) {
       let notifications = await this.getNotifications(userId);
       notifications.sort(
-        (notification1, notification2) => notification1.createdAt.getTime() - notification2.createdAt.getTime()
+        (notification1, notification2) => notification2.createdAt.getTime() - notification1.createdAt.getTime()
+      );
+      const lastNotification = notifications[notifications.length - 1];
+      await this.ws.sendMessage(
+        Number(userId),
+        new Message({
+          type: MessageType.DELETE_NOTIFICATION,
+          payload: lastNotification,
+        })
       );
       this.publisher.ltrim(userId.toString(), -1, 0); //clear list
       notifications = notifications.slice(0, this.CHANNEL_NOTIFICATIONS_LIMIT);
@@ -95,7 +103,7 @@ export class NotificationService {
     if (!notification) return;
     await this.publisher.lrem(userId, 1, notification.toString());
     await this.ws.sendMessage(
-      parseInt(userId),
+      Number(userId),
       new Message({
         type: MessageType.DELETE_NOTIFICATION,
         payload: notification,
@@ -112,11 +120,11 @@ export class NotificationService {
   }): Promise<void | never> {
     const notification = await this.getNotification(userId, notificationId);
     const notificationIndex = await this.getNotificationIndex(userId, notificationId);
-    if (notificationIndex > 0 && notification) {
+    if (notificationIndex > -1 && notification) {
       notification.readAt = new Date();
       await this.publisher.lset(userId, notificationIndex, notification.toString());
       await this.ws.sendMessage(
-        parseInt(userId),
+        Number(userId),
         new Message({
           type: MessageType.READ_NOTIFICATION,
           payload: notification,

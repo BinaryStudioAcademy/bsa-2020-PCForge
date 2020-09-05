@@ -55,7 +55,6 @@ export class Notification {
   }
   public static fromJSON(json: string): Notification | never {
     const obj = JSON.parse(json);
-    console.log('JSON parsed', json);
     if (typeof obj.text !== 'string')
       throw new Error(`Notification text must be string type, got: [${typeof obj.text}](${obj.text})`);
     if (typeof obj.type !== 'string' || !Object.keys(NotificationType).find((type) => type === obj.type))

@@ -7,13 +7,14 @@ import {
   closeNotification,
   setNotificationService,
   setWebSocketService,
+  updateNotification,
 } from './redux/actions';
 import { RootState } from 'redux/rootReducer';
 import { NotificationService } from 'common/services/NotificationService/notification.service';
 
 import React from 'react';
 import NotificationsContainer from './NotificationsContainer';
-import { WebSocketService } from 'common/services/NotificationService/WebSocketService/notification.service';
+import { WebSocketService } from 'common/services/NotificationService/WebSocketService/websocket.service';
 
 const InjectNotifications: React.FC<Props> = ({
   children,
@@ -74,6 +75,7 @@ const mapDispatch = {
   addNotification,
   deleteNotification,
   closeNotification,
+  updateNotification,
   setNotificationService,
   setWebSocketService,
 };

@@ -17,6 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     readIcon: {
       color: '#eb3d55',
+      zIndex: 10000,
+    },
+    menuItem: {
+      '&:hover': {
+        color: 'red',
+      },
     },
   })
 );
@@ -32,11 +38,11 @@ const TopBarNotification: React.FC<Props> = ({ notification, onRead: propsOnRead
   const isRead = notification.readAt;
 
   const onCLick = () => {
+    propsOnRead(notification);
     propsOnClick(notification);
   };
 
-  const onRead = (event: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    event.preventDefault();
+  const onRead = () => {
     propsOnRead(notification);
   };
 
@@ -54,10 +60,17 @@ const TopBarNotification: React.FC<Props> = ({ notification, onRead: propsOnRead
   };
 
   return (
-    <MenuItem onClick={onCLick}>
+    <MenuItem onClick={onCLick} classes={{ root: materialStyles.menuItem }}>
       <ListItemIcon classes={{ root: materialStyles.icon }}>{getIcon(notification)}</ListItemIcon>
       <div className={styles.notificationText}>{notification.text}</div>
-      {!isRead && <Brightness1Icon fontSize="small" onClick={onRead} classes={{ root: materialStyles.readIcon }} />}
+      {!isRead && (
+        <Brightness1Icon
+          fontSize="small"
+          onClick={onRead}
+          classes={{ root: materialStyles.readIcon }}
+          onMouseDown={(e) => e.stopPropagation()}
+        />
+      )}
     </MenuItem>
   );
 };
