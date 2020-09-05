@@ -1,55 +1,42 @@
 import React from 'react';
 import { IAlert, AlertType } from 'common/services/AlertService/alert';
-import InfoIcon from '@material-ui/icons/Info';
-import ErrorIcon from '@material-ui/icons/Error';
-import CheckIcon from '@material-ui/icons/Check';
-import WarningIcon from '@material-ui/icons/Warning';
-import CloseIcon from '@material-ui/icons/Close';
-import styles from './styles.module.scss';
-import { IconButton } from '@material-ui/core';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 interface Props {
   alert: IAlert;
   onClose: (alert: IAlert) => void;
 }
 
-const Alert: React.FC<Props> = ({ alert, onClose }): JSX.Element => {
-  const getIcon = () => {
-    switch (alert.type) {
-      case AlertType.INFO:
-        return <InfoIcon />;
-      case AlertType.ERROR:
-        return <ErrorIcon />;
-      case AlertType.SUCCESS:
-        return <CheckIcon />;
-      case AlertType.WARNING:
-        return <WarningIcon />;
-    }
-  };
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      fontSize: 16,
+      marginTop: 20,
+    },
+  })
+);
 
-  const getClassName = (): string => {
+const MyAlert: React.FC<Props> = ({ alert, onClose }): JSX.Element => {
+  const materialStyles = useStyles();
+
+  const getSeverity = (): 'info' | 'error' | 'success' | 'warning' => {
     switch (alert.type) {
       case AlertType.INFO:
-        return styles.info;
+        return 'info';
       case AlertType.ERROR:
-        return styles.error;
+        return 'error';
       case AlertType.SUCCESS:
-        return styles.success;
+        return 'success';
       case AlertType.WARNING:
-        return styles.warning;
+        return 'warning';
     }
   };
 
   return (
-    <div className={`${styles.alertContainer} ${getClassName()}`}>
-      <div className={styles.icon}>{getIcon()}</div>
-      <div className={styles.text}>{alert.text}</div>
-      <div className={styles.close} onClick={() => onClose(alert)}>
-        <IconButton size="small">
-          <CloseIcon />
-        </IconButton>
-      </div>
-    </div>
+    <Alert severity={getSeverity()} onClose={() => onClose(alert)} classes={{ root: materialStyles.root }}>
+      {alert.text}
+    </Alert>
   );
 };
-export default Alert;
+export default MyAlert;
