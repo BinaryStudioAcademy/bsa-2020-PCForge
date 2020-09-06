@@ -27,7 +27,7 @@ export class WebSocketService extends MyEmitter<{
       });
       ws.on('close', () => {
         console.log('socket disconnection, userId: ', userId);
-        this.clients.get(userId).close();
+        this.clients.get(userId)?.close();
         this.clients.delete(userId);
       });
     });

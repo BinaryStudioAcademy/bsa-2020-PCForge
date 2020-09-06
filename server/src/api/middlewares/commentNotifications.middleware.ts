@@ -13,6 +13,10 @@ export const CommentNotificationMiddleware = ({ NotificationService, SetupServic
         targetUserId,
         new Notification({
           text: 'You have new comment on your setup',
+          payload: {
+            type: 'link',
+            value: `/setup/${targetSetup.id}/comment/${comment.id}`,
+          },
         })
       );
     }

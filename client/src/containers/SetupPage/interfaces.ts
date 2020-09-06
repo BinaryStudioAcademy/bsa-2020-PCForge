@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { PCSetup } from 'common/models/setup';
 import { Comment } from 'common/models/comment';
 
-export interface ISetupProps extends RouteComponentProps<{ id: string }> {
+export interface ISetupProps extends RouteComponentProps<{ id: string; commentId: string }> {
   state: ISetupState;
   getSetup: (payload: { id: number }) => SetupActionTypes;
   getSetupComments: (payload: { id: number; count: number; from: number }) => SetupActionTypes;
@@ -20,4 +20,5 @@ export interface ISetupState {
   commentsPerPage: number;
   hasErrorDuringSetupFetch: boolean;
   rate: number;
+  commentPage?: number;
 }
