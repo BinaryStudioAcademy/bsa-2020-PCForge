@@ -176,14 +176,18 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
       <Box className={`${styles.builderWrapper} ${className}`}>
         {isModalActive ? <SaveSetupModal onClose={hideModal} /> : null}
-        <BuilderTitle
-          isCanToSave={isCanToSaveSetup(setup)}
-          showResetSetup={Object.values(setup).some((e) => !!e)}
-          onResetSetup={() => dispatch(resetSetupAction())}
-          showResetFilter={Object.values(filter).some((e) => !!e.size)}
-          onResetFilter={resetFilter}
-          onSaveSetup={showModal}
-        />
+        <Grid container spacing={5}>
+          <Grid item xs={12} lg={8} xl={9}>
+            <BuilderTitle
+              isCanToSave={isCanToSaveSetup(setup)}
+              showResetSetup={Object.values(setup).some((e) => !!e)}
+              onResetSetup={() => dispatch(resetSetupAction())}
+              showResetFilter={Object.values(filter).some((e) => !!e.size)}
+              onResetFilter={resetFilter}
+              onSaveSetup={showModal}
+            />
+          </Grid>
+        </Grid>
         <Grid container spacing={5}>
           <Grid item xs={12} lg={8} xl={9}>
             {groups}

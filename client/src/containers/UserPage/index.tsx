@@ -3,7 +3,8 @@ import PageComponent from 'containers/PageComponent';
 import { Redirect } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { connect, ConnectedProps } from 'react-redux';
-import UserInfo from './components/UserInfo';
+import { Box } from '@material-ui/core';
+import UserInfo from 'containers/UserPage/components/UserInfo';
 import { RootState } from 'redux/rootReducer';
 import {
   loadUser,
@@ -15,8 +16,9 @@ import {
   loadSetups,
   deleteUserSetup,
   setTab,
-} from './logic/actions';
+} from 'containers/UserPage/logic/actions';
 import Spinner from 'components/Spinner';
+import styles from 'containers/UserPage/styles.module.scss';
 
 export enum UserPageTabs {
   Games = 0,
@@ -59,7 +61,9 @@ const UserPage = (props: Props) => {
   return (
     <PageComponent>
       {showSpinner ? (
-        <Spinner load />
+        <Box className={styles.spinnerWrapper}>
+          <Spinner load />
+        </Box>
       ) : loadedUser ? (
         <UserInfo
           user={loadedUser}
