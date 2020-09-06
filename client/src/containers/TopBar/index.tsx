@@ -10,6 +10,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { withStyles } from '@material-ui/styles';
 import TopBarNotification from './TopBarNotification/topBarNotification';
 import { INotification } from 'common/services/NotificationService/notification';
+import { useHistory } from 'react-router-dom';
 
 const StyledMenu = withStyles({
   paper: {
@@ -34,6 +35,7 @@ const StyledMenu = withStyles({
 const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
   const [searchValue, setSearchValue] = useState('');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const history = useHistory();
   const ITEM_HEIGHT = 64;
   const unreadNotificationCount = notifications.filter((notification) => notification.readAt === null).length;
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +58,10 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
   const onNotificationClick = (notification: INotification) => {
     if (!user?.id) return;
     WebSocketService?.readNotification(user.id.toString(), notification);
+    if (notification.payload?.type === 'link') {
+      history.push(notification.payload.value);
+      onClose();
+    }
   };
 
   return (
@@ -71,7 +77,6 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
           <StyledMenu
             id="customized-menu"
             anchorEl={anchorEl}
-            keepMounted
             open={Boolean(anchorEl)}
             onClose={onClose}
             PaperProps={{
