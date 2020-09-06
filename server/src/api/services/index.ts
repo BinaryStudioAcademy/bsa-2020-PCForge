@@ -22,12 +22,8 @@ import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
 import { AuthService } from './auth.service';
-<<<<<<< HEAD
 import { NotificationService, notificationServiceFactory } from './NotificationService/notification.service';
-=======
-import { NotificationService, notificationServiceFactory } from './notification.service';
 import { HardwareService } from './hardware.service';
->>>>>>> develop
 
 export interface Services {
   AuthService: AuthService;
