@@ -179,14 +179,23 @@ export class HardwareService {
         count: count - hdds.data.length,
       });
     }
+    for (const ssd of ssds.data) {
+      ssd.dataValues.type = Component.ssd;
+    }
     const storages = {
       meta: {
         globalCount: ssds.meta.globalCount + hdds.meta.globalCount,
         countAfterFiltering: ssds.meta.countAfterFiltering + hdds.meta.countAfterFiltering,
       },
       data: [
-        ...ssds.data.map((e) => ({ ...e, type: Component.ssd })),
-        ...hdds.data.map((e) => ({ ...e, type: Component.hdd })),
+        ...ssds.data.map((e) => {
+          e.setDataValue('type', Component.ssd);
+          return e;
+        }),
+        ...hdds.data.map((e) => {
+          e.setDataValue('type', Component.hdd);
+          return e;
+        }),
       ],
     };
     return storages;
@@ -204,7 +213,10 @@ export class HardwareService {
       });
       const ssdStorage = {
         meta: ssd.meta,
-        data: ssd.data.map((e) => ({ ...e, type: Component.ssd })),
+        data: ssd.data.map((e) => {
+          e.setDataValue('type', Component.ssd);
+          return e;
+        }),
       };
       const hdd = await this[Component.hdd]({
         ...filter,
@@ -212,7 +224,10 @@ export class HardwareService {
       });
       const hddStorage = {
         meta: hdd.meta,
-        data: hdd.data.map((e) => ({ ...e, type: Component.hdd })),
+        data: hdd.data.map((e) => {
+          e.setDataValue('type', Component.hdd);
+          return e;
+        }),
       };
       const storages = {
         meta: {
