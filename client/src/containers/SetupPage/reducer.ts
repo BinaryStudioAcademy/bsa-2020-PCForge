@@ -5,6 +5,12 @@ import {
   SetupActionTypes,
   GET_SETUP_COMMENTS_SUCCESS,
   GET_SETUP_RATE_SUCCESS,
+  GET_SETUP_RATE_FAILURE,
+  GET_SETUP_COMMENTS_FAILURE,
+  SETUP_WIPE_SNACKBAR_DATA,
+  SET_SETUP_RATE_SUCCESS,
+  SET_SETUP_RATE_FAILURE,
+  CREATE_SETUP_COMMENT_FAILURE,
 } from './actionTypes';
 
 const initialState: ISetupState = {
@@ -19,6 +25,7 @@ const initialState: ISetupState = {
 export function SetupReducer(state: ISetupState = initialState, action: SetupActionTypes): ISetupState {
   switch (action.type) {
     case GET_SETUP_SUCCESS:
+    case SET_SETUP_RATE_SUCCESS:
       return {
         ...state,
         setup: action.payload,

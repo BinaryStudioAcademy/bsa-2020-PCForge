@@ -104,8 +104,9 @@ function* addSetupRate(action: ISetSetupRate) {
       ratebleType: 'setup',
       value: action.payload.value,
     };
-    const response = yield call(addRate, data);
-    yield put({ type: SET_SETUP_RATE_SUCCESS, payload: response });
+    yield call(addRate, data);
+    const setup: PCSetup = yield call<(id: number) => void>(getSetupById, action.payload.id);
+    yield put({ type: SET_SETUP_RATE_SUCCESS, payload: setup });
   } catch (e) {
     yield put(addAlert(alert.error('Failed to add setup rate')));
   }

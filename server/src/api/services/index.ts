@@ -22,7 +22,12 @@ import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
 import { AuthService } from './auth.service';
+<<<<<<< HEAD
 import { NotificationService, notificationServiceFactory } from './NotificationService/notification.service';
+=======
+import { NotificationService, notificationServiceFactory } from './notification.service';
+import { HardwareService } from './hardware.service';
+>>>>>>> develop
 
 export interface Services {
   AuthService: AuthService;
@@ -48,6 +53,7 @@ export interface Services {
   UserGameService: UserGameService;
   UserService: UserService;
   NotificationService: NotificationService;
+  HardwareService: HardwareService;
 }
 
 export default fp(async (fastify, opts, next) => {
@@ -84,6 +90,16 @@ export default fp(async (fastify, opts, next) => {
     const uploadService = new UploadService();
     const authService = new AuthService(mailService, usersService);
     const notificationService = await notificationServiceFactory(redis, websocket);
+    const hardwareService = new HardwareService(
+      repositories.CpuRepository,
+      repositories.GpuRepository,
+      repositories.RamRepository,
+      repositories.MotherboardRepository,
+      repositories.PowerSupplyRepository,
+      repositories.HddRepository,
+      repositories.SsdRepository,
+      repositories.SetupRepository
+    );
     const services: Services = {
       AuthService: authService,
       AddRequestService: addRequestService,
@@ -108,6 +124,7 @@ export default fp(async (fastify, opts, next) => {
       UserGameService: userGameService,
       UserService: usersService,
       NotificationService: notificationService,
+      HardwareService: hardwareService,
     };
     fastify.decorate('services', services);
     console.log('services were successfully initialized');

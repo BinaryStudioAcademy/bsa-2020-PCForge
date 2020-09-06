@@ -12,6 +12,9 @@ export interface SetupAttributes {
   title: string;
   description: string;
   comments_count: number;
+  ratingCount: number;
+  rating: number;
+  ownRating: number;
   image: string;
   authorId: number;
   cpu: CpuAttributes;
@@ -34,6 +37,7 @@ export interface SetupCreationAttributes {
   gpuId: number;
   motherboardId: number;
   ramId: number;
+  ramCount: number;
   powerSupplyId: number;
   hddId: number;
   ssdId: number;
@@ -78,6 +82,11 @@ export function SetupFactory(sequelize: Sequelize): SetupStatic {
     parentId: {
       type: DataTypes.INTEGER,
       allowNull: true,
+    },
+    ramCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
     },
   });
 }

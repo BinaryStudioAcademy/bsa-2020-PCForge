@@ -49,6 +49,8 @@ export type TypeGroupConfig = {
       enable: boolean;
     };
   };
+  count?: number;
+  countHandler?: (value: number) => void;
 };
 
 export type TypeFilterRangeInfo = {
@@ -69,3 +71,5 @@ export enum ComponentGroups {
   motherboard,
   powersupply,
 }
+
+export type TypeAdditionalProps = { count?: number; countHandler?: (value: number) => void };

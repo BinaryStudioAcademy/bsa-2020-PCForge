@@ -53,6 +53,19 @@ export const SetupSchema: SwaggerSchema = {
       maximum: 5,
       nullable: true,
     },
+    ownRating: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
+      maximum: 5,
+      nullable: true,
+    },
+    ratingCount: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
+      nullable: true,
+    },
     comments_count: {
       type: 'integer',
       minLength: 1,
@@ -105,6 +118,12 @@ export const SetupSchema: SwaggerSchema = {
     ramId: {
       type: 'integer',
       example: 1,
+      minimum: 1,
+      nullable: false,
+    },
+    ramCount: {
+      type: 'integer',
+      example: 2,
       minimum: 1,
       nullable: false,
     },
@@ -238,6 +257,11 @@ export const CreateSetupSchema: SwaggerSchema = {
       example: 1,
       nullable: false,
     },
+    ramCount: {
+      type: 'integer',
+      example: 1,
+      nullable: false,
+    },
     hddId: {
       type: 'integer',
       example: 1,
@@ -305,6 +329,11 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+    ramCount: {
+      type: 'integer',
+      example: 1,
+      nullable: false,
     },
     hddId: {
       type: 'integer',

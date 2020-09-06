@@ -6,6 +6,7 @@ const initialState: SetupState = {
   topSetups: [],
   filter: { sort: 'mostRated', viewCount: 9 },
   error: '',
+  showSpinner: true,
 };
 
 export function SetupsReducer(state = initialState, action: SetupsActions): SetupState {
@@ -32,6 +33,12 @@ export function SetupsReducer(state = initialState, action: SetupsActions): Setu
           ...newFilter,
           sort: action.payload.sort,
         },
+      };
+    }
+    case SetupsActionsTypes.SHOW_SPINNER: {
+      return {
+        ...state,
+        showSpinner: action.payload.showSpinner,
       };
     }
     default:

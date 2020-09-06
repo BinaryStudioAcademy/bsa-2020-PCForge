@@ -20,6 +20,7 @@ import { HardwareReducer } from 'containers/HardwaresPage/HardwareSidebarView/re
 import { HardwaresReducer } from 'containers/HardwaresPage/reducer';
 import { TopGamesReducer } from 'containers/TopGames/redux/reducer';
 import { AlertsReducer } from 'containers/Alerts/redux/reducer';
+import ToastNotificationsReducer from 'containers/ToastNotifications/logic/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -30,6 +31,7 @@ const RootReducer = combineReducers({
   hardwareForm: HardwareFormReducer,
   homePage: HomePageReducer,
   matcher: MatcherReducer,
+  notification: ToastNotificationsReducer,
   quickMatcher: QuickMatcherReducer,
   resetPassword: ResetPasswordReducer,
   setup: builderReducer,

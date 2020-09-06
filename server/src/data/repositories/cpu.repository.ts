@@ -32,6 +32,7 @@ export class CpuRepository extends BaseRepository<CpuModel, CpuCreationAttribute
           clockspeed: {
             [Op.between]: [filter.clockspeed.minValue, filter.clockspeed.maxValue],
           },
+          id: { [Op.and]: { [Op.or]: filter.id, [Op.not]: filter.excludedId } },
         },
         include: [
           {

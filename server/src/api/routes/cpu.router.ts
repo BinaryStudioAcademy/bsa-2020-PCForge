@@ -26,7 +26,7 @@ import { renameQuery } from '../middlewares/rename.middleware';
 import { CpuMiddleware } from '../middlewares/cpu.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { CpuService } = fastify.services;
+  const { CpuService, HardwareService } = fastify.services;
 
   const cpuMiddleware = CpuMiddleware(fastify);
   const preHandler = userRequestMiddleware(fastify);
@@ -36,7 +36,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetAllCpusRequest, reply) => {
     allowForAuthorized(request);
     renameQuery(request, ['socketIds', 'socketId']);
-    const cpus = await CpuService.getAllCpus(request.query);
+    // const cpus = await CpuService.getAllCpus(request.query);
+    const cpus = await HardwareService.getTopCpus(request.query);
     reply.send(cpus);
   });
 
