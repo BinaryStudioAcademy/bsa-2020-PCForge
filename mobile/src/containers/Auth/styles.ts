@@ -2,22 +2,44 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     root: {
-        // flex: 1,
-        // justifyContent: 'center',
-        marginHorizontal: 30,
-        marginTop: 100
-        // marginBottom: 200,
+        flex: 1,
     },
-    item: {
-        marginVertical: 10,
+    content: {
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        // alignItems: 'center',
+        marginHorizontal: 20,
+    },
+    inputItem: {
+        marginBottom: 20,
     },
     input: {
-        borderBottomColor: '#3c444d',
-        borderBottomWidth: 2
+        color: '#fff',
     },
     errorMessage: {
         color: '#ff5a5a',
         marginTop: 10
+    },
+    label: {
+        color: '#fff'
+    },
+    loginButtonsContainer: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        alignContent: 'center',
+    },
+    loginButtonText: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        textAlign: 'center',
+    },
+    loginButton: {
+        padding: 0,
+        margin: 0,
+        alignSelf: 'stretch'
     }
 })
 

@@ -7,6 +7,8 @@ export const Router = Stack.Navigator;
 
 export interface RouterItemProps {
     navigation: {
-        navigate(routeName: string): void;
+        navigate(routeName: string, data?: any): void;
+        puhs(routeName: string, data?: any): void;
+        goBack(): void;
     }
 }

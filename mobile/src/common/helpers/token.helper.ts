@@ -6,4 +6,5 @@ export const getToken = async () => {
 
 export const setToken = async (token: string) => {
     setItem('token', token);
+    return await getItem('token');
 }

@@ -1,6 +1,6 @@
 import { AuthActionTypes } from './/actionTypes';
-import { UserLoginAttributes, User } from 'src/common/models/user';
-import { RouterItemProps } from 'routing';
+import { UserLoginAttributes, User } from 'common/models/user';
+import { RouterItemProps } from 'common/configs/routing';
 
 export interface IAuthProps extends RouterItemProps {
   state: IAuthState;

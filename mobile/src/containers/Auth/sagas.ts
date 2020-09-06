@@ -1,5 +1,10 @@
-import { loginRequestAction, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE, AUTH_LOGIN_REQUEST } from './actionTypes';
-import { authService } from '../../api/services/authService';
+import { 
+    loginRequestAction,
+    AUTH_LOGIN_SUCCESS,
+    AUTH_LOGIN_FAILURE,
+    AUTH_LOGIN_REQUEST
+} from 'containers/Auth/actionTypes';
+import { authService } from 'api/services/authService';
 import { call, put, takeLatest, all } from 'redux-saga/effects';
 
 function* login(action: loginRequestAction) {

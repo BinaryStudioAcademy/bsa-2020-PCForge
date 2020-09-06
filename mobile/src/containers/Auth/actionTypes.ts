@@ -1,4 +1,4 @@
-import { UserLoginAttributes, User } from 'src/common/models/user';
+import { UserLoginAttributes, User } from 'common/models/user';
 
 export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
