@@ -143,16 +143,105 @@ export class HardwareService {
     return ssds;
   }
 
-  async getTopStoragesId(): Promise<Map<{ id: number; component: Component }, number>> {
-    const topHddIdMap = await this.getTopComponentsId(Component.hdd);
-    const topSsdIdMap = await this.getTopComponentsId(Component.ssd);
-    const topStoragesIdMap = new Map([...topHddIdMap, ...topSsdIdMap]);
-    // todo: sort topStoragesIdMap
-    return topStoragesIdMap;
+  async getStorages(
+    filter: ISsdFilter,
+    excludedSsdId: number[],
+    excludedHddId: number[],
+    from: number,
+    count: number
+  ): Promise<IWithMeta<SsdModel>> {
+    const countSsd = Math.floor(count / 2);
+    const countHdd = count - countSsd;
+    let ssds = await this[Component.ssd]({
+      ...filter,
+      excludedId: excludedSsdId,
+      from: 0,
+      count: countSsd,
+    });
+    let hdds = await this[Component.hdd]({
+      ...filter,
+      excludedId: excludedSsdId,
+      from: 0,
+      count: countHdd,
+    });
+    if (ssds.data.length < countSsd && hdds.data.length === countHdd) {
+      hdds = await this[Component.hdd]({
+        ...filter,
+        excludedId: excludedSsdId,
+        from: 0,
+        count: count - ssds.data.length,
+      });
+    } else if (ssds.data.length === countSsd && hdds.data.length < countHdd) {
+      ssds = await this[Component.ssd]({
+        ...filter,
+        excludedId: excludedSsdId,
+        from: 0,
+        count: count - hdds.data.length,
+      });
+    }
+    const storages = {
+      meta: {
+        globalCount: ssds.meta.globalCount + hdds.meta.globalCount,
+        countAfterFiltering: ssds.meta.countAfterFiltering + hdds.meta.countAfterFiltering,
+      },
+      data: [
+        ...ssds.data.map((e) => ({ ...e, type: Component.ssd })),
+        ...hdds.data.map((e) => ({ ...e, type: Component.hdd })),
+      ],
+    };
+    return storages;
   }
 
   async getTopStorages(filter: ISsdFilter): Promise<IWithMeta<SsdModel>> {
-    const storages = await this.getTopComponents<IWithMeta<SsdModel>>(Component.ssd, filter);
-    return storages;
+    const topSsdIdMap = await this.getTopComponentsId(Component.ssd);
+    const topHddIdMap = await this.getTopComponentsId(Component.hdd);
+    const topStoragesIdMap = new Map([...topHddIdMap, ...topSsdIdMap].sort((a, b) => a[1] - b[1]));
+    if (topStoragesIdMap.size > filter.from) {
+      const topIds = [...topStoragesIdMap].slice(filter.from, filter.from + filter.count).map((e) => e[0]);
+      const ssd = await this[Component.ssd]({
+        ...filter,
+        id: topIds.filter((e) => e.component === Component.ssd).map((e) => e.id),
+      });
+      const ssdStorage = {
+        meta: ssd.meta,
+        data: ssd.data.map((e) => ({ ...e, type: Component.ssd })),
+      };
+      const hdd = await this[Component.hdd]({
+        ...filter,
+        id: topIds.filter((e) => e.component === Component.hdd).map((e) => e.id),
+      });
+      const hddStorage = {
+        meta: hdd.meta,
+        data: hdd.data.map((e) => ({ ...e, type: Component.hdd })),
+      };
+      const storages = {
+        meta: {
+          globalCount: ssdStorage.meta.globalCount + hddStorage.meta.globalCount,
+          countAfterFiltering: ssdStorage.meta.countAfterFiltering + hddStorage.meta.countAfterFiltering,
+        },
+        data: ssdStorage.data.concat(hddStorage.data),
+      };
+      if (topIds.length < filter.count) {
+        const addStorages = await this.getStorages(
+          filter,
+          [...topSsdIdMap].map((e) => e[0].id),
+          [...topHddIdMap].map((e) => e[0].id),
+          0,
+          filter.count - topIds.length
+        );
+        storages.meta.countAfterFiltering = storages.meta.countAfterFiltering + addStorages.meta.countAfterFiltering;
+        storages.data = storages.data.concat(addStorages.data);
+      }
+      return storages;
+    } else {
+      const storages = await this.getStorages(
+        filter,
+        [...topSsdIdMap].map((e) => e[0].id),
+        [...topHddIdMap].map((e) => e[0].id),
+        filter.from - topStoragesIdMap.size,
+        filter.count
+      );
+      return storages;
+    }
   }
 }
