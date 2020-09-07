@@ -2,7 +2,6 @@
 
 .ratingBoxesWrapper {
   display: flex;
-  // width: 100%;
   align-items: stretch;
 }
 
@@ -23,13 +22,11 @@
   height: 100%;
   display: flex;
   align-items: center;
-  // background: #3C444D;
   background: rgba(#222122, 0.6);
   z-index: 1;
   top: 5px;
   left: 100%;
   padding: 0 10px;
-
 }
 
 .verticalDivider {
@@ -59,7 +56,6 @@
     font-size: 10px;
     opacity: 0.8;
   }
-
 }
 
 .bottomRatingNumber {

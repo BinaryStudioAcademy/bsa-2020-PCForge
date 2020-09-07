@@ -6,7 +6,6 @@
   display: flex;
   flex-direction: column;
   justify-content:flex-start;
-  // padding:30px;
   border-radius: 6px;
   position: relative;
   transition: all 0.5s;
@@ -19,7 +18,6 @@
   }
 
   @media(max-width:768px) {
-    // padding:20px;
     height:auto;
   }
 
@@ -28,7 +26,6 @@
     display: flex;
     position: relative;
     width: 100%;
-    // padding:35px;
     margin: 0;
 
     .cardContentHolder {
@@ -40,10 +37,6 @@
       display: flex;
       height:auto;
       flex-direction: column;
-    }
-
-    @media(max-width:768px) {
-      // padding:20px;
     }
 
     .setupImage {
@@ -61,7 +54,6 @@
       margin-top: 5px;
      
       .textHolder {
-        // max-height: 250px;
         overflow: auto;
         text-overflow: ellipsis;
       }

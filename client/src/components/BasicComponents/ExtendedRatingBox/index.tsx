@@ -79,7 +79,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
     const ownRating = this.props.ownRating || 0;
     return (
       <div className={styles.ratingBoxesWrapper}>
-        <div className={styles.ratingBoxWrapper} title={(averageValue || 0).toString()}>
+        <div className={styles.ratingBoxWrapper}>
           <StyledRating
             precision={0.1}
             max={1}
@@ -95,7 +95,9 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
                 {averageValue}
                 <span>/5</span>
               </div>
-          <div className={styles.bottomRatingNumber}>{ratingCount} {ratingCount>1 ? 'reviews' : 'review'}</div>
+              <div className={styles.bottomRatingNumber}>
+                {ratingCount} {ratingCount > 1 ? 'reviews' : 'review'}
+              </div>
             </div>
           )}
         </div>
@@ -105,7 +107,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
         <div className={styles.ratingBoxWrapper} onClick={this.openRating}>
           {!this.state.userRatingClicked && (
             <>
-              <div className={styles.ratingBoxWrapper} title={(ownRating === 0 ? 'Not rated' : ownRating).toString()}>
+              <div className={styles.ratingBoxWrapper}>
                 <StyledRating
                   precision={0.1}
                   disabled={true}
