@@ -70,7 +70,7 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
     setCountDisLikes(props.state.countDisLikes);
     setIsDisLikedByCurrentUser(!isDisLikedByCurrentUser);
   }
-}
+
   return (
     <li className={styles.commentRoot}>
       <div className={styles.commentWrapper} ref={commentRef}>
