@@ -61,7 +61,7 @@ export class HardwareService {
   [Component.motherboard] = this.motherboardRepository.getAllMotherboards.bind(this.motherboardRepository);
   [Component.powerSupply] = this.powerSupplyRepository.getAllPowerSupplies.bind(this.powerSupplyRepository);
 
-  async getTopComponentsId(component: Component): Promise<Map<{ id: number; component: Component }, number>> {
+async getTopComponentsId(component: Component): Promise<Map<{ id: number; component: Component }, number>> {
     const topIdMap: Map<{ id: number; component: Component }, number> = new Map();
     const setups = await this.setupRepository.getSetups({ count: null, from: null }, null);
     for (const setup of setups.data) {

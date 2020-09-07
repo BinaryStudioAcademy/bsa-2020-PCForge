@@ -59,8 +59,8 @@ const SetupCard: React.FC<SetupCardProps> = ({
   setTab,
   deleteUserSetup,
 }) => {
-  let { id: userId } = useParams();
-  userId = parseInt(userId);
+  const { id: _id } = useParams<{ id: string }>();
+  const userId = parseInt(_id, 10);
 
   const setupCreatedAt = moment(createdAt).format('D MMM YYYY');
 

@@ -12,7 +12,6 @@ import {
   SET_SETUP_RATE_FAILURE,
   CREATE_SETUP_COMMENT_FAILURE,
 } from './actionTypes';
-import { AlertType } from 'components/BasicComponents/Alert';
 
 const initialState: ISetupState = {
   setup: null,
@@ -46,23 +45,6 @@ export function SetupReducer(state: ISetupState = initialState, action: SetupAct
       return {
         ...state,
         rate: action.payload.average,
-      };
-    }
-    case SETUP_WIPE_SNACKBAR_DATA: {
-      return {
-        ...state,
-        snackbarMessage: undefined,
-        snackbarMessageType: undefined,
-      };
-    }
-    case GET_SETUP_RATE_FAILURE:
-    case GET_SETUP_COMMENTS_FAILURE:
-    case SET_SETUP_RATE_FAILURE:
-    case CREATE_SETUP_COMMENT_FAILURE: {
-      return {
-        ...state,
-        snackbarMessage: action.payload.message,
-        snackbarMessageType: AlertType.error,
       };
     }
     default:

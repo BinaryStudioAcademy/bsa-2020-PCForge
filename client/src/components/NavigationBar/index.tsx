@@ -8,7 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { clearToken, getTokenType, TokenType } from 'helpers/tokenHelper';
 import { useGoogleLogout } from 'react-google-login';
-import * as Notification from 'common/services/notificationService';
+import * as alert from 'common/services/AlertService/alert.service';
 
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import { ReactComponent as NavigationLogo } from 'assets/icons/navigationLogo.svg';
@@ -77,7 +77,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     clientId: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!,
     onLogoutSuccess: clearTokenAndRedirect,
     onFailure: () => {
-      Notification.error('Could not log out from Google, try again later');
+      alert.error('Could not log out from Google, try again later');
     },
   });
 
