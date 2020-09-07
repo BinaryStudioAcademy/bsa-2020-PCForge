@@ -37,13 +37,14 @@ const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
     </Card>
   ));
 
-  return (
+  const news = (
     <Box className={styles.newsWrapper}>
-      {/* <Title title={'News'} /> */}
-      {role === 'page' ? <h1>News</h1> : <h2>News</h2>}
+      {role === 'page' ? <Title title={'News'} /> : <h2>News</h2>}
       <Box className={styles.cardsWrapper}>{newsElements}</Box>
     </Box>
   );
+
+  return role === 'page' ? <PageComponent>{news}</PageComponent> : news;
 };
 
 export default PewsPage;
