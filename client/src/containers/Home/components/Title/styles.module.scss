@@ -31,14 +31,12 @@
   }
 
   h3 {
-    font-size: 2em;
+    font-size: 1.5em;
     margin-top: 0;
     margin-bottom: 10px;
-
-    @media(max-width: 768px) {
-      font-size: 2em;
-    }
-
+    position: relative;
+    top: -7px;
+   
     @media(min-width: 769px) and (max-width: 960px) {
       font-size: 1em;
     }

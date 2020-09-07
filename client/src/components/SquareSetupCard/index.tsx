@@ -106,11 +106,11 @@ const SetupCard: React.FC<SetupCardProps> = ({
         <div className={styles.setupBack}>
           <div className={styles.textHolder}>
             <div className={styles.setupDescription}>{description}</div>
-            <div>CPU: {cpu.name}</div>
-            <div>Motherboard: {motherboard.name}</div>
-            <div>GPU: {gpu.name}</div>
-            <div>RAM: {ram.name}</div>
-            <div>Power Supply: {powerSupply.name}</div>
+            <div><span className={styles.hardwareTitle}>CPU:</span> {cpu.name}</div>
+            <div><span className={styles.hardwareTitle}>Motherboard:</span> {motherboard.name}</div>
+            <div><span className={styles.hardwareTitle}>GPU:</span> {gpu.name}</div>
+            <div><span className={styles.hardwareTitle}>RAM:</span> {ram.name}</div>
+            <div><span className={styles.hardwareTitle}>Power Supply:</span> {powerSupply.name}</div>
           </div>
 
           <div className={styles.backBottomWrapper}>
