@@ -23,7 +23,7 @@ const GameMatcherSystemOverview: React.FC<Props> = ({ cpu, gpu, ramSize, overall
   };
 
   return (
-    <Container component="section">
+    <Container component="div" classes={{ root: styles.container }}>
       <div className={styles.performanceResultWrapper}>
         <div className={styles.requirements}>
           <div className={styles.requirement}>

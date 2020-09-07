@@ -83,8 +83,8 @@ const GameMatcherPerformanceReport: React.FC<Props> = ({ cpu, gpu, ramSize, repo
     const percents = (100 / MAXIMUM_REPORT_VALUE) * 100;
     let additionalPixels = '+ 0px';
     // we must add or remove pixels because we have margins. So, with margins left: 0% move orl line out of the graph. The same with left: 100%
-    if (percents < 50) additionalPixels = '+ 20px';
-    if (percents > 50) additionalPixels = '- 20px';
+    if (percents < 50) additionalPixels = '+ 15px';
+    if (percents > 50) additionalPixels = '- 15px';
     return (
       <div className={styles.graphWrapper}>
         <div className={styles.indicatorsWrapper}>
