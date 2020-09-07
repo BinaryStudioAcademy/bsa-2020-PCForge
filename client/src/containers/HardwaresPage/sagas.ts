@@ -13,8 +13,9 @@ import { getAllHdd } from 'api/services/hddService';
 import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { getAllMotherboard } from 'api/services/motherboardService';
 import { getAllSsd } from 'api/services/ssdService';
-import * as notification from 'common/services/notificationService';
 import { HardwaresResponse } from './interfaces';
+import * as alert from 'common/services/AlertService/alert.service';
+import { addAlert } from 'containers/Alerts/redux/actions';
 
 function* getHardwares(action: IGetHardwares) {
   const { type, count, from, searchValue } = action.payload;
@@ -52,7 +53,7 @@ function* getHardwares(action: IGetHardwares) {
     };
     yield put({ type: HARDWARES_GET_HARDWARES_SUCESS, payload });
   } catch (e) {
-    notification.error('Failed to load hardwares');
+     yield put(addAlert(alert.error('Failed to load hardwares')));
   }
 }
 

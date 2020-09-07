@@ -18,7 +18,8 @@ import { getAllComments, createComment } from 'api/services/comment.service';
 import { CommentCreationAttributes } from 'common/models/comment';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
-import * as notification from 'common/services/notificationService';
+import * as alert from 'common/services/AlertService/alert.service';
+import { addAlert } from 'containers/Alerts/redux/actions';
 
 function* getHardwareComments(action: IGetComments) {
   try {
@@ -31,7 +32,7 @@ function* getHardwareComments(action: IGetComments) {
     const comments: Comment[] = yield call(getAllComments, filter);
     yield put({ type: GET_HARDWARE_COMMENTS_SUCCESS, payload: comments });
   } catch (e) {
-    notification.error(e.message || 'Failed to load comments' )
+    yield put(addAlert(alert.error(e.message || 'Failed to load comments')));
   }
 }
 
@@ -56,7 +57,7 @@ function* createHardwareComment(action: ICreateHardwareComment) {
       },
     });
   } catch (e) {
-    notification.error(e.message || 'Failed to add hardware rate');
+    yield put(addAlert(alert.error(e.message || 'Failed to add hardware rate')));
   }
 }
 
@@ -72,7 +73,7 @@ function* getHardwareRate(action: IGetHardwareRate) {
     });
     yield put({ type: GET_HARDWARE_RATE_SUCCESS, payload: response });
   } catch (e) {
-    notification.error(e.message || 'Failed to get hardware rate')
+    yield put(addAlert(alert.error(e.message || 'Failed to get hardware rate')));
   }
 }
 
@@ -90,7 +91,7 @@ function* addHardwareRate(action: ISetHardwareRate) {
     const response = yield call(addRate, data);
     yield put({ type: SET_HARDWARE_RATE_SUCCESS, payload: response });
   } catch (e) {
-    notification.error(e.message || 'Failed to add hardware rate')
+    yield put(addAlert(alert.error(e.message || 'Failed to add hardware rate')));
   }
 }
 
