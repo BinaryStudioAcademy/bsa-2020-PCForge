@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "533682866220",
+    "firebase_url": "https://pcforge-debug.firebaseio.com",
+    "project_id": "pcforge-debug",
+    "storage_bucket": "pcforge-debug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533682866220:android:a5193372b51cbc656da989",
+        "android_client_info": {
+          "package_name": "com.pcforgemobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533682866220-it7eufc9gdq2i1ua8vdt9le9ll5tqamh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pcforgemobile",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "533682866220-hhqjnoer7t25hiq6quh5dklu1macfcvq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5nznbqcBg09Dvuep7RS4VGecNCqrH-wE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "533682866220-hhqjnoer7t25hiq6quh5dklu1macfcvq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
