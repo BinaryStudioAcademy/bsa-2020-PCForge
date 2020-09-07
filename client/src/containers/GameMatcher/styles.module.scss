@@ -47,6 +47,12 @@
   line-height: 28px;
   color: $colorTextWhite;
   margin: 10px 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+section:nth-child(2n) {
+  margin-top: 40px;
 }
 
 .selectItemHeader.selectItemHeader {
