@@ -3,7 +3,6 @@ import styles from './styles.module.scss';
 import Link from 'components/BasicComponents/Link';
 import { UserActionTypes } from '../../logic/actionTypes';
 import { useParams } from 'react-router';
-import { deleteUserGame } from 'api/services/userService';
 import Image from 'components/BasicComponents/Image';
 
 export interface GameCardProps {
