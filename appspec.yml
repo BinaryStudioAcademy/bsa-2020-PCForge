@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+files:
+  - source: ./
+    destination: /home/ubuntu/bsa-pcforge
+hooks:
+    BeforeInstall:
+        - location: scripts/before-install.sh
+    ApplicationStart:
+        - location: scripts/app-start.sh
+        runas: ubuntu
+permissions:
+  - object: /
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
