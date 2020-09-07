@@ -2,7 +2,8 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from 'helpers/tokenHelper';
 
-const BASE_URL = process.env.REACT_APP_API_URL || '/api';
+const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
+console.log('BASE_URL', process.env);
 
 class Api {
   baseUrl: string;
@@ -48,6 +49,7 @@ class Api {
     return await this.instance
       .post(url, data, {
         headers: {
+          Authorization: `Bearer ${getToken()}`,
           'Content-Type': 'multipart/form-data',
         },
       })
