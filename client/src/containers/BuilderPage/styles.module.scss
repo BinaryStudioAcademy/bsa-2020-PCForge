@@ -17,9 +17,10 @@
 }
 
 .addRequestBlock {
-  max-width: fit-content;
   text-align: justify;
   margin: 1em 0;
+  margin-right: 3rem;
+  color: $colorLightGray;
 
   .linkRequest {
     color: $colorDarkGray;
