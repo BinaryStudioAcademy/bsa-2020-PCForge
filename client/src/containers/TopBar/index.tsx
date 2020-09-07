@@ -57,6 +57,7 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
 
   const onNotificationClick = (notification: INotification) => {
     if (!user?.id) return;
+    console.log(notification);
     WebSocketService?.readNotification(user.id.toString(), notification);
     if (notification.payload?.type === 'link') {
       history.push(notification.payload.value);
@@ -81,7 +82,7 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
             onClose={onClose}
             PaperProps={{
               style: {
-                maxHeight: ITEM_HEIGHT * 4.5, // * 4.5
+                maxHeight: ITEM_HEIGHT * 12.5,
                 width: '50ch',
               },
             }}
