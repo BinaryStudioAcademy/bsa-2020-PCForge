@@ -149,5 +149,5 @@ $space-width: 30px;
 
 .indicatorsWrapper {
   margin-left: $space-width;
-  padding-right: $space-width;
+  padding-right: $space-width - 5px;
 }
