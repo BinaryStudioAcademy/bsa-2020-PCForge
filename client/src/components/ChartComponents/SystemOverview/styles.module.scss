@@ -41,17 +41,20 @@
 }
 
 .summary {
+  display: flex;
+  flex-direction: column;
   width: 30%;
   height: 100%;
   overflow: auto;
   box-sizing: border-box;
-  border-radius: 6px;
-  padding: 1rem 2rem 2rem 2rem;
-  border: 1px solid $colorBlue;
 }
 
 .summarySection {
-  margin-top: 1rem;
+  margin-top: 0px !important;
+  margin-bottom: 10px !important;
+  border-radius: 6px;
+  padding: 1rem 1rem 1rem 1rem;
+  border: 1px solid $colorBlue;
 }
 
 .summaryHeader {
