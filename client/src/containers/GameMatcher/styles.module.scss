@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   margin: 0 8rem;
-  padding: 3rem;
   width: 100%;
 }
 
@@ -74,6 +73,15 @@
   text-transform: uppercase;
 
   color: $colorTextWhite;
+}
+
+.asideBlock {
+  display: flex;
+  flex-direction: column;
+}
+.buttonWrapper{
+  margin: 2em 0;
+  align-self: center;
 }
 
 @media (max-width: 960px) {

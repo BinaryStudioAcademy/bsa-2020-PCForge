@@ -27,7 +27,7 @@ export class RateService extends BaseService<RateModel, RateCreationAttributes, 
   async createRate(inputRate: RateCreationAttributes, rateMiddleware: IRateMiddleware): Promise<RateModel> {
     await rateMiddleware(inputRate);
 
-    const oldUserRate = await this.repository.getRateByUserAndRateable(
+    const oldUserRate = await this.repository.getRateByUserAndRateble(
       inputRate.userId,
       inputRate.ratebleId,
       inputRate.ratebleType
@@ -50,8 +50,13 @@ export class RateService extends BaseService<RateModel, RateCreationAttributes, 
     rateMiddleware: IRateMiddleware,
     initiator: UserAttributes
   ): Promise<RateModel> {
+    if (!Object.keys(data).length) {
+      triggerServerError('No valid fields to update specified', 400);
+    }
     await rateMiddleware(data);
-
+    if (!Object.keys(data).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
     const oldRate = await this.repository.getRateById(id);
     if (!oldRate) {
       triggerServerError(`Rate with id: ${id} does not exists`, 404);

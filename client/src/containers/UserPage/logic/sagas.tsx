@@ -1,20 +1,51 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
-import { getUser, updateUser as updateUserService } from 'api/services/userService';
+import { getUser, updateUser as updateUserService, getUserGames } from 'api/services/userService';
 import { uploadImage } from 'api/services/imageService';
 import {
   loadUser as loadUserAction,
+  loadUserGames as loadUserGamesActionType,
   updateUser as updateUserAction,
-  loadSetups as loadSetupsAction,
+  loadSetups as loadSetupsActionType,
+  loadFilteredGames as loadFilteredGamesActionType,
+  addUserGame as addUserGameActionType,
+  deleteUserGame as deleteUserGameActionType,
+  deleteUserSetup as deleteUserSetupActionType,
   LOAD_USER,
   UPDATE_USER,
   LOAD_SETUPS,
+  LOAD_USER_GAMES,
+  LOAD_FILTERED_GAMES,
+  ADD_USER_GAME,
+  DELETE_USER_GAME,
+  DELETE_USER_SETUP,
 } from './actionTypes';
-import { showSpinner, hideSpinner, loadUserSuccess, updateUserSuccess, loadSetupsSuccess } from './actions';
+import {
+  showSpinner,
+  hideSpinner,
+  loadUserSuccess,
+  updateUserSuccess,
+  loadSetupsSuccess,
+  loadSetups as loadSetupsAction,
+  loadUserGames as loadUserGamesAction,
+  loadUserGamesSuccess,
+  loadFilteredGamesSuceess,
+} from './actions';
 import * as notification from 'common/services/notificationService';
-import { getUserSetups, TypeResponseAll } from 'api/services/setupService';
+import { getAllGames } from 'api/services/gamesService';
+import { addUserGame as addUserGameService, deleteUserGame as deleteUserGameService } from 'api/services/userService';
+import { getUserSetups, deleteUserSetup as deleteUserSetupService, TypeResponseAll } from 'api/services/setupService';
 
 export default function* userSagas() {
-  yield all([watchLoadUser(), watchUpdateUser(), watchLoadSetups()]);
+  yield all([
+    watchLoadUser(),
+    watchUpdateUser(),
+    watchLoadUserGames(),
+    watchLoadFilteredGames(),
+    watchAddUserGame(),
+    watchDeleteUserGame(),
+    watchLoadSetups(),
+    watchDeleteUserSetup(),
+  ]);
 }
 
 function* watchLoadUser() {
@@ -47,8 +78,22 @@ function* updateUser(action: updateUserAction) {
     yield put(updateUserSuccess(updatedUser));
     notification.success('Your data has been successfully updated');
   } catch (error) {
+    notification.error(error.message || 'Something went wrong, please try again later');
+  }
+  yield put(hideSpinner());
+}
+
+function* watchLoadUserGames() {
+  yield takeEvery(LOAD_USER_GAMES, loadUserGames);
+}
+
+function* loadUserGames(action: loadUserGamesActionType) {
+  yield put(showSpinner());
+  try {
+    const data = yield call(getUserGames, action.payload.id);
+    yield put(loadUserGamesSuccess(data.data));
+  } catch (error) {
     console.log(error);
-    notification.error('Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
@@ -57,7 +102,7 @@ function* watchLoadSetups() {
   yield takeEvery(LOAD_SETUPS, loadSetups);
 }
 
-function* loadSetups(action: loadSetupsAction) {
+function* loadSetups(action: loadSetupsActionType) {
   yield put(showSpinner());
   try {
     const id = action.payload.authorId;
@@ -67,4 +112,69 @@ function* loadSetups(action: loadSetupsAction) {
     console.log(error);
   }
   yield put(hideSpinner());
+}
+
+function* watchLoadFilteredGames() {
+  yield takeEvery(LOAD_FILTERED_GAMES, loadFilteredGames);
+}
+
+function* loadFilteredGames(action: loadFilteredGamesActionType) {
+  try {
+    const data = yield call(getAllGames, { name: action.payload.searchString });
+    yield put(loadFilteredGamesSuceess(data.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* watchAddUserGame() {
+  yield takeEvery(ADD_USER_GAME, addUserGame);
+}
+
+function* addUserGame(action: addUserGameActionType) {
+  yield put(showSpinner());
+  try {
+    const data = yield call(addUserGameService, action.payload.id, action.payload.gameId);
+    if (data.isNew) {
+      yield put(loadUserGamesAction(action.payload.id));
+      notification.success(`You have added ${data.game.name}`);
+    } else {
+      notification.warning('Looks like you already have this game');
+    }
+  } catch (error) {
+    notification.error(error.message || 'Something went wrong, please try again later');
+  }
+  yield put(hideSpinner());
+}
+
+function* watchDeleteUserGame() {
+  yield takeEvery(DELETE_USER_GAME, deleteUserGame);
+}
+
+function* deleteUserGame(action: deleteUserGameActionType) {
+  yield put(showSpinner());
+  try {
+    const deletedGame = yield call(deleteUserGameService, action.payload.id, action.payload.gameId);
+    yield put(loadUserGamesAction(action.payload.id));
+    notification.success(`You have deleted ${deletedGame.game.name}`);
+  } catch (error) {
+    yield put(hideSpinner());
+    notification.error(error.message || 'Could not delete the game, try again later');
+  }
+}
+
+function* watchDeleteUserSetup() {
+  yield takeEvery(DELETE_USER_SETUP, deleteUserSetup);
+}
+
+function* deleteUserSetup(action: deleteUserSetupActionType) {
+  yield put(showSpinner());
+  try {
+    const deletedSetup = yield call(deleteUserSetupService, action.payload.setupId);
+    yield put(loadSetupsAction(action.payload.userId));
+    notification.success(`You have deleted "${deletedSetup.title}"`);
+  } catch (error) {
+    yield put(hideSpinner());
+    notification.error(error.message || 'Could not delete the setup, try again later');
+  }
 }

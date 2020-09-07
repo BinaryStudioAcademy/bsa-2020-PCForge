@@ -3,6 +3,7 @@ import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { AddRequestCreationAttributes } from '../../data/models/addRequest';
 import { IAddRequestFilter } from '../../data/repositories/filters/addRequest.filter';
 import { UserAttributes } from '../../data/models/user';
+import { UserSchema } from './user.schema';
 
 export type GetAllAddRequests = FastifyRequest<{
   Params: { id: string };
@@ -46,8 +47,15 @@ export const AddRequestSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       example: 'cpu',
-      enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
+      enum: ['hardware', 'game'],
       nullable: false,
+    },
+    requestedHardwareType: {
+      type: 'string',
+      minLength: 1,
+      example: 'cpu',
+      enum: ['cpu', 'gpu', 'motherboard', 'ram', 'powerSupply', 'ssd', 'hdd'],
+      nullable: true,
     },
     requestBody: {
       type: 'string',
@@ -55,6 +63,7 @@ export const AddRequestSchema: SwaggerSchema = {
       example: 'Request body goes here...',
       nullable: false,
     },
+    user: UserSchema,
     createdAt: {
       type: 'string',
       minLength: 1,
@@ -95,20 +104,21 @@ export const GetAllAddRequest: SwaggerSchema = {
 
 export const CreateAddRequestSchema: SwaggerSchema = {
   type: 'object',
-  required: ['userId', 'requestType', 'requestBody'],
+  required: ['requestedType', 'requestBody'],
   properties: {
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
-      nullable: false,
-    },
     requestedType: {
       type: 'string',
       minLength: 1,
       example: 'cpu',
-      enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
+      enum: ['hardware', 'game'],
       nullable: false,
+    },
+    requestedHardwareType: {
+      type: 'string',
+      minLength: 1,
+      example: 'cpu',
+      enum: ['cpu', 'gpu', 'motherboard', 'ram', 'powerSupply', 'ssd', 'hdd'],
+      nullable: true,
     },
     requestBody: {
       type: 'string',
@@ -121,19 +131,20 @@ export const CreateAddRequestSchema: SwaggerSchema = {
 
 export const UpdateAddRequestSchema: SwaggerSchema = {
   type: 'object',
-  required: ['userId', 'requestType', 'requestBody'],
+  required: ['requestedType', 'requestBody', 'requestedHardwareType'],
   properties: {
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
-      nullable: true,
-    },
     requestedType: {
       type: 'string',
       minLength: 1,
       example: 'cpu',
-      enum: ['cpu', 'gpu', 'game', 'motherboard', 'ram', 'powerSupply'],
+      enum: ['hardware', 'game'],
+    },
+    requestedHardwareType: {
+      type: 'string',
+      minLength: 1,
+      example: 'cpu',
+      enum: ['cpu', 'gpu', 'motherboard', 'ram', 'powerSupply', 'ssd', 'hdd'],
+      nullable: true,
     },
     requestBody: {
       type: 'string',

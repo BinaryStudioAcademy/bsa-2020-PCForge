@@ -23,7 +23,7 @@ const Select: React.FC<ISelectProps & SelectProps> = (props) => {
     </option>
   ));
   optionsArray.unshift(
-    <option value="" key="none">
+    <option value="" key="none" disabled selected>
       {props.placeholder || ''}
     </option>
   );

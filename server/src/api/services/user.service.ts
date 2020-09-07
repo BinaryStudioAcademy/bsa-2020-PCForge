@@ -1,15 +1,23 @@
 const bcrypt = require('bcrypt');
+import genRandomString from 'crypto-random-string';
 import { UserModel, UserCreationAttributes } from '../../data/models/user';
 import { UserRepository } from '../../data/repositories/user.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 import { IWithMeta } from '../../data/repositories/base.repository';
+import { encryptSync } from '../../helpers/crypto.helper';
+import { UserFilter } from '../../data/repositories/filters/user.filter';
 
 interface UserCreateAttributes {
   name: string;
   password: string;
   email: string;
   avatar: string;
+  emailVerified?: boolean;
+}
+
+interface UserUpdateAttributes extends UserCreateAttributes {
+  currentPassword?: string;
 }
 
 export class UserService extends BaseService<UserModel, UserCreationAttributes, UserRepository> {
@@ -24,10 +32,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     const user = await this.repository.getUserByUserNameOrEmail(login);
     const isPasswordValidForUser = user ? await bcrypt.compare(password, user.password) : 0;
     if (!isPasswordValidForUser) {
-      throw {
-        error: `Invalid login or password`,
-        status: 401,
-      };
+      triggerServerError('Invalid login or password', 401);
     }
     return user;
   }
@@ -40,39 +45,74 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
   async getUser(id: string): Promise<UserModel> {
     const user = await this.repository.getUserById(id);
     if (!user) {
-      triggerServerError(`User with id: ${id} does not exists`, 404);
+      triggerServerError(`User with id: ${id} does not exists`, 400);
     }
     return user;
   }
 
   async createUser(inputUser: UserCreateAttributes): Promise<UserModel> {
-    const userAttributes: UserCreationAttributes = {
+    const user = await this.getByEmail(inputUser.email);
+    if (user) {
+      triggerServerError('User with given email exists', 403);
+    } else {
+      const userAttributes: UserCreationAttributes = {
+        ...inputUser,
+        isAdmin: false,
+        password: this.hash(inputUser.password),
+        verifyEmailToken: inputUser.emailVerified ? null : genRandomString(33),
+        resetPasswordToken: null,
+        isActive: true,
+      };
+
+      return await super.create(userAttributes);
+    }
+  }
+
+  async updateUser(id: string | number, inputUser: UserUpdateAttributes): Promise<UserModel> {
+    if (!Object.keys(inputUser).length) {
+      triggerServerError('No valid fields to update specified', 400);
+    }
+    id = id.toString();
+    const oldUser = await this.repository.getById(id);
+    if (!Object.keys(inputUser).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
+    if (!oldUser) {
+      triggerServerError(`User with id: ${id} does not exist`, 404);
+    }
+    if (inputUser.password) {
+      const validForPasswordUpdate =
+        inputUser.currentPassword && (await bcrypt.compare(inputUser.currentPassword, oldUser.password));
+      if (!validForPasswordUpdate) {
+        throw {
+          error: `Invalid current password`,
+          status: 401,
+        };
+      }
+      inputUser.password = this.hash(inputUser.password);
+    }
+
+    const userAttributes = {
       ...inputUser,
       isAdmin: false,
-      password: this.hash(inputUser.password),
-      verifyEmailToken: null,
       resetPasswordToken: null,
-    };
-    const user = await super.create(userAttributes);
+    } as UserCreationAttributes;
+    const user = await this.repository.updateById(id, userAttributes);
     return user;
   }
 
-  async updateUser(id: string, inputUser: UserCreateAttributes): Promise<UserModel> {
-    const oldUser = await this.repository.getById(id);
-    if (!oldUser) {
-      triggerServerError('User with id: ${id} does not exists', 404);
-    }
-    if (inputUser.password) {
-      inputUser.password = this.hash(inputUser.password);
-    }
-    const userAttributes: UserCreationAttributes = {
-      ...inputUser,
-      isAdmin: false,
-      password: this.hash(inputUser.password),
-      verifyEmailToken: null,
-      resetPasswordToken: null,
-    };
-    const user = await this.repository.updateById(id, userAttributes);
+  async setUserById(id: string | number, newUser: UserCreationAttributes): Promise<UserModel> {
+    id = id.toString();
+    const user = await this.repository.updateById(id, newUser);
+    return user;
+  }
+
+  async getUserByFilter(filter: UserFilter): Promise<UserModel | null> {
+    return this.repository.getOneByFilter(filter);
+  }
+
+  async getByEmail(email: string): Promise<UserModel> {
+    const user = await this.repository.getOneByFilter({ email });
     return user;
   }
 
@@ -80,8 +120,11 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return await super.deleteById(id);
   }
 
+  async activateDeactivateUser(id: string): Promise<UserModel> {
+    return await this.repository.activateDeactivate(id);
+  }
+
   hash(password: string): string {
-    const saltRounds = 10;
-    return bcrypt.hashSync(password, saltRounds);
+    return encryptSync(password);
   }
 }

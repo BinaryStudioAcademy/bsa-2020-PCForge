@@ -5,6 +5,7 @@ import { CommentRepository } from '../../data/repositories/comment.repository';
 import { ICommentMiddleware } from '../middlewares/comment.middleware';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { UserAttributes } from '../../data/models/user';
 
 export class CommentService extends BaseService<CommentModel, CommentCreationAttributes, CommentRepository> {
   constructor(private repository: CommentRepository) {
@@ -34,11 +35,19 @@ export class CommentService extends BaseService<CommentModel, CommentCreationAtt
 
   async updateCommentById(
     { id, data }: { id: string; data: CommentCreationAttributes },
-    CommentMiddleware: ICommentMiddleware
+    CommentMiddleware: ICommentMiddleware,
+    initiator: UserAttributes
   ): Promise<CommentModel> {
     await CommentMiddleware(data);
-    const comment = await super.updateById(id, data);
-    return comment;
+    if (!Object.keys(data).length) {
+      triggerServerError('You should specify at least one valid field to update', 400);
+    }
+    const oldComment = await this.repository.getCommentById(id);
+    if (oldComment.userId !== initiator.id) {
+      triggerServerError('Access forbidden', 403);
+    }
+    const newComment = this.repository.updateById(id, data);
+    return newComment;
   }
 
   async deleteCommentById(id: string): Promise<CommentModel> {

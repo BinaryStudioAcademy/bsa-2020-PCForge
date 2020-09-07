@@ -2,20 +2,21 @@ import { FastifyInstance } from 'fastify';
 import { SetupCreationAttributes } from '../../data/models/setup';
 import { triggerServerError } from '../../helpers/global.helper';
 
-export type ISetupMiddleware = (inputRate: SetupCreationAttributes) => void;
+export type ISetupMiddleware = (input: SetupCreationAttributes) => void;
 
 export const SetupMiddleware = (fastify: FastifyInstance): ISetupMiddleware => {
-  const { UserService, CpuService, GpuService, MotherboardService, PowerSupplyService, RamService } = fastify.services;
+  const {
+    CpuService,
+    GpuService,
+    MotherboardService,
+    PowerSupplyService,
+    RamService,
+    HddService,
+    SsdService,
+  } = fastify.services;
 
-  return async (inputRate: SetupCreationAttributes) => {
-    const { authorId, cpuId, gpuId, motherboardId, powerSupplyId, ramId } = inputRate;
-
-    if (authorId) {
-      const user = await UserService.getUser(authorId.toString());
-      if (!user) {
-        triggerServerError(`There's no user with id: ${authorId}`, 404);
-      }
-    }
+  return async (input: SetupCreationAttributes) => {
+    const { cpuId, gpuId, motherboardId, powerSupplyId, ramId, hddId, ssdId, ramCount } = input;
 
     if (cpuId) {
       const cpu = await CpuService.getCpuById(cpuId.toString());
@@ -50,6 +51,24 @@ export const SetupMiddleware = (fastify: FastifyInstance): ISetupMiddleware => {
       if (!powerSupply) {
         triggerServerError(`There's no cpu with id: ${powerSupplyId}`, 404);
       }
+    }
+
+    if (hddId) {
+      const hdd = await HddService.getHddById(String(hddId));
+      if (!hdd) {
+        triggerServerError(`There's no hdd with id: ${hddId}`, 400);
+      }
+    }
+
+    if (ssdId) {
+      const ssd = await SsdService.getSsdById(String(ssdId));
+      if (!ssd) {
+        triggerServerError(`There's no hdd with id: ${ssdId}`, 400);
+      }
+    }
+
+    if (!ramCount) {
+      triggerServerError('ramCount field is required', 400);
     }
   };
 };

@@ -18,7 +18,6 @@ interface ILoginFormProps {
   isLoading: boolean;
   handleChangeEmail: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleChangePassword: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  validate: () => void;
   handleChangeCheckbox: () => void;
   login: (event: React.FormEvent<HTMLButtonElement>) => void;
   switchToRegistration: (event: React.MouseEvent) => void;
@@ -31,7 +30,6 @@ const LoginForm = ({
   errorMessage,
   handleChangeEmail,
   handleChangePassword,
-  validate,
   handleChangeCheckbox,
   login,
   switchToRegistration,
@@ -42,6 +40,10 @@ const LoginForm = ({
     setToken((response as GoogleLoginResponse).tokenId);
     setTokenType(TokenType.google);
     history.push(Routes.DEFAULT);
+  };
+
+  const onForgotPasswordClick = () => {
+    history.push(Routes.RESET_PASSWORD_REQUEST);
   };
 
   return (
@@ -57,14 +59,15 @@ const LoginForm = ({
           name="Email"
           className={styles.emailInput}
           onChange={handleChangeEmail}
-          onBlur={validate}
           value={email}
           placeholder="Email"
           type="text"
           required
         />
-        <PasswordInput inputHandler={handleChangePassword} blurHandler={validate} />
-        <span className={[styles.forgotPassword, 'link'].join(' ')}>Forgot password?</span>
+        <PasswordInput className={styles.passwordBox} inputHandler={handleChangePassword} />
+        <span className={[styles.forgotPassword, 'link'].join(' ')} onClick={onForgotPasswordClick}>
+          Forgot password?
+        </span>
         <div className={styles.loginButtonBox}>
           <Checkbox
             onChange={handleChangeCheckbox}

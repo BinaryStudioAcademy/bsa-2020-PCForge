@@ -14,6 +14,7 @@ import { NewsRepository } from './news.repository';
 import { RateRepository } from './rate.repository';
 import { CommentRepository } from './comment.repository';
 import { AddRequestRepository } from './addRequest.repository';
+import { UserGameRepository } from './usergame.repository';
 import { HddRepository } from './hdd.repository';
 import { SsdRepository } from './ssd.repository';
 
@@ -33,6 +34,7 @@ export interface Repositories {
   RateRepository: RateRepository;
   CommentRepository: CommentRepository;
   AddRequestRepository: AddRequestRepository;
+  UserGameRepository: UserGameRepository;
   HddRepository: HddRepository;
   SsdRepository: SsdRepository;
 }
@@ -51,7 +53,10 @@ export const initializeRepositories = (models: Models): Repositories => {
     models.Ram,
     models.PowerSupply,
     models.Hdd,
-    models.Ssd
+    models.Ssd,
+    models.Comment,
+    models.Rate,
+    models.User
   );
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
   const gpuRepository = new GpuRepository(models.Gpu);
@@ -61,7 +66,8 @@ export const initializeRepositories = (models: Models): Repositories => {
   const newsRepository = new NewsRepository(models.News);
   const rateRepository = new RateRepository(models.Rate);
   const commentRepository = new CommentRepository(models.Comment, models.User);
-  const addRequestRepository = new AddRequestRepository(models.AddRequest);
+  const addRequestRepository = new AddRequestRepository(models.AddRequest, models.User);
+  const userGameRepository = new UserGameRepository(models.UserGame, models.Game);
   const hddRepository = new HddRepository(models.Hdd);
   const ssdRepository = new SsdRepository(models.Ssd);
   const repositories: Repositories = {
@@ -80,6 +86,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     RateRepository: rateRepository,
     CommentRepository: commentRepository,
     AddRequestRepository: addRequestRepository,
+    UserGameRepository: userGameRepository,
     HddRepository: hddRepository,
     SsdRepository: ssdRepository,
   };

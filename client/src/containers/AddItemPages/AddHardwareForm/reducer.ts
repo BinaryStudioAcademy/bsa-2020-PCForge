@@ -4,7 +4,7 @@ const initialState: HardwareFormState = {
   socketList: [],
   RAMList: [],
   RAMtypeList: [],
-  error: '',
+  errorMessage: '',
   createdHardwareName: '',
 };
 
@@ -13,7 +13,17 @@ export function HardwareFormReducer(state = initialState, action: HardWareFormAc
     case HardwareFormActionTypes.GET_INITIAL_VALUES_ERROR: {
       return {
         ...state,
-        error: action.payload.error,
+        errorMessage: action.payload.errorMessage,
+      };
+    }
+    case HardwareFormActionTypes.UPDATE_STATE_TO_INIT_SUCCESS: {
+      return {
+        ...state,
+        errorMessage: '',
+        createdHardwareName: '',
+        socketList: [],
+        RAMList: [],
+        RAMtypeList: [],
       };
     }
     // upload initial values
@@ -73,6 +83,7 @@ export function HardwareFormReducer(state = initialState, action: HardWareFormAc
         RAMList: action.payload.valuesList,
       };
     }
+    // uploade created hardware
     case HardwareFormActionTypes.CREATE_NEW_HARDWARE_SUCCESS: {
       return {
         ...state,

@@ -17,36 +17,44 @@ import { CommentService } from './comment.service';
 import { AddRequestService } from './addRequest.service';
 import { UploadService } from './imageUpload.service';
 import { PerformanceService } from './performance.service';
+import { UserGameService } from './userGame.service';
 import { HddService } from './hdd.service';
 import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
+import { AuthService } from './auth.service';
+import { NotificationService, notificationServiceFactory } from './notification.service';
+import { HardwareService } from './hardware.service';
 
 export interface Services {
-  RamTypeService: RamTypeService;
-  RamService: RamService;
-  PowerSupplyService: PowerSupplyService;
-  SocketService: SocketService;
-  MotherboardService: MotherboardService;
-  GpuService: GpuService;
-  CpuService: CpuService;
-  UserService: UserService;
-  GameService: GameService;
-  TopGameService: TopGameService;
-  NewsService: NewsService;
-  SetupService: SetupService;
-  RateService: RateService;
-  CommentService: CommentService;
+  AuthService: AuthService;
   AddRequestService: AddRequestService;
-  UploadImageService: UploadService;
-  PerformanceService: PerformanceService;
+  CommentService: CommentService;
+  CpuService: CpuService;
   HddService: HddService;
-  SsdService: SsdService;
+  GameService: GameService;
+  GpuService: GpuService;
   MailService: MailService;
+  MotherboardService: MotherboardService;
+  NewsService: NewsService;
+  PerformanceService: PerformanceService;
+  PowerSupplyService: PowerSupplyService;
+  RamService: RamService;
+  RamTypeService: RamTypeService;
+  RateService: RateService;
+  SetupService: SetupService;
+  SocketService: SocketService;
+  SsdService: SsdService;
+  TopGameService: TopGameService;
+  UploadImageService: UploadService;
+  UserGameService: UserGameService;
+  UserService: UserService;
+  NotificationService: NotificationService;
+  HardwareService: HardwareService;
 }
 
 export default fp(async (fastify, opts, next) => {
   try {
-    const { nodemailer, repositories } = fastify;
+    const { nodemailer, repositories, redis, websocket } = fastify;
     const ramTypeService = new RamTypeService(repositories.RamTypeRepository);
     const usersService = new UserService(repositories.UserRepository);
     const setupService = new SetupService(repositories.SetupRepository);
@@ -70,28 +78,49 @@ export default fp(async (fastify, opts, next) => {
     const hddService = new HddService(repositories.HddRepository);
     const ssdService = new SsdService(repositories.SsdRepository);
     const mailService = new MailService(nodemailer);
+    const userGameService = new UserGameService(
+      repositories.UserGameRepository,
+      repositories.UserRepository,
+      repositories.GameRepository
+    );
     const uploadService = new UploadService();
+    const authService = new AuthService(mailService, usersService);
+    const notificationService = await notificationServiceFactory(redis, websocket);
+    const hardwareService = new HardwareService(
+      repositories.CpuRepository,
+      repositories.GpuRepository,
+      repositories.RamRepository,
+      repositories.MotherboardRepository,
+      repositories.PowerSupplyRepository,
+      repositories.HddRepository,
+      repositories.SsdRepository,
+      repositories.SetupRepository
+    );
     const services: Services = {
+      AuthService: authService,
       AddRequestService: addRequestService,
-      RamTypeService: ramTypeService,
-      RamService: ramService,
-      PowerSupplyService: powerSupplyService,
-      SocketService: socketService,
-      MotherboardService: motherboardService,
-      GpuService: gpuService,
-      CpuService: cpuService,
-      UserService: usersService,
-      SetupService: setupService,
-      GameService: gameService,
-      TopGameService: topGameService,
-      NewsService: newsService,
-      RateService: rateService,
       CommentService: commentService,
-      UploadImageService: uploadService,
-      PerformanceService: performanceService,
+      CpuService: cpuService,
       HddService: hddService,
-      SsdService: ssdService,
+      GameService: gameService,
+      GpuService: gpuService,
       MailService: mailService,
+      MotherboardService: motherboardService,
+      NewsService: newsService,
+      PerformanceService: performanceService,
+      PowerSupplyService: powerSupplyService,
+      RamService: ramService,
+      RamTypeService: ramTypeService,
+      RateService: rateService,
+      SetupService: setupService,
+      SocketService: socketService,
+      SsdService: ssdService,
+      TopGameService: topGameService,
+      UploadImageService: uploadService,
+      UserGameService: userGameService,
+      UserService: usersService,
+      NotificationService: notificationService,
+      HardwareService: hardwareService,
     };
     fastify.decorate('services', services);
     console.log('services were successfully initialized');

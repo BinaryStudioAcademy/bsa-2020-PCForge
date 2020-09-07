@@ -3,6 +3,7 @@ import {
   AuthActionTypes,
   AUTH_CHANGE_EMAIL,
   AUTH_CHANGE_PASSWORD,
+  AUTH_CHANGE_CONFIRM_PASSWORD,
   AUTH_VALIDATION_ERROR,
   AUTH_KEEP_SIGN_IN,
   AUTH_LOADING_STATUS,
@@ -17,6 +18,7 @@ const initialState: IAuthState = {
   user: null,
   email: '',
   password: '',
+  confirmPassword: '',
   errorMessage: '',
   isRegistration: false,
   keepSignedIn: false,
@@ -34,6 +36,11 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
       return {
         ...state,
         password: action.payload.value,
+      };
+    case AUTH_CHANGE_CONFIRM_PASSWORD:
+      return {
+        ...state,
+        confirmPassword: action.payload.value,
       };
     case AUTH_VALIDATION_ERROR:
       return {
@@ -55,6 +62,7 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         ...state,
         email: '',
         password: '',
+        confirmPassword: '',
         errorMessage: '',
         isRegistration: action.payload.isRegistration,
       };
@@ -79,6 +87,11 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
       return {
         ...state,
         errorMessage: action.payload.message,
+      };
+    case 'AUTH_LOGOUT':
+      return {
+        ...state,
+        user: null,
       };
     default:
       return state;

@@ -19,7 +19,6 @@ function* loadTopSetups() {
       yield put(loadTopSetupsSuccess((topSetups as TypeResponseAll).data));
     }
   } catch (error) {
-    console.log(error);
     //notification here
   }
   yield put(hideSpinner());

@@ -1,8 +1,6 @@
 import { Cpu } from 'common/models/cpu';
 import { Game } from 'common/models/game';
 import { Gpu } from 'common/models/gpu';
-import { Ram } from 'common/models/ram';
-import { Setup } from 'common/models/setup';
 import { ISetupPerformance } from 'common/models/setupPerformance';
 import { TopGame } from 'common/models/topGame';
 
@@ -10,13 +8,12 @@ export enum SetupChartTypes {
   ERROR = 'SetupChart/ERROR',
   FETCH_PERFORMANCE_REQUEST = 'SetupChart/FETCH_PERFORMANCE_REQUEST',
   FETCH_PERFORMANCE_SUCCESS = 'SetupChart/FETCH_PERFORMANCE_SUCCESS',
-  FETCH_TOP_GAMES_REQUEST = 'SetupChart/FETCH_TOP_GAMES_REQUEST',
-  FETCH_TOP_GAMES_SUCCESS = 'SetupChart/FETCH_TOP_GAMES_SUCCESS',
   FETCH_GAMES_REQUEST = 'SetupChart/FETCH_GAMES_REQUEST',
   FETCH_GAMES_SUCCESS = 'SetupChart/FETCH_GAMES_SUCCESS',
   SET_CPU = 'SetupChart/SET_CPU',
   SET_GPU = 'SetupChart/SET_GPU',
   SET_RAM = 'SetupChart/SET_RAM',
+  SET_GAME = 'SetupChart/SET_GAME',
 }
 
 export interface IFetchPerformanceRequestAction {
@@ -26,14 +23,6 @@ export interface IFetchPerformanceRequestAction {
     gpuId: number;
     ramSize: number;
     gameId: number;
-  };
-}
-
-export interface IFetchTopGamesRequestAction {
-  type: SetupChartTypes.FETCH_TOP_GAMES_REQUEST;
-  payload: {
-    from: number;
-    count: number;
   };
 }
 
@@ -48,13 +37,6 @@ interface IFetchPerformanceAction {
   type: SetupChartTypes.FETCH_PERFORMANCE_SUCCESS;
   payload: {
     performance: ISetupPerformance;
-  };
-}
-
-interface IFetchTopGamesAction {
-  type: SetupChartTypes.FETCH_TOP_GAMES_SUCCESS;
-  payload: {
-    topGames: TopGame[];
   };
 }
 
@@ -86,6 +68,13 @@ interface ISetRamAction {
   };
 }
 
+interface ISetGameAction {
+  type: SetupChartTypes.SET_GAME;
+  payload: {
+    game: Game;
+  };
+}
+
 interface IErrorAction {
   type: SetupChartTypes.ERROR;
   payload: {
@@ -93,9 +82,9 @@ interface IErrorAction {
   };
 }
 
-type SetupChartRequests = IFetchPerformanceRequestAction | IFetchTopGamesRequestAction | IFetchGamesRequestAction;
+type SetupChartRequests = IFetchPerformanceRequestAction | IFetchGamesRequestAction;
 
-type SetupChartSuccess = IFetchPerformanceAction | IFetchTopGamesAction | IFetchGamesAction;
+type SetupChartSuccess = IFetchPerformanceAction | IFetchGamesAction;
 
 export type SetupChartErrors = IErrorAction;
 
@@ -105,12 +94,13 @@ export type SetupChartActions =
   | SetupChartErrors
   | ISetCpuAction
   | ISetGpuAction
-  | ISetRamAction;
+  | ISetRamAction
+  | ISetGameAction;
 
 export interface SetupChartState {
-  topGames: TopGame[];
   searchedGames: Game[];
   performance: ISetupPerformance;
+  game: Game;
   cpu: Cpu | null;
   gpu: Gpu | null;
   ramSize: number | null;

@@ -4,11 +4,17 @@ import { GpuAttributes } from './gpu';
 import { RamAttributes } from './ram';
 import { HddAttributes } from './hdd';
 import { SsdAttributes } from './ssd';
+import { CommentAttributes } from './comment';
+import { UserAttributes } from './user';
 
 export interface SetupAttributes {
   id: number;
   title: string;
   description: string;
+  comments_count: number;
+  ratingCount: number;
+  rating: number;
+  ownRating: number;
   image: string;
   authorId: number;
   cpu: CpuAttributes;
@@ -16,6 +22,8 @@ export interface SetupAttributes {
   ram: RamAttributes;
   hdd: HddAttributes;
   ssd: SsdAttributes;
+  author: UserAttributes;
+  parentId: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -29,6 +37,7 @@ export interface SetupCreationAttributes {
   gpuId: number;
   motherboardId: number;
   ramId: number;
+  ramCount: number;
   powerSupplyId: number;
   hddId: number;
   ssdId: number;
@@ -69,6 +78,15 @@ export function SetupFactory(sequelize: Sequelize): SetupStatic {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW,
+    },
+    parentId: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    ramCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
     },
   });
 }

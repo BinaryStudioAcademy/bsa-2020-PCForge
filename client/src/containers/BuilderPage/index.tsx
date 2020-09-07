@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import Tooltip from '@material-ui/core/Tooltip';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
 import { MenuItems } from 'common/enums/MenuItems';
 import PageComponent from 'containers/PageComponent';
@@ -12,13 +13,18 @@ import Modal from 'components/BasicComponents/Modal';
 import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
 import { AssignmentReturn } from '@material-ui/icons';
 
-import { TypeGroupConfig, TypeFilterBuilder } from './types';
+import ModalAddRequest from 'containers/AddUserRequest';
+import Button, { ButtonType } from 'components/BasicComponents/Button';
+import { UserRequestedType } from 'common/enums/UserRequestedType';
+
+import { TypeGroupConfig, TypeFilterBuilder, TypeAdditionalProps } from './types';
 import { TypeSetup } from './reducer';
 import {
   addComponentToSetupAction,
   initSetupAction,
   removeComponentFromSetupAction,
   resetSetupAction,
+  setCounter,
 } from 'containers/BuilderPage/actions';
 
 import { FilterName, GroupName } from './config';
@@ -39,6 +45,16 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     m2: new Set() as Set<string>,
   });
   const [isModalActive, setIsModalActive] = useState<boolean>(false);
+  const [displayAddRequestOpen, setDisplayAddRequestOpen] = useState(false);
+  const showAddHardwareModal = () => {
+    setDisplayAddRequestOpen(true);
+  };
+  const hideAddHardwareModal = () => {
+    setDisplayAddRequestOpen(false);
+  };
+  const handleAddHardwareWindow = () => {
+    displayAddRequestOpen ? hideAddHardwareModal() : showAddHardwareModal();
+  };
 
   const showModal = () => {
     setIsModalActive(true);
@@ -48,6 +64,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   };
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
+  const ramCount = setup.ramCount;
   const dispatch = useDispatch();
 
   const resetFilter = () => {
@@ -101,6 +118,10 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           enable: !setup[GroupName.motherboard],
         },
       },
+      count: ramCount,
+      countHandler: (count) => {
+        dispatch(setCounter('ramCount', count));
+      },
     },
     {
       group: GroupName.motherboard,
@@ -142,33 +163,44 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     },
   ];
 
-  const groups = groupConfigs.map((config) => (
-    <GroupComponent
-      key={config.group}
-      groupName={config.group}
-      filter={config.filter}
-      filtersUsed={config.filters}
-      selectedComponent={setup[config.group]}
-      onUpdateFilter={(filter) => setFilter(filter)}
-      onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
-      onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
-      expanded={expanded}
-      onChangeExpanded={setExpanded}
-    />
-  ));
+  const groups = groupConfigs.map((config) => {
+    const additionalProps: TypeAdditionalProps = {};
+    if (config.count) additionalProps.count = config.count;
+    if (config.countHandler) additionalProps.countHandler = config.countHandler;
+
+    return (
+      <GroupComponent
+        key={config.group}
+        groupName={config.group}
+        filter={config.filter}
+        filtersUsed={config.filters}
+        selectedComponent={setup[config.group]}
+        onUpdateFilter={(filter) => setFilter(filter)}
+        onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
+        onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
+        expanded={expanded}
+        onChangeExpanded={setExpanded}
+        {...additionalProps}
+      />
+    );
+  });
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
       <Box className={`${styles.builderWrapper} ${className}`}>
         {isModalActive ? <SaveSetupModal onClose={hideModal} /> : null}
-        <BuilderTitle
-          isCanToSave={isCanToSaveSetup(setup)}
-          showResetSetup={Object.values(setup).some((e) => !!e)}
-          onResetSetup={() => dispatch(resetSetupAction())}
-          showResetFilter={Object.values(filter).some((e) => !!e.size)}
-          onResetFilter={resetFilter}
-          onSaveSetup={showModal}
-        />
+        <Grid container spacing={5}>
+          <Grid item xs={12} lg={8} xl={9}>
+            <BuilderTitle
+              isCanToSave={isCanToSaveSetup(setup)}
+              showResetSetup={Object.values(setup).some((e) => !!e)}
+              onResetSetup={() => dispatch(resetSetupAction())}
+              showResetFilter={Object.values(filter).some((e) => !!e.size)}
+              onResetFilter={resetFilter}
+              onSaveSetup={showModal}
+            />
+          </Grid>
+        </Grid>
         <Grid container spacing={5}>
           <Grid item xs={12} lg={8} xl={9}>
             {groups}
@@ -176,6 +208,21 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           <Grid item xs={12} lg={4} xl={3} className={styles.summary}>
             <BuilderSummary setup={setup} />
             {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
+            {displayAddRequestOpen ? (
+              <ModalAddRequest onClose={hideAddHardwareModal} requestType={UserRequestedType.hardware} />
+            ) : null}
+            <Box className={styles.buttonWrapper}>
+              <Tooltip
+                title={
+                  'If you can not find needed hardware, you can create a request to admin about adding it to site! '
+                }
+                arrow
+              >
+                <Button buttonType={ButtonType.secondary} onClick={handleAddHardwareWindow}>
+                  Add Hardware
+                </Button>
+              </Tooltip>
+            </Box>
           </Grid>
         </Grid>
       </Box>

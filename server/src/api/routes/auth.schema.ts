@@ -1,6 +1,7 @@
-import { FastifyRequest } from 'fastify';
+import { FastifyRequest, RouteShorthandOptions } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserSchema } from './user.schema';
+import { UserAttributes } from '../../data/models/user';
 
 export type PostAuthRequest = FastifyRequest<{
   Body: {
@@ -28,6 +29,12 @@ export type ResetPasswordRequest = FastifyRequest<{
     newPassword: string;
   };
 }>;
+
+export type VerifyEmailRequest = FastifyRequest<{
+  Params: { token: string };
+}>;
+
+export type OneMoreVerificationRequest = FastifyRequest & { user: UserAttributes };
 
 const LoginRequest: SwaggerSchema = {
   type: 'object',
@@ -75,10 +82,83 @@ const LoginResponse: { [number: number]: SwaggerSchema } = {
   },
 };
 
-export const LoginSchema = {
+export const LoginSchema: RouteShorthandOptions = {
   schema: {
     body: LoginRequest,
     response: LoginResponse,
+  },
+};
+
+export const verifyEmailRequest: RouteShorthandOptions = {
+  schema: {
+    params: {
+      token: {
+        type: 'string',
+        nullable: false,
+        minLength: 33,
+        maxLength: 33,
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          user: UserSchema,
+          verified: {
+            type: 'boolean',
+            nullable: false,
+          },
+        },
+      },
+      400: {
+        type: 'object',
+        properties: {
+          error: {
+            type: 'string',
+            minLength: 1,
+            example: 'Unable to verify',
+            nullable: false,
+          },
+          status: {
+            type: 'integer',
+            nullable: false,
+            example: 400,
+          },
+        },
+        nullable: false,
+      },
+    },
+  },
+};
+
+export const verifyEmailMessageSchema: RouteShorthandOptions = {
+  schema: {
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          ok: {
+            type: 'boolean',
+            nullable: false,
+          },
+        },
+      },
+      400: {
+        type: 'object',
+        properties: {
+          error: {
+            type: 'string',
+            nullable: false,
+            example: 'Bad Request',
+          },
+          status: {
+            type: 'integer',
+            nullable: false,
+            example: 404,
+          },
+        },
+      },
+    },
   },
 };
 

@@ -1,10 +1,14 @@
-import { HardWareFormAction, HardwareFormActionTypes, IHardwareFilter } from './actionsTypes';
-import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
 import { CpuCreationAttributes } from 'common/models/cpu';
 import { GpuCreationAttributes } from 'common/models/gpu';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 import { RamCreationAttributes } from 'common/models/ram';
+import { SsdCreationAttributes } from 'common/models/ssd';
+import { HddCreationAttributes } from 'common/models/hdd';
+
+import { SelectOption } from 'components/BasicComponents/InputBasedSelect';
+
+import { HardWareFormAction, HardwareFormActionTypes, IHardwareFilter } from './actionsTypes';
 
 // load initial values
 export const getAllSelectsInitialValuesMotherboard = (): HardWareFormAction => ({
@@ -84,15 +88,36 @@ export const createCPU = (cpu: CpuCreationAttributes): HardWareFormAction => ({
   },
 });
 
+export const createSSD = (ssd: SsdCreationAttributes): HardWareFormAction => ({
+  type: HardwareFormActionTypes.CREATE_NEW_SSD_ACTION,
+  payload: {
+    ssd,
+  },
+});
+
+export const createHDD = (hdd: HddCreationAttributes): HardWareFormAction => ({
+  type: HardwareFormActionTypes.CREATE_NEW_HDD_ACTION,
+  payload: {
+    hdd,
+  },
+});
+
 //
-export const loadError = (error: string): HardWareFormAction => ({
+export const loadError = (errorMessage: string): HardWareFormAction => ({
   type: HardwareFormActionTypes.GET_INITIAL_VALUES_ERROR,
   payload: {
-    error,
+    errorMessage,
   },
 });
 
 export const uploadMoreItems = (filter: IHardwareFilter): HardWareFormAction => ({
   type: HardwareFormActionTypes.UPLOAD_MORE_VALUES,
   payload: filter,
+});
+
+export const updateStateToInit = (): HardWareFormAction => ({
+  type: HardwareFormActionTypes.UPDATE_STATE_TO_INIT_ACTION,
+});
+export const updateStateToInitSuccess = (): HardWareFormAction => ({
+  type: HardwareFormActionTypes.UPDATE_STATE_TO_INIT_SUCCESS,
 });

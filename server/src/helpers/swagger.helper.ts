@@ -54,7 +54,7 @@ export function updateOneQuery(
           minimum: 1,
         },
       },
-      body: { ...toUpdate, additionalProperties: false },
+      body: { ...toUpdate, additionalProperties: false, minProperties: 1 },
       response: {
         200: newData,
         404: getNotFoundHeader(),
@@ -76,7 +76,7 @@ export function deleteOneQuery(schema?: SwaggerSchema, isProtected = true): Rout
         },
       },
       response: {
-        200: schema,
+        ...(!!schema && { 200: schema }),
         404: getNotFoundHeader(),
         ...(isProtected && { 403: getForbiddenHeader() }),
       },

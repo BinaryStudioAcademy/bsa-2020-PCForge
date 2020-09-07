@@ -16,10 +16,7 @@ export class HddRepository extends BaseRepository<HddModel, HddCreationAttribute
   }
 
   async getAllHdds(inputFilter: IHddFilter): Promise<IWithMeta<HddModel>> {
-    console.log('inputFilter', inputFilter);
     const filter = mergeFilters(new IHddFilter(), inputFilter);
-    console.log('filter', filter);
-    console.log('ff', filter.name && { name: { [Op.iLike]: `%${filter.name}%` } });
     const hdds = await this.getAll(
       {
         group: ['hdd.id'],
@@ -29,6 +26,7 @@ export class HddRepository extends BaseRepository<HddModel, HddCreationAttribute
           capacity: {
             [Op.between]: [filter.capacity.minValue, filter.capacity.maxValue],
           },
+          id: { [Op.and]: { [Op.or]: filter.id, [Op.not]: filter.excludedId } },
         },
       },
       filter

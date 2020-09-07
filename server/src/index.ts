@@ -13,8 +13,12 @@ import { validateBody } from './helpers/bodyValidator.helper';
 import nodemailer from './api/plugins/nodemailer';
 import services from './api/services';
 import routes from './api/routes/index';
+import redis from './api/plugins/redis';
+import websocket from './api/plugins/websocket';
 
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
+const redisPort = parseInt(process.env.REDIS_PORT, 10) || 6379;
+const redisHost = process.env.REDIS_HOST || '127.0.0.1';
 const server = fastify({
   querystringParser: (str) => {
     const parsed = qs.parse(str, { comma: true });
@@ -24,10 +28,9 @@ const server = fastify({
 server.addContentTypeParser('application/json', { parseAs: 'string' }, (req, body, done) => validateBody(body, done));
 
 server.register(cors, {
-  origin: process.env.APP_CLIENT_URL,
+  origin: true,
   optionsSuccessStatus: 200,
 });
-
 server.register(swagger, SwaggerMainSchema);
 server.register(db);
 server.register(multer.contentParser);
@@ -40,6 +43,17 @@ server.register(nodemailer, {
     pass: process.env.EMAIL_PASSWORD,
   },
 });
+const redisParams = process.env.REDIS_URL
+  ? {
+      url: process.env.REDIS_URL,
+    }
+  : {
+      port: redisPort,
+      host: redisHost,
+    };
+
+server.register(redis, redisParams);
+server.register(websocket);
 server.register(services);
 server.register(fastifyStatic, {
   root: path.join(__dirname, '..', '..', 'client', 'build'),
@@ -50,7 +64,8 @@ server.register(routes, { prefix: '/api' });
 
 server.ready((err) => {
   if (err) throw err;
-  server.swagger();
+  const spec = server.swagger();
+  delete spec.paths['api/auth/google/callback'];
 });
 
 server.listen(port, '0.0.0.0', (err, address) => {

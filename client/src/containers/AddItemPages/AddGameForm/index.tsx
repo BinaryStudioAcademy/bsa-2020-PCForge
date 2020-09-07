@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootState } from 'redux/rootReducer';
 import * as actions from './actions';
+import * as notification from 'common/services/notificationService';
 import {
   GameFormAction,
   GameFormState,
@@ -33,7 +34,7 @@ const theme = createMuiTheme({
     },
     MuiInputBase: {
       input: {
-        padding: '0', //'0.3rem 1rem 0.5rem',
+        padding: '0',
       },
     },
   },
@@ -45,11 +46,12 @@ interface IPropsAddGameForm {
   uploadMoreItems: (payload: IHardwareFilter) => GameFormAction;
   createGame: (game: GameCreationAttributes, imageData: Blob) => GameFormAction;
   loadCreatedGame: (gameName: string) => GameFormAction;
+  clearStateValues: () => GameFormAction;
   goBack: () => void;
 }
 
 const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
-  const { goBack, getAllSelectsInitialValues, uploadMoreItems, createGame } = props;
+  const { goBack, getAllSelectsInitialValues, uploadMoreItems, createGame, clearStateValues } = props;
 
   const [image, setImage] = useState(emptyImage);
   const inputRef = React.createRef<HTMLInputElement>();
@@ -68,6 +70,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
   const [minRamSize, setMinRAMSize] = useState<number | null>(null);
 
   useEffect(() => {
+    clearStateValues();
     getAllSelectsInitialValues();
     inputRef.current?.focus();
   }, []);
@@ -108,7 +111,22 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     createGame(game, imageData);
   };
   const onCancel = () => {
+    clearStateValues();
     goBack();
+  };
+
+  const setInitialFormValues = () => {
+    setImage(emptyImage);
+    setValidationError(null);
+    setName('');
+    setDescription('');
+    setYear('');
+    // const [recCPU, setRecCPU] = useState<number>();
+    // const [recGPU, setRecGPU] = useState<number>();
+    // const [minCPU, setMinCPU] = useState<number>();
+    // const [minGPU, setMinGPU] = useState<number>();
+    setRecRAMSize(null);
+    setMinRAMSize(null);
   };
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,7 +156,6 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
       uploadMoreItems(filter);
     };
   };
-  console.log(props.state);
 
   let notificationMessage: string | undefined = undefined;
   let notificationType: AlertType | undefined = undefined;
@@ -149,8 +166,10 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     notificationMessage = `Error: ${props.state.errorMessage}`;
     notificationType = props.state.alertType;
   } else if (props.state.gameName) {
-    notificationMessage = `Success : ${props.state.gameName} has been created`;
-    notificationType = props.state.alertType;
+    notification.success(`Game ${props.state.gameName} has been created`);
+    getAllSelectsInitialValues();
+    clearStateValues();
+    if (name) setInitialFormValues();
   }
 
   return (

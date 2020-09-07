@@ -15,6 +15,7 @@ export type TypeResponseOne = Setup;
 export interface ITopSetupFilter {
   from?: number;
   count?: number;
+  sort?: string;
 }
 
 export interface IUserSetupFilter {
@@ -34,4 +35,14 @@ export const getUserSetups = async (filter: IUserSetupFilter): Promise<TypeRespo
 export const getSetup = async (id: number): Promise<TypeResponseOne> => {
   const url = `${endpoint}/${id}`;
   return await webApi.get(url);
+};
+
+export const deleteUserSetup = async (setupId: number): Promise<TypeResponseOne> => {
+  const url = `${endpoint}/${setupId}`;
+  return await webApi.delete(url);
+};
+
+export const forkUserSetup = async (setupId: number): Promise<TypeResponseOne> => {
+  const url = `${endpoint}/forks`;
+  return await webApi.post(url, { setupId });
 };

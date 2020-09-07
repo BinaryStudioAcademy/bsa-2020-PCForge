@@ -58,6 +58,6 @@ export function CommentFactory(sequelize: Sequelize): CommentStatic {
     value: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
   });
 }

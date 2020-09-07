@@ -10,6 +10,7 @@ import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { UserAttributes } from '../../data/models/user';
 import { HddSchema } from './hdd.schema';
 import { SsdSchema } from './ssd.schema';
+import { UserSchema } from './user.schema';
 
 export type GetSetupsRequest = FastifyRequest<{
   Querystring: ISetupFilter;
@@ -32,6 +33,10 @@ export type DeleteSetupRequest = FastifyRequest<{
   Params: { id: string };
 }> & { user: UserAttributes };
 
+export type ForkSetupRequest = FastifyRequest<{
+  Body: { setupId: string };
+}> & { user: UserAttributes };
+
 export const SetupSchema: SwaggerSchema = {
   type: 'object',
   properties: {
@@ -39,6 +44,32 @@ export const SetupSchema: SwaggerSchema = {
       type: 'integer',
       example: 1,
       minimum: 1,
+      nullable: false,
+    },
+    rating: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
+      maximum: 5,
+      nullable: true,
+    },
+    ownRating: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
+      maximum: 5,
+      nullable: true,
+    },
+    ratingCount: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
+      nullable: true,
+    },
+    comments_count: {
+      type: 'integer',
+      minLength: 1,
+      example: '1',
       nullable: false,
     },
     title: {
@@ -90,6 +121,12 @@ export const SetupSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    ramCount: {
+      type: 'integer',
+      example: 2,
+      minimum: 1,
+      nullable: false,
+    },
     powerSupplyId: {
       type: 'integer',
       example: 1,
@@ -127,6 +164,7 @@ export const SetupSchema: SwaggerSchema = {
     motherboard: MotherBoardSchema,
     ram: RamSchema,
     powerSupply: PowerSupplySchema,
+    author: UserSchema,
   },
 };
 
@@ -137,6 +175,7 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
   schema.properties.ram = RamSchema;
   schema.properties.motherboard = MotherBoardSchema;
   schema.properties.powerSupply = PowerSupplySchema;
+
   schema.properties.hdd = {
     ...HddSchema,
     nullable: true,
@@ -145,6 +184,7 @@ const getDetailedSetupSchema = (): SwaggerSchema => {
     ...SsdSchema,
     nullable: true,
   };
+  schema.properties.author = UserSchema;
   return schema;
 };
 export const DetailedSetupSchema: SwaggerSchema = getDetailedSetupSchema();
@@ -174,7 +214,7 @@ export const GetAllSetupsResponse: SwaggerSchema = {
 
 export const CreateSetupSchema: SwaggerSchema = {
   type: 'object',
-  required: ['title', 'description', 'image', 'authorId', 'cpuId', 'gpuId', 'motherboardId', 'ramId', 'powerSupplyId'],
+  required: ['title', 'description', 'image', 'cpuId', 'gpuId', 'motherboardId', 'ramId', 'powerSupplyId'],
   properties: {
     title: {
       type: 'string',
@@ -213,6 +253,11 @@ export const CreateSetupSchema: SwaggerSchema = {
       nullable: false,
     },
     ramId: {
+      type: 'integer',
+      example: 1,
+      nullable: false,
+    },
+    ramCount: {
       type: 'integer',
       example: 1,
       nullable: false,
@@ -285,6 +330,11 @@ export const UpdateSetupSchema: SwaggerSchema = {
       minimum: 1,
       nullable: true,
     },
+    ramCount: {
+      type: 'integer',
+      example: 1,
+      nullable: false,
+    },
     hddId: {
       type: 'integer',
       example: 1,
@@ -304,6 +354,18 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+  },
+};
+
+export const ForkSetupSchema: SwaggerSchema = {
+  type: 'object',
+  properties: {
+    setupId: {
+      type: 'integer',
+      example: 1,
+      minimum: 1,
+      nullable: false,
     },
   },
 };

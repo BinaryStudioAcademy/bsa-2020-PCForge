@@ -1,7 +1,8 @@
 import { UserModel, UserStatic, UserCreationAttributes } from '../models/user';
 import { BaseRepository, RichModel, IWithMeta } from './base.repository';
-import { Op } from 'sequelize';
+import { Op, Sequelize } from 'sequelize';
 import { IFilter } from './filters/base.filter';
+import { UserFilter } from './filters/user.filter';
 
 export class UserRepository extends BaseRepository<UserModel, UserCreationAttributes, IFilter> {
   constructor(private model: UserStatic) {
@@ -17,6 +18,16 @@ export class UserRepository extends BaseRepository<UserModel, UserCreationAttrib
     return user;
   }
 
+  async getOneByFilter(filter?: UserFilter): Promise<UserModel | null> {
+    const user = await this.model.findOne({
+      where: {
+        ...(filter.emailVerificationToken !== undefined && { verifyEmailToken: filter.emailVerificationToken }),
+        ...(filter.email !== undefined && { email: filter.email }),
+      },
+    });
+    return user;
+  }
+
   async getUserByUserNameOrEmail(login: string): Promise<UserModel> {
     const user = await this.model.findOne({
       where: {
@@ -24,5 +35,13 @@ export class UserRepository extends BaseRepository<UserModel, UserCreationAttrib
       },
     });
     return user;
+  }
+
+  async activateDeactivate(id: string): Promise<UserModel> {
+    const [, user] = await this.model.update(
+      { isActive: Sequelize.literal('NOT "isActive"') },
+      { where: { id }, returning: true }
+    );
+    return user[0];
   }
 }

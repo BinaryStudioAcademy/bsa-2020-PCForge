@@ -55,14 +55,8 @@ export const updateTotalsLoadingComponentStatus = (dataTotalsIsLoaded: boolean):
   },
 });
 
-export const loadError = (error: string): UsersRequestActions => ({
-  type: UsersRequestActionTypes.GET_USERS_REQUESTS_ERROR,
-  payload: {
-    error,
-  },
-});
 export const deleteUserRequest = (id: number): UsersRequestActions => ({
-  type: UsersRequestActionTypes.DELETE_USER_REQUESTS,
+  type: UsersRequestActionTypes.DELETE_USER_ADDED_REQUESTS,
   payload: {
     id,
   },

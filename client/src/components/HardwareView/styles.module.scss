@@ -1,0 +1,31 @@
+@import '../../styles/variables.scss';
+
+.componentMetaRoot {
+  width: 100%;
+}
+
+.propertiesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+$tableCellPadding: 10px;
+
+.tableHeader {
+  font-size: 20px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
+.propertyLabel {
+  color: $colorTextGray;
+  padding: $tableCellPadding $tableCellPadding $tableCellPadding 0;
+  font-weight: bold;
+  width: 33.3%;
+  border-bottom: 1px solid #7f8489;
+}
+
+.propertyValue {
+  padding: $tableCellPadding;
+  border-bottom: 1px solid #7f8489;
+}

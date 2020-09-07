@@ -1,9 +1,15 @@
 .builderWrapper {
   width: 100%;
+  padding-bottom: 2rem;
 }
 
 .summary {
   height: fit-content;
   position: sticky;
   top: 20px;
+}
+
+.buttonWrapper{
+  margin: 2em 0;
+  text-align: center;
 }

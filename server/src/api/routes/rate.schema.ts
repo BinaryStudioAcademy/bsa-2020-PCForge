@@ -39,7 +39,7 @@ export const RateSchema: SwaggerSchema = {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: false,
     },
     userId: {
@@ -56,6 +56,7 @@ export const RateSchema: SwaggerSchema = {
     },
     value: {
       type: 'number',
+      maximum: 5,
       example: 4.5,
       minimum: 0,
       nullable: false,
@@ -83,13 +84,13 @@ export const GetRatesAverage = {
         ratebleType: {
           type: 'string',
           minLength: 1,
-          enum: ['news', 'game', 'setup'],
-          nullable: true,
+          enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
+          nullable: false,
         },
         ratebleId: {
           type: 'integer',
           minimum: 1,
-          nullable: true,
+          nullable: false,
         },
       },
     },
@@ -133,19 +134,14 @@ export const GetAllRates: SwaggerSchema = {
 
 export const CreateRateSchema: SwaggerSchema = {
   type: 'object',
-  required: ['ratebleType', 'userId', 'ratebleId', 'value'],
+  required: ['ratebleType', 'ratebleId', 'value'],
+  additionalProperties: false,
   properties: {
     ratebleType: {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
-      nullable: false,
-    },
-    userId: {
-      type: 'integer',
-      example: 1,
-      minimum: 1,
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: false,
     },
     ratebleId: {
@@ -156,6 +152,7 @@ export const CreateRateSchema: SwaggerSchema = {
     },
     value: {
       type: 'number',
+      maximum: 5,
       example: 4.5,
       minimum: 0,
       nullable: false,
@@ -165,18 +162,14 @@ export const CreateRateSchema: SwaggerSchema = {
 
 export const UpdateRateSchema: SwaggerSchema = {
   type: 'object',
-  required: ['ratebleType', 'userId', 'ratebleId', 'value'],
+  required: ['ratebleType', 'ratebleId', 'value'],
+  additionalProperties: false,
   properties: {
     ratebleType: {
       type: 'string',
       minLength: 1,
       example: 'game',
-      enum: ['news', 'game', 'setup'],
-      nullable: true,
-    },
-    userId: {
-      type: 'integer',
-      example: 1,
+      enum: ['news', 'game', 'setup', 'motherboard', 'powersupply', 'ram', 'cpu', 'gpu', 'ssd', 'hdd'],
       nullable: true,
     },
     ratebleId: {

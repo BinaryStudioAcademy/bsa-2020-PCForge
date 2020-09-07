@@ -26,6 +26,9 @@ export class AddRequestService extends BaseService<
   async getAllAddRequests(filter: IAddRequestFilter): Promise<IWithMeta<AddRequestModel>> {
     return await this.repository.getAllAddRequests(filter);
   }
+  async getUserRequests(filter: IAddRequestFilter): Promise<IWithMeta<AddRequestModel>> {
+    return await this.repository.getUserRequests(filter);
+  }
 
   async createAddRequest(
     inputAddRequest: AddRequestCreationAttributes,
@@ -41,9 +44,8 @@ export class AddRequestService extends BaseService<
     addRequestMiddleware: IAddRequestMiddleware
   ): Promise<AddRequestModel> {
     await addRequestMiddleware(data);
-    const oldAddRequest = await this.repository.getAddRequestById(id);
-    if (!oldAddRequest) {
-      triggerServerError(`Add request with id: ${id} does not exists`, 404);
+    if (!Object.keys(data).length) {
+      triggerServerError('No valid fields to update specified', 400);
     }
     const request = await super.updateById(id, data);
     return request;

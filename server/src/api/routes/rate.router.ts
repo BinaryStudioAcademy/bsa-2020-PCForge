@@ -22,7 +22,7 @@ import {
 } from '../../helpers/swagger.helper';
 import { IRateFilter } from '../../data/repositories/filters/rate.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
-import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { allowForAuthorized, allowForVerified } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { RateService } = fastify.services;
@@ -54,22 +54,24 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const createOneSchema = createOneQuery(CreateRateSchema, RateSchema);
   fastify.post('/', createOneSchema, async (request: PostRateRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
+    request.body.userId = request.user.id;
     const rate = await RateService.createRate(request.body, rateMiddleware);
     reply.send(rate);
   });
 
   const updateOneSchema = updateOneQuery(UpdateRateSchema, RateSchema);
   fastify.put('/:id', updateOneSchema, async (request: PutRateRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
     const { id } = request.params;
+    request.body.userId = request.user.id;
     const newRate = await RateService.updateRateById({ id, data: request.body }, rateMiddleware, request.user);
     reply.send(newRate);
   });
 
   const deleteOneSchema = deleteOneQuery(RateSchema);
   fastify.delete('/:id', deleteOneSchema, async (request: DeleteRateRequest, reply) => {
-    allowForAuthorized(request);
+    allowForVerified(request);
     const { id } = request.params;
     const rate = await RateService.deleteRateById(id, request.user);
     reply.send(rate);

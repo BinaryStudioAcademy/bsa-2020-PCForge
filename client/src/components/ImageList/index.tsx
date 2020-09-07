@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
-import { GridList, GridListTile } from '@material-ui/core';
+import { GridList, GridListTile, Tooltip } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Image from 'components/BasicComponents/Image';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -97,15 +98,17 @@ const ImageList: React.FC<IImageListProps> = ({
         spacing={20}
       >
         {data.slice(0, colsCount).map((tile, index) => (
-          <GridListTile
-            key={tile.id}
-            rows={1}
-            classes={{ tile: `${styles.tile} ${index === selected && styles.selected}` }}
-            className={styles.tile}
-            onClick={() => onSelect(tile)}
-          >
-            <img src={tile.image} alt={tile.title} />
-          </GridListTile>
+          <Tooltip key={tile.id} title={tile.title} placement="top" arrow>
+            <GridListTile
+              key={tile.id}
+              rows={1}
+              classes={{ tile: `${styles.tile} ${index === selected && styles.selected}` }}
+              className={styles.tile}
+              onClick={() => onSelect(tile)}
+            >
+              <Image src={tile.image} alt={tile.title} />
+            </GridListTile>
+          </Tooltip>
         ))}
       </GridList>
     </div>

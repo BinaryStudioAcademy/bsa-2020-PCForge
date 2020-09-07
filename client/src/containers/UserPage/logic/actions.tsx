@@ -8,10 +8,21 @@ import {
   LOAD_SETUPS_SUCCESS,
   SHOW_SPINNER,
   HIDE_SPINNER,
+  LOAD_USER_GAMES,
+  LOAD_USER_GAMES_SUCCESS,
+  LOAD_FILTERED_GAMES,
+  LOAD_FILTERED_GAMES_SUCCESS,
+  ADD_USER_GAME,
+  DELETE_USER_GAME,
+  DELETE_USER_SETUP,
+  SET_TAB,
 } from './actionTypes';
 
-import { TypeUser } from 'common/models/typeUser';
+import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
+import { UserGame, Game } from 'common/models/typeUserGame';
+import { User } from 'common/models/user';
 import { SetupType } from 'common/models/typeSetup';
+import { UserPageTabs } from 'containers/UserPage/index';
 
 export const loadUser = (id: number): UserActionTypes => ({
   type: LOAD_USER,
@@ -23,7 +34,7 @@ export const loadUserSuccess = (data: TypeUser): UserActionTypes => ({
   payload: data,
 });
 
-export const updateUser = (data: TypeUser, avatarData?: Blob): UserActionTypes => ({
+export const updateUser = (data: TypeUserUpdate, avatarData?: Blob): UserActionTypes => ({
   type: UPDATE_USER,
   payload: {
     data,
@@ -36,6 +47,41 @@ export const updateUserSuccess = (data: TypeUser): UserActionTypes => ({
   payload: data,
 });
 
+export const loadUserGames = (id: number): UserActionTypes => ({
+  type: LOAD_USER_GAMES,
+  payload: { id },
+});
+
+export const loadUserGamesSuccess = (data: UserGame[]): UserActionTypes => ({
+  type: LOAD_USER_GAMES_SUCCESS,
+  payload: data,
+});
+
+export const loadFilteredGames = (searchString: string): UserActionTypes => ({
+  type: LOAD_FILTERED_GAMES,
+  payload: { searchString },
+});
+
+export const loadFilteredGamesSuceess = (data: Game[]): UserActionTypes => ({
+  type: LOAD_FILTERED_GAMES_SUCCESS,
+  payload: data,
+});
+
+export const addUserGame = (id: number, gameId: number): UserActionTypes => ({
+  type: ADD_USER_GAME,
+  payload: { id, gameId },
+});
+
+export const deleteUserGame = (id: number, gameId: number): UserActionTypes => ({
+  type: DELETE_USER_GAME,
+  payload: { id, gameId },
+});
+
+export const deleteUserSetup = (userId: number, setupId: number): UserActionTypes => ({
+  type: DELETE_USER_SETUP,
+  payload: { setupId, userId },
+});
+
 export const loadSetups = (authorId: number): UserActionTypes => ({
   type: LOAD_SETUPS,
   payload: { authorId },
@@ -44,6 +90,11 @@ export const loadSetups = (authorId: number): UserActionTypes => ({
 export const loadSetupsSuccess = (data: SetupType[]): UserActionTypes => ({
   type: LOAD_SETUPS_SUCCESS,
   payload: data,
+});
+
+export const setTab = (tab: UserPageTabs): UserActionTypes => ({
+  type: SET_TAB,
+  payload: { tab },
 });
 
 export const showSpinner = (): UserActionTypes => ({

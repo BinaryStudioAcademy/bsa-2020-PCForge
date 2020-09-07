@@ -1,70 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import NavigationBar from '../../components/NavigationBar';
-import Footer from '../../components/Footer';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Box } from '@material-ui/core';
+import NavigationBar from 'components/NavigationBar';
+import Footer from 'components/Footer';
 import classes from './styles.module.scss';
-import { Redirect } from 'react-router-dom';
-import { MenuItems, Routes } from 'common/enums';
 import Spinner from 'components/Spinner';
 import TopBar from 'containers/TopBar';
-import { getToken, clearToken } from 'helpers/tokenHelper';
-import { useDispatch } from 'react-redux';
-import { loginRequestSuccess } from '../Auth/actions';
-import * as Sentry from '@sentry/react';
+import InjectNotifications from 'containers/Notifications/inject';
+import { RootState } from 'redux/rootReducer';
 
 interface IProps {
-  selectedMenuItemNumber?: MenuItems;
-  children: React.ReactElement;
+  selectedMenuItemNumber?: number;
 }
 
 const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setLoading] = useState(true);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    checkIsUserAuthenticated();
-  }, []);
-
-  const checkIsUserAuthenticated = async () => {
-    const currentToken: string = (await getToken()) || '';
-    console.log('checkIsUserAuthenticated -> currentToken', currentToken);
-    if (currentToken) {
-      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
-      const response = await fetch(`${apiUrl}/auth/logged_in`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token: currentToken,
-        }),
-      });
-      const isAuthenticated = await response.json();
-      console.log('checkIsUserAuthenticated -> isAuthenticated', isAuthenticated);
-      if (!isAuthenticated.logged_in) {
-        await clearToken();
-      }
-      setIsAuthenticated(isAuthenticated.logged_in);
-      dispatch(loginRequestSuccess(isAuthenticated.user));
-    }
-    setLoading(false);
-  };
+  const isAdmin = useSelector((state: RootState) => state.auth.user?.isAdmin);
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
 
   return isLoading ? (
-    <div className={classes.spinnerWrapper}>
+    <Box className={classes.spinnerWrapper}>
       <Spinner />
-    </div>
-  ) : !isAuthenticated ? (
-    <Redirect to={Routes.LOGIN} />
+    </Box>
   ) : (
     <div className={classes.rootComponent}>
-        <TopBar />
-        <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} />
-        <div className={classes.contentWrapper}>
-          {children}
-          <Footer />
-        </div>
+      <InjectNotifications />
+      <TopBar />
+      <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} isAdmin={isAdmin} />
+      <div className={classes.contentWrapper}>{children}</div>
+      <Footer />
     </div>
   );
 };

@@ -2,17 +2,19 @@
   padding-left: 81px;
   width: 100%;
   min-height: 100vh;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   .contentWrapper {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     flex-grow: 1;
     padding: 0 3rem;
+
+    @media(max-width: 600px) {
+      padding:0 1rem;
+    }
   }
   .contentBody {
     margin: 40px 60px;

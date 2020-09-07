@@ -10,9 +10,7 @@ export interface Comment {
 }
 
 export interface CommentCreationAttributes {
-  commentableType: 'setup' | 'game';
+  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
   commentableId: number;
-  userId: number;
   value: string;
-  token: string;
 }

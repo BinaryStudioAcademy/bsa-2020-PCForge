@@ -4,18 +4,14 @@ import { IUserRequestFilter } from 'api/services/addUserRequestService';
 export enum UsersRequestActionTypes {
   GET_USERS_REQUESTS = 'GET_USER_REQUESTS',
   GET_USERS_REQUESTS_SUCCESS = 'GET_USER_REQUESTS_SUCCESS',
-  GET_USERS_REQUESTS_ERROR = 'GET_USER_REQUESTS_ERROR',
   APPROVE_USER_REQUEST = 'APPROVE_USER_REQUEST',
-  DELETE_USER_REQUESTS = 'DELETE_USER_REQUESTS',
+  DELETE_USER_ADDED_REQUESTS = 'DELETE_USER_ADDED_REQUESTS',
   LOADING_USER_REQUESTS = 'LOADING_USER_REQUESTS',
   LOADING_TOTALS = 'LOADING_TOTALS',
   GET_TOTAL_COUNTS = 'GET_TOTAL_COUNTS',
   GET_TOTAL_COUNTS_SUCCESS = 'GET_TOTAL_COUNTS_SUCCESS',
-
-  /*GET_COUNT_GAMES_USER_REQUESTS = 'GET_COUNT_GAMES_USER_REQUESTS',
-  GET_COUNT_GAMES_USER_REQUESTS_SUCCESS = 'GET_COUNT_GAMES_USER_REQUESTS_SUCCESS',
-  GET_COUNT_HW_USER_REQUESTS = 'GET_COUNT_HW_USER_REQUESTS',
-  GET_COUNT_HW_USER_REQUESTS_SUCCESS = 'GET_COUNT_GAMES_USER_REQUESTS_SUCCESS',*/
+  CLEAR_ADMINPAGE_STATE_VALUES_ACTION = 'CLEAR_ADMINPAGE_STATE_VALUES_ACTION',
+  CLEAR_ADMINPAGE_STATE_VALUES_SUCCESS = 'CLEAR_ADMINPAGE_STATE_VALUES_SUCCESS',
 }
 
 export interface IUsersRequestAction {
@@ -39,7 +35,7 @@ export interface ITotalCountsActionSuccess {
 }
 
 export interface IUsersRequestDeleteAction {
-  type: UsersRequestActionTypes.DELETE_USER_REQUESTS;
+  type: UsersRequestActionTypes.DELETE_USER_ADDED_REQUESTS;
   payload: {
     id: number;
   };
@@ -51,13 +47,6 @@ export interface IUsersRequestActionSuccess {
     userRequests: TypeUsersRequests[];
     countGamesRequests: number;
     countHardwaresRequests: number;
-  };
-}
-
-export interface IUsersRequestActionError {
-  type: UsersRequestActionTypes.GET_USERS_REQUESTS_ERROR;
-  payload: {
-    error: string;
   };
 }
 
@@ -77,7 +66,6 @@ export interface ITotalsActionLoading {
 
 export interface UsersRequestState {
   userRequests: TypeUsersRequests[];
-  error: string;
   dataUserRequestsIsLoaded: boolean;
   dataTotalsIsLoaded: boolean;
   countGamesRequests: number;
@@ -90,7 +78,6 @@ export interface UsersRequestState {
 
 export type UsersRequestActions =
   | IUsersRequestActionSuccess
-  | IUsersRequestActionError
   | IUsersRequestAction
   | IUsersRequestDeleteAction
   | IUsersRequestActionLoading
