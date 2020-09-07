@@ -14,13 +14,29 @@ import { connect } from 'react-redux';
 import { GameMatcherProps } from './interfaces';
 import { MatcherSettableVariants, MatcherServerActions } from './actionTypes';
 import { RouteComponentProps } from 'react-router-dom';
-import { Box, Slider } from '@material-ui/core';
+import { Box, createStyles, makeStyles, Slider, Theme } from '@material-ui/core';
 import TopGames from 'containers/TopGames';
 
 import ModalAddRequest from 'containers/AddUserRequest';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    rail: {
+      height: 4,
+    },
+    track: {
+      height: 4,
+    },
+    thumb: {
+      height: 14,
+      width: 14,
+    },
+  })
+);
+
 const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Element => {
+  const materialStyles = useStyles();
   const { setAlertValue, getMatcherData } = props;
 
   const { gamesErrorMessage, cpusErrorMessage, gpusErrorMessage, alertMessage, alertMessageType } = props.state;
@@ -149,6 +165,11 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                   valueLabelDisplay="auto"
                   aria-labelledby="range-slider"
                   getAriaValueText={(value) => value.toString()}
+                  classes={{
+                    rail: materialStyles.rail,
+                    track: materialStyles.track,
+                    thumb: materialStyles.thumb,
+                  }}
                 />
               </section>
               <Box className={styles.pageButtonWrapper}>
