@@ -96,7 +96,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
                 <span>/5</span>
               </div>
               <div className={styles.bottomRatingNumber}>
-                {ratingCount} {ratingCount > 1 ? 'reviews' : 'review'}
+                {ratingCount} {ratingCount > 1 ? 'rates' : 'rate'}
               </div>
             </div>
           )}
