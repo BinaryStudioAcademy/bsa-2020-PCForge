@@ -5,6 +5,7 @@ import { getAllMotherboard } from 'api/services/motherboardService';
 import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { getAllHdd } from 'api/services/hddService';
 import { getAllSsd } from 'api/services/ssdService';
+import { getAllStorage } from 'api/services/storageService';
 import { TypeFilterRangeInfo } from './types';
 
 export enum GroupName {
@@ -15,6 +16,7 @@ export enum GroupName {
   powersupply = 'powersupply',
   hdd = 'hdd',
   ssd = 'ssd',
+  storage = 'storage',
 }
 
 export enum FilterName {
@@ -31,6 +33,7 @@ export const servicesGetAll = {
   [GroupName.powersupply]: getAllPowersupplies,
   [GroupName.hdd]: getAllHdd,
   [GroupName.ssd]: getAllSsd,
+  [GroupName.storage]: getAllStorage,
 };
 
 export const filterRangeInfo: TypeFilterRangeInfo = {
@@ -76,6 +79,14 @@ export const filterRangeInfo: TypeFilterRangeInfo = {
     step: 200,
   },
   [GroupName.ssd]: {
+    title: 'Capacity',
+    unit: 'Gb',
+    key: 'capacity',
+    min: 20,
+    max: 20000,
+    step: 200,
+  },
+  [GroupName.storage]: {
     title: 'Capacity',
     unit: 'Gb',
     key: 'capacity',
