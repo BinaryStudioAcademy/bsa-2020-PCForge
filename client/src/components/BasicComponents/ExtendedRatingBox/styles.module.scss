@@ -3,6 +3,10 @@
 .ratingBoxesWrapper {
   display: flex;
   align-items: stretch;
+
+  div:nth-child(3):hover{
+    cursor: pointer;
+  }
 }
 
 .ratingBoxWrapper {
@@ -11,10 +15,6 @@
   align-items: center;
   position: relative;
 
-  :hover{
-    color:white;
-    cursor: pointer;
-  }
 }
 
 .ratingBoxContent {
