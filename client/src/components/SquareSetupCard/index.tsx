@@ -96,7 +96,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
         <div className={styles.setupTopInfo}>
           <div className={styles.setupTitle}>{title}</div>
           <div className={styles.createdAt}>
-            Created on {setupCreatedAt} {!own && <>by {author.name}</>}
+            Created on {setupCreatedAt} {!own && author.name && <>by {author.name}</>}
           </div>
           <div className={styles.setupCardRatingBox}>
             <RatingBox ratingValue={rating} disabled={false} name={`setup${id}`} />

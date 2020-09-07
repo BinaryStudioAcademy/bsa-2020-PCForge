@@ -15,7 +15,6 @@ interface Props {
 }
 
 interface State {
-  ownRating: number;
   averageRatingHovered: boolean;
   userRatingClicked: boolean;
 }
@@ -41,7 +40,6 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      ownRating: this.props.ownRating || 0,
       averageRatingHovered: false,
       userRatingClicked: false,
     };
@@ -52,9 +50,6 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
   }
 
   public onRatingValueSet(value: number) {
-    this.setState({
-      ownRating: value,
-    });
     if (this.props.onValueSet) {
       this.props.onValueSet(value);
     }
@@ -81,7 +76,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
 
   public render(): JSX.Element {
     const { name, averageValue, ratingCount, clickable } = this.props;
-    const { ownRating } = this.state;
+    const ownRating = this.props.ownRating || 0;
     return (
       <div className={styles.ratingBoxesWrapper}>
         <div className={styles.ratingBoxWrapper} title={(averageValue || 0).toString()}>
@@ -100,7 +95,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
                 {averageValue}
                 <span>/5</span>
               </div>
-              <div className={styles.bottomRatingNumber}>{ratingCount}</div>
+          <div className={styles.bottomRatingNumber}>{ratingCount} {ratingCount>1 ? 'reviews' : 'review'}</div>
             </div>
           )}
         </div>
