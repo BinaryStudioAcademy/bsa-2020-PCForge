@@ -14,6 +14,9 @@ interface Props {
   buttonClassName?: string;
   onCreateComment: (value: string) => void;
   onPaginationToggle: (meta: { from: number; count: number }) => void;
+  commentRef?: React.RefObject<HTMLDivElement>;
+  commentId?: number;
+  commentPaginationPage?: number;
 }
 
 const Comments: React.FC<Props> = (props): JSX.Element => {
@@ -51,14 +54,19 @@ const Comments: React.FC<Props> = (props): JSX.Element => {
         </div>
       </div>
       <ul className={styles.commentsList}>
-        {comments.map((comment) => (
-          <CommentComponent key={comment.id} comment={comment} />
-        ))}
+        {comments.map((comment) => {
+          if (comment.id === props.commentId && props.commentRef)
+            return (
+              <CommentComponent key={comment.id} comment={comment} commentRef={props.commentRef} highlight={true} />
+            );
+          else return <CommentComponent key={comment.id} comment={comment} />;
+        })}
       </ul>
       <Paginator
         countComponents={props.commentsTotal}
         countComponentsOnPage={props.commentsPerPage}
         setPagination={props.onPaginationToggle}
+        commentPage={props.commentPaginationPage}
       />
     </div>
   );

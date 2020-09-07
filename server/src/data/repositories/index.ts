@@ -17,6 +17,7 @@ import { AddRequestRepository } from './addRequest.repository';
 import { UserGameRepository } from './usergame.repository';
 import { HddRepository } from './hdd.repository';
 import { SsdRepository } from './ssd.repository';
+import { CommentRateRepository } from './commentRate.repository';
 
 export interface Repositories {
   RamTypeRepository: RamTypeRepository;
@@ -37,6 +38,7 @@ export interface Repositories {
   UserGameRepository: UserGameRepository;
   HddRepository: HddRepository;
   SsdRepository: SsdRepository;
+  CommentRateRepository: CommentRateRepository;
 }
 
 export const initializeRepositories = (models: Models): Repositories => {
@@ -65,11 +67,12 @@ export const initializeRepositories = (models: Models): Repositories => {
   const topGameRepository = new TopGameRepository(models.TopGame, models.Game, models.Cpu, models.Gpu);
   const newsRepository = new NewsRepository(models.News);
   const rateRepository = new RateRepository(models.Rate);
-  const commentRepository = new CommentRepository(models.Comment, models.User);
+  const commentRepository = new CommentRepository(models.Comment, models.User, models.CommentRate, models.Rate);
   const addRequestRepository = new AddRequestRepository(models.AddRequest, models.User);
   const userGameRepository = new UserGameRepository(models.UserGame, models.Game);
   const hddRepository = new HddRepository(models.Hdd);
   const ssdRepository = new SsdRepository(models.Ssd);
+  const commentRateRepository = new CommentRateRepository(models.CommentRate);
   const repositories: Repositories = {
     RamTypeRepository: ramTypeRepository,
     RamRepository: ramRepository,
@@ -89,6 +92,7 @@ export const initializeRepositories = (models: Models): Repositories => {
     UserGameRepository: userGameRepository,
     HddRepository: hddRepository,
     SsdRepository: ssdRepository,
+    CommentRateRepository: commentRateRepository,
   };
   return repositories;
 };

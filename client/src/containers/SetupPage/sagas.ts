@@ -16,7 +16,6 @@ import {
   GET_SETUP_RATE_SUCCESS,
   SET_SETUP_RATE_SUCCESS,
   SET_SETUP_RATE,
-  GET_SETUP_COMMENTS_FAILURE,
   CREATE_SETUP_COMMENT_SUCCESS,
   FORK_SETUP,
 } from './actionTypes';
@@ -28,7 +27,8 @@ import { Comment, CommentCreationAttributes } from 'common/models/comment';
 import { CommentFilter } from 'common/models/filter.model';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
-import * as notification from 'common/services/notificationService';
+import * as alert from 'common/services/AlertService/alert.service';
+import { addAlert } from 'containers/Alerts/redux/actions';
 
 function* getSetup(action: IGetSetup) {
   try {
@@ -54,7 +54,7 @@ function* getSetupComments(action: IGetComments) {
     const comments: Comment[] = yield call(getAllComments, filter);
     yield put({ type: GET_SETUP_COMMENTS_SUCCESS, payload: comments });
   } catch (e) {
-    notification.error(e.message || 'Failed to get setup comments');
+    yield put(addAlert(alert.error('Failed to get setup comments')));
   }
 }
 
@@ -73,7 +73,7 @@ function* createSetupComment(action: ICreateSetupComment) {
     yield put({ type: CREATE_SETUP_COMMENT_SUCCESS });
     yield put({ type: GET_SETUP_COMMENTS, payload: { id: action.payload.id } });
   } catch (e) {
-    notification.error(e?.message || 'Failed to add comment');
+    yield put(addAlert(alert.error('Failed create setup comment')));
   }
 }
 
@@ -89,7 +89,7 @@ function* getSetupRate(action: IGetSetupRate) {
     });
     yield put({ type: GET_SETUP_RATE_SUCCESS, payload: response });
   } catch (e) {
-    notification.error(e?.message || 'Failed to get setup rate');
+    yield put(addAlert(alert.error('Failed to get setup rate')));
   }
 }
 
@@ -108,7 +108,7 @@ function* addSetupRate(action: ISetSetupRate) {
     const setup: PCSetup = yield call<(id: number) => void>(getSetupById, action.payload.id);
     yield put({ type: SET_SETUP_RATE_SUCCESS, payload: setup });
   } catch (e) {
-    notification.error(e.message || 'Failed to add setup rate');
+    yield put(addAlert(alert.error('Failed to add setup rate')));
   }
 }
 
@@ -119,9 +119,9 @@ function* watchAddSetupRate() {
 function* forkSetup(action: IForkSetup) {
   try {
     const forkedSetup = yield call(forkUserSetup, action.payload.setupId);
-    notification.success(`You have forked '${forkedSetup.title}'. Check it out on your profile page.`);
+    yield put(addAlert(alert.success(`You have forked '${forkedSetup.title}'. Check it out on your profile page.`)));
   } catch (e) {
-    notification.error(e.message || 'Could not fork the setup');
+    yield put(addAlert(alert.error(e.message || 'Could not fork the setup')));
   }
 }
 

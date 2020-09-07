@@ -70,10 +70,10 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         include: [
           [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
-          [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
+          [sequelize.literal('COUNT(DISTINCT "rates"."id")'), 'ratingCount'],
           [
             sequelize.literal(
-              `SUM(CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
+              `SUM(DISTINCT CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
             ),
             'ownRating',
           ],
@@ -197,11 +197,13 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     const include: (string | ProjectionAlias)[] = [
       [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
       [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
-      [sequelize.fn('COUNT', sequelize.col('rates.id')), 'ratingCount'],
+      [sequelize.literal('COUNT(DISTINCT "rates"."id")'), 'ratingCount'],
     ];
     if (requestingUserId) {
       include.push([
-        sequelize.literal(`SUM(CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`),
+        sequelize.literal(
+          `SUM(DISTINCT CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
+        ),
         'ownRating',
       ]);
     }

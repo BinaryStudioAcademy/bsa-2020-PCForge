@@ -7,11 +7,25 @@ type PropsType = {
   countComponents: number;
   countComponentsOnPage: number;
   setPagination: (params: { from: number; count: number }) => void;
+  commentPage?: number;
 };
 
-const Paginator = ({ countComponents, countComponentsOnPage, setPagination }: PropsType): JSX.Element => {
+const Paginator = ({
+  countComponents,
+  countComponentsOnPage,
+  setPagination,
+  commentPage = 1,
+}: PropsType): JSX.Element => {
   const count = Math.ceil(countComponents / countComponentsOnPage);
   const [page, setPage] = useState(1);
+
+  React.useEffect(() => {
+    setPage(commentPage);
+    setPagination({
+      from: (commentPage - 1) * countComponentsOnPage,
+      count: countComponentsOnPage,
+    });
+  }, [commentPage]);
 
   const onChangeHandler = (event: ChangeEvent<unknown>, page: number) => {
     setPage(page);

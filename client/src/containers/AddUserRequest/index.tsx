@@ -19,7 +19,7 @@ import { MAX_COUNT_USERS_REQUESTS } from 'common/constants/index';
 import { User } from 'common/models/user';
 import { TypeUsersRequestsCreationAttributes } from 'common/models/typeUsersRequests';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
-import * as notification from 'common/services/notificationService';
+import * as alert from 'common/services/AlertService/alert.service';
 
 import * as actions from './actions';
 import { AddRequestState, AddRequestActions } from './actionType';
@@ -131,7 +131,7 @@ const ModalAddRequest = (props: IPropsDisplayModel): JSX.Element => {
   if (props.state.sendingStatus) {
     clearStateValues();
     onClose();
-    notification.success(`Your request is sent to admin`);
+    alert.success(`Your request is sent to admin`);
   }
   if (props.state.countAlreadySentRequests >= MAX_COUNT_USERS_REQUESTS && !disableSendButton) {
     setDisableSendButton(true);

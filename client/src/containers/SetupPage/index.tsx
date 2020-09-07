@@ -21,7 +21,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     this.getSetupComments = this.getSetupComments.bind(this);
     this.onCreateComment = this.onCreateComment.bind(this);
     this.onRatingSet = this.onRatingSet.bind(this);
-    this.onSnackBarClose = this.onSnackBarClose.bind(this);
   }
 
   public componentDidMount() {
@@ -43,10 +42,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
 
   public onRatingSet(value: number) {
     this.props.setSetupRate({ id: +this.props.match.params.id, value });
-  }
-
-  public onSnackBarClose() {
-    this.props.wipeSnackbarData();
   }
 
   public render() {
