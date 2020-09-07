@@ -11,12 +11,11 @@ import { Container } from '@material-ui/core';
 interface Props {
   cpu: Cpu;
   gpu: Gpu;
-  game: Game;
   ramSize: number;
   overall: IHardwareReport;
 }
 
-const GameMatcherSystemOverview: React.FC<Props> = ({ cpu, gpu, ramSize, overall, game }): JSX.Element => {
+const GameMatcherSystemOverview: React.FC<Props> = ({ cpu, gpu, ramSize, overall }): JSX.Element => {
   const getSummary = (): string => {
     const TOTAL_GAME_NUMBER = 100;
     const POSSIBLE_GAME_NUMBER = Math.ceil((Math.min(overall.cpu, overall.gpu, overall.ram) / 10) * TOTAL_GAME_NUMBER);
@@ -49,10 +48,6 @@ const GameMatcherSystemOverview: React.FC<Props> = ({ cpu, gpu, ramSize, overall
           <section className={styles.summarySection}>
             <span className={styles.summaryItemHeader}>SETUP PERFORMANCE</span>
             <span className={styles.summaryItemBody}>{getSummary()}</span>
-          </section>
-          <section className={styles.summarySection}>
-            <span className={styles.summaryItemHeader}>GAME</span>
-            <span className={styles.summaryItemBody}>{game.name}</span>
           </section>
         </div>
       </div>

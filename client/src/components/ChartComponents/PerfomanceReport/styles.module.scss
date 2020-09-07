@@ -151,3 +151,44 @@ $space-width: 30px;
   margin-left: $space-width;
   padding-right: $space-width - 5px;
 }
+
+.performanceReportHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 25px;
+}
+
+.performanceReportHeaderHeader {
+  align-self: flex-start;
+  margin-top: 0px;
+  text-align: start;
+  vertical-align: top;
+  margin-bottom: 10px;
+}
+
+.gameHeader {
+  border-radius: 6px;
+  padding: 1rem 1rem 1rem 1rem;
+  border: 1px solid $colorBlue;
+  width: 29.3%;
+}
+
+.gameHeaderHeader {
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 22px;
+  color: $colorTextWhite;
+  font-weight: bold;
+}
+
+.gameHeaderHeader::after {
+  content: ': '
+}
+
+.gameHeaderBody {
+  font-size: 16px;
+  line-height: 22px;
+  color: #CBCFD4;
+}

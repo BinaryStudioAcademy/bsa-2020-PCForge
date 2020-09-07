@@ -1,5 +1,6 @@
 import { roundToNearest } from 'common/helpers/math.helper';
 import { Cpu } from 'common/models/cpu';
+import { Game } from 'common/models/game';
 import { Gpu } from 'common/models/gpu';
 import { IReport } from 'common/models/setupPerformance';
 import React, { useState } from 'react';
@@ -22,9 +23,10 @@ interface Props {
   gpu: Gpu;
   ramSize: number;
   report: IReport;
+  game: Game;
 }
 
-const GameMatcherPerformanceReport: React.FC<Props> = ({ cpu, gpu, ramSize, report }): JSX.Element => {
+const GameMatcherPerformanceReport: React.FC<Props> = ({ cpu, gpu, ramSize, report, game }): JSX.Element => {
   const RECOMMENDED_REQUIREMENT_ID = 2;
   const MINIMAL_REQUIREMENT_ID = 1;
   const MAXIMUM_REPORT_VALUE = Math.max(
@@ -81,8 +83,8 @@ const GameMatcherPerformanceReport: React.FC<Props> = ({ cpu, gpu, ramSize, repo
     const percents = (100 / MAXIMUM_REPORT_VALUE) * 100;
     let additionalPixels = '+ 0px';
     // we must add or remove pixels because we have margins. So, with margins left: 0% move orl line out of the graph. The same with left: 100%
-    if (percents < 50) additionalPixels = '+ 30px';
-    if (percents > 50) additionalPixels = '- 30px';
+    if (percents < 50) additionalPixels = '+ 20px';
+    if (percents > 50) additionalPixels = '- 20px';
     return (
       <div className={styles.graphWrapper}>
         <div className={styles.indicatorsWrapper}>
@@ -98,7 +100,14 @@ const GameMatcherPerformanceReport: React.FC<Props> = ({ cpu, gpu, ramSize, repo
 
   return (
     <section>
-      <h2 className={sharedStyles.mainHeader}>Performance Report</h2>
+      <div className={styles.performanceReportHeader}>
+        <div className={`${sharedStyles.mainHeader} ${styles.performanceReportHeaderHeader}`}>Performance Report</div>
+        <div className={styles.gameHeader}>
+          <span className={styles.gameHeaderHeader}>GAME</span>
+          <span className={styles.gameHeaderBody}>{game.name}</span>
+        </div>
+      </div>
+
       <div className={styles.requirementVariants}>{requirements.map(getRequirementDiagram)}</div>
 
       {selectedRequirement === RECOMMENDED_REQUIREMENT_ID ? (
