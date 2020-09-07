@@ -62,8 +62,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
       return <Spinner />;
     }
 
-    console.log(this.props.state);
-
     const { cpu, gpu, motherboard, powerSupply, ram } = setup;
     return (
       <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
