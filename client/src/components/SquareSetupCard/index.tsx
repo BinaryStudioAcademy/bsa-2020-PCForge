@@ -13,7 +13,7 @@ import BasicLink from 'components/BasicComponents/Link';
 import Image from 'components/BasicComponents/Image';
 import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 import ExtendedRatingBox from 'components/BasicComponents/ExtendedRatingBox';
 
 export interface SetupCardProps {

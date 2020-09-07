@@ -2,7 +2,7 @@ import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
 import { deleteUserGame } from 'api/services/userService';
 import { SetupType } from 'common/models/typeSetup';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 
 export const LOAD_USER = 'UserPage/LOAD_USER';
 export const LOAD_USER_SUCCESS = 'UserPage/LOAD_USER_SUCCESS';

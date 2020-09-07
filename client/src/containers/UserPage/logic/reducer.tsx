@@ -12,7 +12,7 @@ import {
   LOAD_SETUPS_SUCCESS,
   SET_TAB,
 } from './actionTypes';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 
 export interface IUserState {
   loadedUser: TypeUser | null;
