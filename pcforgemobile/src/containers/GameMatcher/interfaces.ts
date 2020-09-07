@@ -1,16 +1,12 @@
-import { Game } from 'common/models/game';
-import { Cpu } from 'common/models/cpu';
-import { Gpu } from 'common/models/gpu';
-import { MatcherActionTypes, MatcherSettableVariants, MatcherServerActions } from './actionTypes';
-import { AlertType } from 'components/BasicComponents/Alert';
+import { Game } from 'common/models/game.model';
+import { Cpu } from 'common/models/cpu.model';
+import { Gpu } from 'common/models/gpu.model';
+import { MatcherActionTypes, MatcherSettableVariants } from './actionTypes';
 
 export interface GameMatcherState {
   games: Game[];
   cpus: Cpu[];
   gpus: Gpu[];
-
-  alertMessage?: string;
-  alertMessageType?: AlertType;
 
   gamesErrorMessage?: string | boolean;
   cpusErrorMessage?: string | boolean;
@@ -29,7 +25,6 @@ export interface GameMatcherProps {
   state: GameMatcherState;
 
   getMatcherData: (payload: GameMatcherFilter) => MatcherActionTypes;
-  setAlertValue: (payload: { message: string; type: AlertType }) => MatcherActionTypes;
 
   setCpu: (cpu: Cpu) => void;
   setGpu: (gpu: Gpu) => void;

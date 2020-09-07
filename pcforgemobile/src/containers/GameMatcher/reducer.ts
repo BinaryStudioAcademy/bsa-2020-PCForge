@@ -17,9 +17,7 @@ const initialState: GameMatcherState = {
   gamesErrorMessage: false,
   cpusErrorMessage: false,
   gpusErrorMessage: false,
-  ramsErrorMessage: false,
-  alertMessageType: undefined,
-  alertMessage: undefined,
+  ramsErrorMessage: false
 };
 
 export function MatcherReducer(state: GameMatcherState = initialState, action: MatcherActionTypes): GameMatcherState {
@@ -53,12 +51,6 @@ export function MatcherReducer(state: GameMatcherState = initialState, action: M
       return {
         ...state,
         games: action.payload,
-      };
-    case SET_ALERT_MESSAGE:
-      return {
-        ...state,
-        alertMessage: action.payload.message,
-        alertMessageType: action.payload.type,
       };
     default:
       return state;

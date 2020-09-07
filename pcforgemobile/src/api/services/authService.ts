@@ -1,5 +1,5 @@
 import api from '../webApi.helper';
-import { UserLoginAttributes, User } from '../../common/models/user';
+import { UserLoginAttributes, User } from '../../common/models/user.model';
 import { setToken } from '../../common/helpers/token.helper';
 
 export class AuthService {

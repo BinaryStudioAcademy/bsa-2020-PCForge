@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
         flex: 1,
         display: 'flex',
         justifyContent: 'center',
-        // alignItems: 'center',
         marginHorizontal: 20,
     },
     inputItem: {

@@ -1,7 +1,6 @@
-import { AlertType } from 'components/BasicComponents/Alert';
-import { Game } from 'common/models/game';
-import { Cpu } from 'common/models/cpu';
-import { Gpu } from 'common/models/gpu';
+import { Game } from '~/common/models/game.model';
+import { Cpu } from 'common/models/cpu.model';
+import { Gpu } from 'common/models/gpu.model';
 
 export const MATCHER_GET_DATA = 'MATCHER_GET_DATA';
 export const MATCHER_GET_DATA_FAILURE = 'MATCHER_GET_DATA_FAILURE';
@@ -60,7 +59,6 @@ export interface ISetMessage {
   type: typeof SET_ALERT_MESSAGE;
   payload: {
     message: string;
-    type: AlertType;
   };
 }
 
