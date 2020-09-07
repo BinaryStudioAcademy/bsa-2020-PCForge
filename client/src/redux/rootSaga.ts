@@ -19,6 +19,7 @@ import addUserRequest from 'containers/AddUserRequest/sagas';
 import hardwareSagas from 'containers/HardwaresPage/HardwareSidebarView/sagas';
 import hardwaresSagas from 'containers/HardwaresPage/sagas';
 import topGamesSagas from 'containers/TopGames/redux/sagas';
+import notificationSagas from 'containers/Notifications/redux/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -42,5 +43,6 @@ export default function* rootSaga() {
     userSagas(),
     userRequestsSagas(),
     topGamesSagas(),
+    notificationSagas(),
   ]);
 }

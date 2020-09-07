@@ -23,7 +23,7 @@ import { SsdService } from './ssd.service';
 import { MailService } from './mail.service';
 import { AuthService } from './auth.service';
 import { CommentRateService } from './commentRate.service';
-import { NotificationService, notificationServiceFactory } from './notification.service';
+import { NotificationService, notificationServiceFactory } from './NotificationService/notification.service';
 import { HardwareService } from './hardware.service';
 
 export interface Services {

@@ -22,6 +22,16 @@ import * as actions from './actions';
 import { LikeCommentState, LikeCommentActionTypes, CommentLikeRequestAction } from './actionTypes';
 
 import styles from './styles.module.scss';
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    icon: {
+      marginLeft: 20,
+    },
+  })
+);
 
 interface Props {
   comment: Comment;
@@ -29,10 +39,13 @@ interface Props {
   currentUser: User | null;
   likeCommentAction: (commentId: number) => CommentLikeRequestAction;
   disLikeCommentAction: (commentId: number) => CommentLikeRequestAction;
+  commentRef?: React.RefObject<HTMLDivElement>;
+  highlight?: boolean;
 }
 
 const CommentComponent: React.FC<Props> = (props): JSX.Element => {
-  const { comment, likeCommentAction, disLikeCommentAction, currentUser } = props;
+  const materialStyles = useStyles();
+  const { comment, likeCommentAction, disLikeCommentAction, currentUser, commentRef, highlight } = props;
   const [countLikes, setCountLikes] = useState(comment.countLikes);
   const [countDisLikes, setCountDisLikes] = useState(comment.countDislikes);
   const [isLikedByCurrentUser, setIsLikedByCurrentUser] = useState(comment.isLikedByCurrentUser);
@@ -57,14 +70,16 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
     setCountDisLikes(props.state.countDisLikes);
     setIsDisLikedByCurrentUser(!isDisLikedByCurrentUser);
   }
+}
   return (
     <li className={styles.commentRoot}>
-      <div className={styles.commentWrapper}>
+      <div className={styles.commentWrapper} ref={commentRef}>
         <div className={styles.commentMeta}>
           <UserAvatar user={comment.user} />
           <div className={styles.commentRateInfo}>
             <div>
               <span className={styles.commentAuthor}>{comment.user!.name || comment.user!.email}</span>
+              {highlight && <NewReleasesIcon classes={{ root: materialStyles.icon }} />}
               <div className={styles.commentDateContainer}>
                 <div className={styles.commentDate}>{`Created ${createdDate}`}</div>
                 <Tooltip title={updatedDate} placement="right-start" arrow>

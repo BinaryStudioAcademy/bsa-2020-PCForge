@@ -9,6 +9,7 @@ import { router as gpuRouter } from './gpu.router';
 import { router as cpuRouter } from './cpu.router';
 import { router as hddRouter } from './hdd.router';
 import { router as ssdRouter } from './ssd.router';
+import { router as storageRouter } from './storage.router';
 import { router as userRouter } from './user.router';
 import { router as imageUploadRouter } from './imageUpload.router';
 import { router as setupRouter } from './setup.router';
@@ -32,6 +33,7 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(cpuRouter, { prefix: '/cpus' });
   fastify.register(hddRouter, { prefix: '/hdds' });
   fastify.register(ssdRouter, { prefix: '/ssds' });
+  fastify.register(storageRouter, { prefix: '/storages' });
   fastify.register(authRouter, { prefix: '/auth' });
   fastify.register(userRouter, { prefix: '/users' });
   fastify.register(setupRouter, { prefix: '/setups' });

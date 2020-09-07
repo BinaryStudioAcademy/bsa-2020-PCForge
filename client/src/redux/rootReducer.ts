@@ -20,6 +20,7 @@ import AddRequestReducer from 'containers/AddUserRequest/reducer';
 import { HardwareReducer } from 'containers/HardwaresPage/HardwareSidebarView/reducer';
 import { HardwaresReducer } from 'containers/HardwaresPage/reducer';
 import { TopGamesReducer } from 'containers/TopGames/redux/reducer';
+import { AlertsReducer } from 'containers/Alerts/redux/reducer';
 import ToastNotificationsReducer from 'containers/ToastNotifications/logic/reducer';
 
 const RootReducer = combineReducers({
@@ -44,6 +45,7 @@ const RootReducer = combineReducers({
   likeComment: LikeCommentReducer,
   topGames: TopGamesReducer,
   notifications: NotificationsReducer,
+  alerts: AlertsReducer,
   addRequest: AddRequestReducer,
 });
 
