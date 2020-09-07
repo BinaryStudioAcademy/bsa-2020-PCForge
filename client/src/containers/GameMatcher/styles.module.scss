@@ -71,6 +71,7 @@ section:nth-child(2n) {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 2em;
 }
 
 .buttonLabel {
@@ -85,6 +86,7 @@ section:nth-child(2n) {
   display: flex;
   flex-direction: column;
 }
+
 .buttonWrapper{
   margin: 2em 0;
   align-self: center;
