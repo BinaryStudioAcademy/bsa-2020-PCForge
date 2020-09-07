@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme: Theme) =>
     thumb: {
       height: 14,
       width: 14,
+      marginLeft: 0,
+      marginRight: 0,
     },
   })
 );
@@ -159,9 +161,9 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                   value={ramSize}
                   min={1}
                   step={1}
-                  max={32}
+                  max={32 + 1} //with margins on thumb we have 1 point outside rail
                   color="secondary"
-                  onChange={(e, value) => setRamValue(value as number)}
+                  onChange={(e, value) => setRamValue(Math.min(32, value as number))} //don't allow to select 33 as value
                   valueLabelDisplay="auto"
                   aria-labelledby="range-slider"
                   getAriaValueText={(value) => value.toString()}
