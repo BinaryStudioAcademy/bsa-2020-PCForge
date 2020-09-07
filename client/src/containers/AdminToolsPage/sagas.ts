@@ -8,11 +8,11 @@ import { getAllMotherboard } from 'api/services/motherboardService';
 import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { getAllRam } from 'api/services/ramService';
 import { getAllSocket } from 'api/services/socketService';
+import * as notification from 'common/services/notificationService';
 
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
 import {
   loadAllUsersRequests,
-  loadError,
   updateUserRequestsLoadingComponentStatus,
   updateTotalsLoadingComponentStatus,
   loadAllTotalCounts,
@@ -33,7 +33,7 @@ function* getAllUsersRequests(action: IUsersRequestAction) {
     const { meta: countHardwares } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.hardware });
     yield put(loadAllUsersRequests(usersRequests, countGames.countAfterFiltering, countHardwares.countAfterFiltering));
   } catch (error) {
-    yield put(loadError(error));
+    notification.error(`Error in getting information about user requests: ${error.message}`);
   } finally {
     yield put(updateUserRequestsLoadingComponentStatus(true));
   }
@@ -52,7 +52,7 @@ function* deleteUserRequestSaga(action: IUsersRequestDeleteAction) {
     const { meta: countHardwares } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.hardware });
     yield put(loadAllUsersRequests(usersRequests, countGames.countAfterFiltering, countHardwares.countAfterFiltering));
   } catch (error) {
-    yield put(loadError(error));
+    notification.error(`Error in getting information about user requests: ${error.message}`);
   } finally {
     yield put(updateUserRequestsLoadingComponentStatus(true));
   }
@@ -69,8 +69,6 @@ function* watchGetAllTotalCount() {
 function* getAllTotalCount(action: ITotalCountsAction) {
   try {
     yield put(updateTotalsLoadingComponentStatus(false));
-    // update after fix bug about user API^
-    //const { meta: usersCount } = yield call(getAllUsers, {});
     const { meta: usersCount } = yield call(getAllUsers);
     const { meta: setupsCount } = yield call(getAllSetups);
 
@@ -93,7 +91,7 @@ function* getAllTotalCount(action: ITotalCountsAction) {
       loadAllTotalCounts(usersCount.globalCount, setupsCount.globalCount, hardwareCount, gamesCount.globalCount)
     );
   } catch (error) {
-    yield put(loadError(error));
+    notification.error(`Error in getting total information: ${error.message}`);
   } finally {
     yield put(updateTotalsLoadingComponentStatus(true));
   }

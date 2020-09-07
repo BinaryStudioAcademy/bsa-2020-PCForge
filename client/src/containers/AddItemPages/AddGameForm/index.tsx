@@ -70,6 +70,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
   const [minRamSize, setMinRAMSize] = useState<number | null>(null);
 
   useEffect(() => {
+    clearStateValues();
     getAllSelectsInitialValues();
     inputRef.current?.focus();
   }, []);
@@ -110,6 +111,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     createGame(game, imageData);
   };
   const onCancel = () => {
+    clearStateValues();
     goBack();
   };
 
@@ -164,8 +166,6 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     notificationMessage = `Error: ${props.state.errorMessage}`;
     notificationType = props.state.alertType;
   } else if (props.state.gameName) {
-    //notificationMessage = `Success : ${props.state.gameName} has been created`;
-    //notificationType = props.state.alertType;
     alert.success(`Game ${props.state.gameName} has been created`);
     getAllSelectsInitialValues();
     clearStateValues();
