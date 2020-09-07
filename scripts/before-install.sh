@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /home/ubuntu/
-rm -rf bsa-pcforge
+rm -rf bsa-2020-PCForge

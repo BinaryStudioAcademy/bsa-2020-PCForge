@@ -4,7 +4,7 @@ os: linux
 
 files:
   - source: ./
-    destination: /home/ubuntu/bsa-pcforge
+    destination: /home/ubuntu/bsa-2020-PCForge
 
 permissions:
   - object: /
