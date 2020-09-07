@@ -2,8 +2,7 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from 'helpers/tokenHelper';
 
-const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001/api';
-console.log('BASE_URL', process.env);
+const BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
 class Api {
   baseUrl: string;
