@@ -70,6 +70,12 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
       countOfRequests: props.state.countGamesRequests,
       onAdd: () => props.historyPage.push(`${Routes.ADDITEM}/games`),
     },
+    {
+      name: CardsName.News,
+      count: props.state.countGames,
+      icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
+      onAdd: () => alert('To do News form'),
+    },
   ];
 
   if (props.state.error && !alertText) {
