@@ -11,6 +11,7 @@ export interface IAuthProps {
   validationError: (errorMessage: string) => AuthActionTypes;
   keepSignedIn: (keepSignedIn: boolean) => AuthActionTypes;
   switchAuthPage: (isRegistration: boolean) => AuthActionTypes;
+  googleAuthRequest: (payload: { token: string }) => AuthActionTypes;
 }
 
 export interface IAuthState {

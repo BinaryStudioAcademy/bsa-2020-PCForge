@@ -30,6 +30,10 @@ export type ResetPasswordRequest = FastifyRequest<{
   };
 }>;
 
+export type GoogleAuthRequest = FastifyRequest<{
+  Body: { token: string };
+}>;
+
 export type VerifyEmailRequest = FastifyRequest<{
   Params: { token: string };
 }>;
@@ -77,6 +81,46 @@ const LoginResponse: { [number: number]: SwaggerSchema } = {
         minLength: 1,
         example: 'User with given credential does not exist',
         nullable: false,
+      },
+    },
+  },
+};
+
+export const GoogleAuthRequestSchema: RouteShorthandOptions = {
+  schema: {
+    body: {
+      token: {
+        type: 'string',
+        example: 'google-token',
+        description: 'This is google token, that clients get during google authentication',
+        minLength: 1,
+        nullable: false,
+      },
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          token: {
+            type: 'string',
+            example:
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTc1NjIzMDAsImV4cCI6MTU5NzY0ODcwMH0.4Ml0sHEr7wQowqzmU38lKjP5Wgms1ASJQ5wMbP8pHhU',
+            nullable: false,
+            minLength: 1,
+          },
+          user: UserSchema,
+        },
+      },
+      400: {
+        type: 'object',
+        properties: {
+          error: {
+            type: 'string',
+            minLength: 1,
+            example: 'An error occured, please check token correctness',
+            nullable: false,
+          },
+        },
       },
     },
   },
