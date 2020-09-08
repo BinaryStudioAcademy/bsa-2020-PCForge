@@ -84,7 +84,7 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
       <div className={styles.contentPage}>
         <div className={styles.pageHeader}>
-          <Title title="Admin tools" subtitle="Manage hardware and game content, get site statistic" />
+          <Title title="Admin Tools" subtitle="Manage hardware and game content, get site statistic" />
         </div>
         {props.state.dataTotalsIsLoaded ? (
           <div className={styles.contentMain}>
