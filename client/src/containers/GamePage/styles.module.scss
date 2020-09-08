@@ -18,17 +18,17 @@ div.mainWrapper {
       flex-wrap: nowrap;
       margin-bottom: 1rem;
 
+      .fieldName {
+        font-style: italic;
+        font-weight: 600;
+        font-size: 1.3em;
+      }
+
       .infoWrapper {
         width: 100%;
         flex-grow: 1;
         margin-right: 3rem;
         font-size: 14px;
-
-        .fieldName {
-          font-style: italic;
-          font-weight: 600;
-          font-size: 1.3em;
-        }
 
         .titleWrapper {
 
@@ -39,30 +39,37 @@ div.mainWrapper {
           }
 
           .ratingBox {
-            line-height: .8;
+            width: 100%;
           }
         }
 
         .gameRelease {
           width: 100%;
           margin: 5px 0;
+
+          .fieldName {
+            margin-right: 4px;
+          }
         }
 
-        .gameDescription {
-          width: 100%;
+        .imageWrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          .imageItem {
+            width: 100%;
+            margin-bottom: 15px;
+          }
         }
       }
 
-      .imageWrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        max-width: 30%;
+      .gameDescription {
+        width: 100%;
 
-        .imageItem {
-          width: 100%;
-          margin-bottom: 15px;
+        pre {
+          white-space: pre-wrap;
         }
       }
     }
