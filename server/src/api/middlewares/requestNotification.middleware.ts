@@ -1,8 +1,9 @@
 import { DeleteAddRequestType } from '../routes/addRequest.schema';
 import { Services } from '../services';
 import { Notification } from '../services/NotificationService/notification';
+import { UserModel } from '../../data/models/user';
 
-export const DeleteAddRequestNotificationMiddleware = ({ NotificationService }: Services) => async (
+export const UserRequestNotificationMiddleware = ({ NotificationService }: Services) => async (
   userId: string,
   type: DeleteAddRequestType
 ): Promise<void> => {
@@ -33,5 +34,15 @@ export const DeleteAddRequestNotificationMiddleware = ({ NotificationService }: 
     }
     default:
       return;
+  }
+};
+
+export const UserRequestAdminNotificationMiddleware = ({ NotificationService }: Services) => async (
+  admins: UserModel[]
+): Promise<void> => {
+  if (admins.length > 0) {
+    admins.forEach((admin: UserModel) =>
+      NotificationService.notifyUserById(admin.id, new Notification({ text: 'New user request is added' }))
+    );
   }
 };

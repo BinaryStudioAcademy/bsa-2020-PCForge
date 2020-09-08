@@ -22,15 +22,19 @@ import { IAddRequestFilter } from '../../data/repositories/filters/addRequest.fi
 import { AddRequestMiddleware } from '../middlewares/addRequest.middleware';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForVerified } from '../middlewares/allowFor.middleware';
-import { DeleteAddRequestNotificationMiddleware } from '../middlewares/deleteAddRequest.middleware';
+import {
+  UserRequestNotificationMiddleware,
+  UserRequestAdminNotificationMiddleware,
+} from '../middlewares/requestNotification.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { AddRequestService, NotificationService } = fastify.services;
+  const { AddRequestService, UserService } = fastify.services;
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
   const addRequestMiddleware = AddRequestMiddleware(fastify);
-  const sendDeleteAddRequestNotification = DeleteAddRequestNotificationMiddleware(fastify.services);
+  const sendDeleteAddRequestNotification = UserRequestNotificationMiddleware(fastify.services);
+  const sendDeleteAddRequestAdminNotification = UserRequestAdminNotificationMiddleware(fastify.services);
 
   const getAllSchema = getMultipleQuery(GetAllAddRequest, IAddRequestFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllAddRequests, reply) => {
@@ -56,6 +60,10 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     allowForVerified(request);
     request.body.userId = request.user.id;
     const comment = await AddRequestService.createAddRequest(request.body, addRequestMiddleware);
+
+    const admins = await UserService.getAdmins();
+
+    sendDeleteAddRequestAdminNotification(admins);
     reply.send(comment);
   });
 
