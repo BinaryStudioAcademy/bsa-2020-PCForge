@@ -30,6 +30,9 @@
     width: 100%;
     margin: 0;
 
+    .setupCardRatingBox {
+      pointer-events: none;
+    }
     .setupComments {
       position: absolute;
       display: flex;
