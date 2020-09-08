@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import Link from 'components/BasicComponents/Link';
+import BasicLink from 'components/BasicComponents/Link';
 import { UserActionTypes } from '../../logic/actionTypes';
 import { useParams } from 'react-router';
 import Image from 'components/BasicComponents/Image';
+import { Link } from 'react-router-dom';
 
 export interface GameCardProps {
   image: string;
@@ -26,7 +27,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
   };
 
   return (
-    <div className={styles.gameCard}>
+    <Link to={`/game/${id}`} className={styles.gameCard}>
       <div className={styles.gameImage}>
         <Image src={image} alt="" />
       </div>
@@ -39,12 +40,12 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
           <div>{description}</div>
           {isCurrentUser && (
             <div className={styles.cardButton}>
-              <Link icon="Delete" onClick={handleDeleteGame}></Link>
+              <BasicLink icon="Delete" onClick={handleDeleteGame} />
             </div>
           )}
         </div>
       )}
-    </div>
+    </Link>
   );
 };
 
