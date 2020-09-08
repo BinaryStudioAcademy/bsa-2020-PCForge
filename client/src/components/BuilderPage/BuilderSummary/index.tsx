@@ -23,7 +23,7 @@ const BuilderSummary = ({ setup }: IProps): JSX.Element => {
 
   const isSetupEmpty = !Object.values(setup).some((value) => value);
 
-  const partsCount = Object.values(setup).length;
+  const partsCount = Object.values(setupProgress).length;
 
   const buildProgress =
     (Object.values(setupProgress).reduce((progress, item) => {
