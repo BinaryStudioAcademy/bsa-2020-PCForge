@@ -17,9 +17,9 @@ export default function App(): JSX.Element {
       {/** Any change to theme won't be applied untill app reload */}
       <StyleProvider style={getTheme(material as any)}>
         <NavigationContainer>
-          <Router headerMode='none'>
-            <Route name="Login" component={Auth} />
-            <Route name="Home" component={Home} options={{   }}/>
+          <Router initialRouteName="Home">
+            <Route name="Login" component={Auth} options={{ header: props => <AppTitle {...props} /> }} />
+            <Route name="Home" component={Home} options={{ header: props => <AppTitle {...props} /> }} />
           </Router>
         </NavigationContainer>
       </StyleProvider>

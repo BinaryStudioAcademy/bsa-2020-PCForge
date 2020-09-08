@@ -16,9 +16,7 @@ import {
   View,
   Icon,
 } from 'native-base';
-import AppTitle from 'components/basicComponent/Title';
 import { REACT_APP_GOOGLE_OAUTH_CLIENT_ID } from '@env';
-import { Image } from 'react-native';
 
 interface State {
     email: string;
@@ -60,7 +58,6 @@ class Auth extends React.PureComponent<IAuthProps, State> {
   public async signInGoogle() {
     try {
       const userData = await GoogleSignin.signIn();
-      console.log(userData);
     } catch(error) {
       throw new error;
       console.log(statusCodes)
@@ -69,16 +66,15 @@ class Auth extends React.PureComponent<IAuthProps, State> {
   }
 
   public render(): JSX.Element | null {
-    setTimeout(() => {
-      if (this.props.state.user) {
+    if (this.props.state.user) {
+      setTimeout(() => {
         this.props.navigation.navigate('Home');
-        return null;
-      }
-    });
-
+      })
+    }
+    
     return (
       <Container style={styles.root}>
-        <AppTitle title="Login" />
+
         <View style={styles.content}>
           <Item floatingLabel style={[styles.inputItem]}>
             <Label style={styles.label}>Email</Label>
