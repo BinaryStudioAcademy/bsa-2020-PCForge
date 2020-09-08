@@ -9,6 +9,7 @@ import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
 import UserSchema from 'common/validation/user';
+import { GoogleLoginResponse } from 'react-google-login';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
@@ -21,6 +22,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
     this.sendData = this.sendData.bind(this);
     this.switchToRegistration = this.switchToRegistration.bind(this);
     this.switchToLogin = this.switchToLogin.bind(this);
+    this.onGoogleAuth = this.onGoogleAuth.bind(this);
   }
 
   handleChangeEmail(event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -64,6 +66,11 @@ class Auth extends Component<IAuthProps, IAuthState> {
           reject();
         });
     });
+  }
+
+  onGoogleAuth(googleReponse: GoogleLoginResponse): void {
+    const token: string = googleReponse.tokenId;
+    this.props.googleAuthRequest({ token });
   }
 
   handleChangeCheckbox() {
@@ -146,6 +153,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
                   errorMessage={state.errorMessage}
                   keepSignedIn={state.keepSignedIn}
                   isLoading={state.isLoading}
+                  onGoogleAuth={this.onGoogleAuth}
                   handleChangeEmail={this.handleChangeEmail}
                   handleChangePassword={this.handleChangePassword}
                   handleChangeCheckbox={this.handleChangeCheckbox}

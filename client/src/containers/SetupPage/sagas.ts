@@ -73,7 +73,7 @@ function* createSetupComment(action: ICreateSetupComment) {
     yield put({ type: CREATE_SETUP_COMMENT_SUCCESS });
     yield put({ type: GET_SETUP_COMMENTS, payload: { id: action.payload.id } });
   } catch (e) {
-    yield put(addAlert(alert.error('Failed create setup comment')));
+    yield put(addAlert(alert.error(e.message || 'Failed create setup comment')));
   }
 }
 
@@ -89,7 +89,7 @@ function* getSetupRate(action: IGetSetupRate) {
     });
     yield put({ type: GET_SETUP_RATE_SUCCESS, payload: response });
   } catch (e) {
-    yield put(addAlert(alert.error('Failed to get setup rate')));
+    yield put(addAlert(alert.error(e.message || 'Failed to get setup rate')));
   }
 }
 
@@ -108,7 +108,7 @@ function* addSetupRate(action: ISetSetupRate) {
     const setup: PCSetup = yield call<(id: number) => void>(getSetupById, action.payload.id);
     yield put({ type: SET_SETUP_RATE_SUCCESS, payload: setup });
   } catch (e) {
-    yield put(addAlert(alert.error('Failed to add setup rate')));
+    yield put(addAlert(alert.error(e.message || 'Failed to add setup rate')));
   }
 }
 

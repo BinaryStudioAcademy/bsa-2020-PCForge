@@ -6,3 +6,19 @@
   align-items: center;
   flex-grow: 1;
 }
+
+.userPageContainer {
+  width: 100%;
+  height: 75vh;
+  display: flex;
+  margin-top:30px;
+  margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    display: block;
+    align-items: center;
+    margin-top: 20px;
+    height: auto;
+  }
+}

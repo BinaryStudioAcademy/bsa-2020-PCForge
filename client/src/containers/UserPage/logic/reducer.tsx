@@ -11,8 +11,9 @@ import {
   LOAD_FILTERED_GAMES_SUCCESS,
   LOAD_SETUPS_SUCCESS,
   SET_TAB,
+  LOAD_USER_FAILURE,
 } from './actionTypes';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 
 export interface IUserState {
   loadedUser: TypeUser | null;
@@ -21,6 +22,7 @@ export interface IUserState {
   showSpinner: boolean;
   setups: SetupType[];
   openTab: UserPageTabs;
+  userLoadFailed: boolean;
 }
 
 const initialState: IUserState = {
@@ -30,6 +32,7 @@ const initialState: IUserState = {
   filteredGames: [],
   setups: [],
   openTab: UserPageTabs.Games,
+  userLoadFailed: false,
 };
 
 function UserReducer(state = initialState, action: UserActionTypes): IUserState {
@@ -53,6 +56,11 @@ function UserReducer(state = initialState, action: UserActionTypes): IUserState 
       return {
         ...state,
         loadedUser: action.payload,
+      };
+    case LOAD_USER_FAILURE:
+      return {
+        ...state,
+        userLoadFailed: true,
       };
     case UPDATE_USER_SUCCESS:
       return {
