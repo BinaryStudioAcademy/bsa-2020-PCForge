@@ -98,3 +98,20 @@
   height: 2px;
   background: $colorLightGray;
 }
+
+.addRequestBlockContainer {
+  margin-top: auto;
+
+  .addRequestBlock {
+    text-align: justify;
+    margin: 1em 0;
+    margin-right: 3rem;
+    color: $colorLightGray;
+
+    .linkRequest {
+      color: $colorDarkGray;
+      font-family: Lato, sans-serif;
+      font-weight: 400;
+    }
+  }
+}
