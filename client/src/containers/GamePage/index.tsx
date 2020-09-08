@@ -173,12 +173,17 @@ function mockGame(): IGamePageState {
     },
     rate: 4.7,
     comments: [
-      {
+      /*  {
         id: 1,
         authorId: 1,
         author: 'Benedict Cumberbatch',
         value: 'Nice Game. I like it!',
         createdAt: new Date(),
+        updatedAt: new Date(),
+        countLikes: 2,
+        countDislikes: 4,
+        isLikedByUser?: true,
+        isDislikedByUser?: false,
       },
       {
         id: 2,
@@ -186,6 +191,11 @@ function mockGame(): IGamePageState {
         author: 'Brandenburg Königsberg',
         value: 'Playing this game for hours. You should try it.',
         createdAt: new Date(),
+        updatedAt: new Date(),
+        countLikes: 2,
+        countDislikes: 4,
+        isLikedByUser?: true,
+        isDislikedByUser?: false,
       },
       {
         id: 3,
@@ -193,7 +203,13 @@ function mockGame(): IGamePageState {
         author: 'Battlefield Overwatch',
         value: '10/10.',
         createdAt: new Date(),
+        updatedAt: new Date(),
+        countLikes: 2,
+        countDislikes: 4,
+        isLikedByUser?: true,
+        isDislikedByUser?: false,
       },
+      ,*/
     ],
   };
 }

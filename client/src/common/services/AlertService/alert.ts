@@ -1,12 +1,12 @@
-export enum NotificationType {
+export enum AlertType {
   INFO = 'INFO',
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR',
   WARNING = 'WARNING',
 }
 
-export interface INotification {
+export interface IAlert {
   id: string;
-  type: NotificationType;
+  type: AlertType;
   text: string;
 }

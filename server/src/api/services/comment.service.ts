@@ -20,8 +20,19 @@ export class CommentService extends BaseService<CommentModel, CommentCreationAtt
     return comment;
   }
 
-  async getAllComments(filter: ICommentFilter): Promise<IWithMeta<CommentModel>> {
-    return await this.repository.getAllComments(filter);
+  async getAllComments(filter: ICommentFilter, initiator: UserAttributes): Promise<IWithMeta<CommentModel>> {
+    const comments = await this.repository.getAllComments(filter);
+    for (let i = 0; i < comments.data.length; i++) {
+      for (let j = 0; j < comments.data[i].commentRates.length; j++) {
+        const userID = comments.data[i].commentRates[j].userId;
+        if (userID === initiator.id) {
+          if (comments.data[i].commentRates[j].isLiked) comments.data[i].setDataValue('isLikedByCurrentUser', true);
+          else comments.data[i].setDataValue('isDislikedByCurrentUser', true);
+          continue;
+        }
+      }
+    }
+    return comments;
   }
 
   async createComment(
@@ -43,7 +54,7 @@ export class CommentService extends BaseService<CommentModel, CommentCreationAtt
       triggerServerError('You should specify at least one valid field to update', 400);
     }
     const oldComment = await this.repository.getCommentById(id);
-    if (oldComment.userId !== initiator.id) {
+    if (!(oldComment.userId === initiator.id || initiator.isAdmin)) {
       triggerServerError('Access forbidden', 403);
     }
     const newComment = this.repository.updateById(id, data);

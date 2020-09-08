@@ -14,7 +14,7 @@ import Image from 'components/BasicComponents/Image';
 import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
 import { UserPageTabs } from 'containers/UserPage/index';
-import ExtendedRatingBox from 'components/BasicComponents/ExtendedRatingBox';
+import RatingBox from 'components/BasicComponents/RatingBox';
 
 export interface SetupCardProps {
   id: number;
@@ -59,8 +59,8 @@ const SetupCard: React.FC<SetupCardProps> = ({
   setTab,
   deleteUserSetup,
 }) => {
-  let { id: userId } = useParams();
-  userId = parseInt(userId);
+  const { id: _id } = useParams<{ id: string }>();
+  const userId = parseInt(_id, 10);
 
   const setupCreatedAt = moment(createdAt).format('D MMM YYYY');
 
@@ -92,30 +92,33 @@ const SetupCard: React.FC<SetupCardProps> = ({
       <div className={styles.setupImage}>
         <Image src={image} alt="" />
       </div>
-      <div className={styles.setupTitle}>{title}</div>
-
-      <div className={styles.createdAt}>
-        Created on {setupCreatedAt} {!own && <>by {author.name}</>}
-      </div>
-      <div className={styles.setupCardRatingBox}>
-        <ExtendedRatingBox ratingCount={ratingCount} averageValue={rating} name={title} ownRating={ownRating} />
-      </div>
-
-      <div className={styles.setupBack}>
-        <div className={styles.textHolder}>
-          <div className={styles.setupDescription}>{description}</div>
-          <div>CPU: {cpu.name}</div>
-          <div>Motherboard: {motherboard.name}</div>
-          <div>GPU: {gpu.name}</div>
-          <div>RAM: {ram.name}</div>
-          <div>Power Supply: {powerSupply.name}</div>
+      <div className={styles.cardContentHolder}>
+        <div className={styles.setupTopInfo}>
+          <div className={styles.setupTitle}>{title}</div>
+          <div className={styles.createdAt}>
+            Created on {setupCreatedAt} {!own && author.name && <>by {author.name}</>}
+          </div>
+          <div className={styles.setupCardRatingBox}>
+            <RatingBox ratingValue={rating} disabled={false} name={`setup${id}`} />
+          </div>
         </div>
 
-        <div className={styles.backBottomWrapper}>
-          <Button icon="ArrowForward" buttonType={ButtonType.primary}>
-            Find out more
-          </Button>
-          <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
+        <div className={styles.setupBack}>
+          <div className={styles.textHolder}>
+            <div className={styles.setupDescription}>{description}</div>
+            <div>CPU: {cpu.name}</div>
+            <div>Motherboard: {motherboard.name}</div>
+            <div>GPU: {gpu.name}</div>
+            <div>RAM: {ram.name}</div>
+            <div>Power Supply: {powerSupply.name}</div>
+          </div>
+
+          <div className={styles.backBottomWrapper}>
+            <Button icon="ArrowForward" buttonType={ButtonType.primary}>
+              Find out more
+            </Button>
+            <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
+          </div>
         </div>
       </div>
     </div>

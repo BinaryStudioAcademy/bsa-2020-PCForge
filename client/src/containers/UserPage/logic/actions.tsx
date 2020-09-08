@@ -16,11 +16,11 @@ import {
   DELETE_USER_GAME,
   DELETE_USER_SETUP,
   SET_TAB,
+  LOAD_USER_FAILURE,
 } from './actionTypes';
 
 import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
-import { User } from 'common/models/user';
 import { SetupType } from 'common/models/typeSetup';
 import { UserPageTabs } from 'containers/UserPage/index';
 
@@ -32,6 +32,10 @@ export const loadUser = (id: number): UserActionTypes => ({
 export const loadUserSuccess = (data: TypeUser): UserActionTypes => ({
   type: LOAD_USER_SUCCESS,
   payload: data,
+});
+
+export const loadUserFailed = (): UserActionTypes => ({
+  type: LOAD_USER_FAILURE,
 });
 
 export const updateUser = (data: TypeUserUpdate, avatarData?: Blob): UserActionTypes => ({
