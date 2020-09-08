@@ -11,7 +11,7 @@ const elasticClient = new Client({
   node: [elasticNode],
 });
 
-export default class Elastic {
+export class ElasticService {
   documentIndex = '';
 
   constructor(index: string) {
@@ -49,10 +49,12 @@ export default class Elastic {
   }
 
   addData(dataInstance) {
+    dataInstance = dataInstance.dataValues;
+    console.log('ElasticService -> addData -> dataInstance', dataInstance);
     return elasticClient.create({
       index: this.documentIndex,
-      id: dataInstance.id,
-      type: '_doc',
+      id: `${dataInstance.id}`,
+      type: 'cpu',
       body: dataInstance,
     });
   }
@@ -81,22 +83,20 @@ export default class Elastic {
     });
   }
 
-  async search(searchProperty: ISearchProperties) {
+  async searchIDs(searchProperty: ISearchProperties) {
     const { body } = await elasticClient.search({
       index: this.documentIndex,
-
       body: {
-        size: searchProperty.countValue || 5,
+        size: searchProperty.countValue || 10000,
         query: {
           query_string: {
-            query: `*${searchProperty.input}}*`,
+            query: `*${searchProperty.input}*`,
             fields: searchProperty.searchFields,
           },
         },
       },
     });
-    return body.hits.hits;
-    // return body.hits.hits.map((hit: { _id: string }) => hit._id) as string[];
-    // return body.hits.hits.map((hit: { _id: string }) => hit._id) as string[];
+
+    return body.hits.hits.map((hit) => hit._source.id) as number[];
   }
 }
