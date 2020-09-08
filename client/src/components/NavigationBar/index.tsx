@@ -162,18 +162,18 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
   let buttons: IModalButton[];
   buttons = [
     {
-      title: 'yes',
-      onClick: () => {
-        handleLogout();
-      },
-      buttonType: ButtonType.secondary,
-    },
-    {
-      title: 'no',
+      text: 'no',
       onClick: () => {
         setShowModal(false);
       },
       buttonType: ButtonType.primary,
+    },
+    {
+      text: 'yes',
+      onClick: () => {
+        handleLogout();
+      },
+      buttonType: ButtonType.secondary,
     },
   ];
   return (

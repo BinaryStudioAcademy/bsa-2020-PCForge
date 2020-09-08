@@ -7,10 +7,11 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 import styles from './styles.module.scss';
 
 export interface IModalButton {
-  title: string;
+  text: string;
   onClick: () => void;
   buttonType?: ButtonType;
   icon?: string;
+  variant?: 'text' | 'outlined' | 'contained';
 }
 
 export interface IModalProps {
@@ -30,7 +31,7 @@ const Modal: React.FC<DialogProps & IModalProps> = (props) => {
         <DialogActions>
           {buttons.map((button, index) => (
             <Button {...button} key={index}>
-              {button.title}
+              {button.text}
             </Button>
           ))}
         </DialogActions>

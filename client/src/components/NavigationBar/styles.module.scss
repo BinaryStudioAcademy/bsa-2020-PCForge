@@ -70,6 +70,13 @@
   }
   div:nth-child(3) {
     padding-bottom: 0;
+
+    button:nth-child(2) {
+      background-color:transparent;
+      &:hover {
+      background-color: grey;
+      }
+    }
   }
 }
 
