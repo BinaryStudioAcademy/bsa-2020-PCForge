@@ -32,6 +32,7 @@ $cardButtonHoverColor: #f50057;
     }
 
     @media(max-width: 768px) {
-      height: 280px;
+      height:auto;
+      min-height:325px;
     }
   }

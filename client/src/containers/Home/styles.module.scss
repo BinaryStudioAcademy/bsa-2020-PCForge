@@ -1,10 +1,16 @@
+.wholeContentContainer{
+  @media(max-width: 800px) {
+    margin: 0 auto;
+  }
+}
+
 .homeContentContainer {
   display: grid;
   width: 100%;
   margin-bottom: 30px;
   column-gap: 1%;
   row-gap: 1%;
-  grid-template-columns: minmax(400px, 1.5fr) minmax(450px, 2fr) minmax(200px, 1fr);
+  grid-template-columns: minmax(380px, 1.5fr) minmax(470px, 2fr) minmax(200px, 1fr);
   grid-template-rows: 60px 1fr;
   grid-template-areas:
     "title             title        gridNewsDisplay"
@@ -23,7 +29,7 @@
 
   @media(max-width: 768px) {
     justify-content: center;
-    grid-template-columns: minmax(250px, 500px);
+    grid-template-columns: minmax(250px, 580px);
     grid-template-rows: 1fr;
     row-gap: 10px;
     grid-template-areas:
@@ -97,13 +103,14 @@ h2 {
     }
 
     @media(max-width: 768px) {
-      grid-template-columns: minmax(250px, 530px);
+      grid-template-columns: minmax(250px, 580px);
       grid-template-rows: 1fr;
       margin: 0 auto;
       gap: 25px;
 
       > div {
         height:auto;
+        min-height:325px;
       }
     }
   }
@@ -120,11 +127,9 @@ h2 {
 
 .gridNewsDisplay {
   grid-area: gridNewsDisplay;
-  //margin-top: 20px;
   margin-top: -5px;
 
   @media (max-width: 1400px) {
-    //margin-top: 25px;
     margin-top: 3px;
   }
 
@@ -138,6 +143,9 @@ h2 {
 
   h2 {
     margin-left: 10px;
+    @media (max-width: 768px) {
+      margin-left: 0;
+    }
   }
 
   h3 {
@@ -146,7 +154,7 @@ h2 {
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-size:22px !important;
-    line-height: 1.2 !important;
+    line-height: 1.1 !important;
   }
 
   >div>div>div {
@@ -163,6 +171,10 @@ h2 {
       display: flex;
       flex-direction: column;
 
+      p {
+        margin-top: 0;
+      }
+
       button {
         margin-top: auto;
         margin-bottom: 5px;
@@ -178,7 +190,7 @@ h2 {
     @media (max-width:768px) {
       margin-bottom: 15px;
       margin-left: 0;
-      max-width: 530px;
+      max-width: 580px;
     }
 
     @media (min-width: 1850px) {
