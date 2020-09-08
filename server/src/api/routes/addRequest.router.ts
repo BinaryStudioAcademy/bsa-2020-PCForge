@@ -22,13 +22,15 @@ import { IAddRequestFilter } from '../../data/repositories/filters/addRequest.fi
 import { AddRequestMiddleware } from '../middlewares/addRequest.middleware';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForVerified } from '../middlewares/allowFor.middleware';
+import { DeleteAddRequestNotificationMiddleware } from '../middlewares/deleteAddRequest.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { AddRequestService } = fastify.services;
+  const { AddRequestService, NotificationService } = fastify.services;
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
   const addRequestMiddleware = AddRequestMiddleware(fastify);
+  const sendDeleteAddRequestNotification = DeleteAddRequestNotificationMiddleware(fastify.services);
 
   const getAllSchema = getMultipleQuery(GetAllAddRequest, IAddRequestFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllAddRequests, reply) => {
@@ -70,7 +72,12 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.delete('/:id', deleteCommentSchema, async (request: DeleteAddRequestRequest, reply) => {
     allowForVerified(request);
     const { id } = request.params;
+    const { type } = request.body;
+
     const addRequest = await AddRequestService.deleteAddRequestById(id);
+
+    const userId = addRequest.userId;
+    sendDeleteAddRequestNotification(userId.toString(), type);
     reply.send(addRequest);
   });
 

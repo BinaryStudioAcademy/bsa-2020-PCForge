@@ -11,6 +11,7 @@ export function allowForAdmin(request: CustomRequest): void {
 }
 
 export function allowForVerified(request: CustomRequest): void {
+  console.log(request.user?.emailVerified);
   if (!request.user?.emailVerified) {
     triggerServerError('Access allowed only for users verified by email', 403);
   }
