@@ -5,32 +5,42 @@
   background-color: $colorBackgroundGray;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding:30px;
+  justify-content:flex-start;
   border-radius: 6px;
   position: relative;
   transition: all 0.5s;
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 
+  .setupTopInfo {
+    display: flex;
+    height:100%;
+    flex-direction: column;
+  }
+
   @media(max-width:768px) {
-    padding:20px;
     height:auto;
   }
 
   // Top SETUP
   &.bigCard {
-    display: block;
+    display: flex;
     position: relative;
     width: 100%;
-    padding:35px;
     margin: 0;
 
-    @media(max-width:768px) {
-      padding:20px;
+    .cardContentHolder {
+      margin:10px 15px;
+      height: calc(100% - 250px);
+    }
+
+    .setupTopInfo {
+      display: flex;
+      height:auto;
+      flex-direction: column;
     }
 
     .setupImage {
-      height: 259px;
+      height: 250px;
     }
 
     .setupTitle {
@@ -40,10 +50,10 @@
     .setupBack {
       display: flex;
       flex-direction: column;
-      height:44%;
-
+      height:calc(100% - 90px);
+      margin-top: 5px;
+     
       .textHolder {
-        max-height: 250px;
         overflow: auto;
         text-overflow: ellipsis;
       }
@@ -79,18 +89,20 @@
 
   .setupImage {
     width: 100%;
-    height: 70%;
-    margin-bottom: 15px;
+    height: 175px;
+    margin-bottom:5px;
 
     & img {
       object-fit: cover;
       width: 100%;
       height: 100%;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
     }
   }
 
   .setupTitle {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .createdAt {
@@ -102,6 +114,20 @@
     display: none;
   }
 
+
+  &.withHover {
+    .cardContentHolder {
+      margin:10px 15px;
+      margin-top:0;
+      display: flex;
+      flex-direction: column;
+      height:100%;
+    }
+  
+    .setupCardRatingBox {
+      margin-top: auto;
+    }
+  }
   &.withHover:hover {
     cursor: pointer;
 

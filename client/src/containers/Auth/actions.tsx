@@ -13,7 +13,9 @@ import {
   AUTH_SWITCH_AUTH_PAGE,
   AUTH_VALIDATION_ERROR,
   AuthActionTypes,
+  AUTH_GOOGLE_AUTH,
 } from 'containers/Auth/actionTypes';
+
 import { User } from '../../common/models/user';
 
 export const changeEmail = (value: string): AuthActionTypes => ({
@@ -91,6 +93,11 @@ export const changeLoadingStatus = (isLoading: boolean): AuthActionTypes => ({
   payload: {
     isLoading,
   },
+});
+
+export const googleAuthRequest = (payload: { token: string }): AuthActionTypes => ({
+  type: AUTH_GOOGLE_AUTH,
+  payload,
 });
 
 export const switchAuthPage = (isRegistration: boolean): AuthActionTypes => ({

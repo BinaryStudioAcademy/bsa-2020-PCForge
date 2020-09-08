@@ -21,6 +21,7 @@ import { router as rateRouter } from './rate.router';
 import { router as commentRouter } from './comment.router';
 import { router as performanceRouter } from './performance.router';
 import { router as addRequestRouter } from './addRequest.router';
+import { router as commensRateRouter } from './commentRate.router';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
   fastify.register(ramTypeRouter, { prefix: '/ramTypes' });
@@ -44,5 +45,6 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(addRequestRouter, { prefix: '/addRequest' });
   fastify.register(imageUploadRouter, { prefix: '/upload' });
   fastify.register(performanceRouter, { prefix: '/performances' });
+  fastify.register(commensRateRouter, { prefix: '/commentsRates' });
   next();
 };
