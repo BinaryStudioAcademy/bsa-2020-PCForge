@@ -17,6 +17,7 @@ import { User } from 'common/models/user';
 
 import UserAvatar from 'components/UserAvatar';
 import RatingBox from 'components/BasicComponents/RatingBox';
+import ConfirmModalWindow from 'components/ConfirmModal';
 
 import * as actions from './actions';
 import { LikeCommentState, LikeCommentActionTypes, CommentLikeRequestAction } from './actionTypes';
@@ -50,6 +51,25 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
   const [countDisLikes, setCountDisLikes] = useState(comment.countDislikes);
   const [isLikedByCurrentUser, setIsLikedByCurrentUser] = useState(comment.isLikedByCurrentUser);
   const [isDisLikedByCurrentUser, setIsDisLikedByCurrentUser] = useState(comment.isDislikedByCurrentUser);
+  const [displayConfirmDeletion, setdisplayConfirmDeletion] = useState(false);
+  const [test, settest] = useState(false);
+
+  const showConfirmDeletionModal = () => {
+    setdisplayConfirmDeletion(true);
+  };
+  const hideConfirmDeletionModal = () => {
+    setdisplayConfirmDeletion(false);
+  };
+  const handleConfirmDeletionModal = () => {
+    displayConfirmDeletion ? hideConfirmDeletionModal() : showConfirmDeletionModal();
+  };
+
+  const OnDelete = (id: number): void => {
+    console.log(`delete ${id}`);
+    console.log(test);
+    settest(!test);
+    hideConfirmDeletionModal();
+  };
 
   const createdDateValue = new Date(comment.createdAt);
   const updatedDateValue = new Date(comment.updatedAt);
@@ -70,10 +90,19 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
     setCountDisLikes(props.state.countDisLikes);
     setIsDisLikedByCurrentUser(!isDisLikedByCurrentUser);
   }
-
+  console.log(test);
+  const userName = currentUser ? (currentUser.name ? currentUser.name : currentUser.email) : `Incognito user`;
   return (
     <li className={styles.commentRoot}>
       <div className={styles.commentWrapper} ref={commentRef}>
+        {displayConfirmDeletion ? (
+          <ConfirmModalWindow
+            onApprove={OnDelete}
+            onCancel={hideConfirmDeletionModal}
+            question={`${userName}, do you want to delete this comment?`}
+            id={comment.id}
+          />
+        ) : null}
         <div className={styles.commentMeta}>
           <UserAvatar user={comment.user} />
           <div className={styles.commentRateInfo}>
@@ -101,7 +130,7 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
             ) : null}
             {isAuthor || currentUser?.isAdmin ? (
               <Tooltip title={'Delete'} placement="right-start" arrow>
-                <DeleteIcon fontSize="small" className={styles.commentIcons} onClick={() => alert('To do delete!')} />
+                <DeleteIcon fontSize="small" className={styles.commentIcons} onClick={showConfirmDeletionModal} />
               </Tooltip>
             ) : null}
           </div>

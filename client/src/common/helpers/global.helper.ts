@@ -8,4 +8,4 @@ export const concatClassNames = (...classNames: (string | null)[]) => {
   classNames = classNames.filter(Boolean);
   const className = classNames.join(' ');
   return className;
-}
+};
