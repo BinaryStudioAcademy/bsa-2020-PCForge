@@ -54,7 +54,7 @@ export class CommentService extends BaseService<CommentModel, CommentCreationAtt
       triggerServerError('You should specify at least one valid field to update', 400);
     }
     const oldComment = await this.repository.getCommentById(id);
-    if (oldComment.userId !== initiator.id) {
+    if (!(oldComment.userId === initiator.id || initiator.isAdmin)) {
       triggerServerError('Access forbidden', 403);
     }
     const newComment = this.repository.updateById(id, data);

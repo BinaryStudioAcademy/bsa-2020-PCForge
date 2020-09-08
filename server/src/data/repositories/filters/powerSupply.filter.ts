@@ -20,7 +20,6 @@ export class IPowerSupplyFilter extends IFilter {
       ...IFilter.schema.properties,
       name: {
         type: 'string',
-        minimum: 1,
         nullable: true,
       },
     },

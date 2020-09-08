@@ -18,6 +18,7 @@ export const getAllRam = async (filter: RamFilter): Promise<TypeResponseAllRams>
   const isMultipleType: boolean = filter.typeId?.includes(',') || false;
 
   const serverFilter: RamFilter = {
+    name: filter.name,
     from: filter.from,
     count: filter.count,
     ...(isMultipleType && { typeIds: filter.typeId }),

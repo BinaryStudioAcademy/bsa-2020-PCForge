@@ -13,7 +13,7 @@ import BasicLink from 'components/BasicComponents/Link';
 import Image from 'components/BasicComponents/Image';
 import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 import RatingBox from 'components/BasicComponents/RatingBox';
 import { getIcon } from 'common/helpers/icon.helper';
 
@@ -52,8 +52,6 @@ const SetupCard: React.FC<SetupCardProps> = ({
   ram,
   author,
   rating,
-  ownRating,
-  ratingCount,
   comments_count,
   big,
   createdAt,
@@ -134,7 +132,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
             <Button icon="ArrowForward" buttonType={ButtonType.primary}>
               Find out more
             </Button>
-            <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup}></BasicLink>}</div>
+            <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup} />}</div>
           </div>
         </div>
       </div>

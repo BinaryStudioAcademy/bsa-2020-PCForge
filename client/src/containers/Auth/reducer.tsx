@@ -12,6 +12,8 @@ import {
   AUTH_REGISTRATION_ERROR,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
+  AUTH_GOOGLE_AUTH_SUCCESS,
+  AUTH_GOOGLE_AUTH_FAILURE,
 } from './actionTypes';
 
 const initialState: IAuthState = {
@@ -67,6 +69,7 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         isRegistration: action.payload.isRegistration,
       };
     case AUTH_LOGIN_SUCCESS:
+    case AUTH_GOOGLE_AUTH_SUCCESS:
       return {
         ...state,
         ...action.payload,
@@ -74,6 +77,7 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         password: '',
       };
     case AUTH_LOGIN_FAILURE:
+    case AUTH_GOOGLE_AUTH_FAILURE:
       return {
         ...state,
         errorMessage: action.payload.message,
