@@ -14,6 +14,9 @@ export const AUTH_LOADING_STATUS = 'AUTH_LOADING_STATUS';
 export const AUTH_SWITCH_AUTH_PAGE = 'AUTH_SWITCH_AUTH_PAGE';
 export const AUTH_REGISTRATION_SUCCESS = 'AUTH_REGISTRATION_SUCCESS';
 export const AUTH_REGISTRATION_ERROR = 'AUTH_REGISTRATION_ERROR';
+export const AUTH_GOOGLE_AUTH = 'AUTH_GOOGLE_AUTH';
+export const AUTH_GOOGLE_AUTH_SUCCESS = 'AUTH_GOOGLE_AUTH_SUCCESS';
+export const AUTH_GOOGLE_AUTH_FAILURE = 'AUTH_GOOGLE_AUTH_FAILURE';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 
 interface changeEmailAction {
@@ -114,6 +117,27 @@ export interface registrationError {
   };
 }
 
+export interface googleAuthAction {
+  type: typeof AUTH_GOOGLE_AUTH;
+  payload: {
+    token: string;
+  };
+}
+
+export interface googleAuthSuccess {
+  type: typeof AUTH_GOOGLE_AUTH_SUCCESS;
+  payload: {
+    user: User;
+  };
+}
+
+export interface googleAuthFailure {
+  type: typeof AUTH_GOOGLE_AUTH_FAILURE;
+  payload: {
+    message: string;
+  };
+}
+
 export interface logoutAction {
   type: typeof AUTH_LOGOUT;
 }
@@ -132,5 +156,9 @@ export type AuthActionTypes =
   | switchAuthPage
   | registrationSuccess
   | registrationError
+  | googleAuthAction
+  | googleAuthSuccess
+  | googleAuthFailure
+  | loginByTokenRequestAction
   | loginByTokenRequestAction
   | logoutAction;

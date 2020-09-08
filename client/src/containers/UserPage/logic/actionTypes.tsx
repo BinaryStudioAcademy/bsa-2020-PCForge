@@ -4,22 +4,23 @@ import { deleteUserGame } from 'api/services/userService';
 import { SetupType } from 'common/models/typeSetup';
 import { UserPageTabs } from 'containers/UserPage/index';
 
-export const LOAD_USER = 'UserPage/LOAD_USER';
-export const LOAD_USER_SUCCESS = 'UserPage/LOAD_USER_SUCCESS';
-export const UPDATE_USER = 'UserPage/UPDATE_USER';
-export const UPDATE_USER_SUCCESS = 'UserPage/UPDATE_USER_SUCCESS';
-export const SHOW_SPINNER = 'UserPage/SHOW_SPINNER';
-export const HIDE_SPINNER = 'UserPage/HIDE_SPINNER';
-export const LOAD_USER_GAMES = 'UserPage/LOAD_USER_GAMES';
-export const LOAD_USER_GAMES_SUCCESS = 'UserPage/LOAD_USER_GAMES_SUCCESS';
-export const LOAD_FILTERED_GAMES = 'UserPage/LOAD_FILTERED_GAMES';
-export const LOAD_FILTERED_GAMES_SUCCESS = 'UserPage/LOAD_FILTERED_GAMES_SUCCESS';
-export const ADD_USER_GAME = 'UserPage/ADD_USER_GAME';
-export const DELETE_USER_GAME = 'UserPage/DELETE_USER_GAME';
-export const DELETE_USER_SETUP = 'UserPage/DELETE_USER_SETUP';
-export const LOAD_SETUPS = 'UserPage/LOAD_SETUPS';
-export const LOAD_SETUPS_SUCCESS = 'UserPage/LOAD_SETUPS_SUCCES';
-export const SET_TAB = 'UserPage/SET_TAB';
+export const LOAD_USER = 'LOAD_USER';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE';
+export const UPDATE_USER = 'UPDATE_USER';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const SHOW_SPINNER = 'SHOW_SPINNER';
+export const HIDE_SPINNER = 'HIDE_SPINNER';
+export const LOAD_USER_GAMES = 'LOAD_USER_GAMES';
+export const LOAD_USER_GAMES_SUCCESS = 'LOAD_USER_GAMES_SUCCESS';
+export const LOAD_FILTERED_GAMES = 'LOAD_FILTERED_GAMES';
+export const LOAD_FILTERED_GAMES_SUCCESS = 'LOAD_FILTERED_GAMES_SUCCESS';
+export const ADD_USER_GAME = 'ADD_USER_GAME';
+export const DELETE_USER_GAME = 'DELETE_USER_GAME';
+export const DELETE_USER_SETUP = 'DELETE_USER_SETUP';
+export const LOAD_SETUPS = 'LOAD_SETUPS';
+export const LOAD_SETUPS_SUCCESS = 'LOAD_SETUPS_SUCCES';
+export const SET_TAB = 'SET_TAB';
 
 export interface loadUser {
   type: typeof LOAD_USER;
@@ -30,6 +31,10 @@ export interface loadUser {
 export interface loadUserSuccess {
   type: typeof LOAD_USER_SUCCESS;
   payload: TypeUser;
+}
+
+export interface loasUserFailure {
+  type: typeof LOAD_USER_FAILURE;
 }
 
 export interface loadSetups {
@@ -110,6 +115,7 @@ export type UserActionTypes =
   | showSpinner
   | loadUser
   | loadUserSuccess
+  | loasUserFailure
   | updateUser
   | updateUserSuccess
   | loadUserGames

@@ -35,6 +35,7 @@ const UserPage = (props: Props) => {
     showSpinner,
     loadUser,
     currentUser,
+    userLoadFailed,
     updateUser: userUpdate,
     userGames,
     addUserGame: userGameAdd,
@@ -58,8 +59,8 @@ const UserPage = (props: Props) => {
     loadSetups(parseInt(id));
   }, [id]);
 
-  return (
-    <PageComponent>
+  const renderContent = (): JSX.Element => (
+    <>
       {showSpinner ? (
         <Box className={styles.spinnerWrapper}>
           <Spinner load />
@@ -80,10 +81,16 @@ const UserPage = (props: Props) => {
           setTab={setTab}
         />
       ) : (
-        <Redirect to="/404" />
+        <Spinner />
       )}
-    </PageComponent>
+    </>
   );
+
+  if (userLoadFailed) {
+    return <Redirect to="/404" />;
+  }
+
+  return <PageComponent>{renderContent()}</PageComponent>;
 };
 
 const mapState = (state: RootState) => ({
@@ -94,6 +101,7 @@ const mapState = (state: RootState) => ({
   userGames: state.user.userGames,
   filteredGames: state.user.filteredGames,
   openTab: state.user.openTab,
+  userLoadFailed: state.user.userLoadFailed,
 });
 
 const mapDispatch = {
