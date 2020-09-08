@@ -1,0 +1,15 @@
+version: 0.2
+phases:
+    install:
+        commands:
+            - 'cd /home/ubuntu/bsa-2020-PCForge/server'
+            - 'npm install'
+    build:
+        commands:
+            - 'cd /home/ubuntu/bsa-2020-PCForge/server'
+            - 'npm run build'
+artifacts:
+    files:
+        - package.json
+        - package-lock.json
+        - 'dist/**/*'
