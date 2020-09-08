@@ -4,6 +4,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import styles from './styles.module.scss';
 
 export interface IModalButton {
   title: string;
@@ -12,7 +13,7 @@ export interface IModalButton {
   icon?: string;
 }
 
-interface IModalProps {
+export interface IModalProps {
   open: boolean;
   title?: string;
   buttons?: IModalButton[];

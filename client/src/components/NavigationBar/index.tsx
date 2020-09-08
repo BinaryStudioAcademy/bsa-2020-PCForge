@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
+import Modal, { IModalButton, IModalProps } from 'components/BasicComponents/Modal';
+import Button, { ButtonType } from 'components/BasicComponents/Button';
 import ListItem from '@material-ui/core/ListItem';
 import Tooltip from '@material-ui/core/Tooltip';
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -76,12 +78,13 @@ interface IListNavigatinBar {
 }
 
 const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, isAdmin }) => {
+  const [showModal, setShowModal] = React.useState(false);
   const dispatch = useDispatch();
 
   const clearTokenAndRedirect = async () => {
     await clearToken();
     await deleteLocalSetup();
-    dispatch(resetSetupAction())
+    dispatch(resetSetupAction());
     await dispatch(logout());
     history.push(Routes.LOGIN);
   };
@@ -91,9 +94,21 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     onLogoutSuccess: clearTokenAndRedirect,
     onFailure: () => {
       // Notification.error('Could not log out from Google, try again later');
-      console.log('logout')
+      console.log('logout');
     },
   });
+
+  const handleLogout = async () => {
+    switch (getLoginType()) {
+      case LoginType.google:
+        signOut();
+        break;
+      default:
+        await clearTokenAndRedirect();
+    }
+  };
+
+  const showLogoutModal = () => setShowModal(true);
 
   const listHeader: Array<IListNavigatinBar> = [
     {
@@ -136,22 +151,37 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     name: 'Log out',
     icon: <SvgIcon component={LogOutIcon} viewBox="0 0 31 31" />,
     link: '#',
-    onClick: async () => {
-      switch (getLoginType()) {
-        case LoginType.google:
-          signOut();
-          break;
-        default:
-          await clearTokenAndRedirect();
-      }
-    },
+    onClick: showLogoutModal,
   });
 
   let selectedMenuItem = undefined;
   if (selectedMenuItemNumber !== undefined) {
     selectedMenuItem = selectedMenuItemNumber < listHeader.length ? selectedMenuItemNumber : 0;
   }
-  return NavigationBarRender(listHeader, selectedMenuItem);
+
+  let buttons: IModalButton[];
+  buttons = [
+    {
+      title: 'yes',
+      onClick: () => {
+        handleLogout();
+      },
+      buttonType: ButtonType.secondary,
+    },
+    {
+      title: 'no',
+      onClick: () => {
+        setShowModal(false);
+      },
+      buttonType: ButtonType.primary,
+    },
+  ];
+  return (
+    <>
+      {NavigationBarRender(listHeader, selectedMenuItem)}
+      <Modal title="Are you sure you want to log out?" open={showModal} buttons={buttons} maxWidth="md" classes={{ paper: styles.modalStyle}}></Modal>
+    </>
+  );
 };
 export default NavigationBar;
 // example of using: <NavigationBar selectedMenuItem={0} />
