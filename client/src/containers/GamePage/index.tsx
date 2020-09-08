@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { MenuItems } from 'common/enums/MenuItems';
 import PageComponent from 'containers/PageComponent';
-import { Box, CardMedia, Container, Grid, Table, TableBody, TableCell, TableRow } from '@material-ui/core';
+import { Box, CardMedia, Container, Grid, Table, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
 import Divider from 'components/BasicComponents/Divider';
 import styles from 'containers/GamePage/styles.module.scss';
-import RatingBox from 'components/BasicComponents/RatingBox';
 import Comments from 'components/Comments';
 import { IGamePageProps, IGamePageState } from './interfaces';
 import { RootState } from 'redux/rootReducer';
@@ -12,7 +11,7 @@ import * as GameActions from 'containers/GamePage/actions';
 import { connect } from 'react-redux';
 import NotFound from '../NotFound';
 import Spinner from 'components/Spinner';
-import ExtendedRatingBox from '../../components/BasicComponents/ExtendedRatingBox';
+import ExtendedRatingBox from 'components/BasicComponents/ExtendedRatingBox';
 
 class GamePage extends Component<IGamePageProps, IGamePageState> {
   constructor(props: IGamePageProps) {
@@ -41,7 +40,7 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
   };
 
   render(): JSX.Element {
-    const { game, rate, comments, hasErrorDuringGameFetch, commentsPerPage, commentsCountTotal } = this.props;
+    const { game, comments, hasErrorDuringGameFetch, commentsPerPage, commentsCountTotal } = this.props;
 
     if (hasErrorDuringGameFetch) {
       return <NotFound history={this.props.history} location={this.props.location} match={this.props.match} />;
@@ -63,7 +62,7 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
           <Grid className={styles.contentWrapper}>
             <Grid className={styles.gameWrapper} xs={12} container direction="column">
               <Grid className={styles.infoWrapper} item xs={12} container alignItems="center">
-                <Grid item xs={8}>
+                <Grid item xs={12} md={7} lg={8}>
                   <Grid className={styles.titleWrapper} item xs={12} container alignItems="center">
                     <h1 className={styles.gameTitle}>{game.name}</h1>
                   </Grid>
@@ -71,10 +70,17 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
                     <span className={styles.fieldName}>{'Release Year: '}</span> {game.year}
                   </Grid>
                 </Grid>
-                <Grid className={styles.imageWrapper} item xs={4}>
+                <Grid className={styles.imageWrapper} item xs={12} md={5} lg={4}>
                   <CardMedia className={styles.imageItem} component="img" src={game.image} />
                   <Grid className={styles.ratingBox} item xs={12} container alignItems="center" justify="center">
-                    <ExtendedRatingBox averageValue={2} ratingCount={3} name={'sd'} />
+                    <ExtendedRatingBox
+                      averageValue={game.rating}
+                      ratingCount={game.ratingCount}
+                      ownRating={game.ownRating}
+                      name={`game_${game.id}_rating`}
+                      onValueSet={this.onRatingSet}
+                      clickable={true}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
@@ -85,8 +91,8 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
               </Grid>
             </Grid>
             <Grid className={styles.requirementsWrapper} container direction="row" justify="space-between">
-              <Grid item xs={12} md={5} className={styles.minimalRequirements}>
-                <h2>Minimal Requirements</h2>
+              <Grid item xs={12} md={6} lg={5} className={styles.minimalRequirements}>
+                <Typography variant="h2">Minimal Requirements</Typography>
                 <Table>
                   <TableBody>
                     <TableRow key="CPU">
@@ -104,8 +110,8 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
                   </TableBody>
                 </Table>
               </Grid>
-              <Grid className={styles.recommendedRequirements} item xs={12} md={5}>
-                <h2>Recommended Requirements</h2>
+              <Grid className={styles.recommendedRequirements} item xs={12} md={6} lg={5}>
+                <Typography variant="h2">Recommended Requirements</Typography>
                 <Table>
                   <TableBody>
                     <TableRow key="CPU">

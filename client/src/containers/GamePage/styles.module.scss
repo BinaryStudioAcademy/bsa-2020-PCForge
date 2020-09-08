@@ -1,7 +1,7 @@
 @import 'styles/variables';
 
 div.mainWrapper {
-  padding: 3rem;
+  padding: 3rem 0;
 
   .contentWrapper {
     background-color: $colorDarkGray;
@@ -16,7 +16,7 @@ div.mainWrapper {
 
     .gameWrapper {
       flex-wrap: nowrap;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
 
       .fieldName {
         font-style: italic;
@@ -36,6 +36,20 @@ div.mainWrapper {
             font-size: 36px;
             line-height: 40px;
             margin: 0 16px 0 0;
+
+            @media screen and (max-width: 1260px) {
+              & {
+                font-size: 32px;
+                line-height: 38px;
+              }
+            }
+
+            @media screen and (max-width: 1000px) {
+              & {
+                font-size: 28px;
+                line-height: 32px;
+              }
+            }
           }
 
           .ratingBox {
@@ -50,6 +64,16 @@ div.mainWrapper {
           .fieldName {
             margin-right: 4px;
           }
+
+          span {
+            font-size: 1em;
+          }
+
+          @media screen and (max-width: 960px) {
+            & {
+              margin-bottom: 1.5rem;
+            }
+          }
         }
 
         .imageWrapper {
@@ -61,12 +85,20 @@ div.mainWrapper {
           .imageItem {
             width: 100%;
             margin-bottom: 15px;
+
+            @media screen and (max-width: 960px) {
+              & {
+                width: auto;
+                max-width: 100%;
+              }
+            }
           }
         }
       }
 
       .gameDescription {
         width: 100%;
+        margin-top: 1.5rem;
 
         pre {
           white-space: pre-wrap;
@@ -75,8 +107,56 @@ div.mainWrapper {
     }
 
     .requirementsWrapper {
+      align-items: stretch;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
       td {
         border-color: #7f8489;
+      }
+
+      h2 {
+        font-size: 28px;
+        font-weight: 400;
+        margin: 0;
+
+        @media screen and (max-width: 960px) {
+          & {
+            margin-bottom: 1rem;
+          }
+        }
+
+        @media screen and (max-width: 1170px) {
+          & {
+            font-size: 22px;
+          }
+        }
+
+        @media screen and (max-width: 1280px) {
+          & {
+            font-size: 26px;
+          }
+        }
+      }
+
+      @media screen and (max-width: 960px) {
+        & > div:last-of-type {
+          margin-top: 1.5rem;
+        }
+      }
+
+      @media screen and (max-width: 1280px) {
+        & > div:first-of-type {
+          padding-right: 10px;
+        }
+
+        & > div:last-of-type {
+          padding-left: 10px;
+        }
       }
     }
   }
