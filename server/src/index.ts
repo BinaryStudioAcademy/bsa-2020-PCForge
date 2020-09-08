@@ -20,7 +20,6 @@ import elastic from './api/plugins/elastic';
 const port = parseInt(process.env.APP_PORT, 10) || parseInt(process.env.PORT, 10) || 5001;
 const redisPort = parseInt(process.env.REDIS_PORT, 10) || 6379;
 const redisHost = process.env.REDIS_HOST || '127.0.0.1';
-const elasticNode = process.env.ELASTIC_NODE || 'http://localhost:9200';
 
 const server = fastify({
   querystringParser: (str) => {
@@ -52,9 +51,6 @@ server.register(redis, {
 });
 server.register(websocket);
 server.register(services);
-server.register(elastic, {
-  node: [elasticNode],
-});
 
 server.register(fastifyStatic, {
   root: path.join(__dirname, '..', '..', 'client', 'build'),

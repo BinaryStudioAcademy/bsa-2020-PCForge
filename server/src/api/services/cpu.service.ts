@@ -5,7 +5,9 @@ import { ICpuFilter } from '../../data/repositories/filters/cpu.filter';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 import { ICpusMiddleware } from '../middlewares/cpu.middleware';
+import { ElasticService } from './elsticsearch.service';
 
+const elastic = new ElasticService('cpus');
 export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, CpuRepository> {
   constructor(private repository: CpuRepository) {
     super(repository);
@@ -20,6 +22,8 @@ export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, Cpu
   }
 
   async getAllCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
+    const ids = await elastic.searchIDs({ input: filter.searchString, searchFields: ['name'], countValue: 10 });
+    filter.id = ids.length ? ids : [0];
     const cpus = await this.repository.getAllCpus(filter);
     return cpus;
   }
@@ -27,6 +31,7 @@ export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, Cpu
   async createCpu(inputCpu: CpuCreationAttributes, cpuMiddleware: ICpusMiddleware): Promise<CpuModel> {
     await cpuMiddleware(inputCpu);
     const cpu = await super.create(inputCpu);
+    await elastic.addData(cpu);
     return cpu;
   }
 
@@ -37,10 +42,13 @@ export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, Cpu
     const { id, data } = inputCpu;
     await cpuMiddleware(data);
     const cpu = await super.updateById(id, data);
+    await elastic.updateData(cpu);
     return cpu;
   }
 
   async deleteCpuById(id: string): Promise<CpuModel> {
-    return await super.deleteById(id);
+    const cpu = await super.deleteById(id);
+    elastic.delete(id);
+    return cpu;
   }
 }
