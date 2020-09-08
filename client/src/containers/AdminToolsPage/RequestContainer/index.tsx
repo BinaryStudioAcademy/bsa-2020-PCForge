@@ -14,13 +14,9 @@ const RequestContaner = (props: IPropsRequestContainer): JSX.Element => {
   const { usersRequests, deleteUserRequest } = props;
 
   const onDisapprove = (id: number, email: string) => {
-    // send notification about disapprove to user
-    console.log(`send notification about disapproving to user with email ${email}`);
     deleteUserRequest(id, 'disapprove');
   };
   const onApprove = (id: number, email: string) => {
-    // send notification about approve to user
-    console.log(`send notification about approving to user with email ${email}`);
     deleteUserRequest(id, 'approve');
   };
   return (
