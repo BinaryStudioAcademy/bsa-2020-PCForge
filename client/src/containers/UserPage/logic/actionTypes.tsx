@@ -18,6 +18,7 @@ export const LOAD_FILTERED_GAMES_SUCCESS = 'LOAD_FILTERED_GAMES_SUCCESS';
 export const ADD_USER_GAME = 'ADD_USER_GAME';
 export const DELETE_USER_GAME = 'DELETE_USER_GAME';
 export const DELETE_USER_SETUP = 'DELETE_USER_SETUP';
+export const EDIT_USER_SETUP = 'EDIT_USER_SETUP';
 export const LOAD_SETUPS = 'LOAD_SETUPS';
 export const LOAD_SETUPS_SUCCESS = 'LOAD_SETUPS_SUCCES';
 export const SET_TAB = 'SET_TAB';
@@ -105,6 +106,11 @@ export interface deleteUserSetup {
   payload: { userId: number; setupId: number };
 }
 
+export interface IEditUserSetup {
+  type: typeof EDIT_USER_SETUP;
+  payload: {setupId: number}
+}
+
 export interface setTab {
   type: typeof SET_TAB;
   payload: { tab: UserPageTabs };
@@ -125,6 +131,7 @@ export type UserActionTypes =
   | addUserGame
   | deleteUserGame
   | deleteUserSetup
+  | IEditUserSetup
   | loadSetups
   | setTab
   | loadSetupsSuccess;

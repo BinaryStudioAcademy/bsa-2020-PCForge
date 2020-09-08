@@ -1,5 +1,6 @@
 import { all, takeEvery, call, put, delay } from 'redux-saga/effects';
 import { getUser, updateUser as updateUserService, getUserGames } from 'api/services/userService';
+import { setLocalSetup } from 'helpers/setupHelper';
 import { uploadImage } from 'api/services/imageService';
 import {
   loadUser as loadUserAction,
@@ -10,6 +11,7 @@ import {
   addUserGame as addUserGameActionType,
   deleteUserGame as deleteUserGameActionType,
   deleteUserSetup as deleteUserSetupActionType,
+  IEditUserSetup,
   LOAD_USER,
   UPDATE_USER,
   LOAD_SETUPS,
@@ -18,6 +20,7 @@ import {
   ADD_USER_GAME,
   DELETE_USER_GAME,
   DELETE_USER_SETUP,
+  EDIT_USER_SETUP,
 } from './actionTypes';
 import {
   showSpinner,
@@ -31,10 +34,17 @@ import {
   loadFilteredGamesSuceess,
   loadUserFailed,
 } from './actions';
-import * as alert from 'common/services/AlertService/alert.service';
+import * as notification from 'common/services/notificationService';
 import { getAllGames } from 'api/services/gamesService';
 import { addUserGame as addUserGameService, deleteUserGame as deleteUserGameService } from 'api/services/userService';
-import { getUserSetups, deleteUserSetup as deleteUserSetupService, TypeResponseAll } from 'api/services/setupService';
+import {
+  getUserSetups,
+  getSetup,
+  deleteUserSetup as deleteUserSetupService,
+  TypeResponseAll,
+} from 'api/services/setupService';
+import { TypeSetup } from 'containers/BuilderPage/reducer';
+import { Setup } from 'common/models/setup';
 
 export default function* userSagas() {
   yield all([
@@ -46,6 +56,7 @@ export default function* userSagas() {
     watchDeleteUserGame(),
     watchLoadSetups(),
     watchDeleteUserSetup(),
+    watchEditUserSetup(),
   ]);
 }
 
@@ -78,9 +89,9 @@ function* updateUser(action: updateUserAction) {
     }
     const updatedUser = yield call(updateUserService, data);
     yield put(updateUserSuccess(updatedUser));
-    alert.success('Your data has been successfully updated');
+    notification.success('Your data has been successfully updated');
   } catch (error) {
-    alert.error(error.message || 'Something went wrong, please try again later');
+    notification.error(error.message || 'Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
@@ -139,12 +150,12 @@ function* addUserGame(action: addUserGameActionType) {
     const data = yield call(addUserGameService, action.payload.id, action.payload.gameId);
     if (data.isNew) {
       yield put(loadUserGamesAction(action.payload.id));
-      alert.success(`You have added ${data.game.name}`);
+      notification.success(`You have added ${data.game.name}`);
     } else {
-      alert.warning('Looks like you already have this game');
+      notification.warning('Looks like you already have this game');
     }
   } catch (error) {
-    alert.error(error.message || 'Something went wrong, please try again later');
+    notification.error(error.message || 'Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
@@ -158,10 +169,10 @@ function* deleteUserGame(action: deleteUserGameActionType) {
   try {
     const deletedGame = yield call(deleteUserGameService, action.payload.id, action.payload.gameId);
     yield put(loadUserGamesAction(action.payload.id));
-    alert.success(`You have deleted ${deletedGame.game.name}`);
+    notification.success(`You have deleted ${deletedGame.game.name}`);
   } catch (error) {
     yield put(hideSpinner());
-    alert.error(error.message || 'Could not delete the game, try again later');
+    notification.error(error.message || 'Could not delete the game, try again later');
   }
 }
 
@@ -174,9 +185,33 @@ function* deleteUserSetup(action: deleteUserSetupActionType) {
   try {
     const deletedSetup = yield call(deleteUserSetupService, action.payload.setupId);
     yield put(loadSetupsAction(action.payload.userId));
-    alert.success(`You have deleted "${deletedSetup.title}"`);
+    notification.success(`You have deleted "${deletedSetup.title}"`);
   } catch (error) {
     yield put(hideSpinner());
-    alert.error(error.message || 'Could not delete the setup, try again later');
+    notification.error(error.message || 'Could not delete the setup, try again later');
+  }
+}
+
+function* watchEditUserSetup() {
+  yield takeEvery(EDIT_USER_SETUP, editUserSetup);
+}
+
+function* editUserSetup(action: IEditUserSetup) {
+  try {
+    const setupToEditFromBack = (yield call(getSetup, action.payload.setupId));
+    console.log(setupToEditFromBack);
+    const setupToEditForBuilder = {
+      cpu: setupToEditFromBack.cpu,
+      gpu: setupToEditFromBack.gpu,
+      ram: setupToEditFromBack.ram,
+      ramCount: setupToEditFromBack.ramCount,
+      motherboard: setupToEditFromBack.motherboard,
+      powersupply: setupToEditFromBack.powerSupply,
+      hdd: setupToEditFromBack.hdd || null,
+      ssd: setupToEditFromBack.ssd || null,
+    } as TypeSetup;
+    yield call(setLocalSetup, setupToEditForBuilder);
+  } catch {
+    notification.error('Cannot edit at the moment');
   }
 }

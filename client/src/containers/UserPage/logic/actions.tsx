@@ -15,6 +15,7 @@ import {
   ADD_USER_GAME,
   DELETE_USER_GAME,
   DELETE_USER_SETUP,
+  EDIT_USER_SETUP,
   SET_TAB,
   LOAD_USER_FAILURE,
 } from './actionTypes';
@@ -85,6 +86,11 @@ export const deleteUserSetup = (userId: number, setupId: number): UserActionType
   type: DELETE_USER_SETUP,
   payload: { setupId, userId },
 });
+
+export const editUserSetup = (setupId: number): UserActionTypes => ({
+  type: EDIT_USER_SETUP,
+  payload: {setupId},
+})
 
 export const loadSetups = (authorId: number): UserActionTypes => ({
   type: LOAD_SETUPS,

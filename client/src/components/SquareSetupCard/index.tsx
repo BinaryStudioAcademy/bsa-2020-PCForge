@@ -36,6 +36,7 @@ export interface SetupCardProps {
   own?: boolean;
   setTab?: (tab: UserPageTabs) => UserActionTypes;
   deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
+  editUserSetup?: (setupId: number) => UserActionTypes;
 }
 
 const SetupCard: React.FC<SetupCardProps> = ({
@@ -56,6 +57,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
   own,
   setTab,
   deleteUserSetup,
+  editUserSetup,
 }) => {
   const { id: _id } = useParams<{ id: string }>();
   const userId = parseInt(_id, 10);
@@ -74,6 +76,13 @@ const SetupCard: React.FC<SetupCardProps> = ({
       setTab(UserPageTabs.Setups);
     }
   };
+
+  const handleEditSetup: (e: React.MouseEvent<HTMLElement>) => void = (e) => {
+    e!.stopPropagation();
+    if(editUserSetup) {
+      editUserSetup(id);
+    }
+  }
 
   let setupStyle = styles.setupCard;
   if (className) {
@@ -116,6 +125,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
               Find out more
             </Button>
             <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup} />}</div>
+            <div> {own && <BasicLink icon="Edit" onClick={handleEditSetup} />}</div>
           </div>
         </div>
       </div>
