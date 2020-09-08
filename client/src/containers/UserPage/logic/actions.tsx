@@ -22,7 +22,7 @@ import {
 import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
 import { SetupType } from 'common/models/typeSetup';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 
 export const loadUser = (id: number): UserActionTypes => ({
   type: LOAD_USER,
