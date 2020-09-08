@@ -19,7 +19,6 @@ type PropsType = {
   title: string;
   count: number;
   selectedComponent: { [p: string]: TypeComponent | null };
-  popupContent?: JSX.Element | false;
   img?: string;
   onClear: (gpName: GroupName) => void;
   total?: number;
@@ -31,7 +30,6 @@ const GroupItemSummary = ({
   title,
   count,
   selectedComponent,
-  popupContent = false,
   img = defaultImg,
   onClear,
   total,
@@ -74,22 +72,6 @@ const GroupItemSummary = ({
               {!!e[1].name && total && totalHandler && <TotalButtons count={total} countHandler={totalHandler} />}
             </Grid>
           </Grid>
-          // <Box className={styles.nameComponentWrap}>
-          //   <Tooltip title={popupContent} classes={{ tooltip: styles.popup }}>
-          //     <Typography className={styles.nameComponent}>{e[1].name}</Typography>
-          //   </Tooltip>
-          //   {!!e[1].name && (
-          //     <Button
-          //       onClick={(ev) => {
-          //         ev.stopPropagation();
-          //         clear(e[0] as GroupName);
-          //       }}
-          //     >
-          //       Clear
-          //     </Button>
-          //   )}
-          //   {!!e[1].name && total && totalHandler && <TotalButtons count={total} countHandler={totalHandler} />}
-          // </Box>
         );
       } else return null;
     }
@@ -103,18 +85,6 @@ const GroupItemSummary = ({
       aria-controls={`panel${id}-content`}
       id={`panel${id}-header`}
     >
-      {/*<div*/}
-      {/*  className={styles.wrapper}*/}
-      {/*  onClick={(event) => event.stopPropagation()}*/}
-      {/*  onFocus={(event) => event.stopPropagation()}*/}
-      {/*>*/}
-      {/*  <img src={img} alt="Image group" />*/}
-      {/*  <Typography variant="h5" component="h2">*/}
-      {/*    <span className={styles.groupItemSummaryTitle}>{title}</span>*/}
-      {/*    <span className={styles.groupItemSummaryCount}>{count}</span>*/}
-      {/*  </Typography>*/}
-      {/*  <Box>{componentFull}</Box>*/}
-      {/*</div>*/}
       <Grid
         className={styles.wrapper}
         container

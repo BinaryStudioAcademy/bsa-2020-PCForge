@@ -155,25 +155,6 @@ const GroupComponent = ({
         });
       }
     }
-    // if (selectedComponent) {
-    //   const socketIdSet = selectedComponent.hasOwnProperty('socketId')
-    //     ? new Set(filter.socketIdSet.add((selectedComponent as { socketId: number })?.socketId))
-    //     : filter.socketIdSet;
-    //   const ramTypeIdSet = selectedComponent.hasOwnProperty('ramTypeId')
-    //     ? new Set(filter.ramTypeIdSet.add((selectedComponent as { ramTypeId: number })?.ramTypeId))
-    //     : filter.ramTypeIdSet;
-    //   const sata = selectedComponent.hasOwnProperty('sata')
-    //     ? new Set(filter.sata.add((selectedComponent as { sata: number })?.sata))
-    //     : filter.sata;
-    //   const m2 = selectedComponent.hasOwnProperty('m2') ? new Set(filter.m2.add('m2')) : filter.m2;
-    //   onUpdateFilter({
-    //     ...filter,
-    //     socketIdSet,
-    //     ramTypeIdSet,
-    //     sata,
-    //     m2,
-    //   });
-    // }
   }, [...Object.values(selectedComponent)]);
 
   useEffect(() => {
@@ -220,7 +201,6 @@ const GroupComponent = ({
         selectedComponent={selectedComponent}
         /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
         // @ts-ignore
-        // popupContent={selectedComponent ? SpecificationComponent[groupName]({ component: selectedComponent }) : false}
         popupContent={false}
         onClear={(gpName) => onRemoveSelectedComponent(gpName)}
         total={count}
