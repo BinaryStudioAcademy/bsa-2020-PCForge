@@ -8,7 +8,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { clearToken, getLoginType, LoginType } from 'helpers/tokenHelper';
 import { useGoogleLogout } from 'react-google-login';
+import { deleteLocalSetup } from 'helpers/setupHelper';
 import * as alert from 'common/services/AlertService/alert.service';
+import { resetSetupAction } from 'containers/BuilderPage/actions';
 
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
 import { ReactComponent as NavigationLogo } from 'assets/icons/navigationLogo.svg';
@@ -78,6 +80,8 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
 
   const clearTokenAndRedirect = async () => {
     await clearToken();
+    await deleteLocalSetup();
+    dispatch(resetSetupAction())
     await dispatch(logout());
     history.push(Routes.LOGIN);
   };
