@@ -10,6 +10,7 @@ import { StyleProvider } from 'native-base';
 import getTheme from 'native-base-theme/components';
 import material from 'native-base-theme/variables/material';
 import AppTitle from 'components/basicComponent/Title';
+import GameMatcher from './containers/GameMatcher';
 
 export default function App(): JSX.Element {
   return (
@@ -20,6 +21,7 @@ export default function App(): JSX.Element {
           <Router headerMode='none'>
             <Route name="Login" component={Auth} />
             <Route name="Home" component={Home} options={{   }}/>
+            <Route name="Matcher" component={GameMatcher}/>
           </Router>
         </NavigationContainer>
       </StyleProvider>

@@ -81,6 +81,7 @@ class Api {
   }
 
   private handleError(error: AxiosError) {
+    console.error(error);
     if (error.response) {
       throw new Error(error.response.data.error);
     } else if (error.request) {

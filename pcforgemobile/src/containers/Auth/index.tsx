@@ -71,7 +71,7 @@ class Auth extends React.PureComponent<IAuthProps, State> {
   public render(): JSX.Element | null {
     setTimeout(() => {
       if (this.props.state.user) {
-        this.props.navigation.navigate('Home');
+        this.props.navigation.navigate('Matcher');
         return null;
       }
     });
