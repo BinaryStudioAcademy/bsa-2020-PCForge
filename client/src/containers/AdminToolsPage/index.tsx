@@ -74,7 +74,7 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
     },
     {
       name: CardsName.News,
-      count: props.state.countGames,
+      count: 0,
       icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
       onAdd: () => alert('To do News form'),
     },
