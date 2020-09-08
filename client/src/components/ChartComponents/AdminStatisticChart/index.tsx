@@ -80,21 +80,21 @@ const AdminStatisticReport: React.FC<Props> = ({
   );
 
   const MAXIMUM_REPORT_VALUE = Math.max(MAX_COMMENT_VALUE, MAX_USING_VALUE);
-  const REPORT_USING_STEP = roundToNearest(MAX_USING_VALUE / 10, 10);
-  const REPORT_COUNTING_STEP = roundToNearest(MAX_COMMENT_VALUE / 10, 10);
-  const REPORT_RATING_STEP = 1;
+  const REPORT_USING_STEP = roundToNearest(MAX_USING_VALUE / 10, 1);
+  const REPORT_COUNTING_STEP = roundToNearest(MAX_COMMENT_VALUE / 10, 1); //roundToNearest(MAX_COMMENT_VALUE / 10, 10);
+  const REPORT_RATING_STEP = roundToNearest(MAX_RATE_VALUE / 10, 0.1);
   const [selectedMark, setSelectedMark] = useState<number>(BY_RATING_ID);
 
   const valuesRating = [];
-  for (let i = 1; i <= MAX_RATE_VALUE; i += REPORT_RATING_STEP) {
+  for (let i = 0.5; i <= MAX_RATE_VALUE; i += REPORT_RATING_STEP) {
     valuesRating.push(i);
   }
   const valuesUsing = [];
-  for (let i = 0; i <= MAX_USING_VALUE; i += REPORT_USING_STEP) {
+  for (let i = 0; i < MAX_USING_VALUE + REPORT_USING_STEP; i += REPORT_USING_STEP) {
     valuesUsing.push(i);
   }
   const valuesCounting = [];
-  for (let i = 0; i <= MAX_COMMENT_VALUE; i += REPORT_COUNTING_STEP) {
+  for (let i = 0; i < MAX_COMMENT_VALUE + REPORT_COUNTING_STEP; i += REPORT_COUNTING_STEP) {
     valuesCounting.push(i);
   }
   const requirements: UIMark[] = [

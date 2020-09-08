@@ -24,15 +24,15 @@ export const StatisticCharts = (): JSX.Element => {
   const hardwareUsingList: IHardwareUsingStatistic[] = [
     {
       name: 'coolHW 11',
-      countOfUsingInSetups: 30,
+      countOfUsingInSetups: 9,
     },
     {
       name: 'coolHW 12',
-      countOfUsingInSetups: 20,
+      countOfUsingInSetups: 9,
     },
     {
       name: 'coolHW 13',
-      countOfUsingInSetups: 12,
+      countOfUsingInSetups: 5,
     },
   ];
   const hardwareCommentList: IHardwareCommentsStatistic[] = [
