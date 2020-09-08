@@ -16,6 +16,7 @@ import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 
 import * as alert from 'common/services/AlertService/alert.service';
+import * as notification from 'common/services/notificationService';
 
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
@@ -532,7 +533,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
     setAlertType(AlertType.error);
   }
   if (props.state.createdHardwareName && !alertText) {
-    alert.success(`Success: Hardware ${typeHardWare} ${props.state.createdHardwareName} has been created.`);
+    notification.success(`Success: Hardware ${typeHardWare} ${props.state.createdHardwareName} has been created.`);
     updateStateToInit();
     if (name) setInitialFormValues();
   }
