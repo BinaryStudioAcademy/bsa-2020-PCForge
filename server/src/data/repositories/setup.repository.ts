@@ -68,7 +68,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       ],
       attributes: {
         include: [
-          [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
+          [sequelize.literal('COUNT(DISTINCT "comments"."id")'), 'comments_count'],
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
           [sequelize.literal('COUNT(DISTINCT "rates"."id")'), 'ratingCount'],
           [
@@ -138,7 +138,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
 
   async getOneSetup(id: string, requestingUserId?: number): Promise<SetupModel> {
     const include: (string | ProjectionAlias)[] = [
-      [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
+      [sequelize.literal('COUNT(DISTINCT "comments"."id")'), 'comments_count'],
       [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
       [sequelize.literal('COUNT(DISTINCT "rates"."id")'), 'ratingCount'],
     ];
