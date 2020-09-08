@@ -11,6 +11,7 @@ import getTheme from 'native-base-theme/components';
 import material from 'native-base-theme/variables/material';
 import AppTitle from 'components/basicComponent/Title';
 import GameMatcher from './containers/GameMatcher';
+import MyAutocomplete from './components/Autocomplete';
 
 export default function App(): JSX.Element {
   return (
@@ -22,6 +23,7 @@ export default function App(): JSX.Element {
             <Route name="Login" component={Auth} />
             <Route name="Home" component={Home} options={{   }}/>
             <Route name="Matcher" component={GameMatcher}/>
+            <Route name="Autocomplete" component={MyAutocomplete} options={{  }}/>
           </Router>
         </NavigationContainer>
       </StyleProvider>

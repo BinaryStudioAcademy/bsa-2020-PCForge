@@ -1,4 +1,4 @@
-import { Container, Text, View } from 'native-base';
+import { Button, Container, Text, View } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
@@ -9,10 +9,12 @@ import AppTitle from 'components/basicComponent/Title';
 import { RootState } from 'redux/rootReducer';
 import { fetchCpus, fetchGpus, fetchGames, setError } from './actions';
 import { styles } from './styles';
-import { Cpu } from '~/common/models/cpu';
-import { Gpu } from '~/common/models/gpu';
+import { Cpu } from 'common/models/cpu';
+import { Gpu } from 'common/models/gpu';
+import { RouterItemProps } from 'common/configs/routing';
+import { AutocompleteRouteParams } from 'components/Autocomplete/index';
 
-const GameMatcherPage: React.FC<Props> = ({
+const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
   cpus,
   gpus,
   games,
@@ -20,80 +22,45 @@ const GameMatcherPage: React.FC<Props> = ({
   fetchGames,
   fetchCpus,
   fetchGpus,
+  navigation
 }): JSX.Element => {
-  // React.useEffect(() => {
-  //   fetchGames('');
-  //   fetchCpus('');
-  //   fetchGpus('');
-  // }, [])
+  const [game, setGame] = React.useState<Game | undefined>(undefined);
 
-  const onGameNameChange = (name: string) => {
-    fetchGames(name);
-  }
-
-  const onGameSelect = (game: Game) => {
-    console.log('selected game', game);
-  }
-
-  const onCpuNameChange = (name: string) => {
-    fetchCpus(name);
-  }
-
-  const onCpuSelect = (cpu: Cpu) => {
-    console.log('selected cpu', cpu);
-  }
-
-  const onGpuNameChange = (name: string) => {
-    fetchGpus(name);
-  }
-
-  const onGpuSelect = (gpu: Gpu) => {
-    console.log('selected gpu', gpu);
+  const navigateTo = (type: 'game') => {
+    const getItems = () => {
+      switch (type) {
+        case 'game': return games;
+      }
+    }
+    const onInputChange = () => {
+      switch (type) {
+        case 'game': return (newValue: string) => { fetchGames(newValue); };
+      }
+    }
+    const onItemSelected = () => {
+      switch (type) {
+        case 'game': return (id: number) => {
+          const game = games.find(game => game.id === id);
+          setGame(game);
+        };
+      }
+    }
+    const params: AutocompleteRouteParams = {
+      title: `Select ${type}`,
+      items: getItems(),
+      onInputChange: onInputChange(),
+      onItemSelected: onItemSelected(),
+    };
+    navigation.navigate('Autocomplete', params)
   }
 
   return (
     <Container style={styles.root}>
       <AppTitle title="Matcher" />
       <View style={styles.content}>
-        <Text style={styles.gameHeader}>Select game</Text>
-        <View style={styles.gameContainer}>
-          <Autocomplete
-            data={games}
-            onChangeText={onGameNameChange}
-            defaultValue={''}
-            renderItem={({ item: game }) => (
-              <TouchableOpacity style={styles.itemWrapper} onPress={() => onGameSelect(game)}>
-                <Text style={styles.item}>{game.name}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-        <Text style={styles.cpuHeader}>cpu</Text>
-        <View style={styles.cpuContainer}>
-          <Autocomplete
-            data={cpus}
-            onChangeText={onCpuNameChange}
-            defaultValue={''}
-            renderItem={({ item: cpu }) => (
-              <TouchableOpacity style={styles.itemWrapper} onPress={() => onCpuSelect(cpu)}>
-                <Text style={styles.item}>{cpu.name}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-        <Text style={styles.gpuHeader}>gpu</Text>
-        <View style={styles.gpuContainer}>
-          <Autocomplete
-            data={gpus}
-            onChangeText={onGpuNameChange}
-            defaultValue={''}
-            renderItem={({ item: gpu }) => (
-              <TouchableOpacity style={styles.itemWrapper} onPress={() => onGpuSelect(gpu)}>
-                <Text style={styles.item}>{gpu.name}</Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
+        <Button style={styles.gameHeader} onPress={() => navigateTo('game')} >
+          <Text>Select game</Text>
+        </Button>
       </View>
     </Container>
   );
