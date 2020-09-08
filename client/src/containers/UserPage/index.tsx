@@ -19,11 +19,7 @@ import {
 } from 'containers/UserPage/logic/actions';
 import Spinner from 'components/Spinner';
 import styles from 'containers/UserPage/styles.module.scss';
-
-export enum UserPageTabs {
-  Games = 0,
-  Setups = 1,
-}
+import PreferencesSection from './components/PreferencesSection';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -38,7 +34,7 @@ const UserPage = (props: Props) => {
     userLoadFailed,
     updateUser: userUpdate,
     userGames,
-    addUserGame: userGameAdd,
+    addUserGame,
     loadFilteredGames,
     filteredGames,
     deleteUserGame,
@@ -51,7 +47,7 @@ const UserPage = (props: Props) => {
   const gamesArray = userGames.map((game) => game.game);
 
   const { id } = useParams<{ id: string }>();
-  const currentUserId = currentUser?.id.toString();
+  const currentUserId = currentUser?.id?.toString();
 
   useEffect(() => {
     loadUser(parseInt(id));
@@ -66,20 +62,25 @@ const UserPage = (props: Props) => {
           <Spinner load />
         </Box>
       ) : loadedUser ? (
-        <UserInfo
-          user={loadedUser}
-          userGames={gamesArray}
-          updateUser={userUpdate}
-          setups={setups}
-          isCurrentUser={id.toString() === currentUserId?.toString()}
-          addUserGame={userGameAdd}
-          loadFilteredGames={loadFilteredGames}
-          filteredGames={filteredGames}
-          deleteUserGame={deleteUserGame}
-          deleteUserSetup={deleteUserSetup}
-          openTab={openTab}
-          setTab={setTab}
-        />
+        <Box className={styles.userPageContainer}>
+          <UserInfo
+            user={loadedUser}
+            updateUser={userUpdate}
+            isCurrentUser={id.toString() === currentUserId?.toString()}
+          />
+          <PreferencesSection
+            openTab={openTab}
+            setTab={setTab}
+            isCurrentUser={id.toString() === currentUserId?.toString()}
+            userGames={gamesArray}
+            addUserGame={addUserGame}
+            deleteUserGame={deleteUserGame}
+            filteredGames={filteredGames}
+            loadFilteredGames={loadFilteredGames}
+            setups={setups}
+            deleteUserSetup={deleteUserSetup}
+          />
+        </Box>
       ) : (
         <Spinner />
       )}

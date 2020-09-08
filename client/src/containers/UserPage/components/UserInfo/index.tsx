@@ -1,59 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Tabs, Tab, AppBar } from '@material-ui/core';
-import styles from './styles.module.scss';
+import styles from 'containers/UserPage/components/UserInfo/styles.module.scss';
 import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
-import UserPreferences from '../UserPreferences';
 import {
   SetErrorMessage,
   passwordValid,
   nameValid,
   emailValid,
   currentPasswordPresent,
-} from '../../helpers/validation';
-import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
-import { SetupType } from 'common/models/typeSetup';
-import { UserActionTypes } from '../../logic/actionTypes';
-import avatartPlaceholder from 'assets/images/userImagePlaceholder.png';
-import { Game } from 'common/models/typeUserGame';
-
-enum UserPageTabs {
-  Games = 0,
-  Setups = 1,
-}
-
-interface IUserInfoProps {
-  user: TypeUser;
-  userGames: Game[];
-  updateUser: (data: TypeUser, avatarData?: Blob) => UserActionTypes;
-  setups: SetupType[];
-  isCurrentUser: boolean;
-  addUserGame: (id: number, gameId: number) => UserActionTypes;
-  deleteUserGame: (id: number, gameId: number) => UserActionTypes;
-  deleteUserSetup: (userId: number, setupId: number) => UserActionTypes;
-  filteredGames: Game[];
-  loadFilteredGames: (searchString: string) => UserActionTypes;
-  setTab: (tab: UserPageTabs) => UserActionTypes;
-  openTab: UserPageTabs;
-}
+} from 'containers/UserPage/helpers/validation';
+import { TypeUserUpdate } from 'common/models/typeUser';
+import avatarPlaceholder from 'assets/images/userImagePlaceholder.png';
+import { IUserInfoProps } from 'containers/UserPage/interfaces';
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
-  const {
-    user,
-    userGames,
-    updateUser,
-    isCurrentUser,
-    filteredGames,
-    loadFilteredGames,
-    addUserGame,
-    deleteUserGame,
-    deleteUserSetup,
-    setups,
-    openTab,
-    setTab,
-  } = props;
+  const { user, updateUser, isCurrentUser } = props;
 
   const initialErrorMessages = {
     emailErrorMessage: null,
@@ -94,11 +57,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     }
   }, [editableInput]);
 
-  const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: UserPageTabs) => {
-    setTab(newValue);
-  };
-
-  const handleSetEditable = (event: React.MouseEvent) => {
+  const handleSetEditable = () => {
     if (editableInput) {
       setValidate(true);
       const validEmail = emailValid(email, setEmailErrorMessage as SetErrorMessage);
@@ -127,8 +86,6 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
           dataToUpdate.currentPassword = currentPassword;
         }
 
-        console.log(dataToUpdate);
-
         const avatarData = (imageInputRef.current?.files && imageInputRef.current?.files[0]) || undefined;
         updateUser(dataToUpdate, avatarData);
         setEditableInput(false);
@@ -141,7 +98,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
       setEditableInput(true);
     }
   };
-  const handleCancel = (event: React.MouseEvent) => {
+  const handleCancel = () => {
     setEditableInput(false);
     setValidate(false);
     setAvatar(initialAvatar);
@@ -193,7 +150,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     validate && currentPasswordPresent(target.value, setCurrentPasswordErrorMessage as SetErrorMessage);
   };
 
-  const emailVerified = user.emailVerified;
+  //const emailVerified = user.emailVerified; // handle it
 
   const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -201,17 +158,17 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     }
   };
 
-  const handleDeleteAvatar = (event: React.MouseEvent) => {
+  const handleDeleteAvatar = () => {
     setAvatar('');
   };
 
-  const handlePasswordShow = (event: React.MouseEvent) => {
+  const handlePasswordShow = () => {
     setShowPasswords(true);
   };
 
   const passwordFields = (
     <>
-      <div className={styles.passwordSeparationLine}></div>
+      <div className={styles.passwordSeparationLine} />
       <div className={styles.passwordInputHolder + (passwordErrorMessage ? ` ${styles.holderError}` : '')}>
         <PasswordInput
           icon="VpnKey"
@@ -245,96 +202,67 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
   );
 
   return (
-    <div className={styles.userPageContainer}>
-      <div className={styles.userInfo}>
-        <div className={styles.userImage}>
-          {editableInput && (
-            <div className={styles.imageLinksHolder}>
-              <input
-                id="userImageInput"
-                name="image"
-                type="file"
-                accept="image/*"
-                hidden
-                onChange={handleChangeImage}
-                ref={imageInputRef}
-              />
-              <Link className={styles.imageLink} icon="Image" onClick={() => imageInputRef.current?.click()}>
-                Change Image
-              </Link>
-              <Link className={styles.deleteImageLink} icon="DeleteForever" onClick={handleDeleteAvatar} />
-            </div>
-          )}
+    <div className={styles.userInfo}>
+      <div className={styles.userImage}>
+        {editableInput && (
+          <div className={styles.imageLinksHolder}>
+            <input
+              id="userImageInput"
+              name="image"
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleChangeImage}
+              ref={imageInputRef}
+            />
+            <Link className={styles.imageLink} icon="Image" onClick={() => imageInputRef.current?.click()}>
+              Change Image
+            </Link>
+            <Link icon="DeleteForever" onClick={handleDeleteAvatar} />
+          </div>
+        )}
 
-          <img src={avatar || avatartPlaceholder} alt="" />
-        </div>
-        <div className={styles.userData}>
+        <img src={avatar || avatarPlaceholder} alt="" />
+      </div>
+      <div className={styles.userData}>
+        <Input
+          disabled={!editableInput}
+          className={editableInput ? styles.autoFocused : ''}
+          placeholder="Name"
+          icon="Face"
+          value={name || ''}
+          inputType={nameErrorMessage ? InputType.error : undefined}
+          onChange={handleNameChange}
+          inputRef={inputRef}
+          helperText={nameErrorMessage || ''}
+        />
+        {isCurrentUser && (
           <Input
             disabled={!editableInput}
             className={editableInput ? styles.autoFocused : ''}
-            placeholder="Name"
-            icon="Face"
-            value={name || ''}
-            inputType={nameErrorMessage ? InputType.error : undefined}
-            onChange={handleNameChange}
-            inputRef={inputRef}
-            helperText={nameErrorMessage || ''}
-          />
-          {isCurrentUser && (
-            <Input
-              disabled={!editableInput}
-              className={editableInput ? styles.autoFocused : ''}
-              icon="Email"
-              placeholder="Email"
-              value={email}
-              inputType={emailErrorMessage ? InputType.error : undefined}
-              onChange={handleEmailChange}
-              helperText={emailErrorMessage || ''}
-            />
-          )}
-          {!showPasswords && editableInput && <Link onClick={handlePasswordShow}>Change Password</Link>}
-
-          {showPasswords && editableInput && passwordFields}
-
-          {isCurrentUser && (
-            <div className={styles.buttonsContainer}>
-              <Button onClick={handleSetEditable} buttonType={ButtonType.primary}>
-                {editableInput ? 'Save' : 'Edit'}
-              </Button>
-              {editableInput && (
-                <Button onClick={handleCancel} buttonType={ButtonType.secondary}>
-                  Cancel
-                </Button>
-              )}
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className={styles.preferencesSection}>
-        <AppBar position="static" className={styles.tabsBar}>
-          <Tabs value={openTab} onChange={handleTabChange}>
-            <Tab label="Games" />
-            <Tab label="Setups" />
-          </Tabs>
-        </AppBar>
-        {openTab === UserPageTabs.Games && (
-          <UserPreferences
-            isCurrentUser={isCurrentUser}
-            games={userGames}
-            addUserGame={addUserGame}
-            deleteUserGame={deleteUserGame}
-            filteredGames={filteredGames}
-            loadFilteredGames={loadFilteredGames}
+            icon="Email"
+            placeholder="Email"
+            value={email}
+            inputType={emailErrorMessage ? InputType.error : undefined}
+            onChange={handleEmailChange}
+            helperText={emailErrorMessage || ''}
           />
         )}
-        {openTab === UserPageTabs.Setups && (
-          <UserPreferences
-            isCurrentUser={isCurrentUser}
-            setups={setups}
-            deleteUserSetup={deleteUserSetup}
-            setTab={setTab}
-          />
+        {!showPasswords && editableInput && <Link onClick={handlePasswordShow}>Change Password</Link>}
+
+        {showPasswords && editableInput && passwordFields}
+
+        {isCurrentUser && (
+          <div className={styles.buttonsContainer}>
+            <Button onClick={handleSetEditable} buttonType={ButtonType.primary}>
+              {editableInput ? 'Save' : 'Edit'}
+            </Button>
+            {editableInput && (
+              <Button onClick={handleCancel} buttonType={ButtonType.secondary}>
+                Cancel
+              </Button>
+            )}
+          </div>
         )}
       </div>
     </div>
