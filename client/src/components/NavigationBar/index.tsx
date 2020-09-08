@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Tooltip from '@material-ui/core/Tooltip';
 import SvgIcon from '@material-ui/core/SvgIcon';
-import { clearToken, getTokenType, TokenType } from 'helpers/tokenHelper';
+import { clearToken, getLoginType, LoginType } from 'helpers/tokenHelper';
 import { useGoogleLogout } from 'react-google-login';
 import * as alert from 'common/services/AlertService/alert.service';
 
@@ -23,6 +23,7 @@ import { Routes } from 'common/enums';
 
 import styles from 'components/NavigationBar/styles.module.scss';
 import { logout } from 'containers/Auth/actions';
+import { SingleBedOutlined } from '@material-ui/icons';
 
 interface IListNavigationBar {
   name: string;
@@ -81,6 +82,15 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     history.push(Routes.LOGIN);
   };
 
+  const { signOut } = useGoogleLogout({
+    clientId: process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!,
+    onLogoutSuccess: clearTokenAndRedirect,
+    onFailure: () => {
+      // Notification.error('Could not log out from Google, try again later');
+      console.log('logout')
+    },
+  });
+
   const listHeader: Array<IListNavigatinBar> = [
     {
       name: 'Home',
@@ -123,7 +133,10 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     icon: <SvgIcon component={LogOutIcon} viewBox="0 0 31 31" />,
     link: '#',
     onClick: async () => {
-      switch (getTokenType()) {
+      switch (getLoginType()) {
+        case LoginType.google:
+          signOut();
+          break;
         default:
           await clearTokenAndRedirect();
       }
