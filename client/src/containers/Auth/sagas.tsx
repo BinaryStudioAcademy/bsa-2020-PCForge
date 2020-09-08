@@ -1,4 +1,4 @@
-import { call, put, all, takeLatest } from 'redux-saga/effects';
+import { call, put, all, takeLatest, takeLeading } from 'redux-saga/effects';
 import {
   loginRequestAction,
   AUTH_LOGIN_SUCCESS,
@@ -8,6 +8,10 @@ import {
   registerRequestAction,
   AUTH_LOGIN_BY_TOKEN_REQUEST,
   loginByTokenRequestAction,
+  googleAuthAction,
+  AUTH_GOOGLE_AUTH_SUCCESS,
+  AUTH_GOOGLE_AUTH_FAILURE,
+  AUTH_GOOGLE_AUTH,
 } from 'containers/Auth/actionTypes';
 import { authService } from 'api/services/auth.service';
 import { User } from 'common/models/user';
@@ -58,7 +62,7 @@ function* register(action: registerRequestAction) {
   const newUser = { ...action.payload };
   try {
     yield put(changeLoadingStatus(true));
-    const data: User = yield call<(data: IRegPayload) => void>(authService.register, newUser);
+    const data: User = yield call(authService.register, newUser);
     yield put(registered(false));
   } catch (error) {
     yield put(validationError(error?.message));
@@ -74,6 +78,27 @@ function* watchRegister() {
   yield takeLatest(AUTH_REGISTER_REQUEST, register);
 }
 
+function* googleAuth(action: googleAuthAction) {
+  try {
+    yield put(changeLoadingStatus(true));
+    const user: User = yield call(authService.authGoogle, action.payload);
+    yield put({ type: AUTH_GOOGLE_AUTH_SUCCESS, payload: { user } });
+  } catch (e) {
+    yield put({
+      type: AUTH_GOOGLE_AUTH_FAILURE,
+      payload: {
+        message: e.message,
+      },
+    });
+  } finally {
+    yield put(changeLoadingStatus(false));
+  }
+}
+
+function* watchGoogleAuth() {
+  yield takeLeading(AUTH_GOOGLE_AUTH, googleAuth);
+}
+
 export default function* authSagas() {
-  yield all([watchLogin(), watchLoginByToken(), watchRegister()]);
+  yield all([watchLogin(), watchRegister(), watchGoogleAuth(), watchLoginByToken()]);
 }

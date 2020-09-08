@@ -1,5 +1,6 @@
-import { INotification } from '../interfaces';
-import { NotificationService } from '../notification.service';
+import { INotification } from 'common/services/NotificationService/notification';
+import { NotificationService } from 'common/services/NotificationService/notification.service';
+import { WebSocketService } from 'common/services/NotificationService/WebSocketService/websocket.service';
 import { NotificationsActionTypes, NotificationsActions } from './actionTypes';
 
 export const setNotifications = (notifications: INotification[]): NotificationsActions => ({
@@ -16,17 +17,17 @@ export const addNotification = (notification: INotification): NotificationsActio
   },
 });
 
-export const deleteNotification = (notificationId: string): NotificationsActions => ({
+export const deleteNotification = (notification: INotification): NotificationsActions => ({
   type: NotificationsActionTypes.DELETE_NOTIFICATION,
   payload: {
-    notificationId,
+    notification,
   },
 });
 
-export const closeNotification = (notificationId: string): NotificationsActions => ({
-  type: NotificationsActionTypes.CLOSE_NOTIFICATION,
+export const updateNotification = (notification: INotification): NotificationsActions => ({
+  type: NotificationsActionTypes.UPDATE_NOTIFICATION,
   payload: {
-    notificationId,
+    notification,
   },
 });
 
@@ -34,5 +35,12 @@ export const setNotificationService = (notificationService: NotificationService)
   type: NotificationsActionTypes.SET_NOTIFICATION_SERVICE,
   payload: {
     notificationService,
+  },
+});
+
+export const setWebSocketService = (webSocketService: WebSocketService): NotificationsActions => ({
+  type: NotificationsActionTypes.SET_WEBSOCKET_SERVICE,
+  payload: {
+    webSocketService,
   },
 });

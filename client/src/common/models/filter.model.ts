@@ -36,6 +36,7 @@ export interface MotherboardFilter extends BaseFilter {
 }
 
 export interface RamFilter extends BaseFilter {
+  name?: string;
   typeId?: string;
   typeIds?: string;
 }

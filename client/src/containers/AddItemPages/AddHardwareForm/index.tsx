@@ -15,7 +15,7 @@ import { HddCreationAttributes } from 'common/models/hdd';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 
-import * as notification from 'common/services/notificationService';
+import * as alert from 'common/services/AlertService/alert.service';
 
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
@@ -121,17 +121,17 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const [socket, setSocket] = useState<number>();
 
   useEffect(() => {
-    //updateStateToInit();
-    //setAlertText(null);
+    updateStateToInit();
+    setAlertText('');
   }, []);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    setAlertText('');
   };
   const handleChangeType = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTypeHardWare(event.target.value as string);
     setAlertText('');
+    updateStateToInit();
     if (typeHardWare === storage) {
       setTypeStorage('');
     }
@@ -278,6 +278,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   };
 
   const onCancel = () => {
+    updateStateToInit();
     goBack();
   };
   const onPublish = () => {
@@ -320,7 +321,6 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
           sata: +sata,
           m2,
         };
-        console.log(motherBoard);
         createMotherboard(motherBoard);
         break;
       }
@@ -532,7 +532,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
     setAlertType(AlertType.error);
   }
   if (props.state.createdHardwareName && !alertText) {
-    notification.success(`Success: Hardware ${typeHardWare} ${props.state.createdHardwareName} has been created.`);
+    alert.success(`Success: Hardware ${typeHardWare} ${props.state.createdHardwareName} has been created.`);
     updateStateToInit();
     if (name) setInitialFormValues();
   }

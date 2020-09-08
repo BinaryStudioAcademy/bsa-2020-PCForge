@@ -61,24 +61,30 @@ export class HardwareService {
   [Component.motherboard] = this.motherboardRepository.getAllMotherboards.bind(this.motherboardRepository);
   [Component.powerSupply] = this.powerSupplyRepository.getAllPowerSupplies.bind(this.powerSupplyRepository);
 
-  async getTopComponents<T>(component: Component, filter: TypeFilter): Promise<T> {
-    const topIdMap: Map<number, number> = new Map();
-    const setups = await this.setupRepository.getSetups({ count: null, from: null });
+  async getTopComponentsId(component: Component): Promise<Map<{ id: number; component: Component }, number>> {
+    const topIdMap: Map<{ id: number; component: Component }, number> = new Map();
+    const setups = await this.setupRepository.getAllSetupsBasic({ count: null, from: null });
     for (const setup of setups.data) {
       const id = setup[component]?.id;
       if (!id && id !== 0) continue;
-      if (topIdMap.has(id)) topIdMap.set(id, topIdMap.get(id) + 1);
-      else topIdMap.set(id, 1);
+      if (topIdMap.has({ id, component })) topIdMap.set({ id, component }, topIdMap.get({ id, component }) + 1);
+      else topIdMap.set({ id, component }, 1);
     }
+    return topIdMap;
+  }
 
-    const idsTop = [...topIdMap.entries()].sort((a, b) => a[1] - b[1]).map((e) => e[0]);
+  async getTopComponents<T>(component: Component, filter: TypeFilter): Promise<T> {
+    const topIdMap = await this.getTopComponentsId(component);
+    const idsTop = [...topIdMap.entries()].sort((a, b) => a[1] - b[1]).map((e) => e[0].id);
 
     if (idsTop.length > filter.from) {
       const id = idsTop.slice(filter.from, filter.from + filter.count);
       const topComponents = await this[component]({ ...filter, id });
       const components = {
         ...topComponents,
-        data: topComponents.data.sort((a, b) => topIdMap.get(a.id) - topIdMap.get(b.id)),
+        data: topComponents.data.sort(
+          (a, b) => topIdMap.get({ id: a.id, component }) - topIdMap.get({ id: b.id, component })
+        ),
       };
       if (id.length < filter.count) {
         const addComponents = await this[component]({
@@ -137,8 +143,120 @@ export class HardwareService {
     return ssds;
   }
 
-  async getTopStorages(filter: ISsdFilter): Promise<IWithMeta<SsdModel>> {
-    const storages = await this.getTopComponents<IWithMeta<SsdModel>>(Component.ssd, filter);
+  async getStorages(
+    filter: ISsdFilter,
+    excludedSsdId: number[],
+    excludedHddId: number[],
+    from: number,
+    count: number
+  ): Promise<IWithMeta<SsdModel>> {
+    const countSsd = Math.floor(count / 2);
+    const countHdd = count - countSsd;
+    let ssds = await this[Component.ssd]({
+      ...filter,
+      excludedId: excludedSsdId,
+      from: 0,
+      count: countSsd,
+    });
+    let hdds = await this[Component.hdd]({
+      ...filter,
+      excludedId: excludedSsdId,
+      from: 0,
+      count: countHdd,
+    });
+    if (ssds.data.length < countSsd && hdds.data.length === countHdd) {
+      hdds = await this[Component.hdd]({
+        ...filter,
+        excludedId: excludedSsdId,
+        from: 0,
+        count: count - ssds.data.length,
+      });
+    } else if (ssds.data.length === countSsd && hdds.data.length < countHdd) {
+      ssds = await this[Component.ssd]({
+        ...filter,
+        excludedId: excludedSsdId,
+        from: 0,
+        count: count - hdds.data.length,
+      });
+    }
+    for (const ssd of ssds.data) {
+      ssd.dataValues.type = Component.ssd;
+    }
+    const storages = {
+      meta: {
+        globalCount: ssds.meta.globalCount + hdds.meta.globalCount,
+        countAfterFiltering: ssds.meta.countAfterFiltering + hdds.meta.countAfterFiltering,
+      },
+      data: [
+        ...ssds.data.map((e) => {
+          e.setDataValue('type', Component.ssd);
+          return e;
+        }),
+        ...hdds.data.map((e) => {
+          e.setDataValue('type', Component.hdd);
+          return e;
+        }),
+      ],
+    };
     return storages;
+  }
+
+  async getTopStorages(filter: ISsdFilter): Promise<IWithMeta<SsdModel>> {
+    const topSsdIdMap = await this.getTopComponentsId(Component.ssd);
+    const topHddIdMap = await this.getTopComponentsId(Component.hdd);
+    const topStoragesIdMap = new Map([...topHddIdMap, ...topSsdIdMap].sort((a, b) => a[1] - b[1]));
+    if (topStoragesIdMap.size > filter.from) {
+      const topIds = [...topStoragesIdMap].slice(filter.from, filter.from + filter.count).map((e) => e[0]);
+      const ssd = await this[Component.ssd]({
+        ...filter,
+        id: topIds.filter((e) => e.component === Component.ssd).map((e) => e.id),
+      });
+      const ssdStorage = {
+        meta: ssd.meta,
+        data: ssd.data.map((e) => {
+          e.setDataValue('type', Component.ssd);
+          return e;
+        }),
+      };
+      const hdd = await this[Component.hdd]({
+        ...filter,
+        id: topIds.filter((e) => e.component === Component.hdd).map((e) => e.id),
+      });
+      const hddStorage = {
+        meta: hdd.meta,
+        data: hdd.data.map((e) => {
+          e.setDataValue('type', Component.hdd);
+          return e;
+        }),
+      };
+      const storages = {
+        meta: {
+          globalCount: ssdStorage.meta.globalCount + hddStorage.meta.globalCount,
+          countAfterFiltering: ssdStorage.meta.countAfterFiltering + hddStorage.meta.countAfterFiltering,
+        },
+        data: ssdStorage.data.concat(hddStorage.data),
+      };
+      if (topIds.length < filter.count) {
+        const addStorages = await this.getStorages(
+          filter,
+          [...topSsdIdMap].map((e) => e[0].id),
+          [...topHddIdMap].map((e) => e[0].id),
+          0,
+          filter.count - topIds.length
+        );
+        storages.meta.countAfterFiltering = storages.meta.countAfterFiltering + addStorages.meta.countAfterFiltering;
+        storages.data = storages.data.concat(addStorages.data);
+      }
+      return storages;
+    } else {
+      const storages = await this.getStorages(
+        filter,
+        [...topSsdIdMap].map((e) => e[0].id),
+        [...topHddIdMap].map((e) => e[0].id),
+        filter.from - topStoragesIdMap.size,
+        filter.count
+      );
+      return storages;
+    }
   }
 }

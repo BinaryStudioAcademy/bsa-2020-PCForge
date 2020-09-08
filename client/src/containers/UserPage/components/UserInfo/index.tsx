@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs, Tab, AppBar } from '@material-ui/core';
-import Tooltip from '@material-ui/core/Tooltip';
 import styles from './styles.module.scss';
 import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
 import UserPreferences from '../UserPreferences';
-import { getIcon } from 'common/helpers/icon.helper';
 import {
   SetErrorMessage,
   passwordValid,
@@ -67,7 +65,6 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
 
   const initialAvatar = user.avatar;
 
-  // const [selectedTab, setSelectedTab] = useState(0);
   const [editableInput, setEditableInput] = useState(false);
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);

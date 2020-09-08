@@ -2,7 +2,6 @@ import { UsersRequestActions, UsersRequestState, UsersRequestActionTypes } from 
 
 const initialState: UsersRequestState = {
   userRequests: [],
-  error: '',
   dataTotalsIsLoaded: true,
   dataUserRequestsIsLoaded: true,
   countGamesRequests: 0,
@@ -23,12 +22,7 @@ export default function UserRequestsReducer(state = initialState, action: UsersR
         countHardwaresRequests: action.payload.countHardwaresRequests,
       };
     }
-    case UsersRequestActionTypes.GET_USERS_REQUESTS_ERROR: {
-      return {
-        ...state,
-        error: action.payload.error,
-      };
-    }
+
     case UsersRequestActionTypes.LOADING_USER_REQUESTS: {
       return {
         ...state,

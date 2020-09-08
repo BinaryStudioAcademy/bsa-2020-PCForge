@@ -1,20 +1,16 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
-import { deleteNotification } from 'containers/Notifications/redux/actions';
 
 import React, { ChangeEvent, useState } from 'react';
 import styles from './styles.module.scss';
 import Search from 'components/Search';
 import UserProfile from 'components/UserProfile';
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuProps } from '@material-ui/core';
+import { Badge, IconButton, Menu, MenuProps } from '@material-ui/core';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MenuItem from '@material-ui/core/MenuItem';
-import { INotification, NotificationType } from 'containers/Notifications/interfaces';
-import InfoIcon from '@material-ui/icons/Info';
-import ErrorIcon from '@material-ui/icons/Error';
-import CheckIcon from '@material-ui/icons/Check';
-import WarningIcon from '@material-ui/icons/Warning';
 import { withStyles } from '@material-ui/styles';
+import TopBarNotification from './TopBarNotification/topBarNotification';
+import { INotification } from 'common/services/NotificationService/notification';
+import { useHistory } from 'react-router-dom';
 
 const StyledMenu = withStyles({
   paper: {
@@ -36,44 +32,37 @@ const StyledMenu = withStyles({
   />
 ));
 
-const TopBar: React.FC<Props> = ({ notifications, deleteNotification, NotificationService, user }) => {
+const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user }) => {
   const [searchValue, setSearchValue] = useState('');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const history = useHistory();
   const ITEM_HEIGHT = 64;
+  const unreadNotificationCount = notifications.filter((notification) => notification.readAt === null).length;
   const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
   };
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const onClose = () => {
     setAnchorEl(null);
   };
 
-  const handleDelete = (notification: INotification) => {
+  const onRead = (notification: INotification) => {
     if (!user?.id) return;
-    NotificationService?.deleteNotification(user.id.toString(), notification.id);
-    deleteNotification(notification.id);
+    WebSocketService?.readNotification(user.id.toString(), notification);
   };
 
-  const getIcon = (notification: INotification) => {
-    switch (notification.type) {
-      case NotificationType.INFO:
-        return <InfoIcon fontSize="small" />;
-      case NotificationType.ERROR:
-        return <ErrorIcon fontSize="small" />;
-      case NotificationType.SUCCESS:
-        return <CheckIcon fontSize="small" />;
-      case NotificationType.WARNING:
-        return <WarningIcon fontSize="small" />;
+  const onNotificationClick = (notification: INotification) => {
+    if (!user?.id) return;
+    console.log(notification);
+    WebSocketService?.readNotification(user.id.toString(), notification);
+    if (notification.payload?.type === 'link') {
+      history.push(notification.payload.value);
+      onClose();
     }
-  };
-
-  const getNotifications = () => {
-    if (notifications.length > 0) return notifications;
-    else return [{ id: 'notification-id', text: 'no notifications', type: NotificationType.INFO }];
   };
 
   return (
@@ -81,28 +70,33 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, Notificati
       <div className={styles.rightTopBar}>
         <Search value="" onChange={onInputChange} />
         <div className={styles.settingIconWrapper}>
-          <IconButton size="small" onClick={handleClick}>
-            <NotificationsIcon />
-          </IconButton>
+          <Badge badgeContent={unreadNotificationCount} color="primary">
+            <IconButton size="small" edge="start" onClick={onClick}>
+              <NotificationsIcon />
+            </IconButton>
+          </Badge>
           <StyledMenu
             id="customized-menu"
             anchorEl={anchorEl}
-            keepMounted
             open={Boolean(anchorEl)}
-            onClose={handleClose}
+            onClose={onClose}
             PaperProps={{
               style: {
-                maxHeight: ITEM_HEIGHT * 4.5,
-                width: '30ch',
+                maxHeight: ITEM_HEIGHT * 12.5,
+                width: '50ch',
               },
             }}
           >
-            {getNotifications().map((notification) => (
-              <MenuItem key={notification.id} onClick={() => handleDelete(notification)}>
-                <ListItemIcon>{getIcon(notification)}</ListItemIcon>
-                <ListItemText primary={notification.text} />
-              </MenuItem>
-            ))}
+            {notifications.length > 0
+              ? notifications.map((notification) => (
+                  <TopBarNotification
+                    key={notification.id}
+                    notification={notification}
+                    onClick={onNotificationClick}
+                    onRead={onRead}
+                  />
+                ))
+              : "You don't have any notifications"}
           </StyledMenu>
         </div>
         <UserProfile />
@@ -113,13 +107,11 @@ const TopBar: React.FC<Props> = ({ notifications, deleteNotification, Notificati
 
 const mapState = (state: RootState) => ({
   notifications: state.notifications.notifications,
-  NotificationService: state.notifications.NotificationService,
+  WebSocketService: state.notifications.WebSocketService,
   user: state.auth.user,
 });
 
-const mapDispatch = {
-  deleteNotification,
-};
+const mapDispatch = {};
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;

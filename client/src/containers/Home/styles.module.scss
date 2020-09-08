@@ -119,10 +119,12 @@ h2 {
 
 .gridNewsDisplay {
   grid-area: gridNewsDisplay;
-  margin-top: 20px;
+  //margin-top: 20px;
+  margin-top: -5px;
 
   @media (max-width: 1400px) {
-    margin-top: 25px;
+    //margin-top: 25px;
+    margin-top: 3px;
   }
 
   &>div>div {

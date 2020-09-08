@@ -7,6 +7,7 @@ import GameMatcherPage from 'containers/GameMatcher';
 import Login from 'containers/Auth';
 import NotFound from 'containers/NotFound';
 import ViewSetupPage from 'containers/SetupPage';
+import ViewSetupPageWithCommentScroll from 'containers/SetupPage/withCommentScroll';
 import Home from 'containers/Home';
 import RootComponent from 'containers/Root';
 import SetupPage from 'containers/SetupsPage';
@@ -36,6 +37,11 @@ class App extends Component {
             <PublicRoute exact path={Routes.LOGIN} component={Login} />
             <PrivateRoute exact path={Routes.USER} component={UserPage} />
             <PrivateRoute exact path={Routes.SETUP} component={ViewSetupPage} />
+            <PrivateRoute
+              exact
+              path={`${Routes.SETUP}/comment/:commentId`}
+              component={ViewSetupPageWithCommentScroll}
+            />
             <PrivateRoute exact path={Routes.DEFAULT} component={Home} />
             <PrivateRoute exact path={Routes.SETUPS} component={SetupPage} />
             <PrivateRoute exact path={Routes.ADMINTOOLS} component={AdminToolsPage} />
