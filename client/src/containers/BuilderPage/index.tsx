@@ -226,23 +226,29 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             {groups}
           </Grid>
           <Grid item xs={12} lg={4} xl={3} className={styles.summary}>
-            <BuilderSummary setup={setup} />
-            {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
-            {displayAddRequestOpen ? (
-              <ModalAddRequest onClose={hideAddHardwareModal} requestType={UserRequestedType.hardware} />
-            ) : null}
-            <Box className={styles.buttonWrapper}>
-              <Tooltip
-                title={
-                  'If you can not find needed hardware, you can create a request to admin about adding it to site! '
-                }
-                arrow
-              >
-                <Button buttonType={ButtonType.secondary} onClick={handleAddHardwareWindow}>
-                  Add Hardware
-                </Button>
-              </Tooltip>
-            </Box>
+            <Grid container spacing={5}>
+              <Grid item xs={12} md={6} lg={12}>
+                <BuilderSummary setup={setup} />
+              </Grid>
+              <Grid item xs={12} md={6} lg={12}>
+                {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
+                {displayAddRequestOpen ? (
+                  <ModalAddRequest onClose={hideAddHardwareModal} requestType={UserRequestedType.hardware} />
+                ) : null}
+                <Box className={styles.buttonWrapper}>
+                  <Tooltip
+                    title={
+                      'If you can not find needed hardware, you can create a request to admin about adding it to site! '
+                    }
+                    arrow
+                  >
+                    <Button buttonType={ButtonType.secondary} onClick={handleAddHardwareWindow}>
+                      Add Hardware
+                    </Button>
+                  </Tooltip>
+                </Box>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Box>
