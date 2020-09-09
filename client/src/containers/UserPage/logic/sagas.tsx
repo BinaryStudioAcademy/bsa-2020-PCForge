@@ -44,7 +44,8 @@ import {
   TypeResponseAll,
 } from 'api/services/setupService';
 import { TypeSetup } from 'containers/BuilderPage/reducer';
-import { Setup } from 'common/models/setup';
+import history from 'browserHistory';
+import { Routes } from 'common/enums';
 
 export default function* userSagas() {
   yield all([
@@ -198,9 +199,13 @@ function* watchEditUserSetup() {
 
 function* editUserSetup(action: IEditUserSetup) {
   try {
-    const setupToEditFromBack = (yield call(getSetup, action.payload.setupId));
+    const setupToEditFromBack = yield call(getSetup, action.payload.setupId);
     console.log(setupToEditFromBack);
     const setupToEditForBuilder = {
+      id: setupToEditFromBack.id,
+      title: setupToEditFromBack.title,
+      description: setupToEditFromBack.description,
+      image: setupToEditFromBack.image,
       cpu: setupToEditFromBack.cpu,
       gpu: setupToEditFromBack.gpu,
       ram: setupToEditFromBack.ram,
@@ -211,6 +216,7 @@ function* editUserSetup(action: IEditUserSetup) {
       ssd: setupToEditFromBack.ssd || null,
     } as TypeSetup;
     yield call(setLocalSetup, setupToEditForBuilder);
+    history.push(Routes.BUILDER);
   } catch {
     notification.error('Cannot edit at the moment');
   }

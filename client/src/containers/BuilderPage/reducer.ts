@@ -15,6 +15,10 @@ import {
 import { setCount } from 'helpers/setupHelper';
 
 export type TypeSetup = {
+  id?: number;
+  title?: string;
+  description?: string;
+  image?: string;
   cpu: TypeCpu | null;
   gpu: TypeGpu | null;
   ram: TypeRam | null;
@@ -26,6 +30,10 @@ export type TypeSetup = {
 };
 
 export type TypeSetupForPost = {
+  id?: number;
+  title?: string;
+  description?: string;
+  image?: string;
   cpuId: number;
   gpuId: number;
   motherboardId: number;

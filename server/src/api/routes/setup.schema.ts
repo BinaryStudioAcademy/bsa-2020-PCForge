@@ -1,10 +1,10 @@
 import { FastifyRequest } from 'fastify';
 import { SetupCreationAttributes } from '../../data/models/setup';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
-import { CpuSchema } from './cpu.schema';
+import { CpuSchema, DetailedCpuSchema } from './cpu.schema';
 import { GpuSchema } from './gpu.schema';
-import { MotherBoardSchema } from './motherboard.schema';
-import { RamSchema } from './ram.schema';
+import { MotherBoardSchema, DetailedMotherBoardSchema } from './motherboard.schema';
+import { RamSchema, DetailedRamSchema } from './ram.schema';
 import { PowerSupplySchema } from './powerSupply.schema';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { UserAttributes } from '../../data/models/user';
@@ -170,10 +170,10 @@ export const SetupSchema: SwaggerSchema = {
 
 const getDetailedSetupSchema = (): SwaggerSchema => {
   const schema: SwaggerSchema = JSON.parse(JSON.stringify(SetupSchema));
-  schema.properties.cpu = CpuSchema;
+  schema.properties.cpu = DetailedCpuSchema;
   schema.properties.gpu = GpuSchema;
-  schema.properties.ram = RamSchema;
-  schema.properties.motherboard = MotherBoardSchema;
+  schema.properties.ram = DetailedRamSchema;
+  schema.properties.motherboard = DetailedMotherBoardSchema;
   schema.properties.powerSupply = PowerSupplySchema;
 
   schema.properties.hdd = {

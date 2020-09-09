@@ -82,10 +82,10 @@ const SetupCard: React.FC<SetupCardProps> = ({
 
   const handleEditSetup: (e: React.MouseEvent<HTMLElement>) => void = (e) => {
     e!.stopPropagation();
-    if(editUserSetup) {
+    if (editUserSetup) {
       editUserSetup(id);
     }
-  }
+  };
 
   let setupStyle = styles.setupCard;
   if (className) {

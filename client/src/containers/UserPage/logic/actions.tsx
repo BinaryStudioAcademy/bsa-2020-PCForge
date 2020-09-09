@@ -89,8 +89,8 @@ export const deleteUserSetup = (userId: number, setupId: number): UserActionType
 
 export const editUserSetup = (setupId: number): UserActionTypes => ({
   type: EDIT_USER_SETUP,
-  payload: {setupId},
-})
+  payload: { setupId },
+});
 
 export const loadSetups = (authorId: number): UserActionTypes => ({
   type: LOAD_SETUPS,

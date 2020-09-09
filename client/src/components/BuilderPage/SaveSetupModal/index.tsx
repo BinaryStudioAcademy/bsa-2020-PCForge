@@ -26,6 +26,12 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
   useEffect(() => {
     const setup = getLocalSetupObjectForSave();
     setComputerComponents(setup);
+    if (setup?.title) {
+      setTitle(setup.title);
+    }
+    if (setup?.description) {
+      setDescription(setup.description);
+    }
   }, []);
 
   const dispatch = useDispatch();
@@ -94,6 +100,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
             placeholder="Title"
             type="text"
             onChange={onChangeTitle}
+            value={title}
             required
           />
         </div>
@@ -106,6 +113,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
             maxLength={500}
             id="setup_description"
             onChange={onChangeDescription}
+            value={description}
           ></textarea>
         </div>
         <div className={styles.buttonsBox}>
@@ -113,7 +121,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
             type="submit"
             buttonType={ButtonType.primary}
             className={`${styles.button} ${styles.saveButton}`}
-            disabled={file && title && description ? false : true}
+            disabled={(file || computerComponents?.image) && title && description ? false : true}
           >
             Save Setup
           </Button>

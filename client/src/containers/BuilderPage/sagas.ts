@@ -20,7 +20,7 @@ import { getHdd } from 'api/services/hddService';
 import { getSsd } from 'api/services/ssdService';
 import { clearLocalSetup, getLocalSetup, setLocalSetup } from 'helpers/setupHelper';
 import { uploadImage } from 'api/services/imageService';
-import { createSetup } from 'api/services/setup.service';
+import { createSetup, updateSetup } from 'api/services/setup.service';
 import { GroupName } from './config';
 
 const servicesGet = {
@@ -93,8 +93,17 @@ function* watchRemoveSetup() {
 export function* saveSetup(action: AnyAction) {
   try {
     const data = action.payload.data;
-    data.image = yield call(uploadImage, action.payload.image);
-    const savedSetup = yield call(createSetup, data);
+    if (action.payload.image) {
+      data.image = yield call(uploadImage, action.payload.image);
+    }
+    let savedSetup;
+    if (data.id) {
+      const setupId = data.id;
+      delete data.id;
+      savedSetup = yield call(updateSetup, setupId, data);
+    } else {
+      savedSetup = yield call(createSetup, data);
+    }
     history.push(`setup/${savedSetup.id}`);
   } catch (error) {
     console.log(error);

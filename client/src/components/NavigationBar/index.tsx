@@ -179,7 +179,13 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
   return (
     <>
       {NavigationBarRender(listHeader, selectedMenuItem)}
-      <Modal title="Are you sure you want to log out?" open={showModal} buttons={buttons} maxWidth="md" classes={{ paper: styles.modalStyle}}></Modal>
+      <Modal
+        title="Are you sure you want to log out?"
+        open={showModal}
+        buttons={buttons}
+        maxWidth="md"
+        classes={{ paper: styles.modalStyle }}
+      ></Modal>
     </>
   );
 };

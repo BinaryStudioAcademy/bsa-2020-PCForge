@@ -108,7 +108,7 @@ export interface deleteUserSetup {
 
 export interface IEditUserSetup {
   type: typeof EDIT_USER_SETUP;
-  payload: {setupId: number}
+  payload: { setupId: number };
 }
 
 export interface setTab {
