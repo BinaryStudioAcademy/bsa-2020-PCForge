@@ -123,6 +123,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   rating={setup.rating}
                   ownRating={setup.ownRating}
                   ratingCount={setup.ratingCount}
+                  comments_count={setup.comments_count}
                   key={generateKey(setup.title, index)}
                   deleteUserSetup={deleteUserSetup}
                   own={isCurrentUser}

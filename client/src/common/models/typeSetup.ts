@@ -14,6 +14,7 @@ export type SetupType = {
   rating: number;
   ownRating: number;
   ratingCount: number;
+  comments_count: number;
   cpu: Cpu;
   gpu: Gpu;
   ram: Ram;

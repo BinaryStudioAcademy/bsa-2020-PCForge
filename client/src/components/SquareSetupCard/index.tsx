@@ -15,6 +15,7 @@ import { TypeUser } from 'common/models/typeUser';
 import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
 import { UserPageTabs } from 'containers/UserPage/interfaces';
 import RatingBox from 'components/BasicComponents/RatingBox';
+import { getIcon } from 'common/helpers/icon.helper';
 
 export interface SetupCardProps {
   id: number;
@@ -29,6 +30,7 @@ export interface SetupCardProps {
   rating: number;
   ownRating: number;
   ratingCount: number;
+  comments_count: number;
   author: TypeUser;
   createdAt: Date;
   className?: string;
@@ -50,6 +52,7 @@ const SetupCard: React.FC<SetupCardProps> = ({
   ram,
   author,
   rating,
+  comments_count,
   big,
   createdAt,
   className,
@@ -99,16 +102,30 @@ const SetupCard: React.FC<SetupCardProps> = ({
           <div className={styles.setupCardRatingBox}>
             <RatingBox ratingValue={rating} disabled={false} name={`setup${id}`} />
           </div>
+          <div className={styles.setupComments}>
+            <div>{comments_count}</div>
+            <div>{getIcon('ChatBubbleOutline')}</div>
+          </div>
         </div>
 
         <div className={styles.setupBack}>
           <div className={styles.textHolder}>
             <div className={styles.setupDescription}>{description}</div>
-            <div>CPU: {cpu.name}</div>
-            <div>Motherboard: {motherboard.name}</div>
-            <div>GPU: {gpu.name}</div>
-            <div>RAM: {ram.name}</div>
-            <div>Power Supply: {powerSupply.name}</div>
+            <div>
+              <span className={styles.hardwareTitle}>CPU:</span> {cpu.name}
+            </div>
+            <div>
+              <span className={styles.hardwareTitle}>Motherboard:</span> {motherboard.name}
+            </div>
+            <div>
+              <span className={styles.hardwareTitle}>GPU:</span> {gpu.name}
+            </div>
+            <div>
+              <span className={styles.hardwareTitle}>RAM:</span> {ram.name}
+            </div>
+            <div>
+              <span className={styles.hardwareTitle}>Power Supply:</span> {powerSupply.name}
+            </div>
           </div>
 
           <div className={styles.backBottomWrapper}>
