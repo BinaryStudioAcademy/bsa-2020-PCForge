@@ -32,7 +32,7 @@ const TopFiveList: React.FC<PropsFromRedux> = ({ setups }) => {
 
   return (
     <div className={classes.topFiveList}>
-      <h4 className={classes.header}>Top Setups</h4>
+      <h4 className={classes.header}>Top {setups.length} Setups</h4>
       {createTopFiveListItem()}
     </div>
   );
