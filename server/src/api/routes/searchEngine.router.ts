@@ -1,8 +1,10 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
+import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   fastify.get('/all', function (req, res) {
+    allowForAuthorized(req);
     const body = {
       size: 5,
       from: 0,
