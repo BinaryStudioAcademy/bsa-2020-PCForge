@@ -124,6 +124,10 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
     return await this.repository.activateDeactivate(id);
   }
 
+  async getAdmins(): Promise<UserModel[]> {
+    return await this.repository.getAdmins();
+  }
+
   hash(password: string): string {
     return encryptSync(password);
   }
