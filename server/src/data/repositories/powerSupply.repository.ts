@@ -21,7 +21,6 @@ export class PowerSupplyRepository extends BaseRepository<PowerSupplyModel, Powe
       {
         group: ['powerSupply.id'],
         where: {
-          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
           power: {
             [Op.between]: [filter.power.minValue, filter.power.maxValue],
           },

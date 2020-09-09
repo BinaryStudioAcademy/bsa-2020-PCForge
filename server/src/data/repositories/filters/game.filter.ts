@@ -8,6 +8,9 @@ export class IGameFilter extends IFilter {
   }
   name: FilterByNameType = null;
   year: FilterByNumberType = notNull;
+  id: FilterByNumberType = notNull;
+  searchString?: string = '';
+
   orderBy: {
     cpu: {
       recommended: 'ASC' | 'DESC';
@@ -60,6 +63,10 @@ export class IGameFilter extends IFilter {
             },
           },
         },
+        nullable: true,
+      },
+      searchString: {
+        type: 'string',
         nullable: true,
       },
     },

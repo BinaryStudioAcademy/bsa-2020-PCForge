@@ -12,6 +12,7 @@ export class IMotherboardFilter extends IFilter {
   ramTypeId: FilterByIdType = notNull;
   sata: FilterByNumberType = notNull;
   m2: FilterByBooleanType = notNull;
+  name?: string = '';
 
   static schema: SwaggerSchema = {
     type: 'object',

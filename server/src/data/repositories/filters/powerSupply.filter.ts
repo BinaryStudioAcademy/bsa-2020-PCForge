@@ -13,6 +13,7 @@ export class IPowerSupplyFilter extends IFilter {
     maxValue: 10000,
   };
   name: FilterByNameType = null;
+  searchString?: string = '';
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -21,6 +22,10 @@ export class IPowerSupplyFilter extends IFilter {
       name: {
         type: 'string',
         minimum: 1,
+        nullable: true,
+      },
+      searchString: {
+        type: 'string',
         nullable: true,
       },
     },

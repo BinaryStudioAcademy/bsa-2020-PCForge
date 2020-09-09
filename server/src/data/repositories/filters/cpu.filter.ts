@@ -37,6 +37,10 @@ export class ICpuFilter extends IFilter {
         type: 'string',
         nullable: true,
       },
+      searchString: {
+        type: 'string',
+        nullable: true,
+      },
     },
   };
 }

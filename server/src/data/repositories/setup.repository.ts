@@ -122,17 +122,14 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           as: 'author',
         },
       ],
-      where,
+      where: {
+        id: { [Op.and]: { [Op.or]: filter.id } },
+      },
       subQuery: false,
       offset: filter.from,
       limit: filter.count,
     });
 
-    console.log('result', result);
-    // here is a bug in sequelize: it returns array instead of number, so instead of result.count there was used this.model.count();
-    // https://github.com/sequelize/sequelize/issues/9109
-    const globalCount = await this.model.count();
-    // const countAfterFiltering = result.rows.length;
     return result;
   }
 
