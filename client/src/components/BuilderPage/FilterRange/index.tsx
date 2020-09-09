@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import Button from '@material-ui/core/Button';
 import styles from './styles.module.scss';
+import { debounce } from 'lodash-es';
 
 type PropsType = {
   title: string;
@@ -15,6 +16,7 @@ type PropsType = {
   dimension?: string;
   marks?: { value: number }[];
   step?: number | null;
+  debounceTimeout?: number;
   onChange: (range: number[]) => void;
 };
 
@@ -26,12 +28,15 @@ const FilterRange = ({
   marks = [],
   dimension = '',
   step = 1,
+  debounceTimeout = 300,
 }: PropsType): JSX.Element => {
   const [value, setValue] = useState([min, max]);
 
+  const onChangeDebounce = useCallback(debounce(onChange, debounceTimeout), []);
+
   const onChangeHandler = (ev: React.ChangeEvent<Record<string, unknown>>, value: number | number[]) => {
     setValue(value as number[]);
-    onChange(value as number[]);
+    onChangeDebounce(value as number[]);
   };
 
   const onResetHandler = () => {
