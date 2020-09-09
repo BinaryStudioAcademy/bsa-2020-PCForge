@@ -94,7 +94,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
       link: Routes.BUILDER,
     },
     {
-      name: 'Setup',
+      name: 'Setups',
       icon: <SvgIcon component={SetupIcon} viewBox="0 0 31 31" />,
       link: Routes.SETUPS,
     },
