@@ -1,9 +1,10 @@
 import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import { allowForAuthorized } from '../middlewares/allowFor.middleware';
+import { SearchByAllDataRequest } from './searchEngine.schema';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  fastify.get('/all', function (req, res) {
+  fastify.get('/all', function (req: SearchByAllDataRequest, res) {
     allowForAuthorized(req);
     const body = {
       size: 5,
