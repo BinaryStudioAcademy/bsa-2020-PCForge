@@ -2,18 +2,18 @@
 $border_radius_card: 10px;
 
 .setupCard {
+  overflow: hidden;
   position: relative;
   background-color: $colorDarkGray;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  // align-items: center;
   justify-content: space-between;
   padding-bottom: 20px;
   border-radius: $border_radius_card;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   &Image {
     width: 100%;
-    border-radius: $border_radius_card;
     height: 250px;
     object-fit: cover;
   }
@@ -25,28 +25,33 @@ $border_radius_card: 10px;
 
 .characteristicList {
   font-size: 16px;
-  width: 80%;
   padding: 0;
-  margin: 20px 0;
+  margin: 20px;
 }
 
 .characteristicItem {
   list-style-type: none;
   display: flex;
-  margin-top: 10px;
-  // justify-content: space-between;
+
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
+
+.ratingBox {
+  margin: 20px 20px -10px;
 }
 
 .characteristicHeader {
-  width: 25%;
-  min-width: 90px;
   font-weight: bold;
   text-align: right;
 }
-.characteristicValue {
-  margin-left: 10px;
-}
 
+.characteristicValue {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .commentItem {
   position: absolute;
   top: 10px;
@@ -70,5 +75,6 @@ $border_radius_card: 10px;
 }
 
 .viewMoreButton {
+  margin: 0 20px;
   text-decoration: none;
 }
