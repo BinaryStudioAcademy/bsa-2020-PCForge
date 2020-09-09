@@ -53,7 +53,6 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
               <>
                 {!showGameSearch && (
                   <Button
-                    variant="contained"
                     className={styles.addGameButton}
                     buttonType={ButtonType.primary}
                     icon="Add"
@@ -101,7 +100,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
           <div className={styles.buttonPlacement}>
             <Link className={styles.setupLink} to="/builder">
               <Button className={styles.builderButton} icon="Build" buttonType={ButtonType.secondary}>
-                Builder
+                Go To Builder
               </Button>
             </Link>
           </div>
