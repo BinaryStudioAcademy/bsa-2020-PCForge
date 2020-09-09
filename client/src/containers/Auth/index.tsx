@@ -10,7 +10,6 @@ import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import Spinner from 'components/Spinner';
 import UserSchema from 'common/validation/user';
-import { Redirect } from 'react-router-dom';
 import { getTokenSync } from 'helpers/tokenHelper';
 
 class Auth extends Component<IAuthProps, IAuthState> {

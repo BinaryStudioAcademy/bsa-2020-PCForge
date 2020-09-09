@@ -1,10 +1,12 @@
-import { combineReducers } from 'redux';
-import { AuthReducer } from 'containers/Auth/reducer';
-import { HomeReducer } from 'containers/Home/reducer';
+import {combineReducers} from 'redux';
+import {AuthReducer} from 'containers/Auth/reducer';
+import {HomeReducer} from 'containers/Home/reducer';
+import {DrawerReducer} from 'components/basicComponent/Drawer/reducer';
 
 const RootReducer = combineReducers({
-    authReducer: AuthReducer,
-    homeReducer: HomeReducer,
+  authReducer: AuthReducer,
+  homeReducer: HomeReducer,
+  DrawerReducer: DrawerReducer,
 });
 
 export default RootReducer;

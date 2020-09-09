@@ -24,6 +24,7 @@ export const getAllCpu = async (filter: CpuFilter): Promise<TypeResponseAllCpus>
     ...(!isMultipleSocketFilter && { socketId: filter.socketId }),
   };
 
+  console.log(serverFilter, filter);
   const response = await webApi.get(endpoint, serverFilter);
   return response;
 };

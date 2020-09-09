@@ -1,22 +1,24 @@
-import { IAuthState } from './interfaces';
+import {IAuthState} from './interfaces';
 import {
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGIN_FAILURE,
   AuthActionTypes,
+  AUTH_SET_LOADER_STATE,
 } from './actionTypes';
 
 const initialState: IAuthState = {
   user: null,
-  email: '',
-  password: '',
+  email: 'admin@pcforge.com',
+  password: 'bsa2020',
   errorMessage: '',
-//   confirmPassword: '',
-//   isRegistration: false,
-//   keepSignedIn: false,
-//   isLoading: false,
+  loading: false,
 };
 
-export function AuthReducer(state: IAuthState = initialState, action: AuthActionTypes): IAuthState {
+export function AuthReducer(
+  state: IAuthState = initialState,
+  action: AuthActionTypes,
+): IAuthState {
+  console.log(action);
   switch (action.type) {
     case AUTH_LOGIN_SUCCESS:
       return {
@@ -30,6 +32,12 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         ...state,
         errorMessage: action.payload.message,
       };
+    case AUTH_SET_LOADER_STATE:
+      console.log('reducer', action.payload)
+      return {
+        ...state,
+        loading: action.payload,
+      }
     default:
       return state;
   }

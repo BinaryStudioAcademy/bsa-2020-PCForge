@@ -1,30 +1,37 @@
 import React from 'react';
-import { View, Text, Header, Left, Button, Icon, Body, Title, Right } from 'native-base';
-import { StackHeaderProps, StackHeaderInterpolationProps } from '@react-navigation/stack';
+import {Header, Left, Button, Icon, Body, Title} from 'native-base';
+import {StackHeaderProps} from '@react-navigation/stack';
+import * as DrawerActions from 'components/basicComponent/Drawer/actions';
+import {connect} from 'react-redux';
+import {drawerActions} from '../Drawer/actionTypes';
 
 export interface Props extends StackHeaderProps {
-  
+  openDrawerAction: () => drawerActions;
+  closeDrawerAction: () => drawerActions;
 }
 
 const AppTitle = (props: Props) => {
   const title = props.scene.route.name;
-  const onGoBack = () => {
-    props.navigation.goBack();
-  }
+  const onMainIconClick = () => {
+    props.openDrawerAction();
+    // props.navigation.goBack();
+  };
   return (
     <Header>
-      { props.navigation.canGoBack() ?
+      {props.navigation.canGoBack() ? (
         <Left>
           <Button transparent>
-            <Icon type={'MaterialIcons'} name="arrow-back" onPress={onGoBack} />
+            <Icon type="MaterialIcons" name="menu" onPress={onMainIconClick} />
           </Button>
-        </Left> : null
-      }
+        </Left>
+      ) : null}
       <Body>
         <Title>{title}</Title>
       </Body>
     </Header>
-  )
-}
+  );
+};
 
-export default AppTitle;
+const mapDispatchToProps = DrawerActions;
+
+export default connect(null, mapDispatchToProps)(AppTitle);
