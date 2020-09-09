@@ -3,6 +3,7 @@ import classes from './styles.module.scss';
 import { ConnectedProps, connect } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
 import Image from 'components/BasicComponents/Image';
+import { Link } from 'react-router-dom';
 
 interface I_Info_Item {
   title: string;
@@ -17,14 +18,14 @@ const TopFiveList: React.FC<PropsFromRedux> = ({ setups }) => {
     return setups.map((item) => {
       return (
         <div key={item.id} className={classes.itemWrapper}>
-          <div className={classes.item}>
+          <Link className={classes.item} to={`setup/${item.id}`}>
             <Image src={item.image} alt={item.title} className={classes.itemImage} />
             <div className={classes.itemText}>
               <h5 className={classes.itemTextTitle}>{item.title}</h5>
               <p className={classes.itemTextDescription}>{item.description}</p>
               {/* {item.date ? <p className={classes.itemTextDate}>{item.date}</p> : null} */}
             </div>
-          </div>
+          </Link>
         </div>
       );
     });
@@ -32,7 +33,7 @@ const TopFiveList: React.FC<PropsFromRedux> = ({ setups }) => {
 
   return (
     <div className={classes.topFiveList}>
-      <h4 className={classes.header}>Top Setups</h4>
+      <h4 className={classes.header}>Top {setups.length} Setups</h4>
       {createTopFiveListItem()}
     </div>
   );

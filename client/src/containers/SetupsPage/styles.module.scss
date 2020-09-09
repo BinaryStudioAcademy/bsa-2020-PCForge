@@ -13,9 +13,15 @@
 
 .cardsContainer {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 25px;
   margin-bottom: 30px;
+}
+
+@media (max-width: 1920px) {
+  .cardsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 1440px) {
@@ -31,9 +37,18 @@
 }
 
 .contentBody {
-  margin: 20px 60px;
+  margin: 20px 0px;
   .filter {
     margin-top: 20px;
+    width: 200px;
+    .MuiInputLabelRoot {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .Select {
+      margin-top: 25px;
+    }
   }
 }
 
@@ -60,6 +75,7 @@
     }
     .rightContent {
       margin-left: 0;
+      margin-top: 20px;
       width: 100%;
     }
   }

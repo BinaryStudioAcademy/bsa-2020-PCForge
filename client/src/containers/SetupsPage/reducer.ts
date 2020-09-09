@@ -4,7 +4,7 @@ const initialState: SetupState = {
   setups: [],
   setupsCount: 0,
   topSetups: [],
-  filter: { sort: 'mostRated', viewCount: 9 },
+  filter: { sort: 'mostRated', viewCount: 12 },
   error: '',
   showSpinner: true,
 };
