@@ -5,24 +5,40 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    flex: 1,
     display: 'flex',
     justifyContent: 'center',
     // alignItems: 'center',
-    marginHorizontal: 20,
   },
-  item: {
-    color: '#ed2f2f',
-  },
-  itemWrapper: {
-    zIndex: 200,
-  },
-  container: {
-    flex: 1,
-    left: 0,
+  backButton: {
     position: 'absolute',
-    right: 0,
-    top: 10,
-    zIndex: 1
+    bottom: 20,
+    left: 20,
+    right: 20,
+    alignSelf: 'stretch',
+    textAlign: 'center',
+    justifyContent: 'center'
   },
+  input: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    right: 10,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    color: '#fff',
+  },
+  listContainer: {
+    marginTop: 60,
+    marginBottom: 140,
+  },
+  notFound: {
+    color: '#fff',
+    display: 'flex',
+    alignItems: 'stretch',
+    textAlign: 'center',
+  },
+  itemText: {
+    color: '#fff'
+  }
 });

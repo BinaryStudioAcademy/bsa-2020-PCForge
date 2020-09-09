@@ -7,7 +7,7 @@ import { MatcherActionTypes, IFetchGamesRequestAction, IFetchCpusRequestAction, 
 
 function* fetchGames(action: IFetchGamesRequestAction) {
   try {
-    const { data: games } = yield call(getAllGames, { name: action.payload.name, from: 0, count: 5 });
+    const { data: games } = yield call(getAllGames, { name: action.payload.name, from: 0, count: 15 });
     yield put(setGames(games));
   } catch (err) {
     yield put(setError(err));

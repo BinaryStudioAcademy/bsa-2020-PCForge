@@ -6,7 +6,7 @@ import store from 'redux/store';
 import { Router, Route } from 'common/configs/routing';
 import Auth from 'containers/Auth';
 import Home from 'containers/Home';
-import { StyleProvider } from 'native-base';
+import { Button, StyleProvider, Text } from 'native-base';
 import getTheme from 'native-base-theme/components';
 import material from 'native-base-theme/variables/material';
 import AppTitle from 'components/basicComponent/Title';
@@ -23,7 +23,13 @@ export default function App(): JSX.Element {
             <Route name="Login" component={Auth} />
             <Route name="Home" component={Home} options={{   }}/>
             <Route name="Matcher" component={GameMatcher}/>
-            <Route name="Autocomplete" component={MyAutocomplete} options={{  }}/>
+            <Route name="Autocomplete" component={MyAutocomplete} options={({ navigation, route }) => ({
+              headerLeft: () => (
+                <Button onPress={() => navigation.goBack()} >
+                  <Text>Go back</Text>
+                </Button>
+              ),
+            })}/>
           </Router>
         </NavigationContainer>
       </StyleProvider>

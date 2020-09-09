@@ -13,6 +13,7 @@ import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
 import { RouterItemProps } from 'common/configs/routing';
 import { AutocompleteRouteParams } from 'components/Autocomplete/index';
+import { getAllGames } from 'api/services/gameService';
 
 const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
   cpus,
@@ -24,6 +25,11 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
   fetchGpus,
   navigation
 }): JSX.Element => {
+  React.useEffect(() => {
+    fetchGames('')
+    fetchCpus('')
+    fetchGpus('')
+  }, [])
   const [game, setGame] = React.useState<Game | undefined>(undefined);
 
   const navigateTo = (type: 'game') => {
@@ -34,7 +40,11 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
     }
     const onInputChange = () => {
       switch (type) {
-        case 'game': return (newValue: string) => { fetchGames(newValue); };
+        case 'game': return async (newValue: string) => {
+          fetchGames(newValue);
+          const games = await getAllGames({ name: newValue, from: 0, count: 15 })
+          return games.data;
+        }
       }
     }
     const onItemSelected = () => {
@@ -46,7 +56,7 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
       }
     }
     const params: AutocompleteRouteParams = {
-      title: `Select ${type}`,
+      subject: type,
       items: getItems(),
       onInputChange: onInputChange(),
       onItemSelected: onItemSelected(),
