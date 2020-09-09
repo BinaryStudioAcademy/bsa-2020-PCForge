@@ -100,13 +100,16 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
           {label}
         </InputLabel>
         <Input
-          className={styles.inputContainer}
+          className={`${styles.inputContainer} ${
+            this.state.selectVisible ? styles.borderTopRound : styles.borderFullRound
+          }`}
           placeholder={placeholder}
           id={inputId}
           autoComplete="off"
           classes={{ input: styles.input }}
           onInput={(e: ChangeEvent<HTMLInputElement>) => this.onInputValueChange(e.target.value)}
           value={this.state.inputValue}
+          disableUnderline={true}
         />
         {this.state.selectVisible && (
           <div className={styles.selectOptionsContainer}>
