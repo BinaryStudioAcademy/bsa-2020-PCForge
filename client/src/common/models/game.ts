@@ -15,6 +15,10 @@ export interface Game {
   minimalCpu: Cpu;
   recommendedGpu: Gpu;
   minimalGpu: Gpu;
+  rating: number;
+  ownRating: number;
+  ratingCount: number;
+  comments_count: string;
 }
 
 export interface GameCreationAttributes {

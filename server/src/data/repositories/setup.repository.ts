@@ -6,14 +6,13 @@ import { GpuStatic } from '../models/gpu';
 import { MotherboardStatic } from '../models/motherboard';
 import { RamStatic } from '../models/ram';
 import { PowerSupplyStatic } from '../models/powersupply';
-import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
+import { ISetupFilter } from './filters/setup.filter';
 import { mergeFilters } from './filters/helper';
 import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
 import { CommentStatic } from '../models/comment';
 import { RateStatic } from '../models/rate';
 import sequelize, { Op, OrderItem, ProjectionAlias } from 'sequelize';
-import { group } from 'console';
 import { UserStatic } from '../models/user';
 
 export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
@@ -127,9 +126,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       offset: filter.from,
       limit: filter.count,
     });
-    // here is a bug in sequelize: it returns array instead of number, so instead of result.count there was used this.model.count();
-    // https://github.com/sequelize/sequelize/issues/9109
-    const globalCount = await this.model.count();
+
     return result;
   }
 
@@ -189,7 +186,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       offset: filter.from,
       limit: filter.count,
     });
-    const globalCount = await this.model.count();
+
     return result;
   }
 

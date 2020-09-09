@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { TopGame } from 'common/models/topGame';
 import React from 'react';
 import styles from './styles.module.scss';
@@ -6,29 +5,25 @@ import Image from 'components/BasicComponents/Image';
 import { RootState } from 'redux/rootReducer';
 import { fetchTopGames } from './redux/actions';
 import { connect, ConnectedProps } from 'react-redux';
+import { Link } from 'react-router-dom';
 
-const TopGames: React.FC<Props> = ({
-  topGames,
-  selected: selectedIndex = -1,
-  fetchTopGames,
-  onGameSelected: onGameSelectedProps = () => {},
-}): JSX.Element => {
+const TopGames: React.FC<Props> = ({ topGames, selected: selectedIndex = -1, fetchTopGames }): JSX.Element => {
   React.useEffect(() => {
     fetchTopGames();
   }, []);
 
   const gameView = (topGame: TopGame, isSelected: boolean) => (
-    <div
+    <Link
+      to={`/game/${topGame.game.id}`}
       className={`${styles.gameContainer} ${isSelected && styles.gameContainerSelected}`}
       key={topGame.id}
-      onClick={() => onGameSelectedProps(topGame)}
     >
       <Image className={styles.gameImage} src={topGame.game.image} alt={topGame.game.name} />
       <div className={styles.gameDetails}>
         <span className={styles.gameName}>{topGame.game.name}</span>
         <span className={styles.gameDate}>{topGame.game.year}</span>
       </div>
-    </div>
+    </Link>
   );
 
   return (
