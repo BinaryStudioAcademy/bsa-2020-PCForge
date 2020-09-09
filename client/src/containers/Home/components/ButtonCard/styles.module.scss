@@ -1,34 +1,21 @@
-$cardButtonColor: #EB3D55;
+$cardButtonColor: #3c444d;
+$cardButtonHoverColor: #f50057;
 
 .cardButton {
     height: 350px;
-    // width: 45%;
     background-color: $cardButtonColor;
-    // margin: 10px;
     border-radius: 6px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-
-    // @media (max-width: 1200px) {
-    //   width: 100%;
-    //   width:80%;
-    //   min-width: 275px;
-    // }
-
-    // @media (max-width: 1200px) {
-    //   margin-left: 0;
-    // }
-
-    // @media (max-width: 768px) {
-    //   width: 100%;
-    //   min-width: 200px;
-    //   margin-right: 0;
-    // }
+    opacity: 0.8;
+    transition: all 0.3s;
 
     &:hover {
       cursor: pointer;
+      background-color: $cardButtonHoverColor;
+      opacity: 1;
     }
 
     svg {
@@ -42,5 +29,10 @@ $cardButtonColor: #EB3D55;
     p {
       font-size: 20px;
       margin-top: 0;
+    }
+
+    @media(max-width: 768px) {
+      height:auto;
+      min-height:325px;
     }
   }

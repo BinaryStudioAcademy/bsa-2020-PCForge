@@ -66,6 +66,15 @@ const options: ThemeOptions & Colors & Typography = {
       },
     },
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1400,
+      xl: 1920,
+    },
+  },
 };
 
 const theme = createMuiTheme(options);

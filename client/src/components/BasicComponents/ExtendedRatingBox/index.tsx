@@ -92,7 +92,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
           {!!averageValue && (
             <div className={styles.ratingNumbersHolder}>
               <div className={styles.topRatingNumber}>
-                {averageValue}
+                {+averageValue.toFixed(1)}
                 <span>/5</span>
               </div>
               <div className={styles.bottomRatingNumber}>

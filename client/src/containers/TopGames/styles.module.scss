@@ -8,6 +8,7 @@
   background: $colorBackgroundGray;
   box-shadow: 0 30px 40px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
+  min-width: 18rem;
 }
 
 .topGamesHeader {
@@ -29,6 +30,7 @@
   display: flex;
   border-bottom: 1px solid $colorTextGray;
   align-items: center;
+  text-decoration: none;
 }
 
 .gameContainer:last-of-type {

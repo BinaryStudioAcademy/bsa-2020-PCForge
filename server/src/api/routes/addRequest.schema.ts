@@ -25,7 +25,10 @@ export type PutAddRequestRequest = FastifyRequest<{
 
 export type DeleteAddRequestRequest = FastifyRequest<{
   Params: { id: string };
+  Body: { type: DeleteAddRequestType };
 }> & { user: UserAttributes };
+
+export type DeleteAddRequestType = 'approve' | 'disapprove';
 
 export const AddRequestSchema: SwaggerSchema = {
   type: 'object',

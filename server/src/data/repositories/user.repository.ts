@@ -44,4 +44,9 @@ export class UserRepository extends BaseRepository<UserModel, UserCreationAttrib
     );
     return user[0];
   }
+
+  async getAdmins(): Promise<UserModel[]> {
+    const admins = await this.model.findAll({ where: { isAdmin: true } });
+    return admins;
+  }
 }

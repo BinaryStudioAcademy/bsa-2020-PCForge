@@ -37,6 +37,7 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
             rating={setup.rating}
             ownRating={setup.ownRating}
             ratingCount={setup.ratingCount}
+            comments_count={setup.comments_count}
             author={setup.author}
             key={generateKey(setup.title, index)}
             big={big}
