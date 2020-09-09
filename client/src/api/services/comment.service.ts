@@ -20,3 +20,7 @@ export const createComment = async (data: CommentCreationAttributes): Promise<Co
   const comment: Comment = await webApi.post(endpoint, data);
   return comment;
 };
+
+export const deleteComment = async (id: number): Promise<void> => {
+  return await webApi.delete(`${endpoint}/${id}`);
+};

@@ -20,6 +20,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
 
     this.getSetupComments = this.getSetupComments.bind(this);
     this.onCreateComment = this.onCreateComment.bind(this);
+    this.onDeleteComment = this.onDeleteComment.bind(this);
     this.onRatingSet = this.onRatingSet.bind(this);
   }
 
@@ -36,8 +37,14 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   };
 
   public onCreateComment = (value: string) => {
+    console.log(value);
     const id: string = this.props.match.params.id;
     this.props.createSetupComment({ id: +id, value: value });
+  };
+
+  public onDeleteComment = (id: number) => {
+    console.log(id);
+    this.props.deleteSetupComment({ id: +id, idSetup: this.props.state.setup?.id as number });
   };
 
   public onRatingSet(value: number) {
@@ -54,6 +61,8 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     if (!setup) {
       return <Spinner />;
     }
+    console.log(this.props.state);
+    console.log(this.props.state.comments);
 
     const { cpu, gpu, motherboard, powerSupply, ram } = setup;
     return (
@@ -115,13 +124,14 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                   power: { as: 'Power' },
                 }}
               />
-              {this.props.state?.comments && (
+              {this.props.state.comments && (
                 <Comments
                   commentsPerPage={commentsPerPage}
                   commentsTotal={commentsCountTotal}
                   comments={this.props.state.comments}
                   rootClassName={styles.commentsRoot}
                   onCreateComment={this.onCreateComment}
+                  onDeleteComment={this.onDeleteComment}
                   onPaginationToggle={this.getSetupComments}
                 />
               )}

@@ -22,6 +22,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
 
     this.getSetupComments = this.getSetupComments.bind(this);
     this.onCreateComment = this.onCreateComment.bind(this);
+    this.onDeleteComment = this.onDeleteComment.bind(this);
     this.onRatingSet = this.onRatingSet.bind(this);
     this.commentRef = React.createRef();
     if (this.props.match.params.commentId) {
@@ -64,6 +65,10 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   public onCreateComment = (value: string) => {
     const id: string = this.props.match.params.id;
     this.props.createSetupComment({ id: +id, value: value });
+  };
+
+  public onDeleteComment = (id: number) => {
+    this.props.deleteSetupComment({ id: +id, idSetup: this.props.state.setup?.id as number });
   };
 
   public onRatingSet(value: number) {
@@ -162,6 +167,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                     comments={this.props.state.comments}
                     rootClassName={styles.commentsRoot}
                     onCreateComment={this.onCreateComment}
+                    onDeleteComment={this.onDeleteComment}
                     onPaginationToggle={this.getSetupComments}
                     commentPaginationPage={this.state.commentPage}
                     commentId={this.scrollToCommentId}

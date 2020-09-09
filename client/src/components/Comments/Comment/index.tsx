@@ -40,19 +40,27 @@ interface Props {
   currentUser: User | null;
   likeCommentAction: (commentId: number) => CommentLikeRequestAction;
   disLikeCommentAction: (commentId: number) => CommentLikeRequestAction;
+  deleteCommentAction: (id: number) => void;
   commentRef?: React.RefObject<HTMLDivElement>;
   highlight?: boolean;
 }
 
 const CommentComponent: React.FC<Props> = (props): JSX.Element => {
   const materialStyles = useStyles();
-  const { comment, likeCommentAction, disLikeCommentAction, currentUser, commentRef, highlight } = props;
+  const {
+    comment,
+    likeCommentAction,
+    disLikeCommentAction,
+    currentUser,
+    deleteCommentAction,
+    commentRef,
+    highlight,
+  } = props;
   const [countLikes, setCountLikes] = useState(comment.countLikes);
   const [countDisLikes, setCountDisLikes] = useState(comment.countDislikes);
   const [isLikedByCurrentUser, setIsLikedByCurrentUser] = useState(comment.isLikedByCurrentUser);
   const [isDisLikedByCurrentUser, setIsDisLikedByCurrentUser] = useState(comment.isDislikedByCurrentUser);
   const [displayConfirmDeletion, setdisplayConfirmDeletion] = useState(false);
-  const [test, settest] = useState(false);
 
   const showConfirmDeletionModal = () => {
     setdisplayConfirmDeletion(true);
@@ -65,9 +73,7 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
   };
 
   const OnDelete = (id: number): void => {
-    console.log(`delete ${id}`);
-    console.log(test);
-    settest(!test);
+    deleteCommentAction(id);
     hideConfirmDeletionModal();
   };
 
@@ -90,7 +96,6 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
     setCountDisLikes(props.state.countDisLikes);
     setIsDisLikedByCurrentUser(!isDisLikedByCurrentUser);
   }
-  console.log(test);
   const userName = currentUser ? (currentUser.name ? currentUser.name : currentUser.email) : `Incognito user`;
   return (
     <li className={styles.commentRoot}>
