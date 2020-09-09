@@ -14,6 +14,7 @@ export type TypeResponseAllCpus = {
 const endpoint = '/cpus';
 
 export const getAllCpu = async (filter: CpuFilter): Promise<TypeResponseAllCpus> => {
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
   const isMultipleSocketFilter: boolean = filter.socketId?.includes(',') || false;
   const serverFilter: CpuFilter = {
     count: filter.count,
