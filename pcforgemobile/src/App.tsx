@@ -25,7 +25,7 @@ export default class App extends React.PureComponent {
         {/** Any change to theme won't be applied untill app reload */}
         <Drawer navigate={this.navigate}>
           <StyleProvider style={getTheme(material as any)}>
-            <NavigationContainer ref={(ref) => {this.navigatorRef = ref; console.log(ref, this.navigatorRef, 'ref')}}>
+            <NavigationContainer ref={(ref) => this.navigatorRef = ref}>
                 <Router>
                   {routes.map(routeProps => <Route {...routeProps} key={routeProps.name} />)}
                 </Router>
