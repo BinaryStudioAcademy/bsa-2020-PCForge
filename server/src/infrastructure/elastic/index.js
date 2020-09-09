@@ -1,4 +1,5 @@
 const { ElasticService } = require('../../api/services/elsticsearch.service');
+console.log('ElasticService', ElasticService);
 const { Sequelize } = require('sequelize');
 const config = require('../../../config/db.config');
 const { database, username, password, ...params } = config;
@@ -31,16 +32,16 @@ const start = async () => {
     const setupsElasticInstance = new ElasticService('setups');
     const ssdsElasticInstance = new ElasticService('ssds');
 
-    await cpusElasticInstance.deleteIndexIfExist('cpus');
-    await gamesElasticInstance.deleteIndexIfExist('games');
-    await gpusElasticInstance.deleteIndexIfExist('gpus');
-    await hddsElasticInstance.deleteIndexIfExist('hdds');
-    await motherboardsElasticInstance.deleteIndexIfExist('motherboards');
-    await newsElasticInstance.deleteIndexIfExist('news');
-    await powersuppliesElasticInstance.deleteIndexIfExist('powersupplies');
-    await ramsElasticInstance.deleteIndexIfExist('rams');
-    await setupsElasticInstance.deleteIndexIfExist('setups');
-    await ssdsElasticInstance.deleteIndexIfExist('ssds');
+    await cpusElasticInstance.removeIndexIfExist('cpus');
+    await gamesElasticInstance.removeIndexIfExist('games');
+    await gpusElasticInstance.removeIndexIfExist('gpus');
+    await hddsElasticInstance.removeIndexIfExist('hdds');
+    await motherboardsElasticInstance.removeIndexIfExist('motherboards');
+    await newsElasticInstance.removeIndexIfExist('news');
+    await powersuppliesElasticInstance.removeIndexIfExist('powersupplies');
+    await ramsElasticInstance.removeIndexIfExist('rams');
+    await setupsElasticInstance.removeIndexIfExist('setups');
+    await ssdsElasticInstance.removeIndexIfExist('ssds');
 
     await cpusElasticInstance.createIndexIfNotExist('cpus');
     await gamesElasticInstance.createIndexIfNotExist('games');
