@@ -202,23 +202,30 @@ export class HardwareService {
     return storages;
   }
 
-  addTypeAndM2(data: HddModel[], type: Component): SsdModel[] {
-    data.map((e) => {
-      e.setDataValue('type', Component.hdd);
-      if (!e.hasOwnProperty('m2'))
+  addTypeAndM2(data, type: Component): SsdModel[] {
+    const ssdData = data.map((e) => {
+      e.setDataValue('type', type);
+      if (type === Component.hdd) e.setDataValue('m2', false);
       return e;
     });
+    return ssdData;
   }
 
   async getTopStorages(filter: IStorageFilter): Promise<IWithMeta<SsdModel>> {
     if (filter.type === Component.ssd) {
       const storages = await this.getTopSsds(filter);
-      return storages;
+      return {
+        ...storages,
+        data: this.addTypeAndM2(storages.data, Component.ssd),
+      };
     }
 
     if (filter.type === Component.hdd) {
       const storages = await this.getTopHdds(filter);
-      return storages;
+      return {
+        ...storages,
+        data: this.addTypeAndM2(storages.data, Component.hdd),
+      };
     }
 
     const topSsdIdMap = await this.getTopComponentsId(Component.ssd);
