@@ -4,6 +4,7 @@ import SetupCard from 'components/SetupComponents/SetupCard';
 import Comments from 'components/Comments';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
+import CommentableType from 'common/enums/CommentableItems';
 import { ISetupProps, ISetupState } from './interfaces';
 import * as SetupActions from './actions';
 import { RootState } from 'redux/rootReducer';
@@ -37,13 +38,11 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   };
 
   public onCreateComment = (value: string) => {
-    console.log(value);
     const id: string = this.props.match.params.id;
     this.props.createSetupComment({ id: +id, value: value });
   };
 
   public onDeleteComment = (id: number) => {
-    console.log(id);
     this.props.deleteSetupComment({ id: +id, idSetup: this.props.state.setup?.id as number });
   };
 
@@ -61,8 +60,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     if (!setup) {
       return <Spinner />;
     }
-    console.log(this.props.state);
-    console.log(this.props.state.comments);
 
     const { cpu, gpu, motherboard, powerSupply, ram } = setup;
     return (
@@ -124,7 +121,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                   power: { as: 'Power' },
                 }}
               />
-              {this.props.state.comments && (
+              {this.props.state.comments && this.props.state.setup && (
                 <Comments
                   commentsPerPage={commentsPerPage}
                   commentsTotal={commentsCountTotal}
@@ -133,6 +130,8 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                   onCreateComment={this.onCreateComment}
                   onDeleteComment={this.onDeleteComment}
                   onPaginationToggle={this.getSetupComments}
+                  commentableId={this.props.state.setup.id}
+                  commentableType={CommentableType.Setup}
                 />
               )}
             </div>

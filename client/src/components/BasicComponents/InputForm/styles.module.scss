@@ -1,17 +1,25 @@
 @import 'styles/variables.scss';
+$bg-color-input: #575858;
 
 .formControl {
   min-width: 200px !important;
   width: 100% !important;
   border: none;
 
-  /*input[type=text], input[type=number], input[type=textarea] {
+  input[type=text], input[type=number], input[type=textarea] {
     padding: 10px;
-  }*/
+    text-align: justify;
+  }
 
   & div {
-    background-color: white;
-    border-radius: 5px;
+    background-color: $bg-color-input;
+    border-radius: 20px;
+    color: $colorTextGray;
+
+    &::before,
+    &::after {
+      border: none !important;
+    }
   }
 
   legend {

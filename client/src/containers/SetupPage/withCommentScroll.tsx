@@ -4,6 +4,7 @@ import SetupCard from 'components/SetupComponents/SetupCard';
 import Comments from 'components/Comments';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
+import CommentableType from 'common/enums/CommentableItems';
 import { ISetupProps, ISetupState } from './interfaces';
 import * as SetupActions from './actions';
 import { RootState } from 'redux/rootReducer';
@@ -160,7 +161,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                     power: { as: 'Power' },
                   }}
                 />
-                {this.props.state?.comments && (
+                {this.props.state?.comments && this.props.state?.setup && (
                   <Comments
                     commentsPerPage={commentsPerPage}
                     commentsTotal={commentsCountTotal}
@@ -172,6 +173,8 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                     commentPaginationPage={this.state.commentPage}
                     commentId={this.scrollToCommentId}
                     commentRef={this.commentRef}
+                    commentableId={this.props.state.setup.id}
+                    commentableType={CommentableType.Setup}
                   />
                 )}
               </div>
