@@ -17,17 +17,19 @@ const endpoint = '/motherboards';
 export const getAllMotherboard = async (filter: MotherboardFilter): Promise<TypeResponseAll> => {
   const ramTypeMultiple: boolean = filter.ramTypeId?.includes(',') || false;
   const socketIdMultiple: boolean = filter.socketId?.includes(',') || false;
+  const isSataMultiple: boolean = filter.sata?.includes(',') || false;
 
   const serverFilter: MotherboardFilter = {
     count: filter.count,
     from: filter.from,
     m2: filter.m2,
     name: filter.name,
-    sata: filter.sata,
     ...(ramTypeMultiple && { ramTypeIds: filter.ramTypeId }),
     ...(!ramTypeMultiple && { ramTypeId: filter.ramTypeId }),
     ...(socketIdMultiple && { socketIds: filter.socketId }),
     ...(!socketIdMultiple && { socketId: filter.socketId }),
+    ...(isSataMultiple && { sataMultiple: filter.sata }),
+    ...(!isSataMultiple && { sata: filter.sata }),
   };
 
   return await webApi.get(endpoint, serverFilter);
