@@ -17,7 +17,7 @@ import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import Search from 'components/BuilderPage/Search';
 import styles from './styles.module.scss';
 import { useSelector } from 'react-redux';
-import { TypeSetup } from '../../../containers/BuilderPage/reducer';
+import { TypeSetup } from 'containers/BuilderPage/reducer';
 
 type PropsType = {
   groupName: GroupName;

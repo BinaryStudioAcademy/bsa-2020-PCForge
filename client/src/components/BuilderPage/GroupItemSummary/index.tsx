@@ -9,10 +9,9 @@ import Button from 'components/BasicComponents/Button';
 import defaultImg from 'assets/images/defaultImgGroup.png';
 import styles from './styles.module.scss';
 import TotalButtons from 'components/BuilderPage/TotalButtons';
-import { TypeComponent } from '../../../containers/BuilderPage/types';
-import { GroupName } from '../../../containers/BuilderPage/config';
+import { TypeComponent } from 'containers/BuilderPage/types';
+import { GroupName } from 'containers/BuilderPage/config';
 import { SpecificationComponent } from '../Specifications';
-import ListComponentsItem from '../ListComponentsItem';
 
 type PropsType = {
   id: string;
