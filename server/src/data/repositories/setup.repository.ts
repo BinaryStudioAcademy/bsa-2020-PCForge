@@ -272,11 +272,19 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
   }
 
   async forkSetup(id: string, userId: number): Promise<SetupModel> {
-    const setup = await this.model.findByPk(id);
+    const setup = await this.model.findByPk(id, {
+      group: ['setup.id', 'author.id'],
+      include: [
+        {
+          model: this.userModel,
+          as: 'author',
+        },
+      ],
+    });
     const dataToInsert = {
       parentId: setup.id,
       authorId: userId,
-      title: setup.title,
+      title: `${setup.title} by ${setup.author.name}`,
       description: setup.description,
       image: setup.image,
       cpuId: setup.get('cpuId'),
