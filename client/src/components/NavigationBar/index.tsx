@@ -159,8 +159,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     selectedMenuItem = selectedMenuItemNumber < listHeader.length ? selectedMenuItemNumber : 0;
   }
 
-  let buttons: IModalButton[];
-  buttons = [
+  const buttons: IModalButton[] = [
     {
       text: 'no',
       onClick: () => {

@@ -72,7 +72,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
 
   return (
     <Modal open={true}>
-      <h2 className={styles.modalTitle}>Save your Setup</h2>
+      <h2 className={styles.modalTitle}>{computerComponents?.id ? 'Update your Setup' : 'Save your Setup'}</h2>
       <form onSubmit={handleFileUpload} className={styles.body}>
         <div className={styles.fileInputBox}>
           <Button buttonType={ButtonType.primary} className={styles.fileInputButton}>
