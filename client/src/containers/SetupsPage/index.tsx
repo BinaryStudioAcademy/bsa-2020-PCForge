@@ -8,7 +8,7 @@ import Title from 'components/Title';
 import { RootState } from 'redux/rootReducer';
 import { fetchSetups, fetchTopSetups, changeSortType } from 'containers/SetupsPage/actions';
 import { ConnectedProps, connect } from 'react-redux';
-import { InputLabel, NativeSelect, FormControl, Box } from '@material-ui/core';
+import { InputLabel, FormControl, Box, Select, MenuItem } from '@material-ui/core';
 import Paginator from 'components/Paginator';
 import Spinner from 'components/Spinner';
 
@@ -31,8 +31,8 @@ const SetupPage: React.FC<PropsFromRedux> = ({
     fetchTopSetups();
   }, []);
 
-  const changeSortingType = (event: React.ChangeEvent<{ value: string }>) => {
-    changeSortType(event.target.value);
+  const changeSortingType = (event: React.ChangeEvent<{ value: unknown }>) => {
+    changeSortType(event.target.value as string);
     // fetchSetups({ ...pagination, sort: event.target.value, from: 0, count: filter.viewCount });
   };
 
@@ -65,14 +65,22 @@ const SetupPage: React.FC<PropsFromRedux> = ({
         </Box>
         <div className={showSpinner ? classes.hidden : classes.contentBody}>
           <Title title="Users Setups" />
+
           <FormControl className={classes.filter}>
-            <InputLabel htmlFor="select">Sort By</InputLabel>
-            <NativeSelect onChange={changeSortingType}>
-              <option value="mostRated">Top Rating</option>
-              <option value="oldest">Oldest</option>
-              <option value="commendable">Most Commented</option>
-              <option value="newest">Newest</option>
-            </NativeSelect>
+            <InputLabel htmlFor="select" className={classes.MuiInputLabelRoot}>
+              Sort By
+            </InputLabel>
+            <Select
+              onChange={changeSortingType}
+              defaultChecked={true}
+              defaultValue="mostRated"
+              className={classes.Select}
+            >
+              <MenuItem value="mostRated">Top Rating</MenuItem>
+              <MenuItem value="oldest">Oldest</MenuItem>
+              <MenuItem value="commendable">Most Commented</MenuItem>
+              <MenuItem value="newest">Newest</MenuItem>
+            </Select>
           </FormControl>
           <div className={classes.mainContent}>
             <div className={classes.leftContent}>
