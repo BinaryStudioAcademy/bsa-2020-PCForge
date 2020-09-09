@@ -49,20 +49,20 @@ const GameMatcherResult: React.FC<Props> = ({
   if (!cpu || !gpu || !ramSize) return <Redirect to={Routes.MATCHER} />;
 
   return (
-    <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
+    <PageComponent selectedMenuItemNumber={MenuItems.GameMatcher}>
       <div className={styles.gameMatcherRoot}>
         <div className={styles.content}>
           <h1 className={[sharedStyles.mainHeader, styles.pageHeader].join(' ')}>System overview</h1>
           <div className={styles.gameMatcherContentWrapper}>
             <main>
-              <GameMatcherSystemOverview
+              <GameMatcherSystemOverview cpu={cpu} gpu={gpu} ramSize={ramSize} overall={performance.overall} />
+              <GameMatcherPerformanceReport
                 cpu={cpu}
                 gpu={gpu}
                 ramSize={ramSize}
                 game={initialSelected}
-                overall={performance.overall}
+                report={performance.report}
               />
-              <GameMatcherPerformanceReport cpu={cpu} gpu={gpu} ramSize={ramSize} report={performance.report} />
               <GameMatcherFpsAnalysis fpsAnalysis={performance.fpsAnalysis} />
             </main>
 

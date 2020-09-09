@@ -1,7 +1,5 @@
 import { PCSetup } from 'common/models/setup';
 import { TypeResponseAllComments } from 'api/services/comment.service';
-import { Comment } from 'common/models/comment';
-import { Rate } from 'common/models/rate.model';
 
 export const GET_SETUP = 'GET_SETUP';
 export const GET_SETUP_SUCCESS = 'GET_SETUP_SUCCESS';

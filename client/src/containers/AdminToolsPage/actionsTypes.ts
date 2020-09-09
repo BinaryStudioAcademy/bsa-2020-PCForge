@@ -38,6 +38,7 @@ export interface IUsersRequestDeleteAction {
   type: UsersRequestActionTypes.DELETE_USER_ADDED_REQUESTS;
   payload: {
     id: number;
+    type: UserRequestDeleteType;
   };
 }
 
@@ -75,6 +76,8 @@ export interface UsersRequestState {
   countHardWares: number;
   countGames: number;
 }
+
+export type UserRequestDeleteType = 'approve' | 'disapprove';
 
 export type UsersRequestActions =
   | IUsersRequestActionSuccess

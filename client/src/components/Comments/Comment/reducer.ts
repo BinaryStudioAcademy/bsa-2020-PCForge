@@ -8,7 +8,7 @@ const initialState: LikeCommentState = {
   comment: undefined,
 };
 
-export default function LikeCommentReducer(state = initialState, action: CommentLikeRequestAction) {
+export default function LikeCommentReducer(state = initialState, action: CommentLikeRequestAction): LikeCommentState {
   switch (action.type) {
     case LikeCommentActionTypes.LIKE_COMMENT_SUCCESS: {
       return {

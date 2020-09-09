@@ -13,7 +13,7 @@ import {
   SET_TAB,
   LOAD_USER_FAILURE,
 } from './actionTypes';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 
 export interface IUserState {
   loadedUser: TypeUser | null;

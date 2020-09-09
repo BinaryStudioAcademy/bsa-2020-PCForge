@@ -5,16 +5,40 @@ import { CpuStatic } from '../models/cpu';
 import { GpuStatic } from '../models/gpu';
 import { IGameFilter } from './filters/game.filter';
 import { mergeFilters } from './filters/helper';
-import { Op } from 'sequelize';
+import sequelize, { Op, ProjectionAlias } from 'sequelize';
+import { CommentStatic } from '../models/comment';
+import { RateStatic } from '../models/rate';
 
 export class GameRepository extends BaseRepository<GameModel, GameCreationAttributes, IGameFilter> {
-  constructor(private model: GameStatic, private cpuModel: CpuStatic, private gpuModel: GpuStatic) {
+  constructor(
+    private model: GameStatic,
+    private cpuModel: CpuStatic,
+    private gpuModel: GpuStatic,
+    private commentModel: CommentStatic,
+    private rateModel: RateStatic
+  ) {
     super(<RichModel>model, IGameFilter);
   }
 
-  async getGameById(id: string): Promise<GameModel> {
+  async getGameById(id: string, requestingUserId?: number): Promise<GameModel> {
+    const include: (string | ProjectionAlias)[] = [
+      [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
+      [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+      [sequelize.literal('COUNT(DISTINCT "rates"."id")'), 'ratingCount'],
+    ];
+    if (requestingUserId) {
+      include.push([
+        sequelize.literal(
+          `SUM(DISTINCT CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
+        ),
+        'ownRating',
+      ]);
+    }
     const game = await this.model.findByPk(id, {
       group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
+      attributes: {
+        include: include,
+      },
       include: [
         {
           model: this.cpuModel,
@@ -31,6 +55,20 @@ export class GameRepository extends BaseRepository<GameModel, GameCreationAttrib
         {
           model: this.gpuModel,
           as: 'minimalGpu',
+        },
+        {
+          model: this.commentModel,
+          attributes: [],
+        },
+        {
+          model: this.rateModel,
+          on: {
+            ratebleId: {
+              [Op.col]: 'game.id',
+            },
+            ratebleType: 'game',
+          },
+          attributes: [],
         },
       ],
     });

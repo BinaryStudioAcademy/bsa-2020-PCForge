@@ -39,7 +39,7 @@
 
       &.selectedButton {
         background-color: $colorBlue;
-    }
+      }
 
       .logo {
         width: 40px;
@@ -61,3 +61,22 @@
     }
   }
 }
+
+.modalStyle {
+    
+  padding:20px;
+  div {
+    padding: 5px 0;
+  }
+  div:nth-child(3) {
+    padding-bottom: 0;
+
+    button:nth-child(2) {
+      background-color:transparent;
+      &:hover {
+      background-color: grey;
+      }
+    }
+  }
+}
+

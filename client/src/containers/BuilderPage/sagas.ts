@@ -31,6 +31,7 @@ const servicesGet = {
   [GroupName.powersupply]: getPowersupplies,
   [GroupName.hdd]: getHdd,
   [GroupName.ssd]: getSsd,
+  [GroupName.storage]: getSsd,
 };
 
 export function* fetchComponent(action: AnyAction) {

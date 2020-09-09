@@ -13,6 +13,7 @@ import NotFound from 'containers/NotFound';
 import Spinner from 'components/Spinner';
 import HardwareView from 'components/HardwareView';
 import TopGames from 'containers/TopGames';
+import { Box } from '@material-ui/core';
 
 class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   constructor(props: ISetupProps) {
@@ -28,7 +29,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   public componentDidMount() {
     const id: string = this.props.match.params.id;
     this.props.getSetup({ id: +id });
-    this.props.getSetupRate({ id: +id });
     this.getSetupComments({ count: 20, from: 0 });
   }
 
@@ -58,7 +58,13 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     }
 
     if (!setup) {
-      return <Spinner />;
+      return (
+        <PageComponent>
+          <Box className="spinnerWrapper">
+            <Spinner load />
+          </Box>
+        </PageComponent>
+      );
     }
 
     const { cpu, gpu, motherboard, powerSupply, ram } = setup;
@@ -72,7 +78,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                 setup={setup}
                 rateClickable
                 onForkClick={this.props.forkSetup}
-                rate={this.props.state.rate}
                 onRatingSet={this.onRatingSet}
               />
               <HardwareView

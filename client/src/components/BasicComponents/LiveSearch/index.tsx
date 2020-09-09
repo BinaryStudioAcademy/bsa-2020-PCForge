@@ -32,7 +32,7 @@ const LiveSearch: React.FC<Props> = ({ items, onItemSelected, onInputChanged, la
         getOptionLabel={(option) => option.title}
         onChange={onSelected}
         onInputChange={onInputChange}
-        style={{ width: 300 }}
+        style={{ width: '100%' }}
         renderInput={(params) => <TextField {...params} label={label} variant="outlined" />}
       />
     </>

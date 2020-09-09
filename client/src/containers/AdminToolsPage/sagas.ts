@@ -46,7 +46,7 @@ function* watchGetAllUsersRequests() {
 function* deleteUserRequestSaga(action: IUsersRequestDeleteAction) {
   try {
     yield put(updateUserRequestsLoadingComponentStatus(false));
-    yield call(deleteUserRequest, action.payload.id);
+    yield call(deleteUserRequest, action.payload.id, action.payload.type);
     const { data: usersRequests } = yield call(getAllUsersRequsts, {});
     const { meta: countGames } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.game });
     const { meta: countHardwares } = yield call(getAllUsersRequsts, { requestedType: UserRequestedType.hardware });

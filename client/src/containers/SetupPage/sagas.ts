@@ -163,7 +163,7 @@ function* watchForkSetup() {
   yield takeEvery(FORK_SETUP, forkSetup);
 }
 
-export default function* authSagas() {
+export default function* setupSagas() {
   yield all([
     watchGetSetup(),
     watchGetSetupComments(),

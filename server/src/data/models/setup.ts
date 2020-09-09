@@ -4,7 +4,6 @@ import { GpuAttributes } from './gpu';
 import { RamAttributes } from './ram';
 import { HddAttributes } from './hdd';
 import { SsdAttributes } from './ssd';
-import { CommentAttributes } from './comment';
 import { UserAttributes } from './user';
 
 export interface SetupAttributes {

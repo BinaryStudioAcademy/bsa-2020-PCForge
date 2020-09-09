@@ -30,8 +30,8 @@ const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
       <CardContent className={styles.content}>
         <h3 className={styles.title}>{news.title}</h3>
         <p className={styles.date}>{new Date(news.createdAt).toDateString()}</p>
-        <Button className={styles.btnRead} buttonType={ButtonType.primary}>
-          Read Article
+        <Button icon="ArrowForward" className={styles.btnRead} buttonType={ButtonType.primary}>
+          Read
         </Button>
       </CardContent>
     </Card>

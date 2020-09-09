@@ -27,6 +27,7 @@ import { IUserRequestFilter } from 'api/services/addUserRequestService';
 
 import * as actions from './actions';
 import { UsersRequestState, UsersRequestActions } from './actionsTypes';
+import { UserRequestDeleteType } from 'containers/AdminToolsPage/actionsTypes';
 
 import styles from './styles.module.scss';
 import { Box } from '@material-ui/core';
@@ -35,7 +36,7 @@ interface IPropsAdminToolsPage {
   state: UsersRequestState;
   historyPage: History;
   getUsersRequests: (filters: IUserRequestFilter[]) => UsersRequestActions;
-  deleteUserRequest: (id: number) => UsersRequestActions;
+  deleteUserRequest: (id: number, type: UserRequestDeleteType) => UsersRequestActions;
   getTotalCounts: () => UsersRequestActions;
 }
 
