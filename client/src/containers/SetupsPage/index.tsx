@@ -70,7 +70,7 @@ const SetupPage: React.FC<PropsFromRedux> = ({
             <NativeSelect onChange={changeSortingType}>
               <option value="mostRated">Top Rating</option>
               <option value="oldest">Oldest</option>
-              <option value="commendable">Most Commendable</option>
+              <option value="commendable">Most Commented</option>
               <option value="newest">Newest</option>
             </NativeSelect>
           </FormControl>
