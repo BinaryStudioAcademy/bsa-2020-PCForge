@@ -20,7 +20,8 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
   let { id: userId } = useParams();
   userId = parseInt(userId);
 
-  const handleDeleteGame: () => void = () => {
+  const handleDeleteGame: (event: React.MouseEvent) => void = (event: React.MouseEvent) => {
+    event.preventDefault();
     if (deleteUserGame && typeof id == 'number') {
       deleteUserGame(userId, id);
     }
