@@ -55,11 +55,9 @@ function* getSetupComments(action: IGetComments) {
       count: action.payload.count,
     };
     const comments: TypeResponseAllComments = yield call(getAllComments, filter);
-    console.log(comments.data);
     comments.data.sort((a, b) => {
       return a.id - b.id;
     });
-    console.log(comments);
     yield put({ type: GET_SETUP_COMMENTS_SUCCESS, payload: comments });
   } catch (e) {
     yield put(addAlert(alert.error('Failed to get setup comments')));
@@ -91,21 +89,9 @@ function* watchCreateSetupComment() {
 
 function* deleteSetupComment(action: IDeleteSetupComment) {
   try {
-    const filter: CommentFilter = {
-      commentableId: action.payload.idSetup,
-      commentableType: 'setup',
-      from: 0, //action.payload.from,
-      count: 20, //action.payload.count,
-    };
-    console.log(action.payload.id);
-    const comment = yield call(deleteComment, action.payload.id);
-    console.log('deleted Comment');
-    console.log(comment);
+    yield call(deleteComment, action.payload.id);
     yield put({ type: DELETE_SETUP_COMMENT_SUCCESS });
     yield put({ type: GET_SETUP_COMMENTS, payload: { id: action.payload.idSetup } });
-
-    //const comments: Comment[] = yield call(getAllComments, filter);
-    //yield put({ type: GET_SETUP_COMMENTS_SUCCESS, payload: comments });
   } catch (e) {
     yield put(addAlert(alert.error(e.message || 'Failed delete setup comment')));
   }

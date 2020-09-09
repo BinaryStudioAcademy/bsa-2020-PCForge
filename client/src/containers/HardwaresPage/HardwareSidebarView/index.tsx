@@ -5,6 +5,7 @@ import * as HardwareActions from './actions';
 import { RootState } from 'redux/rootReducer';
 import { connect } from 'react-redux';
 import Comments from 'components/Comments';
+import CommentableType from 'common/enums/CommentableItems';
 import Snackbar from 'components/BasicComponents/Snackbar';
 import { AlertType } from 'components/BasicComponents/Alert';
 import RatingBox from 'components/BasicComponents/RatingBox';
@@ -61,6 +62,10 @@ class HardwareSidebarView extends React.PureComponent<IHardwareProps, State> {
     this.props.createHardwareComment({ id, value, type: this.props.type });
   }
 
+  public onDeleteComment = (id: number) => {
+    this.props.deleteHardwareComment({ id: +id, idHardware: this.props.hardware?.id as number });
+  };
+
   public getHardwareComments(meta: { count: number; from: number }) {
     const id: number = +this.props.hardware!.id!;
     this.props.getHardwareComments({ id, type: this.props.type, ...meta });
@@ -83,6 +88,8 @@ class HardwareSidebarView extends React.PureComponent<IHardwareProps, State> {
       return null;
     }
 
+    console.log(this.props.type);
+
     return (
       <>
         <div className={styles.hardwareRoot}>
@@ -100,7 +107,10 @@ class HardwareSidebarView extends React.PureComponent<IHardwareProps, State> {
                   rootClassName={styles.commentsRoot}
                   buttonClassName={styles.addCommentButton}
                   onCreateComment={this.onCreateComment}
+                  onDeleteComment={this.onDeleteComment}
                   onPaginationToggle={this.getHardwareComments}
+                  commentableId={+hardware.id}
+                  commentableType={this.props.type as CommentableType}
                 />
               )}
             </div>

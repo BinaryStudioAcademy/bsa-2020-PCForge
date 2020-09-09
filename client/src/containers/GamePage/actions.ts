@@ -1,6 +1,7 @@
 import {
   GameActionTypes,
   CREATE_GAME_COMMENT,
+  DELETE_GAME_COMMENT,
   GET_GAME,
   GET_GAME_COMMENTS,
   GET_GAME_RATE,
@@ -19,6 +20,11 @@ export const getGameComments = (payload: { id: number; count: number; from: numb
 
 export const createGameComment = (payload: { id: number; value: string }): GameActionTypes => ({
   type: CREATE_GAME_COMMENT,
+  payload,
+});
+
+export const deleteGameComment = (payload: { id: number; idGame: number }): GameActionTypes => ({
+  type: DELETE_GAME_COMMENT,
   payload,
 });
 

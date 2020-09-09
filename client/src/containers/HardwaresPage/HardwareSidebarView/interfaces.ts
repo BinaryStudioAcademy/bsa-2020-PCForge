@@ -16,6 +16,7 @@ export interface IHardwareProps {
   }) => HardwareActionTypes;
   getHardwareRate: (payload: { id: number; type: hardwareTypes }) => HardwareActionTypes;
   createHardwareComment: (payload: { id: number; value: string; type: hardwareTypes }) => HardwareActionTypes;
+  deleteHardwareComment: (payload: { id: number; idHardware: number }) => HardwareActionTypes;
   setHardwareRate: (payload: { id: number; value: number; type: hardwareTypes }) => HardwareActionTypes;
   wipeSnackbarData: () => HardwareActionTypes;
 }
