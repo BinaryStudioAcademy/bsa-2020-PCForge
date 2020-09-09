@@ -22,8 +22,13 @@ export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, Cpu
   }
 
   async getAllCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
-    const ids = await elastic.searchIDs({ input: filter.searchString, searchFields: ['name'], countValue: 10 });
-    filter.id = ids.length ? ids : [0];
+    if (filter.name) {
+      const ids = await elastic.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
     const cpus = await this.repository.getAllCpus(filter);
     return cpus;
   }

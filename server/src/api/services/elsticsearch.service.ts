@@ -1,8 +1,9 @@
 import { Client } from '@elastic/elasticsearch';
+import { FilterByNameType } from '../../data/repositories/filters/types';
 const elasticNode = process.env.ELASTIC_NODE || 'http://localhost:9200';
 
 export interface ISearchProperties {
-  input: string;
+  input: FilterByNameType;
   searchFields: Array<string>;
   countValue?: number;
 }
@@ -84,6 +85,9 @@ export class ElasticService {
   }
 
   async searchIDs(searchProperty: ISearchProperties) {
+    console.log('ElasticService -> searchIDs -> searchProperty', searchProperty);
+    console.log('ElasticService -> searchIDs -> this.documentIndex', this.documentIndex);
+
     const { body } = await elasticClient.search({
       index: this.documentIndex,
       body: {
@@ -96,7 +100,21 @@ export class ElasticService {
         },
       },
     });
+    console.log('ElasticService -> searchIDs -> body', body);
 
     return body.hits.hits.map((hit) => hit._source.id) as number[];
   }
 }
+
+export const elasticServices = {
+  cpus: new ElasticService('cpus'),
+  gpus: new ElasticService('gpus'),
+  games: new ElasticService('games'),
+  rams: new ElasticService('rams'),
+  setups: new ElasticService('setups'),
+  news: new ElasticService('news'),
+  ssds: new ElasticService('ssds'),
+  hdds: new ElasticService('hdds'),
+  motherboards: new ElasticService('motherboards'),
+  powersupplies: new ElasticService('powersupplies'),
+};
