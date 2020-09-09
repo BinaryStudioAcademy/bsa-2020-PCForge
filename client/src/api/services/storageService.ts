@@ -19,6 +19,6 @@ export const getAllStorage = async (filter: TypeFilter): Promise<TypeResponseAll
     ...(!isSataMultiple && { sata: filter.sata }),
     'capacity[maxValue]': filter['capacity[maxValue]'],
     'capacity[minValue]': filter['capacity[minValue]'],
-  }
+  };
   return await webApi.get(endpoint, serverFilter);
 };
