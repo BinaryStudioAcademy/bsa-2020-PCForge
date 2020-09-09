@@ -4,15 +4,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
+import styles from './styles.module.scss';
 
 export interface IModalButton {
-  title: string;
+  text: string;
   onClick: () => void;
   buttonType?: ButtonType;
   icon?: string;
+  variant?: 'text' | 'outlined' | 'contained';
 }
 
-interface IModalProps {
+export interface IModalProps {
   open: boolean;
   title?: string;
   buttons?: IModalButton[];
@@ -29,7 +31,7 @@ const Modal: React.FC<DialogProps & IModalProps> = (props) => {
         <DialogActions>
           {buttons.map((button, index) => (
             <Button {...button} key={index}>
-              {button.title}
+              {button.text}
             </Button>
           ))}
         </DialogActions>

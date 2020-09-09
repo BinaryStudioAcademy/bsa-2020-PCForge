@@ -27,13 +27,18 @@
   }
 }
 .itemWrapper:hover {
-  background-color: $colorBlue;
+  background-color: $colorDarkBlue;
   .item {
-    border-color: $colorBlue;
+    border-color: $colorDarkBlue;
+  }
+  .itemTextTitle {
+    color: #ffffff;
   }
 }
 
 .item {
+  color: #ffffff;
+  text-decoration: none;
   box-sizing: border-box;
   display: flex;
   transition: all 0.3s ease;
@@ -52,6 +57,14 @@
 .itemText {
   margin-left: 15px;
   margin-top: 0px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.4em;
+  max-height: 4.4em;
 }
 
 .itemTextTitle {
@@ -59,6 +72,10 @@
   font-size: 14px;
   margin: 0;
   color: $colorTextOrange;
+  text-transform: uppercase;
+  font-family: Lato;
+  font-weight: bold;
+  transition: all 0.3s ease;
 }
 
 .itemTextDescription {

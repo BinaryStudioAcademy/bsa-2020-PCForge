@@ -1,61 +1,98 @@
 import React, { Component } from 'react';
-import { Game } from 'common/models/game';
 import { MenuItems } from 'common/enums/MenuItems';
 import PageComponent from 'containers/PageComponent';
-import { CardMedia, Container, Grid, Table, TableBody, TableCell, TableRow } from '@material-ui/core';
+import { Box, CardMedia, Container, Grid, Table, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
 import Divider from 'components/BasicComponents/Divider';
 import styles from 'containers/GamePage/styles.module.scss';
-import RatingBox from 'components/BasicComponents/RatingBox';
 import Comments from 'components/Comments';
-import { Comment } from 'common/models/comment';
+import { IGamePageProps, IGamePageState } from './interfaces';
+import { RootState } from 'redux/rootReducer';
+import * as GameActions from 'containers/GamePage/actions';
+import { connect } from 'react-redux';
+import NotFound from '../NotFound';
+import Spinner from 'components/Spinner';
+import ExtendedRatingBox from 'components/BasicComponents/ExtendedRatingBox';
 
-interface IGamePageState {
-  rate: number;
-  game: Game;
-  comments: Comment[];
-}
-
-class GamePage extends Component<Record<string, unknown>, IGamePageState> {
-  constructor(props: Record<string, unknown>) {
-    const { rate, game, comments } = mockGame();
+class GamePage extends Component<IGamePageProps, IGamePageState> {
+  constructor(props: IGamePageProps) {
     super(props);
-    this.state = {
-      rate,
-      game,
-      comments,
-    };
   }
 
+  componentDidMount() {
+    const id: string = this.props.match.params.id;
+    this.props.getGame({ id: +id });
+    this.props.getGameRate({ id: +id });
+    this.getGameComments({ count: 20, from: 0 });
+  }
+
+  public getGameComments = (meta: { count: number; from: number }) => {
+    const id: number = +this.props.match.params.id;
+    this.props.getGameComments({ id, ...meta });
+  };
+
+  public onCreateComment = (value: string) => {
+    const id: string = this.props.match.params.id;
+    this.props.createGameComment({ id: +id, value: value });
+  };
+
+  public onRatingSet = (value: number) => {
+    this.props.setGameRate({ id: +this.props.match.params.id, value });
+  };
+
   render(): JSX.Element {
-    const game = this.state.game;
+    const { game, comments, hasErrorDuringGameFetch, commentsPerPage, commentsCountTotal } = this.props;
+
+    if (hasErrorDuringGameFetch) {
+      return <NotFound history={this.props.history} location={this.props.location} match={this.props.match} />;
+    }
+
+    if (!game) {
+      return (
+        <PageComponent>
+          <Box className="spinnerWrapper">
+            <Spinner load />
+          </Box>
+        </PageComponent>
+      );
+    }
+
     return (
       <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
         <Container className={styles.mainWrapper}>
           <Grid className={styles.contentWrapper}>
-            <Grid className={styles.gameWrapper} container direction="row">
-              <div className={styles.infoWrapper}>
-                <Grid className={styles.titleWrapper} item xs={12} container alignItems="center">
-                  <h1 className={styles.gameTitle}>{game.name}</h1>
-                  <div className={styles.ratingBox}>
-                    <RatingBox name="setup-card" ratingValue={this.state.rate} disabled={false} />
-                  </div>
+            <Grid className={styles.gameWrapper} xs={12} container direction="column">
+              <Grid className={styles.infoWrapper} item xs={12} container alignItems="center">
+                <Grid item xs={12} md={7} lg={8}>
+                  <Grid className={styles.titleWrapper} item xs={12} container alignItems="center">
+                    <h1 className={styles.gameTitle}>{game.name}</h1>
+                  </Grid>
+                  <Grid className={styles.gameRelease} item xs={12} container alignItems="center">
+                    <span className={styles.fieldName}>{'Release Year: '}</span> {game.year}
+                  </Grid>
                 </Grid>
-                <div className={styles.gameRelease}>
-                  <span className={styles.fieldName}>Year:</span> {game.year}
-                </div>
-                <div className={styles.gameDescription}>
-                  <span className={styles.fieldName}>Description:</span>
-                  <br />
-                  {game.description}
-                </div>
-              </div>
-              <div className={styles.imageWrapper}>
-                <CardMedia className={styles.imageItem} component="img" src={game.image} />
-              </div>
+                <Grid className={styles.imageWrapper} item xs={12} md={5} lg={4}>
+                  <CardMedia className={styles.imageItem} component="img" src={game.image} />
+                  <Grid className={styles.ratingBox} item xs={12} container alignItems="center" justify="center">
+                    <ExtendedRatingBox
+                      averageValue={game.rating}
+                      ratingCount={game.ratingCount}
+                      ownRating={game.ownRating}
+                      name={`game_${game.id}_rating`}
+                      onValueSet={this.onRatingSet}
+                      clickable={true}
+                    />
+                  </Grid>
+                </Grid>
+              </Grid>
+              <Grid className={styles.gameDescription} item xs={12}>
+                <span className={styles.fieldName}>Description:</span>
+                <br />
+                <pre>{game.description}</pre>
+              </Grid>
             </Grid>
             <Grid className={styles.requirementsWrapper} container direction="row" justify="space-between">
-              <Grid item xs={12} md={5} className={styles.minimalRequirements}>
-                <h2>Minimal Requirements</h2>
+              <Grid item xs={12} md={6} lg={5} className={styles.minimalRequirements}>
+                <Typography variant="h2">Minimal Requirements</Typography>
                 <Table>
                   <TableBody>
                     <TableRow key="CPU">
@@ -73,8 +110,8 @@ class GamePage extends Component<Record<string, unknown>, IGamePageState> {
                   </TableBody>
                 </Table>
               </Grid>
-              <Grid className={styles.recommendedRequirements} item xs={12} md={5}>
-                <h2>Recommended Requirements</h2>
+              <Grid className={styles.recommendedRequirements} item xs={12} md={6} lg={5}>
+                <Typography variant="h2">Recommended Requirements</Typography>
                 <Table>
                   <TableBody>
                     <TableRow key="CPU">
@@ -95,13 +132,15 @@ class GamePage extends Component<Record<string, unknown>, IGamePageState> {
             </Grid>
             <Divider />
             <Grid className={styles.commentsWrapper} container direction="column">
-              <Comments
-                commentsPerPage={2}
-                commentsTotal={20}
-                comments={this.state.comments}
-                onCreateComment={console.log}
-                onPaginationToggle={console.log}
-              />
+              {comments && (
+                <Comments
+                  commentsPerPage={commentsPerPage}
+                  commentsTotal={commentsCountTotal}
+                  comments={comments}
+                  onCreateComment={this.onCreateComment}
+                  onPaginationToggle={this.getGameComments}
+                />
+              )}
             </Grid>
           </Grid>
         </Container>
@@ -110,108 +149,19 @@ class GamePage extends Component<Record<string, unknown>, IGamePageState> {
   }
 }
 
-function mockGame(): IGamePageState {
+const mapStateToProps = (state: RootState) => {
   return {
-    game: {
-      id: 1,
-      name: 'Hardspace: Shipbreaker',
-      year: 2020,
-      image: 'https://steamcdn-a.akamaihd.net/steam/apps/1161580/header.jpg',
-      description:
-        'Across your career, you’ll have the privilege of paying your debt to us by purchasing salvaging rights to increasingly large and valuable ships. Cut them open and extract as much value as possible! You are equipped with the latest in LYNX tech. Carve entry points, salvage valuable materials and components with your cutting tool or slice scrap metal at any angle into a million pieces as you ponder a lonely existence… the possibilities are endless! Be cautious – dying is extremely unprofitable. We strongly advise upgrading your tools, helmet and suit to take on more lucrative contracts - all you need to worry about is how you’ll pay for it! JOIN THE COMMUNITY\n' +
-        'Hardspace: Shipbreaker is a game in early access. Don’t hesitate to join our official server and share your feedback with the development team so that we can improve Hardspace: Shipbreaker together.',
-      recommendedRamSize: 16,
-      minimalRamSize: 8,
-      createdAt: new Date('2020-08-10 04:54:27.906+03'),
-      updatedAt: new Date('2020-08-10 04:54:27.906+03'),
-      recommendedCpu: {
-        id: 759,
-        name: 'AMD Ryzen 5 2600',
-        performance: 13210,
-        clockspeed: 3400,
-        tdp: 65,
-        cores: 6,
-        class: 'Desktop',
-        createdAt: new Date('2020-08-10 04:54:26.563+03'),
-        updatedAt: new Date('2020-08-10 04:54:26.563+03'),
-      },
-      minimalCpu: {
-        id: 566,
-        name: 'AMD Ryzen 3 1300X',
-        performance: 7013,
-        clockspeed: 3500,
-        tdp: 65,
-        cores: 4,
-        class: 'Desktop',
-        createdAt: new Date('2020-08-10 04:54:26.284+03'),
-        updatedAt: new Date('2020-08-10 04:54:26.284+03'),
-      },
-      recommendedGpu: {
-        id: 489,
-        name: 'Radeon RX Vega 56',
-        interface: 'PCIe 3.0 x16',
-        memorySize: 8192,
-        coreClocks: 1471,
-        opengl: '4.5',
-        tdp: 210,
-        performance: 13281,
-        createdAt: new Date('2020-08-10 04:54:24.967+03'),
-        updatedAt: new Date('2020-08-10 04:54:24.967+03'),
-      },
-      minimalGpu: {
-        id: 463,
-        name: 'Radeon R9 380',
-        interface: 'PCIe 3.0 x16',
-        memorySize: 4096,
-        coreClocks: 970,
-        opengl: '4.6',
-        tdp: 190,
-        performance: 6085,
-        createdAt: new Date('2020-08-10 04:54:24.967+03'),
-        updatedAt: new Date('2020-08-10 04:54:24.967+03'),
-      },
-    },
-    rate: 4.7,
-    comments: [
-      /*  {
-        id: 1,
-        authorId: 1,
-        author: 'Benedict Cumberbatch',
-        value: 'Nice Game. I like it!',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        countLikes: 2,
-        countDislikes: 4,
-        isLikedByUser?: true,
-        isDislikedByUser?: false,
-      },
-      {
-        id: 2,
-        authorId: 2,
-        author: 'Brandenburg Königsberg',
-        value: 'Playing this game for hours. You should try it.',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        countLikes: 2,
-        countDislikes: 4,
-        isLikedByUser?: true,
-        isDislikedByUser?: false,
-      },
-      {
-        id: 3,
-        authorId: 3,
-        author: 'Battlefield Overwatch',
-        value: '10/10.',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        countLikes: 2,
-        countDislikes: 4,
-        isLikedByUser?: true,
-        isDislikedByUser?: false,
-      },
-      ,*/
-    ],
+    rate: state.gamePage.rate,
+    game: state.gamePage.game,
+    comments: state.gamePage.comments,
+    commentsPerPage: state.gamePage.commentsPerPage,
+    commentsCountTotal: state.gamePage.commentsCountTotal,
+    hasErrorDuringGameFetch: state.gamePage.hasErrorDuringGameFetch,
   };
-}
+};
 
-export default GamePage;
+const mapDispatchToProps = GameActions;
+
+const connector = connect(mapStateToProps, mapDispatchToProps)(GamePage);
+
+export default connector;

@@ -100,10 +100,5 @@ function* watchAddHardwareRate() {
 }
 
 export default function* hardwareSagas() {
-  yield all([
-    watchGetHardwareComments(),
-    watchCreateHardwareComment(),
-    watchGetHardwareRate(),
-    watchAddHardwareRate()
-  ]);
+  yield all([watchGetHardwareComments(), watchCreateHardwareComment(), watchGetHardwareRate(), watchAddHardwareRate()]);
 }

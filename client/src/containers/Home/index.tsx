@@ -37,7 +37,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
       );
     } else {
       return (
-        <div>
+        <div className={styles.wholeContentContainer}>
           <Title />
           {children}
           {!!setups?.length && (

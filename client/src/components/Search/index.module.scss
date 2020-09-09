@@ -1,12 +1,12 @@
 .container {
-  max-width: 213px;
-  height: 38px;
+  width: 350px;
+  height: 45px;
   background-color: #3c444c;
-  border-radius: 20px !important;
+  border-radius: 25px !important;
   padding: 6px;
 
-  @media(max-width:768px) {
-    max-width: 90%;
+  @media(max-width:850px) {
+    max-width: 100%;
   }
 
   input::placeholder {

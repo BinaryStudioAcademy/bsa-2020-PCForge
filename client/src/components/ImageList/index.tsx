@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { GridList, GridListTile, Tooltip } from '@material-ui/core';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
@@ -66,9 +65,9 @@ const ImageList: React.FC<IImageListProps> = ({
   function useHorizontalScroll() {
     const elementRef = React.useRef<HTMLUListElement>();
     React.useEffect(() => {
-      const element = elementRef.current as any;
+      const element = elementRef.current;
       if (element) {
-        const onWheel = (event: any) => {
+        const onWheel = (event: WheelEvent) => {
           event.preventDefault();
           element.scrollTo({
             left: element.scrollLeft + event.deltaY,

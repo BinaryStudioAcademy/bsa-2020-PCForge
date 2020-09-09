@@ -10,7 +10,6 @@ import Button, { ButtonType } from 'components/BasicComponents/Button';
 
 interface Props {
   setup: PCSetup;
-  rate: number;
   rateClickable: boolean;
   onRatingSet: (value: number) => void;
   onForkClick: (setupId: number) => void;

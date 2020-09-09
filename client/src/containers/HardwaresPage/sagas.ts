@@ -53,7 +53,7 @@ function* getHardwares(action: IGetHardwares) {
     };
     yield put({ type: HARDWARES_GET_HARDWARES_SUCESS, payload });
   } catch (e) {
-     yield put(addAlert(alert.error('Failed to load hardwares')));
+    yield put(addAlert(alert.error('Failed to load hardwares')));
   }
 }
 
@@ -62,7 +62,5 @@ function* watchGetHardwares() {
 }
 
 export default function* hardwaresSagas() {
-  yield all([
-    watchGetHardwares()
-  ]);
+  yield all([watchGetHardwares()]);
 }

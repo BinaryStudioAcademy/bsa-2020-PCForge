@@ -1,9 +1,10 @@
-export enum TokenType {
+export enum LoginType {
   simple = 'simple',
+  google = 'google',
 }
 
 const keyToken = 'access_token';
-const keyTokenType = 'access_token_type';
+const keyLoginType = 'login_type';
 
 export const getToken = (): string | null => {
   return window.localStorage.getItem(keyToken);
@@ -19,13 +20,13 @@ export const setToken = async (token: string): Promise<void> => {
 
 export const clearToken = async (): Promise<void> => {
   window.localStorage.removeItem(keyToken);
-  window.localStorage.removeItem(keyTokenType);
+  window.localStorage.removeItem(keyLoginType);
 };
 
-export const getTokenType = (): TokenType => {
-  return (window.localStorage.getItem(keyTokenType) || TokenType.simple) as TokenType;
+export const getLoginType = (): LoginType => {
+  return (window.localStorage.getItem(keyLoginType) || LoginType.simple) as LoginType;
 };
 
-export const setTokenType = (tokenType: TokenType): void => {
-  window.localStorage.setItem(keyTokenType, tokenType);
+export const setLoginType = (loginType: LoginType): void => {
+  window.localStorage.setItem(keyLoginType, loginType);
 };

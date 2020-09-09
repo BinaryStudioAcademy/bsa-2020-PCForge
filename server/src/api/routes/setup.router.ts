@@ -41,11 +41,11 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   });
 
   const getOneSchema = getOneQuery(DetailedSetupSchema, undefined);
-  fastify.get('/:id', getOneSchema, async function (request: GetSetupRequest) {
+  fastify.get('/:id', getOneSchema, async function (request: GetSetupRequest, reply) {
     allowForAuthorized(request);
     const { id } = request.params;
     const setup = await SetupService.getSetupById(id, request.user.id);
-    return setup;
+    reply.send(setup);
   });
 
   const createOneSchema = createOneQuery(CreateSetupSchema, DetailedSetupSchema);
@@ -54,7 +54,6 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     request.body.authorId = request.user.id;
     const data = { ...request.body };
     const setup = await SetupService.createSetup(data, setupMiddleware);
-
     reply.send(setup);
   });
 

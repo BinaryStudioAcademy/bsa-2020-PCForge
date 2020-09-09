@@ -41,7 +41,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/:id', getOneSchema, async (request: GetOneGameRequest, reply) => {
     allowForAuthorized(request);
     const { id } = request.params;
-    const game = await GameService.getGameById(id);
+    const game = await GameService.getGameById(id, request.user.id);
     reply.send(game);
   });
 

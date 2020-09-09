@@ -143,17 +143,26 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
       filter: filter,
       filters: {},
     },
+    // {
+    //   group: GroupName.hdd,
+    //   filter: filter,
+    //   filters: {
+    //     [FilterName.hdd]: {
+    //       enable: !setup[GroupName.motherboard],
+    //     },
+    //   },
+    // },
+    // {
+    //   group: GroupName.ssd,
+    //   filter: filter,
+    //   filters: {
+    //     [FilterName.hdd]: {
+    //       enable: !setup[GroupName.motherboard],
+    //     },
+    //   },
+    // },
     {
-      group: GroupName.hdd,
-      filter: filter,
-      filters: {
-        [FilterName.hdd]: {
-          enable: !setup[GroupName.motherboard],
-        },
-      },
-    },
-    {
-      group: GroupName.ssd,
+      group: GroupName.storage,
       filter: filter,
       filters: {
         [FilterName.hdd]: {
@@ -168,13 +177,24 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     if (config.count) additionalProps.count = config.count;
     if (config.countHandler) additionalProps.countHandler = config.countHandler;
 
+    const selectedComponent =
+      config.group !== GroupName.storage
+        ? { [config.group]: setup[config.group] }
+        : { [GroupName.ssd]: setup[GroupName.ssd], [GroupName.hdd]: setup[GroupName.hdd] };
+
+    // const selectedComponent =
+    //   config.group !== GroupName.storage
+    //     ? setup[config.group]
+    //     : { [GroupName.ssd]: setup[GroupName.ssd], [GroupName.hdd]: setup[GroupName.hdd] };
+
     return (
       <GroupComponent
         key={config.group}
         groupName={config.group}
         filter={config.filter}
         filtersUsed={config.filters}
-        selectedComponent={setup[config.group]}
+        // selectedComponent={setup[config.group]}
+        // selectedComponent={selectedComponent}
         onUpdateFilter={(filter) => setFilter(filter)}
         onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
         onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
@@ -206,23 +226,29 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
             {groups}
           </Grid>
           <Grid item xs={12} lg={4} xl={3} className={styles.summary}>
-            <BuilderSummary setup={setup} />
-            {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
-            {displayAddRequestOpen ? (
-              <ModalAddRequest onClose={hideAddHardwareModal} requestType={UserRequestedType.hardware} />
-            ) : null}
-            <Box className={styles.buttonWrapper}>
-              <Tooltip
-                title={
-                  'If you can not find needed hardware, you can create a request to admin about adding it to site! '
-                }
-                arrow
-              >
-                <Button buttonType={ButtonType.secondary} onClick={handleAddHardwareWindow}>
-                  Add Hardware
-                </Button>
-              </Tooltip>
-            </Box>
+            <Grid container spacing={5}>
+              <Grid item xs={12} md={6} lg={12}>
+                <BuilderSummary setup={setup} />
+              </Grid>
+              <Grid item xs={12} md={6} lg={12}>
+                {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
+                {displayAddRequestOpen ? (
+                  <ModalAddRequest onClose={hideAddHardwareModal} requestType={UserRequestedType.hardware} />
+                ) : null}
+                <Box className={styles.buttonWrapper}>
+                  <Tooltip
+                    title={
+                      'If you can not find needed hardware, you can create a request to admin about adding it to site! '
+                    }
+                    arrow
+                  >
+                    <Button buttonType={ButtonType.secondary} onClick={handleAddHardwareWindow}>
+                      Add Hardware
+                    </Button>
+                  </Tooltip>
+                </Box>
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Box>

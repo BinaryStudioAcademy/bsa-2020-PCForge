@@ -22,6 +22,7 @@ import { HardwaresReducer } from 'containers/HardwaresPage/reducer';
 import { TopGamesReducer } from 'containers/TopGames/redux/reducer';
 import { AlertsReducer } from 'containers/Alerts/redux/reducer';
 import ToastNotificationsReducer from 'containers/ToastNotifications/logic/reducer';
+import { GameReducer } from 'containers/GamePage/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -47,6 +48,7 @@ const RootReducer = combineReducers({
   notifications: NotificationsReducer,
   alerts: AlertsReducer,
   addRequest: AddRequestReducer,
+  gamePage: GameReducer,
 });
 
 export default RootReducer;
