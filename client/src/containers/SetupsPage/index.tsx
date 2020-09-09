@@ -64,7 +64,7 @@ const SetupPage: React.FC<PropsFromRedux> = ({
           <Spinner load />
         </Box>
         <div className={showSpinner ? classes.hidden : classes.contentBody}>
-          <Title title="User setups" />
+          <Title title="Users Setups" />
           <FormControl className={classes.filter}>
             <InputLabel htmlFor="select">Sort By</InputLabel>
             <NativeSelect onChange={changeSortingType}>
