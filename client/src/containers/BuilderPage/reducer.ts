@@ -15,7 +15,7 @@ import {
 import { setCount } from 'helpers/setupHelper';
 
 export type TypeSetup = {
-  id?: number;
+  id?: number | null;
   title?: string;
   description?: string;
   image?: string;
@@ -30,7 +30,7 @@ export type TypeSetup = {
 };
 
 export type TypeSetupForPost = {
-  id?: number;
+  id?: number | null;
   title?: string;
   description?: string;
   image?: string;
@@ -45,6 +45,10 @@ export type TypeSetupForPost = {
 };
 
 const initialState = {
+  id: null,
+  title: '',
+  description: '',
+  image: '',
   cpu: null,
   gpu: null,
   ram: null,
