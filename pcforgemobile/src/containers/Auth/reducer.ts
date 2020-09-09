@@ -18,7 +18,6 @@ export function AuthReducer(
   state: IAuthState = initialState,
   action: AuthActionTypes,
 ): IAuthState {
-  console.log(action);
   switch (action.type) {
     case AUTH_LOGIN_SUCCESS:
       return {
@@ -33,11 +32,10 @@ export function AuthReducer(
         errorMessage: action.payload.message,
       };
     case AUTH_SET_LOADER_STATE:
-      console.log('reducer', action.payload)
       return {
         ...state,
         loading: action.payload,
-      }
+      };
     default:
       return state;
   }

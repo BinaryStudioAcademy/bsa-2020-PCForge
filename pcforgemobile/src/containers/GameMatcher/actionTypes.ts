@@ -1,4 +1,4 @@
-import { Game } from '~/common/models/game.model';
+import { Game } from 'common/models/game.model';
 import { Cpu } from 'common/models/cpu.model';
 import { Gpu } from 'common/models/gpu.model';
 

@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import {AuthReducer} from 'containers/Auth/reducer';
 import {HomeReducer} from 'containers/Home/reducer';
-import {DrawerReducer} from 'components/basicComponent/Drawer/reducer';
+import {DrawerReducer} from 'containers/Drawer/reducer';
 
 const RootReducer = combineReducers({
   authReducer: AuthReducer,

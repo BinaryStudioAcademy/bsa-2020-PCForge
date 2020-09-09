@@ -5,7 +5,6 @@ import {IWithMeta} from 'common/interfaces/global';
 import {News} from 'common/models/news.model';
 
 function* getNews() {
-  console.log('saga called');
   try {
     const newsData: IWithMeta<News> = yield call(newsService.getMany);
     yield put({type: GET_NEWS_SUCCESS, payload: newsData});

@@ -1,48 +1,13 @@
-import React, {useState} from 'react';
-import {ListRenderItemInfo, Image} from 'react-native';
-import styles from './styles';
+import React from 'react';
 import * as HomeActions from './actions';
 import {RootState} from 'redux/rootReducer';
 import {connect} from 'react-redux';
 import {IHomeProps} from './interfaces';
-import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
-import {Container, Card, CardItem, Body, Text} from 'native-base';
+import {FlatList} from 'react-native-gesture-handler';
+import {Container} from 'native-base';
 import {News} from 'common/models/news.model';
-import {formatDateFromNow} from 'common/helpers/global.helper';
-
-const defaultImageUrl =
-  'https://s.dou.ua/img/announces/2_1_6Y7TRbx_02W4dCl_o369KF6.png';
-
-export const NewsItem = (newsItem: ListRenderItemInfo<News>) => {
-  const {item} = newsItem;
-  const {image, title, createdAt, updatedAt} = item;
-  const [imageUrl, setImageUrl] = useState(image);
-  return (
-    <TouchableOpacity>
-      <Card transparent style={styles.newsCard}>
-        <CardItem cardBody>
-          <Image
-            source={{uri: imageUrl}}
-            style={styles.newsImage}
-            onError={() =>
-              imageUrl !== defaultImageUrl ? setImageUrl(defaultImageUrl) : null
-            }
-          />
-        </CardItem>
-        <CardItem>
-          <Body>
-            <Text>{title}</Text>
-            <Text note style={styles.dateText}>
-              {updatedAt
-                ? formatDateFromNow(updatedAt)
-                : formatDateFromNow(createdAt)}
-            </Text>
-          </Body>
-        </CardItem>
-      </Card>
-    </TouchableOpacity>
-  );
-};
+import { NewsItem } from './NewsItem';
+import styles from './styles';
 
 class Home extends React.PureComponent<IHomeProps> {
   public componentDidMount() {

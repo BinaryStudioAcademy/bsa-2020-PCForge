@@ -9,6 +9,9 @@ import {
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
 import {
+  ImageBackground
+} from 'react-native';
+import {
   Container,
   Input,
   Text,
@@ -17,6 +20,7 @@ import {
   Button,
   View,
   Spinner,
+  H1,
 } from 'native-base';
 import {REACT_APP_GOOGLE_OAUTH_CLIENT_ID} from '@env';
 
@@ -75,8 +79,15 @@ class Auth extends React.PureComponent<IAuthProps, State> {
     return (
       <Container style={styles.root}>
         {this.props.state.loading ? (
-          <Spinner />
+          <Spinner color="#4972ff" size="large" />
         ) : (
+          <>
+          <ImageBackground 
+            source={{uri: 'https://wallpaperaccess.com/full/172758.jpg'}}
+            style={styles.backgroundImage}
+          >
+          </ImageBackground>
+          <H1 style={styles.header}>Welcome to PCForge</H1>
           <View style={styles.content}>
             <Item floatingLabel style={[styles.inputItem]}>
               <Label style={styles.label}>Email</Label>
@@ -99,7 +110,7 @@ class Auth extends React.PureComponent<IAuthProps, State> {
             <View>
               {this.props.state.errorMessage ? (
                 <Text style={styles.errorMessage}>
-                  {'User with given credentials does not exists'}
+                  {this.props.state.errorMessage}
                 </Text>
               ) : null}
             </View>
@@ -116,6 +127,7 @@ class Auth extends React.PureComponent<IAuthProps, State> {
               />
             </View>
           </View>
+          </>
         )}
       </Container>
     );

@@ -1,5 +1,5 @@
 import { News } from 'common/models/news.model';
-import { IWithMeta } from '~/common/interfaces/global';
+import { IWithMeta } from 'common/interfaces/global';
 
 export const GET_NEWS = 'HOME_GET_NEWS';
 export const GET_NEWS_SUCCESS = 'HOME_GET_NEWS_SUCCESS';

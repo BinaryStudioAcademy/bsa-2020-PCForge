@@ -1,9 +1,9 @@
 import React from 'react';
 import {Header, Left, Button, Icon, Body, Title} from 'native-base';
 import {StackHeaderProps} from '@react-navigation/stack';
-import * as DrawerActions from 'components/basicComponent/Drawer/actions';
+import * as DrawerActions from 'containers/Drawer/actions';
 import {connect} from 'react-redux';
-import {drawerActions} from '../Drawer/actionTypes';
+import {drawerActions} from '../../../containers/Drawer/actionTypes';
 
 export interface Props extends StackHeaderProps {
   openDrawerAction: () => drawerActions;
@@ -20,8 +20,8 @@ const AppTitle = (props: Props) => {
     <Header>
       {props.navigation.canGoBack() ? (
         <Left>
-          <Button transparent>
-            <Icon type="MaterialIcons" name="menu" onPress={onMainIconClick} />
+          <Button transparent onPress={onMainIconClick} rounded >
+            <Icon type="MaterialIcons" name="menu" />
           </Button>
         </Left>
       ) : null}

@@ -1,13 +1,25 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 const styles = StyleSheet.create({
     root: {
         flex: 1,
     },
+    backgroundImage: {
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+        position: 'absolute',
+        opacity: 0.1
+    },
+    header: {
+        color: '#fff',
+        marginHorizontal: 20,
+        marginTop: 100,
+        marginBottom: 50
+    },
     content: {
         flex: 1,
         display: 'flex',
-        justifyContent: 'center',
+        // justifyContent: 'center',
         marginHorizontal: 20,
     },
     inputItem: {
