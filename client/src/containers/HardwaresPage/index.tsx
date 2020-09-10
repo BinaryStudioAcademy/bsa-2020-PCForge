@@ -9,6 +9,9 @@ import { IHardwaresProps } from './interfaces';
 import { connect } from 'react-redux';
 import Paginator from 'components/Paginator';
 import { MenuItems } from 'common/enums';
+import ModalAddRequest from 'containers/AddUserRequest';
+import Link from 'components/BasicComponents/Link';
+import { UserRequestedType } from 'common/enums/UserRequestedType';
 import { concatClassNames } from 'common/helpers/global.helper';
 import SearchIcon from '@material-ui/icons/Search';
 import {
@@ -19,7 +22,7 @@ import {
   GridListTile,
   GridList,
   TextField,
-  InputAdornment
+  InputAdornment,
 } from '@material-ui/core';
 import debounce from 'lodash-es/debounce';
 
@@ -30,6 +33,7 @@ interface State {
   count: number;
   itemsPerPage: number;
   searchValue: string;
+  displayAddRequestOpen: boolean;
 }
 
 class HardwaresPage extends React.Component<IHardwaresProps, State> {
@@ -41,7 +45,8 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
       from: 1,
       count: 21,
       itemsPerPage: 21,
-      searchValue: ''
+      searchValue: '',
+      displayAddRequestOpen: false,
     };
 
     this.onSelect = this.onSelect.bind(this);
@@ -49,6 +54,16 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
     this.onSearchInput = this.onSearchInput.bind(this);
     this.getHardwaresAfterInput = debounce(this.getHardwares, 300);
   }
+
+  public showAddHardwareModal = () => {
+    this.setState({ displayAddRequestOpen: true });
+  };
+  public hideAddHardwareModal = () => {
+    this.setState({ displayAddRequestOpen: false });
+  };
+  public handleAddHardwareWindow = () => {
+    this.state.displayAddRequestOpen ? this.hideAddHardwareModal() : this.showAddHardwareModal();
+  };
 
   public hardwareTypes = [
     { title: 'Processor', value: 'cpu' },
@@ -63,7 +78,7 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
     this.setState({
       type: e.target.value as hardwareTypes,
       hardware: null,
-      searchValue: ''
+      searchValue: '',
     });
     const meta = {
       count: this.state.count,
@@ -73,19 +88,9 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
     this.getHardwares(meta);
   }
 
-  public getHardwares(meta: {
-    count: number;
-    from: number;
-    searchValue?: string;
-    type?: hardwareTypes
-  }): void {
+  public getHardwares(meta: { count: number; from: number; searchValue?: string; type?: hardwareTypes }): void {
     this.setState({ count: meta.count, from: meta.from });
-    const {
-      count,
-      from,
-      type = this.state.type,
-      searchValue = this.state.searchValue
-    } = meta;
+    const { count, from, type = this.state.type, searchValue = this.state.searchValue } = meta;
     this.props.getHardwares({ type, from, count, searchValue });
   }
 
@@ -106,12 +111,12 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
   }) => void;
 
   public onSearchInput(e: ChangeEvent<HTMLInputElement>): void {
-      const value: string = e.target.value;
-      this.setState({
-        searchValue: value,
-      });
-      const { from, count } = this.state;
-      this.getHardwaresAfterInput({ from, count, searchValue: value });
+    const value: string = e.target.value;
+    this.setState({
+      searchValue: value,
+    });
+    const { from, count } = this.state;
+    this.getHardwaresAfterInput({ from, count, searchValue: value });
   }
 
   public render(): JSX.Element {
@@ -149,7 +154,7 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
                   <InputAdornment position="end">
                     <SearchIcon />
                   </InputAdornment>
-                )
+                ),
               }}
             ></TextField>
           </div>
@@ -162,10 +167,12 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
                     key={hardware.id}
                     onClick={() => this.onHardwareChoose(hardware)}
                   >
-                    <div className={concatClassNames(
+                    <div
+                      className={concatClassNames(
                         styles.hardwareContainer,
-                        hardware.id === this.state.hardware?.id ? styles.activeContainer: null
-                      )}>
+                        hardware.id === this.state.hardware?.id ? styles.activeContainer : null
+                      )}
+                    >
                       <h2 className={styles.listHardwareHeader}>{hardware.name}</h2>
                     </div>
                   </GridListTile>
@@ -178,15 +185,26 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
                   countComponentsOnPage={this.state.itemsPerPage}
                 />
               </div>
+              <div className={styles.addRequestBlockContainer}>
+                {this.state.displayAddRequestOpen ? (
+                  <ModalAddRequest onClose={this.hideAddHardwareModal} requestType={UserRequestedType.hardware} />
+                ) : null}
+                <div className={styles.addRequestBlock}>
+                  <p>
+                    If you have not found the hardware you need, you can send a request to the administrator by this{' '}
+                    <Link onClick={this.handleAddHardwareWindow} className={styles.linkRequest}>
+                      link
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </div>
             </div>
             <div className={styles.asideContent}>
               <div className={styles.hardwareBar}>
                 <h2 className={styles.hardwareHeader}>Selected hardware</h2>
                 <div className={styles.divider} />
-                <HardwareSidebarView
-                  hardware={this.state.hardware}
-                  type={this.state.type}
-                />
+                <HardwareSidebarView hardware={this.state.hardware} type={this.state.type} />
               </div>
             </div>
           </div>

@@ -9,6 +9,7 @@ export interface ISetupProps extends RouteComponentProps<{ id: string; commentId
   getSetupComments: (payload: { id: number; count: number; from: number }) => SetupActionTypes;
   getSetupRate: (payload: { id: number }) => SetupActionTypes;
   createSetupComment: (payload: { id: number; value: string }) => SetupActionTypes;
+  deleteSetupComment: (payload: { id: number; idSetup: number }) => SetupActionTypes;
   setSetupRate: (payload: { id: number; value: number }) => SetupActionTypes;
   forkSetup: (setupId: number) => SetupActionTypes;
 }

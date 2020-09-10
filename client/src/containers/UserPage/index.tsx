@@ -15,6 +15,7 @@ import {
   deleteUserGame,
   loadSetups,
   deleteUserSetup,
+  editUserSetup,
   setTab,
 } from 'containers/UserPage/logic/actions';
 import Spinner from 'components/Spinner';
@@ -39,6 +40,7 @@ const UserPage = (props: Props) => {
     filteredGames,
     deleteUserGame,
     deleteUserSetup,
+    editUserSetup,
     loadSetups,
     setups,
     openTab,
@@ -79,6 +81,7 @@ const UserPage = (props: Props) => {
             loadFilteredGames={loadFilteredGames}
             setups={setups}
             deleteUserSetup={deleteUserSetup}
+            editUserSetup={editUserSetup}
           />
         </Box>
       ) : (
@@ -114,6 +117,7 @@ const mapDispatch = {
   deleteUserGame,
   loadSetups,
   deleteUserSetup,
+  editUserSetup,
   setTab,
 };
 

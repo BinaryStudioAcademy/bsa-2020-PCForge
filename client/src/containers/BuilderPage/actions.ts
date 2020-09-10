@@ -28,7 +28,7 @@ export const resetSetupAction = (): AnyAction => ({
   type: BUILDER_RESET_SETUP,
 });
 
-export const saveSetupRequest = (data: SetupItem, image: Blob): AnyAction => ({
+export const saveSetupRequest = (data: SetupItem, image?: Blob): AnyAction => ({
   type: SAVE_SETUP_REQUEST,
   payload: {
     data,

@@ -1,9 +1,11 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import Link from 'components/BasicComponents/Link';
-import { UserActionTypes } from '../../logic/actionTypes';
+import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
 import { useParams } from 'react-router';
 import Image from 'components/BasicComponents/Image';
+import { Link } from 'react-router-dom';
+import { getIcon } from 'common/helpers/icon.helper';
+import { Box } from '@material-ui/core';
 
 export interface GameCardProps {
   image: string;
@@ -19,14 +21,15 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
   let { id: userId } = useParams();
   userId = parseInt(userId);
 
-  const handleDeleteGame: () => void = () => {
+  const handleDeleteGame: (event: React.MouseEvent) => void = (event: React.MouseEvent) => {
+    event.preventDefault();
     if (deleteUserGame && typeof id == 'number') {
       deleteUserGame(userId, id);
     }
   };
 
   return (
-    <div className={styles.gameCard}>
+    <Link to={`/game/${id}`} className={styles.gameCard}>
       <div className={styles.gameImage}>
         <Image src={image} alt="" />
       </div>
@@ -39,12 +42,12 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
           <div>{description}</div>
           {isCurrentUser && (
             <div className={styles.cardButton}>
-              <Link icon="Delete" onClick={handleDeleteGame}></Link>
+              <Box onClick={handleDeleteGame}>{getIcon('Delete')}</Box>
             </div>
           )}
         </div>
       )}
-    </div>
+    </Link>
   );
 };
 

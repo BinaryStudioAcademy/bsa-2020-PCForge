@@ -1,7 +1,5 @@
 import { PCSetup } from 'common/models/setup';
 import { TypeResponseAllComments } from 'api/services/comment.service';
-import { Comment } from 'common/models/comment';
-import { Rate } from 'common/models/rate.model';
 
 export const GET_SETUP = 'GET_SETUP';
 export const GET_SETUP_SUCCESS = 'GET_SETUP_SUCCESS';
@@ -13,6 +11,10 @@ export const GET_SETUP_COMMENTS_FAILURE = 'GET_SETUP_COMMENTS_FAILURE';
 export const CREATE_SETUP_COMMENT = 'CREATE_SETUP_COMMENT';
 export const CREATE_SETUP_COMMENT_SUCCESS = 'CREATE_SETUP_COMMENT_SUCCESS';
 export const CREATE_SETUP_COMMENT_FAILURE = 'CREATE_SETUP_COMMENT_FAILURE';
+
+export const DELETE_SETUP_COMMENT = 'DELETE_SETUP_COMMENT';
+export const DELETE_SETUP_COMMENT_SUCCESS = 'DELETE_SETUP_COMMENT_SUCCESS';
+export const DELETE_SETUP_COMMENT_FAILURE = 'DELETE_SETUP_COMMENT_FAILURE';
 
 export const GET_SETUP_RATE = 'GET_SETUP_RATE';
 export const GET_SETUP_RATE_SUCCESS = 'GET_SETUP_RATE_SUCCESS';
@@ -85,6 +87,25 @@ export interface ICreateSetupCommentFailure {
   };
 }
 
+export interface IDeleteSetupComment {
+  type: typeof DELETE_SETUP_COMMENT;
+  payload: {
+    id: number;
+    idSetup: number;
+  };
+}
+
+export interface IDeleteSetupCommentSuccess {
+  type: typeof DELETE_SETUP_COMMENT_SUCCESS;
+}
+
+export interface IDeleteSetupCommentFailure {
+  type: typeof DELETE_SETUP_COMMENT_FAILURE;
+  payload: {
+    message: string;
+  };
+}
+
 export interface IGetSetupRate {
   type: typeof GET_SETUP_RATE;
   payload: {
@@ -147,6 +168,9 @@ export type SetupActionTypes =
   | ICreateSetupComment
   | ICreateSetupCommentSuccess
   | ICreateSetupCommentFailure
+  | IDeleteSetupComment
+  | IDeleteSetupCommentSuccess
+  | IDeleteSetupCommentFailure
   | IGetSetupRate
   | IGetSetupRateSuccess
   | IGetSetupRateFailure

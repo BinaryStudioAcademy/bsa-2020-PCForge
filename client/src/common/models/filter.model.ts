@@ -7,7 +7,7 @@ export interface CommentFilter {
   from?: number;
   count?: number;
   commentableId?: number;
-  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
+  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd' | 'news';
 }
 
 export type RateFilter = {
@@ -18,10 +18,8 @@ export type RateFilter = {
 export interface CpuFilter extends BaseFilter {
   socketId?: string;
   socketIds?: string;
-  clockspeed?: {
-    minValue: number;
-    maxValue: number;
-  };
+  'clockspeed[maxValue]'?: number;
+  'clockspeed[minValue]'?: number;
   name?: string;
 }
 
@@ -37,6 +35,8 @@ export interface MotherboardFilter extends BaseFilter {
 
 export interface RamFilter extends BaseFilter {
   name?: string;
+  'memorySize[minValue]'?: number;
+  'memorySize[maxValue]'?: number;
   typeId?: string;
   typeIds?: string;
 }

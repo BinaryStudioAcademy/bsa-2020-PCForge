@@ -50,8 +50,7 @@ const QuickMatcher: React.FC<Props> = ({
 
   const transformGamesToImages = (games: Game[]) => {
     const firstFiveGames = games.slice(0, Math.min(games.length, 5));
-    const transformed = firstFiveGames.map((game) => ({ title: game.name, image: game.image, id: game.id }));
-    return transformed;
+    return firstFiveGames.map((game) => ({ title: game.name, image: game.image, id: game.id }));
   };
 
   const onGameSelect = (id: number) => {

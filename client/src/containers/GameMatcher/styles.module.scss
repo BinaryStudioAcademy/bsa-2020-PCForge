@@ -3,7 +3,7 @@
 .gameMatcher {
   display: flex;
   flex-direction: column;
-  margin: 0 8rem;
+  //margin: 0 8rem;
   width: 100%;
 }
 
@@ -17,6 +17,11 @@
 
 .contentWrapper {
   display: flex;
+}
+.rightWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .mainContainer {
@@ -91,6 +96,21 @@ section:nth-child(2n) {
   margin: 2em 0;
   align-self: center;
 }
+.addRequestBlock {
+  //width: fit-content;
+  width: 100%;
+  text-align: justify;
+  margin: 1em 0;
+  margin-right: 3rem;
+  color: $colorLightGray;
+
+  .linkRequest {
+    color: $colorDarkGray;
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+  }
+}
+
 
 @media (max-width: 1060px) {
   .mainContainer {
@@ -103,5 +123,8 @@ section:nth-child(2n) {
   }
   .configs {
     width: 80%;
+  }
+  .addRequestBlock {
+    width: fit-content;
   }
 }

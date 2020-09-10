@@ -3,6 +3,8 @@ import { Gpu } from './gpu';
 import { Ram } from './ram';
 import { Motherboard } from './motherboard';
 import { PowerSupply } from './powerSupply';
+import { TypeHdd } from './hdd';
+import { Ssd } from './ssd';
 
 export interface Setup {
   id: number;
@@ -10,12 +12,14 @@ export interface Setup {
   rating: number;
   ownRating: number;
   ratingCount: number;
-  description: string;
   comments_count: string;
+  description: string;
   image: string;
   cpu: Cpu;
   gpu: Gpu;
   ram: Ram;
+  hdd?: TypeHdd;
+  ssd?: Ssd;
   motherBoard: Motherboard;
   powerSupply: PowerSupply;
   createdAt: Date;

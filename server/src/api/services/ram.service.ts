@@ -5,6 +5,9 @@ import { RamRepository } from '../../data/repositories/ram.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
 import { IRamsMiddleware } from '../middlewares/ram.middleware';
+import { elasticServices } from './elsticsearch.service';
+
+const elastic = elasticServices.rams;
 
 export class RamService extends BaseService<RamModel, RamCreationAttributes, RamRepository> {
   constructor(private repository: RamRepository) {
@@ -20,6 +23,14 @@ export class RamService extends BaseService<RamModel, RamCreationAttributes, Ram
   }
 
   async getAllRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
+    if (filter.name) {
+      const ids = await elastic.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
+
     const rams = await this.repository.getAllRams(filter);
     return rams;
   }
@@ -27,6 +38,7 @@ export class RamService extends BaseService<RamModel, RamCreationAttributes, Ram
   async createRam(inputRam: RamCreationAttributes, ramMiddleware: IRamsMiddleware): Promise<RamModel> {
     await ramMiddleware(inputRam);
     const ram = await super.create(inputRam);
+    await elastic.addData(ram);
     return ram;
   }
 
@@ -37,10 +49,12 @@ export class RamService extends BaseService<RamModel, RamCreationAttributes, Ram
     const { id, data } = inputRam;
     await ramMiddleware(data);
     const ram = await super.updateById(id, data);
+    await elastic.updateData(ram);
     return ram;
   }
 
   async deleteRamById(id: string): Promise<RamModel> {
+    elastic.delete(id);
     return await super.deleteById(id);
   }
 }

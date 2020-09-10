@@ -4,6 +4,7 @@ import SetupCard from 'components/SetupComponents/SetupCard';
 import Comments from 'components/Comments';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
+import CommentableType from 'common/enums/CommentableItems';
 import { ISetupProps, ISetupState } from './interfaces';
 import * as SetupActions from './actions';
 import { RootState } from 'redux/rootReducer';
@@ -12,6 +13,7 @@ import NotFound from 'containers/NotFound';
 import Spinner from 'components/Spinner';
 import HardwareView from 'components/HardwareView';
 import TopGames from 'containers/TopGames';
+import { Box } from '@material-ui/core';
 
 class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   constructor(props: ISetupProps) {
@@ -20,13 +22,13 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
 
     this.getSetupComments = this.getSetupComments.bind(this);
     this.onCreateComment = this.onCreateComment.bind(this);
+    this.onDeleteComment = this.onDeleteComment.bind(this);
     this.onRatingSet = this.onRatingSet.bind(this);
   }
 
   public componentDidMount() {
     const id: string = this.props.match.params.id;
     this.props.getSetup({ id: +id });
-    this.props.getSetupRate({ id: +id });
     this.getSetupComments({ count: 20, from: 0 });
   }
 
@@ -38,6 +40,10 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
   public onCreateComment = (value: string) => {
     const id: string = this.props.match.params.id;
     this.props.createSetupComment({ id: +id, value: value });
+  };
+
+  public onDeleteComment = (id: number) => {
+    this.props.deleteSetupComment({ id: +id, idSetup: this.props.state.setup?.id as number });
   };
 
   public onRatingSet(value: number) {
@@ -52,7 +58,13 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     }
 
     if (!setup) {
-      return <Spinner />;
+      return (
+        <PageComponent>
+          <Box className="spinnerWrapper">
+            <Spinner load />
+          </Box>
+        </PageComponent>
+      );
     }
 
     const { cpu, gpu, motherboard, powerSupply, ram } = setup;
@@ -66,7 +78,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                 setup={setup}
                 rateClickable
                 onForkClick={this.props.forkSetup}
-                rate={this.props.state.rate}
                 onRatingSet={this.onRatingSet}
               />
               <HardwareView
@@ -115,14 +126,17 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                   power: { as: 'Power' },
                 }}
               />
-              {this.props.state?.comments && (
+              {this.props.state.comments && this.props.state.setup && (
                 <Comments
                   commentsPerPage={commentsPerPage}
                   commentsTotal={commentsCountTotal}
                   comments={this.props.state.comments}
                   rootClassName={styles.commentsRoot}
                   onCreateComment={this.onCreateComment}
+                  onDeleteComment={this.onDeleteComment}
                   onPaginationToggle={this.getSetupComments}
+                  commentableId={this.props.state.setup.id}
+                  commentableType={CommentableType.Setup}
                 />
               )}
             </div>

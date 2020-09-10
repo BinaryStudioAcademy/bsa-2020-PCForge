@@ -22,6 +22,7 @@ import NewsPage from 'containers/NewsPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import ToastNotifications from 'containers/ToastNotifications';
+import OneNewsPage from 'containers/OneNewsPage';
 import HardwaresPage from './HardwaresPage';
 
 class App extends Component {
@@ -51,6 +52,7 @@ class App extends Component {
             <PrivateRoute exact path={Routes.RESET_PASSWORD_REQUEST} component={ResetPasswordRequest} />
             <PrivateRoute exact path={Routes.RESET_PASSWORD} component={ResetPasswordCallback} />
             <PrivateRoute exact path={Routes.NEWS} component={NewsPage} />
+            <PrivateRoute exact path={Routes.ONE_NEWS} component={OneNewsPage} />
             <PrivateRoute exact path={Routes.HARDWARES} component={HardwaresPage} />
             <PrivateRoute path="*" exact={true} component={NotFound} />
           </Switch>

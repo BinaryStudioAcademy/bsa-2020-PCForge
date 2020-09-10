@@ -14,6 +14,7 @@ export type TypeResponseAll = {
 const endpoint = '/powerSupplies';
 
 export const getAllPowersupplies = async (filter: TypeFilter): Promise<TypeResponseAll> => {
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
   return await webApi.get(endpoint, filter);
 };
 
