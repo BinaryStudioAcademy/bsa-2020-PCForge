@@ -3,7 +3,7 @@
 .gameMatcher {
   display: flex;
   flex-direction: column;
-  margin: 0 8rem;
+  //margin: 0 8rem;
   width: 100%;
 }
 
@@ -17,6 +17,11 @@
 
 .contentWrapper {
   display: flex;
+}
+.rightWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .mainContainer {
@@ -93,6 +98,7 @@ section:nth-child(2n) {
 }
 .addRequestBlock {
   //width: fit-content;
+  width: 100%;
   text-align: justify;
   margin: 1em 0;
   margin-right: 3rem;
@@ -117,5 +123,8 @@ section:nth-child(2n) {
   }
   .configs {
     width: 80%;
+  }
+  .addRequestBlock {
+    width: fit-content;
   }
 }

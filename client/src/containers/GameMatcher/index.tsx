@@ -107,7 +107,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
       <main className={styles.gameMatcher} role="main">
         <h1 className={styles.pageHeader}>Can You Run It?</h1>
         <div className={styles.contentWrapper}>
-          <div>
+          <div className={styles.rightWrapper}>
             <div className={styles.mainContainer}>
               <div className={styles.configs}>
                 {alertMessage && <Alert alertType={alertMessageType}>{alertMessage}</Alert>}
