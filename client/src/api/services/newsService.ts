@@ -7,7 +7,7 @@ export const getAllNews = async (): Promise<TypeNews[]> => {
   return await webApi.get(endpoint);
 };
 
-export const getNews = async (id: number): Promise<TypeNews> => {
+export const getNews = async (id: string): Promise<TypeNews> => {
   return await webApi.get(`${endpoint}/${id}`);
 };
 
