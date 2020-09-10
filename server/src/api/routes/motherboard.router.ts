@@ -37,7 +37,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetAllMotherboardsRequest, reply) => {
     allowForAuthorized(request);
     decodeName(request);
-    renameQuery(request, ['socketIds', 'socketId'], ['ramTypeIds', 'ramTypeId']);
+    renameQuery(request, ['socketIds', 'socketId'], ['ramTypeIds', 'ramTypeId'], ['sataMultiple', 'sata']);
     const motherboards = await HardwareService.getTopMotherboards(request.query);
     reply.send(motherboards);
   });

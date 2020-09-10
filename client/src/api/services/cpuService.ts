@@ -20,11 +20,11 @@ export const getAllCpu = async (filter: CpuFilter): Promise<TypeResponseAllCpus>
     count: filter.count,
     from: filter.from,
     name: filter.name,
-    clockspeed: filter.clockspeed,
+    'clockspeed[maxValue]': filter['clockspeed[maxValue]'],
+    'clockspeed[minValue]': filter['clockspeed[minValue]'],
     ...(isMultipleSocketFilter && { socketIds: filter.socketId }),
-    ...(!isMultipleSocketFilter && { socketid: filter.socketId }),
+    ...(!isMultipleSocketFilter && { socketId: filter.socketId }),
   };
-
   const response = await webApi.get(endpoint, serverFilter);
   return response;
 };

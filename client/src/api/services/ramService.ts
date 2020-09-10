@@ -17,11 +17,14 @@ const endpoint = '/rams';
 export const getAllRam = async (filter: RamFilter): Promise<TypeResponseAllRams> => {
   if (filter.name) filter.name = encodeURIComponent(filter.name);
   const isMultipleType: boolean = filter.typeId?.includes(',') || false;
+  console.log(filter);
 
   const serverFilter: RamFilter = {
     name: filter.name,
     from: filter.from,
     count: filter.count,
+    'memorySize[minValue]': filter['memorySize[minValue]'],
+    'memorySize[maxValue]': filter['memorySize[maxValue]'],
     ...(isMultipleType && { typeIds: filter.typeId }),
     ...(!isMultipleType && { typeId: filter.typeId }),
   };
