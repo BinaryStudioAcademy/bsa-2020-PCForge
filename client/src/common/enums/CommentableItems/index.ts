@@ -8,6 +8,7 @@ enum CommentableType {
   Gpu = 'gpu',
   Ssd = 'ssd',
   Hdd = 'hdd',
+  News = 'news',
 }
 
 export default CommentableType;
