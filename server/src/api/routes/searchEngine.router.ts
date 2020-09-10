@@ -2,8 +2,12 @@ import { FastifyInstance } from 'fastify';
 import { FastifyNext, FastifyOptions } from './fastifyTypes';
 import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 import { SearchByAllDataRequest } from './searchEngine.schema';
+import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
+  const preHandler = userRequestMiddleware(fastify);
+  fastify.addHook('preHandler', preHandler);
+
   fastify.get('/all', function (req: SearchByAllDataRequest, res) {
     allowForAuthorized(req);
     const body = {
