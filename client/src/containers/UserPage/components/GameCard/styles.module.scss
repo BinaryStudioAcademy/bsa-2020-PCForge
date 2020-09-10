@@ -53,9 +53,14 @@ $bgGameCard:rgb(19, 18, 18);
     text-overflow: ellipsis;
     color: rgb(228, 225, 225);
 
+    .backName {
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 16px;
+    }
     div {
       display: -webkit-box;
-      -webkit-line-clamp: 6;
+      -webkit-line-clamp: 5;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }

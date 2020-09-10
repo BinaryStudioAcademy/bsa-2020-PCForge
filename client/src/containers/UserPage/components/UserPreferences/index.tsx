@@ -46,6 +46,10 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   };
   const { id: userId } = useParams<{ id: string }>();
 
+  const closeGameSearch = () => {
+    setShowGameSearch(false);
+  };
+
   return (
     <>
       {games ? (
@@ -72,6 +76,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                     onSelect={(id: number) => addUserGame!(parseInt(userId, 10), id)}
                     options={filteredGames!.map((game) => ({ label: game.name, value: game.id }))}
                     onInputChange={({ value }) => loadFilteredGames!(value)}
+                    onCLoseBtnClick={closeGameSearch}
                     hideSeeMore
                   />
                 )}

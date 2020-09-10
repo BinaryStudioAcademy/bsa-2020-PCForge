@@ -3,7 +3,10 @@ import Input from '@material-ui/core/Input';
 import styles from './styles.module.scss';
 import InputLabel from '@material-ui/core/InputLabel';
 import ErrorIcon from '@material-ui/icons/Error';
+import { InputAdornment } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
 import { debounce } from 'lodash-es';
+import { getIcon } from 'common/helpers/icon.helper';
 
 export interface SelectOption {
   value: number;
@@ -22,6 +25,7 @@ interface Props {
   label: string;
   labelClassName?: string;
   hideSeeMore?: boolean;
+  onCLoseBtnClick?: () => void;
 }
 
 interface State {
@@ -85,8 +89,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
   public render(): JSX.Element {
     const { placeholder, inputId, label, labelClassName, options, errorMessage } = this.props;
 
-    const { onSeeMoreClick } = this.props;
-
+    const { onSeeMoreClick, onCLoseBtnClick } = this.props;
     return (
       <div
         className={styles.selectRoot}
@@ -110,6 +113,20 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
           onInput={(e: ChangeEvent<HTMLInputElement>) => this.onInputValueChange(e.target.value)}
           value={this.state.inputValue}
           disableUnderline={true}
+          endAdornment={
+            onCLoseBtnClick ? (
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onCLoseBtnClick();
+                  }}
+                >
+                  {getIcon('Close')}
+                </IconButton>
+              </InputAdornment>
+            ) : null
+          }
         />
         {this.state.selectVisible && (
           <div className={styles.selectOptionsContainer}>

@@ -39,6 +39,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
       </div>
       {description && (
         <div className={styles.gameDescription}>
+          <div className={styles.backName}>{name}</div>
           <div>{description}</div>
           {isCurrentUser && (
             <div className={styles.cardButton}>

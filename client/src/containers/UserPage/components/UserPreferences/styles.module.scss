@@ -14,7 +14,12 @@ $user-page-bg: #30363d;;
   border-top: 1px solid rgb(102, 102, 102);
   background-color: $user-page-bg;
 
-  &> div{
+
+  & > a {
+    text-decoration: none;
+  }
+  
+  &> div, & > a{
     width:25%;
     min-width: 275px;
     margin:10px;
