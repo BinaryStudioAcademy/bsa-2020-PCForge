@@ -22,6 +22,7 @@ import topGamesSagas from 'containers/TopGames/redux/sagas';
 import notificationSagas from 'containers/Notifications/redux/sagas';
 import gameSagas from 'containers/GamePage/sagas';
 import oneNewsSagas from 'containers/OneNewsPage/sagas';
+import searchEngineSagas from 'containers/TopBar/sagas';
 
 export default function* rootSaga() {
   yield all([
@@ -48,5 +49,6 @@ export default function* rootSaga() {
     notificationSagas(),
     gameSagas(),
     oneNewsSagas(),
+    searchEngineSagas(),
   ]);
 }

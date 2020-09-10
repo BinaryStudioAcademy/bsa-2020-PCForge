@@ -29,7 +29,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllNewsResponse);
   fastify.get('/', getAllSchema, async (request: GetAllNews, reply) => {
     allowForAuthorized(request);
-    const news = await NewsService.getAllNews();
+    const news = await NewsService.getAllNews(request.query);
     reply.send(news);
   });
 

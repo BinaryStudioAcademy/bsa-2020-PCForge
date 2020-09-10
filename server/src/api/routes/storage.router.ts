@@ -7,6 +7,7 @@ import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 import { renameQuery } from '../middlewares/rename.middleware';
 import { decodeName } from '../middlewares/decodeName.middleware';
+import { IStorageFilter } from '../../data/repositories/filters/storage.filter';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { HardwareService } = fastify.services;
@@ -14,7 +15,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
-  const getAllSchema = getMultipleQuery(GetAllStoragesResponse, ISsdFilter.schema);
+  const getAllSchema = getMultipleQuery(GetAllStoragesResponse, IStorageFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllStoragesRequest, reply) => {
     allowForAuthorized(request);
     decodeName(request);

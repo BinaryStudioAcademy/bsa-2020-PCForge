@@ -23,6 +23,7 @@ export enum FilterName {
   socket = 'socketId',
   ramtype = 'ramTypeId',
   hdd = 'sata',
+  storage = 'type',
 }
 
 export const servicesGetAll = {

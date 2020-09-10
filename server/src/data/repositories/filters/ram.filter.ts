@@ -14,6 +14,7 @@ export class IRamFilter extends IFilter {
     maxValue: 100,
   };
   name: FilterByNameType = null;
+  searchString?: string = '';
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -33,6 +34,10 @@ export class IRamFilter extends IFilter {
         nullable: true,
       },
       name: {
+        type: 'string',
+        nullable: true,
+      },
+      searchString: {
         type: 'string',
         nullable: true,
       },

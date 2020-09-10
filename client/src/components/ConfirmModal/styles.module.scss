@@ -1,0 +1,18 @@
+@import 'styles/variables.scss';
+
+.requestBody {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1em;
+}
+
+.buttonWrapper {
+  padding: 0.3em 1.5em;
+}

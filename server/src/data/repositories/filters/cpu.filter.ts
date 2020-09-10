@@ -15,6 +15,7 @@ export class ICpuFilter extends IFilter {
     maxValue: 10000,
   };
   name: FilterByNameType = '';
+  searchString?: string = '';
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -33,6 +34,10 @@ export class ICpuFilter extends IFilter {
         nullable: true,
       },
       name: {
+        type: 'string',
+        nullable: true,
+      },
+      searchString: {
         type: 'string',
         nullable: true,
       },

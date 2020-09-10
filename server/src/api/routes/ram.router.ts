@@ -41,6 +41,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     decodeName(request);
     renameQuery(request, ['typeIds', 'typeId']);
     const rams = await HardwareService.getTopRams(request.query);
+    // const rams = await RamService.getAllRams(request.query);
+
     reply.send(rams);
   });
 
