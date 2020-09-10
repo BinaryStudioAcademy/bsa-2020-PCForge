@@ -1,10 +1,12 @@
-import { OneNewsState } from './actionTypes';
+import { OneNewsState, GET_NEWS_COMMENTS_SUCCESS, SHOW_SPINNER } from './actionTypes';
 import { OneNewsActionTypes, GET_NEWS_SUCCESS, GET_NEWS_FAILURE } from './actionTypes';
 
 const initialState: OneNewsState = {
   news: null,
   error: '',
   showSpinner: false,
+  comments: [],
+  totalCountComments: 0,
 };
 
 export function OneNewsReducer(state: OneNewsState = initialState, action: OneNewsActionTypes): OneNewsState {
@@ -20,6 +22,18 @@ export function OneNewsReducer(state: OneNewsState = initialState, action: OneNe
         ...state,
         error: action.payload.message,
       };
+    case GET_NEWS_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        comments: action.payload.data,
+        totalCountComments: action.payload.meta.countAfterFiltering,
+      };
+    case SHOW_SPINNER: {
+      return {
+        ...state,
+        showSpinner: action.payload.showSpinner,
+      };
+    }
     default:
       return state;
   }

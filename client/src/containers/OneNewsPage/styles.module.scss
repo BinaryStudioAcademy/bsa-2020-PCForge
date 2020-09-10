@@ -1,5 +1,9 @@
 @import 'styles/variables';
 
+.commentsRoot {
+  margin-top: 20px;
+}
+
 div.mainWrapper {
   padding: 3rem 0;
 
@@ -7,7 +11,7 @@ div.mainWrapper {
     background-color: $colorDarkGray;
     padding: 3rem;
     border-radius: 7px;
-    box-shadow: 20px 20px 20px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.05);
 
     hr.divider {
       margin: 3rem 0;
@@ -31,7 +35,6 @@ div.mainWrapper {
         font-size: 14px;
 
         .titleWrapper {
-
           .gameTitle {
             font-size: 36px;
             line-height: 40px;
@@ -161,5 +164,3 @@ div.mainWrapper {
     }
   }
 }
-
-

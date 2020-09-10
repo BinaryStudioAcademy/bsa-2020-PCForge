@@ -2,18 +2,29 @@ import React, { Component, useEffect } from 'react';
 import { MenuItems } from 'common/enums/MenuItems';
 import PageComponent from 'containers/PageComponent';
 import { RootState } from 'redux/rootReducer';
-import { getNews } from './actions';
+import { getNews, getNewsComments, createNewsComment } from './actions';
 import { connect, ConnectedProps } from 'react-redux';
-import NotFound from 'containers/NotFound';
 import { Box, Container, Grid, CardMedia } from '@material-ui/core';
 import Spinner from 'components/Spinner';
 import styles from './styles.module.scss';
 import { RouteComponentProps } from 'react-router-dom';
+import Comments from 'components/Comments';
 
 const OneNewsPage: React.FC<Props> = (props) => {
   useEffect(() => {
     props.getNews({ id: props.match.params.id });
+    getNewsComments({ count: 10, from: 0 });
   }, []);
+
+  const getNewsComments = (meta: { count: number; from: number }) => {
+    const id: number = +props.match.params.id;
+    props.getNewsComments({ id, ...meta });
+  };
+
+  const onCreateComment = (value: string) => {
+    const id: string = props.match.params.id;
+    props.createNewsComment({ id: +id, value: value });
+  };
 
   if (props.loading) {
     return (
@@ -47,6 +58,16 @@ const OneNewsPage: React.FC<Props> = (props) => {
               <pre>{props.news?.content}</pre>
             </Grid>
           </Grid>
+          {props.comments && (
+            <Comments
+              commentsPerPage={10}
+              commentsTotal={props.commentsCount}
+              comments={props.comments}
+              rootClassName={styles.commentsRoot}
+              onCreateComment={onCreateComment}
+              onPaginationToggle={getNewsComments}
+            />
+          )}
         </Grid>
       </Container>
     </PageComponent>
@@ -58,10 +79,12 @@ const mapStateToProps = (state: RootState) => {
     news: state.oneNewsPage.news,
     loading: state.oneNewsPage.showSpinner,
     error: state.oneNewsPage.error,
+    comments: state.oneNewsPage.comments,
+    commentsCount: state.oneNewsPage.totalCountComments,
   };
 };
 
-const mapDispatchToProps = { getNews };
+const mapDispatchToProps = { getNews, getNewsComments, createNewsComment };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;

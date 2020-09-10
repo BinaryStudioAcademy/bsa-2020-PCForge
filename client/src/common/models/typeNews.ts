@@ -1,3 +1,5 @@
+import { Comment } from './comment';
+
 export type TypeNews = {
   id: number;
   title: string;
@@ -5,6 +7,7 @@ export type TypeNews = {
   image: string;
   createdAt: Date;
   updatedAt: Date;
+  comments: Array<Comment>;
 };
 
 export type TypeAddNews = {
