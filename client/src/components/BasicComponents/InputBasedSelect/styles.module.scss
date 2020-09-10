@@ -13,10 +13,17 @@ $error-color: #ff5a5a;
   width: 100%;
   background: #fff;
   // height: 1.1876em;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
   color: #222;
   padding: .3rem 1rem 0.5rem;
+}
+
+.borderFullRound {
+  border-radius: 6px;
+}
+
+.borderTopRound {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 .input.input {

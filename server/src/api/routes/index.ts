@@ -9,6 +9,7 @@ import { router as gpuRouter } from './gpu.router';
 import { router as cpuRouter } from './cpu.router';
 import { router as hddRouter } from './hdd.router';
 import { router as ssdRouter } from './ssd.router';
+import { router as storageRouter } from './storage.router';
 import { router as userRouter } from './user.router';
 import { router as imageUploadRouter } from './imageUpload.router';
 import { router as setupRouter } from './setup.router';
@@ -20,6 +21,7 @@ import { router as rateRouter } from './rate.router';
 import { router as commentRouter } from './comment.router';
 import { router as performanceRouter } from './performance.router';
 import { router as addRequestRouter } from './addRequest.router';
+import { router as commensRateRouter } from './commentRate.router';
 import { router as searchEngineRouter } from './searchEngine.router';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
@@ -32,6 +34,7 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(cpuRouter, { prefix: '/cpus' });
   fastify.register(hddRouter, { prefix: '/hdds' });
   fastify.register(ssdRouter, { prefix: '/ssds' });
+  fastify.register(storageRouter, { prefix: '/storages' });
   fastify.register(authRouter, { prefix: '/auth' });
   fastify.register(userRouter, { prefix: '/users' });
   fastify.register(setupRouter, { prefix: '/setups' });
@@ -43,6 +46,7 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(addRequestRouter, { prefix: '/addRequest' });
   fastify.register(imageUploadRouter, { prefix: '/upload' });
   fastify.register(performanceRouter, { prefix: '/performances' });
+  fastify.register(commensRateRouter, { prefix: '/commentsRates' });
   fastify.register(searchEngineRouter, { prefix: '/search' });
   next();
 };

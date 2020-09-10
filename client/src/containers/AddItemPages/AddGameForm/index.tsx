@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootState } from 'redux/rootReducer';
 import * as actions from './actions';
+import * as alert from 'common/services/AlertService/alert.service';
 import * as notification from 'common/services/notificationService';
 import {
   GameFormAction,
@@ -70,6 +71,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
   const [minRamSize, setMinRAMSize] = useState<number | null>(null);
 
   useEffect(() => {
+    clearStateValues();
     getAllSelectsInitialValues();
     inputRef.current?.focus();
   }, []);
@@ -83,8 +85,16 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
   const onPublish = () => {
     // validate intered values
     const imageData = (imageInputRef.current?.files && imageInputRef.current?.files[0]) || undefined;
-    if (!name || !year || !description || !recRamSize || !minRamSize || !recCPU || !minCPU || !recGPU || !minGPU) {
-      setValidationError('Error: Please choose hardware components');
+    if (!name) {
+      setValidationError('Error: Please enter game name');
+      return;
+    }
+    if (!year || !description || !recRamSize || !minRamSize || !recCPU || !minCPU || !recGPU || !minGPU) {
+      setValidationError('Error: Please choose game components');
+      return;
+    }
+    if (year <= 0) {
+      setValidationError('Error: Year value can not be negative');
       return;
     }
     if (!imageData) {
@@ -94,7 +104,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     if (+minRamSize > +recRamSize) {
       setValidationError('Error: Minimal RAM size can not be bigger than recommended RAM size');
       return;
-    } else setValidationError(null);
+    } else setValidationError('');
 
     const game: GameCreationAttributes = {
       name,
@@ -110,6 +120,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     createGame(game, imageData);
   };
   const onCancel = () => {
+    clearStateValues();
     goBack();
   };
 
@@ -119,10 +130,7 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     setName('');
     setDescription('');
     setYear('');
-    // const [recCPU, setRecCPU] = useState<number>();
-    // const [recGPU, setRecGPU] = useState<number>();
-    // const [minCPU, setMinCPU] = useState<number>();
-    // const [minGPU, setMinGPU] = useState<number>();
+    // set initial values to recCPU, recGPU, minCPU, minGPU
     setRecRAMSize(null);
     setMinRAMSize(null);
   };
@@ -164,8 +172,6 @@ const AddGameForm = (props: IPropsAddGameForm): JSX.Element => {
     notificationMessage = `Error: ${props.state.errorMessage}`;
     notificationType = props.state.alertType;
   } else if (props.state.gameName) {
-    //notificationMessage = `Success : ${props.state.gameName} has been created`;
-    //notificationType = props.state.alertType;
     notification.success(`Game ${props.state.gameName} has been created`);
     getAllSelectsInitialValues();
     clearStateValues();

@@ -25,7 +25,7 @@ export function gpuTransformer(gpu: Gpu): Record<string, ReactText> {
   const transformed: Record<string, ReactText> = {};
   transformed['Name'] = gpu.name;
   transformed['Interface'] = gpu.interface;
-  transformed['Memory'] = gpu.memorySize + ' GB';
+  transformed['Memory'] = gpu.memorySize + ' MB';
   transformed['OpenGL'] = gpu.opengl;
   transformed['Thermal design power'] = gpu.tdp;
   return transformed;
@@ -34,7 +34,7 @@ export function gpuTransformer(gpu: Gpu): Record<string, ReactText> {
 export function ramTransformer(ram: TypeRam): Record<string, ReactText> {
   const transformed: Record<string, ReactText> = {};
   transformed['Name'] = ram.name;
-  transformed['Memory'] = ram.memorySize + ' GB';
+  transformed['Memory'] = ram.memorySize + ' MB';
   transformed['Frequency'] = ram.frequency + ' MHz';
   transformed['Power'] = ram.power;
   transformed['Ram Type'] = ram.ramType.name;

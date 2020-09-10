@@ -6,7 +6,7 @@ import Button from 'components/BasicComponents/Button';
 import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
-import { setToken, setTokenType, TokenType } from 'helpers/tokenHelper';
+import { setLoginType, LoginType } from 'helpers/tokenHelper';
 import history from 'browserHistory';
 import { Routes } from 'common/enums';
 import gLogo from 'assets/images/g-logo.png';
@@ -20,6 +20,7 @@ interface ILoginFormProps {
   handleChangePassword: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   handleChangeCheckbox: () => void;
   login: (event: React.FormEvent<HTMLButtonElement>) => void;
+  onGoogleAuth: (response: GoogleLoginResponse) => void;
   switchToRegistration: (event: React.MouseEvent) => void;
 }
 
@@ -32,14 +33,14 @@ const LoginForm = ({
   handleChangePassword,
   handleChangeCheckbox,
   login,
+  onGoogleAuth,
   switchToRegistration,
 }: ILoginFormProps): JSX.Element => {
   const googleClientId = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!;
 
   const googleLoginSuccess = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    setToken((response as GoogleLoginResponse).tokenId);
-    setTokenType(TokenType.google);
-    history.push(Routes.DEFAULT);
+    setLoginType(LoginType.google);
+    onGoogleAuth(response as GoogleLoginResponse);
   };
 
   const onForgotPasswordClick = () => {

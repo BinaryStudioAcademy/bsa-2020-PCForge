@@ -1,9 +1,12 @@
-@import '../../../styles/variables.scss';
+@import 'styles/variables.scss';
 
 .ratingBoxesWrapper {
   display: flex;
-  // width: 100%;
   align-items: stretch;
+
+  div:nth-child(3):hover{
+    cursor: pointer;
+  }
 }
 
 .ratingBoxWrapper {
@@ -11,20 +14,16 @@
   justify-content: center;
   align-items: center;
   position: relative;
+
 }
 
 .ratingBoxContent {
-  position: absolute;
   height: 100%;
   display: flex;
   align-items: center;
-  // background: #3C444D;
   background: rgba(#222122, 0.6);
   z-index: 1;
-  top: 5px;
-  left: 100%;
   padding: 0 10px;
-
 }
 
 .verticalDivider {
@@ -54,12 +53,12 @@
     font-size: 10px;
     opacity: 0.8;
   }
-
 }
 
 .bottomRatingNumber {
   position: relative;
-  font-size: 14px;
+  font-size: 12px;
   bottom: 5px;
   opacity: 0.8;
 }
+

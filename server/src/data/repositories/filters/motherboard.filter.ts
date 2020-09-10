@@ -1,5 +1,5 @@
 import { IFilter } from './base.filter';
-import { FilterByBooleanType, FilterByIdType, FilterByNumberType, notNull } from './types';
+import { FilterByBooleanType, FilterByIdType, FilterByNumberType, notNull, FilterByNameType } from './types';
 import { SwaggerSchema } from '../../models/swaggerSchema';
 
 export class IMotherboardFilter extends IFilter {
@@ -12,7 +12,7 @@ export class IMotherboardFilter extends IFilter {
   ramTypeId: FilterByIdType = notNull;
   sata: FilterByNumberType = notNull;
   m2: FilterByBooleanType = notNull;
-  name?: string = '';
+  name: FilterByNameType = '';
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -52,6 +52,13 @@ export class IMotherboardFilter extends IFilter {
         type: 'integer',
         minimum: 1,
         nullable: true,
+      },
+      sataMultiple: {
+        type: 'array',
+        items: {
+          type: 'integer',
+          minimum: 1,
+        },
       },
       m2: {
         type: 'boolean',

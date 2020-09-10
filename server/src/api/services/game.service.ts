@@ -14,8 +14,8 @@ export class GameService extends BaseService<GameModel, GameCreationAttributes, 
     super(repository);
   }
 
-  async getGameById(id: string): Promise<GameModel> {
-    const game = await this.repository.getGameById(id);
+  async getGameById(id: string, requestingUserId?: number): Promise<GameModel> {
+    const game = await this.repository.getGameById(id, requestingUserId);
     if (!game) {
       triggerServerError(`Game with id: ${id} does not exists`, 404);
     }

@@ -1,6 +1,7 @@
 import webApi from 'api/webApiHelper';
 import { TypeUsersRequests, TypeUsersRequestsCreationAttributes } from 'common/models/typeUsersRequests';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
+import { UserRequestDeleteType } from 'containers/AdminToolsPage/actionsTypes';
 
 type TypeResponseAll = {
   meta: {
@@ -29,8 +30,8 @@ export const updateUserRequest = async (request: TypeUsersRequests): Promise<Typ
   return await webApi.put(`${endpoint}/${request.id}`, request);
 };
 
-export const deleteUserRequest = async (id: number): Promise<void> => {
-  return await webApi.delete(`${endpoint}/${id}`);
+export const deleteUserRequest = async (id: number, type: UserRequestDeleteType): Promise<void> => {
+  return await webApi.delete(`${endpoint}/${id}`, { type });
 };
 
 export const postUserRequest = async (request: TypeUsersRequestsCreationAttributes): Promise<TypeUsersRequests> => {

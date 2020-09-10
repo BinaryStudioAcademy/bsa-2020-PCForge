@@ -15,7 +15,6 @@ interface Props {
 }
 
 interface State {
-  ownRating: number;
   averageRatingHovered: boolean;
   userRatingClicked: boolean;
 }
@@ -41,7 +40,6 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      ownRating: this.props.ownRating || 0,
       averageRatingHovered: false,
       userRatingClicked: false,
     };
@@ -52,9 +50,6 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
   }
 
   public onRatingValueSet(value: number) {
-    this.setState({
-      ownRating: value,
-    });
     if (this.props.onValueSet) {
       this.props.onValueSet(value);
     }
@@ -81,10 +76,10 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
 
   public render(): JSX.Element {
     const { name, averageValue, ratingCount, clickable } = this.props;
-    const { ownRating } = this.state;
+    const ownRating = this.props.ownRating || 0;
     return (
       <div className={styles.ratingBoxesWrapper}>
-        <div className={styles.ratingBoxWrapper} title={(averageValue || 0).toString()}>
+        <div className={styles.ratingBoxWrapper}>
           <StyledRating
             precision={0.1}
             max={1}
@@ -97,10 +92,12 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
           {!!averageValue && (
             <div className={styles.ratingNumbersHolder}>
               <div className={styles.topRatingNumber}>
-                {averageValue}
+                {+averageValue.toFixed(1)}
                 <span>/5</span>
               </div>
-              <div className={styles.bottomRatingNumber}>{ratingCount}</div>
+              <div className={styles.bottomRatingNumber}>
+                {ratingCount} {ratingCount > 1 ? 'rates' : 'rate'}
+              </div>
             </div>
           )}
         </div>
@@ -110,7 +107,7 @@ class ExtendedRatingBox extends React.PureComponent<Props, State> {
         <div className={styles.ratingBoxWrapper} onClick={this.openRating}>
           {!this.state.userRatingClicked && (
             <>
-              <div className={styles.ratingBoxWrapper} title={(ownRating === 0 ? 'Not rated' : ownRating).toString()}>
+              <div className={styles.ratingBoxWrapper}>
                 <StyledRating
                   precision={0.1}
                   disabled={true}

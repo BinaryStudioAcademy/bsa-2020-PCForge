@@ -8,6 +8,10 @@ export interface GameAttributes {
   year: number;
   image: string;
   description: string;
+  comments_count: number;
+  ratingCount: number;
+  rating: number;
+  ownRating: number;
   recommendedRamSize: number;
   minimalRamSize: number;
   createdAt: Date;

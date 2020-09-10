@@ -15,6 +15,7 @@ import { HddCreationAttributes } from 'common/models/hdd';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
 
+import * as alert from 'common/services/AlertService/alert.service';
 import * as notification from 'common/services/notificationService';
 
 import Button, { ButtonType } from 'components/BasicComponents/Button';
@@ -32,7 +33,9 @@ import {
   ramValueOptions,
   storage,
   StorageTypesValues,
+  validationErrorEmptyNameField,
   validationErrorEmptyFields,
+  validationErrorNegativeNumber,
 } from './interfaces';
 import * as actions from './actions';
 import { HardwareFormState, HardWareFormAction, HardwareFormActionTypes, IHardwareFilter } from './actionsTypes';
@@ -95,41 +98,41 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   const [name, setName] = useState('');
   const [typeHardWare, setTypeHardWare] = useState<string | unknown>();
   const [typeStorage, setTypeStorage] = useState<string | unknown>();
-  const [performance, setPerformance] = useState('');
-  const [tdp, setTdp] = useState('');
-  const [clockSpeed, setClockSpeed] = useState('');
-  const [cores, setCores] = useState('');
   const [classCpu, setClassCpu] = useState('');
   const [interfaceGpu, setInterfaceGpu] = useState('');
   const [memorySize, setMemorySize] = useState('');
   const [sata, setSata] = useState('');
   const [m2, setM2] = useState(true);
-  const [coreClocks, setCoreClocks] = useState('');
   const [directX, setDirectX] = useState('');
   const [openGl, setOpenGl] = useState('');
-  const [capacity, setCapacity] = useState('');
-  const [size, setSize] = useState('');
-  const [rpm, setRpm] = useState('');
   const [ramValue, setRamValue] = useState('');
 
-  const [power, setPower] = useState('');
-  const [frequency, setFrequency] = useState('');
+  const [power, setPower] = useState<number | string>('');
+  const [frequency, setFrequency] = useState<number | string>('');
+  const [performance, setPerformance] = useState<number | string>('');
+  const [tdp, setTdp] = useState<number | string>('');
+  const [cores, setCores] = useState<number | string>('');
+  const [clockSpeed, setClockSpeed] = useState<number | string>('');
+  const [coreClocks, setCoreClocks] = useState<number | string>('');
+  const [capacity, setCapacity] = useState<number | string>('');
+  const [size, setSize] = useState<number | string>('');
+  const [rpm, setRpm] = useState<number | string>('');
   const [ram, setRam] = useState<number>();
   const [typeRam, setTypeRam] = useState<number | null>();
   const [socket, setSocket] = useState<number>();
 
   useEffect(() => {
-    //updateStateToInit();
-    //setAlertText(null);
+    updateStateToInit();
+    setAlertText('');
   }, []);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    setAlertText('');
   };
   const handleChangeType = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTypeHardWare(event.target.value as string);
     setAlertText('');
+    updateStateToInit();
     if (typeHardWare === storage) {
       setTypeStorage('');
     }
@@ -151,13 +154,14 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
 
   const handleChangeStorageType = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTypeStorage(event.target.value as string);
+    setInitialFormValues();
   };
 
   const handleChangeFrequency = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFrequency(event.target.value);
+    setFrequency(+event.target.value);
   };
   const handleChangePower = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPower(event.target.value);
+    setPower(+event.target.value);
   };
   const handleChangePerformance = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPerformance(event.target.value);
@@ -275,13 +279,24 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
   };
 
   const onCancel = () => {
+    updateStateToInit();
     goBack();
   };
   const onPublish = () => {
+    if (!name) {
+      setAlertText(validationErrorEmptyNameField);
+      setAlertType(AlertType.error);
+      return;
+    }
     switch (typeHardWare) {
       case HardwareTypes.PowerSupply: {
-        if (!name || !power) {
+        if (!power) {
           setAlertText(validationErrorEmptyFields);
+          setAlertType(AlertType.error);
+          return;
+        }
+        if (power <= 0) {
+          setAlertText(validationErrorNegativeNumber);
           setAlertType(AlertType.error);
           return;
         }
@@ -294,7 +309,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.Motherboard: {
-        if (!name || !socket || !ram || !sata) {
+        if (!socket || !ram || !sata) {
           setAlertText(validationErrorEmptyFields);
           setAlertType(AlertType.error);
           return;
@@ -307,13 +322,17 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
           sata: +sata,
           m2,
         };
-        console.log(motherBoard);
         createMotherboard(motherBoard);
         break;
       }
       case HardwareTypes.RAM: {
-        if (!name || !frequency || !typeRam || !power || !memorySize) {
+        if (!frequency || !typeRam || !power || !memorySize) {
           setAlertText(validationErrorEmptyFields);
+          setAlertType(AlertType.error);
+          return;
+        }
+        if (power <= 0 || frequency <= 0) {
+          setAlertText(validationErrorNegativeNumber);
           setAlertType(AlertType.error);
           return;
         }
@@ -329,8 +348,13 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.CPU: {
-        if (!name || !performance || !tdp || !cores || !socket || !clockSpeed || !classCpu) {
+        if (!performance || !tdp || !cores || !socket || !clockSpeed || !classCpu) {
           setAlertText(validationErrorEmptyFields);
+          setAlertType(AlertType.error);
+          return;
+        }
+        if (performance <= 0 || tdp <= 0 || cores <= 0 || clockSpeed <= 0) {
+          setAlertText(validationErrorNegativeNumber);
           setAlertType(AlertType.error);
           return;
         }
@@ -348,8 +372,13 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.GPU: {
-        if (!name || !performance || !tdp || !memorySize || !openGl || !interfaceGpu || !coreClocks || !directX) {
+        if (!performance || !tdp || !memorySize || !openGl || !interfaceGpu || !coreClocks || !directX) {
           setAlertText(validationErrorEmptyFields);
+          setAlertType(AlertType.error);
+          return;
+        }
+        if (coreClocks <= 0 || performance <= 0 || tdp <= 0) {
+          setAlertText(validationErrorNegativeNumber);
           setAlertType(AlertType.error);
           return;
         }
@@ -368,8 +397,13 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
       }
       case storage: {
         if (typeStorage === HardwareTypes.SSD) {
-          if (!name || !capacity || !size || !sata || !m2) {
+          if (!capacity || !size || !sata || !m2) {
             setAlertText(validationErrorEmptyFields);
+            setAlertType(AlertType.error);
+            return;
+          }
+          if (capacity <= 0 || size <= 0) {
+            setAlertText(validationErrorNegativeNumber);
             setAlertType(AlertType.error);
             return;
           }
@@ -383,8 +417,13 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
           };
           createSSD(ssd);
         } else if (typeStorage === HardwareTypes.HDD) {
-          if (!name || !capacity || !size || !sata || !rpm || !ramValue) {
+          if (!capacity || !size || !sata || !rpm || !ramValue) {
             setAlertText(validationErrorEmptyFields);
+            setAlertType(AlertType.error);
+            return;
+          }
+          if (capacity <= 0 || size <= 0 || rpm <= 0) {
+            setAlertText(validationErrorNegativeNumber);
             setAlertType(AlertType.error);
             return;
           }

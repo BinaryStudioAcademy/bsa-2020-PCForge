@@ -3,7 +3,7 @@ enum CardsName {
   Hardwares = 'Hardwares',
   Setups = 'Setups',
   Games = 'Games',
-  // News = 'News',
+  News = 'News',
 }
 
 export { CardsName };

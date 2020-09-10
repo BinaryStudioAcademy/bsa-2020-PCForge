@@ -22,6 +22,7 @@ import { TopGameStatic } from '../models/topgame';
 import { AddRequestStatic } from '../models/addRequest';
 import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
+import { CommentRateStatic } from '../models/commentRates';
 
 export interface Models {
   AddRequest: AddRequestStatic;
@@ -42,6 +43,7 @@ export interface Models {
   TopGame: TopGameStatic;
   Hdd: HddStatic;
   Ssd: SsdStatic;
+  CommentRate: CommentRateStatic;
 }
 
 export interface Db {

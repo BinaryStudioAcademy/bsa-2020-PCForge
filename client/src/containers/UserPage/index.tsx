@@ -15,15 +15,12 @@ import {
   deleteUserGame,
   loadSetups,
   deleteUserSetup,
+  editUserSetup,
   setTab,
 } from 'containers/UserPage/logic/actions';
 import Spinner from 'components/Spinner';
 import styles from 'containers/UserPage/styles.module.scss';
-
-export enum UserPageTabs {
-  Games = 0,
-  Setups = 1,
-}
+import PreferencesSection from './components/PreferencesSection';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -35,13 +32,15 @@ const UserPage = (props: Props) => {
     showSpinner,
     loadUser,
     currentUser,
+    userLoadFailed,
     updateUser: userUpdate,
     userGames,
-    addUserGame: userGameAdd,
+    addUserGame,
     loadFilteredGames,
     filteredGames,
     deleteUserGame,
     deleteUserSetup,
+    editUserSetup,
     loadSetups,
     setups,
     openTab,
@@ -50,7 +49,7 @@ const UserPage = (props: Props) => {
   const gamesArray = userGames.map((game) => game.game);
 
   const { id } = useParams<{ id: string }>();
-  const currentUserId = currentUser?.id.toString();
+  const currentUserId = currentUser?.id?.toString();
 
   useEffect(() => {
     loadUser(parseInt(id));
@@ -58,32 +57,44 @@ const UserPage = (props: Props) => {
     loadSetups(parseInt(id));
   }, [id]);
 
-  return (
-    <PageComponent>
+  const renderContent = (): JSX.Element => (
+    <>
       {showSpinner ? (
         <Box className={styles.spinnerWrapper}>
           <Spinner load />
         </Box>
       ) : loadedUser ? (
-        <UserInfo
-          user={loadedUser}
-          userGames={gamesArray}
-          updateUser={userUpdate}
-          setups={setups}
-          isCurrentUser={id.toString() === currentUserId?.toString()}
-          addUserGame={userGameAdd}
-          loadFilteredGames={loadFilteredGames}
-          filteredGames={filteredGames}
-          deleteUserGame={deleteUserGame}
-          deleteUserSetup={deleteUserSetup}
-          openTab={openTab}
-          setTab={setTab}
-        />
+        <Box className={styles.userPageContainer}>
+          <UserInfo
+            user={loadedUser}
+            updateUser={userUpdate}
+            isCurrentUser={id.toString() === currentUserId?.toString()}
+          />
+          <PreferencesSection
+            openTab={openTab}
+            setTab={setTab}
+            isCurrentUser={id.toString() === currentUserId?.toString()}
+            userGames={gamesArray}
+            addUserGame={addUserGame}
+            deleteUserGame={deleteUserGame}
+            filteredGames={filteredGames}
+            loadFilteredGames={loadFilteredGames}
+            setups={setups}
+            deleteUserSetup={deleteUserSetup}
+            editUserSetup={editUserSetup}
+          />
+        </Box>
       ) : (
-        <Redirect to="/404" />
+        <Spinner />
       )}
-    </PageComponent>
+    </>
   );
+
+  if (userLoadFailed) {
+    return <Redirect to="/404" />;
+  }
+
+  return <PageComponent>{renderContent()}</PageComponent>;
 };
 
 const mapState = (state: RootState) => ({
@@ -94,6 +105,7 @@ const mapState = (state: RootState) => ({
   userGames: state.user.userGames,
   filteredGames: state.user.filteredGames,
   openTab: state.user.openTab,
+  userLoadFailed: state.user.userLoadFailed,
 });
 
 const mapDispatch = {
@@ -105,6 +117,7 @@ const mapDispatch = {
   deleteUserGame,
   loadSetups,
   deleteUserSetup,
+  editUserSetup,
   setTab,
 };
 
