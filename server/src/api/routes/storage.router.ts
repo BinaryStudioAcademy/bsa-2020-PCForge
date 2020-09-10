@@ -6,6 +6,7 @@ import { ISsdFilter } from '../../data/repositories/filters/ssd.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized } from '../middlewares/allowFor.middleware';
 import { renameQuery } from '../middlewares/rename.middleware';
+import { decodeName } from '../middlewares/decodeName.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { HardwareService } = fastify.services;
@@ -16,6 +17,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllStoragesResponse, ISsdFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllStoragesRequest, reply) => {
     allowForAuthorized(request);
+    decodeName(request);
     renameQuery(request, ['sataMultiple', 'sata']);
     const storages = await HardwareService.getTopStorages(request.query);
     reply.send(storages);

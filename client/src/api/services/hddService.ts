@@ -14,6 +14,7 @@ export type TypeResponseAllHdds = {
 const endpoint = '/hdds';
 
 export const getAllHdd = async (filter: TypeFilter): Promise<TypeResponseAllHdds> => {
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
   return await webApi.get(endpoint, filter);
 };
 
