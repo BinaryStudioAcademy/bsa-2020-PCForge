@@ -1,16 +1,15 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
 
-const UserSetupData: IUserData[] = [
-  { name: 'AdminCool', value: 10 },
-  { name: 'Bill', value: 5 },
-  { name: 'User100500', value: 4 },
-  { name: 'User4', value: 3 },
-  { name: 'Yuliia', value: 3 },
-  { name: 'others', value: 9 },
+const IHardwareUsingData: IHardwareData[] = [
+  { name: 'Asus ROG GAMING', value: 10 },
+  { name: 'ASRock B365M Pro4', value: 5 },
+  { name: 'Intel Core i7', value: 4 },
+  { name: 'GeForce GTX 1080', value: 3 },
+  { name: 'GeForce GTX 2080', value: 6 },
 ];
 
-interface IUserData {
+interface IHardwareData {
   name: string;
   value: number;
 }
@@ -24,7 +23,7 @@ interface IPropsChart {
   startAngle: number;
   endAngle: number;
   fill: string;
-  payload: IUserData;
+  payload: IHardwareData;
   percent: number;
   value: number;
 }
@@ -44,7 +43,7 @@ const renderActiveShape = (props: IPropsChart) => {
 
   return (
     <g>
-      <text x={cx} y={cy} dy={8} textAnchor="middle" fill={fill}>
+      <text x={cx} y={cy} dy={4} textAnchor="middle" fill={fill} width="50px">
         {payload.name}
       </text>
       <Sector
@@ -67,25 +66,20 @@ const renderActiveShape = (props: IPropsChart) => {
       />
       <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
       <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        textAnchor={textAnchor}
-        fill="#999"
-      >{`Created setups: ${value}`}</text>
-      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+      <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#999">{`Used ${value} times`}</text>
+      {/* <text x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
         {`(${(percent * 100).toFixed(2)}%)`}
-      </text>
+      </text> */}
     </g>
   );
 };
 
-export default class UserSetupCount extends PureComponent {
+export default class UsingHardwareChart extends PureComponent {
   state = {
     activeIndex: 0,
   };
 
-  onPieEnter = (UserSetupData: IUserData[], index: number) => {
+  onPieEnter = (IHardwareUsingData: IHardwareData[], index: number) => {
     this.setState({
       activeIndex: index,
     });
@@ -93,16 +87,16 @@ export default class UserSetupCount extends PureComponent {
 
   render() {
     return (
-      <PieChart width={500} height={300}>
+      <PieChart width={600} height={300}>
         <Pie
           activeIndex={this.state.activeIndex}
           activeShape={renderActiveShape}
-          data={UserSetupData}
+          data={IHardwareUsingData}
           cx={250}
           cy={130}
-          innerRadius={60}
-          outerRadius={80}
-          fill="#eb3d55"
+          innerRadius={80}
+          outerRadius={100}
+          fill="#f27a54"
           dataKey="value"
           onMouseEnter={this.onPieEnter}
         />
