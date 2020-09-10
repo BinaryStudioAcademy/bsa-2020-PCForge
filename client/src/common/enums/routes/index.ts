@@ -18,6 +18,7 @@ enum Routes {
   RESET_PASSWORD_REQUEST = '/reset-password',
   RESET_PASSWORD = '/reset-password/:userId/:token',
   NEWS = '/news',
+  ONE_NEWS = '/news/:id',
 }
 
 export { Routes };

@@ -23,6 +23,7 @@ import { TopGamesReducer } from 'containers/TopGames/redux/reducer';
 import { AlertsReducer } from 'containers/Alerts/redux/reducer';
 import ToastNotificationsReducer from 'containers/ToastNotifications/logic/reducer';
 import { GameReducer } from 'containers/GamePage/reducer';
+import { OneNewsReducer } from 'containers/OneNewsPage/reducer';
 import { SearchReducer } from 'containers/TopBar/reducer';
 
 const RootReducer = combineReducers({
@@ -50,6 +51,7 @@ const RootReducer = combineReducers({
   alerts: AlertsReducer,
   addRequest: AddRequestReducer,
   gamePage: GameReducer,
+  oneNewsPage: OneNewsReducer,
   searchEngine: SearchReducer,
 });
 
