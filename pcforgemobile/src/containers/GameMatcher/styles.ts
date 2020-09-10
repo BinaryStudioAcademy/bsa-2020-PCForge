@@ -7,62 +7,43 @@ export const styles = StyleSheet.create({
   content: {
     flex: 1,
     display: 'flex',
-    justifyContent: 'center',
-    // alignItems: 'center',
+    justifyContent: 'flex-start',
     marginHorizontal: 20,
   },
-  item: {
-    color: '#ed2f2f',
+  selectButton: {
+    marginBottom: 20,
+    alignSelf: 'stretch'
   },
-  itemWrapper: {
-    zIndex: 200,
+  selectGame: {
+    marginTop: 10,
+    alignSelf: 'stretch'
   },
-  gameHeader: {
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 10,
-    zIndex: 3
+  selectCpu: {
+    alignSelf: 'stretch'
+
   },
-  gameContainer: {
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 35,
-    zIndex: 3
+  selectGpu: {
+    alignSelf: 'stretch'
   },
-  cpuHeader: {
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 70,
-    zIndex: 2
+  selectRam: {
+    color: '#fff',
   },
-  cpuContainer: {
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 95,
-    zIndex: 2
+  slider: {
+    marginTop: 20,
   },
-  gpuHeader: {
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 130,
-    zIndex: 1
+  selectedRam: {
+    marginTop: 10,
+    color: '#fff',
+    alignSelf: 'stretch',
+    textAlign: 'center',
+    marginBottom: 150,
   },
-  gpuContainer: {
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 155,
-    zIndex: 1
+  header: {
+    color: '#fff',
+    fontSize: 30,
+    marginBottom: 10,
   },
+  canRunButton: {
+    justifyContent: 'center',
+  }
 });
