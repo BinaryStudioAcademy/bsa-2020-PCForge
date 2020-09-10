@@ -21,6 +21,7 @@ import { MotherboardModel } from '../../data/models/motherboard';
 import { PowerSupplyModel } from '../../data/models/powersupply';
 import { HddModel } from '../../data/models/hdd';
 import { SsdModel } from '../../data/models/ssd';
+import { IStorageFilter } from '../../data/repositories/filters/storage.filter';
 import { elasticServices as elastic } from './elsticsearch.service';
 
 enum Component {
@@ -278,10 +279,36 @@ export class HardwareService {
     return storages;
   }
 
-  async getTopStorages(filter: ISsdFilter): Promise<IWithMeta<SsdModel>> {
+  addTypeAndM2(data, type: Component): SsdModel[] {
+    const ssdData = data.map((e) => {
+      e.setDataValue('type', type);
+      if (type === Component.hdd) e.setDataValue('m2', false);
+      return e;
+    });
+    return ssdData;
+  }
+
+  async getTopStorages(filter: IStorageFilter): Promise<IWithMeta<SsdModel>> {
+    if (filter.type === Component.ssd) {
+      const storages = await this.getTopSsds(filter);
+      return {
+        ...storages,
+        data: this.addTypeAndM2(storages.data, Component.ssd),
+      };
+    }
+
+    if (filter.type === Component.hdd) {
+      const storages = await this.getTopHdds(filter);
+      return {
+        ...storages,
+        data: this.addTypeAndM2(storages.data, Component.hdd),
+      };
+    }
+
     const topSsdIdMap = await this.getTopComponentsId(Component.ssd);
     const topHddIdMap = await this.getTopComponentsId(Component.hdd);
     const topStoragesIdMap = new Map([...topHddIdMap, ...topSsdIdMap].sort((a, b) => a[1] - b[1]));
+
     if (topStoragesIdMap.size > filter.from) {
       const topIds = [...topStoragesIdMap].slice(filter.from, filter.from + filter.count).map((e) => e[0]);
       const ssd = await this[Component.ssd]({
