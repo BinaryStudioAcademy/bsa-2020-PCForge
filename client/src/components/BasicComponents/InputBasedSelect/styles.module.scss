@@ -30,6 +30,10 @@ $error-color: #ff5a5a;
   color: #222;
 }
 
+*:focus {
+  outline: none;
+}
+
 .selectOptionsContainer {
   position: absolute;
   width: 100%;

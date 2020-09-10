@@ -70,7 +70,8 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
     });
   }
 
-  private onFocus() {
+  private onFocus(event: React.FocusEvent<HTMLDivElement>) {
+    event.preventDefault();
     this.setState({ selectVisible: true });
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
@@ -120,10 +121,11 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
           placeholder={placeholder}
           id={inputId}
           autoComplete="off"
-          classes={{ input: styles.input }}
+          classes={{ input: styles.input, root: styles.inputRoot }}
           onInput={(e: ChangeEvent<HTMLInputElement>) => this.onInputValueChange(e.target.value)}
           value={this.state.inputValue}
           disableUnderline={true}
+          onFocus={(e) => e.preventDefault()}
           {...(this.props.withClose &&
             this.state.inputValue !== '' && {
               endAdornment: (
