@@ -32,6 +32,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetAllSsdsRequest, reply) => {
     allowForAuthorized(request);
     const ssds = await HardwareService.getTopSsds(request.query);
+    // const ssds = await SsdService.getAllSsds(request.query);
     reply.send(ssds);
   });
 

@@ -30,6 +30,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllPowerSuppliesResponse, IFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetOnePowerSuppliesRequest, reply) => {
     allowForAuthorized(request);
+    // const powerSupplies = await PowerSupplyService.getAllPowerSupplies(request.query);
     const powerSupplies = await HardwareService.getTopPowerSupplies(request.query);
     reply.send(powerSupplies);
   });

@@ -21,6 +21,7 @@ import { MotherboardModel } from '../../data/models/motherboard';
 import { PowerSupplyModel } from '../../data/models/powersupply';
 import { HddModel } from '../../data/models/hdd';
 import { SsdModel } from '../../data/models/ssd';
+import { elasticServices as elastic } from './elsticsearch.service';
 
 enum Component {
   cpu = 'cpu',
@@ -109,7 +110,17 @@ export class HardwareService {
   }
 
   async getTopCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
+    if (filter.name) {
+      const ids = await elastic.cpus.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
+
+    // delete filter.count;
     const cpus = await this.getTopComponents<IWithMeta<CpuModel>>(Component.cpu, filter);
+    console.log('HardwareService -> filter', filter);
     return cpus;
   }
 
