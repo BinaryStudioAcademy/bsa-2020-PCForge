@@ -168,6 +168,9 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
         [FilterName.hdd]: {
           enable: !setup[GroupName.motherboard],
         },
+        [FilterName.storage]: {
+          enable: true,
+        },
       },
     },
   ];
