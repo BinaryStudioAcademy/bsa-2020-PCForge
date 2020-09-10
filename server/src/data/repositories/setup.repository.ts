@@ -125,7 +125,9 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           as: 'author',
         },
       ],
-      where,
+      where: {
+        id: { [Op.and]: { [Op.or]: filter.id } },
+      },
       subQuery: false,
       offset: filter.from,
       limit: filter.count,

@@ -4,6 +4,9 @@ import { IHddFilter } from '../../data/repositories/filters/hdd.filter';
 import { HddRepository } from '../../data/repositories/hdd.repository';
 import { triggerServerError } from '../../helpers/global.helper';
 import { BaseService } from './base.service';
+import { elasticServices } from './elsticsearch.service';
+
+const elastic = elasticServices.hdds;
 
 export class HddService extends BaseService<HddModel, HddCreationAttributes, HddRepository> {
   constructor(private repository: HddRepository) {
@@ -19,12 +22,21 @@ export class HddService extends BaseService<HddModel, HddCreationAttributes, Hdd
   }
 
   async getAllHdds(filter: IHddFilter): Promise<IWithMeta<HddModel>> {
+    if (filter.name) {
+      const ids = await elastic.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
+
     const hdds = await this.repository.getAllHdds(filter);
     return hdds;
   }
 
   async createHdd(inputHdd: HddCreationAttributes): Promise<HddModel> {
     const hdd = await this.repository.createHdd(inputHdd);
+    await elastic.addData(hdd);
     return hdd;
   }
 
@@ -41,11 +53,14 @@ export class HddService extends BaseService<HddModel, HddCreationAttributes, Hdd
       triggerServerError(`Hdd with id: ${id} does not exists`, 404);
     }
     const hdd = await this.repository.updateHddById(id, data);
+    await elastic.updateData(hdd);
     return hdd;
   }
 
   async deleteHddById(inputHdd: { id: string }): Promise<HddModel> {
     const { id } = inputHdd;
-    return await super.deleteById(id);
+    const hdd = await super.deleteById(id);
+    elastic.delete(id);
+    return hdd;
   }
 }

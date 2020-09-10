@@ -32,7 +32,6 @@ export class SsdRepository extends BaseRepository<SsdModel, SsdCreationAttribute
               m2: filter.m2,
             },
           ],
-          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
           capacity: {
             [Op.between]: [filter.capacity.minValue, filter.capacity.maxValue],
           },

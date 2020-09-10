@@ -1,8 +1,11 @@
 import { FastifyRequest } from 'fastify';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserAttributes } from '../../data/models/user';
+import { INewsFilter } from '../../data/repositories/filters/news.filter';
 
-export type GetAllNews = FastifyRequest & { user: UserAttributes };
+export type GetAllNews = FastifyRequest<{
+  Querystring: INewsFilter;
+}> & { user: UserAttributes };
 
 export type GetNewsRequest = FastifyRequest<{
   Params: { id: string };
