@@ -216,7 +216,7 @@ const GroupComponent = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} xl={2}>
-            <Search className={styles.search} value={name} onChange={setName} />
+            <Search className={styles.search} onChange={setName} />
             {filtersUsed[FilterName.storage] && (
               <FilterStorageType show={filtersUsed[FilterName.storage].enable} onUpdateFilter={setTypeStorage} />
             )}

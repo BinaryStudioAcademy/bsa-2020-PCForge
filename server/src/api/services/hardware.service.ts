@@ -22,6 +22,7 @@ import { PowerSupplyModel } from '../../data/models/powersupply';
 import { HddModel } from '../../data/models/hdd';
 import { SsdModel } from '../../data/models/ssd';
 import { IStorageFilter } from '../../data/repositories/filters/storage.filter';
+import { elasticServices as elastic } from './elsticsearch.service';
 
 enum Component {
   cpu = 'cpu',
@@ -64,7 +65,7 @@ export class HardwareService {
 
   async getTopComponentsId(component: Component): Promise<Map<{ id: number; component: Component }, number>> {
     const topIdMap: Map<{ id: number; component: Component }, number> = new Map();
-    const setups = await this.setupRepository.getAll(null, { count: null, from: null });
+    const setups = await this.setupRepository.getAllSetupsBasic({ count: null, from: null });
     for (const setup of setups.data) {
       const id = setup[component]?.id;
       if (!id && id !== 0) continue;
@@ -110,36 +111,88 @@ export class HardwareService {
   }
 
   async getTopCpus(filter: ICpuFilter): Promise<IWithMeta<CpuModel>> {
+    if (filter.name) {
+      const ids = await elastic.cpus.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
+
+    // delete filter.count;
     const cpus = await this.getTopComponents<IWithMeta<CpuModel>>(Component.cpu, filter);
+    console.log('HardwareService -> filter', filter);
     return cpus;
   }
 
   async getTopGpus(filter: IGpuFilter): Promise<IWithMeta<GpuModel>> {
+    if (filter.name) {
+      const ids = await elastic.gpus.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
     const gpus = await this.getTopComponents<IWithMeta<GpuModel>>(Component.gpu, filter);
     return gpus;
   }
 
   async getTopRams(filter: IRamFilter): Promise<IWithMeta<RamModel>> {
+    if (filter.name) {
+      const ids = await elastic.rams.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
     const rams = await this.getTopComponents<IWithMeta<RamModel>>(Component.ram, filter);
     return rams;
   }
 
   async getTopMotherboards(filter: IMotherboardFilter): Promise<IWithMeta<MotherboardModel>> {
+    if (filter.name) {
+      const ids = await elastic.motherboards.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
     const motherboards = await this.getTopComponents<IWithMeta<MotherboardModel>>(Component.motherboard, filter);
     return motherboards;
   }
 
   async getTopPowerSupplies(filter: IPowerSupplyFilter): Promise<IWithMeta<PowerSupplyModel>> {
+    if (filter.name) {
+      const ids = await elastic.powersupplies.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
     const powerSupplies = await this.getTopComponents<IWithMeta<PowerSupplyModel>>(Component.powerSupply, filter);
     return powerSupplies;
   }
 
   async getTopHdds(filter: IHddFilter): Promise<IWithMeta<HddModel>> {
+    if (filter.name) {
+      const ids = await elastic.hdds.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
     const hdds = await this.getTopComponents<IWithMeta<HddModel>>(Component.hdd, filter);
     return hdds;
   }
 
   async getTopSsds(filter: ISsdFilter): Promise<IWithMeta<SsdModel>> {
+    if (filter.name) {
+      const ids = await elastic.ssds.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
     const ssds = await this.getTopComponents<IWithMeta<SsdModel>>(Component.ssd, filter);
     return ssds;
   }
@@ -151,16 +204,40 @@ export class HardwareService {
     from: number,
     count: number
   ): Promise<IWithMeta<SsdModel>> {
+    let ssdIds: Array<number>;
+    let hddIds: Array<number>;
+    console.log('ssdIds', ssdIds);
+    console.log('hddIds', hddIds);
+
+    if (filter.name) {
+      ssdIds = await elastic.ssds.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      ssdIds = ssdIds.length ? ssdIds : [-1];
+
+      hddIds = await elastic.hdds.searchIDs({
+        input: filter.name,
+        searchFields: ['name'],
+      });
+      hddIds = hddIds.length ? hddIds : [-1];
+    }
+
     const countSsd = Math.floor(count / 2);
     const countHdd = count - countSsd;
+
+    console.log('ssdIds', ssdIds);
+    console.log('hddIds', hddIds);
     let ssds = await this[Component.ssd]({
       ...filter,
+      id: hddIds,
       excludedId: excludedSsdId,
       from: 0,
       count: countSsd,
     });
     let hdds = await this[Component.hdd]({
       ...filter,
+      id: ssdIds,
       excludedId: excludedSsdId,
       from: 0,
       count: countHdd,

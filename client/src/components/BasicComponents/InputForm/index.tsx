@@ -5,16 +5,16 @@ import styles from './styles.module.scss';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 interface IInputFormProps {
-  inputLabel: string;
+  inputLabel?: string;
   labelClassName?: string;
 }
 
-//MuiInputBase-inputMultiline-32
 const theme = createMuiTheme({
   overrides: {
     MuiInputBase: {
       inputMultiline: {
-        padding: '0.3rem 1rem 0.5rem', //'10px',
+        padding: '0.5rem 1rem 0.5rem',
+        textAlign: 'justify',
       },
       input: {
         padding: '0.3rem 1rem 0.5rem',

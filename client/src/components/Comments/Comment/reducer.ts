@@ -5,6 +5,7 @@ const initialState: LikeCommentState = {
   countDisLikes: 0,
   updatedLikes: false,
   commentId: 0,
+  comment: undefined,
 };
 
 export default function LikeCommentReducer(state = initialState, action: CommentLikeRequestAction): LikeCommentState {
@@ -16,6 +17,12 @@ export default function LikeCommentReducer(state = initialState, action: Comment
         countDisLikes: action.payload.countDisLikes,
         updatedLikes: true,
         commentId: action.payload.commentId,
+      };
+    }
+    case LikeCommentActionTypes.EDIT_COMMENT_SUCCESS: {
+      return {
+        ...state,
+        comment: action.payload.comment,
       };
     }
     default:

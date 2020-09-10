@@ -4,6 +4,7 @@ import {
   IGetComments,
   IGetSetupRate,
   ICreateSetupComment,
+  IDeleteSetupComment,
   ISetSetupRate,
   IForkSetup,
   GET_SETUP,
@@ -12,6 +13,8 @@ import {
   GET_SETUP_COMMENTS_SUCCESS,
   GET_SETUP_FAILURE,
   CREATE_SETUP_COMMENT,
+  DELETE_SETUP_COMMENT,
+  DELETE_SETUP_COMMENT_SUCCESS,
   GET_SETUP_RATE,
   GET_SETUP_RATE_SUCCESS,
   SET_SETUP_RATE_SUCCESS,
@@ -22,7 +25,7 @@ import {
 import { getSetupById } from 'api/services/setups.service';
 import { forkUserSetup } from 'api/services/setupService';
 import { PCSetup } from 'common/models/setup';
-import { getAllComments, createComment } from 'api/services/comment.service';
+import { getAllComments, createComment, deleteComment, TypeResponseAllComments } from 'api/services/comment.service';
 import { Comment, CommentCreationAttributes } from 'common/models/comment';
 import { CommentFilter } from 'common/models/filter.model';
 import { getAverageRate, addRate } from 'api/services/rate.service';
@@ -51,7 +54,7 @@ function* getSetupComments(action: IGetComments) {
       from: action.payload.from,
       count: action.payload.count,
     };
-    const comments: Comment[] = yield call(getAllComments, filter);
+    const comments: TypeResponseAllComments = yield call(getAllComments, filter);
     yield put({ type: GET_SETUP_COMMENTS_SUCCESS, payload: comments });
   } catch (e) {
     yield put(addAlert(alert.error('Failed to get setup comments')));
@@ -79,6 +82,20 @@ function* createSetupComment(action: ICreateSetupComment) {
 
 function* watchCreateSetupComment() {
   yield takeEvery(CREATE_SETUP_COMMENT, createSetupComment);
+}
+
+function* deleteSetupComment(action: IDeleteSetupComment) {
+  try {
+    yield call(deleteComment, action.payload.id);
+    yield put({ type: DELETE_SETUP_COMMENT_SUCCESS });
+    yield put({ type: GET_SETUP_COMMENTS, payload: { id: action.payload.idSetup } });
+  } catch (e) {
+    yield put(addAlert(alert.error(e.message || 'Failed delete setup comment')));
+  }
+}
+
+function* watchDeleteSetupComment() {
+  yield takeEvery(DELETE_SETUP_COMMENT, deleteSetupComment);
 }
 
 function* getSetupRate(action: IGetSetupRate) {
@@ -134,6 +151,7 @@ export default function* setupSagas() {
     watchGetSetup(),
     watchGetSetupComments(),
     watchCreateSetupComment(),
+    watchDeleteSetupComment(),
     watchGetSetupRate(),
     watchAddSetupRate(),
     watchForkSetup(),
