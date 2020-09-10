@@ -73,13 +73,19 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
       countOfRequests: props.state.countGamesRequests,
       onAdd: () => props.historyPage.push(`${Routes.ADDITEM}/games`),
     },
+    {
+      name: CardsName.News,
+      count: 0,
+      icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
+      onAdd: () => alert('To do News form'),
+    },
   ];
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
       <div className={styles.contentPage}>
         <div className={styles.pageHeader}>
-          <Title title="Admin tools" subtitle="Manage hardware and game content, get site statistic" />
+          <Title title="Admin Tools" subtitle="Manage hardware and game content, get site statistic" />
         </div>
         {props.state.dataTotalsIsLoaded ? (
           <div className={styles.contentMain}>

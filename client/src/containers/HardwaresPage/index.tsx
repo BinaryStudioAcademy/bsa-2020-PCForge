@@ -9,6 +9,9 @@ import { IHardwaresProps } from './interfaces';
 import { connect } from 'react-redux';
 import Paginator from 'components/Paginator';
 import { MenuItems } from 'common/enums';
+import ModalAddRequest from 'containers/AddUserRequest';
+import Link from 'components/BasicComponents/Link';
+import { UserRequestedType } from 'common/enums/UserRequestedType';
 import { concatClassNames } from 'common/helpers/global.helper';
 import SearchIcon from '@material-ui/icons/Search';
 import {
@@ -30,6 +33,7 @@ interface State {
   count: number;
   itemsPerPage: number;
   searchValue: string;
+  displayAddRequestOpen: boolean;
 }
 
 class HardwaresPage extends React.Component<IHardwaresProps, State> {
@@ -42,6 +46,7 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
       count: 21,
       itemsPerPage: 21,
       searchValue: '',
+      displayAddRequestOpen: false,
     };
 
     this.onSelect = this.onSelect.bind(this);
@@ -49,6 +54,16 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
     this.onSearchInput = this.onSearchInput.bind(this);
     this.getHardwaresAfterInput = debounce(this.getHardwares, 300);
   }
+
+  public showAddHardwareModal = () => {
+    this.setState({ displayAddRequestOpen: true });
+  };
+  public hideAddHardwareModal = () => {
+    this.setState({ displayAddRequestOpen: false });
+  };
+  public handleAddHardwareWindow = () => {
+    this.state.displayAddRequestOpen ? this.hideAddHardwareModal() : this.showAddHardwareModal();
+  };
 
   public hardwareTypes = [
     { title: 'Processor', value: 'cpu' },
@@ -169,6 +184,20 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
                   countComponents={this.props.state.totalItems}
                   countComponentsOnPage={this.state.itemsPerPage}
                 />
+              </div>
+              <div className={styles.addRequestBlockContainer}>
+                {this.state.displayAddRequestOpen ? (
+                  <ModalAddRequest onClose={this.hideAddHardwareModal} requestType={UserRequestedType.hardware} />
+                ) : null}
+                <div className={styles.addRequestBlock}>
+                  <p>
+                    If you have not found the hardware you need, you can send a request to the administrator by this{' '}
+                    <Link onClick={this.handleAddHardwareWindow} className={styles.linkRequest}>
+                      link
+                    </Link>
+                    .
+                  </p>
+                </div>
               </div>
             </div>
             <div className={styles.asideContent}>

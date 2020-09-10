@@ -25,4 +25,5 @@ export interface IPreferencesSectionProps {
   loadFilteredGames: (searchString: string) => UserActionTypes;
   setups: SetupType[];
   deleteUserSetup: (userId: number, setupId: number) => UserActionTypes;
+  editUserSetup: (setupId: number) => UserActionTypes;
 }

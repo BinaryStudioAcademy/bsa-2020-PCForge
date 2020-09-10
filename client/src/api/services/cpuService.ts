@@ -14,16 +14,17 @@ export type TypeResponseAllCpus = {
 const endpoint = '/cpus';
 
 export const getAllCpu = async (filter: CpuFilter): Promise<TypeResponseAllCpus> => {
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
   const isMultipleSocketFilter: boolean = filter.socketId?.includes(',') || false;
   const serverFilter: CpuFilter = {
     count: filter.count,
     from: filter.from,
     name: filter.name,
-    clockspeed: filter.clockspeed,
+    'clockspeed[maxValue]': filter['clockspeed[maxValue]'],
+    'clockspeed[minValue]': filter['clockspeed[minValue]'],
     ...(isMultipleSocketFilter && { socketIds: filter.socketId }),
-    ...(!isMultipleSocketFilter && { socketid: filter.socketId }),
+    ...(!isMultipleSocketFilter && { socketId: filter.socketId }),
   };
-
   const response = await webApi.get(endpoint, serverFilter);
   return response;
 };

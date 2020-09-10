@@ -6,6 +6,7 @@ import Title from 'components/Title';
 
 type PropsType = {
   isCanToSave: boolean;
+  setupForEdit?: boolean;
   showResetFilter?: boolean;
   showResetSetup?: boolean;
   onResetFilter: () => void;
@@ -15,6 +16,7 @@ type PropsType = {
 
 const BuilderTitle = ({
   isCanToSave,
+  setupForEdit,
   showResetFilter = false,
   showResetSetup = false,
   onResetFilter,
@@ -30,11 +32,11 @@ const BuilderTitle = ({
         {showResetSetup && <Button onClick={onResetSetup}>Reset Setup</Button>}
         {isCanToSave ? (
           <Button buttonType={ButtonType.primary} onClick={onSaveSetup} disabled={false}>
-            Save Setup
+            {setupForEdit ? 'Update Setup' : 'Save Setup'}
           </Button>
         ) : (
           <Button buttonType={ButtonType.primary} onClick={onSaveSetup} disabled={true}>
-            Save Setup
+            {setupForEdit ? 'Update Setup' : 'Save Setup'}
           </Button>
         )}
       </Box>

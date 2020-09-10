@@ -63,7 +63,7 @@ export class HardwareService {
 
   async getTopComponentsId(component: Component): Promise<Map<{ id: number; component: Component }, number>> {
     const topIdMap: Map<{ id: number; component: Component }, number> = new Map();
-    const setups = await this.setupRepository.getAllSetupsBasic({ count: null, from: null });
+    const setups = await this.setupRepository.getAll(null, { count: null, from: null });
     for (const setup of setups.data) {
       const id = setup[component]?.id;
       if (!id && id !== 0) continue;

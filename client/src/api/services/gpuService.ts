@@ -14,6 +14,7 @@ export type TypeResponseAllGpus = {
 const endpoint = '/gpus';
 
 export const getAllGpu = async (filter: TypeFilter): Promise<TypeResponseAllGpus> => {
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
   return await webApi.get(endpoint, filter);
 };
 
