@@ -10,12 +10,15 @@ import {
   ICreateNewsComment,
   CREATE_NEWS_COMMENT_SUCCESS,
   CREATE_NEWS_COMMENT,
+  IDeleteNewsComment,
+  DELETE_NEWS_COMMENT,
+  DELETE_NEWS_COMMENT_SUCCESS,
 } from './actionTypes';
 import { TypeNews } from 'common/models/typeNews';
 import { getNews as fetchNews } from 'api/services/newsService';
-import { getAllComments, createComment } from 'api/services/comment.service';
+import { getAllComments, createComment, deleteComment } from 'api/services/comment.service';
 import { CommentFilter } from 'common/models/filter.model';
-import { CommentCreationAttributes } from 'common/models/comment';
+import { CommentCreationAttributes, Comment } from 'common/models/comment';
 import { handleShowingSpinner } from './actions';
 
 function* getNews(action: IGetOneNews) {
@@ -50,6 +53,10 @@ function* getNewsComments(action: IGetComments) {
   }
 }
 
+function* watchCreateNewsComment() {
+  yield takeEvery(CREATE_NEWS_COMMENT, createNewsComment);
+}
+
 function* createNewsComment(action: ICreateNewsComment) {
   try {
     const commentData: CommentCreationAttributes = {
@@ -65,14 +72,26 @@ function* createNewsComment(action: ICreateNewsComment) {
   }
 }
 
-function* watchCreateNewsComment() {
-  yield takeEvery(CREATE_NEWS_COMMENT, createNewsComment);
-}
-
 function* watchGetNewsComments() {
   yield takeEvery(GET_NEWS_COMMENTS, getNewsComments);
 }
 
+function* deleteNewsCommentHandler(action: IDeleteNewsComment) {
+  try {
+    const commentData: Comment = yield call(deleteComment, action.payload.id);
+    yield put({
+      type: DELETE_NEWS_COMMENT_SUCCESS,
+      payload: { id: commentData.id },
+    });
+  } catch (e) {
+    yield put({ type: GET_NEWS_FAILURE, payload: e.message });
+  }
+}
+
+function* watchDeleteNewsComments() {
+  yield takeEvery(DELETE_NEWS_COMMENT, deleteNewsCommentHandler);
+}
+
 export default function* gameSagas() {
-  yield all([watchGetNews(), watchGetNewsComments(), watchCreateNewsComment()]);
+  yield all([watchGetNews(), watchGetNewsComments(), watchCreateNewsComment(), watchDeleteNewsComments()]);
 }

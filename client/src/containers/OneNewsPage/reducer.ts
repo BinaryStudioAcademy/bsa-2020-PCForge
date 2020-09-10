@@ -1,4 +1,10 @@
-import { OneNewsState, GET_NEWS_COMMENTS_SUCCESS, SHOW_SPINNER } from './actionTypes';
+import {
+  OneNewsState,
+  GET_NEWS_COMMENTS_SUCCESS,
+  SHOW_SPINNER,
+  DELETE_NEWS_COMMENT,
+  DELETE_NEWS_COMMENT_SUCCESS,
+} from './actionTypes';
 import { OneNewsActionTypes, GET_NEWS_SUCCESS, GET_NEWS_FAILURE } from './actionTypes';
 
 const initialState: OneNewsState = {
@@ -27,6 +33,12 @@ export function OneNewsReducer(state: OneNewsState = initialState, action: OneNe
         ...state,
         comments: action.payload.data,
         totalCountComments: action.payload.meta.countAfterFiltering,
+      };
+    case DELETE_NEWS_COMMENT_SUCCESS:
+      const newCommentsArray = state.comments.filter((comment) => comment.id !== action.payload.id);
+      return {
+        ...state,
+        comments: newCommentsArray,
       };
     case SHOW_SPINNER: {
       return {

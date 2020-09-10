@@ -2,13 +2,14 @@ import React, { Component, useEffect } from 'react';
 import { MenuItems } from 'common/enums/MenuItems';
 import PageComponent from 'containers/PageComponent';
 import { RootState } from 'redux/rootReducer';
-import { getNews, getNewsComments, createNewsComment } from './actions';
+import { getNews, getNewsComments, createNewsComment, deleteNewsComment } from './actions';
 import { connect, ConnectedProps } from 'react-redux';
 import { Box, Container, Grid, CardMedia } from '@material-ui/core';
 import Spinner from 'components/Spinner';
 import styles from './styles.module.scss';
 import { RouteComponentProps } from 'react-router-dom';
 import Comments from 'components/Comments';
+import CommentableType from 'common/enums/CommentableItems';
 
 const OneNewsPage: React.FC<Props> = (props) => {
   useEffect(() => {
@@ -24,6 +25,10 @@ const OneNewsPage: React.FC<Props> = (props) => {
   const onCreateComment = (value: string) => {
     const id: string = props.match.params.id;
     props.createNewsComment({ id: +id, value: value });
+  };
+
+  const onDeleteComment = (id: number) => {
+    props.deleteNewsComment({ id: id });
   };
 
   if (props.loading) {
@@ -60,12 +65,15 @@ const OneNewsPage: React.FC<Props> = (props) => {
           </Grid>
           {props.comments && (
             <Comments
+              comments={props.comments}
               commentsPerPage={10}
               commentsTotal={props.commentsCount}
-              comments={props.comments}
-              rootClassName={styles.commentsRoot}
               onCreateComment={onCreateComment}
+              onDeleteComment={onDeleteComment}
+              rootClassName={styles.commentsRoot}
               onPaginationToggle={getNewsComments}
+              commentableId={+props.match.params.id}
+              commentableType={CommentableType.News}
             />
           )}
         </Grid>
@@ -84,7 +92,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = { getNews, getNewsComments, createNewsComment };
+const mapDispatchToProps = { getNews, getNewsComments, createNewsComment, deleteNewsComment };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
 type PropsFromRedux = ConnectedProps<typeof connector>;

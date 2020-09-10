@@ -14,6 +14,10 @@ export const CREATE_NEWS_COMMENT = 'OneNews/CREATE_NEWS_COMMENT';
 export const CREATE_NEWS_COMMENT_SUCCESS = 'OneNews/CREATE_NEWS_COMMENT_SUCCESS';
 export const CREATE_NEWS_COMMENT_FAILURE = 'OneNews/CREATE_NEWS_COMMENT_FAILURE';
 
+export const DELETE_NEWS_COMMENT = 'OneNews/DELETE_NEWS_COMMENT';
+export const DELETE_NEWS_COMMENT_SUCCESS = 'OneNews/DELETE_NEWS_COMMENT_SUCCESS';
+export const DELETE_NEWS_COMMENT_FAILURE = 'OneNews/DELETE_NEWS_COMMENT_FAILURE';
+
 export const SHOW_SPINNER = 'OneNews/SHOW_SPINNER';
 
 export interface IGetOneNews {
@@ -75,6 +79,27 @@ export interface ICreateNewsCommentFailure {
   };
 }
 
+export interface IDeleteNewsComment {
+  type: typeof DELETE_NEWS_COMMENT;
+  payload: {
+    id: number;
+  };
+}
+
+export interface IDeleteNewsCommentSuccess {
+  type: typeof DELETE_NEWS_COMMENT_SUCCESS;
+  payload: {
+    id: number;
+  };
+}
+
+export interface IDeleteNewsCommentFailure {
+  type: typeof DELETE_NEWS_COMMENT_FAILURE;
+  payload: {
+    message: string;
+  };
+}
+
 export interface IShowSpinner {
   type: typeof SHOW_SPINNER;
   payload: {
@@ -92,7 +117,10 @@ export type OneNewsActionTypes =
   | ICreateNewsComment
   | ICreateNewsCommentSuccess
   | ICreateNewsCommentFailure
-  | IShowSpinner;
+  | IShowSpinner
+  | IDeleteNewsComment
+  | IDeleteNewsCommentSuccess
+  | IDeleteNewsCommentFailure;
 
 export interface OneNewsState {
   news: News | null;
