@@ -1,15 +1,17 @@
+@import '../../styles/variables.scss';
+
 .topBarRoot {
   display: flex;
   justify-content: flex-end;
   padding-right: 3rem;
   padding-top: 2rem;
 
-  @media(max-width: 850px) {
+  @media (max-width: 850px) {
     padding-right: 3rem;
     padding-left: 3rem;
   }
 
-  @media(max-width: 600px) {
+  @media (max-width: 600px) {
     padding-right: 1rem;
     padding-left: 1rem;
   }
@@ -19,15 +21,47 @@
   align-items: center;
   display: flex;
 
-  @media(max-width: 850px) {
-
+  @media (max-width: 850px) {
     width: 100%;
 
-    >div:first-child {
+    > div:first-child {
       margin-right: auto;
       width: 100%;
     }
+  }
+}
 
+.searchLink {
+  color: white;
+  text-decoration: none;
+}
+.searchBlock {
+  position: relative;
+
+  .searchResults {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    z-index: 100;
+    &Item {
+      display: flex;
+      cursor: pointer;
+      background-color: $componentBgColor;
+      margin: 2px 0;
+      padding: 5px 10px;
+      border-radius: 100px;
+      border: 1px solid $colorBlue;
+      align-items: center;
+      &:hover {
+        background-color: $colorBlue;
+      }
+      &Image {
+        margin-right: 5px;
+      }
+    }
   }
 }
 
