@@ -88,8 +88,6 @@ class HardwareSidebarView extends React.PureComponent<IHardwareProps, State> {
       return null;
     }
 
-    console.log(this.props.type);
-
     return (
       <>
         <div className={styles.hardwareRoot}>

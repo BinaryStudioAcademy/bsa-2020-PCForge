@@ -47,7 +47,6 @@ interface Props {
   disLikeCommentAction: (commentId: number) => CommentLikeRequestAction;
   editComment: (commentId: number, comment: CommentCreationAttributes) => CommentLikeRequestAction;
   deleteCommentAction: (id: number) => void;
-  //editCommentAction: (id: number) => void;
   commentRef?: React.RefObject<HTMLDivElement>;
   highlight?: boolean;
 
@@ -64,7 +63,6 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
     editComment,
     currentUser,
     deleteCommentAction,
-    //editCommentAction,
     commentableId,
     commentableType,
     commentRef,
@@ -78,7 +76,6 @@ const CommentComponent: React.FC<Props> = (props): JSX.Element => {
   const [editableComment, setEditableComment] = useState(false);
   const [disableSaveButton, setDisableSaveButton] = useState(false);
   const [commentText, setCommentText] = useState(comment.value);
-  //const [commentUpdateDate, setUpdateDate] = useState(comment.updatedAt);
 
   const showConfirmDeletionModal = () => {
     setdisplayConfirmDeletion(true);
