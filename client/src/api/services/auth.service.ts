@@ -7,7 +7,6 @@ import { TypeLoggedUser } from 'common/models/typeLoggedUser';
 export class AuthService {
   async login(data: IAuthPayload): Promise<User> {
     const apiRoute = '/auth/login';
-
     const response = await api.post(apiRoute, data);
     setToken(response.token);
 
@@ -17,13 +16,21 @@ export class AuthService {
   async verifyEmail({ token }: { token: string }): Promise<{ verified: boolean; user: User }> {
     const apiRoute = `/auth/verify-email/${token}`;
     const response = await api.get(apiRoute);
-    return response;
+    setToken(response.token);
+    return response.user;
   }
 
   async register(request: IRegPayload): Promise<User> {
     const apiRoute = '/users';
     const response = await api.post(apiRoute, request);
     return response;
+  }
+
+  async authGoogle(data: { token: string }): Promise<User> {
+    const apiRoute = `/auth/google-auth`;
+    const response = await api.post(apiRoute, data);
+    setToken(response.token);
+    return response.user;
   }
 
   async resetPasswordRequest(email: string): Promise<void> {

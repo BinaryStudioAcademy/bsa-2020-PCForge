@@ -6,24 +6,21 @@ import {
 } from './actionTypes';
 import { ReactText } from 'react';
 import { call, put, takeLatest, all } from 'redux-saga/effects';
-import { getAllCpu, TypeResponseAllCpus } from 'api/services/cpuService';
+import { getAllCpu } from 'api/services/cpuService';
 import { getAllGpu } from 'api/services/gpuService';
 import { getAllRam } from 'api/services/ramService';
 import { getAllHdd } from 'api/services/hddService';
 import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { getAllMotherboard } from 'api/services/motherboardService';
 import { getAllSsd } from 'api/services/ssdService';
+import { HardwaresResponse } from './interfaces';
+import * as alert from 'common/services/AlertService/alert.service';
+import { addAlert } from 'containers/Alerts/redux/actions';
 
 function* getHardwares(action: IGetHardwares) {
-  const { type, count, from } = action.payload;
-  let response: {
-    meta: {
-      globalCount: number;
-      countAfterFiltering: number;
-    };
-    data: Record<string, ReactText>[];
-  } | null = null;
-  const query = { count, from };
+  const { type, count, from, searchValue } = action.payload;
+  let response: HardwaresResponse = null;
+  const query = { count, from, name: searchValue };
   try {
     switch (type) {
       case 'cpu':
@@ -48,15 +45,15 @@ function* getHardwares(action: IGetHardwares) {
         response = yield call(getAllSsd, query);
         break;
       default:
-        throw new Error();
+        throw new Error(`Hardware type ${type} does not exist`);
     }
     const payload = {
       hardwares: response?.data || [],
-      totalItemsCount: response?.meta.countAfterFiltering || 0,
+      totalItemsCount: response?.meta?.countAfterFiltering || 0,
     };
     yield put({ type: HARDWARES_GET_HARDWARES_SUCESS, payload });
   } catch (e) {
-    yield put({ type: HARDWARES_GET_HARDWARES_FAILURE, payload: { message: 'Failed to load hardwares' } });
+    yield put(addAlert(alert.error('Failed to load hardwares')));
   }
 }
 

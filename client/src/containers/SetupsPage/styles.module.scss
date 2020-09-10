@@ -1,8 +1,27 @@
+.hidden {
+  display: none;
+}
+
+.spinnerWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
 .cardsContainer {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 25px;
   margin-bottom: 30px;
+}
+
+@media (max-width: 1920px) {
+  .cardsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 1440px) {
@@ -18,9 +37,18 @@
 }
 
 .contentBody {
-  margin: 20px 60px;
+  margin: 20px 0px;
   .filter {
     margin-top: 20px;
+    width: 200px;
+    .MuiInputLabelRoot {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .Select {
+      margin-top: 25px;
+    }
   }
 }
 
@@ -38,14 +66,6 @@
   }
 }
 
-.spinnerWrapper {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 @media (max-width: 1400px) {
   .mainContent {
     display: flex;
@@ -55,6 +75,7 @@
     }
     .rightContent {
       margin-left: 0;
+      margin-top: 20px;
       width: 100%;
     }
   }

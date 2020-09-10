@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
+import { Box } from '@material-ui/core';
 import PageComponent from 'containers/PageComponent';
 import { MenuItems } from 'common/enums';
-import Title from './components/Title';
-import CardDisplay from './components/CardsDisplay';
+import Title from 'containers/Home/components/Title';
+import CardDisplay from 'containers/Home/components/CardsDisplay';
 import { RootState } from 'redux/rootReducer';
-import { loadTopSetups } from './logic/actions';
+import { loadTopSetups } from 'containers/Home/logic/actions';
 import Spinner from 'components/Spinner';
 import PewsPage from 'containers/NewsPage';
-import styles from './styles.module.scss';
+import styles from 'containers/Home/styles.module.scss';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
 type Props = PropsFromRedux;
@@ -29,10 +30,14 @@ const Home: React.FC<Props> = (props): JSX.Element => {
 
   const renderContent = () => {
     if (showSpinner) {
-      return <Spinner load />;
+      return (
+        <Box className="spinnerWrapper">
+          <Spinner load />
+        </Box>
+      );
     } else {
       return (
-        <div>
+        <div className={styles.wholeContentContainer}>
           <Title />
           {children}
           {!!setups?.length && (

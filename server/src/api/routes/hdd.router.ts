@@ -21,9 +21,10 @@ import {
 import { IHddFilter } from '../../data/repositories/filters/hdd.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAdmin, allowForAuthorized } from '../middlewares/allowFor.middleware';
+import { decodeName } from '../middlewares/decodeName.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { HddService } = fastify.services;
+  const { HddService, HardwareService } = fastify.services;
 
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
@@ -31,7 +32,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllHddsResponse, IHddFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllHddsRequest, reply) => {
     allowForAuthorized(request);
-    const hdds = await HddService.getAllHdds(request.query);
+    decodeName(request);
+    const hdds = await HardwareService.getTopHdds(request.query);
     reply.send(hdds);
   });
 

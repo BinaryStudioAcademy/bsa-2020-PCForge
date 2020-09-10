@@ -42,8 +42,6 @@ export class MotherboardRepository extends BaseRepository<
       {
         group: ['motherboard.id', 'socket.id', 'ramType.id'],
         where: {
-          // sata: filter.sata,
-          // m2: filter.m2,
           [Op.or]: [
             {
               sata: filter.sata,
@@ -54,6 +52,8 @@ export class MotherboardRepository extends BaseRepository<
               m2: filter.m2,
             },
           ],
+          id: { [Op.and]: { [Op.or]: filter.id, [Op.not]: filter.excludedId } },
+          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
         },
         include: [
           {

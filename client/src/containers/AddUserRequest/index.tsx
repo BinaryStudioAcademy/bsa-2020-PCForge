@@ -19,6 +19,7 @@ import { MAX_COUNT_USERS_REQUESTS } from 'common/constants/index';
 import { User } from 'common/models/user';
 import { TypeUsersRequestsCreationAttributes } from 'common/models/typeUsersRequests';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
+import * as alert from 'common/services/AlertService/alert.service';
 import * as notification from 'common/services/notificationService';
 
 import * as actions from './actions';

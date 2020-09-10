@@ -48,6 +48,7 @@ class Api {
     return await this.instance
       .post(url, data, {
         headers: {
+          Authorization: `Bearer ${getToken()}`,
           'Content-Type': 'multipart/form-data',
         },
       })

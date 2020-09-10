@@ -5,6 +5,7 @@ import { TypeMotherboard } from 'common/models/typeMotherboard';
 import { TypePowersupplies } from 'common/models/typePowersupplies';
 import { TypeHdd } from 'common/models/typeHdd';
 import { TypeSsd } from 'common/models/typeSsd';
+import { TypeStorage } from 'common/models/typeStorage';
 import { GroupName } from './config';
 
 export type TypeBuild = {
@@ -17,7 +18,15 @@ export type TypeBuild = {
   ssd: TypeSsd;
 };
 
-export type TypeComponent = TypeCpu | TypeGpu | TypeRam | TypeMotherboard | TypePowersupplies | TypeHdd | TypeSsd;
+export type TypeComponent =
+  | TypeCpu
+  | TypeGpu
+  | TypeRam
+  | TypeMotherboard
+  | TypePowersupplies
+  | TypeHdd
+  | TypeSsd
+  | TypeStorage;
 
 export type TypeFilterBuilder = {
   socketIdSet: Set<number>;
@@ -49,6 +58,8 @@ export type TypeGroupConfig = {
       enable: boolean;
     };
   };
+  count?: number;
+  countHandler?: (value: number) => void;
 };
 
 export type TypeFilterRangeInfo = {
@@ -69,3 +80,5 @@ export enum ComponentGroups {
   motherboard,
   powersupply,
 }
+
+export type TypeAdditionalProps = { count?: number; countHandler?: (value: number) => void };

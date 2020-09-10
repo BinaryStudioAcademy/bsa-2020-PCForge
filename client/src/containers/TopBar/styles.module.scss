@@ -2,9 +2,9 @@
   display: flex;
   justify-content: flex-end;
   padding-right: 3rem;
-  padding-top: 1rem;
+  padding-top: 2rem;
 
-  @media(max-width: 77000px) {
+  @media(max-width: 850px) {
     padding-right: 3rem;
     padding-left: 3rem;
   }
@@ -19,7 +19,7 @@
   align-items: center;
   display: flex;
 
-  @media(max-width: 768px) {
+  @media(max-width: 850px) {
 
     width: 100%;
 

@@ -14,10 +14,15 @@ import { HardwareFormReducer } from 'containers/AddItemPages/AddHardwareForm/red
 import { EmailVerifyReducer } from 'containers/EmailVerificationPage/reducer';
 import { ResetPasswordReducer } from 'containers/ResetPassword/reducer';
 import NewsReducer from 'containers/NewsPage/reducer';
+import LikeCommentReducer from 'components/Comments/Comment/reducer';
 import { NotificationsReducer } from 'containers/Notifications/redux/reducer';
 import AddRequestReducer from 'containers/AddUserRequest/reducer';
 import { HardwareReducer } from 'containers/HardwaresPage/HardwareSidebarView/reducer';
 import { HardwaresReducer } from 'containers/HardwaresPage/reducer';
+import { TopGamesReducer } from 'containers/TopGames/redux/reducer';
+import { AlertsReducer } from 'containers/Alerts/redux/reducer';
+import ToastNotificationsReducer from 'containers/ToastNotifications/logic/reducer';
+import { GameReducer } from 'containers/GamePage/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -28,7 +33,7 @@ const RootReducer = combineReducers({
   hardwareForm: HardwareFormReducer,
   homePage: HomePageReducer,
   matcher: MatcherReducer,
-  // notification: NotificationReducer,
+  notification: ToastNotificationsReducer,
   quickMatcher: QuickMatcherReducer,
   resetPassword: ResetPasswordReducer,
   setup: builderReducer,
@@ -38,8 +43,12 @@ const RootReducer = combineReducers({
   user: UserReducer,
   userRequests: UserRequestsReducer,
   news: NewsReducer,
+  likeComment: LikeCommentReducer,
+  topGames: TopGamesReducer,
   notifications: NotificationsReducer,
+  alerts: AlertsReducer,
   addRequest: AddRequestReducer,
+  gamePage: GameReducer,
 });
 
 export default RootReducer;

@@ -1,5 +1,6 @@
-import { all, takeEvery, call, put } from 'redux-saga/effects';
+import { all, takeEvery, call, put, delay } from 'redux-saga/effects';
 import { getUser, updateUser as updateUserService, getUserGames } from 'api/services/userService';
+import { setLocalSetup } from 'helpers/setupHelper';
 import { uploadImage } from 'api/services/imageService';
 import {
   loadUser as loadUserAction,
@@ -10,6 +11,7 @@ import {
   addUserGame as addUserGameActionType,
   deleteUserGame as deleteUserGameActionType,
   deleteUserSetup as deleteUserSetupActionType,
+  IEditUserSetup,
   LOAD_USER,
   UPDATE_USER,
   LOAD_SETUPS,
@@ -18,6 +20,7 @@ import {
   ADD_USER_GAME,
   DELETE_USER_GAME,
   DELETE_USER_SETUP,
+  EDIT_USER_SETUP,
 } from './actionTypes';
 import {
   showSpinner,
@@ -29,11 +32,20 @@ import {
   loadUserGames as loadUserGamesAction,
   loadUserGamesSuccess,
   loadFilteredGamesSuceess,
+  loadUserFailed,
 } from './actions';
 import * as notification from 'common/services/notificationService';
 import { getAllGames } from 'api/services/gamesService';
 import { addUserGame as addUserGameService, deleteUserGame as deleteUserGameService } from 'api/services/userService';
-import { getUserSetups, deleteUserSetup as deleteUserSetupService, TypeResponseAll } from 'api/services/setupService';
+import {
+  getUserSetups,
+  getSetup,
+  deleteUserSetup as deleteUserSetupService,
+  TypeResponseAll,
+} from 'api/services/setupService';
+import { TypeSetup } from 'containers/BuilderPage/reducer';
+import history from 'browserHistory';
+import { Routes } from 'common/enums';
 
 export default function* userSagas() {
   yield all([
@@ -45,6 +57,7 @@ export default function* userSagas() {
     watchDeleteUserGame(),
     watchLoadSetups(),
     watchDeleteUserSetup(),
+    watchEditUserSetup(),
   ]);
 }
 
@@ -58,9 +71,10 @@ function* loadUser(action: loadUserAction) {
     const user = yield call(getUser, action.payload.id);
     yield put(loadUserSuccess(user));
   } catch (error) {
-    console.log(error);
+    yield put(loadUserFailed());
+  } finally {
+    yield put(hideSpinner());
   }
-  yield put(hideSpinner());
 }
 
 function* watchUpdateUser() {
@@ -176,5 +190,34 @@ function* deleteUserSetup(action: deleteUserSetupActionType) {
   } catch (error) {
     yield put(hideSpinner());
     notification.error(error.message || 'Could not delete the setup, try again later');
+  }
+}
+
+function* watchEditUserSetup() {
+  yield takeEvery(EDIT_USER_SETUP, editUserSetup);
+}
+
+function* editUserSetup(action: IEditUserSetup) {
+  try {
+    const setupToEditFromBack = yield call(getSetup, action.payload.setupId);
+    console.log(setupToEditFromBack);
+    const setupToEditForBuilder = {
+      id: setupToEditFromBack.id,
+      title: setupToEditFromBack.title,
+      description: setupToEditFromBack.description,
+      image: setupToEditFromBack.image,
+      cpu: setupToEditFromBack.cpu,
+      gpu: setupToEditFromBack.gpu,
+      ram: setupToEditFromBack.ram,
+      ramCount: setupToEditFromBack.ramCount,
+      motherboard: setupToEditFromBack.motherboard,
+      powersupply: setupToEditFromBack.powerSupply,
+      hdd: setupToEditFromBack.hdd || null,
+      ssd: setupToEditFromBack.ssd || null,
+    } as TypeSetup;
+    yield call(setLocalSetup, setupToEditForBuilder);
+    history.push(Routes.BUILDER);
+  } catch {
+    notification.error('Cannot edit at the moment');
   }
 }

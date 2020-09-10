@@ -63,7 +63,7 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
         resetPasswordToken: null,
         isActive: true,
       };
-      console.log(userAttributes);
+
       return await super.create(userAttributes);
     }
   }
@@ -122,6 +122,10 @@ export class UserService extends BaseService<UserModel, UserCreationAttributes, 
 
   async activateDeactivateUser(id: string): Promise<UserModel> {
     return await this.repository.activateDeactivate(id);
+  }
+
+  async getAdmins(): Promise<UserModel[]> {
+    return await this.repository.getAdmins();
   }
 
   hash(password: string): string {

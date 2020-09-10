@@ -16,7 +16,7 @@ export const SetupMiddleware = (fastify: FastifyInstance): ISetupMiddleware => {
   } = fastify.services;
 
   return async (input: SetupCreationAttributes) => {
-    const { cpuId, gpuId, motherboardId, powerSupplyId, ramId, hddId, ssdId } = input;
+    const { cpuId, gpuId, motherboardId, powerSupplyId, ramId, hddId, ssdId, ramCount } = input;
 
     if (cpuId) {
       const cpu = await CpuService.getCpuById(cpuId.toString());
@@ -65,6 +65,10 @@ export const SetupMiddleware = (fastify: FastifyInstance): ISetupMiddleware => {
       if (!ssd) {
         triggerServerError(`There's no hdd with id: ${ssdId}`, 400);
       }
+    }
+
+    if (!ramCount) {
+      triggerServerError('ramCount field is required', 400);
     }
   };
 };

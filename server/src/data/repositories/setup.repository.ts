@@ -2,18 +2,19 @@ import { SetupCreationAttributes, SetupModel, SetupStatic } from '../models/setu
 import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { CpuStatic } from '../models/cpu';
+import { SocketStatic } from '../models/socket';
 import { GpuStatic } from '../models/gpu';
 import { MotherboardStatic } from '../models/motherboard';
 import { RamStatic } from '../models/ram';
+import { RamTypeStatic } from '../models/ramtype';
 import { PowerSupplyStatic } from '../models/powersupply';
-import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
+import { ISetupFilter } from './filters/setup.filter';
 import { mergeFilters } from './filters/helper';
 import { HddStatic } from '../models/hdd';
 import { SsdStatic } from '../models/ssd';
 import { CommentStatic } from '../models/comment';
 import { RateStatic } from '../models/rate';
-import sequelize, { Op, OrderItem } from 'sequelize';
-import { group } from 'console';
+import sequelize, { Op, OrderItem, ProjectionAlias } from 'sequelize';
 import { UserStatic } from '../models/user';
 
 export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAttributes> {
@@ -27,8 +28,10 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     private hddModel: HddStatic,
     private ssdModel: SsdStatic,
     private commentModel: CommentStatic,
-    private reteModel: RateStatic,
-    private userModel: UserStatic
+    private rateModel: RateStatic,
+    private userModel: UserStatic,
+    private socketModel: SocketStatic,
+    private ramTypeModel: RamTypeStatic
   ) {
     super(<RichModel>model, IFilter);
   }
@@ -48,7 +51,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     }
   }
 
-  async getSetups(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+  async getSetups(inputFilter: ISetupFilter, requestingUserId: number): Promise<IWithMeta<SetupModel>> {
     const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
     const where: { authorId?: string } = {};
     if (filter.authorId) {
@@ -68,8 +71,15 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       ],
       attributes: {
         include: [
-          [sequelize.fn('COUNT', sequelize.col('comments.id')), 'comments_count'],
+          [sequelize.literal('COUNT(DISTINCT "comments"."id")'), 'comments_count'],
           [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+          [sequelize.literal('COUNT(DISTINCT "rates"."id")'), 'ratingCount'],
+          [
+            sequelize.literal(
+              `SUM(DISTINCT CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
+            ),
+            'ownRating',
+          ],
         ],
       },
       order: [this.getOrderProperty(filter.sort)],
@@ -101,7 +111,7 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
           attributes: [],
         },
         {
-          model: this.reteModel,
+          model: this.rateModel,
           on: {
             ratebleId: {
               [Op.col]: 'setup.id',
@@ -121,16 +131,16 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       limit: filter.count,
     });
 
-    console.log('result', result);
-    // here is a bug in sequelize: it returns array instead of number, so instead of result.count there was used this.model.count();
-    // https://github.com/sequelize/sequelize/issues/9109
-    const globalCount = await this.model.count();
-    // const countAfterFiltering = result.rows.length;
     return result;
   }
 
-  async getOneSetup(id: string): Promise<SetupModel> {
-    const setup = await this.model.findByPk(id, {
+  async getAllSetupsBasic(inputFilter: ISetupFilter): Promise<IWithMeta<SetupModel>> {
+    const filter = mergeFilters<ISetupFilter>(new ISetupFilter(), inputFilter);
+    const where: { authorId?: string } = {};
+    if (filter.authorId) {
+      where.authorId = filter.authorId;
+    }
+    const result = await this.getAll({
       group: [
         'setup.id',
         'cpu.id',
@@ -142,9 +152,89 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         'ssd.id',
         'author.id',
       ],
+      order: [this.getOrderProperty('newest')],
       include: [
         {
           model: this.cpuModel,
+          as: 'cpu',
+        },
+        {
+          model: this.gpuModel,
+        },
+        {
+          model: this.motherBoardModel,
+        },
+        {
+          model: this.ramModel,
+        },
+        {
+          model: this.powerSupplyModel,
+        },
+        {
+          model: this.hddModel,
+        },
+        {
+          model: this.ssdModel,
+        },
+        {
+          model: this.commentModel,
+          attributes: [],
+        },
+        {
+          model: this.userModel,
+          as: 'author',
+        },
+      ],
+      where,
+      subQuery: false,
+      offset: filter.from,
+      limit: filter.count,
+    });
+
+    return result;
+  }
+
+  async getOneSetup(id: string, requestingUserId?: number): Promise<SetupModel> {
+    const include: (string | ProjectionAlias)[] = [
+      [sequelize.literal('COUNT(DISTINCT "comments"."id")'), 'comments_count'],
+      [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+      [sequelize.literal('COUNT(DISTINCT "rates"."id")'), 'ratingCount'],
+    ];
+    if (requestingUserId) {
+      include.push([
+        sequelize.literal(
+          `SUM(DISTINCT CASE WHEN "rates"."userId" = ${requestingUserId} THEN "rates"."value" ELSE NULL END)`
+        ),
+        'ownRating',
+      ]);
+    }
+    const setup = await this.model.findByPk(id, {
+      group: [
+        'setup.id',
+        'cpu.id',
+        'gpu.id',
+        'ram.id',
+        'powerSupply.id',
+        'motherboard.id',
+        'hdd.id',
+        'ssd.id',
+        'author.id',
+        'cpu->socket.id',
+        'motherboard->socket.id',
+        'motherboard->ramType.id',
+        'ram->ramType.id',
+      ],
+      attributes: {
+        include: include,
+      },
+      include: [
+        {
+          model: this.cpuModel,
+          include: [
+            {
+              model: this.socketModel,
+            },
+          ],
           as: 'cpu',
         },
         {
@@ -153,6 +243,11 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         },
         {
           model: this.ramModel,
+          include: [
+            {
+              model: this.ramTypeModel,
+            },
+          ],
           as: 'ram',
         },
         {
@@ -161,6 +256,14 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         },
         {
           model: this.motherBoardModel,
+          include: [
+            {
+              model: this.socketModel,
+            },
+            {
+              model: this.ramTypeModel,
+            },
+          ],
           as: 'motherboard',
         },
         {
@@ -174,6 +277,20 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         {
           model: this.userModel,
           as: 'author',
+        },
+        {
+          model: this.commentModel,
+          attributes: [],
+        },
+        {
+          model: this.rateModel,
+          on: {
+            ratebleId: {
+              [Op.col]: 'setup.id',
+            },
+            ratebleType: 'setup',
+          },
+          attributes: [],
         },
       ],
     });

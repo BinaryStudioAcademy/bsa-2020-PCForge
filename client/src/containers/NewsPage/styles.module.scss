@@ -2,12 +2,9 @@
 
 .newsWrapper h1,
 .newsWrapper h2 {
-  margin: 0 2rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
-
-.newsWrapper h1 {}
-
-.newsWrapper h2 {}
 
 .cardsWrapper {
   display: flex;
@@ -18,6 +15,9 @@
 .newsCard {
   max-width: 400px;
   margin: 2rem;
+  img {
+    width: 100%;
+  }
 }
 
 .newsCard .title {

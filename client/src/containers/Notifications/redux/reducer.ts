@@ -2,8 +2,8 @@ import { NotificationsActions, NotificationsActionTypes, NotificationsState } fr
 
 const initialState: NotificationsState = {
   notifications: [],
-  activeNotifications: [],
   NotificationService: null,
+  WebSocketService: null,
 };
 
 export function NotificationsReducer(state = initialState, action: NotificationsActions): NotificationsState {
@@ -19,25 +19,21 @@ export function NotificationsReducer(state = initialState, action: Notifications
       return {
         ...state,
         notifications: [...state.notifications, action.payload.notification],
-        activeNotifications: [...state.activeNotifications, action.payload.notification],
       };
     }
 
     case NotificationsActionTypes.DELETE_NOTIFICATION: {
       return {
         ...state,
-        notifications: state.notifications.filter((notification) => notification.id !== action.payload.notificationId),
-        activeNotifications: state.activeNotifications.filter(
-          (notification) => notification.id !== action.payload.notificationId
-        ),
+        notifications: state.notifications.filter((notification) => notification.id !== action.payload.notification.id),
       };
     }
 
-    case NotificationsActionTypes.CLOSE_NOTIFICATION: {
+    case NotificationsActionTypes.UPDATE_NOTIFICATION: {
       return {
         ...state,
-        activeNotifications: state.activeNotifications.filter(
-          (notification) => notification.id !== action.payload.notificationId
+        notifications: state.notifications.map((notification) =>
+          notification.id === action.payload.notification.id ? action.payload.notification : notification
         ),
       };
     }
@@ -46,6 +42,13 @@ export function NotificationsReducer(state = initialState, action: Notifications
       return {
         ...state,
         NotificationService: action.payload.notificationService,
+      };
+    }
+
+    case NotificationsActionTypes.SET_WEBSOCKET_SERVICE: {
+      return {
+        ...state,
+        WebSocketService: action.payload.webSocketService,
       };
     }
 

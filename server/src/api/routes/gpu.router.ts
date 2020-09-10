@@ -21,16 +21,18 @@ import {
 import { IGpuFilter } from '../../data/repositories/filters/gpu.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { decodeName } from '../middlewares/decodeName.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { GpuService } = fastify.services;
+  const { GpuService, HardwareService } = fastify.services;
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
   const getAllSchema = getMultipleQuery(GetAllGpusResponse, IGpuFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllGpusRequest, reply) => {
     allowForAuthorized(request);
-    const gpus = await GpuService.getAllGpus(request.query);
+    decodeName(request);
+    const gpus = await HardwareService.getTopGpus(request.query);
     reply.send(gpus);
   });
 

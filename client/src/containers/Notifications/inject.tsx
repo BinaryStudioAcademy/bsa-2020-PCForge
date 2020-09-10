@@ -4,31 +4,35 @@ import {
   setNotifications,
   addNotification,
   deleteNotification,
-  closeNotification,
   setNotificationService,
+  setWebSocketService,
+  updateNotification,
 } from './redux/actions';
 import { RootState } from 'redux/rootReducer';
-import { NotificationService } from './notification.service';
+import { NotificationService } from 'common/services/NotificationService/notification.service';
 
 import React from 'react';
-import NotificationsContainer from './NotificationsContainer';
+import AlertsContainer from 'containers/Alerts/AlertsContainer';
+import { WebSocketService } from 'common/services/NotificationService/WebSocketService/websocket.service';
 
 const InjectNotifications: React.FC<Props> = ({
   children,
   userId,
-  activeNotifications,
   setNotificationService,
+  setWebSocketService,
   ...notificationActions
 }): JSX.Element => {
   React.useEffect(() => {
     if (!canOpenSocket()) return;
     const ws = new WebSocket(process.env.REACT_APP_WS_SERVER_ADDRESS!, userId!.toString(10));
-    const notificationService = new NotificationService(notificationActions, ws);
+    const notificationService = new NotificationService(notificationActions);
     setNotificationService(notificationService);
+    const webSocketService = new WebSocketService(ws, notificationService);
+    setWebSocketService(webSocketService);
     ws.onopen = () => console.log('WebSocket opened');
     ws.onmessage = (messageEvent) => {
       const { data } = messageEvent;
-      notificationService.handleMessage(data);
+      webSocketService.handleMessage(data);
     };
     ws.onclose = () => console.log('WebSocket closed');
     return () => {
@@ -51,25 +55,22 @@ const InjectNotifications: React.FC<Props> = ({
   return (
     <>
       {children}
-      <NotificationsContainer
-        notifications={activeNotifications}
-        closeNotification={notificationActions.closeNotification}
-      />
+      <AlertsContainer />
     </>
   );
 };
 
 const mapState = (state: RootState) => ({
   userId: state.auth.user?.id,
-  activeNotifications: state.notifications.activeNotifications,
 });
 
 const mapDispatch = {
   setNotifications,
   addNotification,
   deleteNotification,
-  closeNotification,
+  updateNotification,
   setNotificationService,
+  setWebSocketService,
 };
 
 const connector = connect(mapState, mapDispatch);

@@ -26,9 +26,10 @@ import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 import { renameQuery } from '../middlewares/rename.middleware';
 import { RamMiddleware } from '../middlewares/ram.middleware';
+import { decodeName } from '../middlewares/decodeName.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { RamService } = fastify.services;
+  const { RamService, HardwareService } = fastify.services;
 
   const ramMiddleware = RamMiddleware(fastify);
   const preHandler = userRequestMiddleware(fastify);
@@ -37,8 +38,9 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   const getAllSchema = getMultipleQuery(GetAllRamResponse, IRamFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllRamsRequest, reply) => {
     allowForAuthorized(request);
+    decodeName(request);
     renameQuery(request, ['typeIds', 'typeId']);
-    const rams = await RamService.getAllRams(request.query);
+    const rams = await HardwareService.getTopRams(request.query);
     reply.send(rams);
   });
 

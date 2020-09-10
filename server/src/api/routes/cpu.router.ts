@@ -24,9 +24,10 @@ import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
 import { renameQuery } from '../middlewares/rename.middleware';
 import { CpuMiddleware } from '../middlewares/cpu.middleware';
+import { decodeName } from '../middlewares/decodeName.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { CpuService } = fastify.services;
+  const { CpuService, HardwareService } = fastify.services;
 
   const cpuMiddleware = CpuMiddleware(fastify);
   const preHandler = userRequestMiddleware(fastify);
@@ -36,7 +37,9 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetAllCpusRequest, reply) => {
     allowForAuthorized(request);
     renameQuery(request, ['socketIds', 'socketId']);
-    const cpus = await CpuService.getAllCpus(request.query);
+    decodeName(request);
+    // const cpus = await CpuService.getAllCpus(request.query);
+    const cpus = await HardwareService.getTopCpus(request.query);
     reply.send(cpus);
   });
 

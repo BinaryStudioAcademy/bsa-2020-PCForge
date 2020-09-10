@@ -21,16 +21,18 @@ import {
 import { IFilter } from '../../data/repositories/filters/base.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForAdmin } from '../middlewares/allowFor.middleware';
+import { decodeName } from '../middlewares/decodeName.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
-  const { PowerSupplyService } = fastify.services;
+  const { PowerSupplyService, HardwareService } = fastify.services;
   const preHandler = userRequestMiddleware(fastify);
   fastify.addHook('preHandler', preHandler);
 
   const getAllSchema = getMultipleQuery(GetAllPowerSuppliesResponse, IFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetOnePowerSuppliesRequest, reply) => {
     allowForAuthorized(request);
-    const powerSupplies = await PowerSupplyService.getAllPowerSupplies(request.query);
+    decodeName(request);
+    const powerSupplies = await HardwareService.getTopPowerSupplies(request.query);
     reply.send(powerSupplies);
   });
 

@@ -1,6 +1,5 @@
 import { PCSetup } from 'common/models/setup';
-import { ISetupFilter, Sort } from 'api/services/setupsService';
-import { SetupActionTypes } from 'containers/SetupPage/actionTypes';
+import { ISetupFilter } from 'api/services/setupsService';
 
 export enum SetupsActionsTypes {
   FETCH_SETUPS_REQUEST = 'Setups/FETCH_SETUPS_REQUEST',
@@ -12,6 +11,7 @@ export enum SetupsActionsTypes {
   FETCH_TOP_SETUPS_FAILURE = 'Setups/FETCH_TOP_SETUPS_FAILURE',
 
   CHANGE_SORTING_TYPE = 'Setups/CHANGE_SORTING_TYPE',
+  SHOW_SPINNER = 'Setups/SHOW_SPINNER',
 }
 
 export interface IFetchSetupsRequest {
@@ -59,6 +59,13 @@ export interface IChangeSortingTypes {
   };
 }
 
+export interface IShowSpinner {
+  type: SetupsActionsTypes.SHOW_SPINNER;
+  payload: {
+    showSpinner: boolean;
+  };
+}
+
 export type SetupsActions =
   | IFetchSetupsRequest
   | IFetchSetupsSuccess
@@ -66,7 +73,8 @@ export type SetupsActions =
   | IFetchTopSetupsRequest
   | IFetchTopSetupsSuccess
   | IChangeSortingTypes
-  | IFetchTopSetupsFailure;
+  | IFetchTopSetupsFailure
+  | IShowSpinner;
 
 export interface SetupState {
   setups: PCSetup[];
@@ -74,4 +82,5 @@ export interface SetupState {
   setupsCount: number;
   filter: { sort: string; viewCount: number };
   error: string;
+  showSpinner: boolean;
 }

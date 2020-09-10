@@ -1,28 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { HardwareTypes } from 'common/enums/AdminTools/HardwareTypes';
-import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
-import Button, { ButtonType } from 'components/BasicComponents/Button';
-import InputForm from 'components/BasicComponents/InputForm';
-import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
-import Alert, { AlertType } from 'components/BasicComponents/Alert';
-import Select from 'components/BasicComponents/Select';
-import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
-import styles from './styles.module.scss';
-
 import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 import { bindActionCreators, Dispatch } from 'redux';
 import { RootState } from 'redux/rootReducer';
-import * as actions from './actions';
-import { HardwareFormState, HardWareFormAction, HardwareFormActionTypes, IHardwareFilter } from './actionsTypes';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import { HardwareTypes } from 'common/enums/AdminTools/HardwareTypes';
+import { HardwareFields } from 'common/enums/AdminTools/HardwareFields';
 import { RamCreationAttributes } from 'common/models/ram';
 import { CpuCreationAttributes } from 'common/models/cpu';
 import { GpuCreationAttributes } from 'common/models/gpu';
+import { SsdCreationAttributes } from 'common/models/ssd';
+import { HddCreationAttributes } from 'common/models/hdd';
 import { MotherboardCreationAttributes } from 'common/models/motherboard';
 import { PowerSupplyCreationAttributes } from 'common/models/powerSupply';
-import { SsdCreationAttributes } from 'common/models/ssd';
-import { HardwareTypesValues, memorySizeOptions, classCpuOptions, sataOptions, ramValueOptions } from './interfaces';
-import { HddCreationAttributes } from 'common/models/hdd';
+
+import * as alert from 'common/services/AlertService/alert.service';
+import * as notification from 'common/services/notificationService';
+
+import Button, { ButtonType } from 'components/BasicComponents/Button';
+import Alert, { AlertType } from 'components/BasicComponents/Alert';
+import Checkbox, { CheckboxType } from 'components/BasicComponents/Checkbox';
+import InputForm from 'components/BasicComponents/InputForm';
+import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
+import Select from 'components/BasicComponents/Select';
+
+import {
+  HardwareTypesValues,
+  memorySizeOptions,
+  classCpuOptions,
+  sataOptions,
+  ramValueOptions,
+  storage,
+  StorageTypesValues,
+  validationErrorEmptyNameField,
+  validationErrorEmptyFields,
+  validationErrorNegativeNumber,
+} from './interfaces';
+import * as actions from './actions';
+import { HardwareFormState, HardWareFormAction, HardwareFormActionTypes, IHardwareFilter } from './actionsTypes';
+
+import styles from './styles.module.scss';
 
 const theme = createMuiTheme({
   overrides: {
@@ -77,44 +95,47 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
 
   const [alertText, setAlertText] = useState<string | null>(null);
   const [alertType, setAlertType] = useState<AlertType>();
-  //const [validationError, setValidationError] = useState<string | null>(null);
   const [name, setName] = useState('');
   const [typeHardWare, setTypeHardWare] = useState<string | unknown>();
-  const [performance, setPerformance] = useState('');
-  const [tdp, setTdp] = useState('');
-  const [clockSpeed, setClockSpeed] = useState('');
-  const [cores, setCores] = useState('');
+  const [typeStorage, setTypeStorage] = useState<string | unknown>();
   const [classCpu, setClassCpu] = useState('');
   const [interfaceGpu, setInterfaceGpu] = useState('');
   const [memorySize, setMemorySize] = useState('');
-  const [sata, setSata] = useState<number>();
+  const [sata, setSata] = useState('');
   const [m2, setM2] = useState(true);
-  const [coreClocks, setCoreClocks] = useState('');
   const [directX, setDirectX] = useState('');
   const [openGl, setOpenGl] = useState('');
-  const [capacity, setCapacity] = useState('');
-  const [size, setSize] = useState('');
-  const [rpm, setRpm] = useState('');
   const [ramValue, setRamValue] = useState('');
 
-  const [power, setPower] = useState('');
-  const [frequency, setFrequency] = useState('');
+  const [power, setPower] = useState<number | string>('');
+  const [frequency, setFrequency] = useState<number | string>('');
+  const [performance, setPerformance] = useState<number | string>('');
+  const [tdp, setTdp] = useState<number | string>('');
+  const [cores, setCores] = useState<number | string>('');
+  const [clockSpeed, setClockSpeed] = useState<number | string>('');
+  const [coreClocks, setCoreClocks] = useState<number | string>('');
+  const [capacity, setCapacity] = useState<number | string>('');
+  const [size, setSize] = useState<number | string>('');
+  const [rpm, setRpm] = useState<number | string>('');
   const [ram, setRam] = useState<number>();
-  const [typeRam, setTypeRam] = useState<number>();
+  const [typeRam, setTypeRam] = useState<number | null>();
   const [socket, setSocket] = useState<number>();
 
   useEffect(() => {
-    //updateStateToInit();
-    //setAlertText(null);
+    updateStateToInit();
+    setAlertText('');
   }, []);
 
   const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
-    setAlertText('');
   };
   const handleChangeType = (event: React.ChangeEvent<{ value: unknown }>) => {
     setTypeHardWare(event.target.value as string);
     setAlertText('');
+    updateStateToInit();
+    if (typeHardWare === storage) {
+      setTypeStorage('');
+    }
     switch (event.target.value) {
       case HardwareTypes.Motherboard: {
         getAllSelectsInitialValuesMotherboard();
@@ -130,11 +151,17 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
       }
     }
   };
+
+  const handleChangeStorageType = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setTypeStorage(event.target.value as string);
+    setInitialFormValues();
+  };
+
   const handleChangeFrequency = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFrequency(event.target.value);
+    setFrequency(+event.target.value);
   };
   const handleChangePower = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPower(event.target.value);
+    setPower(+event.target.value);
   };
   const handleChangePerformance = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPerformance(event.target.value);
@@ -174,7 +201,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
     setMemorySize(event.target.value as string);
   };
   const handleChangeSata = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setSata(event.target.value as number);
+    setSata(event.target.value as string);
   };
   const handleChangeM2 = (event: React.ChangeEvent<HTMLInputElement>) => {
     setM2(event.target.checked);
@@ -186,14 +213,90 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
     setSize(event.target.value);
   };
 
+  const setInitialFormValues = () => {
+    setName('');
+    //setAlertText(null);
+    //setRamValue('');
+
+    switch (typeHardWare) {
+      case HardwareTypes.PowerSupply: {
+        setPower('');
+        break;
+      }
+      case HardwareTypes.RAM: {
+        setFrequency('');
+        setPower('');
+        setTypeRam(null);
+        setMemorySize('');
+        //typeRam
+        getAllSelectsInitialValuesRAM();
+        break;
+      }
+      case HardwareTypes.Motherboard: {
+        setSata('');
+        setM2(true);
+        //socket
+        //ram
+        getAllSelectsInitialValuesMotherboard();
+        break;
+      }
+      case HardwareTypes.GPU: {
+        setPerformance('');
+        setInterfaceGpu('');
+        setMemorySize('');
+        setCoreClocks('');
+        setTdp('');
+        setDirectX('');
+        setOpenGl('');
+        break;
+      }
+      case HardwareTypes.CPU: {
+        setPerformance('');
+        setTdp('');
+        setClockSpeed('');
+        setCores('');
+        setClassCpu('');
+        //socket
+        getAllSelectsInitialValuesCPU();
+        break;
+      }
+      case storage: {
+        if (typeStorage === HardwareTypes.SSD) {
+          setCapacity('');
+          setSize('');
+          setSata('');
+          setM2(true);
+        } else if (typeStorage === HardwareTypes.HDD) {
+          setCapacity('');
+          setSize('');
+          setSata('');
+          setRamValue('');
+          setRpm('');
+        }
+        break;
+      }
+    }
+  };
+
   const onCancel = () => {
+    updateStateToInit();
     goBack();
   };
   const onPublish = () => {
+    if (!name) {
+      setAlertText(validationErrorEmptyNameField);
+      setAlertType(AlertType.error);
+      return;
+    }
     switch (typeHardWare) {
       case HardwareTypes.PowerSupply: {
-        if (!name || !power) {
-          setAlertText('Error: Please fill all hardware components');
+        if (!power) {
+          setAlertText(validationErrorEmptyFields);
+          setAlertType(AlertType.error);
+          return;
+        }
+        if (power <= 0) {
+          setAlertText(validationErrorNegativeNumber);
           setAlertType(AlertType.error);
           return;
         }
@@ -206,8 +309,8 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.Motherboard: {
-        if (!name || !socket || !ram || !sata) {
-          setAlertText('Error: Please fill all hardware components');
+        if (!socket || !ram || !sata) {
+          setAlertText(validationErrorEmptyFields);
           setAlertType(AlertType.error);
           return;
         }
@@ -223,8 +326,13 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.RAM: {
-        if (!name || !frequency || !typeRam || !power || !memorySize) {
-          setAlertText('Error: Please fill all hardware components');
+        if (!frequency || !typeRam || !power || !memorySize) {
+          setAlertText(validationErrorEmptyFields);
+          setAlertType(AlertType.error);
+          return;
+        }
+        if (power <= 0 || frequency <= 0) {
+          setAlertText(validationErrorNegativeNumber);
           setAlertType(AlertType.error);
           return;
         }
@@ -240,8 +348,13 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.CPU: {
-        if (!name || !performance || !tdp || !cores || !socket || !clockSpeed || !classCpu) {
-          setAlertText('Error: Please fill all hardware components');
+        if (!performance || !tdp || !cores || !socket || !clockSpeed || !classCpu) {
+          setAlertText(validationErrorEmptyFields);
+          setAlertType(AlertType.error);
+          return;
+        }
+        if (performance <= 0 || tdp <= 0 || cores <= 0 || clockSpeed <= 0) {
+          setAlertText(validationErrorNegativeNumber);
           setAlertType(AlertType.error);
           return;
         }
@@ -259,8 +372,13 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         break;
       }
       case HardwareTypes.GPU: {
-        if (!name || !performance || !tdp || !memorySize || !openGl || !interfaceGpu || !clockSpeed || !directX) {
-          setAlertText('Error: Please fill all hardware components');
+        if (!performance || !tdp || !memorySize || !openGl || !interfaceGpu || !coreClocks || !directX) {
+          setAlertText(validationErrorEmptyFields);
+          setAlertType(AlertType.error);
+          return;
+        }
+        if (coreClocks <= 0 || performance <= 0 || tdp <= 0) {
+          setAlertText(validationErrorNegativeNumber);
           setAlertType(AlertType.error);
           return;
         }
@@ -277,39 +395,49 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         createGPU(newGPU);
         break;
       }
-      case HardwareTypes.SSD: {
-        if (!name || !capacity || !size || !sata || !m2) {
-          setAlertText('Error: Please fill all hardware components');
-          setAlertType(AlertType.error);
-          return;
+      case storage: {
+        if (typeStorage === HardwareTypes.SSD) {
+          if (!capacity || !size || !sata || !m2) {
+            setAlertText(validationErrorEmptyFields);
+            setAlertType(AlertType.error);
+            return;
+          }
+          if (capacity <= 0 || size <= 0) {
+            setAlertText(validationErrorNegativeNumber);
+            setAlertType(AlertType.error);
+            return;
+          }
+          setAlertText('');
+          const ssd: SsdCreationAttributes = {
+            name,
+            capacity: +capacity,
+            size: +size,
+            sata: +sata,
+            m2,
+          };
+          createSSD(ssd);
+        } else if (typeStorage === HardwareTypes.HDD) {
+          if (!capacity || !size || !sata || !rpm || !ramValue) {
+            setAlertText(validationErrorEmptyFields);
+            setAlertType(AlertType.error);
+            return;
+          }
+          if (capacity <= 0 || size <= 0 || rpm <= 0) {
+            setAlertText(validationErrorNegativeNumber);
+            setAlertType(AlertType.error);
+            return;
+          }
+          setAlertText('');
+          const hdd: HddCreationAttributes = {
+            name,
+            capacity: +capacity,
+            size: +size,
+            sata: +sata,
+            rpm: +rpm,
+            ram: +ramValue,
+          };
+          createHDD(hdd);
         }
-        setAlertText('');
-        const ssd: SsdCreationAttributes = {
-          name,
-          capacity: +capacity,
-          size: +size,
-          sata: +sata,
-          m2,
-        };
-        createSSD(ssd);
-        break;
-      }
-      case HardwareTypes.HDD: {
-        if (!name || !capacity || !size || !sata || !rpm || !ramValue) {
-          setAlertText('Error: Please fill all hardware components');
-          setAlertType(AlertType.error);
-          return;
-        }
-        setAlertText('');
-        const hdd: HddCreationAttributes = {
-          name,
-          capacity: +capacity,
-          size: +size,
-          sata: +sata,
-          rpm: +rpm,
-          ram: +ramValue,
-        };
-        createHDD(hdd);
         break;
       }
     }
@@ -346,58 +474,50 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
     fieldsMap.set(key, false);
   });
   switch (typeHardWare) {
-    case HardwareTypes.PowerSupply:
-      {
-        fieldsMap.set(HardwareFields.power, true);
-      }
+    case HardwareTypes.PowerSupply: {
+      fieldsMap.set(HardwareFields.power, true);
       break;
-    case HardwareTypes.RAM:
-      {
-        fieldsMap.set(HardwareFields.frequency, true);
-        fieldsMap.set(HardwareFields.power, true);
-        fieldsMap.set(HardwareFields.typeRam, true); // get data from server
-        fieldsMap.set(HardwareFields.memorySize, true);
-      }
+    }
+    case HardwareTypes.RAM: {
+      fieldsMap.set(HardwareFields.frequency, true);
+      fieldsMap.set(HardwareFields.power, true);
+      fieldsMap.set(HardwareFields.typeRam, true); // get data from server
+      fieldsMap.set(HardwareFields.memorySize, true);
       break;
-    case HardwareTypes.Motherboard:
-      {
-        fieldsMap.set(HardwareFields.socket, true);
-        fieldsMap.set(HardwareFields.ram, true);
-        fieldsMap.set(HardwareFields.sata, true);
-        fieldsMap.set(HardwareFields.m2, true);
-      }
+    }
+    case HardwareTypes.Motherboard: {
+      fieldsMap.set(HardwareFields.socket, true);
+      fieldsMap.set(HardwareFields.ram, true);
+      fieldsMap.set(HardwareFields.sata, true);
+      fieldsMap.set(HardwareFields.m2, true);
       break;
-    case HardwareTypes.GPU:
-      {
-        fieldsMap.set(HardwareFields.perfomance, true);
-        fieldsMap.set(HardwareFields.interfaceGpu, true);
-        fieldsMap.set(HardwareFields.memorySize, true);
-        fieldsMap.set(HardwareFields.coreClocks, true);
-        fieldsMap.set(HardwareFields.tdp, true);
-        fieldsMap.set(HardwareFields.directX, true);
-        fieldsMap.set(HardwareFields.openGL, true);
-      }
+    }
+    case HardwareTypes.GPU: {
+      fieldsMap.set(HardwareFields.perfomance, true);
+      fieldsMap.set(HardwareFields.interfaceGpu, true);
+      fieldsMap.set(HardwareFields.memorySize, true);
+      fieldsMap.set(HardwareFields.coreClocks, true);
+      fieldsMap.set(HardwareFields.tdp, true);
+      fieldsMap.set(HardwareFields.directX, true);
+      fieldsMap.set(HardwareFields.openGL, true);
       break;
-    case HardwareTypes.CPU:
-      {
-        fieldsMap.set(HardwareFields.perfomance, true);
-        fieldsMap.set(HardwareFields.socket, true); // get data from server
-        fieldsMap.set(HardwareFields.tdp, true);
-        fieldsMap.set(HardwareFields.clockSpeed, true);
-        fieldsMap.set(HardwareFields.cores, true);
-        fieldsMap.set(HardwareFields.classCpu, true);
-      }
+    }
+    case HardwareTypes.CPU: {
+      fieldsMap.set(HardwareFields.perfomance, true);
+      fieldsMap.set(HardwareFields.socket, true); // get data from server
+      fieldsMap.set(HardwareFields.tdp, true);
+      fieldsMap.set(HardwareFields.clockSpeed, true);
+      fieldsMap.set(HardwareFields.cores, true);
+      fieldsMap.set(HardwareFields.classCpu, true);
       break;
-    case HardwareTypes.SSD:
-      {
+    }
+    case storage: {
+      if (typeStorage === HardwareTypes.SSD) {
         fieldsMap.set(HardwareFields.capacity, true);
         fieldsMap.set(HardwareFields.size, true);
         fieldsMap.set(HardwareFields.sata, true);
         fieldsMap.set(HardwareFields.m2, true);
-      }
-      break;
-    case HardwareTypes.HDD:
-      {
+      } else if (typeStorage === HardwareTypes.HDD) {
         fieldsMap.set(HardwareFields.capacity, true);
         fieldsMap.set(HardwareFields.size, true);
         fieldsMap.set(HardwareFields.sata, true);
@@ -405,6 +525,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
         fieldsMap.set(HardwareFields.ramValue, true);
       }
       break;
+    }
   }
 
   if (props.state.errorMessage && !alertText) {
@@ -412,8 +533,9 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
     setAlertType(AlertType.error);
   }
   if (props.state.createdHardwareName && !alertText) {
-    setAlertText(`Success: Hardware ${props.state.createdHardwareName} was created.`);
-    setAlertType(AlertType.success);
+    notification.success(`Success: Hardware ${typeHardWare} ${props.state.createdHardwareName} has been created.`);
+    updateStateToInit();
+    if (name) setInitialFormValues();
   }
   return (
     <div className={styles.contentMain}>
@@ -443,6 +565,19 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
                 required
               />
             </div>
+            {typeHardWare === storage ? (
+              <div className={styles.selectItem}>
+                <Select
+                  inputLabel="Type of storage"
+                  placeholder="Select a type of storage"
+                  value={typeStorage}
+                  onChange={handleChangeStorageType}
+                  inputOptions={StorageTypesValues}
+                  labelClassName={styles.selectItemHeader}
+                  required
+                />
+              </div>
+            ) : null}
             {fieldsMap.get(HardwareFields.power) && typeHardWare === HardwareTypes.PowerSupply ? (
               <div className={styles.inputItem}>
                 <InputForm
@@ -608,7 +743,7 @@ const AddHardwareForm = (props: IPropsAddHardwareForm): JSX.Element => {
                 {fieldsMap.get(HardwareFields.ramValue) ? (
                   <div className={styles.selectItem}>
                     <Select
-                      inputLabel={HardwareFields.ramValue}
+                      inputLabel={'RAM'}
                       placeholder="Select a Ram"
                       value={ramValue}
                       onChange={handleChangeRamValue}

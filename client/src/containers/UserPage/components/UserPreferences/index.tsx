@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
-import { getIcon } from 'common/helpers/icon.helper';
-import GameCard, { GameCardProps } from '../GameCard';
+import GameCard, { GameCardProps } from 'containers/UserPage/components/GameCard';
 import SetupCard, { SetupCardProps } from 'components/SquareSetupCard';
-import styles from './styles.module.scss';
+import styles from 'containers/UserPage/components/UserPreferences/styles.module.scss';
 import { useParams } from 'react-router';
 import InputBasedSelect from 'components/BasicComponents/InputBasedSelect';
 import { Game } from 'common/models/typeUserGame';
-import { UserActionTypes } from '../../logic/actionTypes';
-import { UserPageTabs } from 'containers/UserPage';
+import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 import { Link } from 'react-router-dom';
 
 export interface UserPreferencesProps {
@@ -18,6 +17,7 @@ export interface UserPreferencesProps {
   addUserGame?: (id: number, gameId: number) => UserActionTypes;
   deleteUserGame?: (id: number, gameId: number) => UserActionTypes;
   deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
+  editUserSetup?: (setupId: number) => UserActionTypes;
   filteredGames?: Game[];
   loadFilteredGames?: (searchString: string) => UserActionTypes;
   setTab?: (tab: UserPageTabs) => UserActionTypes;
@@ -37,6 +37,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
     addUserGame,
     deleteUserGame,
     deleteUserSetup,
+    editUserSetup,
     setTab,
   } = props;
   const [showGameSearch, setShowGameSearch] = useState(false);
@@ -121,8 +122,13 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   createdAt={setup.createdAt}
                   powerSupply={setup.powerSupply}
                   author={setup.author}
+                  rating={setup.rating}
+                  ownRating={setup.ownRating}
+                  ratingCount={setup.ratingCount}
+                  comments_count={setup.comments_count}
                   key={generateKey(setup.title, index)}
                   deleteUserSetup={deleteUserSetup}
+                  editUserSetup={editUserSetup}
                   own={isCurrentUser}
                   setTab={setTab}
                 />

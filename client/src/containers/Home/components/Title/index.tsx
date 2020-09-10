@@ -5,7 +5,7 @@ const Title: React.FC = () => {
   return (
     <div className={styles.titleContainer}>
       <h1>PCForge</h1>
-      <h3>Hand-forged gaming setups</h3>
+      <h3>Hand-Forged Gaming Setups</h3>
     </div>
   );
 };

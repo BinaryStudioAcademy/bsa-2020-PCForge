@@ -60,6 +60,8 @@ export const defaultCpu: Cpu = {
 export const defaultSetup: Setup = {
   id: 0,
   rating: 0,
+  ownRating: 0,
+  ratingCount: 0,
   title: '',
   image: '',
   comments_count: '',
@@ -108,4 +110,8 @@ export const defaultGame: Game = {
   minimalGpu: defaultGpu,
   createdAt: new Date(),
   updatedAt: new Date(),
+  rating: 0,
+  ownRating: 0,
+  ratingCount: 0,
+  comments_count: '',
 };

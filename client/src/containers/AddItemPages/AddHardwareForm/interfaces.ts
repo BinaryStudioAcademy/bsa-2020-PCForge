@@ -5,12 +5,20 @@ export interface IinputOptions {
   title: string;
 }
 
+export const validationErrorEmptyNameField = 'Error: Please fill hardware name';
+export const validationErrorEmptyFields = 'Error: Please fill all hardware components';
+export const validationErrorNegativeNumber = 'Error: Value can not be negative';
+export const storage = 'Storage';
 export const HardwareTypesValues = [
   { value: HardwareTypes.PowerSupply, title: HardwareTypes.PowerSupply },
   { value: HardwareTypes.Motherboard, title: HardwareTypes.Motherboard },
   { value: HardwareTypes.RAM, title: HardwareTypes.RAM },
   { value: HardwareTypes.CPU, title: HardwareTypes.CPU },
   { value: HardwareTypes.GPU, title: HardwareTypes.GPU },
+  { value: storage, title: storage },
+];
+
+export const StorageTypesValues = [
   { value: HardwareTypes.SSD, title: HardwareTypes.SSD },
   { value: HardwareTypes.HDD, title: HardwareTypes.HDD },
 ];
