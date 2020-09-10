@@ -123,12 +123,14 @@ class Auth extends Component<IAuthProps, IAuthState> {
     return (
       <React.Fragment>
         <div className={styles.bgContainer} />
-        <Container className={styles.authContainer} maxWidth="md">
+        <Container className={styles.authContainer} maxWidth="lg">
           <Grid container spacing={4} direction="row" justify="center" alignItems="flex-start">
             <Grid item md>
               <div className={styles.infoWrapper}>
-                <h1>Welcome to PCForge</h1>
-                <h2>The easiest way to build your personal computer.</h2>
+                <div>
+                  <h1>Welcome to PCForge</h1>
+                  <h2>The easiest way to build your personal computer.</h2>
+                </div>
               </div>
             </Grid>
             <Grid item md>

@@ -22,15 +22,26 @@ div.authContainer {
 }
 
 .infoWrapper {
+  margin: 0 auto;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
   h1 {
-    margin: 42px 0 0;
-    font-size: 35px;
+    display: inline-block;
+    margin: 0;
+    font-size: 55px;
     line-height: 1;
   }
 
   h2 {
+    display: inline-block;
     margin-top: 0;
-    font-size: 17px;
+    font-size: 22px;
     font-weight: normal;
   }
 }
@@ -38,9 +49,10 @@ div.authContainer {
 .loginWrapper {
   position: relative;
   z-index: 3;
-  padding: 42px 30px;
+  padding: 35px 30px;
   border-radius: 20px;
   max-width: 410px;
+  margin: 0 auto;
 
   &::after {
     content: "";
@@ -60,10 +72,10 @@ div.authContainer {
 
     .loginHeader {
       display: block;
-      font-size: 35px;
+      font-size: 40px;
       font-weight: bold;
       line-height: 1;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
       cursor: default;
       text-align: center;
     }
@@ -89,6 +101,7 @@ div.authContainer {
       display: block;
       margin-bottom: 30px;
       user-select: none;
+      font-size: 1.1em;
     }
 
     .loginButtonBox,
@@ -106,7 +119,7 @@ div.authContainer {
     }
 
     button {
-      min-width: 124px;
+      min-width: 130px;
     }
   }
 
@@ -118,9 +131,20 @@ div.authContainer {
     }
   }
 
+  .loginButtonBox, .registerButtonBox, .googleBtnHolder {
+    button {
+      font-size: 1rem;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, .15);
+      }
+    }
+  }
+
   .registerBox {
     display: block;
     text-align: center;
+    font-size: 1.2em;
 
     .registerLink {
       user-select: none;
@@ -130,7 +154,7 @@ div.authContainer {
 
 .registrationWrapper {
   form {
-    margin-bottom: 237px;
+    margin-bottom: 281px;
   }
 }
 
