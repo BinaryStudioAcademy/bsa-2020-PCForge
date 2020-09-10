@@ -75,7 +75,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
 
   const onTestGame = async () => {
     props.setRamSize(ramSize);
-    if (!selectedCpu || !selectedGpu || !selectedGame) {
+    if ((!selectedCpu || !selectedGpu || !selectedGame) && !selectedSetup) {
       setAlertValue({ type: AlertType.error, message: 'Error: Please choose hardware components' });
       return;
     }
@@ -117,7 +117,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
     if (setup) {
       props.setCpu(setup.cpu);
       props.setGpu(setup.gpu);
-      props.setRamSize(setup.ram.memorySize);
+      props.setRamSize(setup.ram.memorySize * setup.ramCount);
     }
   };
 
@@ -168,6 +168,9 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                   <h2 className={styles.sectionHeader}>Your Computer Hardware</h2>
                   <div className={styles.selectItem}>
                     <InputBasedSelect
+                      withClose={true}
+                      onCloseCallback={() => setSelectedSetup(null)}
+                      disabled={selectedCpu || selectedGpu || ramSize > 1 ? true : false}
                       label="Setup"
                       placeholder="Choose your setup"
                       inputId="setup"
@@ -180,8 +183,12 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                       onSeeMoreClick={onSetupSeeMoreClick}
                     />
                   </div>
+                  <h1 className={styles.orLine}>or</h1>
                   <div className={styles.selectItem}>
                     <InputBasedSelect
+                      withClose={true}
+                      onCloseCallback={() => setSelectedCpu(null)}
+                      disabled={selectedSetup ? true : false}
                       label="CPU"
                       placeholder="Choose a processor"
                       inputId="cpu"
@@ -196,6 +203,9 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                   </div>
                   <div className={styles.selectItem}>
                     <InputBasedSelect
+                      withClose={true}
+                      onCloseCallback={() => setSelectedGpu(null)}
+                      disabled={selectedSetup ? true : false}
                       label="GPU"
                       placeholder="Choose a graphics"
                       inputId="gpu"
@@ -210,6 +220,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
                   </div>
                   <span className={styles.selectItemHeader}>RAM</span>
                   <Slider
+                    disabled={selectedSetup ? true : false}
                     value={ramSize}
                     min={1}
                     step={1}

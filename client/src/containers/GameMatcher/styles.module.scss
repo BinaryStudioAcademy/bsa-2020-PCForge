@@ -128,3 +128,29 @@ section:nth-child(2n) {
     width: fit-content;
   }
 }
+
+.orLine {
+  overflow: hidden;
+  text-align: center;
+}
+
+.orLine:before,
+.orLine:after {
+  background-color: #fff;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+
+.orLine:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+.orLine:after {
+  left: 0.5em;
+  margin-right: -50%;
+}

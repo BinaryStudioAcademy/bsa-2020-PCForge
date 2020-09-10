@@ -74,3 +74,9 @@ $error-color: #ff5a5a;
   padding: .5rem 1rem;
   color: $error-color;
 }
+
+div[aria-disabled]
+{
+  pointer-events: none;
+  opacity: 0.7;
+}
