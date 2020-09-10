@@ -31,7 +31,7 @@
   background: $colorDarkGray;
   flex-grow: 1;
   border-radius: 7px;
-  box-shadow: 40px 40px 20px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 12px 12px 7px 10px rgba(0, 0, 0, 0.1);
   padding: 3rem 0 4rem;
   margin-right: 3rem;
 }
@@ -69,7 +69,8 @@ section:nth-child(2n) {
 }
 
 .pageButton {
-  width: 50%;
+  width: 45%;
+  height: 50px;
 }
 
 .pageButtonWrapper {
@@ -80,7 +81,7 @@ section:nth-child(2n) {
 }
 
 .buttonLabel {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 12px;
   text-transform: uppercase;
 
@@ -96,6 +97,7 @@ section:nth-child(2n) {
   margin: 2em 0;
   align-self: center;
 }
+
 .addRequestBlock {
   //width: fit-content;
   width: 100%;
