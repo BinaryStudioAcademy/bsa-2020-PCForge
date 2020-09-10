@@ -53,6 +53,13 @@ export class IMotherboardFilter extends IFilter {
         minimum: 1,
         nullable: true,
       },
+      sataMultiple: {
+        type: 'array',
+        items: {
+          type: 'integer',
+          minimum: 1,
+        },
+      },
       m2: {
         type: 'boolean',
         minimum: 1,

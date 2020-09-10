@@ -17,6 +17,7 @@ export interface UserPreferencesProps {
   addUserGame?: (id: number, gameId: number) => UserActionTypes;
   deleteUserGame?: (id: number, gameId: number) => UserActionTypes;
   deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
+  editUserSetup?: (setupId: number) => UserActionTypes;
   filteredGames?: Game[];
   loadFilteredGames?: (searchString: string) => UserActionTypes;
   setTab?: (tab: UserPageTabs) => UserActionTypes;
@@ -36,6 +37,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
     addUserGame,
     deleteUserGame,
     deleteUserSetup,
+    editUserSetup,
     setTab,
   } = props;
   const [showGameSearch, setShowGameSearch] = useState(false);
@@ -126,6 +128,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   comments_count={setup.comments_count}
                   key={generateKey(setup.title, index)}
                   deleteUserSetup={deleteUserSetup}
+                  editUserSetup={editUserSetup}
                   own={isCurrentUser}
                   setTab={setTab}
                 />

@@ -5,7 +5,9 @@ export interface IinputOptions {
   title: string;
 }
 
+export const validationErrorEmptyNameField = 'Error: Please fill hardware name';
 export const validationErrorEmptyFields = 'Error: Please fill all hardware components';
+export const validationErrorNegativeNumber = 'Error: Value can not be negative';
 export const storage = 'Storage';
 export const HardwareTypesValues = [
   { value: HardwareTypes.PowerSupply, title: HardwareTypes.PowerSupply },

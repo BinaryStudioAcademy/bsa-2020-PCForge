@@ -2,9 +2,11 @@ import { SetupCreationAttributes, SetupModel, SetupStatic } from '../models/setu
 import { BaseRepository, RichModel, IWithMeta } from './base.repository';
 import { IFilter } from './filters/base.filter';
 import { CpuStatic } from '../models/cpu';
+import { SocketStatic } from '../models/socket';
 import { GpuStatic } from '../models/gpu';
 import { MotherboardStatic } from '../models/motherboard';
 import { RamStatic } from '../models/ram';
+import { RamTypeStatic } from '../models/ramtype';
 import { PowerSupplyStatic } from '../models/powersupply';
 import { ISetupFilter } from './filters/setup.filter';
 import { mergeFilters } from './filters/helper';
@@ -27,7 +29,9 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
     private ssdModel: SsdStatic,
     private commentModel: CommentStatic,
     private rateModel: RateStatic,
-    private userModel: UserStatic
+    private userModel: UserStatic,
+    private socketModel: SocketStatic,
+    private ramTypeModel: RamTypeStatic
   ) {
     super(<RichModel>model, IFilter);
   }
@@ -215,6 +219,10 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         'hdd.id',
         'ssd.id',
         'author.id',
+        'cpu->socket.id',
+        'motherboard->socket.id',
+        'motherboard->ramType.id',
+        'ram->ramType.id',
       ],
       attributes: {
         include: include,
@@ -222,6 +230,11 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
       include: [
         {
           model: this.cpuModel,
+          include: [
+            {
+              model: this.socketModel,
+            },
+          ],
           as: 'cpu',
         },
         {
@@ -230,6 +243,11 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         },
         {
           model: this.ramModel,
+          include: [
+            {
+              model: this.ramTypeModel,
+            },
+          ],
           as: 'ram',
         },
         {
@@ -238,6 +256,14 @@ export class SetupRepository extends BaseRepository<SetupModel, SetupCreationAtt
         },
         {
           model: this.motherBoardModel,
+          include: [
+            {
+              model: this.socketModel,
+            },
+            {
+              model: this.ramTypeModel,
+            },
+          ],
           as: 'motherboard',
         },
         {

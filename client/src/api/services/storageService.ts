@@ -13,5 +13,13 @@ export type TypeResponseAllStorages = {
 const endpoint = '/storages';
 
 export const getAllStorage = async (filter: TypeFilter): Promise<TypeResponseAllStorages> => {
-  return await webApi.get(endpoint, filter);
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
+  const isSataMultiple: boolean = filter.sata?.includes(',') || false;
+  const serverFilter = {
+    ...(isSataMultiple && { sataMultiple: filter.sata }),
+    ...(!isSataMultiple && { sata: filter.sata }),
+    'capacity[maxValue]': filter['capacity[maxValue]'],
+    'capacity[minValue]': filter['capacity[minValue]'],
+  };
+  return await webApi.get(endpoint, serverFilter);
 };

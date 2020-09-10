@@ -31,6 +31,12 @@ export const getLocalSetupObjectForSave = () => {
       ssdId,
       ramCount,
     };
+    if (setup.id) {
+      setupForSave.id = setup.id;
+      setupForSave.title = setup.title;
+      setupForSave.description = setup.description;
+      setupForSave.image = setup.image;
+    }
     return setupForSave;
   }
   return null;
