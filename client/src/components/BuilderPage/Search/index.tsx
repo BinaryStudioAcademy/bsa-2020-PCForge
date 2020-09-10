@@ -1,16 +1,26 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import { Box, FormControl, OutlinedInput, InputAdornment } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import CancelIcon from '@material-ui/icons/Cancel';
+import { debounce } from 'lodash-es';
 
 import styles from './styles.module.scss';
 
 type Props = {
-  value: string;
   onChange: (event: string) => void;
   className?: string;
+  debounceTimeout?: number;
 };
-const Search = ({ value, onChange, className = '' }: Props): ReactElement => {
+const Search = ({ onChange, className = '', debounceTimeout = 300 }: Props): ReactElement => {
+  const [search, setSearch] = useState('');
+
+  const onChangeHandler = useCallback(debounce(onChange, debounceTimeout), []);
+
+  const changeSearch = (value: string): void => {
+    setSearch(value);
+    onChangeHandler(value);
+  };
+
   return (
     <Box className={className}>
       <FormControl className={styles.search} fullWidth={true} variant="outlined" size="small">
@@ -18,12 +28,12 @@ const Search = ({ value, onChange, className = '' }: Props): ReactElement => {
           className={styles.inputWrap}
           fullWidth={true}
           placeholder="Search"
-          value={value}
-          onChange={(ev) => onChange(ev.target.value)}
+          value={search}
+          onChange={(ev) => changeSearch(ev.target.value)}
           endAdornment={
             <InputAdornment className={styles.icon} position="end">
-              {value ? (
-                <CancelIcon className={styles.iconFill} onClick={() => onChange('')} />
+              {search ? (
+                <CancelIcon className={styles.iconFill} onClick={() => changeSearch('')} />
               ) : (
                 <SearchIcon className={styles.iconFill} />
               )}
