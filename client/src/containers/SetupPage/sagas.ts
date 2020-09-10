@@ -55,9 +55,6 @@ function* getSetupComments(action: IGetComments) {
       count: action.payload.count,
     };
     const comments: TypeResponseAllComments = yield call(getAllComments, filter);
-    comments.data.sort((a, b) => {
-      return a.id - b.id;
-    });
     yield put({ type: GET_SETUP_COMMENTS_SUCCESS, payload: comments });
   } catch (e) {
     yield put(addAlert(alert.error('Failed to get setup comments')));
