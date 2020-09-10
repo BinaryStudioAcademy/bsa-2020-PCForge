@@ -1,6 +1,9 @@
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer, NavigationContainerRef} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  NavigationContainerRef,
+} from '@react-navigation/native';
 import {Provider} from 'react-redux';
 import store from 'redux/store';
 import {Router, Route, routes} from './routing';
@@ -15,7 +18,7 @@ export default class App extends React.PureComponent {
     this.navigate = this.navigate.bind(this);
   }
   public navigatorRef: NavigationContainerRef | null = null;
-  public navigate(routeName: string){
+  public navigate(routeName: string) {
     this.navigatorRef?.navigate(routeName);
   }
 
@@ -25,10 +28,12 @@ export default class App extends React.PureComponent {
         {/** Any change to theme won't be applied untill app reload */}
         <Drawer navigate={this.navigate}>
           <StyleProvider style={getTheme(material as any)}>
-            <NavigationContainer ref={(ref) => this.navigatorRef = ref}>
-                <Router>
-                  {routes.map(routeProps => <Route {...routeProps} key={routeProps.name} />)}
-                </Router>
+            <NavigationContainer ref={(ref) => (this.navigatorRef = ref)}>
+              <Router>
+                {routes.map((routeProps) => (
+                  <Route {...routeProps} key={routeProps.name} />
+                ))}
+              </Router>
             </NavigationContainer>
           </StyleProvider>
         </Drawer>

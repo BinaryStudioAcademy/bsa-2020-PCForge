@@ -6,7 +6,7 @@ import {IHomeProps} from './interfaces';
 import {FlatList} from 'react-native-gesture-handler';
 import {Container} from 'native-base';
 import {News} from 'common/models/news.model';
-import { NewsItem } from './NewsItem';
+import {NewsItem} from './NewsItem';
 import styles from './styles';
 
 class Home extends React.PureComponent<IHomeProps> {

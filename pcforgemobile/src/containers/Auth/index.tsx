@@ -8,9 +8,7 @@ import {
   GoogleSignin,
   GoogleSigninButton,
 } from '@react-native-community/google-signin';
-import {
-  ImageBackground
-} from 'react-native';
+import {ImageBackground} from 'react-native';
 import {
   Container,
   Input,
@@ -64,6 +62,7 @@ class Auth extends React.PureComponent<IAuthProps, State> {
   public async signInGoogle() {
     try {
       const userData = await GoogleSignin.signIn();
+      console.log(userData);
     } catch (error) {
       throw error;
     }
@@ -82,51 +81,52 @@ class Auth extends React.PureComponent<IAuthProps, State> {
           <Spinner color="#4972ff" size="large" />
         ) : (
           <>
-          <ImageBackground 
-            source={{uri: 'https://wallpaperaccess.com/full/172758.jpg'}}
-            style={styles.backgroundImage}
-          >
-          </ImageBackground>
-          <H1 style={styles.header}>Welcome to PCForge</H1>
-          <View style={styles.content}>
-            <Item floatingLabel style={[styles.inputItem]}>
-              <Label style={styles.label}>Email</Label>
-              <Input
-                label="Email"
-                value={this.state.email}
-                style={[styles.input]}
-                onChangeText={this.onEmailInput}
-              />
-            </Item>
-            <Item floatingLabel style={[styles.inputItem]}>
-              <Label style={styles.label}>Password</Label>
-              <Input
-                label="Password"
-                style={[styles.input]}
-                value={this.state.password}
-                onChangeText={this.onPasswordInput}
-              />
-            </Item>
-            <View>
-              {this.props.state.errorMessage ? (
-                <Text style={styles.errorMessage}>
-                  {this.props.state.errorMessage}
-                </Text>
-              ) : null}
+            <ImageBackground
+              source={{uri: 'https://wallpaperaccess.com/full/172758.jpg'}}
+              style={styles.backgroundImage}
+            />
+            <H1 style={styles.header}>Welcome to PCForge</H1>
+            <View style={styles.content}>
+              <Item floatingLabel style={[styles.inputItem]}>
+                <Label style={styles.label}>Email</Label>
+                <Input
+                  label="Email"
+                  value={this.state.email}
+                  style={[styles.input]}
+                  onChangeText={this.onEmailInput}
+                />
+              </Item>
+              <Item floatingLabel style={[styles.inputItem]}>
+                <Label style={styles.label}>Password</Label>
+                <Input
+                  label="Password"
+                  style={[styles.input]}
+                  value={this.state.password}
+                  onChangeText={this.onPasswordInput}
+                />
+              </Item>
+              <View>
+                {this.props.state.errorMessage ? (
+                  <Text style={styles.errorMessage}>
+                    {this.props.state.errorMessage}
+                  </Text>
+                ) : null}
+              </View>
+              <View style={styles.buttonsContainer}>
+                <Button
+                  onPress={this.onFormSubmit}
+                  style={[styles.loginButton]}>
+                  <Text style={styles.loginButtonText}>Login</Text>
+                </Button>
+                <GoogleSigninButton
+                  style={[styles.loginGoogleButton]}
+                  size={GoogleSigninButton.Size.Standard}
+                  color={GoogleSigninButton.Color.Dark}
+                  onPress={this.signInGoogle}
+                  // disabled={this.state.isSigninInProgress}
+                />
+              </View>
             </View>
-            <View style={styles.buttonsContainer}>
-              <Button onPress={this.onFormSubmit} style={[styles.loginButton]}>
-                <Text style={styles.loginButtonText}>Login</Text>
-              </Button>
-              <GoogleSigninButton
-                style={[styles.loginGoogleButton]}
-                size={GoogleSigninButton.Size.Standard}
-                color={GoogleSigninButton.Color.Dark}
-                onPress={this.signInGoogle}
-                // disabled={this.state.isSigninInProgress}
-              />
-            </View>
-          </View>
           </>
         )}
       </Container>
