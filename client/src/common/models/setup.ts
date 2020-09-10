@@ -10,8 +10,8 @@ export interface Setup {
   rating: number;
   ownRating: number;
   ratingCount: number;
-  description: string;
   comments_count: string;
+  description: string;
   image: string;
   cpu: Cpu;
   gpu: Gpu;

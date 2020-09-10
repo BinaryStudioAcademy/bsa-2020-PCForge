@@ -19,11 +19,11 @@ interface IProps {
 
 const BuilderSummary = ({ setup }: IProps): JSX.Element => {
   const { cpu, gpu, ram, motherboard, powersupply, hdd, ssd } = setup;
-  const setupProgress = { cpu, gpu, ram, motherboard, powersupply };
+  const setupProgress = { cpu, gpu, ram, motherboard, powersupply, hdd, ssd };
 
   const isSetupEmpty = !Object.values(setup).some((value) => value);
 
-  const partsCount = Object.values(setup).length;
+  const partsCount = Object.values(setupProgress).length;
 
   const buildProgress =
     (Object.values(setupProgress).reduce((progress, item) => {

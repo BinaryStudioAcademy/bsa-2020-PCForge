@@ -1,4 +1,4 @@
-import { UsersRequestActions, UsersRequestActionTypes } from './actionsTypes';
+import { UsersRequestActions, UsersRequestActionTypes, UserRequestDeleteType } from './actionsTypes';
 import { TypeUsersRequests } from 'common/models/typeUsersRequests';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
 
@@ -55,9 +55,10 @@ export const updateTotalsLoadingComponentStatus = (dataTotalsIsLoaded: boolean):
   },
 });
 
-export const deleteUserRequest = (id: number): UsersRequestActions => ({
+export const deleteUserRequest = (id: number, type: UserRequestDeleteType): UsersRequestActions => ({
   type: UsersRequestActionTypes.DELETE_USER_ADDED_REQUESTS,
   payload: {
     id,
+    type,
   },
 });

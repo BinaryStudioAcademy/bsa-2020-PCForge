@@ -106,7 +106,6 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
                   setup={setup}
                   rateClickable
                   onForkClick={this.props.forkSetup}
-                  rate={this.props.state.rate}
                   onRatingSet={this.onRatingSet}
                 />
                 <HardwareView

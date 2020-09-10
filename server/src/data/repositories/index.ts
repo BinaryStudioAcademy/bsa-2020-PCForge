@@ -63,7 +63,7 @@ export const initializeRepositories = (models: Models): Repositories => {
   const motherboardRepository = new MotherboardRepository(models.Motherboard, models.RamType, models.Socket);
   const gpuRepository = new GpuRepository(models.Gpu);
   const cpuRepository = new CpuRepository(models.Cpu, models.Socket);
-  const gameRepository = new GameRepository(models.Game, models.Cpu, models.Gpu);
+  const gameRepository = new GameRepository(models.Game, models.Cpu, models.Gpu, models.Comment, models.Rate);
   const topGameRepository = new TopGameRepository(models.TopGame, models.Game, models.Cpu, models.Gpu);
   const newsRepository = new NewsRepository(models.News);
   const rateRepository = new RateRepository(models.Rate);

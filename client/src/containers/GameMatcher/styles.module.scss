@@ -47,6 +47,12 @@
   line-height: 28px;
   color: $colorTextWhite;
   margin: 10px 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+section:nth-child(2n) {
+  margin-top: 40px;
 }
 
 .selectItemHeader.selectItemHeader {
@@ -65,6 +71,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 2em;
 }
 
 .buttonLabel {
@@ -79,6 +86,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .buttonWrapper{
   margin: 2em 0;
   align-self: center;
@@ -98,7 +106,7 @@
 }
 
 
-@media (max-width: 960px) {
+@media (max-width: 1060px) {
   .mainContainer {
     margin-bottom: 40px;
     margin-right: 0;
