@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import BasicLink from 'components/BasicComponents/Link';
-import { UserActionTypes } from '../../logic/actionTypes';
+import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
 import { useParams } from 'react-router';
 import Image from 'components/BasicComponents/Image';
 import { Link } from 'react-router-dom';
+import { getIcon } from 'common/helpers/icon.helper';
+import { Box } from '@material-ui/core';
 
 export interface GameCardProps {
   image: string;
@@ -41,7 +42,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
           <div>{description}</div>
           {isCurrentUser && (
             <div className={styles.cardButton}>
-              <BasicLink icon="Delete" onClick={handleDeleteGame} />
+              <Box onClick={handleDeleteGame}>{getIcon('Delete')}</Box>
             </div>
           )}
         </div>

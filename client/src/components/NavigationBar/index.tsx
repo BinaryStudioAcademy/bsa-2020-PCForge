@@ -3,15 +3,14 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
-import Modal, { IModalButton, IModalProps } from 'components/BasicComponents/Modal';
-import Button, { ButtonType } from 'components/BasicComponents/Button';
+import Modal, { IModalButton } from 'components/BasicComponents/Modal';
+import { ButtonType } from 'components/BasicComponents/Button';
 import ListItem from '@material-ui/core/ListItem';
 import Tooltip from '@material-ui/core/Tooltip';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { clearToken, getLoginType, LoginType } from 'helpers/tokenHelper';
 import { useGoogleLogout } from 'react-google-login';
 import { deleteLocalSetup } from 'helpers/setupHelper';
-import * as alert from 'common/services/AlertService/alert.service';
 import { resetSetupAction } from 'containers/BuilderPage/actions';
 
 import BuildOutlinedIcon from '@material-ui/icons/BuildOutlined';
@@ -27,7 +26,6 @@ import { Routes } from 'common/enums';
 
 import styles from 'components/NavigationBar/styles.module.scss';
 import { logout } from 'containers/Auth/actions';
-import { SingleBedOutlined } from '@material-ui/icons';
 
 interface IListNavigationBar {
   name: string;
@@ -159,8 +157,7 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     selectedMenuItem = selectedMenuItemNumber < listHeader.length ? selectedMenuItemNumber : 0;
   }
 
-  let buttons: IModalButton[];
-  buttons = [
+  const buttons: IModalButton[] = [
     {
       text: 'no',
       onClick: () => {
@@ -179,7 +176,13 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
   return (
     <>
       {NavigationBarRender(listHeader, selectedMenuItem)}
-      <Modal title="Are you sure you want to log out?" open={showModal} buttons={buttons} maxWidth="md" classes={{ paper: styles.modalStyle}}></Modal>
+      <Modal
+        title="Are you sure you want to log out?"
+        open={showModal}
+        buttons={buttons}
+        maxWidth="md"
+        classes={{ paper: styles.modalStyle }}
+      />
     </>
   );
 };

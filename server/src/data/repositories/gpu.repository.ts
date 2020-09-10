@@ -21,7 +21,6 @@ export class GpuRepository extends BaseRepository<GpuModel, GpuCreationAttribute
       {
         group: ['gpu.id'],
         where: {
-          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
           memorySize: {
             [Op.between]: [filter.memorySize.minValue, filter.memorySize.maxValue],
           },

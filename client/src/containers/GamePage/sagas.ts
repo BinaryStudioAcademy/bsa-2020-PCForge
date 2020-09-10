@@ -2,7 +2,7 @@ import { call, put, takeEvery, all } from 'redux-saga/effects';
 import { getSetupById } from 'api/services/setups.service';
 import { forkUserSetup } from 'api/services/setupService';
 import { PCSetup } from 'common/models/setup';
-import { getAllComments, createComment } from 'api/services/comment.service';
+import { getAllComments, createComment, deleteComment } from 'api/services/comment.service';
 import { Comment, CommentCreationAttributes } from 'common/models/comment';
 import { CommentFilter } from 'common/models/filter.model';
 import { getAverageRate, addRate } from 'api/services/rate.service';
@@ -15,11 +15,14 @@ import {
   GET_GAME,
   GET_GAME_COMMENTS,
   GET_GAME_COMMENTS_SUCCESS,
+  DELETE_GAME_COMMENT,
+  DELETE_GAME_COMMENT_SUCCESS,
   GET_GAME_FAILURE,
   GET_GAME_RATE,
   GET_GAME_RATE_SUCCESS,
   GET_GAME_SUCCESS,
   ICreateGameComment,
+  IDeleteGameComment,
   IGetGame,
   IGetGameComments,
   IGetGameRate,
@@ -81,6 +84,20 @@ function* watchCreateGameComment() {
   yield takeEvery(CREATE_GAME_COMMENT, createGameComment);
 }
 
+function* deleteGameComment(action: IDeleteGameComment) {
+  try {
+    yield call(deleteComment, action.payload.id);
+    yield put({ type: DELETE_GAME_COMMENT_SUCCESS });
+    yield put({ type: GET_GAME_COMMENTS, payload: { id: action.payload.idGame } });
+  } catch (e) {
+    yield put(addAlert(alert.error(e.message || 'Failed delete game comment')));
+  }
+}
+
+function* watchDeleteGameComment() {
+  yield takeEvery(DELETE_GAME_COMMENT, deleteGameComment);
+}
+
 function* getGameRate(action: IGetGameRate) {
   try {
     const response: { average: number } = yield call(getAverageRate, {
@@ -117,5 +134,12 @@ function* watchAddGameRate() {
 }
 
 export default function* gameSagas() {
-  yield all([watchGetGame(), watchGetGameComments(), watchCreateGameComment(), watchGetGameRate(), watchAddGameRate()]);
+  yield all([
+    watchGetGame(),
+    watchGetGameComments(),
+    watchCreateGameComment(),
+    watchGetGameRate(),
+    watchAddGameRate(),
+    watchDeleteGameComment(),
+  ]);
 }

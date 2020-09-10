@@ -16,6 +16,7 @@ export interface IGamePageProps extends IGamePageState, RouteComponentProps<{ id
   getGame: (payload: { id: number }) => GameActionTypes;
   getGameComments: (payload: { id: number; count: number; from: number }) => GameActionTypes;
   createGameComment: (payload: { id: number; value: string }) => GameActionTypes;
+  deleteGameComment: (payload: { id: number; idGame: number }) => GameActionTypes;
   getGameRate: (payload: { id: number }) => GameActionTypes;
   setGameRate: (payload: { id: number; value: number }) => GameActionTypes;
 }

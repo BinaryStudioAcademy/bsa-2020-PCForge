@@ -2,6 +2,7 @@ import {
   HardwareActionTypes,
   GET_HARDWARE_COMMENTS,
   CREATE_HARDWARE_COMMENT,
+  DELETE_HARDWARE_COMMENT,
   GET_HARDWARE_RATE,
   SET_HARDWARE_RATE,
   HARDWARE_WIPE_SNACKBAR_DATA,
@@ -24,6 +25,11 @@ export const createHardwareComment = (payload: {
   type: hardwareTypes;
 }): HardwareActionTypes => ({
   type: CREATE_HARDWARE_COMMENT,
+  payload,
+});
+
+export const deleteHardwareComment = (payload: { id: number; idHardware: number }): HardwareActionTypes => ({
+  type: DELETE_HARDWARE_COMMENT,
   payload,
 });
 

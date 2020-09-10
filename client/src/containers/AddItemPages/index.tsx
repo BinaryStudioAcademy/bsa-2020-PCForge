@@ -41,7 +41,7 @@ const AddItemPage = (): JSX.Element => {
     <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
       <div className={styles.contentPage}>
         <div className={styles.pageHeader}>
-          <Title title="Admin page" subtitle={`Add ${addItemType}`} />
+          <Title title="Admin Tools" subtitle={`Add ${addItemType}`} />
         </div>
         <ThemeProvider theme={theme}>
           {addItemType === CardsName.Hardwares ? <AddHardwareForm goBack={handleCancelButton} /> : null}

@@ -6,6 +6,9 @@ import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { ISetupMiddleware } from '../middlewares/setup.middleware';
 import { UserAttributes } from '../../data/models/user';
 import { BaseService } from './base.service';
+import { elasticServices } from './elsticsearch.service';
+
+const elastic = elasticServices.setups;
 
 export class SetupService extends BaseService<SetupModel, SetupCreationAttributes, SetupRepository> {
   constructor(private repository: SetupRepository) {
@@ -21,6 +24,14 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
   }
 
   async getAllSetups(filter: ISetupFilter, requestingUserId: number): Promise<IWithMeta<SetupModel>> {
+    if (filter.searchString) {
+      const ids = await elastic.searchIDs({
+        input: filter.searchString,
+        searchFields: ['title', 'description'],
+      });
+      filter.id = ids.length ? ids : [-1];
+    }
+
     const setups = await this.repository.getSetups(filter, requestingUserId);
     return setups;
   }
@@ -28,6 +39,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
   async createSetup(inputSetup: SetupCreationAttributes, setupMiddleware: ISetupMiddleware): Promise<SetupModel> {
     await setupMiddleware(inputSetup);
     const setup = await this.repository.create(inputSetup);
+    await elastic.addData(setup);
     return setup;
   }
 
@@ -49,6 +61,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
     }
     await setupMiddleware(data);
     const setup = await this.repository.updateById(id, data);
+    await elastic.updateData(setup);
     return setup;
   }
 
@@ -61,6 +74,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
       triggerServerError(`Access denied`, 403);
     }
     await this.repository.deleteById(id);
+    elastic.delete(id);
     return setup;
   }
 

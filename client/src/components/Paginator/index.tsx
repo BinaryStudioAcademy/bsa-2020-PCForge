@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import Box from '@material-ui/core/Box';
 import Pagination from '@material-ui/lab/Pagination';
+import PaginationItem from '@material-ui/lab/PaginationItem';
 import styles from 'components/Paginator/styles.module.scss';
 
 type PropsType = {
@@ -27,17 +28,23 @@ const Paginator = ({
     });
   }, [commentPage]);
 
-  const onChangeHandler = (event: ChangeEvent<unknown>, page: number) => {
-    setPage(page);
+  const onChangeHandler = (event: ChangeEvent<unknown>, newPage: number) => {
+    if (page === newPage) return;
+    setPage(newPage);
     setPagination({
-      from: (page - 1) * countComponentsOnPage,
+      from: (newPage - 1) * countComponentsOnPage,
       count: countComponentsOnPage,
     });
   };
 
   return (
     <Box className={styles.paginator}>
-      <Pagination count={count} page={page} onChange={onChangeHandler} />
+      <Pagination
+        renderItem={(item) => <PaginationItem classes={{ selected: styles.selected }} {...item} />}
+        count={count}
+        page={page}
+        onChange={onChangeHandler}
+      />
     </Box>
   );
 };
