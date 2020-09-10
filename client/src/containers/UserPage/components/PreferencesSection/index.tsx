@@ -16,6 +16,7 @@ const PreferencesSection = (props: IPreferencesSectionProps): JSX.Element => {
     loadFilteredGames,
     setups,
     deleteUserSetup,
+    editUserSetup,
   } = props;
 
   const handleTabChange = (event: React.ChangeEvent<unknown>, newValue: UserPageTabs) => {
@@ -45,6 +46,7 @@ const PreferencesSection = (props: IPreferencesSectionProps): JSX.Element => {
           isCurrentUser={isCurrentUser}
           setups={setups}
           deleteUserSetup={deleteUserSetup}
+          editUserSetup={editUserSetup}
           setTab={setTab}
         />
       )}

@@ -64,6 +64,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   };
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
+  const setupForEdit = setup?.id ? true : false;
   const ramCount = setup.ramCount;
   const dispatch = useDispatch();
 
@@ -218,6 +219,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
               showResetFilter={Object.values(filter).some((e) => !!e.size)}
               onResetFilter={resetFilter}
               onSaveSetup={showModal}
+              setupForEdit={setupForEdit}
             />
           </Grid>
         </Grid>
