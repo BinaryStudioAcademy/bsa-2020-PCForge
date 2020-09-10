@@ -11,10 +11,6 @@ import styles from './styles.module.scss';
 import { RouteComponentProps } from 'react-router-dom';
 
 const OneNewsPage: React.FC<Props> = (props) => {
-  console.log('props', props);
-  // if (error) {
-  //   return <NotFound history={history} location={location} match={match} />;
-  // }
   useEffect(() => {
     props.getNews({ id: props.match.params.id });
   }, []);
