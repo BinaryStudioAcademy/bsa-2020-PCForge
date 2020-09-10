@@ -10,6 +10,10 @@ export const CREATE_HARDWARE_COMMENT = 'HARDWARE_PAGECREATE_HARDWARE_COMMENT';
 export const CREATE_HARDWARE_COMMENT_SUCCESS = 'HARDWARE_PAGECREATE_HARDWARE_COMMENT_SUCCESS';
 export const CREATE_HARDWARE_COMMENT_FAILURE = 'HARDWARE_PAGECREATE_HARDWARE_COMMENT_FAILURE';
 
+export const DELETE_HARDWARE_COMMENT = 'HARDWARE_PAGEDELETE_HARDWARE_COMMENT';
+export const DELETE_HARDWARE_COMMENT_SUCCESS = 'HARDWARE_PAGEDELETE_HARDWARE_COMMENT_SUCCESS';
+export const DELETE_HARDWARE_COMMENT_FAILURE = 'HARDWARE_PAGEDELETE_HARDWARE_COMMENT_FAILURE';
+
 export const GET_HARDWARE_RATE = 'HARDWARE_PAGEGET_HARDWARE_RATE';
 export const GET_HARDWARE_RATE_SUCCESS = 'HARDWARE_PAGEGET_HARDWARE_RATE_SUCCESS';
 export const GET_HARDWARE_RATE_FAILURE = 'HARDWARE_PAGEGET_HARDWARE_RATE_FAILURE';
@@ -59,6 +63,25 @@ export interface ICreateHardwareCommentSuccess {
 
 export interface ICreateHardwareCommentFailure {
   type: typeof CREATE_HARDWARE_COMMENT_FAILURE;
+  payload: {
+    message: string;
+  };
+}
+
+export interface IDeleteHardwareComment {
+  type: typeof DELETE_HARDWARE_COMMENT;
+  payload: {
+    id: number;
+    idHardware: number;
+  };
+}
+
+export interface IDeleteHardwareCommentSuccess {
+  type: typeof DELETE_HARDWARE_COMMENT_SUCCESS;
+}
+
+export interface IDeleteHardwareCommentFailure {
+  type: typeof DELETE_HARDWARE_COMMENT_FAILURE;
   payload: {
     message: string;
   };
@@ -118,6 +141,9 @@ export type HardwareActionTypes =
   | ICreateHardwareComment
   | ICreateHardwareCommentSuccess
   | ICreateHardwareCommentFailure
+  | IDeleteHardwareComment
+  | IDeleteHardwareCommentSuccess
+  | IDeleteHardwareCommentFailure
   | IGetHardwareRate
   | IGetHardwareRateSuccess
   | IGetHardwareRateFailure

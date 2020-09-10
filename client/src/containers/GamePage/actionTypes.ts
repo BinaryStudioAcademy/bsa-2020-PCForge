@@ -13,6 +13,10 @@ export const CREATE_GAME_COMMENT = 'Game/CREATE_GAME_COMMENT';
 export const CREATE_GAME_COMMENT_SUCCESS = 'Game/CREATE_GAME_COMMENT_SUCCESS';
 export const CREATE_GAME_COMMENT_FAILURE = 'Game/CREATE_GAME_COMMENT_FAILURE';
 
+export const DELETE_GAME_COMMENT = 'Game/DELETE_GAME_COMMENT';
+export const DELETE_GAME_COMMENT_SUCCESS = 'Game/DELETE_GAME_COMMENT_SUCCESS';
+export const DELETE_GAME_COMMENT_FAILURE = 'Game/DELETE_GAME_COMMENT_FAILURE';
+
 export const GET_GAME_RATE = 'Game/GET_GAME_RATE';
 export const GET_GAME_RATE_SUCCESS = 'Game/GET_GAME_RATE_SUCCESS';
 export const GET_GAME_RATE_FAILURE = 'Game/GET_GAME_RATE_FAILURE';
@@ -80,6 +84,25 @@ export interface ICreateGameCommentFailure {
   };
 }
 
+export interface IDeleteGameComment {
+  type: typeof DELETE_GAME_COMMENT;
+  payload: {
+    id: number;
+    idGame: number;
+  };
+}
+
+export interface IDeleteGameCommentSuccess {
+  type: typeof DELETE_GAME_COMMENT_SUCCESS;
+}
+
+export interface IDeleteGameCommentFailure {
+  type: typeof DELETE_GAME_COMMENT_FAILURE;
+  payload: {
+    message: string;
+  };
+}
+
 export interface IGetGameRate {
   type: typeof GET_GAME_RATE;
   payload: {
@@ -131,6 +154,9 @@ export type GameActionTypes =
   | ICreateGameComment
   | ICreateGameCommentSuccess
   | ICreateGameCommentFailure
+  | IDeleteGameComment
+  | IDeleteGameCommentSuccess
+  | IDeleteGameCommentFailure
   | IGetGameRate
   | IGetGameRateSuccess
   | IGetGameRateFailure

@@ -29,7 +29,7 @@
 .commentBody {
   font-size: 16px;
   line-height: 22px;
-  color: $colorTextWhite;
+  color: $colorTextGray;
   text-align: justify;
 }
 
@@ -40,6 +40,9 @@
 
   .commentButtonsHeader {
     margin-left: auto;
+    font-size: 24px;
+    line-height: 28px;
+    color: $colorLightGray;
   }
 
   .commentRateInfo {
@@ -75,14 +78,32 @@
     justify-content: space-between;
     align-items: flex-end;
     margin: 5px;
+    color: $colorLightGray;
   }
 }
 
 .commentIcons, .iconLike {
   cursor: pointer;
-  margin: 0 5px;
+  margin-right: 5px;
+  font-size: 22px;
 
   &:hover {
     opacity: 0.6;
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0.3em 0 0.3em;
+}
+
+.buttonWrapper {
+  padding-left: 1em;
+
+  &:disabled {
+    opacity: 0.4;
   }
 }

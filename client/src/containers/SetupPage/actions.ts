@@ -3,6 +3,7 @@ import {
   GET_SETUP,
   GET_SETUP_COMMENTS,
   CREATE_SETUP_COMMENT,
+  DELETE_SETUP_COMMENT,
   GET_SETUP_RATE,
   SET_SETUP_RATE,
   FORK_SETUP,
@@ -20,6 +21,10 @@ export const getSetupComments = (payload: { id: number; count: number; from: num
 
 export const createSetupComment = (payload: { id: number; value: string }): SetupActionTypes => ({
   type: CREATE_SETUP_COMMENT,
+  payload,
+});
+export const deleteSetupComment = (payload: { id: number; idSetup: number }): SetupActionTypes => ({
+  type: DELETE_SETUP_COMMENT,
   payload,
 });
 
