@@ -23,6 +23,7 @@ import { router as performanceRouter } from './performance.router';
 import { router as addRequestRouter } from './addRequest.router';
 import { router as commensRateRouter } from './commentRate.router';
 import { router as searchEngineRouter } from './searchEngine.router';
+import { router as statisticsRouter } from './statistics.router';
 
 export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void => {
   fastify.register(ramTypeRouter, { prefix: '/ramTypes' });
@@ -48,5 +49,6 @@ export default (fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNex
   fastify.register(performanceRouter, { prefix: '/performances' });
   fastify.register(commensRateRouter, { prefix: '/commentsRates' });
   fastify.register(searchEngineRouter, { prefix: '/search' });
+  fastify.register(statisticsRouter, { prefix: '/statistics' });
   next();
 };
