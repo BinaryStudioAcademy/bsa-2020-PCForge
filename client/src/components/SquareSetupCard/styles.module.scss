@@ -10,7 +10,7 @@
   border-radius: 6px;
   position: relative;
   transition: all 0.3s;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 8px 2px #00000021;
 
   .setupTopInfo {
     display: flex;
@@ -18,7 +18,7 @@
     flex-direction: column;
   }
 
-  @media(max-width:768px) {
+  @media (max-width: 768px) {
     height: auto;
   }
 
@@ -40,7 +40,7 @@
       bottom: 13px;
       right: 10px;
 
-      >div {
+      > div {
         margin-right: 5px;
       }
     }
@@ -140,7 +140,6 @@
     color: rgb(168, 166, 166);
   }
 
-
   .hardwareTitle {
     font-weight: bold;
     font-size: 16px;
@@ -160,12 +159,11 @@
         bottom: 13px;
         right: 10px;
 
-        >div {
+        > div {
           margin-right: 5px;
         }
       }
     }
-
 
     .setupBack {
       opacity: 0;
@@ -186,8 +184,6 @@
         margin-top: auto;
         text-decoration: none;
       }
-
-
 
       .textHolder {
         max-height: 250px;
@@ -215,24 +211,24 @@
         justify-content: space-between;
 
         .cardIcons {
-         display: flex;
-         > div {
-           padding:3px;
-           padding-right: 0;
-         }
+          display: flex;
+          > div {
+            padding: 3px;
+            padding-right: 0;
+          }
           svg {
             color: $colorOrange;
           }
-  
+
           svg:hover {
             color: #b92f0d;
           }
-  
+
           div:nth-child(1) {
             svg {
               color: rgb(175, 170, 170);
             }
-  
+
             svg:hover {
               color: white;
             }
