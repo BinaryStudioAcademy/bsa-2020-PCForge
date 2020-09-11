@@ -31,7 +31,7 @@ class ChartPage extends React.PureComponent<Props, State> {
       <Container>
         <ScrollView>
           {this.state.activeTab === 'system' && <PerfomanceOverview report={this.props.route.params} />}
-          {this.state.activeTab === 'performance' && <PerformanceReport />}
+          {this.state.activeTab === 'performance' && <PerformanceReport report={this.props.route.params} />}
           {this.state.activeTab === 'fps analysis' && <FpsAnalysis />}
         </ScrollView>
         <Footer>

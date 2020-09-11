@@ -5,8 +5,12 @@ import {BarChart} from 'react-native-svg-charts';
 import styles from './styles';
 import {TouchableHighlight} from 'react-native';
 import RoundButton from '../RoundButton';
+import { ISetupPerformance } from 'common/models/setupPerformance.model';
+import { Game } from 'common/models/game.model';
 
-interface Props {}
+interface Props {
+  report: ISetupPerformance & {game: Game};
+}
 
 interface State {
   activeRequirement: 'minimal' | 'recommended';
@@ -34,6 +38,9 @@ class PerformanceReport extends React.PureComponent<Props, State> {
     ));
   }
   public render(): JSX.Element {
+    const { minimal, recommended } = this.props.report.report;
+    const minimalData = [minimal.cpu, minimal.gpu, minimal.ram ];
+    const recommendedData = [recommended.cpu, recommended.gpu, recommended.ram];
     const data2 = [80, 60, 90];
     return (
       <View style={styles.root}>
@@ -69,9 +76,10 @@ class PerformanceReport extends React.PureComponent<Props, State> {
         <View style={styles.chartContainer}>
           <BarChart
             style={styles.chart}
-            data={data2}
+            data={this.state.activeRequirement === 'minimal' ? minimalData : recommendedData}
             svg={{fill: '#eb3d55'}}
             contentInset={{top: 30, bottom: 0}}
+            yMax={Math.max(...(this.state.activeRequirement === 'minimal' ? minimalData : recommendedData), 100)}
             gridMin={0}>
             <this.Labels />
           </BarChart>
