@@ -77,11 +77,13 @@ export class GameRepository extends BaseRepository<GameModel, GameCreationAttrib
 
   async getAllGames(inputFilter: IGameFilter): Promise<IWithMeta<GameModel>> {
     const filter = mergeFilters<IGameFilter>(new IGameFilter(), inputFilter);
+    console.log('GameRepository -> filter', filter.id);
     const games = await this.getAll(
       {
         group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
         where: {
-          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+          // ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
+          id: { [Op.and]: { [Op.or]: filter.id } },
           ...(filter.year && { year: filter.year }),
         },
         include: [

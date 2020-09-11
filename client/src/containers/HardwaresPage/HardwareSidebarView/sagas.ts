@@ -5,6 +5,9 @@ import {
   GET_HARDWARE_COMMENTS,
   ICreateHardwareComment,
   CREATE_HARDWARE_COMMENT,
+  DELETE_HARDWARE_COMMENT,
+  DELETE_HARDWARE_COMMENT_SUCCESS,
+  IDeleteHardwareComment,
   IGetHardwareRate,
   GET_HARDWARE_RATE_SUCCESS,
   GET_HARDWARE_RATE,
@@ -14,7 +17,7 @@ import {
   CREATE_HARDWARE_COMMENT_SUCCESS,
 } from './actionTypes';
 import { CommentFilter } from 'common/models/filter.model';
-import { getAllComments, createComment } from 'api/services/comment.service';
+import { getAllComments, createComment, deleteComment } from 'api/services/comment.service';
 import { CommentCreationAttributes } from 'common/models/comment';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
@@ -65,6 +68,20 @@ function* watchCreateHardwareComment() {
   yield takeLeading(CREATE_HARDWARE_COMMENT, createHardwareComment);
 }
 
+function* deleteHardwareComment(action: IDeleteHardwareComment) {
+  try {
+    yield call(deleteComment, action.payload.id);
+    yield put({ type: DELETE_HARDWARE_COMMENT_SUCCESS });
+    yield put({ type: GET_HARDWARE_COMMENTS, payload: { id: action.payload.idHardware } });
+  } catch (e) {
+    yield put(addAlert(alert.error(e.message || 'Failed delete harware comment')));
+  }
+}
+
+function* watchDeleteHardwareComment() {
+  yield takeEvery(DELETE_HARDWARE_COMMENT, deleteHardwareComment);
+}
+
 function* getHardwareRate(action: IGetHardwareRate) {
   try {
     const response: { average: number } = yield call(getAverageRate, {
@@ -100,5 +117,11 @@ function* watchAddHardwareRate() {
 }
 
 export default function* hardwareSagas() {
-  yield all([watchGetHardwareComments(), watchCreateHardwareComment(), watchGetHardwareRate(), watchAddHardwareRate()]);
+  yield all([
+    watchGetHardwareComments(),
+    watchCreateHardwareComment(),
+    watchGetHardwareRate(),
+    watchAddHardwareRate(),
+    watchDeleteHardwareComment(),
+  ]);
 }

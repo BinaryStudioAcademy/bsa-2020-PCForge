@@ -8,7 +8,7 @@ import CardDisplay from 'containers/Home/components/CardsDisplay';
 import { RootState } from 'redux/rootReducer';
 import { loadTopSetups } from 'containers/Home/logic/actions';
 import Spinner from 'components/Spinner';
-import PewsPage from 'containers/NewsPage';
+import NewsPage from 'containers/NewsPage';
 import styles from 'containers/Home/styles.module.scss';
 
 type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -53,7 +53,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
                   <CardDisplay setups={ordinarySetups} showButton={showButton} />
                 </div>
                 <div className={styles.gridNewsDisplay}>
-                  <PewsPage role="aside" countNews={2} />
+                  <NewsPage role="aside" countNews={2} />
                 </div>
               </div>
             </>

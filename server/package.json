@@ -8,13 +8,15 @@
     "dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules src/index.ts",
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .ts --fix"
+    "lint": "eslint . --ext .ts --fix",
+    "seedtoelastic": "ts-node-dev src/infrastructure/elastic/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/bluebird": "^3.5.32",
+    "@types/elasticsearch": "^5.0.36",
     "@types/lodash": "^4.14.159",
     "@types/mustache": "^4.0.1",
     "@types/node": "^14.0.27",
@@ -27,8 +29,10 @@
     "aws-sdk": "^2.731.0",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
+    "elasticsearch": "^16.7.1",
     "fastify": "^3.1.1",
     "fastify-cors": "^4.1.0",
+    "fastify-elasticsearch": "^2.0.0",
     "fastify-jwt": "^2.1.3",
     "fastify-multer": "^2.0.1",
     "fastify-oauth2": "^4.0.0",

@@ -14,6 +14,7 @@ export class IHddFilter extends IFilter {
     maxValue: 1000000,
   };
   name: FilterByNameType = null;
+  searchString?: string = '';
 
   static schema: SwaggerSchema = {
     type: 'object',
@@ -27,6 +28,10 @@ export class IHddFilter extends IFilter {
       name: {
         type: 'string',
         minimum: 1,
+        nullable: true,
+      },
+      searchString: {
+        type: 'string',
         nullable: true,
       },
     },

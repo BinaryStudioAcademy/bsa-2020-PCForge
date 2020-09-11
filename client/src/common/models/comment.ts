@@ -17,7 +17,7 @@ export interface Comment {
 }
 
 export interface CommentCreationAttributes {
-  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
+  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd' | 'news';
   commentableId: number;
   value: string;
 }

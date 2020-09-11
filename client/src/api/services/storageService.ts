@@ -13,6 +13,7 @@ export type TypeResponseAllStorages = {
 const endpoint = '/storages';
 
 export const getAllStorage = async (filter: TypeFilter): Promise<TypeResponseAllStorages> => {
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
   const isSataMultiple: boolean = filter.sata?.includes(',') || false;
   const serverFilter = {
     ...(isSataMultiple && { sataMultiple: filter.sata }),

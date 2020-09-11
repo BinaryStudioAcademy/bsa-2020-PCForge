@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { MenuItems } from 'common/enums/MenuItems';
+import CommentableType from 'common/enums/CommentableItems';
 import PageComponent from 'containers/PageComponent';
 import { Box, CardMedia, Container, Grid, Table, TableBody, TableCell, TableRow, Typography } from '@material-ui/core';
 import Divider from 'components/BasicComponents/Divider';
@@ -33,6 +34,10 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
   public onCreateComment = (value: string) => {
     const id: string = this.props.match.params.id;
     this.props.createGameComment({ id: +id, value: value });
+  };
+
+  public onDeleteComment = (id: number) => {
+    this.props.deleteGameComment({ id: +id, idGame: this.props.game?.id as number });
   };
 
   public onRatingSet = (value: number) => {
@@ -138,7 +143,10 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
                   commentsTotal={commentsCountTotal}
                   comments={comments}
                   onCreateComment={this.onCreateComment}
+                  onDeleteComment={this.onDeleteComment}
                   onPaginationToggle={this.getGameComments}
+                  commentableId={game.id}
+                  commentableType={CommentableType.Game}
                 />
               )}
             </Grid>

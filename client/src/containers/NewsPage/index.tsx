@@ -7,6 +7,7 @@ import styles from 'containers/NewsPage/styles.module.scss';
 import { TypeNewsState } from 'containers/NewsPage/reducer';
 import PageComponent from 'containers/PageComponent';
 import Title from 'components/Title';
+import history from 'browserHistory';
 
 type PropsType = {
   role?: 'page' | 'aside';
@@ -14,7 +15,7 @@ type PropsType = {
   className?: string;
 };
 
-const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.Element => {
+const NewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.Element => {
   const newsAll = useSelector((state: { news: TypeNewsState }) => state.news.news);
   const dispatch = useDispatch();
 
@@ -22,10 +23,15 @@ const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
     dispatch(fetchNewsAction());
   }, []);
 
+  const onClickHandler = (id: number) => {
+    return (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      history.push(`/news/${id}`);
+    };
+  };
   const newsSlice = countNews ? newsAll.slice(0, countNews) : newsAll;
 
   const newsElements = newsSlice.map((news) => (
-    <Card key={news.id} className={styles.newsCard}>
+    <Card onClick={onClickHandler(news.id)} key={news.id} className={styles.newsCard}>
       <img src={news.image} alt={news.title} />
       <CardContent className={styles.content}>
         <h3 className={styles.title}>{news.title}</h3>
@@ -47,4 +53,4 @@ const PewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
   return role === 'page' ? <PageComponent>{news}</PageComponent> : news;
 };
 
-export default PewsPage;
+export default NewsPage;

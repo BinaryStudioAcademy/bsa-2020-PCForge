@@ -2,9 +2,10 @@ import { FastifyRequest } from 'fastify';
 import { ISsdFilter } from '../../data/repositories/filters/ssd.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserAttributes } from '../../data/models/user';
+import { IStorageFilter } from '../../data/repositories/filters/storage.filter';
 
 export type GetAllStoragesRequest = FastifyRequest<{
-  Querystring: ISsdFilter;
+  Querystring: IStorageFilter;
 }> & { user: UserAttributes };
 
 export const StorageSchema: SwaggerSchema = {

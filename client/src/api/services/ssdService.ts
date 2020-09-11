@@ -14,6 +14,7 @@ export type TypeResponseAllSsds = {
 const endpoint = '/ssds';
 
 export const getAllSsd = async (filter: TypeFilter): Promise<TypeResponseAllSsds> => {
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
   return await webApi.get(endpoint, filter);
 };
 

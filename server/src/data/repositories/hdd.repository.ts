@@ -22,7 +22,6 @@ export class HddRepository extends BaseRepository<HddModel, HddCreationAttribute
         group: ['hdd.id'],
         where: {
           sata: filter.sata,
-          ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
           capacity: {
             [Op.between]: [filter.capacity.minValue, filter.capacity.maxValue],
           },

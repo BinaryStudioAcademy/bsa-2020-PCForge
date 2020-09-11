@@ -6,6 +6,7 @@ import { Db } from '../data/db/connection';
 import { RouteGenericInterface } from 'fastify/types/route';
 import { File as MulterFile } from 'fastify-multer/lib/interfaces';
 import Mail from 'nodemailer/lib/mailer';
+import { Client } from '@elastic/elasticsearch';
 import { Repositories } from '../data/repositories';
 import { PromisedRedis } from '../infrastructure/redis/interfaces';
 import { WebSocketService } from '../api/socket/websocket.service';
@@ -37,6 +38,7 @@ declare module 'fastify' {
     nodemailer: Mail;
     redis: PromisedRedis;
     websocket: WebSocketService;
+    elastic: Client;
   }
 
   export interface FastifyRequest<

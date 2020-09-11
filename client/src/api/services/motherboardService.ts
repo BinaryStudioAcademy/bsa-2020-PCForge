@@ -15,6 +15,7 @@ export type TypeResponseAll = {
 const endpoint = '/motherboards';
 
 export const getAllMotherboard = async (filter: MotherboardFilter): Promise<TypeResponseAll> => {
+  if (filter.name) filter.name = encodeURIComponent(filter.name);
   const ramTypeMultiple: boolean = filter.ramTypeId?.includes(',') || false;
   const socketIdMultiple: boolean = filter.socketId?.includes(',') || false;
   const isSataMultiple: boolean = filter.sata?.includes(',') || false;

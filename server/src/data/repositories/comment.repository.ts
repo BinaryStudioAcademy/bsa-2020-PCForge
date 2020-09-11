@@ -75,6 +75,7 @@ export class CommentRepository extends BaseRepository<CommentModel, CommentCreat
           commentableId: filter.commentableId,
           commentableType: filter.commentableType,
         },
+        order: [['createdAt', 'DESC']],
       } //,
     );
     const globalCount = result.count;

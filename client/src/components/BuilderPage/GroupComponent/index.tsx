@@ -18,6 +18,7 @@ import Search from 'components/BuilderPage/Search';
 import styles from './styles.module.scss';
 import { useSelector } from 'react-redux';
 import { TypeSetup } from 'containers/BuilderPage/reducer';
+import FilterStorageType from '../FilterStorageType';
 
 type PropsType = {
   groupName: GroupName;
@@ -59,6 +60,7 @@ const GroupComponent = ({
   const [load, setLoad] = useState(false);
   const [name, setName] = useState('');
   const [range, setRange] = useState({} as TypeRange);
+  const [typeStorage, setTypeStorage] = useState('');
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
   // const selectedComponent = groupName===GroupName.storage?[setup[GroupName.ssd]]
@@ -83,6 +85,7 @@ const GroupComponent = ({
     const querySata = filter.sata.size ? { sata: [Array.from(filter.sata)].join(',') } : {};
     const queryM2 = filter.m2.size ? { m2: true } : {};
     const queryName = name ? { name } : {};
+    const queryType = typeStorage ? { type: typeStorage } : {};
     const queryFilter = {
       ...querySocketId,
       ...queryRamTypeId,
@@ -96,16 +99,22 @@ const GroupComponent = ({
         [`${filterRangeInfo[groupName].key}[maxValue]`]: range.maxValue,
       };
     }
-    return { pagination, queryFilter, queryRange, queryName };
+    return { pagination, queryFilter, queryRange, queryName, queryType };
   };
 
   const getComponents = async () => {
     setLoad(true);
 
-    const { pagination, queryFilter, queryRange, queryName } = getFilters();
+    const { pagination, queryFilter, queryRange, queryName, queryType } = getFilters();
 
     try {
-      const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, ...queryName });
+      const res = await servicesGetAll[groupName]({
+        ...pagination,
+        ...queryFilter,
+        ...queryRange,
+        ...queryName,
+        ...queryType,
+      });
       setComponents(res.data);
       setCounter(res.meta.countAfterFiltering);
     } catch (err) {
@@ -128,7 +137,7 @@ const GroupComponent = ({
 
   useEffect(() => {
     getComponents();
-  }, [...fltersUseEffect, name, range, pagination]);
+  }, [...fltersUseEffect, name, range, pagination, typeStorage]);
 
   useEffect(() => {
     for (const component of Object.values(selectedComponent)) {
@@ -202,7 +211,10 @@ const GroupComponent = ({
       <AccordionDetails className={styles.details}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={3} xl={2}>
-            <Search className={styles.search} value={name} onChange={setName} />
+            <Search className={styles.search} onChange={setName} />
+            {filtersUsed[FilterName.storage] && (
+              <FilterStorageType show={filtersUsed[FilterName.storage].enable} onUpdateFilter={setTypeStorage} />
+            )}
             {filtersUsed[FilterName.socket] && (
               <FilterSocket
                 show={filtersUsed[FilterName.socket].enable}
