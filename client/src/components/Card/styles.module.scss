@@ -23,6 +23,19 @@ $border_radius_card: 10px;
   }
 }
 
+
+.gameName {
+  margin-left: 20px;
+  margin-top: 10px;
+  font-size: 22px;
+ 
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+ }
+ 
+ 
 .characteristicList {
   font-size: 16px;
   padding: 0;
@@ -39,7 +52,7 @@ $border_radius_card: 10px;
 }
 
 .ratingBox {
-  margin: 20px 20px -10px;
+  margin: 10px 20px -10px;
 }
 
 .characteristicHeader {
