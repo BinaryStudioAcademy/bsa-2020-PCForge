@@ -51,7 +51,6 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
       // if (file) {
       //   setExistingImage(URL.createObjectURL(file));
       // }
-      
     } else {
       setFileName(`Image must be less than 5Mb bytes`);
     }
@@ -95,7 +94,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
               onChange={onChangeImage}
             />
             <label htmlFor="uploadFile" className={styles.fileInputLabel}>
-             {computerComponents?.id ? 'Update Image' : 'Select Image'}
+              {computerComponents?.id ? 'Update Image' : 'Select Image'}
             </label>
           </Button>
           <span className={styles.fileName}>{fileName}</span>

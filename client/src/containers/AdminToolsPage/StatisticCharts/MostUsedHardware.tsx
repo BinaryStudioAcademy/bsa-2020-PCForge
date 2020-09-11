@@ -1,18 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
-
-const IHardwareUsingData: IHardwareData[] = [
-  { name: 'Asus ROG GAMING', value: 10 },
-  { name: 'ASRock B365M Pro4', value: 5 },
-  { name: 'Intel Core i7', value: 4 },
-  { name: 'GeForce GTX 1080', value: 3 },
-  { name: 'GeForce GTX 2080', value: 6 },
-];
-
-interface IHardwareData {
-  name: string;
-  value: number;
-}
+import { IChartData } from './index';
 
 interface IPropsChart {
   cx: number;
@@ -23,9 +11,13 @@ interface IPropsChart {
   startAngle: number;
   endAngle: number;
   fill: string;
-  payload: IHardwareData;
+  payload: IChartData;
   percent: number;
   value: number;
+}
+
+interface HardWareSetupCountProps {
+  dataList: IChartData[] | undefined;
 }
 
 const renderActiveShape = (props: IPropsChart) => {
@@ -71,12 +63,17 @@ const renderActiveShape = (props: IPropsChart) => {
   );
 };
 
-export default class UsingHardwareChart extends PureComponent {
+export default class UsingHardwareChart extends PureComponent<HardWareSetupCountProps> {
+  constructor(props: HardWareSetupCountProps) {
+    super(props);
+  }
+  public dataList = this.props.dataList;
+
   state = {
     activeIndex: 0,
   };
 
-  onPieEnter = (IHardwareUsingData: IHardwareData[], index: number) => {
+  onPieEnter = (dataList: IChartData[], index: number) => {
     this.setState({
       activeIndex: index,
     });
@@ -88,9 +85,9 @@ export default class UsingHardwareChart extends PureComponent {
         <Pie
           activeIndex={this.state.activeIndex}
           activeShape={renderActiveShape}
-          data={IHardwareUsingData}
+          data={this.dataList}
           cx={250}
-          cy={130}
+          cy={140}
           innerRadius={80}
           outerRadius={100}
           fill="#f27a54"
