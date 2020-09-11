@@ -11,5 +11,6 @@ import { Setup } from './setup';
 
 export type SearchResponse = {
   _index: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _source: any;
 };

@@ -9,18 +9,23 @@ type Props = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onSelect?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  autoComplete?: string;
   className?: string;
 };
 const Search = ({
   value,
   onChange,
+  autoComplete = 'on',
   className = '',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onBlur = (event: React.ChangeEvent<HTMLInputElement>) => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onSelect = (event: React.ChangeEvent<HTMLInputElement>) => {},
 }: Props): ReactElement => {
   return (
     <FormControl variant="outlined">
       <OutlinedInput
+        autoComplete={autoComplete}
         className={className}
         classes={{
           root: styles.container,

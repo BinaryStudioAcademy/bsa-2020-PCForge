@@ -1,6 +1,7 @@
 @import "styles/variables";
 
 $input-error: #cb5134;
+$user-page-bg:#30363d;;
 
 .userInfo {
   display: flex;
@@ -9,7 +10,7 @@ $input-error: #cb5134;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  background-color: $colorDarkGray;
+  background-color: $user-page-bg;
   padding: 10px;
   border-radius: 10px;
   overflow: auto;

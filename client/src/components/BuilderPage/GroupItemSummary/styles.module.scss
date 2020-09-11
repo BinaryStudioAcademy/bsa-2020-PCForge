@@ -7,10 +7,12 @@
 
 .btnGroup {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
 }
 
 div.groupItemSummary {
+  min-height: 100px;
   padding: 8px 20px;
   background-color: $colorDarkGray;
 }
@@ -18,6 +20,10 @@ div.groupItemSummary {
 .groupItemSummary > div {
   //display: flex;
   align-items: center;
+}
+
+.imageWrapper {
+  padding: 0 !important;
 }
 
 .groupItemSummaryImg {

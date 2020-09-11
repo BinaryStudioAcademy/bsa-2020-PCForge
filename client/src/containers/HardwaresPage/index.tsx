@@ -165,7 +165,7 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
                   <GridListTile
                     className={styles.hardwareItem}
                     key={hardware.id}
-                    onClick={() => this.onHardwareChoose(hardware)}
+                    onClick={() => this.props.setHardware(hardware)}
                   >
                     <div
                       className={concatClassNames(
@@ -204,7 +204,7 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
               <div className={styles.hardwareBar}>
                 <h2 className={styles.hardwareHeader}>Selected hardware</h2>
                 <div className={styles.divider} />
-                <HardwareSidebarView hardware={this.state.hardware} type={this.state.type} />
+                <HardwareSidebarView hardware={this.props.state.selectedHardware} type={this.state.type} />
               </div>
             </div>
           </div>

@@ -107,7 +107,7 @@ function* loadUserGames(action: loadUserGamesActionType) {
     const data = yield call(getUserGames, action.payload.id);
     yield put(loadUserGamesSuccess(data.data));
   } catch (error) {
-    console.log(error);
+    notification.error(error.message || 'Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
@@ -123,7 +123,7 @@ function* loadSetups(action: loadSetupsActionType) {
     const setups = yield call(getUserSetups, { authorId: id });
     yield put(loadSetupsSuccess((setups as TypeResponseAll).data));
   } catch (error) {
-    console.log(error);
+    notification.error(error.message || 'Something went wrong, please try again later');
   }
   yield put(hideSpinner());
 }
@@ -137,7 +137,7 @@ function* loadFilteredGames(action: loadFilteredGamesActionType) {
     const data = yield call(getAllGames, { name: action.payload.searchString });
     yield put(loadFilteredGamesSuceess(data.data));
   } catch (error) {
-    console.log(error);
+    notification.error(error.message || 'Something went wrong, please try again later');
   }
 }
 

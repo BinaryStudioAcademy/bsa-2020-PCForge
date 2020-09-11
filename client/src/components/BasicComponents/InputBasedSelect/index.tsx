@@ -4,6 +4,7 @@ import styles from './styles.module.scss';
 import InputLabel from '@material-ui/core/InputLabel';
 import ErrorIcon from '@material-ui/icons/Error';
 import { debounce } from 'lodash-es';
+import { getIcon } from 'common/helpers/icon.helper';
 import { IconButton, InputAdornment } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 
@@ -27,6 +28,7 @@ interface Props {
   disabled?: boolean;
   withClose?: boolean;
   onCloseCallback?: () => void;
+  showCloseAlways?: boolean;
 }
 
 interface State {
@@ -96,10 +98,9 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
   }
 
   public render(): JSX.Element {
-    const { placeholder, inputId, label, labelClassName, options, errorMessage } = this.props;
+    const { placeholder, inputId, label, labelClassName, errorMessage, options } = this.props;
 
     const { onSeeMoreClick } = this.props;
-
     return (
       <div
         className={`${styles.selectRoot} ${this.props.disabled ? styles.disabledInput : ''}`}
@@ -126,7 +127,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
           disableUnderline={true}
           onFocus={(e) => e.preventDefault()}
           {...(this.props.withClose &&
-            this.state.inputValue !== '' && {
+            (this.state.inputValue !== '' || this.props.showCloseAlways) && {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton

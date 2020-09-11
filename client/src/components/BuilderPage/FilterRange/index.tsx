@@ -46,10 +46,10 @@ const FilterRange = ({
 
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
-      <AccordionSummary className={styles.summary} expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary className={styles.filterSummary} expandIcon={<ExpandMoreIcon />}>
         <Typography>{title}</Typography>
       </AccordionSummary>
-      <AccordionDetails className={styles.details}>
+      <AccordionDetails className={styles.filterDetails}>
         <Typography className={styles.description}>
           {value[0]}
           <span className={styles.dimension}>{dimension}</span>

@@ -20,6 +20,7 @@ interface IProps {
 const BuilderSummary = ({ setup }: IProps): JSX.Element => {
   const { cpu, gpu, ram, motherboard, powersupply, hdd, ssd } = setup;
   const setupProgress = { cpu, gpu, ram, motherboard, powersupply, hdd, ssd };
+  const { ramCount } = setup;
 
   const isSetupEmpty = !Object.values(setup).some((value) => value);
 
@@ -56,6 +57,7 @@ const BuilderSummary = ({ setup }: IProps): JSX.Element => {
             <ComponentItem
               title={ram ? ram.name : ''}
               specification={ram ? <SpecificationRam component={ram} /> : null}
+              count={ramCount}
             />
             <ComponentItem
               title={motherboard ? motherboard.name : ''}

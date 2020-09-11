@@ -92,7 +92,7 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
               <Grid className={styles.gameDescription} item xs={12}>
                 <span className={styles.fieldName}>Description:</span>
                 <br />
-                <pre>{game.description}</pre>
+                <p>{game.description}</p>
               </Grid>
             </Grid>
             <Grid className={styles.requirementsWrapper} container direction="row" justify="space-between">

@@ -8,6 +8,7 @@ import { getAllMotherboard } from 'api/services/motherboardService';
 import { getAllPowersupplies } from 'api/services/powersupplyService';
 import { getAllRam } from 'api/services/ramService';
 import { getAllSocket } from 'api/services/socketService';
+import { getAllNews } from 'api/services/newsService';
 import * as notification from 'common/services/notificationService';
 
 import { call, put, all, takeLatest, takeEvery } from 'redux-saga/effects';
@@ -70,7 +71,8 @@ function* getAllTotalCount(action: ITotalCountsAction) {
   try {
     yield put(updateTotalsLoadingComponentStatus(false));
     const { meta: usersCount } = yield call(getAllUsers);
-    const { meta: setupsCount } = yield call(getAllSetups);
+    const { meta: setupsCount } = yield call(getAllSetups); //countNews
+    const { meta: newsCount } = yield call(getAllNews);
 
     const { meta: MotherboardCount } = yield call(getAllMotherboard, {});
     const { meta: PowersuppliesCount } = yield call(getAllPowersupplies, {});
@@ -88,7 +90,13 @@ function* getAllTotalCount(action: ITotalCountsAction) {
 
     const { meta: gamesCount } = yield call(getAllGames, {});
     yield put(
-      loadAllTotalCounts(usersCount.globalCount, setupsCount.globalCount, hardwareCount, gamesCount.globalCount)
+      loadAllTotalCounts(
+        usersCount.globalCount,
+        setupsCount.globalCount,
+        hardwareCount,
+        gamesCount.globalCount,
+        newsCount.globalCount
+      )
     );
   } catch (error) {
     notification.error(`Error in getting total information: ${error.message}`);

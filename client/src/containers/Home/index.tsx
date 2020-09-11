@@ -43,7 +43,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
           {!!setups?.length && (
             <>
               <div className={styles.homeContentContainer}>
-                <h2>Most Popular Setups</h2>
+                <h2 className={styles.setupsTitle}>Most Popular Setups</h2>
                 <div className={styles.gridTopCard}>
                   {' '}
                   <CardDisplay setups={topSetup} big />

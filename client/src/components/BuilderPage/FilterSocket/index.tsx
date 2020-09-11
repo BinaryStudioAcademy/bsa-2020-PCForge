@@ -77,10 +77,10 @@ const FilterSocket = ({ filter, show, onUpdateFilter }: PropsType): JSX.Element 
 
   return (
     <Accordion className={styles.group} TransitionProps={{ unmountOnExit: true }}>
-      <AccordionSummary className={styles.summary} expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary className={styles.filterSummary} expandIcon={<ExpandMoreIcon />}>
         <Typography>Socket</Typography>
       </AccordionSummary>
-      <AccordionDetails className={styles.details}>
+      <AccordionDetails className={styles.filterDetails}>
         <FormGroup>
           {listSocketElements}
           <Spinner load={load} />

@@ -25,6 +25,7 @@ import { AuthService } from './auth.service';
 import { CommentRateService } from './commentRate.service';
 import { NotificationService, notificationServiceFactory } from './NotificationService/notification.service';
 import { HardwareService } from './hardware.service';
+import { StatisticService } from './statistics.service';
 
 export interface Services {
   AuthService: AuthService;
@@ -52,6 +53,7 @@ export interface Services {
   CommentRateService: CommentRateService;
   NotificationService: NotificationService;
   HardwareService: HardwareService;
+  StatisticService: StatisticService;
 }
 
 export default fp(async (fastify, opts, next) => {
@@ -99,6 +101,7 @@ export default fp(async (fastify, opts, next) => {
       repositories.SsdRepository,
       repositories.SetupRepository
     );
+    const statisticService = new StatisticService(repositories.SetupRepository, repositories.UserRepository);
     const services: Services = {
       AuthService: authService,
       AddRequestService: addRequestService,
@@ -125,6 +128,7 @@ export default fp(async (fastify, opts, next) => {
       CommentRateService: commentRateService,
       NotificationService: notificationService,
       HardwareService: hardwareService,
+      StatisticService: statisticService,
     };
     fastify.decorate('services', services);
     console.log('services were successfully initialized');

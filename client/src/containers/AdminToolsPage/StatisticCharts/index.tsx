@@ -20,10 +20,10 @@ export const StatisticCharts = (): JSX.Element => {
           <UsingHardwareChart />
         </div>
       </div>
-      <div>Total user Activity on site</div>
+      {/* <div>Total user Activity on site</div>
       <div className={styles.chartContainerWrapper}>
         <UserActivity />
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -12,7 +12,7 @@ import Spinner from 'components/Spinner';
 import { SpecificationComponent } from 'components/BuilderPage/Specifications';
 import { TypeComponent, TypeFilterBuilder } from 'containers/BuilderPage/types';
 import { TypeStorage } from 'common/models/typeStorage';
-import { FilterName, filterRangeInfo, GroupName, servicesGetAll } from 'containers/BuilderPage/config';
+import { FilterName, filterRangeInfo, GroupName, imageGroup, servicesGetAll } from 'containers/BuilderPage/config';
 import FilterRamTypes from 'components/BuilderPage/FilterRamType';
 import Search from 'components/BuilderPage/Search';
 import styles from './styles.module.scss';
@@ -199,6 +199,7 @@ const GroupComponent = ({
       <GroupItemSummary
         id={groupName}
         title={groupName}
+        img={imageGroup[groupName]}
         count={counter}
         selectedComponent={selectedComponent}
         /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
