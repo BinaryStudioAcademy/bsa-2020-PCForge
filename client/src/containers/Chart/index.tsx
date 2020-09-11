@@ -49,7 +49,7 @@ const GameMatcherResult: React.FC<Props> = ({
   if (!cpu || !gpu || !ramSize) return <Redirect to={Routes.MATCHER} />;
 
   return (
-    <PageComponent selectedMenuItemNumber={MenuItems.GameMatcher}>
+    <PageComponent titleSelector="Chart" selectedMenuItemNumber={MenuItems.GameMatcher}>
       <div className={styles.gameMatcherRoot}>
         <div className={styles.content}>
           <h1 className={[sharedStyles.mainHeader, styles.pageHeader].join(' ')}>System overview</h1>

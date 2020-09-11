@@ -38,7 +38,7 @@ const AddItemPage = (): JSX.Element => {
   return !renderForm ? (
     <Redirect to="/404" />
   ) : (
-    <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
+    <PageComponent titleSelector="AddItem" selectedMenuItemNumber={MenuItems.AdminTools}>
       <div className={styles.contentPage}>
         <div className={styles.pageHeader}>
           <Title title="Admin Tools" subtitle={`Add ${addItemType}`} />

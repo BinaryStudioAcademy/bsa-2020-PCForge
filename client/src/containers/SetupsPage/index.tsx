@@ -65,7 +65,7 @@ const SetupPage: React.FC<PropsFromRedux> = ({
           <Spinner load />
         </Box>
         <div className={showSpinner ? classes.hidden : classes.contentBody}>
-          <Title title="Users Setups" />
+          {/* <Title title="Users Setups" /> */}
 
           <FormControl className={classes.filter}>
             <InputLabel htmlFor="select" className={classes.MuiInputLabelRoot}>
@@ -99,7 +99,11 @@ const SetupPage: React.FC<PropsFromRedux> = ({
     );
   };
 
-  return <PageComponent selectedMenuItemNumber={MenuItems.Setup}>{renderContent()}</PageComponent>;
+  return (
+    <PageComponent titleSelector="Setups" selectedMenuItemNumber={MenuItems.Setup}>
+      {renderContent()}
+    </PageComponent>
+  );
 };
 
 const mapState = (state: RootState) => ({

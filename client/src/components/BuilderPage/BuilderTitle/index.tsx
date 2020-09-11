@@ -25,7 +25,7 @@ const BuilderTitle = ({
 }: PropsType): JSX.Element => {
   return (
     <Box className={styles.builderTitle}>
-      <h1 className={styles.title}>Build</h1>
+      <h1 className={styles.title}>New Build Setup</h1>
       {/*<Title title="Build" />*/}
       <Box className={styles.builderTitleButtons}>
         {showResetFilter && <Button onClick={onResetFilter}>Reset Filters</Button>}

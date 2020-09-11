@@ -38,7 +38,7 @@ const Home: React.FC<Props> = (props): JSX.Element => {
     } else {
       return (
         <div className={styles.wholeContentContainer}>
-          <Title />
+          {/* <Title /> */}
           {children}
           {!!setups?.length && (
             <>
@@ -63,7 +63,11 @@ const Home: React.FC<Props> = (props): JSX.Element => {
     }
   };
 
-  return <PageComponent selectedMenuItemNumber={MenuItems.Home}>{renderContent()}</PageComponent>;
+  return (
+    <PageComponent titleSelector="Home" selectedMenuItemNumber={MenuItems.Home}>
+      {renderContent()}
+    </PageComponent>
+  );
 };
 
 const mapState = (state: RootState) => ({
