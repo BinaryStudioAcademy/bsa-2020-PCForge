@@ -105,7 +105,7 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSea
     <div className={styles.topBarRoot}>
       <div className={styles.rightTopBar}>
         <div className={styles.searchBlock}>
-          <Search value={searchValue} onChange={onInputChange} onSelect={selectHandler} />
+          <Search value={searchValue} onChange={onInputChange} autoComplete="off" onSelect={selectHandler} />
           {searchResults.length && isActive ? (
             <div className={styles.searchResults}>
               {searchResults.map((item, index) => {
