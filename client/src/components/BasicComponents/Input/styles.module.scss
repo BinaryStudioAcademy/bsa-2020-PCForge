@@ -34,9 +34,10 @@ $bg-color-input: #575858;
   }
 
   &>div>input {
-    padding: 8px 10px;
+    padding: 10px 10px 10px 16px;
     color: $bg-color-text;
     filter: none;
+    font-size: 1.1rem;
 
     &:-webkit-autofill,
     &:-webkit-autofill:hover,

@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from 'containers/UserPage/components/UserInfo/styles.module.scss';
 import Input, { InputType } from 'components/BasicComponents/Input';
 import Button, { ButtonType } from 'components/BasicComponents/Button';
 import Link from 'components/BasicComponents/Link';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
 import {
-  SetErrorMessage,
-  passwordValid,
-  nameValid,
-  emailValid,
   currentPasswordPresent,
+  emailValid,
+  nameValid,
+  passwordValid,
+  SetErrorMessage,
 } from 'containers/UserPage/helpers/validation';
 import { TypeUserUpdate } from 'common/models/typeUser';
 import avatarPlaceholder from 'assets/images/userImagePlaceholder.png';
 import { IUserInfoProps } from 'containers/UserPage/interfaces';
+import Alert, { AlertType } from '../../../../components/BasicComponents/Alert';
 
 const UserInfo: React.FC<IUserInfoProps> = (props) => {
   const { user, updateUser, isCurrentUser } = props;
@@ -150,7 +151,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
     validate && currentPasswordPresent(target.value, setCurrentPasswordErrorMessage as SetErrorMessage);
   };
 
-  //const emailVerified = user.emailVerified; // handle it
+  const emailVerified = user.emailVerified;
 
   const handleChangeImage = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -164,6 +165,14 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
 
   const handlePasswordShow = () => {
     setShowPasswords(true);
+  };
+
+  const EmailVerificationAlert = (): JSX.Element | null => {
+    if (!emailVerified) {
+      return <Alert alertType={AlertType.info}>You should verify your Email.</Alert>;
+    } else {
+      return null;
+    }
   };
 
   const passwordFields = (
@@ -225,6 +234,7 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
         <img src={avatar || avatarPlaceholder} alt="" />
       </div>
       <div className={styles.userData}>
+        {isCurrentUser && <EmailVerificationAlert />}
         <Input
           disabled={!editableInput}
           className={editableInput ? styles.autoFocused : ''}

@@ -136,7 +136,6 @@ const GroupComponent = ({
   }
 
   useEffect(() => {
-    console.log('range: ', range);
     getComponents();
   }, [...fltersUseEffect, name, range, pagination, typeStorage]);
 
@@ -163,10 +162,6 @@ const GroupComponent = ({
       }
     }
   }, [...Object.values(selectedComponent)]);
-
-  useEffect(() => {
-    console.log('components: ', components);
-  }, [components]);
 
   const listComponentElements = components?.map((component) => (
     <ListComponentsItem
