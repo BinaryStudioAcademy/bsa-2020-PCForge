@@ -26,7 +26,7 @@ const Paginator = ({
       from: (commentPage - 1) * countComponentsOnPage,
       count: countComponentsOnPage,
     });
-  }, [commentPage]);
+  }, [count]);
 
   const onChangeHandler = (event: ChangeEvent<unknown>, newPage: number) => {
     if (page === newPage) return;
