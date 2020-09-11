@@ -32,7 +32,9 @@ $border_radius_card: 10px;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
  }
  
  
@@ -53,15 +55,6 @@ $border_radius_card: 10px;
 
 .ratingBox {
   margin: 10px 20px -10px;
-}
-.gameName {
-  font-size: 1.6em;
-  font-weight: bold;
-  margin: 20px;
-  margin-bottom: -10px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .characteristicHeader {
