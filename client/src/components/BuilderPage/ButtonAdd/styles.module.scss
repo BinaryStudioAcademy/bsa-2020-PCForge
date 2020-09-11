@@ -7,3 +7,12 @@ button.root {
     background-color: transparentize($colorRed, 0.08);
   }
 }
+
+button.selected {
+  background-color: $colorGray !important;
+  color: $colorTextWhite !important;
+
+  &:hover {
+    background-color: transparentize($colorGray, 0.08) !important;
+  }
+}

@@ -58,7 +58,7 @@ export type TypeGroupConfig = {
       enable: boolean;
     };
   };
-  count?: number;
+  count?: number | null;
   countHandler?: (value: number) => void;
 };
 
