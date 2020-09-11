@@ -25,8 +25,20 @@
 }
 
 @media (max-width: 1440px) {
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    .leftContent {
+      width: 100%;
+    }
+    .rightContent {
+      margin-left: 0;
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
   .cardsContainer {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 100%);
   }
 }
 
@@ -63,20 +75,5 @@
   .rightContent {
     margin-left: 40px;
     width: 25%;
-  }
-}
-
-@media (max-width: 1400px) {
-  .mainContent {
-    display: flex;
-    flex-direction: column;
-    .leftContent {
-      width: 100%;
-    }
-    .rightContent {
-      margin-left: 0;
-      margin-top: 20px;
-      width: 100%;
-    }
   }
 }

@@ -4,6 +4,7 @@ enum MenuItems {
   Setup,
   GameMatcher,
   Hardwares,
+  Games,
   AdminTools,
   LogOut,
   User,

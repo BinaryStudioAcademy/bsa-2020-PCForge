@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PageComponent from 'containers/PageComponent';
-import SetupCard from 'components/SetupCard';
+import Card from 'components/Card';
 import classes from 'containers/SetupsPage/styles.module.scss';
 import TopFiveList from 'components/TopFiveList';
 import { MenuItems } from 'common/enums';
@@ -40,16 +40,17 @@ const SetupPage: React.FC<PropsFromRedux> = ({
     //When has been added functionality for getting data from server, change 'Cards, to setups'
     const cardsElements = setups.map((setup) => {
       return (
-        <SetupCard
+        <Card
           key={setup.id}
           id={setup.id}
           imageSource={setup.image}
-          setupName={setup.title}
+          name={setup.title}
           processor={setup.cpu.name}
           gpu={setup.gpu.name}
           ram={setup.ram.name}
           comments={Number(setup.comments_count)}
           rating={setup.rating | 0}
+          type="setup"
         />
       );
     });
@@ -91,7 +92,7 @@ const SetupPage: React.FC<PropsFromRedux> = ({
                 setPagination={setPagination}
               />
             </div>
-            <div className={classes.rightContent}>{<TopFiveList />}</div>
+            <div className={classes.rightContent}>{<TopFiveList title="Setups" />}</div>
           </div>
         </div>
       </React.Fragment>

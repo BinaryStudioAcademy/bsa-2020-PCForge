@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PageComponent from 'containers/PageComponent';
-import SetupCard from 'components/SetupCard';
+import Card from 'components/Card';
 import classes from 'containers/GamesPage/styles.module.scss';
 import TopFiveList from 'components/TopFiveList';
 import { MenuItems } from 'common/enums';
@@ -41,16 +41,17 @@ const GamesPage: React.FC<PropsFromRedux> = ({
   const createCards = () => {
     const cardsElements = games.map((game) => {
       return (
-        <SetupCard
+        <Card
           key={game.id}
           id={game.id}
           imageSource={game.image}
-          setupName={game.name}
-          processor="{game.cpu.name}"
-          gpu="{game.gpu.name}"
-          ram="{game.ram.name}"
+          name={game.name}
+          processor={game.minimalCpu.name}
+          gpu={game.minimalGpu.name}
+          ram={`${game.minimalRamSize}`}
           comments={Number(game.comments_count)}
           rating={game.rating | 0}
+          type="game"
         />
       );
     });
@@ -92,14 +93,14 @@ const GamesPage: React.FC<PropsFromRedux> = ({
                 setPagination={setPagination}
               />
             </div>
-            <div className={classes.rightContent}>{<TopFiveList />}</div>
+            <div className={classes.rightContent}>{<TopFiveList title="Games" />}</div>
           </div>
         </div>
       </React.Fragment>
     );
   };
 
-  return <PageComponent selectedMenuItemNumber={MenuItems.Setup}>{renderContent()}</PageComponent>;
+  return <PageComponent selectedMenuItemNumber={MenuItems.Games}>{renderContent()}</PageComponent>;
 };
 
 const mapState = (state: RootState) => ({
