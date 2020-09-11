@@ -80,6 +80,12 @@ export class GameRepository extends BaseRepository<GameModel, GameCreationAttrib
     console.log('GameRepository -> filter', filter.id);
     const games = await this.getAll(
       {
+        attributes: {
+          include: [
+            [sequelize.literal('COUNT(DISTINCT "comments"."id")'), 'comments_count'],
+            [sequelize.fn('AVG', sequelize.col('rates.value')), 'rating'],
+          ],
+        },
         group: ['game.id', 'recommendedCpu.id', 'minimalCpu.id', 'recommendedGpu.id', 'minimalGpu.id'],
         where: {
           // ...(filter.name && { name: { [Op.iLike]: `%${filter.name}%` } }),
@@ -103,7 +109,22 @@ export class GameRepository extends BaseRepository<GameModel, GameCreationAttrib
             model: this.gpuModel,
             as: 'minimalGpu',
           },
+          {
+            model: this.commentModel,
+            attributes: [],
+          },
+          {
+            model: this.rateModel,
+            on: {
+              ratebleId: {
+                [Op.col]: 'game.id',
+              },
+              ratebleType: 'game',
+            },
+            attributes: [],
+          },
         ],
+
         order: [
           ...((inputFilter?.orderBy?.cpu
             ? [
@@ -132,6 +153,7 @@ export class GameRepository extends BaseRepository<GameModel, GameCreationAttrib
           ...((inputFilter?.orderBy?.ram ? [['recommendedRamSize', inputFilter.orderBy.ram.recommended]] : []) as any),
           ['id', 'ASC'],
         ],
+        subQuery: false,
       },
       filter
     );
