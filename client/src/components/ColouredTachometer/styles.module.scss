@@ -4,11 +4,10 @@ $viewBox: 100;
 
 .tachometer {
   position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: $colorDarkGray;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9);
+  width: 105px;
+  height: 105px;
+  border-radius: 100% 100% 10px 100%;
+  background-color: #3c444d;
 }
 
 .tachometerSvg {
@@ -76,8 +75,6 @@ $viewBox: 100;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  color: $colorBlue;
+  color: $colorTextGray;
   text-align: center;
-  font-weight: bold;
-  text-shadow: 0 0 6px lighten($colorBlue, 10%);
 }
