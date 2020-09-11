@@ -1,0 +1,166 @@
+@import 'styles/variables';
+
+.commentsRoot {
+  margin-top: 20px;
+}
+
+div.mainWrapper {
+  padding: 3rem 0;
+
+  .contentWrapper {
+    background-color: $colorDarkGray;
+    padding: 3rem;
+    border-radius: 7px;
+    box-shadow: 0px 0px 5px 10px rgba(0, 0, 0, 0.05);
+
+    hr.divider {
+      margin: 3rem 0;
+      background-color: #a4a6a7;
+    }
+
+    .gameWrapper {
+      flex-wrap: nowrap;
+      margin-bottom: 1.5rem;
+
+      .fieldName {
+        font-style: italic;
+        font-weight: 600;
+        font-size: 1.3em;
+      }
+
+      .infoWrapper {
+        width: 100%;
+        flex-grow: 1;
+        margin-right: 3rem;
+        font-size: 14px;
+
+        .titleWrapper {
+          .gameTitle {
+            font-size: 36px;
+            line-height: 40px;
+            margin: 0 16px 0 0;
+
+            @media screen and (max-width: 1260px) {
+              & {
+                font-size: 32px;
+                line-height: 38px;
+              }
+            }
+
+            @media screen and (max-width: 1000px) {
+              & {
+                font-size: 28px;
+                line-height: 32px;
+              }
+            }
+          }
+
+          .ratingBox {
+            width: 100%;
+          }
+        }
+
+        .gameRelease {
+          width: 100%;
+          margin: 5px 0;
+
+          .fieldName {
+            margin-right: 4px;
+          }
+
+          span {
+            font-size: 1em;
+          }
+
+          @media screen and (max-width: 960px) {
+            & {
+              margin-bottom: 1.5rem;
+            }
+          }
+        }
+
+        .imageWrapper {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          .imageItem {
+            width: 100%;
+            margin-bottom: 15px;
+
+            @media screen and (max-width: 960px) {
+              & {
+                width: auto;
+                max-width: 100%;
+              }
+            }
+          }
+        }
+      }
+
+      .gameDescription {
+        width: 100%;
+        margin-top: 1.5rem;
+
+        pre {
+          white-space: pre-wrap;
+        }
+      }
+    }
+
+    .requirementsWrapper {
+      align-items: stretch;
+
+      & > div {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      td {
+        border-color: #7f8489;
+      }
+
+      h2 {
+        font-size: 28px;
+        font-weight: 400;
+        margin: 0;
+
+        @media screen and (max-width: 960px) {
+          & {
+            margin-bottom: 1rem;
+          }
+        }
+
+        @media screen and (max-width: 1170px) {
+          & {
+            font-size: 22px;
+          }
+        }
+
+        @media screen and (max-width: 1280px) {
+          & {
+            font-size: 26px;
+          }
+        }
+      }
+
+      @media screen and (max-width: 960px) {
+        & > div:last-of-type {
+          margin-top: 1.5rem;
+        }
+      }
+
+      @media screen and (max-width: 1280px) {
+        & > div:first-of-type {
+          padding-right: 10px;
+        }
+
+        & > div:last-of-type {
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+}

@@ -7,7 +7,7 @@ export interface CommentFilter {
   from?: number;
   count?: number;
   commentableId?: number;
-  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd';
+  commentableType: 'setup' | 'game' | 'motherboard' | 'powersupply' | 'ram' | 'cpu' | 'gpu' | 'ssd' | 'hdd' | 'news';
 }
 
 export type RateFilter = {
