@@ -4,6 +4,7 @@
   font-weight: 600;
   font-size: 24px;
   line-height: 28px;
+  margin-bottom: 20px;
   color: $colorTextWhite;
 }
 .requestContaner {
@@ -13,15 +14,14 @@
   background: $colorBackgroundGray;
   flex-grow: 1;
   border-radius: 7px;
-  border: 1px solid $colorLightGray;
+  border: 1px solid $colorDarkGray;
   padding: 3rem 1em;
 
   .listItem {
-    border-bottom: 1px solid $colorLightGray;
+    border-bottom: 1px solid rgba(123, 123, 123, 0.5);
 
     &:last-of-type {
       border-bottom: none;
     }
   }
 }
-
