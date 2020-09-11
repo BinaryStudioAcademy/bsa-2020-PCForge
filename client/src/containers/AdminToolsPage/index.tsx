@@ -15,6 +15,9 @@ import PeopleIcon from '@material-ui/icons/People';
 import SportsEsportsOutlinedIcon from '@material-ui/icons/SportsEsportsOutlined';
 import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
+//import DescriptionIcon from '@material-ui/icons/Description';
+import { ReactComponent as NewsIcon } from 'assets/icons/news.svg';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 import Spinner from 'components/Spinner';
 import Title from 'components/Title';
@@ -67,7 +70,12 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
     {
       name: CardsName.Setups,
       count: props.state.countSetups,
-      icon: <SetupIcon />,
+      icon: (
+        <div className={styles.setupButton}>
+          <SetupIcon />
+        </div>
+      ),
+      onAdd: () => props.historyPage.push(`${Routes.BUILDER}`),
     },
     {
       name: CardsName.Games,
@@ -78,9 +86,9 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
     },
     {
       name: CardsName.News,
-      count: 0,
-      icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
-      onAdd: () => alert('To do News form'),
+      count: props.state.countNews,
+      icon: <SvgIcon component={NewsIcon} viewBox="0 0 30 30" />,
+      onAdd: () => props.historyPage.push(`${Routes.ADDITEM}/news`),
     },
   ];
 

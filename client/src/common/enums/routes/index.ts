@@ -11,6 +11,7 @@ enum Routes {
   ADMINTOOLS = '/admintools',
   ADDITEM = '/additem',
   ADDHARDWARE = '/addharware',
+  ADDNEWS = '/addnews',
   ADDGAME = '/addgame',
   GAME = '/games/:id',
   GAMES = '/games',

@@ -9,6 +9,7 @@ import styles from './styles.module.scss';
 import { useParams, useHistory, Redirect } from 'react-router-dom';
 import AddHardwareForm from './AddHardwareForm';
 import AddGameForm from './AddGameForm';
+import AddNewsForm from './AddNewsForm';
 
 const theme = createMuiTheme({
   overrides: {
@@ -46,6 +47,7 @@ const AddItemPage = (): JSX.Element => {
         <ThemeProvider theme={theme}>
           {addItemType === CardsName.Hardwares ? <AddHardwareForm goBack={handleCancelButton} /> : null}
           {addItemType === CardsName.Games ? <AddGameForm goBack={handleCancelButton} /> : null}
+          {addItemType === CardsName.News ? <AddNewsForm goBack={handleCancelButton} /> : null}
         </ThemeProvider>
       </div>
     </PageComponent>

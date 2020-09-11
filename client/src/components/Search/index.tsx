@@ -15,7 +15,9 @@ const Search = ({
   value,
   onChange,
   className = '',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onBlur = (event: React.ChangeEvent<HTMLInputElement>) => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onSelect = (event: React.ChangeEvent<HTMLInputElement>) => {},
 }: Props): ReactElement => {
   return (
