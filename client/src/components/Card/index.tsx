@@ -11,40 +11,41 @@ import Image from 'components/BasicComponents/Image';
 interface I_Props {
   id: number;
   imageSource: string;
-  setupName: string;
+  name: string;
   processor: string;
   gpu: string;
   ram: string;
   comments: number;
   rating: number;
+  type: 'setup' | 'games';
 }
 
-const SetupCard: React.FC<I_Props> = ({ id, imageSource, setupName, processor, gpu, ram, comments, rating }) => {
+const Card: React.FC<I_Props> = ({ id, imageSource, name: name, processor, gpu, ram, comments, rating, type }) => {
   return (
     <div className={classes.setupCard}>
-      <Image className={classes.setupCardImage} src={imageSource} alt={setupName} />
+      <Image className={classes.setupCardImage} src={imageSource} alt={name} />
       <div className={classes.ratingBox}>
         <RatingBox name={String(id)} ratingValue={rating} disabled={true} />
       </div>
       <ul className={classes.characteristicList}>
         <li className={classes.characteristicItem}>
-          <span className={classes.characteristicHeader}>Processor:</span>
+          <span className={classes.characteristicHeader}>{type === 'setup' ? 'Processor:' : 'Min Processor:'}</span>
           <span className={classes.characteristicValue}>{processor}</span>
         </li>
         <li className={classes.characteristicItem}>
-          <span className={classes.characteristicHeader}>GPU:</span>
+          <span className={classes.characteristicHeader}>{type === 'setup' ? 'GPU:' : 'Min GPU:'}</span>
           <span className={classes.characteristicValue}>{gpu}</span>
         </li>
         <li className={classes.characteristicItem}>
-          <span className={classes.characteristicHeader}>RAM:</span>
-          <span className={classes.characteristicValue}>{ram}</span>
+          <span className={classes.characteristicHeader}>{type === 'setup' ? 'RAM:' : 'Min RAM Size:'}</span>
+          <span className={classes.characteristicValue}>{`${ram}${type === 'games' ? ' GB' : ''}`}</span>
         </li>
         <li className={classes.commentItem}>
           <span className={classes.commentItemValue}>{comments}</span>
           <ModeCommentIcon fontSize="small" />
         </li>
       </ul>
-      <Link className={classes.viewMoreButton} to={`setup/${id}`}>
+      <Link className={classes.viewMoreButton} to={`${type}/${id}`}>
         <Button className={classes.setupCardButton} buttonType={ButtonType.primary}>
           VIEW MORE
         </Button>
@@ -53,4 +54,4 @@ const SetupCard: React.FC<I_Props> = ({ id, imageSource, setupName, processor, g
   );
 };
 
-export default SetupCard;
+export default Card;
