@@ -37,7 +37,7 @@ export default {
   },
   AdminTools: {
     name: 'Admin Tools',
-    description: 'Portal info, diagrams and requests',
+    description: 'Manage hardware and game content, get site statistic',
   },
   UserProfile: {
     name: 'My Profile',
