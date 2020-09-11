@@ -16,6 +16,9 @@ export const getAllStorage = async (filter: TypeFilter): Promise<TypeResponseAll
   if (filter.name) filter.name = encodeURIComponent(filter.name);
   const isSataMultiple: boolean = filter.sata?.includes(',') || false;
   const serverFilter = {
+    count: filter.count,
+    from: filter.from,
+    name: filter.name,
     ...(isSataMultiple && { sataMultiple: filter.sata }),
     ...(!isSataMultiple && { sata: filter.sata }),
     'capacity[maxValue]': filter['capacity[maxValue]'],
