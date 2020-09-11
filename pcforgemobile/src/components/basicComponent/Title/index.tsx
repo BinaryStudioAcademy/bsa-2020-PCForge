@@ -1,30 +1,44 @@
 import React from 'react';
 import {Header, Left, Button, Icon, Body, Title} from 'native-base';
-import {StackHeaderProps} from '@react-navigation/stack';
 import * as DrawerActions from 'containers/Drawer/actions';
 import {connect} from 'react-redux';
 import {drawerActions} from '../../../containers/Drawer/actionTypes';
 
-export interface Props extends StackHeaderProps {
+export interface Props {
   openDrawerAction: () => drawerActions;
   closeDrawerAction: () => drawerActions;
+  navigation: any;
+  useGoBack?: boolean;
+  scene?: any;
+  title?: string;
 }
 
 const AppTitle = (props: Props) => {
-  const title = props.scene.route.name;
+  const title = props.title || props.scene.route.name;
   const onMainIconClick = () => {
-    props.openDrawerAction();
-    // props.navigation.goBack();
+    if (props.useGoBack) {
+      props.navigation.goBack();
+    }
+    if (!props.useGoBack) {
+      props.openDrawerAction();
+    }
   };
   return (
     <Header>
-      {props.navigation.canGoBack() ? (
+      {props.useGoBack && props.navigation.canGoBack() && (
         <Left>
-          <Button transparent onPress={onMainIconClick} rounded >
+          <Button transparent onPress={onMainIconClick} rounded>
+            <Icon type="MaterialIcons" name="arrow-back" />
+          </Button>
+        </Left>
+      )}
+      {!props.useGoBack && props.navigation.canGoBack() && (
+        <Left>
+          <Button transparent onPress={onMainIconClick} rounded>
             <Icon type="MaterialIcons" name="menu" />
           </Button>
         </Left>
-      ) : null}
+      )}
       <Body>
         <Title>{title}</Title>
       </Body>

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   root: {
@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
   content: {
     display: 'flex',
     justifyContent: 'center',
-    // alignItems: 'center',
   },
   backButton: {
     position: 'absolute',
@@ -16,7 +15,7 @@ export const styles = StyleSheet.create({
     right: 20,
     alignSelf: 'stretch',
     textAlign: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   input: {
     position: 'absolute',
@@ -39,6 +38,6 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   itemText: {
-    color: '#fff'
-  }
+    color: '#fff',
+  },
 });

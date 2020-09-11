@@ -20,7 +20,6 @@ export const styles = StyleSheet.create({
   },
   selectCpu: {
     alignSelf: 'stretch'
-
   },
   selectGpu: {
     alignSelf: 'stretch'
@@ -36,14 +35,26 @@ export const styles = StyleSheet.create({
     color: '#fff',
     alignSelf: 'stretch',
     textAlign: 'center',
-    marginBottom: 150,
   },
   header: {
     color: '#fff',
     fontSize: 30,
     marginBottom: 10,
   },
+  footer: {
+    marginHorizontal: 20,
+    backgroundColor: '#25292e',
+    shadowRadius: 0
+  },
   canRunButton: {
+    alignSelf: 'stretch',
     justifyContent: 'center',
+    marginBottom: 10,
+  },
+  canRunButtonText: {
+    color: '#fff',
+  },
+  disabled: {
+    backgroundColor: '#b5b5b5'
   }
 });

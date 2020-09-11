@@ -1,8 +1,8 @@
-import { Button, Container, Icon, Text, View } from 'native-base';
+import { Button, Container, Icon, Text, View, Footer, FooterTab } from 'native-base';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import { connect, ConnectedProps } from 'react-redux';
 import { Game } from 'common/models/game';
 import AppTitle from 'components/basicComponent/Title';
@@ -11,7 +11,7 @@ import { fetchCpus, fetchGpus, fetchGames, setError, setCpus } from './actions';
 import { styles } from './styles';
 import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
-import { RouterItemProps } from 'common/configs/routing';
+import { RouterItemProps } from 'routing';
 import { AutocompleteRouteParams } from 'components/Autocomplete/index';
 import { getAllGames } from 'api/services/gameService';
 import { getAllCpu } from 'api/services/cpuService';
@@ -63,15 +63,15 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
     const onItemSelected = () => {
       switch (type) {
         case 'game': return (id: number) => {
-          const game = games.find(game => game.id === id);
+          const game = games.find((game: any) => game.id === id);
           setGame(game);
         };
         case 'cpu': return (id: number) => {
-          const cpu = cpus.find(cpu => cpu.id === id);
+          const cpu = cpus.find((cpu: any) => cpu.id === id);
           setCpu(cpu);
         };
         case 'gpu': return (id: number) => {
-          const gpu = gpus.find(gpu => gpu.id === id);
+          const gpu = gpus.find((gpu: any) => gpu.id === id);
           setGpu(gpu);
         };
       }
@@ -85,41 +85,46 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
     navigation.navigate('Autocomplete', params)
   }
 
+  const canIRunDisabled: boolean = !cpu || !gpu || !game;
+
   return (
     <Container style={styles.root}>
-      <AppTitle title="Matcher" />
       <View style={styles.content}>
-        <Text style={styles.header}>Can You Run It?</Text>
-        <Button style={styles.selectButton} onPress={() => navigateTo('game')} iconRight>
-          <Text>Select game</Text>
-          {game && <Icon name='checkmark' />}
-        </Button>
-        <Text style={styles.header}>Your Computer Hardware</Text>
-        <Button style={styles.selectButton} onPress={() => navigateTo('cpu')} >
-          <Text>Select cpu</Text>
-          {cpu && <Icon name='checkmark' />}
-        </Button>
-        <Button style={styles.selectButton} onPress={() => navigateTo('gpu')} >
-          <Text>Select gpu</Text>
-          {gpu && <Icon name='checkmark' />}
-        </Button>
-        <Text style={styles.selectRam}>Select ram size</Text>
-        <Slider
-          style={styles.slider}
-          minimumValue={1}
-          maximumValue={32}
-          step={1}
-          value={ramSize}
-          onValueChange={setRamSize}
-          minimumTrackTintColor="#FFFFFF"
-          maximumTrackTintColor="#ed2f2f"
-          thumbTintColor="#ed2f2f"
-        />
-        <Text style={styles.selectedRam}>
-          Ram selected: {ramSize} GB
-        </Text>
-        <Button disabled={!cpu || !gpu || !game} style={[styles.selectButton, styles.canRunButton]}>
-          <Text>Can i run it</Text>
+        <ScrollView>
+          <Text style={styles.header}>Can You Run It?</Text>
+          <Button style={styles.selectButton} onPress={() => navigateTo('game')} iconRight>
+            <Text>Select game</Text>
+            {game && <Icon name='checkmark' />}
+          </Button>
+          <Text style={styles.header}>Your Computer Hardware</Text>
+          <Button style={styles.selectButton} onPress={() => navigateTo('cpu')} >
+            <Text>Select cpu</Text>
+            {cpu && <Icon name='checkmark' />}
+          </Button>
+          <Button style={styles.selectButton} onPress={() => navigateTo('gpu')} >
+            <Text>Select gpu</Text>
+            {gpu && <Icon name='checkmark' />}
+          </Button>
+          <Text style={styles.selectRam}>Select ram size</Text>
+          <Slider
+            style={styles.slider}
+            minimumValue={1}
+            maximumValue={32}
+            step={1}
+            value={ramSize}
+            onValueChange={setRamSize}
+            minimumTrackTintColor="#FFFFFF"
+            maximumTrackTintColor="#ed2f2f"
+            thumbTintColor="#ed2f2f"
+          />
+          <Text style={styles.selectedRam}>
+            Ram selected: {ramSize} GB
+          </Text>
+        </ScrollView>
+      </View>
+      <View style={styles.footer}>
+        <Button disabled={canIRunDisabled} style={[styles.canRunButton, canIRunDisabled && styles.disabled]} onPress={() => {}} primary>
+          <Text style={styles.canRunButtonText}>Can i run it</Text>
         </Button>
       </View>
     </Container>
