@@ -32,7 +32,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetAllGpusRequest, reply) => {
     allowForAuthorized(request);
     decodeName(request);
-    const gpus = await HardwareService.getTopGpus(request.query);
+    //const gpus = await HardwareService.getTopGpus(request.query);
+    const gpus = await GpuService.getAllGpus(request.query);
     reply.send(gpus);
   });
 

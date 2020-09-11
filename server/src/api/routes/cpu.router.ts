@@ -38,8 +38,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     allowForAuthorized(request);
     renameQuery(request, ['socketIds', 'socketId']);
     decodeName(request);
-    // const cpus = await CpuService.getAllCpus(request.query);
-    const cpus = await HardwareService.getTopCpus(request.query);
+    const cpus = await CpuService.getAllCpus(request.query);
+    //const cpus = await HardwareService.getTopCpus(request.query);
     reply.send(cpus);
   });
 
