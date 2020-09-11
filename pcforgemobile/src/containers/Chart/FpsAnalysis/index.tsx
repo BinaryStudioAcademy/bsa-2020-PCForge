@@ -5,27 +5,25 @@ import {Text as SVGText} from 'react-native-svg';
 import styles from './styles';
 import RoundButton from 'containers/Chart/RoundButton';
 import {TouchableHighlight} from 'react-native-gesture-handler';
+import { ISetupPerformance, IFpsAnalysis } from 'common/models/setupPerformance.model';
+import { Game } from 'common/models/game.model';
+import { Cpu } from 'common/models/cpu.model';
+import { Gpu } from 'common/models/gpu.model';
 
-interface Props {}
+interface Props {
+  report: ISetupPerformance & {game: Game, cpu: Cpu, gpu: Gpu, ramSize: number};
+}
 interface State {
-  activeResolution: string;
+  activeResolution: IFpsAnalysis;
 }
 
 class FpsAnalysis extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      activeResolution: '1280 x 720',
+      activeResolution: this.props.report.fpsAnalysis[0][1],
     };
   }
-  public resolutions: string[] = [
-    '1280 x 720',
-    '1366 x 768',
-    '1600 x 900',
-    '1920 x 1080',
-    '2560 x 1440',
-    '3840 x 2160',
-  ];
   public Labels({x, y, bandwidth, data}: any) {
     return data.map((value: number, index: number) => (
       <SVGText
@@ -40,28 +38,44 @@ class FpsAnalysis extends React.PureComponent<Props, State> {
       </SVGText>
     ));
   }
-  public max(): number {
-    const max = Math.max(...[10, 5, 80, 15], 60);
+  public transfromFps(analysis: IFpsAnalysis) {
+    return [analysis.low, analysis.medium, analysis.high, analysis.ultra];
+  }
+  public max(values: number[]): number {
+    const max = Math.max(...values, 60);
     return max;
   }
+  public getMarginBottomForFpsLine(values: number[]): number {
+    const max = this.max(values);
+    const percent = (60 / max) * 100;
+    if (percent > 100) {
+      return 100;
+    }
+    if (percent < 0 || !percent) {
+      return 0;
+    }
+    return percent;
+  }
   public render(): JSX.Element {
-    const data = [10, 5, 60, 15];
+    const items: { label: string, value: IFpsAnalysis }[] = 
+      this.props.report.fpsAnalysis.map(item => ({ label: item[0].join(' x '), value: item[1] }));
+    const data = this.transfromFps(this.state.activeResolution);
     return (
       <View style={styles.root}>
         <View style={styles.headerWrapper}>
           <H1 style={styles.header}>FPS analysis</H1>
         </View>
         <View style={styles.resolutionsContainer}>
-          {this.resolutions.map((resolution) => (
+          {items.map((item) => (
             <TouchableHighlight
-              key={resolution}
+              key={item.label}
               underlayColor={'rgba(255, 255, 255, 0.3)'}
-              onPress={() => this.setState({activeResolution: resolution})}>
+              onPress={() => this.setState({activeResolution: item.value})}>
               <View style={styles.resolutionItem}>
                 <RoundButton
-                  active={this.state.activeResolution === resolution}
+                  active={this.state.activeResolution === item.value}
                 />
-                <Text style={styles.resolutionItemText}>{resolution}</Text>
+                <Text style={styles.resolutionItemText}>{item.label}</Text>
               </View>
             </TouchableHighlight>
           ))}
@@ -72,11 +86,13 @@ class FpsAnalysis extends React.PureComponent<Props, State> {
             data={data}
             svg={{fill: '#4972ff'}}
             contentInset={{top: 20, bottom: 0}}
-            yMax={this.max()}
+            yMax={this.max(data)}
             gridMin={0}>
             <this.Labels />
           </BarChart>
-          <View style={styles.optimalFpsLineContainer}>
+          <View style={[styles.optimalFpsLineContainer, { 
+              bottom: this.getMarginBottomForFpsLine(data) - (this.getMarginBottomForFpsLine(data) / 100) * 10 + '%' 
+          }]}>
             <View style={styles.optimalFpsLineSubcontainer}>
               <Text style={styles.optimalFpsLineText}>60 FPS</Text>
               <View style={styles.optimalFpsLine} />

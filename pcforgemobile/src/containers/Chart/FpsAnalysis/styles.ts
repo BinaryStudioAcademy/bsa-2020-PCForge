@@ -66,10 +66,9 @@ const styles = StyleSheet.create({
     color: '#cbcfd4',
   },
   optimalFpsLineContainer: {
-    paddingVertical: 5,
+    paddingVertical: 4,
     position: 'absolute',
     zIndex: -1,
-    bottom: '00%',
     flexDirection: 'row',
     flex: 1,
   },

@@ -9,8 +9,10 @@ import PerformanceReport from './PerformanceReport';
 import { RouterItemProps } from 'routing';
 import { ISetupPerformance } from 'common/models/setupPerformance.model';
 import { Game } from 'common/models/game';
+import { Cpu } from 'common/models/cpu.model';
+import { Gpu } from 'common/models/gpu.model';
 
-type Props = RouterItemProps<ISetupPerformance & {game: Game}>;
+type Props = RouterItemProps<ISetupPerformance & {game: Game, cpu: Cpu, gpu: Gpu, ramSize: number}>;
 
 interface State {
   activeTab: 'system' | 'performance' | 'fps analysis';
@@ -32,7 +34,7 @@ class ChartPage extends React.PureComponent<Props, State> {
         <ScrollView>
           {this.state.activeTab === 'system' && <PerfomanceOverview report={this.props.route.params} />}
           {this.state.activeTab === 'performance' && <PerformanceReport report={this.props.route.params} />}
-          {this.state.activeTab === 'fps analysis' && <FpsAnalysis />}
+          {this.state.activeTab === 'fps analysis' && <FpsAnalysis report={this.props.route.params} />}
         </ScrollView>
         <Footer>
           <FooterTab>

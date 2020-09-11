@@ -4,9 +4,11 @@ import styles from './styles';
 import CircularProgress from '../CircularProgress';
 import { ISetupPerformance } from 'common/models/setupPerformance.model';
 import { Game } from 'common/models/game.model';
+import { Cpu } from 'common/models/cpu.model';
+import { Gpu } from 'common/models/gpu.model';
 
 interface Props {
-  report: ISetupPerformance & {game: Game};
+  report: ISetupPerformance & {game: Game, cpu: Cpu, gpu: Gpu, ramSize: number};
 }
 
 class PerfomanceOverview extends React.PureComponent<Props> {
@@ -53,7 +55,7 @@ class PerfomanceOverview extends React.PureComponent<Props> {
             <View style={styles.hardwareMetaContainer}>
               <H3 style={styles.hardwareItemLabel}>Processor</H3>
               <Text style={styles.hardwareItemName}>
-                Intel Core i5-8400T @ 1.70GHz
+                {this.props.report.cpu.name}
               </Text>
             </View>
           </View>
@@ -61,14 +63,14 @@ class PerfomanceOverview extends React.PureComponent<Props> {
             <CircularProgress value={gpu} />
             <View style={styles.hardwareMetaContainer}>
               <H3 style={styles.hardwareItemLabel}>Graphics</H3>
-              <Text style={styles.hardwareItemName}>FirePro 3D V7750</Text>
+              <Text style={styles.hardwareItemName}>{this.props.report.gpu.name}</Text>
             </View>
           </View>
           <View style={styles.hardwareItemProgressContainer}>
             <CircularProgress value={ram} />
             <View style={styles.hardwareMetaContainer}>
               <H3 style={styles.hardwareItemLabel}>RAM</H3>
-              <Text style={styles.hardwareItemName}>12GB</Text>
+              <Text style={styles.hardwareItemName}>{this.props.report.ramSize} GB</Text>
             </View>
           </View>
         </View>

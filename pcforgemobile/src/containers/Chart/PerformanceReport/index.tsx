@@ -7,9 +7,11 @@ import {TouchableHighlight} from 'react-native';
 import RoundButton from '../RoundButton';
 import { ISetupPerformance } from 'common/models/setupPerformance.model';
 import { Game } from 'common/models/game.model';
+import { Cpu } from 'common/models/cpu.model';
+import { Gpu } from 'common/models/gpu.model';
 
 interface Props {
-  report: ISetupPerformance & {game: Game};
+  report: ISetupPerformance & {game: Game, cpu: Cpu, gpu: Gpu, ramSize: number};
 }
 
 interface State {

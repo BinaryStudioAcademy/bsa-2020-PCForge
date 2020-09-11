@@ -41,7 +41,10 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
     setTimeout(() => {
       const params = {
         ...setupPerformance,
-        game
+        game,
+        cpu,
+        gpu,
+        ramSize
       };
       navigation.navigate('Chart', params);
     })
