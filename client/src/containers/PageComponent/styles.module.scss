@@ -4,6 +4,29 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+
+  .topBarWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 3rem;
+    margin-bottom: 1.5rem;
+    height: 132px;
+
+    .titleWrapper {
+      h2 {
+        font-size: 48px;
+        margin: 0;
+      }
+
+      span {
+        font-size: 18px;
+        // color: #c0c5cb;
+        color: #7f8489;
+      }
+    }
+  }
+
   .contentWrapper {
     width: 100%;
     display: flex;
@@ -12,8 +35,8 @@
     flex-grow: 1;
     padding: 0 3rem;
 
-    @media(max-width: 600px) {
-      padding:0 1rem;
+    @media (max-width: 600px) {
+      padding: 0 1rem;
     }
   }
   .contentBody {

@@ -122,7 +122,7 @@ class HardwaresPage extends React.Component<IHardwaresProps, State> {
   public render(): JSX.Element {
     const { hardwares } = this.props.state;
     return (
-      <PageComponent selectedMenuItemNumber={MenuItems.Hardwares}>
+      <PageComponent titleSelector="Hardwares" selectedMenuItemNumber={MenuItems.Hardwares}>
         <div className={styles.hardwaresRoot}>
           <div className={styles.hardwaresMetaForm}>
             <FormControl variant="outlined">
