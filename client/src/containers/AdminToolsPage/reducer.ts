@@ -10,6 +10,7 @@ const initialState: UsersRequestState = {
   countSetups: 0,
   countHardWares: 0,
   countGames: 0,
+  countNews: 0,
 };
 
 export default function UserRequestsReducer(state = initialState, action: UsersRequestActions): UsersRequestState {
@@ -42,6 +43,7 @@ export default function UserRequestsReducer(state = initialState, action: UsersR
         countSetups: action.payload.countSetups,
         countHardWares: action.payload.countHardWares,
         countGames: action.payload.countGames,
+        countNews: action.payload.countNews,
       };
     }
     default:

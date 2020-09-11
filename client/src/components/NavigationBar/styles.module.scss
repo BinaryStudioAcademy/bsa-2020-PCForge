@@ -8,6 +8,7 @@
     background-color: $colorBlack;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     .listItem {
       margin: 10px 0;
@@ -63,7 +64,7 @@
 }
 
 .modalStyle {
-    
+
   padding:20px;
   div {
     padding: 5px 0;

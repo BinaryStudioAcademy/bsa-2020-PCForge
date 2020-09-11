@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { History } from 'history';
@@ -15,6 +15,9 @@ import PeopleIcon from '@material-ui/icons/People';
 import SportsEsportsOutlinedIcon from '@material-ui/icons/SportsEsportsOutlined';
 import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
+//import DescriptionIcon from '@material-ui/icons/Description';
+import { ReactComponent as NewsIcon } from 'assets/icons/news.svg';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 import Spinner from 'components/Spinner';
 import Title from 'components/Title';
@@ -25,6 +28,7 @@ import StatisticCharts from './StatisticCharts';
 import { Routes } from 'common/enums';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
+import { User } from 'common/models/user';
 
 import * as actions from './actions';
 import { UsersRequestState, UsersRequestActions } from './actionsTypes';
@@ -35,6 +39,7 @@ import { Box } from '@material-ui/core';
 
 interface IPropsAdminToolsPage {
   state: UsersRequestState;
+  currentUser: User | null;
   historyPage: History;
   getUsersRequests: (filters: IUserRequestFilter[]) => UsersRequestActions;
   deleteUserRequest: (id: number, type: UserRequestDeleteType) => UsersRequestActions;
@@ -65,7 +70,12 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
     {
       name: CardsName.Setups,
       count: props.state.countSetups,
-      icon: <SetupIcon />,
+      icon: (
+        <div className={styles.setupButton}>
+          <SetupIcon />
+        </div>
+      ),
+      onAdd: () => props.historyPage.push(`${Routes.BUILDER}`),
     },
     {
       name: CardsName.Games,
@@ -76,61 +86,68 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
     },
     {
       name: CardsName.News,
-      count: 0,
-      icon: <SportsEsportsOutlinedIcon style={{ color: 'white' }} />,
-      onAdd: () => alert('To do News form'),
+      count: props.state.countNews,
+      icon: <SvgIcon component={NewsIcon} viewBox="0 0 30 30" />,
+      onAdd: () => props.historyPage.push(`${Routes.ADDITEM}/news`),
     },
   ];
 
   return (
-    <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
-      <div className={styles.contentPage}>
-        <div className={styles.pageHeader}>
-          <Title title="Admin Tools" subtitle="Manage hardware and game content, get site statistic" />
-        </div>
-        {props.state.dataTotalsIsLoaded ? (
-          <div className={styles.contentMain}>
-            <div className={styles.totalBlockContainer}>
-              {cardsList.map((item: ITotalInfoCard, key) => (
-                <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
-                  {
-                    <TotalInfoCard
-                      name={item.name}
-                      count={item.count}
-                      icon={item.icon}
-                      countOfRequests={item.countOfRequests}
-                      onAdd={item.onAdd}
-                    />
-                  }
-                </ListItem>
-              ))}
+    <>
+      {props.currentUser?.isAdmin ? (
+        <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
+          <div className={styles.contentPage}>
+            <div className={styles.pageHeader}>
+              <Title title="Admin Tools" subtitle="Manage hardware and game content, get site statistic" />
             </div>
-            <div className={styles.chartContainer}>
-              <StatisticCharts />
-            </div>
-            <div className={styles.notificationsContainer}>
-              {props.state.dataUserRequestsIsLoaded ? (
-                <RequestContainer usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />
-              ) : (
-                <Box className="spinnerWrapper">
-                  <Spinner load />
-                </Box>
-              )}
-            </div>
+            {props.state.dataTotalsIsLoaded ? (
+              <div className={styles.contentMain}>
+                <div className={styles.totalBlockContainer}>
+                  {cardsList.map((item: ITotalInfoCard, key) => (
+                    <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
+                      {
+                        <TotalInfoCard
+                          name={item.name}
+                          count={item.count}
+                          icon={item.icon}
+                          countOfRequests={item.countOfRequests}
+                          onAdd={item.onAdd}
+                        />
+                      }
+                    </ListItem>
+                  ))}
+                </div>
+                <div className={styles.chartContainer}>
+                  <StatisticCharts />
+                </div>
+                <div className={styles.notificationsContainer}>
+                  {props.state.dataUserRequestsIsLoaded ? (
+                    <RequestContainer usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />
+                  ) : (
+                    <Box className="spinnerWrapper">
+                      <Spinner load />
+                    </Box>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <Box className="spinnerWrapper">
+                <Spinner load />
+              </Box>
+            )}
           </div>
-        ) : (
-          <Box className="spinnerWrapper">
-            <Spinner load />
-          </Box>
-        )}
-      </div>
-    </PageComponent>
+        </PageComponent>
+      ) : (
+        <Redirect to={Routes.DEFAULT} />
+      )}
+    </>
   );
 };
 
 const mapStateToProps = (state: RootState, routeComponentValue: RouteComponentProps) => ({
   state: state.userRequests,
   historyPage: routeComponentValue.history,
+  currentUser: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actions, dispatch);

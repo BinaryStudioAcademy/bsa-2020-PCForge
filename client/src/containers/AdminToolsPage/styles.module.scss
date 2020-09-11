@@ -1,14 +1,14 @@
 @import 'styles/variables.scss';
 
 .contentPage {
-  margin: 1em 2rem;
+  //margin: 1em 2rem;
   width: 100%;
 }
 .pageHeader {
-  margin: 1em 2rem;
+  margin: 1em 0;
 }
 .contentMain {
-  margin: 2rem;
+  margin: 2rem 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -16,7 +16,11 @@
   .totalBlockContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 3em;
+    gap: 2em;
+    li {
+      display: block;
+      padding: 0;
+    }
   }
 
   .notificationsContainer {
@@ -25,8 +29,20 @@
   }
 }
 
+.setupButton {
+  width: 24px;
+}
+
 @media (max-width: 960px) {
   .contentMain .totalBlockContainer {
     display: block;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .totalBlockContainer {
+    li {
+      display: flex;
+      justify-content: center;
+      margin: 2em 0;
+    }
   }
 }
