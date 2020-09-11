@@ -107,7 +107,7 @@ export const mapDispatchToProps = drawerActions;
 export const mapStateToProps = (state: RootState) => {
   return {
     user: state.authReducer.user,
-    state: state.DrawerReducer,
+    state: state.drawerReducer,
   };
 };
 

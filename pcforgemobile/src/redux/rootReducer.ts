@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import { AuthReducer } from 'containers/Auth/reducer';
-import { MatcherReducer } from 'containers/GameMatcher/reducer';
-import { HomeReducer } from 'containers/Home/reducer';
-import { DrawerReducer } from 'containers/Drawer/reducer';
+import {combineReducers} from 'redux';
+import {AuthReducer} from 'containers/Auth/reducer';
+import {MatcherReducer} from 'containers/GameMatcher/reducer';
+import {HomeReducer} from 'containers/Home/reducer';
+import {DrawerReducer} from 'containers/Drawer/reducer';
 
 const RootReducer = combineReducers({
   authReducer: AuthReducer,
