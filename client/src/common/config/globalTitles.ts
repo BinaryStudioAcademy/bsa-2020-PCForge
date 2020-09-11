@@ -16,8 +16,8 @@ export default {
     description: 'Setup technical info for every geek out there',
   },
   GameMatcher: {
-    name: 'Can I Run It?',
-    description: 'Well, I mean, will it burn my PC?',
+    name: 'Game Matcher',
+    description: 'Can I run this on my PC?',
   },
   Hardwares: {
     name: 'Hardwares',

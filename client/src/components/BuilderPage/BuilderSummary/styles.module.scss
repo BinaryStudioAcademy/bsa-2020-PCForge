@@ -1,4 +1,4 @@
-@import "styles/variables";
+@import 'styles/variables';
 
 div.summaryWrapper {
   background-color: $colorDarkGray;
@@ -14,14 +14,28 @@ div.summaryWrapper {
   }
 
   .progressWrapper {
+    position: relative;
     .progressTitle {
       margin-bottom: 10px;
     }
 
+    .progressPercent {
+      position: absolute;
+      z-index: 10;
+      top: 51px;
+      color: #d6d6d6;
+      font-weight: 700;
+      transition: all 0.3s ease-in-out;
+    }
+
     .progressBar {
-      height: 30px;
-      border-radius: 5px;
-      background-color: rgb(113, 113, 113);
+      background: #323942;
+      border-radius: 10px;
+      height: 38px;
+
+      > div {
+        background: #eb3d55;
+      }
     }
   }
 }
