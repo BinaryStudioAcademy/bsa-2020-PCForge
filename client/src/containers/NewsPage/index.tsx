@@ -8,6 +8,7 @@ import { TypeNewsState } from 'containers/NewsPage/reducer';
 import PageComponent from 'containers/PageComponent';
 import Title from 'components/Title';
 import history from 'browserHistory';
+import { MenuItems } from 'common/enums';
 
 type PropsType = {
   role?: 'page' | 'aside';
@@ -50,7 +51,7 @@ const NewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
     </Box>
   );
 
-  return role === 'page' ? <PageComponent>{news}</PageComponent> : news;
+  return role === 'page' ? <PageComponent selectedMenuItemNumber={MenuItems.News}>{news}</PageComponent> : news;
 };
 
 export default NewsPage;

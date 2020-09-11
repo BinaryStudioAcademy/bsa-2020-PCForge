@@ -53,7 +53,7 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
 
     if (!game) {
       return (
-        <PageComponent>
+        <PageComponent selectedMenuItemNumber={MenuItems.Games}>
           <Box className="spinnerWrapper">
             <Spinner load />
           </Box>
@@ -62,7 +62,7 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
     }
 
     return (
-      <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
+      <PageComponent selectedMenuItemNumber={MenuItems.Games}>
         <Container className={styles.mainWrapper}>
           <Grid className={styles.contentWrapper}>
             <Grid className={styles.gameWrapper} xs={12} container direction="column">
