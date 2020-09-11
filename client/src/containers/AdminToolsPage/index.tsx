@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { History } from 'history';
@@ -25,6 +25,7 @@ import StatisticCharts from './StatisticCharts';
 import { Routes } from 'common/enums';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 import { IUserRequestFilter } from 'api/services/addUserRequestService';
+import { User } from 'common/models/user';
 
 import * as actions from './actions';
 import { UsersRequestState, UsersRequestActions } from './actionsTypes';
@@ -35,6 +36,7 @@ import { Box } from '@material-ui/core';
 
 interface IPropsAdminToolsPage {
   state: UsersRequestState;
+  currentUser: User | null;
   historyPage: History;
   getUsersRequests: (filters: IUserRequestFilter[]) => UsersRequestActions;
   deleteUserRequest: (id: number, type: UserRequestDeleteType) => UsersRequestActions;
@@ -83,54 +85,61 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
   ];
 
   return (
-    <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
-      <div className={styles.contentPage}>
-        <div className={styles.pageHeader}>
-          <Title title="Admin Tools" subtitle="Manage hardware and game content, get site statistic" />
-        </div>
-        {props.state.dataTotalsIsLoaded ? (
-          <div className={styles.contentMain}>
-            <div className={styles.totalBlockContainer}>
-              {cardsList.map((item: ITotalInfoCard, key) => (
-                <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
-                  {
-                    <TotalInfoCard
-                      name={item.name}
-                      count={item.count}
-                      icon={item.icon}
-                      countOfRequests={item.countOfRequests}
-                      onAdd={item.onAdd}
-                    />
-                  }
-                </ListItem>
-              ))}
+    <>
+      {props.currentUser?.isAdmin ? (
+        <PageComponent selectedMenuItemNumber={MenuItems.AdminTools}>
+          <div className={styles.contentPage}>
+            <div className={styles.pageHeader}>
+              <Title title="Admin Tools" subtitle="Manage hardware and game content, get site statistic" />
             </div>
-            <div className={styles.chartContainer}>
-              <StatisticCharts />
-            </div>
-            <div className={styles.notificationsContainer}>
-              {props.state.dataUserRequestsIsLoaded ? (
-                <RequestContainer usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />
-              ) : (
-                <Box className="spinnerWrapper">
-                  <Spinner load />
-                </Box>
-              )}
-            </div>
+            {props.state.dataTotalsIsLoaded ? (
+              <div className={styles.contentMain}>
+                <div className={styles.totalBlockContainer}>
+                  {cardsList.map((item: ITotalInfoCard, key) => (
+                    <ListItem key={`${key}-total-info-card`} className={styles.cardListItem}>
+                      {
+                        <TotalInfoCard
+                          name={item.name}
+                          count={item.count}
+                          icon={item.icon}
+                          countOfRequests={item.countOfRequests}
+                          onAdd={item.onAdd}
+                        />
+                      }
+                    </ListItem>
+                  ))}
+                </div>
+                <div className={styles.chartContainer}>
+                  <StatisticCharts />
+                </div>
+                <div className={styles.notificationsContainer}>
+                  {props.state.dataUserRequestsIsLoaded ? (
+                    <RequestContainer usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />
+                  ) : (
+                    <Box className="spinnerWrapper">
+                      <Spinner load />
+                    </Box>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <Box className="spinnerWrapper">
+                <Spinner load />
+              </Box>
+            )}
           </div>
-        ) : (
-          <Box className="spinnerWrapper">
-            <Spinner load />
-          </Box>
-        )}
-      </div>
-    </PageComponent>
+        </PageComponent>
+      ) : (
+        <Redirect to={Routes.DEFAULT} />
+      )}
+    </>
   );
 };
 
 const mapStateToProps = (state: RootState, routeComponentValue: RouteComponentProps) => ({
   state: state.userRequests,
   historyPage: routeComponentValue.history,
+  currentUser: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators(actions, dispatch);
