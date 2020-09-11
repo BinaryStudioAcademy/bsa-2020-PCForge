@@ -31,6 +31,7 @@ import { CommentFilter } from 'common/models/filter.model';
 import { getAverageRate, addRate } from 'api/services/rate.service';
 import { RateCreationAttributes } from 'common/models/rate.model';
 import * as alert from 'common/services/AlertService/alert.service';
+import * as notification from 'common/services/notificationService';
 import { addAlert } from 'containers/Alerts/redux/actions';
 
 function* getSetup(action: IGetSetup) {

@@ -5,8 +5,8 @@
   border-radius: 25px !important;
   padding: 6px;
 
-  @media(max-width:850px) {
-    max-width: 100%;
+  @media(max-width:650px) {
+    width:auto;
   }
 
   input::placeholder {
