@@ -1,4 +1,5 @@
 @import '../../styles/variables';
+@import './variables';
 
 .group,
 .group .details,
@@ -6,16 +7,25 @@
   background-color: $colorDarkGray;
 }
 
-.details {
+.details,
+.filterDetails {
   display: flex;
   flex-direction: column;
 }
 
-.details .hr {
+.details .hr,
+.filterDetails .hr {
   width: 100%;
   border-color: $colorGray;
 }
 
-.details .button {
+.details .button,
+.filterDetails .button {
   text-transform: none;
+}
+
+.group,
+.group .filterDetails,
+.group .filterSummary {
+  background-color: $colorList;
 }

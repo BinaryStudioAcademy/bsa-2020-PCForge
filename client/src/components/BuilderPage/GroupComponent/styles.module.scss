@@ -1,9 +1,11 @@
 @import '../../../styles/variables';
+@import '../variables';
 
 .group,
 .group .details,
 .group .summary {
-  background-color: $colorDarkGray;
+  //background-color: $colorDarkGray;
+  background-color: $colorAccordion;
 }
 
 .details {

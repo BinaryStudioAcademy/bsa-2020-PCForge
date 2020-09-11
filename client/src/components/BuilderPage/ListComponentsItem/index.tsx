@@ -23,19 +23,19 @@ const ListComponentsItem = ({
   onAddComponent,
   isSelected,
 }: PropsType): JSX.Element => {
+  const getRating = () => Math.floor(Math.random() * 6);
   return (
     <Paper className={styles.componentItem}>
-      <img className={styles.img} src={img} alt="Image component" />
       <div className={styles.main}>
         <Typography variant="h5" component="h5">
           {title}
         </Typography>
         {specifications}
         <div className={styles.rating}>
-          <RatingBox ratingValue={3} disabled={false} name={title} />
+          <RatingBox ratingValue={getRating()} disabled={true} name={title} />
         </div>
       </div>
-      {!isSelected && <ButtonAdd className={styles.btnAdd} onClick={onAddComponent} />}
+      <ButtonAdd className={styles.btnAdd} isSelected={isSelected} onClick={onAddComponent} />
     </Paper>
   );
 };

@@ -1,12 +1,13 @@
 @import "src/styles/variables";
+@import '../variables';
 
 .group,
-.group .details,
-.group .summary {
-  background-color: $colorDarkGray;
+.group .filterDetails,
+.group .filterSummary {
+  background-color: $colorList;
 }
 
-.details {
+.filterDetails {
   flex-direction: column;
 }
 
@@ -19,6 +20,6 @@
   color: $colorLightGray;
 }
 
-.details .button {
+.filterDetails .button {
   text-transform: none;
 }
