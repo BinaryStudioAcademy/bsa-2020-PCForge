@@ -87,7 +87,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
   private onInputValueChange: (value: string) => void = null!;
 
   public render(): JSX.Element {
-    const { placeholder, inputId, label, labelClassName, options, errorMessage } = this.props;
+    const { placeholder, inputId, label, labelClassName, errorMessage, options } = this.props;
 
     const { onSeeMoreClick, onCLoseBtnClick } = this.props;
     return (
@@ -121,6 +121,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
                     e.stopPropagation();
                     onCLoseBtnClick();
                   }}
+                  onFocusCapture={(e) => e.stopPropagation()}
                 >
                   {getIcon('Close')}
                 </IconButton>

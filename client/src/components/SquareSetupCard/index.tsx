@@ -141,8 +141,8 @@ const SetupCard: React.FC<SetupCardProps> = ({
             <Button icon="ArrowForward" buttonType={ButtonType.primary}>
               Find out more
             </Button>
-            <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup} />}</div>
             <div> {own && <BasicLink icon="Edit" onClick={handleEditSetup} />}</div>
+            <div> {own && <BasicLink icon="Delete" onClick={handleDeleteSetup} />}</div>
           </div>
         </div>
       </div>

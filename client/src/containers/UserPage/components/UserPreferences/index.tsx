@@ -40,6 +40,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
     editUserSetup,
     setTab,
   } = props;
+ 
   const [showGameSearch, setShowGameSearch] = useState(false);
   const handleAddGameClick = async () => {
     setShowGameSearch(true);
