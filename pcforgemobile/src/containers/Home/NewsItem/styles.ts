@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   dateText: {
     alignSelf: 'flex-end',
     color: '#cbcfd4',
-    fontSize: 12
+    fontSize: 12,
   },
   newsText: {
     color: '#fff',

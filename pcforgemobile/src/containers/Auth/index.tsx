@@ -4,10 +4,7 @@ import styles from 'containers/Auth/styles';
 import {IAuthProps} from 'containers/Auth/interfaces';
 import {RootState} from 'redux/rootReducer';
 import {connect} from 'react-redux';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from '@react-native-community/google-signin';
+import {GoogleSignin} from '@react-native-community/google-signin';
 import {ImageBackground} from 'react-native';
 import {
   Container,
@@ -35,8 +32,8 @@ class Auth extends React.PureComponent<IAuthProps, State> {
   constructor(props: IAuthProps) {
     super(props);
     this.state = {
-      email: 'admin@pcforge.com',
-      password: 'bsa2020',
+      email: '',
+      password: '',
     };
 
     this.onEmailInput = this.onEmailInput.bind(this);
@@ -58,15 +55,6 @@ class Auth extends React.PureComponent<IAuthProps, State> {
     const {email, password} = this.state;
     this.props.loginRequest({email, password});
   }
-
-  // public async signInGoogle() {
-  //   try {
-  //     const userData = await GoogleSignin.signIn();
-  //     console.log(userData);
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
 
   public render(): JSX.Element | null {
     if (this.props.state.user) {

@@ -7,6 +7,7 @@ import {drawerActions} from '../../../containers/Drawer/actionTypes';
 export interface Props {
   openDrawerAction: () => drawerActions;
   closeDrawerAction: () => drawerActions;
+  noActions?: boolean;
   navigation: any;
   useGoBack?: boolean;
   scene?: any;
@@ -25,14 +26,14 @@ const AppTitle = (props: Props) => {
   };
   return (
     <Header>
-      {props.useGoBack && props.navigation.canGoBack() && (
+      {!props.noActions && props.useGoBack && props.navigation.canGoBack() && (
         <Left>
           <Button transparent onPress={onMainIconClick} rounded>
             <Icon type="MaterialIcons" name="arrow-back" />
           </Button>
         </Left>
       )}
-      {!props.useGoBack && props.navigation.canGoBack() && (
+      {!props.noActions && !props.useGoBack && props.navigation.canGoBack() && (
         <Left>
           <Button transparent onPress={onMainIconClick} rounded>
             <Icon type="MaterialIcons" name="menu" />

@@ -75,7 +75,7 @@ export const routes: Readonly<CustomRouteProps>[] = [
       showInDrawer: false,
     },
     component: Auth,
-    options: {header: (props) => <AppTitle {...props} />},
+    options: {header: (props) => <AppTitle {...props} noActions={true} />},
   },
   {
     name: 'Home',
@@ -113,7 +113,7 @@ export const routes: Readonly<CustomRouteProps>[] = [
     },
     options: {
       headerShown: false,
-    }
+    },
   },
   {
     name: 'Chart',

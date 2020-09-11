@@ -4,6 +4,7 @@ export const AUTH_LOGIN_REQUEST = 'AUTH_LOGIN_REQUEST';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
 export const AUTH_LOGIN_FAILURE = 'AUTH_LOGIN_FAILURE';
 export const AUTH_SET_LOADER_STATE = 'AUTH_SET_LOADER';
+export const AUTH_SIGN_OUT = 'AUTH_SIGN_OUT';
 
 export interface loginRequestAction {
   type: typeof AUTH_LOGIN_REQUEST;
@@ -29,8 +30,13 @@ export interface authSetLoaderState {
   payload: boolean;
 }
 
+export interface authSignOut {
+  type: typeof AUTH_SIGN_OUT;
+}
+
 export type AuthActionTypes =
   | loginRequestAction
   | loginRequestSuccess
   | loginRequestFailure
-  | authSetLoaderState;
+  | authSetLoaderState
+  | authSignOut;

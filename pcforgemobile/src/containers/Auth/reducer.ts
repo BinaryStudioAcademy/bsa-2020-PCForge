@@ -4,12 +4,13 @@ import {
   AUTH_LOGIN_FAILURE,
   AuthActionTypes,
   AUTH_SET_LOADER_STATE,
+  AUTH_SIGN_OUT,
 } from './actionTypes';
 
 const initialState: IAuthState = {
   user: null,
-  email: 'admin@pcforge.com',
-  password: 'bsa2020',
+  email: '',
+  password: '',
   errorMessage: '',
   loading: false,
 };
@@ -18,6 +19,7 @@ export function AuthReducer(
   state: IAuthState = initialState,
   action: AuthActionTypes,
 ): IAuthState {
+  console.log('reducer', action);
   switch (action.type) {
     case AUTH_LOGIN_SUCCESS:
       return {
@@ -35,6 +37,11 @@ export function AuthReducer(
       return {
         ...state,
         loading: action.payload,
+      };
+    case AUTH_SIGN_OUT:
+      return {
+        ...state,
+        user: null,
       };
     default:
       return state;

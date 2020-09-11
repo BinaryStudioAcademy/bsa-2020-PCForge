@@ -12,4 +12,5 @@ export interface DrawerProps {
   closeDrawerAction: () => drawerActions;
   children: JSX.Element;
   navigate: (routeName: string) => void;
+  signOut: () => void;
 }

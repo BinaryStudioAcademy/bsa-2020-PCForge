@@ -2,6 +2,7 @@ import React from 'react';
 import {DrawerLayoutAndroid, Text, View, ImageBackground} from 'react-native';
 import styles from './styles';
 import * as drawerActions from './actions';
+import {signOut} from 'containers/Auth/actions';
 import {RootState} from 'redux/rootReducer';
 import {DrawerProps} from './interfaces';
 import {connect} from 'react-redux';
@@ -85,6 +86,20 @@ class Drawer extends React.PureComponent<DrawerProps, State> {
           }
           return null;
         })}
+        <Button
+          iconLeft
+          onPress={() => {
+            this.props.signOut();
+            setTimeout(() => {
+              this.ref?.closeDrawer();
+              this.props.navigate('Login');
+            });
+          }}
+          block
+          style={styles.routeListItem}>
+          {<Icon type="Octicons" name="sign-out" style={styles.icon} />}
+          <Text style={styles.routeText}>Sign out</Text>
+        </Button>
       </View>
     );
     return (
@@ -103,7 +118,7 @@ class Drawer extends React.PureComponent<DrawerProps, State> {
   }
 }
 
-export const mapDispatchToProps = drawerActions;
+export const mapDispatchToProps = {...drawerActions, signOut};
 export const mapStateToProps = (state: RootState) => {
   return {
     user: state.authReducer.user,
