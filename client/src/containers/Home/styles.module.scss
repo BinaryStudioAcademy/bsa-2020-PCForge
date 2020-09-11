@@ -45,11 +45,21 @@ h2 {
   margin-bottom: 0;
   font-size: 28px;
 
+
   @media(max-width: 768px) {
     margin: 0;
     display: block;
     font-size: 24px;
+  }
+}
 
+h2.setupsTitle {
+  position: relative;
+  top:-5px;
+
+  @media(max-width: 1400px) {
+   top: 3px;
+   
   }
 }
 
@@ -73,7 +83,7 @@ h2 {
 
     >div>div {
       width: 100%;
-      height:auto;
+      height:700px;
     }
   }
 
@@ -154,7 +164,8 @@ h2 {
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-size:22px !important;
-    line-height: 1.1 !important;
+    line-height: 1 !important;
+    margin-bottom: 5px !important;
   }
 
   >div>div>div {
@@ -185,6 +196,7 @@ h2 {
     @media (max-width:1400px) {
       margin: 10px 0 10px 5px;
       max-width: 600px;
+      width:100%;
     }
 
     @media (max-width:768px) {

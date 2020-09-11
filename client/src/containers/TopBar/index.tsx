@@ -1,7 +1,7 @@
 import { connect, ConnectedProps } from 'react-redux';
 import { RootState } from 'redux/rootReducer';
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState, ReactText } from 'react';
 import styles from './styles.module.scss';
 import Search from 'components/Search';
 import UserProfile from 'components/UserProfile';
@@ -11,6 +11,7 @@ import { withStyles } from '@material-ui/styles';
 import TopBarNotification from './TopBarNotification/topBarNotification';
 import { INotification } from 'common/services/NotificationService/notification';
 import { getSearchResults, clearSearchResult } from './actions';
+import { setHardware } from '../HardwaresPage/actions';
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
 import { ReactComponent as NewsIcon } from 'assets/icons/news.svg';
@@ -43,7 +44,7 @@ const StyledMenu = withStyles({
 
 interface IItem {
   icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-  srcPageGenerator: (id?: string) => string;
+  srcPageGenerator: (id?: string, item?: Record<string, ReactText>) => string;
 }
 const Icons: { [key: string]: IItem } = {
   setups: { icon: SetupIcon, srcPageGenerator: (id) => `/setup/${id}` },
@@ -54,8 +55,8 @@ const Icons: { [key: string]: IItem } = {
   powersupplies: { icon: HardwareIcon, srcPageGenerator: (id) => `${Routes.HARDWARES}` },
   hdds: { icon: HardwareIcon, srcPageGenerator: (id) => `${Routes.HARDWARES}` },
   ssds: { icon: HardwareIcon, srcPageGenerator: (id) => `${Routes.HARDWARES}` },
-  games: { icon: GameIcon, srcPageGenerator: (id) => `/game/${id}` },
-  news: { icon: NewsIcon, srcPageGenerator: (id) => `${Routes.NEWS}` },
+  games: { icon: GameIcon, srcPageGenerator: (id) => `/games/${id}` },
+  news: { icon: NewsIcon, srcPageGenerator: (id) => `/news/${id}` },
 };
 
 const TopBar: React.FC<Props> = ({
@@ -65,6 +66,7 @@ const TopBar: React.FC<Props> = ({
   getSearchResults,
   searchResults,
   clearSearchResult,
+  setHardware,
 }) => {
   const [searchValue, setSearchValue] = useState('');
   const [isActive, setIsActive] = useState(false);
@@ -126,11 +128,26 @@ const TopBar: React.FC<Props> = ({
                   <Link
                     key={`link-${index}`}
                     className={styles.searchLink}
-                    onClick={() => {
-                      clearSearchResult();
-                      setIsActive(false);
-                      setSearchValue('');
-                    }}
+                    onClick={
+                      item._index === 'rams' ||
+                      item._index === 'cpus' ||
+                      item._index === 'gpus' ||
+                      item._index === 'motherboards' ||
+                      item._index === 'powersupplies' ||
+                      item._index === 'hdds' ||
+                      item._index === 'ssds'
+                        ? () => {
+                            setHardware(item._source);
+                            clearSearchResult();
+                            setIsActive(false);
+                            setSearchValue('');
+                          }
+                        : () => {
+                            clearSearchResult();
+                            setIsActive(false);
+                            setSearchValue('');
+                          }
+                    }
                     to={Icons[item._index].srcPageGenerator(item._source.id)}
                   >
                     <p className={styles.searchResultsItem}>
@@ -204,7 +221,7 @@ const mapState = (state: RootState) => ({
   searchResults: state.searchEngine.results,
 });
 
-const mapDispatch = { getSearchResults, clearSearchResult };
+const mapDispatch = { getSearchResults, setHardware, clearSearchResult };
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
