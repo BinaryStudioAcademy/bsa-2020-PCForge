@@ -1,4 +1,4 @@
-import { Box, CardActions, CardContent, Collapse, IconButton, Typography } from '@material-ui/core';
+import { Box, CardActions, CardContent, Collapse, IconButton, Typography, Badge } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
 import styles from 'components/BuilderPage/BuilderSummary/ComponentItem/styles.module.scss';
@@ -6,9 +6,10 @@ import styles from 'components/BuilderPage/BuilderSummary/ComponentItem/styles.m
 interface IProps {
   title: string;
   specification: JSX.Element | null;
+  count?: number;
 }
 
-const ComponentItem = ({ title, specification }: IProps): JSX.Element | null => {
+const ComponentItem = ({ title, specification, count }: IProps): JSX.Element | null => {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -18,7 +19,13 @@ const ComponentItem = ({ title, specification }: IProps): JSX.Element | null => 
   return specification ? (
     <Box className={styles.cardComponent}>
       <CardActions onClick={handleExpandClick} disableSpacing className={styles.cardTitle}>
-        <Typography variant="subtitle1">{title}</Typography>
+        {count ? (
+          <Badge badgeContent={count} color="error">
+            <Typography variant="subtitle1">{title}</Typography>
+          </Badge>
+        ) : (
+          <Typography variant="subtitle1">{title}</Typography>
+        )}
         <IconButton className={styles.expandButton} aria-expanded={expanded} aria-label="show more">
           <ExpandMoreIcon />
         </IconButton>
