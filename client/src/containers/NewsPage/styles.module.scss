@@ -9,12 +9,15 @@
 .cardsWrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .newsCard {
   max-width: 400px;
   margin: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   img {
     width: 100%;
   }
