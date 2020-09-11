@@ -9,14 +9,17 @@
 .cardsWrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
 }
 
 .newsCard {
   max-width: 400px;
   margin: 2rem;
+
   img {
     width: 100%;
+    height: 46%;
+    object-fit: cover;
   }
 }
 
@@ -38,5 +41,5 @@
 }
 
 .newsCard .btnRead {
-  width: 100%;
+  width: 120px;
 }
