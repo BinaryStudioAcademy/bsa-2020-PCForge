@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts --fix",
     "seedtoelastic": "ts-node-dev src/infrastructure/elastic/index.js",
-    "deploy": "rm -rf dist && aws s3 sync dist/ s3://pcforge-api"
+    "deploy": "rm -rf dist && mkdir dist && aws s3 sync dist/ s3://pcforge-api"
   },
   "author": "",
   "license": "ISC",

@@ -46,7 +46,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "rm -rf build && aws s3 sync build/ s3://pcforge-client",
+    "deploy": "rm -rf build && mkdir build && aws s3 sync build/ s3://pcforge-client",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint src/ --ext .tsx,.ts",
