@@ -40,7 +40,7 @@ export class PowerSupplyService extends BaseService<
 
   async createPowerSupply(inputPowerSupply: PowerSupplyCreationAttributes): Promise<PowerSupplyModel> {
     const powerSupply = await super.create(inputPowerSupply);
-    await elastic.addData(powerSupply);
+    await elastic.addData(powerSupply, 'powersupplies').catch((err) => console.log(err));
     return powerSupply;
   }
 

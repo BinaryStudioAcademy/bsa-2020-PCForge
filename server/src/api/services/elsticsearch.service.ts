@@ -49,13 +49,13 @@ export class ElasticService {
     return elasticClient.bulk({ refresh: true, body });
   }
 
-  addData(dataInstance) {
+  addData(dataInstance, type) {
     dataInstance = dataInstance.dataValues;
     console.log('ElasticService -> addData -> dataInstance', dataInstance);
     return elasticClient.create({
       index: this.documentIndex,
       id: `${dataInstance.id}`,
-      type: 'cpu',
+      type,
       body: dataInstance,
     });
   }
@@ -91,7 +91,8 @@ export class ElasticService {
     const { body } = await elasticClient.search({
       index: this.documentIndex,
       body: {
-        size: searchProperty.countValue || 10000,
+        size: 5,
+        from: 0,
         query: {
           query_string: {
             query: `*${searchProperty.input}*`,

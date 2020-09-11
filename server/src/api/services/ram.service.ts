@@ -38,7 +38,7 @@ export class RamService extends BaseService<RamModel, RamCreationAttributes, Ram
   async createRam(inputRam: RamCreationAttributes, ramMiddleware: IRamsMiddleware): Promise<RamModel> {
     await ramMiddleware(inputRam);
     const ram = await super.create(inputRam);
-    await elastic.addData(ram);
+    await elastic.addData(ram, 'rams').catch((err) => console.log(err));
     return ram;
   }
 
