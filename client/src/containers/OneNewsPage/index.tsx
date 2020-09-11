@@ -42,7 +42,7 @@ const OneNewsPage: React.FC<Props> = (props) => {
   }
 
   return (
-    <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
+    <PageComponent selectedMenuItemNumber={MenuItems.News}>
       <Container className={styles.mainWrapper}>
         <Grid className={styles.contentWrapper}>
           <Grid className={styles.gameWrapper} xs={12} container direction="column">
