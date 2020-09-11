@@ -1,5 +1,5 @@
-.wholeContentContainer{
-  @media(max-width: 800px) {
+.wholeContentContainer {
+  @media (max-width: 800px) {
     margin: 0 auto;
   }
 }
@@ -13,30 +13,30 @@
   grid-template-columns: minmax(380px, 1.5fr) minmax(470px, 2fr) minmax(200px, 1fr);
   grid-template-rows: 60px 1fr;
   grid-template-areas:
-    "title             title        gridNewsDisplay"
-    "gridTopCard gridOrdinaryCards gridNewsDisplay";
+    'title             title        gridNewsDisplay'
+    'gridTopCard gridOrdinaryCards gridNewsDisplay';
 
-  @media(max-width: 1400px) {
+  @media (max-width: 1400px) {
     grid-template-columns: 49% 49%;
     grid-template-rows: 60px 1fr 1fr;
     grid-column-gap: 15px;
     grid-template-areas:
-      "title        gridNewsDisplay"
-      "gridTopCard  gridNewsDisplay"
-      "gridOrdinaryCards gridOrdinaryCards";
+      'title        gridNewsDisplay'
+      'gridTopCard  gridNewsDisplay'
+      'gridOrdinaryCards gridOrdinaryCards';
     justify-content: center;
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     justify-content: center;
     grid-template-columns: minmax(250px, 580px);
     grid-template-rows: 1fr;
     row-gap: 10px;
     grid-template-areas:
-      "title"
-      "gridTopCard"
-      "gridOrdinaryCards"
-      "gridNewsDisplay";
+      'title'
+      'gridTopCard'
+      'gridOrdinaryCards'
+      'gridNewsDisplay';
   }
 }
 
@@ -45,8 +45,7 @@ h2 {
   margin-bottom: 0;
   font-size: 28px;
 
-
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     margin: 0;
     display: block;
     font-size: 24px;
@@ -55,11 +54,10 @@ h2 {
 
 h2.setupsTitle {
   position: relative;
-  top:-5px;
+  top: -5px;
 
-  @media(max-width: 1400px) {
-   top: 3px;
-   
+  @media (max-width: 1400px) {
+    top: 3px;
   }
 }
 
@@ -67,31 +65,31 @@ h2.setupsTitle {
   grid-area: gridTopCard;
   cursor: pointer;
 
-  >div>div {
+  > div > div {
     height: 720px;
   }
 
-  @media(max-width: 1400px) {
+  @media (max-width: 1400px) {
     margin-right: 5px;
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     justify-self: center;
     margin-left: 0;
     margin-right: 0;
     margin-bottom: 15px;
 
-    >div>div {
+    > div > div {
       width: 100%;
-      height:700px;
+      height: 700px;
     }
   }
 
-  @media(max-width: 590px) {
+  @media (max-width: 590px) {
     margin-left: 0;
   }
 
-  @media(min-width:1400px) {
+  @media (min-width: 1400px) {
     margin-right: 10px;
   }
 }
@@ -100,38 +98,37 @@ h2.setupsTitle {
   grid-area: gridOrdinaryCards;
   min-height: 690px;
 
-  >div {
-
+  > div {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-auto-rows: auto;
     grid-column-gap: 20px;
     row-gap: 20px;
 
-    @media(max-width: 1400px) {
+    @media (max-width: 1400px) {
       gap: 25px;
     }
 
-    @media(max-width: 768px) {
+    @media (max-width: 768px) {
       grid-template-columns: minmax(250px, 580px);
       grid-template-rows: 1fr;
       margin: 0 auto;
       gap: 25px;
 
       > div {
-        height:auto;
-        min-height:325px;
+        height: auto;
+        min-height: 325px;
       }
     }
   }
 
-  @media(max-width:768px) {
+  @media (max-width: 768px) {
     margin: 0 auto;
   }
 
-  @media(min-width: 769px) and (max-width: 1400px) {
+  @media (min-width: 769px) and (max-width: 1400px) {
     position: relative;
-    top:-15px;
+    top: -15px;
   }
 }
 
@@ -143,7 +140,7 @@ h2.setupsTitle {
     margin-top: 3px;
   }
 
-  &>div>div {
+  & > div > div {
     justify-content: flex-start;
 
     @media (max-width: 768px) {
@@ -163,21 +160,21 @@ h2.setupsTitle {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    font-size:22px !important;
+    font-size: 22px !important;
     line-height: 1 !important;
     margin-bottom: 5px !important;
   }
 
-  >div>div>div {
+  > div > div > div {
     height: 350px;
     border-radius: 6px;
     margin: 10px;
     margin-right: 0;
     margin-left: 7px;
-   
+
     > div {
-      padding: 15px !important;
-      padding-top: 5px !important;
+      // padding: 15px !important;
+      // padding-top: 5px !important;
       height: calc(100% - 175px);
       display: flex;
       flex-direction: column;
@@ -189,17 +186,17 @@ h2.setupsTitle {
       button {
         margin-top: auto;
         margin-bottom: 5px;
-        width:120px !important;
+        width: 120px !important;
       }
     }
 
-    @media (max-width:1400px) {
+    @media (max-width: 1400px) {
       margin: 10px 0 10px 5px;
       max-width: 600px;
-      width:100%;
+      width: 100%;
     }
 
-    @media (max-width:768px) {
+    @media (max-width: 768px) {
       margin-bottom: 15px;
       margin-left: 0;
       max-width: 580px;
