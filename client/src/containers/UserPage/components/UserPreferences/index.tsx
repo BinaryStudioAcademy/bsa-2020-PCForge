@@ -9,14 +9,14 @@ import { Game } from 'common/models/typeUserGame';
 import { UserActionTypes } from 'containers/UserPage/logic/actionTypes';
 import { UserPageTabs } from 'containers/UserPage/interfaces';
 import { Link } from 'react-router-dom';
+import Modal, { IModalButton } from 'components/BasicComponents/Modal';
 
 export interface UserPreferencesProps {
   games?: GameCardProps[];
   setups?: SetupCardProps[];
   isCurrentUser: boolean;
   addUserGame?: (id: number, gameId: number) => UserActionTypes;
-  deleteUserGame?: (id: number, gameId: number) => UserActionTypes;
-  deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
+  deleteFunction?: (id: number, deletedId: number) => UserActionTypes;
   editUserSetup?: (setupId: number) => UserActionTypes;
   filteredGames?: Game[];
   loadFilteredGames?: (searchString: string) => UserActionTypes;
@@ -35,11 +35,48 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
     filteredGames,
     loadFilteredGames,
     addUserGame,
-    deleteUserGame,
-    deleteUserSetup,
+    deleteFunction,
     editUserSetup,
     setTab,
   } = props;
+
+  interface IModal {
+    isOpen: boolean;
+    // deletedType: 'game' | 'setup' | '';
+    userId: number;
+    itemForDeleteId: number;
+  }
+  const [showModal, setShowModal] = useState<IModal>({ isOpen: false, userId: 0, itemForDeleteId: 0 });
+
+  const deleteHandler = (id: number, deletedId: number) => {
+    setShowModal({
+      isOpen: true,
+      userId: id,
+      itemForDeleteId: deletedId,
+    });
+  };
+
+  const buttons: IModalButton[] = [
+    {
+      text: 'no',
+      onClick: () => {
+        setShowModal({
+          isOpen: false,
+          userId: 0,
+          itemForDeleteId: 0,
+        });
+      },
+      buttonType: ButtonType.primary,
+    },
+    {
+      text: 'yes',
+      onClick: () => {
+        deleteFunction?.apply(deleteFunction, [showModal.userId, showModal.itemForDeleteId]);
+      },
+      buttonType: ButtonType.secondary,
+    },
+  ];
+
   const [showGameSearch, setShowGameSearch] = useState(false);
   const handleAddGameClick = async () => {
     setShowGameSearch(true);
@@ -48,6 +85,13 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
 
   return (
     <>
+      <Modal
+        title="Are you sure you to Delete this Item?"
+        open={showModal.isOpen}
+        buttons={buttons}
+        maxWidth="md"
+        classes={{ paper: styles.modalStyle }}
+      />
       {games ? (
         <>
           <div className={styles.buttonPlacement}>
@@ -89,7 +133,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                 year={game.year}
                 description={game.description}
                 isCurrentUser={isCurrentUser}
-                deleteUserGame={deleteUserGame}
+                deleteUserGame={deleteHandler}
               />
             ))}
           </div>
@@ -127,7 +171,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                   ratingCount={setup.ratingCount}
                   comments_count={setup.comments_count}
                   key={generateKey(setup.title, index)}
-                  deleteUserSetup={deleteUserSetup}
+                  deleteUserSetup={deleteHandler}
                   editUserSetup={editUserSetup}
                   own={isCurrentUser}
                   setTab={setTab}

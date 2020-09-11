@@ -36,7 +36,7 @@ const PreferencesSection = (props: IPreferencesSectionProps): JSX.Element => {
           isCurrentUser={isCurrentUser}
           games={userGames}
           addUserGame={addUserGame}
-          deleteUserGame={deleteUserGame}
+          deleteFunction={deleteUserGame}
           filteredGames={filteredGames}
           loadFilteredGames={loadFilteredGames}
         />
@@ -45,7 +45,7 @@ const PreferencesSection = (props: IPreferencesSectionProps): JSX.Element => {
         <UserPreferences
           isCurrentUser={isCurrentUser}
           setups={setups}
-          deleteUserSetup={deleteUserSetup}
+          deleteFunction={deleteUserSetup}
           editUserSetup={editUserSetup}
           setTab={setTab}
         />
