@@ -5,6 +5,11 @@
   align-items: center;
 }
 
+.btnGroup {
+  display: flex;
+  align-items: center;
+}
+
 div.groupItemSummary {
   padding: 8px 20px;
   background-color: $colorDarkGray;
