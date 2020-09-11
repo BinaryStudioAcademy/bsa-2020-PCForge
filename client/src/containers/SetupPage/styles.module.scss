@@ -11,10 +11,13 @@
     display: flex;
 
     .setupsDetails {
+      min-width: 75%;
       position: relative;
       border-radius: 7px;
       padding: 2rem;
       background: $colorBlack;
+      min-width: 75%;
+      margin-bottom: 40px;
     }
 
     .asideItems {

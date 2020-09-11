@@ -25,9 +25,9 @@ export class GameRepository extends BaseRepository<GameModel, GameCreationAttrib
       case 'mostRated':
         return [sequelize.literal('rating'), 'DESC NULLS LAST'];
       case 'newest':
-        return ['createdAt', 'DESC'];
+        return ['year', 'DESC'];
       case 'oldest':
-        return ['createdAt', 'ASC'];
+        return ['year', 'ASC'];
       case 'commendable':
         return [sequelize.literal('comments_count'), 'DESC'];
       default:

@@ -14,7 +14,7 @@ const TopGames: React.FC<Props> = ({ topGames, selected: selectedIndex = -1, fet
 
   const gameView = (topGame: TopGame, isSelected: boolean) => (
     <Link
-      to={`/game/${topGame.game.id}`}
+      to={`/games/${topGame.game.id}`}
       className={`${styles.gameContainer} ${isSelected && styles.gameContainerSelected}`}
       key={topGame.id}
     >
