@@ -10,7 +10,8 @@ interface IUserActivity {
   'Created Setups': number;
 }
 
-/*const daysOfWatching = 7; // Days you want to subtract
+/* For getting dates for array for visualize data:
+const daysOfWatching = 7; // Days you want to subtract
 const today = new Date();
 const last = new Date(today.getTime() - (daysOfWatching * 24 * 60 * 60 * 1000));
 const startDate = new Date(last.getFullYear(), last.getMonth(), last.getDate(), );
