@@ -6,7 +6,7 @@ import styles from 'components/BuilderPage/BuilderSummary/ComponentItem/styles.m
 interface IProps {
   title: string;
   specification: JSX.Element | null;
-  count?: number;
+  count?: number | null;
 }
 
 const ComponentItem = ({ title, specification, count }: IProps): JSX.Element | null => {

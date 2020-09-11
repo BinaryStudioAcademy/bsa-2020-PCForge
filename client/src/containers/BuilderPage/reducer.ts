@@ -22,7 +22,7 @@ export type TypeSetup = {
   cpu: TypeCpu | null;
   gpu: TypeGpu | null;
   ram: TypeRam | null;
-  ramCount: number;
+  ramCount: number | null;
   motherboard: TypeMotherboard | null;
   powersupply: TypePowersupplies | null;
   hdd: TypeHdd | null;
@@ -52,7 +52,7 @@ const initialState = {
   cpu: null,
   gpu: null,
   ram: null,
-  ramCount: 1,
+  ramCount: null,
   motherboard: null,
   powersupply: null,
   hdd: null,
@@ -62,9 +62,14 @@ const initialState = {
 export default function (state = initialState, action: AnyAction): TypeSetup {
   switch (action.type) {
     case FETCH_COMPONENT_SUCCESS: {
+      const stateCopy = { ...state };
+
       if (typeof action.payload.component === 'string') setCount(action.payload.group, action.payload.component);
+
+      if (action.payload.group === 'ram' && !stateCopy.ramCount) stateCopy.ramCount = 1;
+
       return {
-        ...state,
+        ...stateCopy,
         [action.payload.group]: action.payload.component,
       };
     }
