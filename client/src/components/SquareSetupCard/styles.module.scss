@@ -214,21 +214,28 @@
         display: flex;
         justify-content: space-between;
 
-        svg {
-          color: $colorOrange;
-        }
-
-        svg:hover {
-          color: #b92f0d;
-        }
-
-        div:nth-child(2) {
+        .cardIcons {
+         display: flex;
+         > div {
+           padding:3px;
+           padding-right: 0;
+         }
           svg {
-            color: rgb(175, 170, 170);
+            color: $colorOrange;
           }
-
+  
           svg:hover {
-            color: white;
+            color: #b92f0d;
+          }
+  
+          div:nth-child(1) {
+            svg {
+              color: rgb(175, 170, 170);
+            }
+  
+            svg:hover {
+              color: white;
+            }
           }
         }
 

@@ -39,23 +39,22 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
     editUserSetup,
     setTab,
   } = props;
-<<<<<<< HEAD
- 
-=======
 
   interface IModal {
     isOpen: boolean;
     // deletedType: 'game' | 'setup' | '';
     userId: number;
     itemForDeleteId: number;
+    deletedName: string;
   }
-  const [showModal, setShowModal] = useState<IModal>({ isOpen: false, userId: 0, itemForDeleteId: 0 });
+  const [showModal, setShowModal] = useState<IModal>({ isOpen: false, userId: 0, itemForDeleteId: 0, deletedName: '' });
 
-  const deleteHandler = (id: number, deletedId: number) => {
+  const deleteHandler = (id: number, deletedId: number, deletedName: string) => {
     setShowModal({
       isOpen: true,
       userId: id,
       itemForDeleteId: deletedId,
+      deletedName,
     });
   };
 
@@ -67,6 +66,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
           isOpen: false,
           userId: 0,
           itemForDeleteId: 0,
+          deletedName: '',
         });
       },
       buttonType: ButtonType.primary,
@@ -80,7 +80,6 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
     },
   ];
 
->>>>>>> develop
   const [showGameSearch, setShowGameSearch] = useState(false);
   const handleAddGameClick = async () => {
     setShowGameSearch(true);
@@ -94,7 +93,7 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
   return (
     <>
       <Modal
-        title="Are you sure you to Delete this Item?"
+        title={`Are you sure you want to delete "${showModal.deletedName}?"`}
         open={showModal.isOpen}
         buttons={buttons}
         maxWidth="md"
@@ -124,7 +123,9 @@ const UserPreferences: React.FC<UserPreferencesProps> = (props) => {
                     onSelect={(id: number) => addUserGame!(parseInt(userId, 10), id)}
                     options={filteredGames!.map((game) => ({ label: game.name, value: game.id }))}
                     onInputChange={({ value }) => loadFilteredGames!(value)}
-                    onCLoseBtnClick={closeGameSearch}
+                    onCloseCallback={closeGameSearch}
+                    withClose
+                    showCloseAlways
                     hideSeeMore
                   />
                 )}

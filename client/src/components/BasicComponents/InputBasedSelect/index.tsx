@@ -25,10 +25,10 @@ interface Props {
   label: string;
   labelClassName?: string;
   hideSeeMore?: boolean;
-  onCLoseBtnClick?: () => void;
   disabled?: boolean;
   withClose?: boolean;
   onCloseCallback?: () => void;
+  showCloseAlways?: boolean;
 }
 
 interface State {
@@ -100,7 +100,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
   public render(): JSX.Element {
     const { placeholder, inputId, label, labelClassName, errorMessage, options } = this.props;
 
-    const { onSeeMoreClick, onCLoseBtnClick } = this.props;
+    const { onSeeMoreClick } = this.props;
     return (
       <div
         {...(this.props.disabled && { 'aria-disabled': true })}
@@ -128,7 +128,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
           disableUnderline={true}
           onFocus={(e) => e.preventDefault()}
           {...(this.props.withClose &&
-            this.state.inputValue !== '' && {
+            (this.state.inputValue !== '' || this.props.showCloseAlways ) && {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton

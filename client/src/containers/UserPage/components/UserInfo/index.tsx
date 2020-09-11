@@ -264,7 +264,11 @@ const UserInfo: React.FC<IUserInfoProps> = (props) => {
 
         {isCurrentUser && (
           <div className={styles.buttonsContainer}>
-            <Button onClick={handleSetEditable} buttonType={ButtonType.primary} icon={!editableInput ? "Create" : undefined}>
+            <Button
+              onClick={handleSetEditable}
+              buttonType={ButtonType.primary}
+              icon={!editableInput ? 'Create' : undefined}
+            >
               {editableInput ? 'Save' : 'Edit'}
             </Button>
             {editableInput && (
