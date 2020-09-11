@@ -13,7 +13,7 @@ export default fp((fastify, opts, next) => {
       auth: oauthPlugin.GOOGLE_CONFIGURATION,
     },
     startRedirectPath: '/api/auth/google',
-    callbackUri: `${'https://pcforge.herokuapp.com' || 'http://localhost:5001'}/api/auth/google/callback`,
+    callbackUri: `${'https://pcforge.net' || 'http://localhost:5001'}/api/auth/google/callback`,
   });
 
   next();
