@@ -10,7 +10,7 @@
 .pageHeader {
   color: $colorTextWhite;
   font-weight: bold;
-  font-size: 36px;
+  font-size: 28px;
   line-height: 56px;
   margin: 0;
 }
@@ -93,7 +93,7 @@ section:nth-child(2n) {
   flex-direction: column;
 }
 
-.buttonWrapper{
+.buttonWrapper {
   margin: 2em 0;
   align-self: center;
 }
@@ -112,7 +112,6 @@ section:nth-child(2n) {
     font-weight: 400;
   }
 }
-
 
 @media (max-width: 1060px) {
   .mainContainer {
@@ -139,7 +138,7 @@ section:nth-child(2n) {
 .orLine:before,
 .orLine:after {
   background-color: #fff;
-  content: "";
+  content: '';
   display: inline-block;
   height: 1px;
   position: relative;

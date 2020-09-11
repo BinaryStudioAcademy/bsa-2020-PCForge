@@ -8,12 +8,14 @@ import Spinner from 'components/Spinner';
 import TopBar from 'containers/TopBar';
 import InjectNotifications from 'containers/Notifications/inject';
 import { RootState } from 'redux/rootReducer';
+import getCurrentTitle from 'common/helpers/getCurrentTitle';
 
 interface IProps {
   selectedMenuItemNumber?: number;
+  titleSelector?: string;
 }
 
-const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) => {
+const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children, titleSelector }) => {
   const isAdmin = useSelector((state: RootState) => state.auth.user?.isAdmin);
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
 
@@ -24,7 +26,13 @@ const PageComponent: React.FC<IProps> = ({ selectedMenuItemNumber, children }) =
   ) : (
     <div className={classes.rootComponent}>
       <InjectNotifications />
-      <TopBar />
+      <div className={classes.topBarWrapper}>
+        <div className={classes.titleWrapper}>
+          <h2>{getCurrentTitle(titleSelector)?.name}</h2>
+          <span>{getCurrentTitle(titleSelector)?.description}</span>
+        </div>
+        <TopBar />
+      </div>
       <NavigationBar selectedMenuItemNumber={selectedMenuItemNumber} isAdmin={isAdmin} />
       <div className={classes.contentWrapper}>{children}</div>
       <Footer />

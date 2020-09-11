@@ -46,12 +46,18 @@ const NewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
 
   const news = (
     <Box className={styles.newsWrapper}>
-      {role === 'page' ? <Title title={'News'} /> : <h2>News</h2>}
+      {role === 'page' ? null : <h2>News</h2>}
       <Box className={styles.cardsWrapper}>{newsElements}</Box>
     </Box>
   );
 
-  return role === 'page' ? <PageComponent selectedMenuItemNumber={MenuItems.News}>{news}</PageComponent> : news;
+  return role === 'page' ? (
+    <PageComponent titleSelector="News" selectedMenuItemNumber={MenuItems.News}>
+      {news}
+    </PageComponent>
+  ) : (
+    news
+  );
 };
 
 export default NewsPage;

@@ -139,9 +139,9 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
   };
 
   return (
-    <PageComponent selectedMenuItemNumber={MenuItems.GameMatcher}>
+    <PageComponent titleSelector="GameMatcher" selectedMenuItemNumber={MenuItems.GameMatcher}>
       <main className={styles.gameMatcher} role="main">
-        <h1 className={styles.pageHeader}>Can You Run It?</h1>
+        <h1 className={styles.pageHeader}>Game Matcher Configuration</h1>
         <div className={styles.contentWrapper}>
           <div className={styles.rightWrapper}>
             <div className={styles.mainContainer}>
