@@ -24,30 +24,6 @@
   }
 }
 
-@media (max-width: 1440px) {
-  .mainContent {
-    display: flex;
-    flex-direction: column;
-    .leftContent {
-      width: 100%;
-    }
-    .rightContent {
-      margin-left: 0;
-      margin-top: 20px;
-      width: 100%;
-    }
-  }
-  .cardsContainer {
-    grid-template-columns: repeat(2, 100%);
-  }
-}
-
-@media (max-width: 768px) {
-  .cardsContainer {
-    grid-template-columns: 1fr;
-  }
-}
-
 .contentBody {
   margin: 20px 0px;
   .filter {
@@ -75,5 +51,35 @@
   .rightContent {
     margin-left: 40px;
     width: 25%;
+  }
+}
+
+@media (max-width: 1440px) {
+  .contentBody {
+    width: 100%;
+  }
+  .mainContent {
+    display: flex;
+    flex-direction: column;
+    .leftContent {
+      width: 100%;
+    }
+    .rightContent {
+      margin-left: 0;
+      margin-top: 20px;
+      width: 100%;
+    }
+  }
+  .cardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .leftContent {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .cardsContainer {
+    grid-template-columns: 1fr;
   }
 }

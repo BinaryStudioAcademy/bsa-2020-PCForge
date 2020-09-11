@@ -14,7 +14,7 @@ const TopFiveList: React.FC<PropsFromRedux & I_Info_Item> = ({ setups, title }) 
     return setups.map((item) => {
       return (
         <div key={item.id} className={classes.itemWrapper}>
-          <Link className={classes.item} to={`setup/${item.id}`}>
+          <Link className={classes.item} to={`${title === 'Games' ? 'game' : 'setup'}/${item.id}`}>
             <Image src={item.image} alt={item.title} className={classes.itemImage} />
             <div className={classes.itemText}>
               <h5 className={classes.itemTextTitle}>{item.title}</h5>
