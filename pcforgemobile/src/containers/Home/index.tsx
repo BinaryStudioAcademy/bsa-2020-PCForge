@@ -19,6 +19,7 @@ class Home extends React.PureComponent<IHomeProps> {
     return (
       <Container style={styles.root}>
         <FlatList
+          style={styles.list}
           data={news}
           renderItem={(props) => <NewsItem {...props} />}
           keyExtractor={(newsItem: News) => String(newsItem.id)}

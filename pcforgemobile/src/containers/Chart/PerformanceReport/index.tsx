@@ -41,13 +41,23 @@ class PerformanceReport extends React.PureComponent<Props, State> {
   }
   public render(): JSX.Element {
     const { minimal, recommended } = this.props.report.report;
+    const { game } = this.props.report;
     const minimalData = [minimal.cpu, minimal.gpu, minimal.ram ];
     const recommendedData = [recommended.cpu, recommended.gpu, recommended.ram];
-    const data2 = [80, 60, 90];
     return (
       <View style={styles.root}>
         <View style={styles.headerWrapper}>
           <H1 style={styles.header}>Performance Report</H1>
+        </View>
+        <View style={styles.metaContainer}>
+          <View style={styles.metaTextWrapper}>
+            <View>
+              <Text style={styles.gameLabel}>
+                Game tested:{' '}
+                <Text style={styles.metaText}>{game.name}</Text>
+              </Text>
+            </View>
+          </View>
         </View>
         <View style={styles.requirementsContainer}>
           <TouchableHighlight

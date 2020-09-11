@@ -66,6 +66,10 @@ export const setGpus = (gpus: Gpu[]): MatcherActions => ({
   }
 });
 
+export const clearStorage = (): MatcherActions => ({
+  type: MatcherActionTypes.CLEAR_STORAGE,
+})
+
 export const setError = (message: string): MatcherActions => ({
   type: MatcherActionTypes.SET_ERROR,
   payload: {

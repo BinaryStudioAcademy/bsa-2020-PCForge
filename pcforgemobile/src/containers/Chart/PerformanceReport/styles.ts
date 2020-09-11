@@ -6,6 +6,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 10,
   },
+  metaContainer: {
+    margin: 10,
+    padding: 10,
+    borderColor: '#4972ff',
+    borderWidth: 1,
+    borderRadius: 6,
+  },
+  metaTextWrapper: {
+    flexDirection: 'row',
+  },
+  metaText: {
+    color: '#cbcfd4',
+  },
+  noTransform: {
+    textTransform: 'none',
+  },
+  gameLabel: {
+    textTransform: 'uppercase',
+    color: '#fff',
+  },
   header: {
     color: '#fff',
   },

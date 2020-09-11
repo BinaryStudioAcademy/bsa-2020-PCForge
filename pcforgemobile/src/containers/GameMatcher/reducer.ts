@@ -38,6 +38,12 @@ export function MatcherReducer(state: MatcherState = initialState, action: Match
       }
     }
 
+    case MatcherActionTypes.CLEAR_STORAGE: {
+      return {
+        ...state, setupPerformance: null
+      }
+    }
+
     case MatcherActionTypes.SET_ERROR: {
       return {
         ...state,

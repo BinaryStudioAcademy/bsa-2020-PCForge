@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { connect, ConnectedProps } from 'react-redux';
 import { Game } from 'common/models/game';
 import { RootState } from 'redux/rootReducer';
-import { fetchCpus, fetchGpus, fetchGames, setError, fetchSetupPerformance } from './actions';
+import { fetchCpus, fetchGpus, fetchGames, setError, fetchSetupPerformance, clearStorage } from './actions';
 import { styles } from './styles';
 import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
@@ -20,7 +20,6 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
   gpus,
   games,
   setupPerformance,
-  error,
   fetchGames,
   fetchCpus,
   fetchGpus,
@@ -47,6 +46,7 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
         ramSize
       };
       navigation.navigate('Chart', params);
+      clearStorage();
     })
   }
 
@@ -159,6 +159,7 @@ const mapDispatchToProps = {
   fetchGames,
   fetchSetupPerformance,
   setError,
+  clearStorage
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

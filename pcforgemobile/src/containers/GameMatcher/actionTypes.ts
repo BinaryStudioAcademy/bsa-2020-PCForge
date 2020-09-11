@@ -14,6 +14,7 @@ export enum MatcherActionTypes {
   FETCH_SETUP_PERFORMANCE = 'Matcher/FETCH_SETUP_PERFORMANCE',
   FETCH_SETUP_PERFORMANCE_SUCCESS = 'Matcher/FETCH_SETUP_PERFORMANCE_SUCCESS',
   FETCH_SETUP_PERFORMANCE_ERROR = 'MATCHER/FETCH_SETUP_PERFORMANCE_SUCCESS',
+  CLEAR_STORAGE = 'MATCHER/CLEAR_STORAGE',
 }
 
 export interface IFetchGamesRequestAction {
@@ -75,6 +76,10 @@ export interface IFetchSetupPerformance {
   };
 };
 
+export interface clearStorage {
+  type: MatcherActionTypes.CLEAR_STORAGE
+}
+
 export interface IFetchSetupPerformanceSucces {
   type: MatcherActionTypes.FETCH_SETUP_PERFORMANCE_SUCCESS,
   payload: ISetupPerformance;
@@ -84,7 +89,7 @@ type MatcherRequests = IFetchCpusRequestAction | IFetchGamesRequestAction | IFet
 
 type MatcherSuccess = IFetchCpusAction | IFetchGamesAction | IFetchGpusAction | IFetchSetupPerformanceSucces;
 
-export type MatcherActions = MatcherRequests | MatcherSuccess | ISetErrorAction;
+export type MatcherActions = MatcherRequests | MatcherSuccess | ISetErrorAction | clearStorage;
 
 export interface MatcherState {
   games: Game[];

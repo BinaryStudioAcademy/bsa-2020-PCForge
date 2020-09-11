@@ -44,7 +44,7 @@ class ChartPage extends React.PureComponent<Props, State> {
                 this.state.activeTab === 'system' && styles.footerTabActive,
               ]}
               onPress={() => this.setState({activeTab: 'system'})}>
-              <Text>System</Text>
+              <Text style={[this.state.activeTab === 'system' && styles.footerTabTextActive]}>System</Text>
             </Button>
             <Button
               style={[
@@ -54,7 +54,7 @@ class ChartPage extends React.PureComponent<Props, State> {
                   styles.footerTabActive,
               ]}
               onPress={() => this.setState({activeTab: 'performance'})}>
-              <Text>Performance</Text>
+              <Text style={[this.state.activeTab === 'performance' && styles.footerTabTextActive]}>Performance</Text>
             </Button>
             <Button
               style={[
@@ -63,7 +63,7 @@ class ChartPage extends React.PureComponent<Props, State> {
                   styles.footerTabActive,
               ]}
               onPress={() => this.setState({activeTab: 'fps analysis'})}>
-              <Text>FPS analysis</Text>
+              <Text style={[this.state.activeTab === 'fps analysis' && styles.footerTabTextActive]}>FPS analysis</Text>
             </Button>
           </FooterTab>
         </Footer>

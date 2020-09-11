@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   imageCardItem: {
-    paddingTop: 10,
+    paddingTop: 8,
     justifyContent: 'center',
   },
   newsImage: {
