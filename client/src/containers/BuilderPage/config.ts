@@ -7,6 +7,13 @@ import { getAllHdd } from 'api/services/hddService';
 import { getAllSsd } from 'api/services/ssdService';
 import { getAllStorage } from 'api/services/storageService';
 import { TypeFilterRangeInfo } from './types';
+import imgageCpu from 'assets/images/cpu.png';
+import imgageGpu from 'assets/images/gpu.png';
+import imgageRam from 'assets/images/ram.png';
+import imgageMotherboard from 'assets/images/motherboard.png';
+import imgagePowersupply from 'assets/images/powersupply.png';
+import imgageHdd from 'assets/images/hdd.png';
+import imgageSsd from 'assets/images/ssd.png';
 
 export enum GroupName {
   cpu = 'cpu',
@@ -35,6 +42,17 @@ export const servicesGetAll = {
   [GroupName.hdd]: getAllHdd,
   [GroupName.ssd]: getAllSsd,
   [GroupName.storage]: getAllStorage,
+};
+
+export const imageGroup = {
+  [GroupName.cpu]: imgageCpu,
+  [GroupName.gpu]: imgageGpu,
+  [GroupName.ram]: imgageRam,
+  [GroupName.motherboard]: imgageMotherboard,
+  [GroupName.powersupply]: imgagePowersupply,
+  [GroupName.hdd]: imgageHdd,
+  [GroupName.ssd]: imgageSsd,
+  [GroupName.storage]: imgageHdd,
 };
 
 export const filterRangeInfo: TypeFilterRangeInfo = {

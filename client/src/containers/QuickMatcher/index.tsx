@@ -73,7 +73,12 @@ const QuickMatcher: React.FC<Props> = ({
   return (
     <Box className={styles.quickMatcher}>
       <Search value={gameName} onChange={onGameNameChange} className={styles.search} />
-      <ImageList data={transformGamesToImages(games)} onImageSelect={onGameSelect} maxItemCount={5} />
+      <ImageList
+        className={styles.imageList}
+        data={transformGamesToImages(games)}
+        onImageSelect={onGameSelect}
+        maxItemCount={5}
+      />
       {games.length > 0 ? (
         <Box className={styles.results}>
           <ColouredTachometer

@@ -58,6 +58,7 @@ const GroupItemSummary = ({
               </Tooltip>
             </Grid>
             <Grid item xs={5} className={styles.btnGroup}>
+              {!!e[1].name && total && totalHandler && <TotalButtons count={total} countHandler={totalHandler} />}
               {!!e[1].name && (
                 <Button
                   onClick={(ev) => {
@@ -68,7 +69,6 @@ const GroupItemSummary = ({
                   Clear
                 </Button>
               )}
-              {!!e[1].name && total && totalHandler && <TotalButtons count={total} countHandler={totalHandler} />}
             </Grid>
           </Grid>
         );
@@ -91,16 +91,16 @@ const GroupItemSummary = ({
         onClick={(event) => event.stopPropagation()}
         onFocus={(event) => event.stopPropagation()}
       >
-        <Grid item xs={1}>
+        <Grid className={styles.imageWrapper} item xs={2}>
           <img className={styles.groupItemSummaryImg} src={img} alt="Image group" />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={10} md={4}>
           <Typography variant="h5" component="h2">
             <span className={styles.groupItemSummaryTitle}>{title}</span>
             <span className={styles.groupItemSummaryCount}>{count}</span>
           </Typography>
         </Grid>
-        <Grid item xs={7}>
+        <Grid item xs={12} md={6}>
           <Box>{componentFull}</Box>
         </Grid>
       </Grid>
