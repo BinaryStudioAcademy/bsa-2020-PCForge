@@ -60,7 +60,7 @@ const OneNewsPage: React.FC<Props> = (props) => {
             <Grid className={styles.gameDescription} item xs={12}>
               <span className={styles.fieldName}>News:</span>
               <br />
-              <pre>{props.news?.content}</pre>
+              <p>{props.news?.content}</p>
             </Grid>
           </Grid>
           {props.comments && (
