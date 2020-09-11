@@ -20,7 +20,6 @@ const Search = ({
   onBlur = (event: React.ChangeEvent<HTMLInputElement>) => {},
   onSelect = (event: React.ChangeEvent<HTMLInputElement>) => {},
 }: Props): ReactElement => {
-  console.log('autoComplete', autoComplete);
   return (
     <FormControl variant="outlined">
       <OutlinedInput
