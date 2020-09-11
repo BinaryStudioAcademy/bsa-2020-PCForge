@@ -102,8 +102,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
 
     return (
       <div
-        {...(this.props.disabled && { 'aria-disabled': true })}
-        className={styles.selectRoot}
+        className={`${styles.selectRoot} ${this.props.disabled ? styles.disabledInput : ''}`}
         tabIndex={0}
         onBlur={this.onBlur}
         onFocus={this.onFocus}
