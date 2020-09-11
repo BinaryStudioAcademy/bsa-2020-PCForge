@@ -53,6 +53,11 @@ $border_radius_card: 10px;
 
 .ratingBox {
   margin: 10px 20px -10px;
+  div {
+    span {
+      opacity: 1 !important
+    }
+  }
 }
 
 .characteristicHeader {
