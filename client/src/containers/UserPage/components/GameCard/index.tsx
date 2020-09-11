@@ -14,17 +14,17 @@ export interface GameCardProps {
   year?: number;
   description?: string;
   isCurrentUser?: boolean;
-  deleteUserGame?: (id: number, gameId: number) => void;
+  deleteUserGame?: (id: number, gameId: number, deletedName: string) => void;
 }
 
 const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isCurrentUser, id, deleteUserGame }) => {
-  let { id: userId } = useParams();
-  userId = parseInt(userId);
+  const { id: userIdStr } = useParams<{ id: string | undefined }>();
+  const userId = parseInt(userIdStr!);
 
   const handleDeleteGame: (event: React.MouseEvent) => void = (event: React.MouseEvent) => {
     event.preventDefault();
     if (deleteUserGame && typeof id == 'number') {
-      deleteUserGame(userId, id);
+      deleteUserGame(userId, id, name);
     }
   };
 
@@ -39,6 +39,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
       </div>
       {description && (
         <div className={styles.gameDescription}>
+          <div className={styles.backName}>{name}</div>
           <div>{description}</div>
           {isCurrentUser && (
             <div className={styles.cardButton}>

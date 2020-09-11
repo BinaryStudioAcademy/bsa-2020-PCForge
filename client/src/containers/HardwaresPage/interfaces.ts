@@ -12,10 +12,12 @@ export interface HardwareSearchPayload {
 export interface IHardwaresProps {
   state: IHardwaresState;
   getHardwares(payload: HardwareSearchPayload): hardwaresActionTypes;
+  setHardware(payload: Record<string, ReactText>): hardwaresActionTypes;
 }
 
 export interface IHardwaresState {
   hardwares: Record<string, ReactText>[];
+  selectedHardware: Record<string, ReactText> | null;
   totalItems: number;
   errorMessage: string | null;
 }
