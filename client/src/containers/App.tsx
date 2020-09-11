@@ -24,6 +24,7 @@ import PublicRoute from './PublicRoute';
 import ToastNotifications from 'containers/ToastNotifications';
 import OneNewsPage from 'containers/OneNewsPage';
 import HardwaresPage from './HardwaresPage';
+import GamesPage from './GamesPage';
 
 class App extends Component {
   render(): JSX.Element {
@@ -48,6 +49,7 @@ class App extends Component {
             <PrivateRoute exact path={Routes.ADMINTOOLS} component={AdminToolsPage} />
             <PrivateRoute exact path={`${Routes.ADDITEM}/:item`} component={AddItemPages} />
             <PrivateRoute exact path={Routes.GAME} component={GamePage} />
+            <PrivateRoute exact path={Routes.GAMES} component={GamesPage} />
             <PrivateRoute exact path={Routes.EMAIL_VERIFICATION} component={EmailVerificationPage} />
             <PrivateRoute exact path={Routes.RESET_PASSWORD_REQUEST} component={ResetPasswordRequest} />
             <PrivateRoute exact path={Routes.RESET_PASSWORD} component={ResetPasswordCallback} />
