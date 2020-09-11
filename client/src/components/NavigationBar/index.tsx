@@ -124,12 +124,12 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
     },
     {
       name: 'Setups',
-      icon: <SvgIcon component={SetupIcon} viewBox="0 0 31 31" />,
+      icon: <SvgIcon component={GameMatcherIcon} />,
       link: Routes.SETUPS,
     },
     {
       name: 'Game Matcher',
-      icon: <SvgIcon component={GameMatcherIcon} />,
+      icon: <SvgIcon component={SetupIcon} viewBox="0 0 31 31" />,
       link: Routes.MATCHER,
     },
     {
