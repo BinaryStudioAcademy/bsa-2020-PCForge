@@ -24,6 +24,7 @@ export interface Setup {
   powerSupply: PowerSupply;
   createdAt: Date;
   updatedAt: Date;
+  ramCount: number;
 }
 
 export interface PCSetup extends Setup {

@@ -30,6 +30,10 @@ $error-color: #ff5a5a;
   color: #222;
 }
 
+*:focus {
+  outline: none;
+}
+
 .selectOptionsContainer {
   position: absolute;
   width: 100%;
@@ -73,4 +77,10 @@ $error-color: #ff5a5a;
   background: transparentize($color: $error-color, $amount: 0.9);
   padding: .5rem 1rem;
   color: $error-color;
+}
+
+div[aria-disabled]
+{
+  pointer-events: none;
+  opacity: 0.7;
 }
