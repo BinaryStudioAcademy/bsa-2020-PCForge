@@ -71,7 +71,7 @@ class ViewSetupPage extends React.Component<ISetupProps, ISetupState> {
     return (
       <PageComponent titleSelector="Setup" selectedMenuItemNumber={MenuItems.Setup}>
         <div className={styles.setupPageRoot}>
-          <h1>PC setup</h1>
+          <h1>PC Setup</h1>
           <div className={styles.contentWrapper}>
             <div className={styles.setupsDetails}>
               <SetupCard
