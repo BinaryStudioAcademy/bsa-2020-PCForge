@@ -47,7 +47,7 @@ const GroupItemSummary = ({
       if (e[1]) {
         return (
           <Grid className={styles.nameComponentWrap} key={e[0] + e[1].id} container spacing={1}>
-            <Grid item xs={7}>
+            <Grid item xs={6}>
               <Tooltip
                 /* eslint-disable-next-line @typescript-eslint/ban-ts-comment */
                 // @ts-ignore
@@ -57,7 +57,7 @@ const GroupItemSummary = ({
                 <Typography className={styles.nameComponent}>{e[1].name}</Typography>
               </Tooltip>
             </Grid>
-            <Grid item xs={5} className={styles.btnGroup}>
+            <Grid item xs={6} className={styles.btnGroup}>
               {!!e[1].name && (
                 <Button
                   onClick={(ev) => {
