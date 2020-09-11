@@ -37,7 +37,7 @@ export interface SetupCardProps {
   big?: boolean;
   own?: boolean;
   setTab?: (tab: UserPageTabs) => UserActionTypes;
-  deleteUserSetup?: (userId: number, setupId: number) => UserActionTypes;
+  deleteUserSetup?: (userId: number, setupId: number) => void;
   editUserSetup?: (setupId: number) => UserActionTypes;
 }
 
