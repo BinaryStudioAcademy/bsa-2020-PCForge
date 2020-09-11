@@ -36,7 +36,7 @@ export class CpuService extends BaseService<CpuModel, CpuCreationAttributes, Cpu
   async createCpu(inputCpu: CpuCreationAttributes, cpuMiddleware: ICpusMiddleware): Promise<CpuModel> {
     await cpuMiddleware(inputCpu);
     const cpu = await super.create(inputCpu);
-    await elastic.addData(cpu);
+    await elastic.addData(cpu, 'cpus').catch((err) => console.log(err));
     return cpu;
   }
 

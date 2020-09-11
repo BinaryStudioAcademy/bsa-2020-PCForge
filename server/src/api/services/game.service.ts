@@ -38,7 +38,7 @@ export class GameService extends BaseService<GameModel, GameCreationAttributes, 
   async createGame(inputGame: GameCreationAttributes, gameMiddleware: IGamedMiddleware): Promise<GameModel> {
     await gameMiddleware(inputGame);
     const game = await super.create(inputGame);
-    await elastic.addData(game);
+    await elastic.addData(game, 'games').catch((err) => console.log(err));
     return game;
   }
 

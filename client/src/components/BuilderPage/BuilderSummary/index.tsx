@@ -34,6 +34,8 @@ const BuilderSummary = ({ setup }: IProps): JSX.Element => {
       100) /
     partsCount;
 
+  const buildProgressRounded = buildProgress ? Math.round(buildProgress) : null;
+
   return (
     <Card className={styles.summaryWrapper}>
       <CardContent>
@@ -81,6 +83,9 @@ const BuilderSummary = ({ setup }: IProps): JSX.Element => {
           <Typography className={styles.progressTitle} variant="h5" component="h2">
             Build Progress
           </Typography>
+          <span className={styles.progressPercent} style={{ left: `calc(${buildProgressRounded}% - 40px)` }}>
+            {buildProgressRounded ? buildProgressRounded + '%' : ''}
+          </span>
           <LinearProgress className={styles.progressBar} variant="determinate" value={buildProgress} />
         </Box>
       </CardContent>

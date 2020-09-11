@@ -35,7 +35,7 @@ export class GpuService extends BaseService<GpuModel, GpuCreationAttributes, Gpu
 
   async createGpu(inputGpu: GpuCreationAttributes): Promise<GpuModel> {
     const gpu = await super.create(inputGpu);
-    await elastic.addData(gpu);
+    await elastic.addData(gpu, 'gpus').catch((err) => console.log(err));
     return gpu;
   }
 

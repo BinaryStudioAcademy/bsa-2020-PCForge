@@ -37,7 +37,7 @@ export class NewsService extends BaseService<NewsModel, NewsCreationAttributes, 
 
   async createNews(inputNews: NewsCreationAttributes): Promise<NewsModel> {
     const news = await super.create(inputNews);
-    await elastic.addData(news);
+    await elastic.addData(news, 'news').catch((err) => console.log(err));
     return news;
   }
 
