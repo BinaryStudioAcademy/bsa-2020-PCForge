@@ -8,6 +8,17 @@
   background-color: $colorAccordion;
 }
 
+.group {
+  margin-bottom: 20px;
+  border-radius: 10px !important;
+  box-shadow: 3px 4px 10px -5px #00000040 !important;
+  background-color: #2e3239 !important;
+
+  &:before {
+    height: 0px !important;
+  }
+}
+
 .details {
   display: flex;
   flex-direction: column;

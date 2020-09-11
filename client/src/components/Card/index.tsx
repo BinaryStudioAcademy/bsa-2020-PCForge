@@ -30,7 +30,7 @@ const Card: React.FC<I_Props> = ({ id, imageSource, name: name, processor, gpu, 
       </div>
       <ul className={classes.characteristicList}>
         <li className={classes.characteristicItem}>
-          <span className={classes.characteristicHeader}>{type === 'setup' ? 'Processor:' : 'Min Processor:'}</span>
+          <span className={classes.characteristicHeader}>{type === 'setup' ? 'Processor:' : 'Min CPU:'}</span>
           <span className={classes.characteristicValue}>{processor}</span>
         </li>
         <li className={classes.characteristicItem}>

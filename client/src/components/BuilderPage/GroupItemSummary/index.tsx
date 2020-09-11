@@ -94,13 +94,13 @@ const GroupItemSummary = ({
         <Grid className={styles.imageWrapper} item xs={2}>
           <img className={styles.groupItemSummaryImg} src={img} alt="Image group" />
         </Grid>
-        <Grid item xs={10} md={4}>
+        <Grid item xs={10} md={4} className={styles.titleCount}>
           <Typography variant="h5" component="h2">
             <span className={styles.groupItemSummaryTitle}>{title}</span>
             <span className={styles.groupItemSummaryCount}>{count}</span>
           </Typography>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className={styles.componentFull}>
           <Box>{componentFull}</Box>
         </Grid>
       </Grid>
