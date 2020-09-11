@@ -8,6 +8,10 @@ div.authContainer {
   max-width: 1300px;
   padding-top: 20px;
   padding-bottom: 20px;
+
+  & > div > div {
+    width: 100%;
+  }
 }
 
 .bgContainer {
@@ -200,7 +204,7 @@ div.authContainer {
     margin-bottom: 261px;
 
     @media screen and (max-width: 960px) {
-      margin-bottom: 181px;
+      margin-bottom: 161px;
     }
   }
 
@@ -208,13 +212,15 @@ div.authContainer {
 }
 
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 430px) {
 
   .loginWrapper {
     padding: 30px;
     min-width: auto;
 
     form {
+      margin-bottom: 60px;
+
       .forgotPassword {
         margin-bottom: 10px;
       }
@@ -240,6 +246,7 @@ div.authContainer {
     }
 
     .registerBox {
+
       .registerLink {
         display: block;
       }
@@ -248,7 +255,7 @@ div.authContainer {
 
   .registrationWrapper {
     form {
-      margin-bottom: 127px;
+      margin-bottom: 167px;
     }
   }
 }

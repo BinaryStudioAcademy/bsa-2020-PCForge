@@ -20,6 +20,7 @@ import Spinner from 'components/Spinner';
 import Title from 'components/Title';
 import { TotalInfoCard, ITotalInfoCard } from 'containers/AdminToolsPage/TotalInfoCard';
 import RequestContainer from './RequestContainer';
+import StatisticCharts from './StatisticCharts';
 
 import { Routes } from 'common/enums';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
@@ -104,7 +105,9 @@ const AdminToolsPage = (props: IPropsAdminToolsPage): JSX.Element => {
                 </ListItem>
               ))}
             </div>
-            <div className={styles.chartContainer}>{/*TO DO*/}</div>
+            <div className={styles.chartContainer}>
+              <StatisticCharts />
+            </div>
             <div className={styles.notificationsContainer}>
               {props.state.dataUserRequestsIsLoaded ? (
                 <RequestContainer usersRequests={props.state.userRequests} deleteUserRequest={deleteUserRequest} />
