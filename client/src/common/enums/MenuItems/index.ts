@@ -5,6 +5,7 @@ enum MenuItems {
   GameMatcher,
   Hardwares,
   Games,
+  News,
   AdminTools,
   LogOut,
   User,

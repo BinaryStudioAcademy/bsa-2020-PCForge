@@ -12,7 +12,7 @@ enum Routes {
   ADDITEM = '/additem',
   ADDHARDWARE = '/addharware',
   ADDGAME = '/addgame',
-  GAME = '/game/:id',
+  GAME = '/games/:id',
   GAMES = '/games',
   HARDWARES = '/hardwares',
   HARDWARE = '/hardware/:type/:id',

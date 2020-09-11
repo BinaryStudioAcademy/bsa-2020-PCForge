@@ -51,7 +51,7 @@ const GamesPage: React.FC<PropsFromRedux> = ({
           ram={`${game.minimalRamSize}`}
           comments={Number(game.comments_count)}
           rating={game.rating | 0}
-          type="game"
+          type="games"
         />
       );
     });

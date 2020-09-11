@@ -17,7 +17,7 @@ interface I_Props {
   ram: string;
   comments: number;
   rating: number;
-  type: 'setup' | 'game';
+  type: 'setup' | 'games';
 }
 
 const Card: React.FC<I_Props> = ({ id, imageSource, name: name, processor, gpu, ram, comments, rating, type }) => {
@@ -38,7 +38,7 @@ const Card: React.FC<I_Props> = ({ id, imageSource, name: name, processor, gpu, 
         </li>
         <li className={classes.characteristicItem}>
           <span className={classes.characteristicHeader}>{type === 'setup' ? 'RAM:' : 'Min RAM Size:'}</span>
-          <span className={classes.characteristicValue}>{`${ram}${type === 'game' ? ' GB' : ''}`}</span>
+          <span className={classes.characteristicValue}>{`${ram}${type === 'games' ? ' GB' : ''}`}</span>
         </li>
         <li className={classes.commentItem}>
           <span className={classes.commentItemValue}>{comments}</span>
