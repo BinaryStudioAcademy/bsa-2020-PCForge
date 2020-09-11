@@ -15,6 +15,10 @@ $error-color: #ff5a5a;
   // height: 1.1876em;
   color: #222;
   padding: .3rem 1rem 0.5rem;
+
+  button {
+    color: #222;
+  }
 }
 
 .borderFullRound {
@@ -79,8 +83,8 @@ $error-color: #ff5a5a;
   color: $error-color;
 }
 
-//div[aria-disabled]
-//{
-//  pointer-events: none;
-//  opacity: 0.7;
-//}
+.disabledInput
+{
+  pointer-events: none;
+  opacity: 0.7;
+}

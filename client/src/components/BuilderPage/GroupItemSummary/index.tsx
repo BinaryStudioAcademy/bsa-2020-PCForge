@@ -88,8 +88,8 @@ const GroupItemSummary = ({
         className={styles.wrapper}
         container
         spacing={3}
-        onClick={(event) => event.stopPropagation()}
-        onFocus={(event) => event.stopPropagation()}
+        // onClick={(event) => event.stopPropagation()}
+        // onFocus={(event) => event.stopPropagation()}
       >
         <Grid className={styles.imageWrapper} item xs={2}>
           <img className={styles.groupItemSummaryImg} src={img} alt="Image group" />

@@ -13,7 +13,8 @@ const TotalButtons = ({ count, maxCount = 4, countHandler }: Props) => {
       <Button
         classes={{ root: styles.button }}
         aria-label="reduce"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           countHandler(prevCount);
         }}
       >
@@ -23,7 +24,8 @@ const TotalButtons = ({ count, maxCount = 4, countHandler }: Props) => {
       <Button
         classes={{ root: styles.button }}
         aria-label="increase"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           countHandler(nextCount);
         }}
       >

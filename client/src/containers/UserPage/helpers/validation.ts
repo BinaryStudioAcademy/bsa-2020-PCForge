@@ -4,8 +4,8 @@ export type SetErrorMessage = (message: string | null) => void;
 
 export const emailValid = (email: string, setErrorMessage: SetErrorMessage): boolean => {
   let emailMessage = null;
-  if (!(email.length > 5 && email.length < 30)) {
-    emailMessage = 'Email length: 5-30';
+  if (!(email.length > 5 && email.length < 50)) {
+    emailMessage = 'Email length must be 5-50 characters long';
   } else {
     if (!EMAIL.test(email)) {
       emailMessage = 'Wrong email format';
