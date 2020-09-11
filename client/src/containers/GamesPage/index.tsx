@@ -26,7 +26,7 @@ const GamesPage: React.FC<PropsFromRedux> = ({
   useEffect(() => {
     fetchGames({
       ...pagination,
-      sort: filter.sort,
+      sortType: filter.sort,
     });
   }, [pagination, filter.sort]);
 
