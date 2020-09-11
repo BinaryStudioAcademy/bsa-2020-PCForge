@@ -2,7 +2,6 @@ import React from 'react';
 import UserSetupCount from './UserSetupCount';
 import UserActivity from './UserActivity';
 import UsingHardwareChart from './MostUsedHardware';
-import MostLikedUsedHardware from './MostLikedUsedHardware';
 
 import styles from './styles.module.scss';
 
