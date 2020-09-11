@@ -22,6 +22,7 @@ import {
 import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { userRequestMiddleware } from '../middlewares/userRequest.middlewarre';
 import { allowForAuthorized, allowForVerified } from '../middlewares/allowFor.middleware';
+import { CommentNotificationMiddleware } from '../middlewares/commentNotifications.middleware';
 
 export function router(fastify: FastifyInstance, opts: FastifyOptions, next: FastifyNext): void {
   const { CommentService } = fastify.services;
@@ -29,11 +30,12 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.addHook('preHandler', preHandler);
 
   const commentMiddleware = CommentMiddleware(fastify);
+  const sendCommentNotification = CommentNotificationMiddleware(fastify.services);
 
   const getAllSchema = getMultipleQuery(GetAllComments, ICommentFilter.schema);
   fastify.get('/', getAllSchema, async (request: GetAllCommentsRequest, reply) => {
     allowForAuthorized(request);
-    const comments = await CommentService.getAllComments(request.query);
+    const comments = await CommentService.getAllComments(request.query, request.user);
     reply.send(comments);
   });
 
@@ -50,6 +52,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     allowForVerified(request);
     request.body.userId = request.user.id;
     const comment = await CommentService.createComment(request.body, commentMiddleware);
+    sendCommentNotification(comment);
     reply.send(comment);
   });
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
 import BuilderTitle from 'components/BuilderPage/BuilderTitle';
 import { MenuItems } from 'common/enums/MenuItems';
 import PageComponent from 'containers/PageComponent';
@@ -14,16 +13,17 @@ import SaveSetupModal from 'components/BuilderPage/SaveSetupModal';
 import { AssignmentReturn } from '@material-ui/icons';
 
 import ModalAddRequest from 'containers/AddUserRequest';
-import Button, { ButtonType } from 'components/BasicComponents/Button';
+import Link from 'components/BasicComponents/Link';
 import { UserRequestedType } from 'common/enums/UserRequestedType';
 
-import { TypeGroupConfig, TypeFilterBuilder } from './types';
+import { TypeGroupConfig, TypeFilterBuilder, TypeAdditionalProps } from './types';
 import { TypeSetup } from './reducer';
 import {
   addComponentToSetupAction,
   initSetupAction,
   removeComponentFromSetupAction,
   resetSetupAction,
+  setCounter,
 } from 'containers/BuilderPage/actions';
 
 import { FilterName, GroupName } from './config';
@@ -63,6 +63,8 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   };
 
   const setup = useSelector((state: { setup: TypeSetup }) => state.setup);
+  const setupForEdit = setup?.id ? true : false;
+  const ramCount = setup.ramCount;
   const dispatch = useDispatch();
 
   const resetFilter = () => {
@@ -116,6 +118,10 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
           enable: !setup[GroupName.motherboard],
         },
       },
+      count: ramCount,
+      countHandler: (count) => {
+        dispatch(setCounter('ramCount', count));
+      },
     },
     {
       group: GroupName.motherboard,
@@ -137,17 +143,26 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
       filter: filter,
       filters: {},
     },
+    // {
+    //   group: GroupName.hdd,
+    //   filter: filter,
+    //   filters: {
+    //     [FilterName.hdd]: {
+    //       enable: !setup[GroupName.motherboard],
+    //     },
+    //   },
+    // },
+    // {
+    //   group: GroupName.ssd,
+    //   filter: filter,
+    //   filters: {
+    //     [FilterName.hdd]: {
+    //       enable: !setup[GroupName.motherboard],
+    //     },
+    //   },
+    // },
     {
-      group: GroupName.hdd,
-      filter: filter,
-      filters: {
-        [FilterName.hdd]: {
-          enable: !setup[GroupName.motherboard],
-        },
-      },
-    },
-    {
-      group: GroupName.ssd,
+      group: GroupName.storage,
       filter: filter,
       filters: {
         [FilterName.hdd]: {
@@ -157,55 +172,83 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
     },
   ];
 
-  const groups = groupConfigs.map((config) => (
-    <GroupComponent
-      key={config.group}
-      groupName={config.group}
-      filter={config.filter}
-      filtersUsed={config.filters}
-      selectedComponent={setup[config.group]}
-      onUpdateFilter={(filter) => setFilter(filter)}
-      onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
-      onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
-      expanded={expanded}
-      onChangeExpanded={setExpanded}
-    />
-  ));
+  const groups = groupConfigs.map((config) => {
+    const additionalProps: TypeAdditionalProps = {};
+    if (config.count) additionalProps.count = config.count;
+    if (config.countHandler) additionalProps.countHandler = config.countHandler;
+
+    const selectedComponent =
+      config.group !== GroupName.storage
+        ? { [config.group]: setup[config.group] }
+        : { [GroupName.ssd]: setup[GroupName.ssd], [GroupName.hdd]: setup[GroupName.hdd] };
+
+    // const selectedComponent =
+    //   config.group !== GroupName.storage
+    //     ? setup[config.group]
+    //     : { [GroupName.ssd]: setup[GroupName.ssd], [GroupName.hdd]: setup[GroupName.hdd] };
+
+    return (
+      <GroupComponent
+        key={config.group}
+        groupName={config.group}
+        filter={config.filter}
+        filtersUsed={config.filters}
+        // selectedComponent={setup[config.group]}
+        // selectedComponent={selectedComponent}
+        onUpdateFilter={(filter) => setFilter(filter)}
+        onAddComponent={(group, id) => dispatch(addComponentToSetupAction({ group, id }))}
+        onRemoveSelectedComponent={(group) => dispatch(removeComponentFromSetupAction({ group }))}
+        expanded={expanded}
+        onChangeExpanded={setExpanded}
+        {...additionalProps}
+      />
+    );
+  });
 
   return (
     <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
       <Box className={`${styles.builderWrapper} ${className}`}>
         {isModalActive ? <SaveSetupModal onClose={hideModal} /> : null}
-        <BuilderTitle
-          isCanToSave={isCanToSaveSetup(setup)}
-          showResetSetup={Object.values(setup).some((e) => !!e)}
-          onResetSetup={() => dispatch(resetSetupAction())}
-          showResetFilter={Object.values(filter).some((e) => !!e.size)}
-          onResetFilter={resetFilter}
-          onSaveSetup={showModal}
-        />
+        <Grid container spacing={5}>
+          <Grid item xs={12} lg={8} xl={9}>
+            <BuilderTitle
+              isCanToSave={isCanToSaveSetup(setup)}
+              showResetSetup={Object.values(setup).some((e) => !!e)}
+              onResetSetup={() => dispatch(resetSetupAction())}
+              showResetFilter={Object.values(filter).some((e) => !!e.size)}
+              onResetFilter={resetFilter}
+              onSaveSetup={showModal}
+              setupForEdit={setupForEdit}
+            />
+          </Grid>
+        </Grid>
         <Grid container spacing={5}>
           <Grid item xs={12} lg={8} xl={9}>
             {groups}
+            <Box>
+              {displayAddRequestOpen ? (
+                <ModalAddRequest onClose={hideAddHardwareModal} requestType={UserRequestedType.hardware} />
+              ) : null}
+              <Box className={styles.addRequestBlock}>
+                <p>
+                  If you have not found the hardware you need, you can send a request to the administrator by this{' '}
+                  <Link onClick={handleAddHardwareWindow} className={styles.linkRequest}>
+                    link
+                  </Link>
+                  .
+                </p>
+              </Box>
+            </Box>
           </Grid>
           <Grid item xs={12} lg={4} xl={3} className={styles.summary}>
-            <BuilderSummary setup={setup} />
-            {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
-            {displayAddRequestOpen ? (
-              <ModalAddRequest onClose={hideAddHardwareModal} requestType={UserRequestedType.hardware} />
-            ) : null}
-            <Box className={styles.buttonWrapper}>
-              <Tooltip
-                title={
-                  'If you can not find needed hardware, you can create a request to admin about adding it to site! '
-                }
-                arrow
-              >
-                <Button buttonType={ButtonType.secondary} onClick={handleAddHardwareWindow}>
-                  Add Hardware
-                </Button>
-              </Tooltip>
-            </Box>
+            <Grid container spacing={5}>
+              <Grid item xs={12} md={6} lg={12}>
+                <BuilderSummary setup={setup} />
+              </Grid>
+              <Grid item xs={12} md={6} lg={12}>
+                {setup.cpu && setup.gpu && setup.ram && <QuickMatcher />}
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Box>

@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import PageComponent from 'containers/PageComponent';
 import SetupCard from 'components/SetupCard';
-import classes from './styles.module.scss';
+import classes from 'containers/SetupsPage/styles.module.scss';
 import TopFiveList from 'components/TopFiveList';
 import { MenuItems } from 'common/enums';
 import Title from 'components/Title';
 import { RootState } from 'redux/rootReducer';
 import { fetchSetups, fetchTopSetups, changeSortType } from 'containers/SetupsPage/actions';
 import { ConnectedProps, connect } from 'react-redux';
-import { InputLabel, NativeSelect, FormControl } from '@material-ui/core';
+import { InputLabel, FormControl, Box, Select, MenuItem } from '@material-ui/core';
 import Paginator from 'components/Paginator';
+import Spinner from 'components/Spinner';
 
 const SetupPage: React.FC<PropsFromRedux> = ({
   setups,
+  showSpinner,
   filter,
   fetchSetups,
   fetchTopSetups,
@@ -29,8 +31,8 @@ const SetupPage: React.FC<PropsFromRedux> = ({
     fetchTopSetups();
   }, []);
 
-  const changeSortingType = (event: React.ChangeEvent<{ value: string }>) => {
-    changeSortType(event.target.value);
+  const changeSortingType = (event: React.ChangeEvent<{ value: unknown }>) => {
+    changeSortType(event.target.value as string);
     // fetchSetups({ ...pagination, sort: event.target.value, from: 0, count: filter.viewCount });
   };
 
@@ -55,37 +57,53 @@ const SetupPage: React.FC<PropsFromRedux> = ({
     return <div className={classes.cardsContainer}>{cardsElements}</div>;
   };
 
-  return (
-    <PageComponent selectedMenuItemNumber={MenuItems.Setup}>
-      <div className={classes.contentBody}>
-        <Title title="User setups" />
-        <FormControl className={classes.filter}>
-          <InputLabel htmlFor="select">Sort By</InputLabel>
-          <NativeSelect onChange={changeSortingType}>
-            <option value="mostRated">Top Rating</option>
-            <option value="oldest">Oldest</option>
-            <option value="commendable">Most Commendable</option>
-            <option value="newest">Newest</option>
-          </NativeSelect>
-        </FormControl>
-        <div className={classes.mainContent}>
-          <div className={classes.leftContent}>
-            <div>{createCards()}</div>
-            <Paginator
-              countComponents={setupsCount}
-              countComponentsOnPage={filter.viewCount}
-              setPagination={setPagination}
-            />
+  const renderContent = () => {
+    return (
+      <React.Fragment>
+        <Box className={showSpinner ? classes.spinnerWrapper : classes.hidden}>
+          <Spinner load />
+        </Box>
+        <div className={showSpinner ? classes.hidden : classes.contentBody}>
+          <Title title="Users Setups" />
+
+          <FormControl className={classes.filter}>
+            <InputLabel htmlFor="select" className={classes.MuiInputLabelRoot}>
+              Sort By
+            </InputLabel>
+            <Select
+              onChange={changeSortingType}
+              defaultChecked={true}
+              defaultValue="mostRated"
+              className={classes.Select}
+            >
+              <MenuItem value="mostRated">Top Rating</MenuItem>
+              <MenuItem value="oldest">Oldest</MenuItem>
+              <MenuItem value="commendable">Most Commented</MenuItem>
+              <MenuItem value="newest">Newest</MenuItem>
+            </Select>
+          </FormControl>
+          <div className={classes.mainContent}>
+            <div className={classes.leftContent}>
+              <div>{createCards()}</div>
+              <Paginator
+                countComponents={setupsCount}
+                countComponentsOnPage={filter.viewCount}
+                setPagination={setPagination}
+              />
+            </div>
+            <div className={classes.rightContent}>{<TopFiveList />}</div>
           </div>
-          <div className={classes.rightContent}>{<TopFiveList />}</div>
         </div>
-      </div>
-    </PageComponent>
-  );
+      </React.Fragment>
+    );
+  };
+
+  return <PageComponent selectedMenuItemNumber={MenuItems.Setup}>{renderContent()}</PageComponent>;
 };
 
 const mapState = (state: RootState) => ({
   setups: state.setups.setups,
+  showSpinner: state.setups.showSpinner,
   filter: state.setups.filter,
   setupsCount: state.setups.setupsCount,
 });

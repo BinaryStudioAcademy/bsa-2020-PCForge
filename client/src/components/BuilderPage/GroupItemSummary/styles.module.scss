@@ -1,29 +1,53 @@
 @import '../../../styles/variables';
 
+.wrapper {
+  //display: flex;
+  align-items: center;
+}
+
 div.groupItemSummary {
   padding: 8px 20px;
   background-color: $colorDarkGray;
 }
 
-.groupItemSummary>div {
-  display: flex;
+.groupItemSummary > div {
+  //display: flex;
   align-items: center;
 }
 
+.groupItemSummaryImg {
+  width: 100%;
+}
+
 .groupItemSummaryTitle {
-  margin: 0 20px;
+  //margin: 0 20px;
   text-transform: uppercase;
 }
 
+.SummaryContent {
+  width: 90%;
+}
+
 .groupItemSummaryCount {
+  margin-left: 10px;
   color: $colorRed;
-  margin-right: 10px;
+  //margin-right: 10px;
+}
+
+.groupItemSummary .nameComponentWrap {
+  //display: flex;
+  align-items: center;
 }
 
 .groupItemSummary .nameComponent {
-  margin-left: auto;
-  margin-right: 10px;
+  //margin-left: auto;
+  //margin-right: 10px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 div.popup {
   background-color: $colorBlack;
 }

@@ -41,3 +41,12 @@ export default class App extends React.PureComponent {
     );
   }
 }
+
+{/* <Route name="Matcher" component={GameMatcher}/>
+            <Route name="Autocomplete" component={MyAutocomplete} options={({ navigation, route }) => ({
+              headerLeft: () => (
+                <Button onPress={() => navigation.goBack()} >
+                  <Text>Go back</Text>
+                </Button>
+              ),
+            })}/> */}

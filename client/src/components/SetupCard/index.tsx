@@ -23,11 +23,10 @@ const SetupCard: React.FC<I_Props> = ({ id, imageSource, setupName, processor, g
   return (
     <div className={classes.setupCard}>
       <Image className={classes.setupCardImage} src={imageSource} alt={setupName} />
+      <div className={classes.ratingBox}>
+        <RatingBox name={String(id)} ratingValue={rating} disabled={true} />
+      </div>
       <ul className={classes.characteristicList}>
-        <li className={classes.commentItem}>
-          <span className={classes.commentItemValue}>{comments}</span>
-          <ModeCommentIcon fontSize="small" />
-        </li>
         <li className={classes.characteristicItem}>
           <span className={classes.characteristicHeader}>Processor:</span>
           <span className={classes.characteristicValue}>{processor}</span>
@@ -40,11 +39,14 @@ const SetupCard: React.FC<I_Props> = ({ id, imageSource, setupName, processor, g
           <span className={classes.characteristicHeader}>RAM:</span>
           <span className={classes.characteristicValue}>{ram}</span>
         </li>
+        <li className={classes.commentItem}>
+          <span className={classes.commentItemValue}>{comments}</span>
+          <ModeCommentIcon fontSize="small" />
+        </li>
       </ul>
-      <RatingBox name={String(id)} ratingValue={rating} disabled={true} />
       <Link className={classes.viewMoreButton} to={`setup/${id}`}>
         <Button className={classes.setupCardButton} buttonType={ButtonType.primary}>
-          VIEW MORE INFO
+          VIEW MORE
         </Button>
       </Link>
     </div>

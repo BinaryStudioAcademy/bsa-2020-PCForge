@@ -34,6 +34,10 @@ const CardDisplay: React.FC<ICardDisplayProps> = (props) => {
             ram={setup.ram}
             image={setup.image}
             powerSupply={setup.powerSupply}
+            rating={setup.rating}
+            ownRating={setup.ownRating}
+            ratingCount={setup.ratingCount}
+            comments_count={setup.comments_count}
             author={setup.author}
             key={generateKey(setup.title, index)}
             big={big}

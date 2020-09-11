@@ -18,10 +18,8 @@ export type RateFilter = {
 export interface CpuFilter extends BaseFilter {
   socketId?: string;
   socketIds?: string;
-  clockspeed?: {
-    minValue: number;
-    maxValue: number;
-  };
+  'clockspeed[maxValue]'?: number;
+  'clockspeed[minValue]'?: number;
   name?: string;
 }
 
@@ -36,6 +34,9 @@ export interface MotherboardFilter extends BaseFilter {
 }
 
 export interface RamFilter extends BaseFilter {
+  name?: string;
+  'memorySize[minValue]'?: number;
+  'memorySize[maxValue]'?: number;
   typeId?: string;
   typeIds?: string;
 }

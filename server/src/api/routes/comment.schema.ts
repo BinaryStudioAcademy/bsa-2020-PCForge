@@ -4,11 +4,12 @@ import { ICommentFilter } from '../../data/repositories/filters/comment.filter';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
 import { UserSchema } from './user.schema';
 import { UserAttributes } from '../../data/models/user';
+import { CommentRateAttributes } from '../../data/models/commentRates';
 
 export type GetAllCommentsRequest = FastifyRequest<{
   Params: { id: string };
   Querystring: ICommentFilter;
-}> & { user: UserAttributes };
+}> & { user: UserAttributes; commentRates: CommentRateAttributes };
 
 export type GetOneCommentRequest = FastifyRequest<{
   Params: { id: string };
@@ -60,6 +61,34 @@ export const CommentSchema: SwaggerSchema = {
       minLength: 1,
       example: 'Comment body goes here...',
       nullable: false,
+    },
+    user: UserSchema,
+    countLikes: {
+      type: 'integer',
+      minLength: 1,
+      example: 1,
+      nullable: true,
+    },
+    countDislikes: {
+      type: 'integer',
+      minLength: 1,
+      example: 1,
+      nullable: true,
+    },
+    isLikedByCurrentUser: {
+      type: 'boolean',
+      example: true,
+      nullable: true,
+    },
+    isDislikedByCurrentUser: {
+      type: 'boolean',
+      example: true,
+      nullable: true,
+    },
+    itemRateByAuthorComment: {
+      type: 'number',
+      example: 3.5,
+      nullable: true,
     },
     createdAt: {
       type: 'string',

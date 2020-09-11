@@ -15,14 +15,15 @@ import {
   ADD_USER_GAME,
   DELETE_USER_GAME,
   DELETE_USER_SETUP,
+  EDIT_USER_SETUP,
   SET_TAB,
+  LOAD_USER_FAILURE,
 } from './actionTypes';
 
 import { TypeUser, TypeUserUpdate } from 'common/models/typeUser';
 import { UserGame, Game } from 'common/models/typeUserGame';
-import { User } from 'common/models/user';
 import { SetupType } from 'common/models/typeSetup';
-import { UserPageTabs } from 'containers/UserPage/index';
+import { UserPageTabs } from 'containers/UserPage/interfaces';
 
 export const loadUser = (id: number): UserActionTypes => ({
   type: LOAD_USER,
@@ -32,6 +33,10 @@ export const loadUser = (id: number): UserActionTypes => ({
 export const loadUserSuccess = (data: TypeUser): UserActionTypes => ({
   type: LOAD_USER_SUCCESS,
   payload: data,
+});
+
+export const loadUserFailed = (): UserActionTypes => ({
+  type: LOAD_USER_FAILURE,
 });
 
 export const updateUser = (data: TypeUserUpdate, avatarData?: Blob): UserActionTypes => ({
@@ -80,6 +85,11 @@ export const deleteUserGame = (id: number, gameId: number): UserActionTypes => (
 export const deleteUserSetup = (userId: number, setupId: number): UserActionTypes => ({
   type: DELETE_USER_SETUP,
   payload: { setupId, userId },
+});
+
+export const editUserSetup = (setupId: number): UserActionTypes => ({
+  type: EDIT_USER_SETUP,
+  payload: { setupId },
 });
 
 export const loadSetups = (authorId: number): UserActionTypes => ({

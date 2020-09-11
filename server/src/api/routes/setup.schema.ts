@@ -1,10 +1,10 @@
 import { FastifyRequest } from 'fastify';
 import { SetupCreationAttributes } from '../../data/models/setup';
 import { SwaggerSchema } from '../../data/models/swaggerSchema';
-import { CpuSchema } from './cpu.schema';
+import { CpuSchema, DetailedCpuSchema } from './cpu.schema';
 import { GpuSchema } from './gpu.schema';
-import { MotherBoardSchema } from './motherboard.schema';
-import { RamSchema } from './ram.schema';
+import { MotherBoardSchema, DetailedMotherBoardSchema } from './motherboard.schema';
+import { RamSchema, DetailedRamSchema } from './ram.schema';
 import { PowerSupplySchema } from './powerSupply.schema';
 import { ISetupFilter } from '../../data/repositories/filters/setup.filter';
 import { UserAttributes } from '../../data/models/user';
@@ -51,6 +51,19 @@ export const SetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 0,
       maximum: 5,
+      nullable: true,
+    },
+    ownRating: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
+      maximum: 5,
+      nullable: true,
+    },
+    ratingCount: {
+      type: 'number',
+      example: 1,
+      minimum: 0,
       nullable: true,
     },
     comments_count: {
@@ -108,6 +121,12 @@ export const SetupSchema: SwaggerSchema = {
       minimum: 1,
       nullable: false,
     },
+    ramCount: {
+      type: 'integer',
+      example: 2,
+      minimum: 1,
+      nullable: false,
+    },
     powerSupplyId: {
       type: 'integer',
       example: 1,
@@ -151,10 +170,10 @@ export const SetupSchema: SwaggerSchema = {
 
 const getDetailedSetupSchema = (): SwaggerSchema => {
   const schema: SwaggerSchema = JSON.parse(JSON.stringify(SetupSchema));
-  schema.properties.cpu = CpuSchema;
+  schema.properties.cpu = DetailedCpuSchema;
   schema.properties.gpu = GpuSchema;
-  schema.properties.ram = RamSchema;
-  schema.properties.motherboard = MotherBoardSchema;
+  schema.properties.ram = DetailedRamSchema;
+  schema.properties.motherboard = DetailedMotherBoardSchema;
   schema.properties.powerSupply = PowerSupplySchema;
 
   schema.properties.hdd = {
@@ -238,6 +257,11 @@ export const CreateSetupSchema: SwaggerSchema = {
       example: 1,
       nullable: false,
     },
+    ramCount: {
+      type: 'integer',
+      example: 1,
+      nullable: false,
+    },
     hddId: {
       type: 'integer',
       example: 1,
@@ -305,6 +329,11 @@ export const UpdateSetupSchema: SwaggerSchema = {
       example: 1,
       minimum: 1,
       nullable: true,
+    },
+    ramCount: {
+      type: 'integer',
+      example: 1,
+      nullable: false,
     },
     hddId: {
       type: 'integer',

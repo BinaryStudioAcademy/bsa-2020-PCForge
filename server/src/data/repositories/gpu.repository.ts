@@ -25,6 +25,7 @@ export class GpuRepository extends BaseRepository<GpuModel, GpuCreationAttribute
           memorySize: {
             [Op.between]: [filter.memorySize.minValue, filter.memorySize.maxValue],
           },
+          id: { [Op.and]: { [Op.or]: filter.id, [Op.not]: filter.excludedId } },
         },
       },
       filter

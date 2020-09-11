@@ -1,7 +1,7 @@
 import { hardwaresActionTypes, HARDWARES_GET_HARDWARES } from './actionTypes';
-import { hardwareTypes } from './HardwareSidebarView/actionTypes';
+import { HardwareSearchPayload } from './interfaces';
 
-export const getHardwares = (payload: { count: number; from: number; type: hardwareTypes }): hardwaresActionTypes => ({
+export const getHardwares = (payload: HardwareSearchPayload): hardwaresActionTypes => ({
   type: HARDWARES_GET_HARDWARES,
   payload,
 });

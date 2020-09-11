@@ -67,3 +67,6 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+node_modules
+android
+.env

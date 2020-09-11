@@ -16,7 +16,7 @@ export const getAllGames = async (filter: TypeFilter): Promise<TypeResponseAllGa
   return await webApi.get(endpoint, filter);
 };
 
-export const getGame = async (id: number): Promise<Game> => {
+export const getGameById = async (id: number): Promise<Game> => {
   return await webApi.get(`${endpoint}/${id}`);
 };
 

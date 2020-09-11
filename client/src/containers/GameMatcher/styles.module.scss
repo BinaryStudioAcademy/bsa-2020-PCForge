@@ -3,7 +3,7 @@
 .gameMatcher {
   display: flex;
   flex-direction: column;
-  margin: 0 8rem;
+  //margin: 0 8rem;
   width: 100%;
 }
 
@@ -17,6 +17,11 @@
 
 .contentWrapper {
   display: flex;
+}
+.rightWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }
 
 .mainContainer {
@@ -47,6 +52,12 @@
   line-height: 28px;
   color: $colorTextWhite;
   margin: 10px 0;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+section:nth-child(2n) {
+  margin-top: 40px;
 }
 
 .selectItemHeader.selectItemHeader {
@@ -65,6 +76,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 2em;
 }
 
 .buttonLabel {
@@ -79,12 +91,28 @@
   display: flex;
   flex-direction: column;
 }
+
 .buttonWrapper{
   margin: 2em 0;
   align-self: center;
 }
+.addRequestBlock {
+  //width: fit-content;
+  width: 100%;
+  text-align: justify;
+  margin: 1em 0;
+  margin-right: 3rem;
+  color: $colorLightGray;
 
-@media (max-width: 960px) {
+  .linkRequest {
+    color: $colorDarkGray;
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+  }
+}
+
+
+@media (max-width: 1060px) {
   .mainContainer {
     margin-bottom: 40px;
     margin-right: 0;
@@ -95,5 +123,8 @@
   }
   .configs {
     width: 80%;
+  }
+  .addRequestBlock {
+    width: fit-content;
   }
 }

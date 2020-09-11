@@ -8,4 +8,7 @@ export type TypeFilter = {
   sata?: string;
   m2?: boolean;
   userId?: number;
+  type?: string;
+  'capacity[maxValue]'?: number;
+  'capacity[minValue]'?: number;
 };
