@@ -20,6 +20,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     const { type } = request.query;
     switch (type) {
       case typeStatisticRequests.mostUsedHardware: {
+        const statistics = await StatisticService.getMostUsedHardware();
+        reply.send(statistics);
         //const statisticDate = await statisticService.getAllTopGames(request.query);
         //reply.send(statisticDate);
         break;
