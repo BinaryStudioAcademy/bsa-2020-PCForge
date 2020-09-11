@@ -1,27 +1,17 @@
 import { RootState } from 'redux/rootReducer';
 import { ConnectedProps, connect } from 'react-redux';
-import { sendResetPasswordRequest } from './actions';
-import { Link as RouterLink } from 'react-router-dom';
+import { sendResetPasswordRequest } from 'containers/ResetPassword/actions';
+import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Routes } from 'common/enums';
-
 import React from 'react';
 import styles from 'containers/ResetPassword/styles.module.scss';
-import { Container, createStyles, Grid, makeStyles, Theme } from '@material-ui/core';
-import InputWithValidation from 'components/InputWithValidation';
-import EmailSchema from 'common/validation/email';
-import Button, { ButtonType } from 'components/BasicComponents/Button';
+import { Box, Container } from '@material-ui/core';
+import Button from 'components/BasicComponents/Button';
 import Spinner from 'components/Spinner';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    sendButton: {
-      fontSize: 22,
-      padding: 20,
-      marginTop: 25,
-    },
-  })
-);
+import Input from 'components/BasicComponents/Input';
+import UserSchema from 'common/validation/user';
+import { successMessage } from 'containers/Auth/actions';
 
 const ResetPasswordRequest: React.FC<Props> = ({
   sendResetPasswordRequest: propsSendResetPasswordRequest,
@@ -29,59 +19,83 @@ const ResetPasswordRequest: React.FC<Props> = ({
   loading,
   success,
 }): JSX.Element => {
-  const materialStyles = useStyles();
   const [email, setEmail] = React.useState<string>('');
-  const onEmailInputChange = (newEmail: string) => {
-    setEmail(newEmail);
+  const [errorMessage, validationError] = React.useState<string>('');
+  const onEmailInputChange = (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const target: HTMLInputElement = event.target as HTMLInputElement;
+    setEmail(target.value);
   };
-  const validateEmail = (newEmail: string): [boolean, string?] => {
-    try {
-      EmailSchema.email.validateSync(newEmail);
-      return [true, ''];
-    } catch (err) {
-      return [false, err.message];
-    }
+  const validateEmail = () => {
+    return new Promise((resolve, reject) => {
+      UserSchema.email
+        .validate(email)
+        .then(() => {
+          validationError('');
+          resolve();
+        })
+        .catch((err) => {
+          validationError(err.message);
+          reject();
+        });
+    });
   };
 
   const onSendRequestClick = () => {
-    propsSendResetPasswordRequest(email);
+    validateEmail().then(() => {
+      propsSendResetPasswordRequest(email);
+    });
   };
+
+  const err = errorMessage || error;
+
+  if (success) {
+    return <Redirect to={Routes.LOGIN} />;
+  }
 
   return (
     <React.Fragment>
-      <Container className={styles.container} maxWidth="xs">
+      <div className={styles.bgContainer} />
+      <Container className={styles.container} maxWidth="md">
         {loading ? (
-          <Spinner />
+          <Box className="spinnerWrapper">
+            <Spinner />
+          </Box>
         ) : (
-          <Grid container spacing={4} direction="column" justify="center" alignItems="stretch">
-            <Grid item md>
-              <div>
-                <h2>Forgot password?</h2>
-                <h3>Enter your email address and we will send you a link to reset your password</h3>
-              </div>
-            </Grid>
-            <Grid item>
-              <InputWithValidation onChange={onEmailInputChange} validate={validateEmail} label="Email" />
-            </Grid>
-            <Grid container justify="center">
-              <Button
-                variant="outlined"
-                disabled={validateEmail(email)[0] ? false : true}
-                className={materialStyles.sendButton}
-                buttonType={validateEmail(email)[0] ? ButtonType.secondary : ButtonType.error}
-                onClick={onSendRequestClick}
-              >
-                Send
+          <Box>
+            <Box className={styles.header}>
+              <h2>Reset password</h2>
+              <p>We'll send you an email with a password reset</p>
+            </Box>
+            <Box className={styles.contentWrapper}>
+              {err && (
+                <Alert className={styles.alert} alertType={AlertType.error}>
+                  {err}
+                </Alert>
+              )}
+              {success && (
+                <Alert className={styles.alert} alertType={AlertType.success}>
+                  Successfully sent
+                </Alert>
+              )}
+              <Input
+                name="Email"
+                className={styles.emailInput}
+                onChange={onEmailInputChange}
+                value={email}
+                placeholder="Email"
+                type="text"
+                required
+              />
+              <Button type="submit" onClick={onSendRequestClick}>
+                Send Email
               </Button>
-            </Grid>
-            <Grid container justify="center">
-              <RouterLink to={Routes.LOGIN} className={styles.link}>
-                back to login
+            </Box>
+            <Box className={styles.loginWrapper}>
+              <RouterLink to={Routes.LOGIN} className={'link ' + styles.login}>
+                Back to login
               </RouterLink>
-            </Grid>
-            <Grid item>{success && <Alert alertType={AlertType.success}>Successfully sent</Alert>}</Grid>
-            <Grid item>{error && <Alert alertType={AlertType.error}>{error}</Alert>}</Grid>
-          </Grid>
+            </Box>
+          </Box>
         )}
       </Container>
     </React.Fragment>
@@ -96,6 +110,7 @@ const mapState = (state: RootState) => ({
 
 const mapDispatch = {
   sendResetPasswordRequest,
+  successMessage,
 };
 
 const connector = connect(mapState, mapDispatch);

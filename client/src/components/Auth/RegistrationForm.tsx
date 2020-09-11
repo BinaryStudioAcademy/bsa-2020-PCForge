@@ -4,6 +4,8 @@ import Input from 'components/BasicComponents/Input';
 import Button from 'components/BasicComponents/Button';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
+import { Box } from '@material-ui/core';
+import Spinner from 'components/Spinner';
 
 interface IRegistrationFormProps {
   email: string;
@@ -28,40 +30,48 @@ const LoginForm = ({
 }: IRegistrationFormProps): JSX.Element => {
   return (
     <div className={[styles.loginWrapper, styles.registrationWrapper].join(' ')}>
-      <form className={styles.loginForm}>
-        <div className={styles.loginHeader}>Registration</div>
-        {errorMessage ? (
-          <Alert className={styles.errorAlert} alertType={AlertType.error}>
-            {errorMessage}
-          </Alert>
-        ) : null}
-        <Input
-          name="Email"
-          className={styles.emailInput}
-          onChange={handleChangeEmail}
-          value={email}
-          placeholder="Email"
-          type="text"
-          required
-        />
-        <PasswordInput className={styles.passwordBox} inputHandler={handleChangePassword} placeholder="Password" />
-        <PasswordInput
-          className={styles.confirmPasswordBox}
-          inputHandler={handleChangeConfirmPassword}
-          placeholder="Confirm password"
-        />
-        <div className={styles.registerButtonBox}>
-          <Button type="submit" onClick={register} disabled={isLoading}>
-            Register
-          </Button>
-        </div>
-      </form>
-      <span className={styles.registerBox}>
-        Already have an account?{' '}
-        <span onClick={switchToLogin} className={[styles.registerLink, 'link'].join(' ')}>
-          Login now!
-        </span>
-      </span>
+      {isLoading ? (
+        <Box className="spinnerWrapper">
+          <Spinner load={true} />
+        </Box>
+      ) : (
+        <React.Fragment>
+          <form className={styles.loginForm}>
+            <div className={styles.loginHeader}>Registration</div>
+            {errorMessage ? (
+              <Alert className={styles.errorAlert} alertType={AlertType.error}>
+                {errorMessage}
+              </Alert>
+            ) : null}
+            <Input
+              name="Email"
+              className={styles.emailInput}
+              onChange={handleChangeEmail}
+              value={email}
+              placeholder="Email"
+              type="text"
+              required
+            />
+            <PasswordInput className={styles.passwordBox} inputHandler={handleChangePassword} placeholder="Password" />
+            <PasswordInput
+              className={styles.confirmPasswordBox}
+              inputHandler={handleChangeConfirmPassword}
+              placeholder="Confirm password"
+            />
+            <div className={styles.registerButtonBox}>
+              <Button type="submit" onClick={register} disabled={isLoading}>
+                Register
+              </Button>
+            </div>
+          </form>
+          <span className={styles.registerBox}>
+            Already have an account?{' '}
+            <span onClick={switchToLogin} className={[styles.registerLink, 'link'].join(' ')}>
+              Login now!
+            </span>
+          </span>
+        </React.Fragment>
+      )}
     </div>
   );
 };

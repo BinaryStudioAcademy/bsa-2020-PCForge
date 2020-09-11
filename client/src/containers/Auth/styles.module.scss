@@ -5,6 +5,9 @@ div.authContainer {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  max-width: 1300px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .bgContainer {
@@ -22,25 +25,64 @@ div.authContainer {
 }
 
 .infoWrapper {
+  margin: 0 auto;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
   h1 {
-    margin: 42px 0 0;
-    font-size: 35px;
+    display: inline-block;
+    margin: 0;
+    font-size: 55px;
     line-height: 1;
+
+    @media screen and (max-width: 1125px) {
+      font-size: 45px;
+    }
+
+    @media screen and (max-width: 475px) {
+      font-size: 35px;
+    }
+
+    @media screen and (max-width: 365px) {
+      font-size: 30px;
+    }
   }
 
   h2 {
+    display: inline-block;
     margin-top: 0;
-    font-size: 17px;
+    font-size: 22px;
     font-weight: normal;
+
+    @media screen and (max-width: 1125px) {
+      font-size: 18px;
+    }
+
+    @media screen and (max-width: 475px) {
+      font-size: 15px;
+    }
+
+    @media screen and (max-width: 365px) {
+      font-size: 13px;
+    }
   }
 }
 
 .loginWrapper {
+  display: flex;
+  flex-direction: column;
   position: relative;
   z-index: 3;
-  padding: 42px 30px;
+  padding: 35px 30px;
   border-radius: 20px;
   max-width: 410px;
+  min-height: 686px;
+  margin: 0 auto;
 
   &::after {
     content: "";
@@ -55,17 +97,30 @@ div.authContainer {
     background-color: $componentBgColor;
   }
 
+  @media screen and (max-width: 960px) {
+    min-width: 365px;
+    min-height: 586px;
+  }
+
   form {
     margin-bottom: 180px;
 
+    @media screen and (max-width: 960px) {
+      margin-bottom: 80px;
+    }
+
     .loginHeader {
       display: block;
-      font-size: 35px;
+      font-size: 40px;
       font-weight: bold;
       line-height: 1;
-      margin-bottom: 36px;
+      margin-bottom: 28px;
       cursor: default;
       text-align: center;
+
+      @media screen and (max-width: 475px) {
+        font-size: 35px;
+      }
     }
 
     .errorAlert {
@@ -89,6 +144,7 @@ div.authContainer {
       display: block;
       margin-bottom: 30px;
       user-select: none;
+      font-size: 1.1em;
     }
 
     .loginButtonBox,
@@ -106,7 +162,7 @@ div.authContainer {
     }
 
     button {
-      min-width: 124px;
+      min-width: 130px;
     }
   }
 
@@ -118,9 +174,20 @@ div.authContainer {
     }
   }
 
+  .loginButtonBox, .registerButtonBox, .googleBtnHolder {
+    button {
+      font-size: 1rem;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, .15);
+      }
+    }
+  }
+
   .registerBox {
     display: block;
     text-align: center;
+    font-size: 1.2em;
 
     .registerLink {
       user-select: none;
@@ -130,38 +197,22 @@ div.authContainer {
 
 .registrationWrapper {
   form {
-    margin-bottom: 237px;
-  }
-}
+    margin-bottom: 261px;
 
-@media screen and (max-width: 859px) {
-  .loginWrapper {
-    form {
-      margin-bottom: 40px;
+    @media screen and (max-width: 960px) {
+      margin-bottom: 181px;
     }
   }
 
-  .registrationWrapper {
-    form {
-      margin-bottom: 97px;
-    }
-  }
+
 }
+
 
 @media screen and (max-width: 420px) {
-  .infoWrapper {
-    h1 {
-      margin: 32px 0 0;
-      font-size: 27px;
-    }
-
-    h2 {
-      font-size: 13px;
-    }
-  }
 
   .loginWrapper {
     padding: 30px;
+    min-width: auto;
 
     form {
       .forgotPassword {
@@ -174,7 +225,7 @@ div.authContainer {
 
         .keepSignedBox {
           width: 100%;
-          margin-bottom: 15px;
+          margin-bottom: 24px;
           margin-right: 0;
 
           .keepSigned {
@@ -204,11 +255,10 @@ div.authContainer {
 
 
 .googleBtnHolder {
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
-
   .separator {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 
     &::before,
     &::after {
@@ -220,9 +270,13 @@ div.authContainer {
     }
   }
 
-  button span {
-    text-transform: initial;
-    color: rgb(221, 219, 219);
+  button {
+    min-width: 200px;
+
+    span {
+      text-transform: initial;
+      color: rgb(221, 219, 219);
+    }
   }
 
   img {

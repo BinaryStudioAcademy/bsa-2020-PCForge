@@ -49,8 +49,8 @@ class App extends Component {
             <PrivateRoute exact path={`${Routes.ADDITEM}/:item`} component={AddItemPages} />
             <PrivateRoute exact path={Routes.GAME} component={GamePage} />
             <PrivateRoute exact path={Routes.EMAIL_VERIFICATION} component={EmailVerificationPage} />
-            <PrivateRoute exact path={Routes.RESET_PASSWORD_REQUEST} component={ResetPasswordRequest} />
-            <PrivateRoute exact path={Routes.RESET_PASSWORD} component={ResetPasswordCallback} />
+            <PublicRoute exact path={Routes.RESET_PASSWORD_REQUEST} component={ResetPasswordRequest} />
+            <PublicRoute exact path={Routes.RESET_PASSWORD} component={ResetPasswordCallback} />
             <PrivateRoute exact path={Routes.NEWS} component={NewsPage} />
             <PrivateRoute exact path={Routes.ONE_NEWS} component={OneNewsPage} />
             <PrivateRoute exact path={Routes.HARDWARES} component={HardwaresPage} />
