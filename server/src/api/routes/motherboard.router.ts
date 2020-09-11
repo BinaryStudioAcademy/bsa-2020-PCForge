@@ -38,7 +38,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
     allowForAuthorized(request);
     decodeName(request);
     renameQuery(request, ['socketIds', 'socketId'], ['ramTypeIds', 'ramTypeId'], ['sataMultiple', 'sata']);
-    const motherboards = await HardwareService.getTopMotherboards(request.query);
+    // const motherboards = await HardwareService.getTopMotherboards(request.query);
+    const motherboards = await MotherboardService.getAllMotherboards(request.query);
     reply.send(motherboards);
   });
 

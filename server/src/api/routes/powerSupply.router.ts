@@ -32,7 +32,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetOnePowerSuppliesRequest, reply) => {
     allowForAuthorized(request);
     decodeName(request);
-    const powerSupplies = await HardwareService.getTopPowerSupplies(request.query);
+    // const powerSupplies = await HardwareService.getTopPowerSupplies(request.query);
+    const powerSupplies = await PowerSupplyService.getAllPowerSupplies(request.query);
     reply.send(powerSupplies);
   });
 

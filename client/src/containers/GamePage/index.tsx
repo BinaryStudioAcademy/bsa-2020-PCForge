@@ -62,7 +62,7 @@ class GamePage extends Component<IGamePageProps, IGamePageState> {
     }
 
     return (
-      <PageComponent selectedMenuItemNumber={MenuItems.Games}>
+      <PageComponent titleSelector="Game" selectedMenuItemNumber={MenuItems.Games}>
         <Container className={styles.mainWrapper}>
           <Grid className={styles.contentWrapper}>
             <Grid className={styles.gameWrapper} xs={12} container direction="column">

@@ -94,7 +94,7 @@ const UserPage = (props: Props) => {
     return <Redirect to="/404" />;
   }
 
-  return <PageComponent>{renderContent()}</PageComponent>;
+  return <PageComponent titleSelector="UserProfile">{renderContent()}</PageComponent>;
 };
 
 const mapState = (state: RootState) => ({

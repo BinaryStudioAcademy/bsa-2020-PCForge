@@ -1,0 +1,140 @@
+@import 'styles/variables.scss';
+
+.inputItem {
+  margin-top: 0.5em;
+}
+
+.selectItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.selectItemHeader {
+  color: $colorTextGray;
+  margin: 10px 0 0 0;
+  font-size: 10px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+.labelBaseSelect {
+  color: $colorTextGray;
+  margin-top: 10px;
+  font-size: 10px;
+  line-height: 18px;
+  text-transform: uppercase;
+}
+
+
+.additionalFieldsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .additionalFieldLeft {
+    margin-right: 1em;
+    width: 50%;
+  }
+  .additionalFieldRight {
+    width: 50%;
+  }
+}
+
+.buttonContainer {
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.buttonWrapper {
+  margin: 1em 2em;
+}
+
+.contentPage {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3em;
+  margin: 0 8rem;
+}
+.contentMain {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  background: $colorDarkGray;
+  flex-grow: 1;
+  border-radius: 7px;
+  box-shadow: 40px 40px 20px 30px rgba(0, 0, 0, 0.1);
+  padding: 3rem 0 4rem;
+  margin-right: 3rem;
+  width: 100%;
+}
+
+.imageUpload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 100%;
+    margin-bottom: 2em;
+  }
+}
+
+.leftContent {
+  width: 70%;
+  height: 100%;
+  padding: 3em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+.rightContent {
+  width: 30%;
+  padding: 4em 2em 2em 2em;
+}
+
+
+@media (max-width: 960px) {
+  .additionalFieldsContainer, .contentMain {
+    flex-direction: column;
+
+    .additionalFieldLeft, .inputItem {
+      width: 100%;
+    }
+    .additionalFieldRight {
+      width: 100%;
+    }
+  }
+
+  .additionalFieldsContainer, .contentMain {
+    flex-direction: column;
+  }
+  .additionalFieldLeft, .inputItem {
+    width: 100%;
+  }
+  .additionalFieldRight {
+    width: 100%;
+  }
+  .rightContent {
+    order: 1;
+    width: 100%;
+    padding: 3em;
+  }
+  .leftContent {
+    order: 2;
+    width: 100%;
+    padding: 3em;
+  }
+
+  .imageUpload {
+    img {
+      max-width: 50%;
+      height: auto;
+    }
+  }
+}

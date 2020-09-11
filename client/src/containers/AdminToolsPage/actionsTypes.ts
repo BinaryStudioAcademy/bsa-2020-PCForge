@@ -31,6 +31,7 @@ export interface ITotalCountsActionSuccess {
     countSetups: number;
     countHardWares: number;
     countGames: number;
+    countNews: number;
   };
 }
 
@@ -75,6 +76,7 @@ export interface UsersRequestState {
   countSetups: number;
   countHardWares: number;
   countGames: number;
+  countNews: number;
 }
 
 export type UserRequestDeleteType = 'approve' | 'disapprove';

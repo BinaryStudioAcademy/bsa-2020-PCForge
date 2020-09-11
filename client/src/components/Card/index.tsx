@@ -24,9 +24,7 @@ const Card: React.FC<I_Props> = ({ id, imageSource, name: name, processor, gpu, 
   return (
     <div className={classes.setupCard}>
       <Image className={classes.setupCardImage} src={imageSource} alt={name} />
-      <div className={classes.gameName}>
-        {name}
-      </div>
+      <div className={classes.gameName}>{name}</div>
       <div className={classes.ratingBox}>
         <RatingBox name={String(id)} ratingValue={rating} disabled={true} />
       </div>

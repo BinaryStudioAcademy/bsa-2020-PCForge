@@ -33,7 +33,8 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
   fastify.get('/', getAllSchema, async (request: GetAllHddsRequest, reply) => {
     allowForAuthorized(request);
     decodeName(request);
-    const hdds = await HardwareService.getTopHdds(request.query);
+    //const hdds = await HardwareService.getTopHdds(request.query);
+    const hdds = await HddService.getAllHdds(request.query);
     reply.send(hdds);
   });
 

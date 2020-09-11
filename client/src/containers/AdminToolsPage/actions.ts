@@ -30,7 +30,8 @@ export const loadAllTotalCounts = (
   countUsers: number,
   countSetups: number,
   countHardWares: number,
-  countGames: number
+  countGames: number,
+  countNews: number
 ): UsersRequestActions => ({
   type: UsersRequestActionTypes.GET_TOTAL_COUNTS_SUCCESS,
   payload: {
@@ -38,6 +39,7 @@ export const loadAllTotalCounts = (
     countSetups,
     countHardWares,
     countGames,
+    countNews,
   },
 });
 

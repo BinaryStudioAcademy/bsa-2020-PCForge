@@ -4,11 +4,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid $colorLightGray;
+  border: 1px solid $colorDarkGray;
+  box-shadow: 1px 1px 2px 1px $colorBackgroundGray;
   border-radius: 12px;
   background-color: $colorBackgroundGray;
   padding: 15px 20px;
-  min-width: 300px;
+  //min-width: 300px;
+  min-width: 80%;
 
   .cardTitle {
     line-height: 0;

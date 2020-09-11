@@ -9,6 +9,7 @@ import { TypeSetupForPost } from 'containers/BuilderPage/reducer';
 import { useDispatch } from 'react-redux';
 import { saveSetupRequest } from 'containers/BuilderPage/actions';
 import { MAX_IMAGE_SIZE } from 'common/constants';
+import setupChartSagas from 'containers/Chart/sagas';
 
 interface IProps {
   onClose: () => void;
@@ -20,6 +21,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
   const [fileName, setFileName] = useState('');
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState<string>('');
+  // const [existingImage, setExistingImage] = useState('');
   const [description, setDescription] = useState<string>('');
   const [computerComponents, setComputerComponents] = useState<TypeSetupForPost | null>(null);
 
@@ -32,6 +34,9 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
     if (setup?.description) {
       setDescription(setup.description);
     }
+    // if (setup?.image) {
+    //   setExistingImage(setup.image);
+    // }
   }, []);
 
   const dispatch = useDispatch();
@@ -42,6 +47,11 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
     if (file.size < MAX_IMAGE_SIZE) {
       setFile(file ? file : null);
       setFileName(file ? file.name : '');
+
+      // if (file) {
+      //   setExistingImage(URL.createObjectURL(file));
+      // }
+      
     } else {
       setFileName(`Image must be less than 5Mb bytes`);
     }
@@ -73,6 +83,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
   return (
     <Modal open={true}>
       <h2 className={styles.modalTitle}>{computerComponents?.id ? 'Update your Setup' : 'Save your Setup'}</h2>
+      {/* {existingImage && <div className={styles.setupExistingImage}><img src={existingImage}/></div> } */}
       <form onSubmit={handleFileUpload} className={styles.body}>
         <div className={styles.fileInputBox}>
           <Button buttonType={ButtonType.primary} className={styles.fileInputButton}>
@@ -84,7 +95,7 @@ const SaveSetupModal: React.FC<IProps> = ({ onClose }) => {
               onChange={onChangeImage}
             />
             <label htmlFor="uploadFile" className={styles.fileInputLabel}>
-              Select Image
+             {computerComponents?.id ? 'Update Image' : 'Select Image'}
             </label>
           </Button>
           <span className={styles.fileName}>{fileName}</span>

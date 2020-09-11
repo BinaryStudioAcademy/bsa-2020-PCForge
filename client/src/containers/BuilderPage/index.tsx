@@ -209,7 +209,7 @@ const BuilderPage = ({ className = '' }: PropsType): JSX.Element => {
   });
 
   return (
-    <PageComponent selectedMenuItemNumber={MenuItems.BuildSetup}>
+    <PageComponent titleSelector="Builder" selectedMenuItemNumber={MenuItems.BuildSetup}>
       <Box className={`${styles.builderWrapper} ${className}`}>
         {isModalActive ? <SaveSetupModal onClose={hideModal} /> : null}
         <Grid container spacing={5}>
