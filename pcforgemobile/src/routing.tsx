@@ -124,7 +124,7 @@ export const routes: Readonly<CustomRouteProps>[] = [
         type: 'MaterialIcons',
         name: 'pie-chart',
       },
-      showInDrawer: true,
+      showInDrawer: false,
     },
     options: {header: (props) => <AppTitle {...props} />},
   },

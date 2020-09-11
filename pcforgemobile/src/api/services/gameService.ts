@@ -14,7 +14,6 @@ const endpoint = '/games';
 
 export const getAllGames = async (filter: GameFilter): Promise<TypeResponseAllGames> => {
   const response = await webApi.get(endpoint, filter);
-  console.log(response.data);
   return response;
 };
 

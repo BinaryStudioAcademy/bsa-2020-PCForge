@@ -1,6 +1,7 @@
 import { Game } from 'common/models/game';
 import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
+import { ISetupPerformance } from '~/common/models/setupPerformance.model';
 
 export enum MatcherActionTypes {
   SET_ERROR = 'Matcher/SET_ERROR',
@@ -10,6 +11,9 @@ export enum MatcherActionTypes {
   FETCH_CPUS_SUCCESS = 'Matcher/FETCH_CPUS_SUCCESS',
   FETCH_GAMES_SUCCESS = 'Matcher/FETCH_GAMES_SUCCESS',
   FETCH_GPUS_SUCCESS = 'Matcher/FETCH_GPUS_SUCCESS',
+  FETCH_SETUP_PERFORMANCE = 'Matcher/FETCH_SETUP_PERFORMANCE',
+  FETCH_SETUP_PERFORMANCE_SUCCESS = 'Matcher/FETCH_SETUP_PERFORMANCE_SUCCESS',
+  FETCH_SETUP_PERFORMANCE_ERROR = 'MATCHER/FETCH_SETUP_PERFORMANCE_SUCCESS',
 }
 
 export interface IFetchGamesRequestAction {
@@ -61,9 +65,24 @@ interface ISetErrorAction {
   }
 }
 
-type MatcherRequests = IFetchCpusRequestAction | IFetchGamesRequestAction | IFetchGpusRequestAction;
+export interface IFetchSetupPerformance {
+  type: MatcherActionTypes.FETCH_SETUP_PERFORMANCE,
+  payload: {
+    cpuId: number;
+    gpuId: number;
+    ramSize: number;
+    gameId: number;
+  };
+};
 
-type MatcherSuccess = IFetchCpusAction | IFetchGamesAction | IFetchGpusAction;
+export interface IFetchSetupPerformanceSucces {
+  type: MatcherActionTypes.FETCH_SETUP_PERFORMANCE_SUCCESS,
+  payload: ISetupPerformance;
+}
+
+type MatcherRequests = IFetchCpusRequestAction | IFetchGamesRequestAction | IFetchGpusRequestAction | IFetchSetupPerformance;
+
+type MatcherSuccess = IFetchCpusAction | IFetchGamesAction | IFetchGpusAction | IFetchSetupPerformanceSucces;
 
 export type MatcherActions = MatcherRequests | MatcherSuccess | ISetErrorAction;
 
@@ -72,4 +91,5 @@ export interface MatcherState {
   cpus: Cpu[];
   gpus: Gpu[];
   error: string | null;
+  setupPerformance: ISetupPerformance | null;
 }

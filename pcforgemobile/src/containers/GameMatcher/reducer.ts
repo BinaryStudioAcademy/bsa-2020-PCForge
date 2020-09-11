@@ -4,6 +4,7 @@ const initialState: MatcherState = {
   games: [],
   cpus: [],
   gpus: [],
+  setupPerformance: null,
   error: null,
 };
 
@@ -27,6 +28,13 @@ export function MatcherReducer(state: MatcherState = initialState, action: Match
       return {
         ...state,
         games: action.payload.games,
+      }
+    }
+
+    case MatcherActionTypes.FETCH_SETUP_PERFORMANCE_SUCCESS: {
+      return {
+        ...state,
+        setupPerformance: action.payload,
       }
     }
 

@@ -3,7 +3,8 @@ import { getAllCpu, TypeResponseAllCpus } from 'api/services/cpuService';
 import { getAllGpu, TypeResponseAllGpus } from 'api/services/gpuService';
 import { getAllGames, TypeResponseAllGames } from 'api/services/gameService';
 import { setCpus, setError, setGames, setGpus } from './actions';
-import { MatcherActionTypes, IFetchGamesRequestAction, IFetchCpusRequestAction, IFetchGpusRequestAction } from './actionTypes';
+import { MatcherActionTypes, IFetchGamesRequestAction, IFetchCpusRequestAction, IFetchGpusRequestAction, IFetchSetupPerformance } from './actionTypes';
+import { getPerformance } from 'api/services/perfomanceService';
 
 function* fetchGames(action: IFetchGamesRequestAction) {
   try {
@@ -44,11 +45,24 @@ function* watchFetchGpus() {
   yield takeLeading(MatcherActionTypes.FETCH_GPUS, fetchGpus)
 }
 
+function* fetchSetupPerformance(action: IFetchSetupPerformance) {
+  try {
+    const data = yield call(getPerformance, action.payload);
+    yield put({ type: MatcherActionTypes.FETCH_SETUP_PERFORMANCE_SUCCESS, payload: data });
+  } catch(err) {
+    yield put(setError(err));
+  }
+}
+
+function* watchFetchSetupPerformance() {
+  yield takeLeading(MatcherActionTypes.FETCH_SETUP_PERFORMANCE, fetchSetupPerformance);
+};
 
 export default function* matcherSagas() {
   yield all([
     watchFetchGames(),
     watchFetchCpus(),
     watchFetchGpus(),
+    watchFetchSetupPerformance(),
   ]);
 }

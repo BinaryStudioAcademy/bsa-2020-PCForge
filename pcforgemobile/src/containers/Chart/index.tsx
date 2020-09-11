@@ -6,8 +6,11 @@ import {ScrollView} from 'react-native-gesture-handler';
 import PerfomanceOverview from './PerfomanceOverview';
 import FpsAnalysis from './FpsAnalysis';
 import PerformanceReport from './PerformanceReport';
+import { RouterItemProps } from 'routing';
+import { ISetupPerformance } from 'common/models/setupPerformance.model';
+import { Game } from 'common/models/game';
 
-interface Props {}
+type Props = RouterItemProps<ISetupPerformance & {game: Game}>;
 
 interface State {
   activeTab: 'system' | 'performance' | 'fps analysis';
@@ -16,16 +19,18 @@ interface State {
 class ChartPage extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
-
+    console.log(props.route.params,'chart props');
+    
     this.state = {
       activeTab: 'system',
     };
   }
   public render(): JSX.Element {
+    const { overall: { cpu, gpu, ram } } = this.props.route.params;
     return (
       <Container>
         <ScrollView>
-          {this.state.activeTab === 'system' && <PerfomanceOverview />}
+          {this.state.activeTab === 'system' && <PerfomanceOverview report={this.props.route.params} />}
           {this.state.activeTab === 'performance' && <PerformanceReport />}
           {this.state.activeTab === 'fps analysis' && <FpsAnalysis />}
         </ScrollView>

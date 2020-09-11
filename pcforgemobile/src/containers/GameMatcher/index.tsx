@@ -1,13 +1,10 @@
-import { Button, Container, Icon, Text, View, Footer, FooterTab } from 'native-base';
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
-import Autocomplete from 'react-native-autocomplete-input';
-import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { Button, Container, Icon, Text, View } from 'native-base';
+import React from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
 import { connect, ConnectedProps } from 'react-redux';
 import { Game } from 'common/models/game';
-import AppTitle from 'components/basicComponent/Title';
 import { RootState } from 'redux/rootReducer';
-import { fetchCpus, fetchGpus, fetchGames, setError, setCpus } from './actions';
+import { fetchCpus, fetchGpus, fetchGames, setError, fetchSetupPerformance } from './actions';
 import { styles } from './styles';
 import { Cpu } from 'common/models/cpu';
 import { Gpu } from 'common/models/gpu';
@@ -17,16 +14,17 @@ import { getAllGames } from 'api/services/gameService';
 import { getAllCpu } from 'api/services/cpuService';
 import { getAllGpu } from 'api/services/gpuService';
 import Slider from '@react-native-community/slider';
-// import Icon from 'react-native-vector-icons/Ionicons';
 
 const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
   cpus,
   gpus,
   games,
+  setupPerformance,
   error,
   fetchGames,
   fetchCpus,
   fetchGpus,
+  fetchSetupPerformance,
   navigation
 }): JSX.Element => {
   React.useEffect(() => {
@@ -38,6 +36,16 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
   const [cpu, setCpu] = React.useState<Cpu | undefined>(undefined);
   const [gpu, setGpu] = React.useState<Gpu | undefined>(undefined);
   const [ramSize, setRamSize] = React.useState<number>(1);
+
+  if (setupPerformance) {
+    setTimeout(() => {
+      const params = {
+        ...setupPerformance,
+        game
+      };
+      navigation.navigate('Chart', params);
+    })
+  }
 
   const navigateTo = async (type: 'game' | 'cpu' | 'gpu') => {
     const onInputChange = () => {
@@ -86,6 +94,9 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
   }
 
   const canIRunDisabled: boolean = !cpu || !gpu || !game;
+  const onSubmit = (): void => {
+    fetchSetupPerformance(cpu!.id, gpu!.id, ramSize, game!.id);
+  }
 
   return (
     <Container style={styles.root}>
@@ -123,7 +134,7 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        <Button disabled={canIRunDisabled} style={[styles.canRunButton, canIRunDisabled && styles.disabled]} onPress={() => {}} primary>
+        <Button disabled={canIRunDisabled} style={[styles.canRunButton, canIRunDisabled && styles.disabled]} onPress={onSubmit} primary>
           <Text style={styles.canRunButtonText}>Can i run it</Text>
         </Button>
       </View>
@@ -133,6 +144,7 @@ const GameMatcherPage: React.FC<Props & RouterItemProps> = ({
 
 const mapStateToProps = (state: RootState) => ({
   cpus: state.matcherReducer.cpus,
+  setupPerformance: state.matcherReducer.setupPerformance,
   gpus: state.matcherReducer.gpus,
   games: state.matcherReducer.games,
   error: state.matcherReducer.error,
@@ -142,6 +154,7 @@ const mapDispatchToProps = {
   fetchCpus,
   fetchGpus,
   fetchGames,
+  fetchSetupPerformance,
   setError,
 };
 

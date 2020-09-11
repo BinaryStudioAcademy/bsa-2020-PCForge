@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
   },
   footerTabCentral: {
     borderLeftColor: '#cbcfd4',
-    borderLeftWidth: 2,
+    borderLeftWidth: 1,
     borderRightColor: '#cbcfd4',
-    borderRightWidth: 2,
+    borderRightWidth: 1,
   },
 });
 

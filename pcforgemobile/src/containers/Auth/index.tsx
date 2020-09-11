@@ -59,14 +59,14 @@ class Auth extends React.PureComponent<IAuthProps, State> {
     this.props.loginRequest({email, password});
   }
 
-  public async signInGoogle() {
-    try {
-      const userData = await GoogleSignin.signIn();
-      console.log(userData);
-    } catch (error) {
-      throw error;
-    }
-  }
+  // public async signInGoogle() {
+  //   try {
+  //     const userData = await GoogleSignin.signIn();
+  //     console.log(userData);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   public render(): JSX.Element | null {
     if (this.props.state.user) {
@@ -118,13 +118,12 @@ class Auth extends React.PureComponent<IAuthProps, State> {
                   style={[styles.loginButton]}>
                   <Text style={styles.loginButtonText}>Login</Text>
                 </Button>
-                <GoogleSigninButton
+                {/* <GoogleSigninButton
                   style={[styles.loginGoogleButton]}
                   size={GoogleSigninButton.Size.Standard}
                   color={GoogleSigninButton.Color.Dark}
                   onPress={this.signInGoogle}
-                  // disabled={this.state.isSigninInProgress}
-                />
+                /> */}
               </View>
             </View>
           </>
