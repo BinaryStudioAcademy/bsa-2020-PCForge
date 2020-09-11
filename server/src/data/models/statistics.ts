@@ -15,10 +15,10 @@ export interface StatisticUserSetupsAttributes {
 
 export interface StatisticHardwareAttributes {
   // date: string;
-  type: 'cpu' | 'gpu' | 'ram' | 'ssd' | 'hdd' | 'motherboard';
+  type: 'cpu' | 'gpu' | 'ram' | 'ssd' | 'hdd';
   hardwareId: number;
   setupsCount: number;
-  hardware: CpuAttributes | GpuAttributes | RamAttributes | SsdAttributes | HddAttributes | MotherboardAttributes;
+  hardware: CpuAttributes | GpuAttributes | RamAttributes | SsdAttributes | HddAttributes;
 }
 
 // export interface CreationStatisticUserSetupsAttributes {

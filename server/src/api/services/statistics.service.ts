@@ -10,8 +10,8 @@ import { SetupRepository } from '../../data/repositories/setup.repository';
 import { UserRepository } from '../../data/repositories/user.repository';
 
 interface IHardware {
-  type: 'cpu' | 'gpu' | 'ram' | 'ssd' | 'hdd' | 'motherboard';
-  hardware: CpuAttributes | GpuAttributes | RamAttributes | SsdAttributes | HddAttributes | MotherboardAttributes;
+  type: 'cpu' | 'gpu' | 'ram' | 'ssd' | 'hdd';
+  hardware: CpuAttributes | GpuAttributes | RamAttributes | SsdAttributes | HddAttributes;
 }
 
 export class StatisticService {
