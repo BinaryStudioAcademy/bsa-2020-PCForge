@@ -36,7 +36,7 @@ export class SsdService extends BaseService<SsdModel, SsdCreationAttributes, Ssd
 
   async createSsd(inputSsd: SsdCreationAttributes): Promise<SsdModel> {
     const ssd = await this.repository.createSsd(inputSsd);
-    await elastic.addData(ssd);
+    await elastic.addData(ssd, 'ssds').catch((err) => console.log(err));
 
     return ssd;
   }

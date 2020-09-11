@@ -3,6 +3,43 @@
 .wrapper {
   //display: flex;
   align-items: center;
+
+  > .titleCount {
+    position: relative;
+    z-index: 10;
+    padding-left: 50px !important;
+
+    &:before {
+      content: '';
+      display: block;
+      width: 120px;
+      height: 300px;
+      background: #3c444d;
+      position: absolute;
+      left: 29px;
+      top: -107px;
+      z-index: -1;
+      transform: rotate(31deg);
+      border-radius: 0 0 0 15px;
+
+      @media screen and (max-width: 960px) {
+        height: 320px;
+      }
+    }
+  }
+
+  .componentFull {
+    p {
+      color: #8d8f96;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    @media screen and (max-width: 960px) {
+      z-index: 10;
+      position: relative;
+    }
+  }
 }
 
 .btnGroup {
@@ -15,6 +52,8 @@ div.groupItemSummary {
   min-height: 100px;
   padding: 8px 20px;
   background-color: $colorDarkGray;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .groupItemSummary > div {
@@ -24,6 +63,12 @@ div.groupItemSummary {
 
 .imageWrapper {
   padding: 0 !important;
+  max-width: 200px !important;
+
+  > img {
+    background: #2e3239;
+    box-shadow: 0 0 0 90px #2e3239;
+  }
 }
 
 .groupItemSummaryImg {

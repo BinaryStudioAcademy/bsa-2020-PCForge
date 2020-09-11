@@ -20,6 +20,8 @@
   justify-content: space-between;
   img {
     width: 100%;
+    height: 46%;
+    object-fit: cover;
   }
 }
 
@@ -45,5 +47,5 @@
 }
 
 .newsCard .btnRead {
-  width: 100%;
+  width: 120px;
 }

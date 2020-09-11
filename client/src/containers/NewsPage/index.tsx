@@ -31,12 +31,19 @@ const NewsPage = ({ role = 'page', countNews, className = '' }: PropsType): JSX.
   };
   const newsSlice = countNews ? newsAll.slice(0, countNews) : newsAll;
 
+  const renderNewsTitle = (title: string, length = 70) => {
+    const ellipsis = title.length > length ? '...' : '';
+    return title.substring(0, length) + ellipsis;
+  };
+
   const newsElements = newsSlice.map((news) => (
     <Card onClick={onClickHandler(news.id)} key={news.id} className={styles.newsCard}>
       <img src={news.image} alt={news.title} />
       <CardContent className={styles.content}>
-        <h3 className={styles.title}>{news.title}</h3>
-        <p className={styles.date}>{new Date(news.createdAt).toDateString()}</p>
+        <div style={{ minHeight: role === 'page' ? 148 : 100 }}>
+          <h3 className={styles.title}>{renderNewsTitle(news.title)}</h3>
+          <p className={styles.date}>{new Date(news.createdAt).toDateString()}</p>
+        </div>
         <Button icon="ArrowForward" className={styles.btnRead} buttonType={ButtonType.primary}>
           Read
         </Button>

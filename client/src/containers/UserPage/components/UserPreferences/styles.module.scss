@@ -1,7 +1,7 @@
 @import 'styles/index';
 $link-default-color: rgb(223, 217, 217);
 $link-default-hover-color: rgb(246, 243, 243);
-$user-page-bg: #30363d;;
+$user-page-bg: #30363d;
 
 .userPreferences {
   display: flex;
@@ -14,19 +14,19 @@ $user-page-bg: #30363d;;
   border-top: 1px solid rgb(102, 102, 102);
   background-color: $user-page-bg;
 
-
   & > a {
     text-decoration: none;
   }
-  
-  &> div, & > a{
-    width:25%;
+
+  & > div,
+  & > a {
+    width: 25%;
     min-width: 275px;
-    margin:10px;
+    margin: 10px;
   }
 
-  @media(min-width: $tablet) {
-    &>div {
+  @media (min-width: $tablet) {
+    & > div {
       width: 25%;
     }
   }
@@ -35,14 +35,15 @@ $user-page-bg: #30363d;;
     overflow: auto;
     justify-content: center;
 
-    >div {
+    > div {
       width: 100%;
     }
   }
 
-  &>div:hover {
+  & > div:hover {
     cursor: pointer;
-    box-shadow: 1px 1px 4px 5px rgba($color: $linkColor, $alpha: 0.2);
+    // box-shadow: 1px 1px 4px 5px rgba($color: $linkColor, $alpha: 0.2);
+    box-shadow: 10px 10px 20px 0px #2c3136;
   }
 }
 
@@ -63,17 +64,17 @@ $user-page-bg: #30363d;;
 
 .buttonPlacement {
   background-color: $user-page-bg;
-  height:75px;
+  height: 75px;
   label {
     display: none;
   }
 
-  &>div>div {
+  & > div > div {
     border-top-right-radius: 0;
     border-top-left-radius: 0;
   }
 
-  @media(max-width: 768px) {
+  @media (max-width: 768px) {
     display: flex;
     justify-content: center;
   }

@@ -36,7 +36,7 @@ export class HddService extends BaseService<HddModel, HddCreationAttributes, Hdd
 
   async createHdd(inputHdd: HddCreationAttributes): Promise<HddModel> {
     const hdd = await this.repository.createHdd(inputHdd);
-    await elastic.addData(hdd);
+    await elastic.addData(hdd, 'hdds').catch((err) => console.log(err));
     return hdd;
   }
 

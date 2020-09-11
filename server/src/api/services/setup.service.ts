@@ -39,7 +39,7 @@ export class SetupService extends BaseService<SetupModel, SetupCreationAttribute
   async createSetup(inputSetup: SetupCreationAttributes, setupMiddleware: ISetupMiddleware): Promise<SetupModel> {
     await setupMiddleware(inputSetup);
     const setup = await this.repository.create(inputSetup);
-    await elastic.addData(setup);
+    await elastic.addData(setup, 'setups').catch((err) => console.log(err));
     return setup;
   }
 

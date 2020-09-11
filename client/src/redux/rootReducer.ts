@@ -27,6 +27,7 @@ import { OneNewsReducer } from 'containers/OneNewsPage/reducer';
 import { SearchReducer } from 'containers/TopBar/reducer';
 import { GamesPageReducer } from 'containers/GamesPage/reducer';
 import { NewsFormReducer } from 'containers/AddItemPages/AddNewsForm/reducer';
+import StatisticRequestReducer from 'containers/AdminToolsPage/StatisticCharts/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -57,6 +58,7 @@ const RootReducer = combineReducers({
   searchEngine: SearchReducer,
   gamesPage: GamesPageReducer,
   newsForm: NewsFormReducer,
+  statistic: StatisticRequestReducer,
 });
 
 export default RootReducer;
