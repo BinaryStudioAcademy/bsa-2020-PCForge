@@ -127,7 +127,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
           disableUnderline={true}
           onFocus={(e) => e.preventDefault()}
           {...(this.props.withClose &&
-            (this.state.inputValue !== '' || this.props.showCloseAlways ) && {
+            (this.state.inputValue !== '' || this.props.showCloseAlways) && {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
