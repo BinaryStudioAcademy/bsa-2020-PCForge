@@ -10,7 +10,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { withStyles } from '@material-ui/styles';
 import TopBarNotification from './TopBarNotification/topBarNotification';
 import { INotification } from 'common/services/NotificationService/notification';
-import { getSearchResults } from './actions';
+import { getSearchResults, clearSearchResult } from './actions';
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
 import { ReactComponent as NewsIcon } from 'assets/icons/news.svg';
@@ -58,7 +58,14 @@ const Icons: { [key: string]: IItem } = {
   news: { icon: NewsIcon, srcPageGenerator: (id) => `${Routes.NEWS}` },
 };
 
-const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSearchResults, searchResults }) => {
+const TopBar: React.FC<Props> = ({
+  notifications,
+  WebSocketService,
+  user,
+  getSearchResults,
+  searchResults,
+  clearSearchResult,
+}) => {
   const [searchValue, setSearchValue] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -79,6 +86,12 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSea
 
   const selectHandler = () => {
     setIsActive(true);
+  };
+
+  const blurHandler = () => {
+    setTimeout(() => {
+      setIsActive(false);
+    }, 200);
   };
 
   const onRead = (notification: INotification) => {
@@ -104,7 +117,7 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSea
   return (
     <div className={styles.topBarRoot}>
       <div className={styles.rightTopBar}>
-        <div className={styles.searchBlock}>
+        <div className={styles.searchBlock} onBlur={blurHandler}>
           <Search value={searchValue} onChange={onInputChange} autoComplete="off" onSelect={selectHandler} />
           {searchResults.length && isActive ? (
             <div className={styles.searchResults}>
@@ -113,6 +126,11 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSea
                   <Link
                     key={`link-${index}`}
                     className={styles.searchLink}
+                    onClick={() => {
+                      clearSearchResult();
+                      setIsActive(false);
+                      setSearchValue('');
+                    }}
                     to={Icons[item._index].srcPageGenerator(item._source.id)}
                   >
                     <p className={styles.searchResultsItem}>
@@ -186,7 +204,7 @@ const mapState = (state: RootState) => ({
   searchResults: state.searchEngine.results,
 });
 
-const mapDispatch = { getSearchResults };
+const mapDispatch = { getSearchResults, clearSearchResult };
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;

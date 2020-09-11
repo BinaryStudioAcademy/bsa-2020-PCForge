@@ -12,6 +12,12 @@ export function SearchReducer(state = initialState, action: SearchActions): Sear
         results: action.payload,
       };
     }
+    case SearchActionsTypes.CLEAR_SEARCH_RESULTS: {
+      return {
+        ...state,
+        results: [],
+      };
+    }
     default:
       return state;
   }
