@@ -6,8 +6,7 @@ import {RootState} from 'redux/rootReducer';
 import {DrawerProps} from './interfaces';
 import {connect} from 'react-redux';
 import {Button, Icon} from 'native-base';
-import { routes } from 'routing';
-import { NavigationContainerRef } from '@react-navigation/native';
+import {routes} from 'routing';
 const defaultImage = require('assets/images/userImagePlaceholder.png');
 
 interface State {
@@ -45,7 +44,7 @@ class Drawer extends React.PureComponent<DrawerProps, State> {
     this.ref?.closeDrawer();
     setTimeout(() => {
       this.props.navigate(routeName);
-    })
+    });
   }
 
   public render(): JSX.Element {
@@ -65,20 +64,24 @@ class Drawer extends React.PureComponent<DrawerProps, State> {
             <Text style={styles.userEmail}>{email}</Text>
           </View>
         </ImageBackground>
-        {routes.map(routeProps => {
+        {routes.map((routeProps) => {
           if (routeProps.initialParams.showInDrawer) {
             return (
               <Button
-                iconLeft 
+                iconLeft
                 onPress={() => this.onChangeRoute(routeProps.name)}
                 block
                 style={styles.routeListItem}
-                key={routeProps.name}
-              >
-                {<Icon {...routeProps.initialParams.iconProps} style={styles.icon} />}
+                key={routeProps.name}>
+                {
+                  <Icon
+                    {...routeProps.initialParams.iconProps}
+                    style={styles.icon}
+                  />
+                }
                 <Text style={styles.routeText}>{routeProps.name}</Text>
               </Button>
-            )
+            );
           }
           return null;
         })}
@@ -92,9 +95,8 @@ class Drawer extends React.PureComponent<DrawerProps, State> {
         drawerPosition="left"
         drawerWidth={250}
         renderNavigationView={() => navigationView}
-        drawerBackgroundColor='#25292e'
-        style={styles.root}
-      >
+        drawerBackgroundColor="#25292e"
+        style={styles.root}>
         {this.props.children}
       </DrawerLayoutAndroid>
     );

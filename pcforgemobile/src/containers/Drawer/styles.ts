@@ -2,11 +2,11 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: '#424242'
+    backgroundColor: '#424242',
   },
   routeListItem: {
     justifyContent: 'flex-start',
-    backgroundColor: '#424242'
+    backgroundColor: '#424242',
   },
   userImage: {
     width: 250,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     marginRight: 5,
-    color: "#cbcfd4"
+    color: '#cbcfd4',
   },
   routeText: {
     color: '#fff',

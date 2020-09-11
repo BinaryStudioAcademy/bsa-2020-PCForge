@@ -1,20 +1,19 @@
 import {StyleSheet} from 'react-native';
+import color from 'color';
 
 const styles = StyleSheet.create({
   root: {},
-  progressCircleContainer: {
-    //   display: 'flex',
-    position: 'relative',
-    justifyContent: 'center',
-    height: 200,
-    width: 200,
-    backgroundColor: '#fff',
-    // alignItems:
+  footerTab: {
+    backgroundColor: '#3c444d',
   },
-  progressCircle: {
-    height: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
+  footerTabActive: {
+    backgroundColor: color('#3c444d').lighten(0.2).hex(),
+  },
+  footerTabCentral: {
+    borderLeftColor: '#cbcfd4',
+    borderLeftWidth: 2,
+    borderRightColor: '#cbcfd4',
+    borderRightWidth: 2,
   },
 });
 
