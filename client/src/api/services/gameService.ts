@@ -13,6 +13,7 @@ export interface IGameFilter {
   name?: string;
   from?: number;
   count?: number;
+  sortType?: string;
 }
 
 const endpoint = '/games';

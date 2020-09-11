@@ -25,6 +25,7 @@ import ToastNotificationsReducer from 'containers/ToastNotifications/logic/reduc
 import { GameReducer } from 'containers/GamePage/reducer';
 import { OneNewsReducer } from 'containers/OneNewsPage/reducer';
 import { SearchReducer } from 'containers/TopBar/reducer';
+import { GamesPageReducer } from 'containers/GamesPage/reducer';
 
 const RootReducer = combineReducers({
   auth: AuthReducer,
@@ -53,6 +54,7 @@ const RootReducer = combineReducers({
   gamePage: GameReducer,
   oneNewsPage: OneNewsReducer,
   searchEngine: SearchReducer,
+  gamesPage: GamesPageReducer,
 });
 
 export default RootReducer;

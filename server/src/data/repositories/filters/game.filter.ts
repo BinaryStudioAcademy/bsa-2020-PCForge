@@ -10,6 +10,7 @@ export class IGameFilter extends IFilter {
   year: FilterByNumberType = notNull;
   id: FilterByNumberType = notNull;
   searchString?: string = '';
+  sortType: 'mostRated' | 'newest' | 'oldest' | 'commendable';
 
   orderBy: {
     cpu: {
@@ -61,6 +62,9 @@ export class IGameFilter extends IFilter {
                 type: 'string',
               },
             },
+          },
+          sortType: {
+            type: 'string',
           },
         },
         nullable: true,

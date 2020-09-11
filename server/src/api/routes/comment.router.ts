@@ -49,7 +49,7 @@ export function router(fastify: FastifyInstance, opts: FastifyOptions, next: Fas
 
   const createOneSchema = createOneQuery(UpdateCommentSchema, CommentSchema);
   fastify.post('/', { ...createOneSchema }, async (request: PostCommentRequest, reply) => {
-    allowForVerified(request);
+    // allowForVerified(request);
     request.body.userId = request.user.id;
     const comment = await CommentService.createComment(request.body, commentMiddleware);
     sendCommentNotification(comment);
