@@ -1,19 +1,6 @@
 import React, { PureComponent } from 'react';
 import { PieChart, Pie, Sector } from 'recharts';
-
-const UserSetupData: IUserData[] = [
-  { name: 'AdminCool', value: 10 },
-  { name: 'Bill', value: 5 },
-  { name: 'User100500', value: 4 },
-  { name: 'User4', value: 3 },
-  { name: 'Yuliia', value: 3 },
-  { name: 'others', value: 9 },
-];
-
-interface IUserData {
-  name: string;
-  value: number;
-}
+import { IChartData } from './index';
 
 interface IPropsChart {
   cx: number;
@@ -24,7 +11,7 @@ interface IPropsChart {
   startAngle: number;
   endAngle: number;
   fill: string;
-  payload: IUserData;
+  payload: IChartData;
   percent: number;
   value: number;
 }
@@ -80,12 +67,21 @@ const renderActiveShape = (props: IPropsChart) => {
   );
 };
 
-export default class UserSetupCount extends PureComponent {
+interface UserSetupCountProps {
+  dataList: IChartData[] | undefined;
+}
+
+export default class UserSetupCount extends PureComponent<UserSetupCountProps> {
+  constructor(props: UserSetupCountProps) {
+    super(props);
+  }
+  public dataList = this.props.dataList;
+
   state = {
     activeIndex: 0,
   };
 
-  onPieEnter = (UserSetupData: IUserData[], index: number) => {
+  onPieEnter = (dataList: IChartData[], index: number) => {
     this.setState({
       activeIndex: index,
     });
@@ -97,7 +93,7 @@ export default class UserSetupCount extends PureComponent {
         <Pie
           activeIndex={this.state.activeIndex}
           activeShape={renderActiveShape}
-          data={UserSetupData}
+          data={this.dataList}
           cx={250}
           cy={130}
           innerRadius={60}

@@ -25,6 +25,7 @@ import oneNewsSagas from 'containers/OneNewsPage/sagas';
 import searchEngineSagas from 'containers/TopBar/sagas';
 import gamesPageSagas from 'containers/GamesPage/sagas';
 import newsFormSagas from 'containers/AddItemPages/AddNewsForm/saga';
+import statisticSagas from 'containers/AdminToolsPage/StatisticCharts/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -54,5 +55,6 @@ export default function* rootSaga() {
     searchEngineSagas(),
     gamesPageSagas(),
     newsFormSagas(),
+    statisticSagas(),
   ]);
 }
