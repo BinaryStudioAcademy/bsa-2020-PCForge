@@ -1,5 +1,6 @@
 import { AuthActionTypes } from 'containers/Auth/actionTypes';
 import { User } from 'common/models/user';
+import { ResetPasswordActions } from 'containers/ResetPassword/actionTypes';
 
 export interface IAuthProps {
   authState: IAuthState;
@@ -12,6 +13,7 @@ export interface IAuthProps {
   keepSignedIn: (keepSignedIn: boolean) => AuthActionTypes;
   switchAuthPage: (isRegistration: boolean) => AuthActionTypes;
   googleAuthRequest: (payload: { token: string }) => AuthActionTypes;
+  setResetPasswordRequestSuccess: (success: boolean) => ResetPasswordActions;
 }
 
 export interface IAuthState {
@@ -23,6 +25,7 @@ export interface IAuthState {
   isRegistration: boolean;
   isLoading: boolean;
   errorMessage: string;
+  successMessage: string;
 }
 
 export interface IAuthPayload {

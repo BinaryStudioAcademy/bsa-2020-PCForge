@@ -24,6 +24,9 @@ export interface IFetchResetPasswordRequestAction {
 
 interface IFetchResetPasswordRequestSuccessAction {
   type: ResetPasswordActionTypes.FETCH_RESET_PASSWORD_REQUEST_SUCCESS;
+  payload: {
+    success: boolean;
+  };
 }
 
 interface IFetchResetPasswordSuccessAction {

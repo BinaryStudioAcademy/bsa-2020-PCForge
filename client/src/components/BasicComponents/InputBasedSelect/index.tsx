@@ -3,10 +3,10 @@ import Input from '@material-ui/core/Input';
 import styles from './styles.module.scss';
 import InputLabel from '@material-ui/core/InputLabel';
 import ErrorIcon from '@material-ui/icons/Error';
-import { InputAdornment } from '@material-ui/core';
-import { IconButton } from '@material-ui/core';
 import { debounce } from 'lodash-es';
 import { getIcon } from 'common/helpers/icon.helper';
+import { IconButton, InputAdornment } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 
 export interface SelectOption {
   value: number;
@@ -26,6 +26,9 @@ interface Props {
   labelClassName?: string;
   hideSeeMore?: boolean;
   onCLoseBtnClick?: () => void;
+  disabled?: boolean;
+  withClose?: boolean;
+  onCloseCallback?: () => void;
 }
 
 interface State {
@@ -58,6 +61,7 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
     this.onFocus = this.onFocus.bind(this);
     this.onOptionSelect = this.onOptionSelect.bind(this);
     this.onInputValueChange = this.onInputValueChange.bind(this);
+    this.onClear = this.onClear.bind(this);
   }
 
   private timeoutId: number | null = null;
@@ -68,7 +72,8 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
     });
   }
 
-  private onFocus() {
+  private onFocus(event: React.FocusEvent<HTMLDivElement>) {
+    event.preventDefault();
     this.setState({ selectVisible: true });
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
@@ -86,12 +91,19 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
 
   private onInputValueChange: (value: string) => void = null!;
 
+  private onClear(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    this.setState({ selectVisible: false, inputValue: '' });
+    if (!this.props.onCloseCallback) return;
+    this.props.onCloseCallback();
+  }
+
   public render(): JSX.Element {
     const { placeholder, inputId, label, labelClassName, errorMessage, options } = this.props;
 
     const { onSeeMoreClick, onCLoseBtnClick } = this.props;
     return (
       <div
+        {...(this.props.disabled && { 'aria-disabled': true })}
         className={styles.selectRoot}
         tabIndex={0}
         onBlur={this.onBlur}
@@ -103,31 +115,35 @@ class InputBasedSelect extends React.PureComponent<Props, State> {
           {label}
         </InputLabel>
         <Input
+          disabled={this.props.disabled || false}
           className={`${styles.inputContainer} ${
             this.state.selectVisible ? styles.borderTopRound : styles.borderFullRound
           }`}
           placeholder={placeholder}
           id={inputId}
           autoComplete="off"
-          classes={{ input: styles.input }}
+          classes={{ input: styles.input, root: styles.inputRoot }}
           onInput={(e: ChangeEvent<HTMLInputElement>) => this.onInputValueChange(e.target.value)}
           value={this.state.inputValue}
           disableUnderline={true}
-          endAdornment={
-            onCLoseBtnClick ? (
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onCLoseBtnClick();
-                  }}
-                  onFocusCapture={(e) => e.stopPropagation()}
-                >
-                  {getIcon('Close')}
-                </IconButton>
-              </InputAdornment>
-            ) : null
-          }
+          onFocus={(e) => e.preventDefault()}
+          {...(this.props.withClose &&
+            this.state.inputValue !== '' && {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="clear input"
+                    onClick={this.onClear}
+                    edge="end"
+                    disableRipple={true}
+                    onMouseDown={(e) => e.preventDefault()}
+                    style={{ backgroundColor: 'transparent' }}
+                  >
+                    <Close color="primary" />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            })}
         />
         {this.state.selectVisible && (
           <div className={styles.selectOptionsContainer}>

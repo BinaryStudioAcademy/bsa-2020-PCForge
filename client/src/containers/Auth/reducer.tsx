@@ -14,6 +14,8 @@ import {
   AUTH_LOGIN_FAILURE,
   AUTH_GOOGLE_AUTH_SUCCESS,
   AUTH_GOOGLE_AUTH_FAILURE,
+  AUTH_LOGOUT,
+  AUTH_SUCCESS_MESSAGE,
 } from './actionTypes';
 
 const initialState: IAuthState = {
@@ -22,6 +24,7 @@ const initialState: IAuthState = {
   password: '',
   confirmPassword: '',
   errorMessage: '',
+  successMessage: '',
   isRegistration: false,
   keepSignedIn: false,
   isLoading: false,
@@ -48,6 +51,7 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
       return {
         ...state,
         errorMessage: action.payload.errorMessage,
+        successMessage: '',
       };
     case AUTH_KEEP_SIGN_IN:
       return {
@@ -66,6 +70,7 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         password: '',
         confirmPassword: '',
         errorMessage: '',
+        successMessage: '',
         isRegistration: action.payload.isRegistration,
       };
     case AUTH_LOGIN_SUCCESS:
@@ -75,6 +80,8 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
         ...action.payload,
         email: '',
         password: '',
+        errorMessage: '',
+        successMessage: '',
       };
     case AUTH_LOGIN_FAILURE:
     case AUTH_GOOGLE_AUTH_FAILURE:
@@ -85,17 +92,25 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
     case AUTH_REGISTRATION_SUCCESS:
       return {
         ...state,
-        ...action.payload,
+        isRegistration: action.payload.isRegistration,
+        errorMessage: '',
+        successMessage: 'Registration is successful! Please, check out your email and confirm it.',
       };
     case AUTH_REGISTRATION_ERROR:
       return {
         ...state,
         errorMessage: action.payload.message,
       };
-    case 'AUTH_LOGOUT':
+    case AUTH_LOGOUT:
       return {
         ...state,
         user: null,
+      };
+    case AUTH_SUCCESS_MESSAGE:
+      return {
+        ...state,
+        errorMessage: '',
+        successMessage: action.payload.successMessage,
       };
     default:
       return state;

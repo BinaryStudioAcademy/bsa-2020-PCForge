@@ -14,7 +14,7 @@ export interface GameCardProps {
   year?: number;
   description?: string;
   isCurrentUser?: boolean;
-  deleteUserGame?: (id: number, gameId: number) => UserActionTypes;
+  deleteUserGame?: (id: number, gameId: number) => void;
 }
 
 const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isCurrentUser, id, deleteUserGame }) => {

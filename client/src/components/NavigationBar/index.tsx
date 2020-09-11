@@ -19,6 +19,8 @@ import { ReactComponent as BuildSetupIcon } from 'assets/icons/builderSetup.svg'
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import { ReactComponent as GameMatcherIcon } from 'assets/icons/gameMatcher.svg';
 import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
+import { ReactComponent as NewsIcon } from 'assets/icons/news.svg';
+import { ReactComponent as GamesIcon } from 'assets/icons/games.svg';
 import { ReactComponent as LogOutIcon } from 'assets/icons/logOut.svg';
 
 import history from 'browserHistory';
@@ -134,6 +136,16 @@ const NavigationBar: React.FC<selectedMenuProps> = ({ selectedMenuItemNumber, is
       name: 'Hardwares',
       icon: <SvgIcon component={HardwareIcon} viewBox="0 0 31 31" />,
       link: Routes.HARDWARES,
+    },
+    {
+      name: 'Games',
+      icon: <SvgIcon component={GamesIcon} viewBox="0 0 31 31" />,
+      link: Routes.GAMES,
+    },
+    {
+      name: 'News',
+      icon: <SvgIcon component={NewsIcon} viewBox="0 0 31 31" />,
+      link: Routes.NEWS,
     },
   ];
 
