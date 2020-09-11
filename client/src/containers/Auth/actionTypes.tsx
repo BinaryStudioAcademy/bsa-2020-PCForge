@@ -108,7 +108,6 @@ export interface registrationSuccess {
   type: typeof AUTH_REGISTRATION_SUCCESS;
   payload: {
     isRegistration: boolean;
-    successMessage: string;
   };
 }
 

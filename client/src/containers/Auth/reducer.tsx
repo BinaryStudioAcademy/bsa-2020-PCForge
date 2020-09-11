@@ -92,8 +92,9 @@ export function AuthReducer(state: IAuthState = initialState, action: AuthAction
     case AUTH_REGISTRATION_SUCCESS:
       return {
         ...state,
-        ...action.payload,
+        isRegistration: action.payload.isRegistration,
         errorMessage: '',
+        successMessage: 'Registration is successful! Please, check out your email and confirm it.',
       };
     case AUTH_REGISTRATION_ERROR:
       return {

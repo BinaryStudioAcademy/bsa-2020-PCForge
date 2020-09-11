@@ -1,12 +1,6 @@
 import { authService } from 'api/services/auth.service';
 import { put, takeEvery, all, call } from 'redux-saga/effects';
-import {
-  VERIFY_EMAIL_SUCCESS,
-  VERIFY_EMAIL_FAILURE,
-  IVerifyEmailActions,
-  IVerifyEmail,
-  VERIFY_EMAIL,
-} from './actionTypes';
+import { VERIFY_EMAIL_SUCCESS, VERIFY_EMAIL_FAILURE, IVerifyEmail, VERIFY_EMAIL } from './actionTypes';
 
 function* verifyEmail(action: IVerifyEmail) {
   try {

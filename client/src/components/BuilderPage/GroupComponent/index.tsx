@@ -104,8 +104,6 @@ const GroupComponent = ({
 
     const { pagination, queryFilter, queryRange, queryName } = getFilters();
 
-    console.log('query', { ...pagination, ...queryFilter, ...queryRange, ...queryName });
-
     try {
       const res = await servicesGetAll[groupName]({ ...pagination, ...queryFilter, ...queryRange, ...queryName });
       setComponents(res.data);
@@ -129,7 +127,6 @@ const GroupComponent = ({
   }
 
   useEffect(() => {
-    console.log('range: ', range);
     getComponents();
   }, [...fltersUseEffect, name, range, pagination]);
 
@@ -156,10 +153,6 @@ const GroupComponent = ({
       }
     }
   }, [...Object.values(selectedComponent)]);
-
-  useEffect(() => {
-    console.log('components: ', components);
-  }, [components]);
 
   const listComponentElements = components?.map((component) => (
     <ListComponentsItem

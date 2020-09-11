@@ -72,7 +72,6 @@ export const registered = (isRegistration: boolean): AuthActionTypes => ({
   type: AUTH_REGISTRATION_SUCCESS,
   payload: {
     isRegistration,
-    successMessage: 'Registration is successful!',
   },
 });
 

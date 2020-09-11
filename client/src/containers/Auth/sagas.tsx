@@ -15,7 +15,7 @@ import {
 } from 'containers/Auth/actionTypes';
 import { authService } from 'api/services/auth.service';
 import { User } from 'common/models/user';
-import { IAuthPayload, IRegPayload } from 'containers/Auth/interfaces';
+import { IAuthPayload } from 'containers/Auth/interfaces';
 import { changeLoadingStatus, registered, validationError } from 'containers/Auth/actions';
 import { clearToken, getToken } from 'helpers/tokenHelper';
 import { TypeLoggedUser } from 'common/models/typeLoggedUser';
@@ -66,9 +66,6 @@ function* register(action: registerRequestAction) {
     yield put(registered(false));
   } catch (error) {
     yield put(validationError(error?.message));
-    // yield put({ type: AUTH_REGISTRATION_ERROR, payload: {
-    //   message: error.message === 'Bad '
-    // }});
   } finally {
     yield put(changeLoadingStatus(false));
   }
