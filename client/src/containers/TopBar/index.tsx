@@ -10,7 +10,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { withStyles } from '@material-ui/styles';
 import TopBarNotification from './TopBarNotification/topBarNotification';
 import { INotification } from 'common/services/NotificationService/notification';
-import { getSearchResults } from './actions';
+import { getSearchResults, clearSearchResult } from './actions';
 import { setHardware } from '../HardwaresPage/actions';
 import { ReactComponent as SetupIcon } from 'assets/icons/setup.svg';
 import { ReactComponent as HardwareIcon } from 'assets/icons/hardware.svg';
@@ -65,6 +65,7 @@ const TopBar: React.FC<Props> = ({
   user,
   getSearchResults,
   searchResults,
+  clearSearchResult,
   setHardware,
 }) => {
   const [searchValue, setSearchValue] = useState('');
@@ -87,6 +88,12 @@ const TopBar: React.FC<Props> = ({
 
   const selectHandler = () => {
     setIsActive(true);
+  };
+
+  const blurHandler = () => {
+    setTimeout(() => {
+      setIsActive(false);
+    }, 200);
   };
 
   const onRead = (notification: INotification) => {
@@ -112,8 +119,8 @@ const TopBar: React.FC<Props> = ({
   return (
     <div className={styles.topBarRoot}>
       <div className={styles.rightTopBar}>
-        <div className={styles.searchBlock}>
-          <Search value={searchValue} onChange={onInputChange} onSelect={selectHandler} />
+        <div className={styles.searchBlock} onBlur={blurHandler}>
+          <Search value={searchValue} onChange={onInputChange} autoComplete="off" onSelect={selectHandler} />
           {searchResults.length && isActive ? (
             <div className={styles.searchResults}>
               {searchResults.map((item, index) => {
@@ -131,8 +138,15 @@ const TopBar: React.FC<Props> = ({
                       item._index === 'ssds'
                         ? () => {
                             setHardware(item._source);
+                            clearSearchResult();
+                            setIsActive(false);
+                            setSearchValue('');
                           }
-                        : () => {}
+                        : () => {
+                            clearSearchResult();
+                            setIsActive(false);
+                            setSearchValue('');
+                          }
                     }
                     to={Icons[item._index].srcPageGenerator(item._source.id)}
                   >
@@ -207,7 +221,7 @@ const mapState = (state: RootState) => ({
   searchResults: state.searchEngine.results,
 });
 
-const mapDispatch = { getSearchResults, setHardware };
+const mapDispatch = { getSearchResults, setHardware, clearSearchResult };
 
 const connector = connect(mapState, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>;
