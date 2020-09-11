@@ -7,9 +7,11 @@ import * as AuthActions from 'containers/Auth/actions';
 import LoginForm from 'components/Auth/LoginForm';
 import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
-import Spinner from 'components/Spinner';
 import UserSchema from 'common/validation/user';
 import { GoogleLoginResponse } from 'react-google-login';
+import { setResetPasswordRequestSuccess } from '../ResetPassword/actions';
+import history from '../../browserHistory';
+import { Routes } from '../../common/enums/routes';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
@@ -81,7 +83,7 @@ class Auth extends Component<IAuthProps, IAuthState> {
   sendData(event: React.FormEvent<HTMLButtonElement>) {
     event.preventDefault();
     this.validate()
-      .then((promise) => {
+      .then(() => {
         const state = this.props.authState;
         if (state.email && state.password) {
           if (state.isRegistration) {
@@ -118,6 +120,11 @@ class Auth extends Component<IAuthProps, IAuthState> {
     this.props.switchAuthPage(false);
   }
 
+  handleForgotPasswordClick = () => {
+    this.props.setResetPasswordRequestSuccess(false);
+    history.push(Routes.RESET_PASSWORD_REQUEST);
+  };
+
   render() {
     const state = this.props.authState;
     return (
@@ -135,30 +142,28 @@ class Auth extends Component<IAuthProps, IAuthState> {
             </Grid>
             <Grid item md>
               {state.isRegistration ? (
-                state.isLoading ? (
-                  <Spinner load={true} />
-                ) : (
-                  <RegistrationForm
-                    email={state.email}
-                    errorMessage={state.errorMessage}
-                    isLoading={state.isLoading}
-                    handleChangeEmail={this.handleChangeEmail}
-                    handleChangePassword={this.handleChangePassword}
-                    handleChangeConfirmPassword={this.handleChangeConfirmPassword}
-                    register={this.sendData}
-                    switchToLogin={this.switchToLogin}
-                  />
-                )
+                <RegistrationForm
+                  email={state.email}
+                  errorMessage={state.errorMessage}
+                  isLoading={state.isLoading}
+                  handleChangeEmail={this.handleChangeEmail}
+                  handleChangePassword={this.handleChangePassword}
+                  handleChangeConfirmPassword={this.handleChangeConfirmPassword}
+                  register={this.sendData}
+                  switchToLogin={this.switchToLogin}
+                />
               ) : (
                 <LoginForm
                   email={state.email}
                   errorMessage={state.errorMessage}
+                  successMessage={state.successMessage}
                   keepSignedIn={state.keepSignedIn}
                   isLoading={state.isLoading}
                   onGoogleAuth={this.onGoogleAuth}
                   handleChangeEmail={this.handleChangeEmail}
                   handleChangePassword={this.handleChangePassword}
                   handleChangeCheckbox={this.handleChangeCheckbox}
+                  handleForgotPasswordClick={this.handleForgotPasswordClick}
                   login={this.sendData}
                   switchToRegistration={this.switchToRegistration}
                 />
@@ -177,6 +182,9 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = AuthActions;
+const mapDispatchToProps = {
+  ...AuthActions,
+  setResetPasswordRequestSuccess,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

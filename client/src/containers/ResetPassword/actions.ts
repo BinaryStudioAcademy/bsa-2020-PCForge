@@ -16,8 +16,11 @@ export const sendResetPassword = (payload: {
   payload,
 });
 
-export const setResetPasswordRequestSuccess = (): ResetPasswordActions => ({
+export const setResetPasswordRequestSuccess = (success: boolean): ResetPasswordActions => ({
   type: ResetPasswordActionTypes.FETCH_RESET_PASSWORD_REQUEST_SUCCESS,
+  payload: {
+    success,
+  },
 });
 
 export const setResetPasswordSuccess = (): ResetPasswordActions => ({

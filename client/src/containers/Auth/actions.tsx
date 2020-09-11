@@ -14,9 +14,10 @@ import {
   AUTH_VALIDATION_ERROR,
   AuthActionTypes,
   AUTH_GOOGLE_AUTH,
+  AUTH_SUCCESS_MESSAGE,
 } from 'containers/Auth/actionTypes';
 
-import { User } from '../../common/models/user';
+import { User } from 'common/models/user';
 
 export const changeEmail = (value: string): AuthActionTypes => ({
   type: AUTH_CHANGE_EMAIL,
@@ -71,6 +72,7 @@ export const registered = (isRegistration: boolean): AuthActionTypes => ({
   type: AUTH_REGISTRATION_SUCCESS,
   payload: {
     isRegistration,
+    successMessage: 'Registration is successful!',
   },
 });
 
@@ -78,6 +80,13 @@ export const validationError = (errorMessage: string): AuthActionTypes => ({
   type: AUTH_VALIDATION_ERROR,
   payload: {
     errorMessage,
+  },
+});
+
+export const successMessage = (successMessage: string): AuthActionTypes => ({
+  type: AUTH_SUCCESS_MESSAGE,
+  payload: {
+    successMessage,
   },
 });
 

@@ -10,10 +10,13 @@ import { setLoginType, LoginType } from 'helpers/tokenHelper';
 import history from 'browserHistory';
 import { Routes } from 'common/enums';
 import gLogo from 'assets/images/g-logo.png';
+import Spinner from '../Spinner';
+import { Box } from '@material-ui/core';
 
 interface ILoginFormProps {
   email: string;
   errorMessage: string;
+  successMessage: string;
   keepSignedIn: boolean;
   isLoading: boolean;
   handleChangeEmail: (event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -22,6 +25,7 @@ interface ILoginFormProps {
   login: (event: React.FormEvent<HTMLButtonElement>) => void;
   onGoogleAuth: (response: GoogleLoginResponse) => void;
   switchToRegistration: (event: React.MouseEvent) => void;
+  handleForgotPasswordClick: () => void;
 }
 
 const LoginForm = ({
@@ -29,12 +33,14 @@ const LoginForm = ({
   keepSignedIn,
   isLoading,
   errorMessage,
+  successMessage,
   handleChangeEmail,
   handleChangePassword,
   handleChangeCheckbox,
   login,
   onGoogleAuth,
   switchToRegistration,
+  handleForgotPasswordClick,
 }: ILoginFormProps): JSX.Element => {
   const googleClientId = process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID!;
 
@@ -43,67 +49,76 @@ const LoginForm = ({
     onGoogleAuth(response as GoogleLoginResponse);
   };
 
-  const onForgotPasswordClick = () => {
-    history.push(Routes.RESET_PASSWORD_REQUEST);
-  };
-
   return (
     <div className={styles.loginWrapper}>
-      <form className={styles.loginForm}>
-        <div className={styles.loginHeader}>Login</div>
-        {errorMessage ? (
-          <Alert className={styles.errorAlert} alertType={AlertType.error}>
-            {errorMessage}
-          </Alert>
-        ) : null}
-        <Input
-          name="Email"
-          className={styles.emailInput}
-          onChange={handleChangeEmail}
-          value={email}
-          placeholder="Email"
-          type="text"
-          required
-        />
-        <PasswordInput className={styles.passwordBox} inputHandler={handleChangePassword} />
-        <span className={[styles.forgotPassword, 'link'].join(' ')} onClick={onForgotPasswordClick}>
-          Forgot password?
-        </span>
-        <div className={styles.loginButtonBox}>
-          <Checkbox
-            onChange={handleChangeCheckbox}
-            checked={keepSignedIn}
-            labelClassName={styles.keepSignedBox}
-            className={styles.keepSigned}
-            label="Keep me signed in"
-            checkboxType={CheckboxType.primary}
-          />
-          <Button type="submit" onClick={login} disabled={isLoading}>
-            Login
-          </Button>
-        </div>
-        <div className={styles.googleBtnHolder}>
-          <div className={styles.separator}>or</div>
-          <GoogleLogin
-            clientId={googleClientId}
-            render={(renderProps) => (
-              <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>
-                <img src={gLogo} alt="logo" />
-                Sign in with Google
-              </Button>
+      {isLoading ? (
+        <Box className="spinnerWrapper">
+          <Spinner load={true} />
+        </Box>
+      ) : (
+        <React.Fragment>
+          <form className={styles.loginForm}>
+            <div className={styles.loginHeader}>Login</div>
+            {errorMessage && (
+              <Alert className={styles.errorAlert} alertType={AlertType.error}>
+                {errorMessage}
+              </Alert>
             )}
-            onSuccess={googleLoginSuccess}
-            onFailure={(res) => console.log(res)}
-            cookiePolicy={'single_host_origin'}
-          />
-        </div>
-      </form>
-      <span className={styles.registerBox}>
-        Don't have an account?{' '}
-        <span onClick={switchToRegistration} className={[styles.registerLink, 'link'].join(' ')}>
-          Register now!
-        </span>
-      </span>
+            {successMessage && (
+              <Alert className={styles.errorAlert} alertType={AlertType.success}>
+                {successMessage}
+              </Alert>
+            )}
+            <Input
+              name="Email"
+              className={styles.emailInput}
+              onChange={handleChangeEmail}
+              value={email}
+              placeholder="Email"
+              type="text"
+              required
+            />
+            <PasswordInput className={styles.passwordBox} inputHandler={handleChangePassword} />
+            <span className={[styles.forgotPassword, 'link'].join(' ')} onClick={handleForgotPasswordClick}>
+              Forgot password?
+            </span>
+            <div className={styles.loginButtonBox}>
+              <Checkbox
+                onChange={handleChangeCheckbox}
+                checked={keepSignedIn}
+                labelClassName={styles.keepSignedBox}
+                className={styles.keepSigned}
+                label="Keep me signed in"
+                checkboxType={CheckboxType.primary}
+              />
+              <Button type="submit" onClick={login} disabled={isLoading}>
+                Login
+              </Button>
+            </div>
+            <div className={styles.googleBtnHolder}>
+              <div className={styles.separator}>or</div>
+              <GoogleLogin
+                clientId={googleClientId}
+                render={(renderProps) => (
+                  <Button onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                    <img src={gLogo} alt="logo" />
+                    Sign in with Google
+                  </Button>
+                )}
+                onSuccess={googleLoginSuccess}
+                onFailure={(res) => console.log(res)}
+                cookiePolicy={'single_host_origin'}
+              />
+            </div>
+          </form>
+          <span className={styles.registerBox}>
+            Don't have an account?{' '}
+            <span onClick={switchToRegistration} className={[styles.registerLink, 'link'].join(' ')}>
+              Register now!
+            </span>
+          </span>
+        </React.Fragment>
+      )}
     </div>
   );
 };

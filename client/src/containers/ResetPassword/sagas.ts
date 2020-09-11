@@ -6,11 +6,13 @@ import {
   IFetchResetPasswordRequestAction,
   IFetchResetPasswordRequestRequestAction,
 } from './actionTypes';
+import { successMessage } from '../Auth/actions';
 
 function* sendResetPasswordRequest(action: IFetchResetPasswordRequestRequestAction) {
   try {
     yield call(authService.resetPasswordRequest, action.payload.email);
-    yield put(setResetPasswordRequestSuccess());
+    yield put(successMessage('Email was successfully sent! Please check it out and follow the instructions.'));
+    yield put(setResetPasswordRequestSuccess(true));
   } catch (error) {
     yield put(setError(error.message));
   }

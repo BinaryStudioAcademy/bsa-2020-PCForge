@@ -18,7 +18,7 @@ export function ResetPasswordReducer(state = initialState, action: ResetPassword
     case ResetPasswordActionTypes.FETCH_RESET_PASSWORD_REQUEST_SUCCESS: {
       return {
         ...state,
-        success: true,
+        success: action.payload.success,
         loading: false,
         error: null,
       };
