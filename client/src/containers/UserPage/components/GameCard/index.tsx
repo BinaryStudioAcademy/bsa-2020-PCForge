@@ -29,7 +29,7 @@ const GameCard: React.FC<GameCardProps> = ({ image, name, year, description, isC
   };
 
   return (
-    <Link to={`/game/${id}`} className={styles.gameCard}>
+    <Link to={`/games/${id}`} className={styles.gameCard}>
       <div className={styles.gameImage}>
         <Image src={image} alt="" />
       </div>
