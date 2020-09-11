@@ -18,10 +18,12 @@ import { ReactComponent as GameIcon } from 'assets/icons/games.svg';
 import { Routes } from 'common/enums/routes';
 import { Link } from 'react-router-dom';
 import history from 'browserHistory';
+import Button from 'components/BasicComponents/Button';
 
 const StyledMenu = withStyles({
   paper: {
     border: '1px solid #d3d4d5',
+    textAlign: 'center',
   },
 })((props: MenuProps) => (
   <Menu
@@ -75,15 +77,9 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSea
     setAnchorEl(null);
   };
 
-  const blurHandler = () => {
-    setIsActive(false);
-  };
-
   const selectHandler = () => {
     setIsActive(true);
   };
-
-  const redirectToPage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {};
 
   const onRead = (notification: INotification) => {
     if (!user?.id) return;
@@ -92,12 +88,17 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSea
 
   const onNotificationClick = (notification: INotification) => {
     if (!user?.id) return;
-    console.log(notification);
     WebSocketService?.readNotification(user.id.toString(), notification);
     if (notification.payload?.type === 'link') {
       history.push(notification.payload.value);
       onClose();
     }
+  };
+
+  const onClearNotifications = (notifications: INotification[]) => {
+    setAnchorEl(null);
+    if (user)
+      notifications.map((notification) => WebSocketService?.deleteNotification(user.id.toString(), notification));
   };
 
   return (
@@ -107,10 +108,13 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSea
           <Search value={searchValue} onChange={onInputChange} onSelect={selectHandler} />
           {searchResults.length && isActive ? (
             <div className={styles.searchResults}>
-              {searchResults.map((item) => {
-                console.log(Icons[item._index].srcPageGenerator(item._source.id));
+              {searchResults.map((item, index) => {
                 return (
-                  <Link className={styles.searchLink} to={Icons[item._index].srcPageGenerator(item._source.id)}>
+                  <Link
+                    key={`link-${index}`}
+                    className={styles.searchLink}
+                    to={Icons[item._index].srcPageGenerator(item._source.id)}
+                  >
                     <p className={styles.searchResultsItem}>
                       <SvgIcon
                         className={styles.searchResultsItemImage}
@@ -145,16 +149,28 @@ const TopBar: React.FC<Props> = ({ notifications, WebSocketService, user, getSea
               },
             }}
           >
-            {notifications.length > 0
-              ? notifications.map((notification) => (
+            {notifications.length > 0 ? (
+              <div>
+                {notifications.map((notification) => (
                   <TopBarNotification
                     key={notification.id}
                     notification={notification}
                     onClick={onNotificationClick}
                     onRead={onRead}
                   />
-                ))
-              : "You don't have any notifications"}
+                ))}
+                <Button
+                  onClick={() => {
+                    onClearNotifications(notifications);
+                  }}
+                  variant={'text'}
+                >
+                  Clear all
+                </Button>
+              </div>
+            ) : (
+              <span className={styles.notificationWrapper}>You don't have any notifications</span>
+            )}
           </StyledMenu>
         </div>
         <UserProfile />
