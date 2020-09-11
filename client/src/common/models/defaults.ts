@@ -73,6 +73,7 @@ export const defaultSetup: Setup = {
   powerSupply: defaultPowerSupply,
   createdAt: new Date(),
   updatedAt: new Date(),
+  ramCount: 0,
 };
 
 export const defaultPerformance: ISetupPerformance = {

@@ -16,6 +16,7 @@ export interface ISetupFilter {
   from?: number;
   count?: number;
   sort?: string;
+  authorId?: string;
 }
 
 export const getAllSetups = async (filter?: ISetupFilter): Promise<TypeResponseSetups> => {
