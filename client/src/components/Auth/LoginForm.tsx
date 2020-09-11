@@ -8,7 +8,7 @@ import PasswordInput from 'components/PasswordInput/PasswordInput';
 import GoogleLogin, { GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { setLoginType, LoginType } from 'helpers/tokenHelper';
 import gLogo from 'assets/images/g-logo.png';
-import Spinner from '../Spinner';
+import Spinner from 'components/Spinner';
 import { Box } from '@material-ui/core';
 
 interface ILoginFormProps {

@@ -5,7 +5,7 @@ import Button from 'components/BasicComponents/Button';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
 import PasswordInput from 'components/PasswordInput/PasswordInput';
 import { Box } from '@material-ui/core';
-import Spinner from '../Spinner';
+import Spinner from 'components/Spinner';
 
 interface IRegistrationFormProps {
   email: string;

@@ -1,9 +1,8 @@
 import { RootState } from 'redux/rootReducer';
 import { ConnectedProps, connect } from 'react-redux';
-import { sendResetPasswordRequest } from './actions';
+import { sendResetPasswordRequest } from 'containers/ResetPassword/actions';
 import { Link as RouterLink, Redirect } from 'react-router-dom';
 import { Routes } from 'common/enums';
-
 import React from 'react';
 import styles from 'containers/ResetPassword/styles.module.scss';
 import { Box, Container } from '@material-ui/core';

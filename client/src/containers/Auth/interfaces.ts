@@ -1,6 +1,6 @@
 import { AuthActionTypes } from 'containers/Auth/actionTypes';
 import { User } from 'common/models/user';
-import { ResetPasswordActions } from '../ResetPassword/actionTypes';
+import { ResetPasswordActions } from 'containers/ResetPassword/actionTypes';
 
 export interface IAuthProps {
   authState: IAuthState;

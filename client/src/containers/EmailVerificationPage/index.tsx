@@ -1,10 +1,10 @@
 import React from 'react';
 import Home from 'containers/Home';
 import Alert, { AlertType } from 'components/BasicComponents/Alert';
-import styles from './styles.module.scss';
+import styles from 'containers/EmailVerificationPage/styles.module.scss';
 import { connect } from 'react-redux';
-import * as EmailVerificationActions from './actions';
-import { IEmailVerificationState } from './reducer';
+import * as EmailVerificationActions from 'containers/EmailVerificationPage/actions';
+import { IEmailVerificationState } from 'containers/EmailVerificationPage/reducer';
 import { RootState } from 'redux/rootReducer';
 import { RouteComponentProps } from 'react-router-dom';
 

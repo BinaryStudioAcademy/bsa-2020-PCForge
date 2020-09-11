@@ -9,9 +9,9 @@ import RegistrationForm from 'components/Auth/RegistrationForm';
 import { IAuthProps, IAuthState } from 'containers/Auth/interfaces';
 import UserSchema from 'common/validation/user';
 import { GoogleLoginResponse } from 'react-google-login';
-import { setResetPasswordRequestSuccess } from '../ResetPassword/actions';
-import history from '../../browserHistory';
-import { Routes } from '../../common/enums/routes';
+import { setResetPasswordRequestSuccess } from 'containers/ResetPassword/actions';
+import history from 'browserHistory';
+import { Routes } from 'common/enums/routes';
 
 class Auth extends Component<IAuthProps, IAuthState> {
   constructor(props: IAuthProps) {
