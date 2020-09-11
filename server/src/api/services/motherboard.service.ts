@@ -45,7 +45,7 @@ export class MotherboardService extends BaseService<
   ): Promise<MotherboardModel> {
     await motherboardMiddleware(inputMotherboard);
     const motherboard = await super.create(inputMotherboard);
-    await elastic.addData(motherboard);
+    await elastic.addData(motherboard, 'motherboards').catch((err) => console.log(err));
     return motherboard;
   }
 
