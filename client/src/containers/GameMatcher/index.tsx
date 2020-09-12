@@ -74,7 +74,6 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
   const setupOptions = props.state.setups.map((setup) => ({ label: setup.title, value: setup.id }));
 
   const onTestGame = async () => {
-    props.setRamSize(ramSize);
     if ((!selectedCpu || !selectedGpu || !selectedGame) && !selectedSetup) {
       setAlertValue({ type: AlertType.error, message: 'Error: Please choose hardware components' });
       return;
@@ -117,7 +116,7 @@ const GameMatcherPage = (props: GameMatcherProps & RouteComponentProps): JSX.Ele
     if (setup) {
       props.setCpu(setup.cpu);
       props.setGpu(setup.gpu);
-      props.setRamSize(setup.ram.memorySize * setup.ramCount);
+      props.setRamSize(setup.ram.memorySize * (setup.ramCount || 1));
     }
   };
 
