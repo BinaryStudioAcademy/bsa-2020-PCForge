@@ -89,7 +89,7 @@ const StatisticCharts = (props: IStatisticChartsContainer): JSX.Element => {
           <UserSetupCount dataList={filteredUserDate} />
         </div>
         <div>
-          <div className={styles.chartHeader}>Using most popular harware in setups</div>
+          <div className={styles.chartHeader}>Using most popular hardware in setups</div>
           <UsingHardwareChart dataList={filteredHardwareDate} />
         </div>
       </div>

@@ -9,7 +9,8 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts --fix",
-    "seedtoelastic": "ts-node-dev src/infrastructure/elastic/index.js"
+    "seedtoelastic": "ts-node-dev src/infrastructure/elastic/index.js",
+    "deploy": "aws s3 sync dist/ s3://pcforge-api --acl public-read"
   },
   "author": "",
   "license": "ISC",
